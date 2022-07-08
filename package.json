@@ -1,0 +1,19 @@
+{
+  "name": "intermine-apollo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.3.11",
+    "@graphql-tools/load": "^7.5.10",
+    "apollo-datasource-rest": "^3.5.2",
+    "apollo-server": "^3.6.7",
+    "graphql": "^16.4.0",
+    "imjs": "^4.0.0"
+  }
+}
