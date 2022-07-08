@@ -297,7 +297,7 @@ class IntermineAPI extends RESTDataSource {
   }
 
   // get an ordered, paginated list of gene families
-  async getGeneFamilies(start=0, size=10) {
+  async getGeneFamilies({start=0, size=10}={}) {
     const sortBy = 'GeneFamily.identifier';
     const query = interminePathQuery(intermineGeneFamilyAttributes, sortBy);
     const params = {query, start, size, format: 'json'};

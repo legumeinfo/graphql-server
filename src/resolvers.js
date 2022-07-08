@@ -5,7 +5,12 @@ const resolvers = {
   Query: {
     // organism API
     organisms: async (_source, { genus, start, size }, { dataSources }) => {
-      return dataSources.legumemineAPI.getOrganisms({genus, start, size});
+      const args = {
+          genus,
+          start,
+          size,
+        };
+      return dataSources.legumemineAPI.getOrganisms(args);
     },
     organism: async (_source, { id }, { dataSources }) => {
       return dataSources.legumemineAPI.getOrganism(id);
@@ -13,7 +18,14 @@ const resolvers = {
 
     // gene API
     genes: async (_source, { strain, family, description, start, size }, { dataSources }) => {
-      return dataSources.legumemineAPI.getGenes({strain, family, description, start, size});
+      const args = {
+          strain,
+          family,
+          description,
+          start,
+          size,
+        };
+      return dataSources.legumemineAPI.getGenes(args);
     },
     gene: async (_source, { id }, { dataSources }) => {
       return dataSources.legumemineAPI.getGene(id);
@@ -21,7 +33,11 @@ const resolvers = {
 
     // gene family API
     geneFamilies: async (_source, { start, size }, { dataSources }) => {
-      return dataSources.legumemineAPI.getGeneFamilies(start, size);
+      const args = {
+          start,
+          size,
+        };
+      return dataSources.legumemineAPI.getGeneFamilies(args);
     },
     geneFamily: async (_source, { id }, { dataSources }) => {
       return dataSources.legumemineAPI.getGeneFamily(id);
@@ -30,16 +46,26 @@ const resolvers = {
 
   // organism attribute resolvers
   Organism: {
-    strains: async (organism, args, { dataSources }) => {
-      args.organism = organism.id;
+    strains: async (organism, { start, size }, { dataSources }) => {
+      const args = {
+          organism: organism.id,
+          start,
+          size,
+        };
       return dataSources.legumemineAPI.getStrains(args);
     },
   },
 
   // strain attribute resolvers
   Strain: {
-    genes: async (strain, args, { dataSources }) => {
-      args.strain = strain.id;
+    genes: async (strain, { family, description, start, size }, { dataSources }) => {
+      const args = {
+          strain: strain.id,
+          family,
+          description,
+          start,
+          size,
+        };
       return dataSources.legumemineAPI.getGenes(args);
     },
   },
@@ -47,21 +73,29 @@ const resolvers = {
   // gene attribute resolvers
   Gene: {
     strain: async (gene, { }, { dataSources }) => {
-      return dataSources.legumemineAPI.getStrain(gene.strainId);
+      const id = gene.strainId;
+      return dataSources.legumemineAPI.getStrain(id);
     },
     /*proteinDomains: async (gene, args, { dataSources }) => {
       args.gene = gene.id
       return dataSources.legumemineAPI.getProteinDomains(args);
     },*/
     geneFamilyAssignments: async (gene, { }, { dataSources }) => {
-      return dataSources.legumemineAPI.getGeneFamily(gene.geneFamilyId);
+      const id = gene.geneFamilyId;
+      return dataSources.legumemineAPI.getGeneFamily(id);
     },
   },
 
   // gene family attribute resolvers
   GeneFamily: {
-    genes: async (geneFamily, args, { dataSources }) => {
-      args.family = geneFamily.id;
+    genes: async (geneFamily, { strain, description, start, size }, { dataSources }) => {
+      const args = {
+          family: geneFamily.id,
+          strain,
+          description,
+          start,
+          size,
+        };
       return dataSources.legumemineAPI.getGenes(args);
     },
   },
