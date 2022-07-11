@@ -30,6 +30,13 @@ const resolvers = {
     gene: async (_source, { id }, { dataSources }) => {
       return dataSources.legumemineAPI.getGene(id);
     },
+    geneSearch: async (_source, { keyword, start, size }, { dataSources }) => {
+      const args = {
+          start,
+          size,
+        };
+      return dataSources.legumemineAPI.geneSearch(keyword, args);
+    },
 
     // gene family API
     geneFamilies: async (_source, { start, size }, { dataSources }) => {

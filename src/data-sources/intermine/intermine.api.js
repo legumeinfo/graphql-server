@@ -21,8 +21,14 @@ class IntermineAPI extends RESTDataSource {
       const genusConstraint = pathquery.intermineConstraint('Organism.genus', '=', genus)
       constraints.push(genusConstraint);
     }
-    const query = pathquery.interminePathQuery(models.intermineOrganismAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query, {start, size});
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineOrganismAttributes,
+        sortBy,
+        constraints,
+      );
+    const options = {start, size};
+    const params = pathquery.interminePathQueryParams(query, options);
     return this.get('query/results', params).then(models.response2organisms);
   }
 
@@ -30,8 +36,13 @@ class IntermineAPI extends RESTDataSource {
   async getOrganism(id) {
     const sortBy = 'Organism.name';
     const constraints = [pathquery.intermineConstraint('Organism.id', '=', id)];
-    const query = pathquery.interminePathQuery(models.intermineOrganismAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query);
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineOrganismAttributes,
+        sortBy,
+        constraints,
+      );
+    const params = pathquery.interminePathQueryParams(query);
     return this.get('query/results', params)
       .then(models.response2organisms)
       .then((organisms) => {
@@ -48,11 +59,18 @@ class IntermineAPI extends RESTDataSource {
     const sortBy = 'Strain.name';
     const constraints = [];
     if (organism) {
-      const organismConstraint = pathquery.intermineConstraint('Strain.organism.id', '=', organism)
+      const organismConstraint =
+        pathquery.intermineConstraint('Strain.organism.id', '=', organism)
       constraints.push(organismConstraint);
     }
-    const query = pathquery.interminePathQuery(models.intermineStrainAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query, {start, size});
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineStrainAttributes,
+        sortBy,
+        constraints,
+      );
+    const options = {start, size};
+    const params = pathquery.interminePathQueryParams(query, options);
     return this.get('query/results', params).then(models.response2strains);
   }
 
@@ -60,9 +78,13 @@ class IntermineAPI extends RESTDataSource {
   async getStrain(id) {
     const sortBy = 'Strain.name';
     const constraints = [pathquery.intermineConstraint('Strain.id', '=', id)];
-    const query = pathquery.interminePathQuery(models.intermineStrainAttributes, sortBy, constraints);
-    //console.log(query);
-    const params = pathquery.intermineRequestParams(query);
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineStrainAttributes,
+        sortBy,
+        constraints,
+      );
+    const params = pathquery.interminePathQueryParams(query);
     return this.get('query/results', params)
       .then(models.response2strains)
       .then((strains) => {
@@ -79,11 +101,18 @@ class IntermineAPI extends RESTDataSource {
     const sortBy = 'ProteinDomain.name';
     const constraints = [];
     //if (gene) {
-      //const geneConstraint = pathquery.intermineConstraint('Strain.organism.id', '=', gene)
-      //constraints.push(geneConstraint);
+    //  const geneConstraint =
+    //    pathquery.intermineConstraint('Strain.organism.id', '=', gene)
+    //  constraints.push(geneConstraint);
     //}
-    const query = pathquery.interminePathQuery(models.intermineProteinDomainAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query, {start, size});
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineProteinDomainAttributes,
+        sortBy,
+        constraints,
+      );
+    const options = {start, size};
+    const params = pathquery.interminePathQueryParams(query, options);
     return this.get('query/results', params).then(models.response2proteindomains);
   }
 
@@ -93,28 +122,42 @@ class IntermineAPI extends RESTDataSource {
     const sortBy = 'Gene.name';
     const constraints = [];
     if (strain) {
-      const strainConstraint = pathquery.intermineConstraint('Gene.strain.name', '=', strain)
+      const strainConstraint =
+        pathquery.intermineConstraint('Gene.strain.name', '=', strain)
       constraints.push(strainConstraint);
     }
     if (family) {
-      const familyConstraint = pathquery.intermineConstraint('Gene.geneFamily.identifier', '=', family)
+      const familyConstraint =
+        pathquery.intermineConstraint('Gene.geneFamily.identifier', '=', family)
       constraints.push(familyConstraint);
     }
     if (description) {
-      const descriptionConstraint = pathquery.intermineConstraint('Gene.description', 'CONTAINS', description)
+      const descriptionConstraint =
+        pathquery.intermineConstraint('Gene.description', 'CONTAINS', description)
       constraints.push(descriptionConstraint);
     }
-    const query = pathquery.interminePathQuery(models.intermineGeneAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query, {start, size});
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineGeneAttributes,
+        sortBy,
+        constraints,
+      );
+    const options = {start, size};
+    const params = pathquery.interminePathQueryParams(query, options);
     return this.get('query/results', params).then(models.response2genes);
   }
 
   // get a gene by ID
   async getGene(id) {
     const sortBy = 'Gene.name';
-    const constraints = [pathquery.intermineConstraint('Gene.identifier', '=', id)];
-    const query = pathquery.interminePathQuery(models.intermineGeneAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query);
+    const constraints = [pathquery.intermineConstraint('Gene.id', '=', id)];
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineGeneAttributes,
+        sortBy,
+        constraints,
+      );
+    const params = pathquery.interminePathQueryParams(query);
     return this.get('query/results', params)
       .then(models.response2genes)
       .then((genes) => {
@@ -126,11 +169,34 @@ class IntermineAPI extends RESTDataSource {
       });
   }
 
+  // search for genes using a keyword
+  async geneSearch(keyword, {start=0, size=10}={}) {
+    const options = {
+        start,
+        size,
+        facet_Category: 'Gene',
+      };
+    const params = pathquery.intermineSearchParams(keyword, options);
+    return this.get('search', params)
+      .then((response) => {
+        return Promise.all(
+          response.results
+            .map((result) => result.id)
+            .map((id) => this.getGene(id))
+        );
+      });
+  }
+
   // get an ordered, paginated list of gene families
   async getGeneFamilies({start=0, size=10}={}) {
     const sortBy = 'GeneFamily.identifier';
-    const query = pathquery.interminePathQuery(models.intermineGeneFamilyAttributes, sortBy);
-    const params = pathquery.intermineRequestParams(query, {start, size});
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineGeneFamilyAttributes,
+        sortBy,
+      );
+    const options = {start, size};
+    const params = pathquery.interminePathQueryParams(query, options);
     return this.get('query/results', params).then(models.response2geneFamilies);
   }
 
@@ -138,8 +204,13 @@ class IntermineAPI extends RESTDataSource {
   async getGeneFamily(id) {
     const sortBy = 'GeneFamily.identifier';
     const constraints = [pathquery.intermineConstraint('GeneFamily.id', '=', id)];
-    const query = pathquery.interminePathQuery(models.intermineGeneFamilyAttributes, sortBy, constraints);
-    const params = pathquery.intermineRequestParams(query);
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineGeneFamilyAttributes,
+        sortBy,
+        constraints,
+      );
+    const params = pathquery.interminePathQueryParams(query);
     return this.get('query/results', params)
       .then(models.response2geneFamilies)
       .then((geneFamilies) => {

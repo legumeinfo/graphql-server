@@ -79,7 +79,6 @@ const graphqlGeneAttributes = [
 
 // converts an Intermine response into an array of GraphQL Gene objects
 function response2genes(response) {
-  console.log(response);
   return response2graphqlObjects(response, graphqlGeneAttributes);
 }
 

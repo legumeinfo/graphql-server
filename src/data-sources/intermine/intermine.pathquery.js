@@ -16,10 +16,20 @@ function interminePathQuery(viewAttributes, sortBy, constraints=[]) {
 }
 
 
-// create a params object to be sent with an Intermine request
-function intermineRequestParams(query, options={}) {
+// create a params object to be sent with an Intermine Path Query
+function interminePathQueryParams(query, options={}) {
   return {
     query,
+    ...options,
+    format: 'json',
+  };
+}
+
+
+// create a params object to be sent with an Intermine Keyword Search
+function intermineSearchParams(q, options={}) {
+  return {
+    q,
     ...options,
     format: 'json',
   };
@@ -64,7 +74,8 @@ function consolidate(possibly_duplicated_obj_list) {
 module.exports = {
   intermineConstraint,
   interminePathQuery,
-  intermineRequestParams,
+  intermineSearchParams,
+  interminePathQueryParams,
   result2graphqlObject,
   response2graphqlObjects,
   consolidate,

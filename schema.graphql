@@ -89,6 +89,7 @@ type Query {
   organism(id: ID!): Organism
   genes(strain: String, family: String, description: String, start: Int, size: Int): [Gene]
   gene(id: ID!): Gene
+  geneSearch(keyword: String!, start: Int, size: Int): [Gene]
   geneFamilies(start: Int, size: Int): [GeneFamily]
   geneFamily(id: ID!): GeneFamily
 }
