@@ -54,6 +54,10 @@ function response2strains(response) {
 
 
 // the attributes of a Gene in InterMine
+// Note: collections like proteinDomains may be empty, in which case the query returns
+// null if they are in the query. Only attributes, not references or collections, can
+// be guaranteed to exist and result in a non-null response (unless there is an ironclad
+// guarantee that references or collections are populated, which is unlikely).
 const intermineGeneAttributes = [
   'Gene.id',
   'Gene.name',
@@ -61,7 +65,7 @@ const intermineGeneAttributes = [
   'Gene.strain.id',
   'Gene.assemblyVersion',
   //'Gene.geneFamily.id',
-  'Gene.proteinDomains.name',
+  //'Gene.proteinDomains.name',
   //'Gene.proteinDomains.accession',
 ];
 
