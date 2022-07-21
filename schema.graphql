@@ -53,8 +53,8 @@ type Gene {
   description: String
   strain: Strain
   genome: Genome
-  geneFamilyAssignments: [GeneFamilyAssignment]
-  proteinDomains: [ProteinDomain]
+  geneFamilyAssignments: [GeneFamilyAssignment!]
+  proteinDomains: [ProteinDomain!]
 }
 
 type GeneFamilyAssignment {
