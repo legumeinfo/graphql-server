@@ -229,7 +229,65 @@ class IntermineAPI extends RESTDataSource {
         return geneFamilies[0];
       });
   }
-    
+
+
+  // get an ordered, paginated list of traits
+  async getTraits({description, start=0, size=10}={}) {
+    const sortBy = 'Trait.name';
+    const constraints = [];
+    if (description) {
+      const descriptionConstraint =
+        pathquery.intermineConstraint('Trait.description', 'CONTAINS', description)
+      constraints.push(descriptionConstraint);
+    }
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineTraitAttributes,
+        sortBy,
+        constraints,
+      );
+    const options = {start, size};
+    return this.pathQuery(query, options).then(models.response2traits);
+  }
+
+  // get a trait by ID
+  async getTrait(id) {
+    const sortBy = 'Trait.name';
+    const constraints = [pathquery.intermineConstraint('Trait.id', '=', id)];
+    const query =
+      pathquery.interminePathQuery(
+        models.intermineTraitAttributes,
+        sortBy,
+        constraints,
+      );
+    return this.pathQuery(query)
+      .then(models.response2traits)
+      .then((traits) => {
+        if (!traits.length) {
+          const msg = `Trait with ID '${id}' not found`;
+          throw new UserInputError(msg);
+        }
+        return traits[0];
+      });
+  }
+
+  // search for traits using a keyword
+  async traitSearch(keyword, {start=0, size=10}={}) {
+    const options = {
+        start,
+        size,
+        facet_Category: 'Trait',
+      };
+    return this.keywordSearch(keyword, options)
+      .then((response) => {
+        return Promise.all(
+          response.results
+            .map((result) => result.id)
+            .map((id) => this.getTrait(id))
+        );
+      });
+  }
+
 }
 
 module.exports = { IntermineAPI };
