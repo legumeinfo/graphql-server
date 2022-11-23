@@ -49,6 +49,26 @@ const resolvers = {
     geneFamily: async (_source, { id }, { dataSources }) => {
       return dataSources.legumemineAPI.getGeneFamily(id);
     },
+
+    // trait API
+    traits: async (_source, { description, start, size }, { dataSources }) => {
+      const args = {
+        description,
+        start,
+        size,
+      };
+      return dataSources.legumemineAPI.getTraits(args);
+    },
+    trait: async (_source, { id }, { dataSources }) => {
+      return dataSources.legumemineAPI.getTrait(id);
+    },
+    traitSearch: async (_source, { keyword, start, size }, { dataSources }) => {
+      const args = {
+        start,
+        size,
+      };
+      return dataSources.legumemineAPI.traitSearch(keyword, args);
+    },
   },
 
   // organism attribute resolvers
@@ -105,6 +125,10 @@ const resolvers = {
         };
       return dataSources.legumemineAPI.getGenes(args);
     },
+  },
+
+  // trait attribute resolvers
+  Trait: {
   },
 };
 

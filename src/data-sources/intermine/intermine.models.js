@@ -133,6 +133,32 @@ function response2geneFamilies(response) {
 }
 
 
+// the attributes of a Trait in InterMine
+// Note: collections like gwas may be empty, in which case the query returns
+// null if they are in the query. Only attributes, not references or collections, can
+// be guaranteed to exist and result in a non-null response (unless there is an ironclad
+// guarantee that references or collections are populated, which is unlikely).
+const intermineTraitAttributes = [
+  'Trait.id',
+  'Trait.name',
+  'Trait.description',
+];
+
+
+// the attributes of a Trait in the GraphQL API
+const graphqlTraitAttributes = [
+  'id',
+  'name',
+  'description',
+];
+
+
+// converts an Intermine response into an array of GraphQL Trait objects
+function response2traits(response) {
+  return response2graphqlObjects(response, graphqlTraitAttributes);
+}
+
+
 module.exports = {
   // organism
   intermineOrganismAttributes,
@@ -154,4 +180,8 @@ module.exports = {
   intermineGeneFamilyAttributes,
   graphqlGeneFamilyAttributes,
   response2geneFamilies,
+  // trait
+  intermineTraitAttributes,
+  graphqlTraitAttributes,
+  response2traits,
 };

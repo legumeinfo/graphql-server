@@ -84,6 +84,12 @@ type ProteinDomain {
     description: String
 }
 
+type Trait {
+  id: ID!
+  name: String
+  description: String
+}
+
 type Query {
   organisms(genus: String, species: String, start: Int, size: Int): [Organism]
   organism(id: ID!): Organism
@@ -92,4 +98,7 @@ type Query {
   geneSearch(keyword: String!, start: Int, size: Int): [Gene]
   geneFamilies(start: Int, size: Int): [GeneFamily]
   geneFamily(id: ID!): GeneFamily
+  traits(description: String, start: Int, size: Int): [Trait]
+  trait(id: ID!): Trait
+  traitSearch(keyword: String!, start: Int, size: Int): [Trait]
 }
