@@ -10,10 +10,10 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getOrganisms(args);
+      return dataSources.intermineAPI.getOrganisms(args);
     },
     organism: async (_source, { id }, { dataSources }) => {
-      return dataSources.legumemineAPI.getOrganism(id);
+      return dataSources.intermineAPI.getOrganism(id);
     },
 
     // gene API
@@ -25,17 +25,17 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getGenes(args);
+      return dataSources.intermineAPI.getGenes(args);
     },
     gene: async (_source, { id }, { dataSources }) => {
-      return dataSources.legumemineAPI.getGene(id);
+      return dataSources.intermineAPI.getGene(id);
     },
     geneSearch: async (_source, { keyword, start, size }, { dataSources }) => {
       const args = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.geneSearch(keyword, args);
+      return dataSources.intermineAPI.geneSearch(keyword, args);
     },
 
     // gene family API
@@ -44,10 +44,10 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getGeneFamilies(args);
+      return dataSources.intermineAPI.getGeneFamilies(args);
     },
     geneFamily: async (_source, { id }, { dataSources }) => {
-      return dataSources.legumemineAPI.getGeneFamily(id);
+      return dataSources.intermineAPI.getGeneFamily(id);
     },
 
     // trait API
@@ -57,17 +57,17 @@ const resolvers = {
         start,
         size,
       };
-      return dataSources.legumemineAPI.getTraits(args);
+      return dataSources.intermineAPI.getTraits(args);
     },
     trait: async (_source, { id }, { dataSources }) => {
-      return dataSources.legumemineAPI.getTrait(id);
+      return dataSources.intermineAPI.getTrait(id);
     },
     traitSearch: async (_source, { keyword, start, size }, { dataSources }) => {
       const args = {
         start,
         size,
       };
-      return dataSources.legumemineAPI.traitSearch(keyword, args);
+      return dataSources.intermineAPI.traitSearch(keyword, args);
     },
   },
 
@@ -79,7 +79,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getStrains(args);
+      return dataSources.intermineAPI.getStrains(args);
     },
   },
 
@@ -93,7 +93,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getGenes(args);
+      return dataSources.intermineAPI.getGenes(args);
     },
   },
 
@@ -101,15 +101,15 @@ const resolvers = {
   Gene: {
     strain: async (gene, { }, { dataSources }) => {
       const id = gene.strainId;
-      return dataSources.legumemineAPI.getStrain(id);
+      return dataSources.intermineAPI.getStrain(id);
     },
     /*proteinDomains: async (gene, args, { dataSources }) => {
       args.gene = gene.id
-      return dataSources.legumemineAPI.getProteinDomains(args);
+      return dataSources.intermineAPI.getProteinDomains(args);
     },*/
     geneFamilyAssignments: async (gene, { }, { dataSources }) => {
       const id = gene.geneFamilyId;
-      return dataSources.legumemineAPI.getGeneFamily(id);
+      return dataSources.intermineAPI.getGeneFamily(id);
     },
   },
 
@@ -123,7 +123,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.legumemineAPI.getGenes(args);
+      return dataSources.intermineAPI.getGenes(args);
     },
   },
 
