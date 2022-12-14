@@ -10,10 +10,10 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getOrganisms(args);
+      return dataSources.lisMiniMineAPI.getOrganisms(args);
     },
     organism: async (_source, { id }, { dataSources }) => {
-      return dataSources.intermineAPI.getOrganism(id);
+      return dataSources.lisMiniMineAPI.getOrganism(id);
     },
 
     // gene API
@@ -25,17 +25,17 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getGenes(args);
+      return dataSources.lisMiniMineAPI.getGenes(args);
     },
     gene: async (_source, { id }, { dataSources }) => {
-      return dataSources.intermineAPI.getGene(id);
+      return dataSources.lisMiniMineAPI.getGene(id);
     },
     geneSearch: async (_source, { keyword, start, size }, { dataSources }) => {
       const args = {
           start,
           size,
         };
-      return dataSources.intermineAPI.geneSearch(keyword, args);
+      return dataSources.lisMiniMineAPI.geneSearch(keyword, args);
     },
 
     // gene family API
@@ -44,10 +44,10 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getGeneFamilies(args);
+      return dataSources.lisMiniMineAPI.getGeneFamilies(args);
     },
     geneFamily: async (_source, { id }, { dataSources }) => {
-      return dataSources.intermineAPI.getGeneFamily(id);
+      return dataSources.lisMiniMineAPI.getGeneFamily(id);
     },
 
     // trait API
@@ -57,17 +57,17 @@ const resolvers = {
         start,
         size,
       };
-      return dataSources.intermineAPI.getTraits(args);
+      return dataSources.lisMiniMineAPI.getTraits(args);
     },
     trait: async (_source, { id }, { dataSources }) => {
-      return dataSources.intermineAPI.getTrait(id);
+      return dataSources.lisMiniMineAPI.getTrait(id);
     },
     traitSearch: async (_source, { keyword, start, size }, { dataSources }) => {
       const args = {
         start,
         size,
       };
-      return dataSources.intermineAPI.traitSearch(keyword, args);
+      return dataSources.lisMiniMineAPI.traitSearch(keyword, args);
     },
   },
 
@@ -79,7 +79,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getStrains(args);
+      return dataSources.lisMiniMineAPI.getStrains(args);
     },
   },
 
@@ -93,7 +93,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getGenes(args);
+      return dataSources.lisMiniMineAPI.getGenes(args);
     },
   },
 
@@ -101,15 +101,15 @@ const resolvers = {
   Gene: {
     strain: async (gene, { }, { dataSources }) => {
       const id = gene.strainId;
-      return dataSources.intermineAPI.getStrain(id);
+      return dataSources.lisMiniMineAPI.getStrain(id);
     },
     /*proteinDomains: async (gene, args, { dataSources }) => {
       args.gene = gene.id
-      return dataSources.intermineAPI.getProteinDomains(args);
+      return dataSources.lisMiniMineAPI.getProteinDomains(args);
     },*/
     geneFamilyAssignments: async (gene, { }, { dataSources }) => {
       const id = gene.geneFamilyId;
-      return dataSources.intermineAPI.getGeneFamily(id);
+      return dataSources.lisMiniMineAPI.getGeneFamily(id);
     },
   },
 
@@ -123,7 +123,7 @@ const resolvers = {
           start,
           size,
         };
-      return dataSources.intermineAPI.getGenes(args);
+      return dataSources.lisMiniMineAPI.getGenes(args);
     },
   },
 
