@@ -1,76 +1,140 @@
-"""
-Organism represents a species
-"""
+## This schema is based on the InterMine data model.
+## In principle it could be generated from the model XML file:
+## https://github.com/legumeinfo/minimine/blob/main/dbmodel/build/resources/main/genomic_model.xml
+
+# <class name="Organism" is-interface="true" term="http://semanticscience.org/resource/SIO_010000">
+# 	<attribute name="taxonId" type="java.lang.String" term="http://edamontology.org/data_1179"/>
+# 	<attribute name="abbreviation" type="java.lang.String"/>
+# 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
+# 	<attribute name="commonName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="genus" type="java.lang.String" term="http://edamontology.org/data_1870"/>
+# 	<attribute name="species" type="java.lang.String" term="http://edamontology.org/data_1045"/>
+# 	<attribute name="shortName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
+# 	<collection name="strains" referenced-type="Strain" reverse-reference="organism"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
 type Organism {
   id: ID!
+  taxonId: Int!
+  abbreviation: String
   name: String
-  """
-  commonNames are commonly null but could also be multiple; should we allow that in the schema?
-  """
   commonName: String
   description: String
-  genus: String!
-  species: String!
+  genus: String
+  species: String
   strains: [Strain!]
 }
 
-"""
-Strain represents a genetically characterizable entity like a cultivar or landrace
-"""
+# <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
+# 	<attribute name="identifier" type="java.lang.String" term="http://edamontology.org/data_2379"/>
+# 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_1046"/>
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="origin" type="java.lang.String"/>
+# 	<attribute name="accession" type="java.lang.String" term="http://edamontology.org/data_2912"/>
+# 	<reference name="organism" referenced-type="Organism" reverse-reference="strains" term="http://purl.org/net/orth#organism"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
 type Strain {
   id: ID!
-  name: String
-  accession: String
-  """
-  maybe more properly genomeassemblies
-  """
-  genomes: [Genome]
-  genes: [Gene!]
-}
-
-interface SequenceCollection {
-  sequences: [Sequence!]
-}
-interface Sequence {
-  id: ID!
-  sequence: String!
-}
-type GenomeSequence implements Sequence {
-  id: ID!
-  sequence: String!
-}
-
-type Genome implements SequenceCollection {
-  organism: Organism!
-  version: String!
-  sequences: [GenomeSequence!]
-  genes: [Gene!]
-}
-
-type Gene {
-  id: ID!
+  identifier: String!
   name: String
   description: String
+  origin: String
+  accession: String
+  organism: Organism
+}
+
+# <class name="Gene" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000704,http://purl.obolibrary.org/obo/SO:0000704">
+# 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="symbol" type="java.lang.String" term="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+# 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
+# 	<attribute name="assemblyVersion" type="java.lang.String"/>
+# 	<attribute name="annotationVersion" type="java.lang.String"/>
+# 	<attribute name="secondaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+# 	<attribute name="briefDescription" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000136"/>
+# 	<attribute name="score" type="java.lang.Double" term="http://edamontology.org/data_1772"/>
+# 	<attribute name="scoreType" type="java.lang.String" term="http://purl.org/dc/terms/type"/>
+# 	<attribute name="length" type="java.lang.Integer" term="http://purl.org/dc/terms/SizeOrDuration"/>
+# 	<reference name="organism" referenced-type="Organism" term="http://purl.org/net/orth#organism"/>
+# 	<reference name="strain" referenced-type="Strain" term="http://semanticscience.org/resource/SIO_010055"/>
+# 	<reference name="sequenceOntologyTerm" referenced-type="SOTerm"/>
+# 	<reference name="supercontigLocation" referenced-type="Location"/>
+# 	<reference name="chromosomeLocation" referenced-type="Location"/>
+# 	<reference name="supercontig" referenced-type="Supercontig"/>
+# 	<reference name="sequence" referenced-type="Sequence"/>
+# 	<reference name="chromosome" referenced-type="Chromosome" term="http://purl.org/dc/terms/isPartOf"/>
+# 	<reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
+# 	<reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
+# 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
+# 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
+# 	<collection name="locations" referenced-type="Location" reverse-reference="feature"/>
+# 	<collection name="synonyms" referenced-type="Synonym" reverse-reference="subject" term="http://purl.obolibrary.org/obo/synonym"/>
+# 	<collection name="crossReferences" referenced-type="CrossReference" reverse-reference="subject" term="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
+# 	<collection name="dataSets" referenced-type="DataSet" reverse-reference="bioEntities" term="http://semanticscience.org/resource/SIO_001278"/>
+# 	<collection name="locatedFeatures" referenced-type="Location" reverse-reference="locatedOn"/>
+# 	<collection name="overlappingFeatures" referenced-type="SequenceFeature"/>
+# 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
+# 	<collection name="flankingRegions" referenced-type="GeneFlankingRegion" reverse-reference="gene"/>
+# 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="gene"/>
+# 	<collection name="introns" referenced-type="Intron" reverse-reference="genes"/>
+# 	<collection name="proteins" referenced-type="Protein" reverse-reference="genes" term="https://semanticscience.org/resource/SIO_010078"/>
+# 	<collection name="alleles" referenced-type="Allele" reverse-reference="gene"/>
+# 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
+# 	<collection name="CDSs" referenced-type="CDS" reverse-reference="gene"/>
+# 	<collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="genes"/>
+# 	<collection name="exons" referenced-type="Exon" reverse-reference="gene"/>
+# 	<collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
+# 	<collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
+# 	<collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
+# </class>
+type Gene {
+  id: ID!
+  identifier: String!
+  description: String
+  symbol: String
+  name: String
+  assembly: String!
+  annotation: String!
+  length: Int
   strain: Strain
-  genome: Genome
-  geneFamilyAssignments: [GeneFamilyAssignment!]
-  proteinDomains: [ProteinDomain!]
+  geneFamilyAssignments: [GeneFamilyAssignment]
+  proteinDomains: [ProteinDomain]
 }
 
 type GeneFamilyAssignment {
-    geneFamily: GeneFamily!
-    score:  Float
-    e_value: Float
+  id: ID!
+  geneFamily: GeneFamily!
+  score:  Float
+  evalue: Float
+  bestDomainScore: Float
 }
 
-#how would we model taxonomic composition?
+# <class name="GeneFamily" extends="Annotatable" is-interface="true" term="">
+#       <attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="version" type="java.lang.String"/>
+# 	<attribute name="size" type="java.lang.Integer"/>
+# 	<reference name="phylotree" referenced-type="Phylotree" reverse-reference="geneFamily"/>
+#       <collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
+#       <collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
+# 	<collection name="genes" referenced-type="Gene"/>
+# 	<collection name="proteins" referenced-type="Protein"/>
+# 	<collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="geneFamilies"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
+# </class>
 type GeneFamily {
   id: ID!
-  name: String!
+  identifier: String!
   description: String
+  version: String
   size: Int
-  genes: [Gene!]
-  tree: Phylotree
+  phylotree: Phylotree
+  genes: [Gene]
+  proteins: [Protein]
+  proteinDomains: [ProteinDomain]
 }
 
 type Phylotree {
@@ -78,10 +142,17 @@ type Phylotree {
 }
 
 type ProteinDomain {
-    id: ID!
-    accession: String
-    name: String
-    description: String
+  id: ID!
+  identifier: String!
+  name: String
+  shortName: String
+  type: String
+  genes: [Gene]
+  geneFamilies: [GeneFamily]
+  childFeatures: [ProteinDomain]
+  foundIn: [ProteinDomain]
+  parentFeatures: [ProteinDomain]
+  contains: [ProteinDomain]
 }
 
 type Trait {
@@ -93,6 +164,8 @@ type Trait {
 type Query {
   organisms(genus: String, species: String, start: Int, size: Int): [Organism]
   organism(id: ID!): Organism
+  strain(id: ID!): Strain
+  strains(organismId: ID!): [Strain]
   genes(strain: String, family: String, description: String, start: Int, size: Int): [Gene]
   gene(id: ID!): Gene
   geneSearch(keyword: String!, start: Int, size: Int): [Gene]
