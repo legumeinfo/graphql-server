@@ -1,0 +1,21 @@
+# <class name="Trait" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="name" type="java.lang.String"/>
+# 	<reference name="qtlStudy" referenced-type="QTLStudy"/>
+# 	<reference name="gwas" referenced-type="GWAS"/>
+# 	<reference name="dataSet" referenced-type="DataSet"/>
+# 	<collection name="qtls" referenced-type="QTL" reverse-reference="trait"/>
+# 	<collection name="ontologyTerms" referenced-type="OntologyTerm"/>
+# 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
+# </class>
+type Trait {
+  id: ID!
+  description: String
+  name: String
+  # qtlStudy: QTLStudy
+  # gwas: GWAS
+  # dataset
+  qtls: [QTL]
+  ontologyTerms: [OntologyTerm]
+  gwasResults: [GWASResult]
+}

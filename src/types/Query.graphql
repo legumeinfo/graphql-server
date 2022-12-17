@@ -1,0 +1,31 @@
+# -----------------------------------------------------
+# Queries for all the types contained in this directory
+# -----------------------------------------------------
+
+type Query {
+
+  ## single objects by ID
+  gene(id: ID!): Gene
+  geneFamilyAssignment(id: ID!): GeneFamilyAssignment
+  geneFamily(id: ID!): GeneFamily
+  gwas(id: ID!): GWAS
+  gwasResult(id: ID!): GWASResult
+  ontology(id: ID!): Ontology
+  ontologyTerm(id: ID!): OntologyTerm
+  organism(id: ID!): Organism
+  phylonode(id: ID!): Phylonode
+  phylotree(id: ID!): Phylotree
+  protein(id: ID!): Protein
+  proteinDomain(id: ID!): ProteinDomain
+  qtl(id: ID!): QTL
+  strain(id: ID!): Strain
+  trait(id: ID!): Trait
+
+  # organisms(genus: String, species: String, start: Int, size: Int): [Organism]
+  # strains(organismId: ID!): [Strain]
+  # genes(strain: String, family: String, description: String, start: Int, size: Int): [Gene]
+  # geneSearch(keyword: String!, start: Int, size: Int): [Gene]
+  # geneFamilies(start: Int, size: Int): [GeneFamily]
+  # traits(description: String, start: Int, size: Int): [Trait]
+  # traitSearch(keyword: String!, start: Int, size: Int): [Trait]
+}

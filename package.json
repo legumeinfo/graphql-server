@@ -13,10 +13,11 @@
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.3.11",
     "@graphql-tools/load": "^7.5.10",
+    "@graphql-tools/load-files": "^6.6.1",
     "apollo-datasource-rest": "^3.5.2",
     "apollo-server": "^3.6.7",
+    "dotenv": "^16.0.0",
     "graphql": "^16.4.0",
-    "nodemon": "^2.0.16",
-    "dotenv": "^16.0.0"
+    "nodemon": "^2.0.16"
   }
 }
