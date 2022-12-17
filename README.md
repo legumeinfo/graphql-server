@@ -1,6 +1,8 @@
 # Legumeinfo GraphQL Server
 This repository contains a GraphQL server made with the [Apollo Server](https://www.apollographql.com/docs/apollo-server) that consumes data from one or more InterMine servers.
 
+## GraphQL schema
+This version uses a GraphQL schema which is tightly based on the InterMine data model.
 
 ## Docker
 You setup and run the Legumeinfo GraphQL Server with Docker as follows:
@@ -31,6 +33,12 @@ npm install
 ### Running
 Once the dependencies are installed, use the following command to start the server:
 ```console
-node src/index.js
+npm start
 ```
 Then navigate your browser to [http://localhost:4000](http://localhost:4000) to query the server with the [Apollo Explorer](https://www.apollographql.com/docs/studio/explorer/explorer/).
+Changes to files will result in the server restarting; you can also type `rs` to restart it manually.
+
+Also, the .env file contains a line to put Apollo Server into a more verbose development mode:
+```
+NODE_ENV=development
+```
