@@ -1,4 +1,4 @@
-***types***
+# types #
 
 This schema is based on the InterMine data model.
 
@@ -8,7 +8,7 @@ https://github.com/legumeinfo/minimine/blob/main/dbmodel/build/resources/main/ge
 
 Each GraphQL type is defined in its own graphql file, e.g. Gene.graphql.
 
-**interfaces.graphql**
+## interfaces.graphql ##
 
 The defined interfaces correspond to widely-extended objects in the InterMine data model:
 
@@ -16,4 +16,4 @@ The defined interfaces correspond to widely-extended objects in the InterMine da
 - BioEntity
 - SequenceFeature
 
-This way we enforce that dependent types contain the attributes defined in the corresponding interface.
+This way we ensure that dependent types contain the attributes defined in the corresponding interface.
