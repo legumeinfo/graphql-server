@@ -1,21 +1,19 @@
-module.exports = {
-    
-    Query: {
-
-        strain: async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getStrain(id);
-        },
-
-        // strains: async (_source, { organismId }, { dataSources }) => {
-        //     return dataSources.lisIntermineAPI.getStrains(organismId);
-        // },
-
+const strainFactory = (sourceName) => ({
+  Query: {
+    strain: async (_source, { id }, { dataSources }) => {
+      return dataSources[sourceName].getStrain(id);
     },
-
-    Strain: {
-        organism: async (strain, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getOrganism(strain.organismId);
-        },
+    //strains: async (_source, { organismId }, { dataSources }) => {
+    //  return dataSources[sourceName].getStrains(organismId);
+    //},
+  },
+  Strain: {
+    organism: async (strain, { }, { dataSources }) => {
+      const id = strain.organismId;
+      return dataSources[sourceName].getOrganism(id);
     },
+  },
+});
 
-}
+
+module.exports = strainFactory;

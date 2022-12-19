@@ -1,11 +1,10 @@
-module.exports = {
-    
-    Query: {
+const qtlFactory = (sourceName) => ({
+  Query: {
+    qtl:  async (_source, { id }, { dataSources }) => {
+      return dataSources[sourceName].getQTL(id);
+    },
+  }
+});
 
-        qtl:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getQTL(id);
-        },
 
-    }
-
-}
+module.exports = qtlFactory;

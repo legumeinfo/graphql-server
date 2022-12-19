@@ -1,25 +1,20 @@
-module.exports = {
-    
-    Query: {
-
-        phylotree: async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getPhylotree(id);
-        },
-
+const phylotreeFactory = (sourceName) => ({
+  Query: {
+    phylotree: async (_source, { id }, { dataSources }) => {
+      return dataSources[sourceName].getPhylotree(id);
     },
-
-    Phylotree: {
-        geneFamily: async(phylotree, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getGeneFamily(phylotree.geneFamilyId);
-        },
-        nodes: async (phylotree, { start, size }, { dataSources }) => {
-            const args = {
-                phylotree: phylotree,
-                start,
-                size,
-            };
-            return dataSources.lisIntermineAPI.getPhylonodes(args);
-        },
+  },
+  Phylotree: {
+    geneFamily: async(phylotree, { }, { dataSources }) => {
+      const id = phylotree.geneFamilyId;
+      return dataSources[sourceName].getGeneFamily(id);
     },
-    
-}
+    nodes: async (phylotree, { start, size }, { dataSources }) => {
+      const args = {phylotree, start, size};
+      return dataSources[sourceName].getPhylonodes(args);
+    },
+  },
+});
+
+
+module.exports = phylotreeFactory;

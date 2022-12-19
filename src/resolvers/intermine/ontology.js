@@ -1,11 +1,10 @@
-module.exports = {
-    
-    Query: {
+const ontologyFactory = (sourceName) => ({
+  Query: {
+    ontology: async (_source, { id }, { dataSources }) => {
+      return dataSources[sourceName].getOntology(id);
+    },
+  }
+});
 
-        ontology: async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getOntology(id);
-        },
 
-    }
-
-}
+module.exports = ontologyFactory;
