@@ -35,25 +35,6 @@ class IntermineAPI extends RESTDataSource {
     // OBJECT GETTERS //
     ////////////////////
 
-    // get a gene by ID
-    async getGene(id) {
-        const constraints = [pathquery.intermineConstraint('Gene.id', '=', id)];
-        const query = pathquery.interminePathQuery(
-            models.intermineGeneAttributes,
-            models.intermineGeneSort,
-            constraints,
-        );
-        return this.pathQuery(query)
-            .then(models.response2genes)
-            .then((genes) => {
-                if (!genes.length) {
-                    const msg = `Gene with ID '${id}' not found`;
-                    throw new UserInputError(msg);
-                }
-                return genes[0];
-            });
-    }
-
     // get a GeneFamilyAssignment by ID
     async getGeneFamilyAssignment(id) {
         const constraints = [pathquery.intermineConstraint('GeneFamilyAssignment.id', '=', id)];
@@ -527,23 +508,6 @@ class IntermineAPI extends RESTDataSource {
     ////////////////////
     // KEYWORD SEARCH //
     ////////////////////
-    
-    // search for genes using a keyword
-    async geneSearch(keyword, {start=0, size=10}={}) {
-        const options = {
-            start,
-            size,
-            facet_Category: 'Gene',
-        };
-        return this.keywordSearch(keyword, options)
-            .then((response) => {
-                return Promise.all(
-                    response.results
-                        .map((result) => result.id)
-                        .map((id) => this.getGene(id))
-                );
-            });
-    }
 
     // search for traits using a keyword
     async traitSearch(keyword, {start=0, size=10}={}) {
@@ -563,5 +527,13 @@ class IntermineAPI extends RESTDataSource {
     }
 
 }
+
+
+const geneSearch = require('./api/gene-search.js');
+IntermineAPI.prototype.geneSearch = geneSearch;
+
+const getGene = require('./api/get-gene.js');
+IntermineAPI.prototype.getGene = getGene;
+
 
 module.exports = { IntermineAPI };
