@@ -1,0 +1,46 @@
+# ------------------------------------------------------------------------
+# This is an interface for InterMine objects which extend SequenceFeature.
+# ------------------------------------------------------------------------
+
+# <class name="SequenceFeature" extends="BioEntity" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000110,http://purl.obolibrary.org/obo/SO:0000110">
+# 	<attribute name="score" type="java.lang.Double" term="http://edamontology.org/data_1772"/>
+# 	<attribute name="scoreType" type="java.lang.String" term="http://purl.org/dc/terms/type"/>
+# 	<attribute name="length" type="java.lang.Integer" term="http://purl.org/dc/terms/SizeOrDuration"/>
+# 	<reference name="sequenceOntologyTerm" referenced-type="SOTerm"/>
+# 	<reference name="supercontigLocation" referenced-type="Location"/>
+# 	<reference name="chromosomeLocation" referenced-type="Location"/>
+# 	<reference name="supercontig" referenced-type="Supercontig"/>
+# 	<reference name="sequence" referenced-type="Sequence"/>
+# 	<reference name="chromosome" referenced-type="Chromosome" term="http://purl.org/dc/terms/isPartOf"/>
+# 	<collection name="overlappingFeatures" referenced-type="SequenceFeature"/>
+# 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
+# </class>
+interface SequenceFeature {
+  id: ID!
+  identifier: String!
+  # ontologyAnnotations
+  # publications
+  description: String
+  symbol: String
+  name: String
+  assemblyVersion: String
+  annotationVersion: String
+  organism: Organism
+  strain: Strain
+  # locations
+  # synonyms
+  # crossReferences
+  # dataSets
+  # locatedFeatures
+  # score
+  # scoreType
+  length: Int
+  # sequenceOntologyTerm
+  # supercontigLocation
+  # chromosomeLocation
+  # supercontig
+  # sequence
+  # chromosome
+  # overlappingFeatures
+  # childFeatures
+}
