@@ -17,16 +17,16 @@
 type QTL {
   id: ID!
   identifier: String!
-  # lod: Float
-  # likelihoodRatio: Float
+  lod: Float
+  likelihoodRatio: Float
   end: Float
   markerNames: String
-  # markerR2
+  markerR2: Float
   start: Float
-  # peak
+  peak: Float
   trait: Trait
-  # qtlStudy: QTLStudy
-  # linkageGroup
+  qtlStudy: QTLStudy
+  linkageGroup: LinkageGroup
   # dataSet: DataSet
   # genes: [Gene]
   # markers: [GeneticMarker]

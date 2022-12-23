@@ -2,7 +2,7 @@ const { IntermineAPI } = require('./intermine/intermine.api.js');
 
 const dataSources = () => {
   return {
-    lisIntermineAPI: new IntermineAPI('https://lis.ncgr.org/minimine/service'),
+    lisIntermineAPI: new IntermineAPI('https://dev.lis.ncgr.org/minimine/service'),
   };
 };
 

@@ -1,17 +1,17 @@
 // get a gene by ID
 async function getGene(id) {
-    const constraints = [pathquery.intermineConstraint('Gene.id', '=', id)];
-    const query = pathquery.interminePathQuery(
-        models.intermineGeneAttributes,
-        models.intermineGeneSort,
+    const constraints = [this.pathquery.intermineConstraint('Gene.id', '=', id)];
+    const query = this.pathquery.interminePathQuery(
+        this.models.intermineGeneAttributes,
+        this.models.intermineGeneSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then(models.response2genes)
+        .then((response) => this.models.response2genes(response))
         .then((genes) => {
             if (!genes.length) {
                 const msg = `Gene with ID '${id}' not found`;
-                throw new UserInputError(msg);
+                this.inputError(msg);
             }
             return genes[0];
         });

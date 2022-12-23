@@ -1,9 +1,9 @@
 const ontologyFactory = (sourceName) => ({
-  Query: {
-    ontology: async (_source, { id }, { dataSources }) => {
-      return dataSources[sourceName].getOntology(id);
-    },
-  }
+    Query: {
+        ontology: async (_source, { id }, { dataSources }) => {
+            return dataSources[sourceName].getOntology(id);
+        },
+    }
 });
 
 

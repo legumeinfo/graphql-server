@@ -1,6 +1,3 @@
-const { response2graphqlObjects } = require('../intermine.pathquery.js');
-
-
 // <class name="Gene" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000704,http://purl.obolibrary.org/obo/SO:0000704">
 // 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
 // 	<attribute name="description" type="java.lang.String"/>
@@ -91,8 +88,9 @@ const graphqlGeneAttributes = [
 
 // converts an Intermine response into an array of GraphQL Gene objects
 function response2genes(response) {
-    return response2graphqlObjects(response, graphqlGeneAttributes);
+    return this.pathquery.response2graphqlObjects(response, graphqlGeneAttributes);
 }
+
 
 
 module.exports = {

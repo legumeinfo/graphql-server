@@ -5,11 +5,15 @@
 type Query {
 
   ## single objects by ID
+  expressionSample(id: ID!): ExpressionSample
+  expressionSource(id: ID!): ExpressionSource
   gene(id: ID!): Gene
   geneFamilyAssignment(id: ID!): GeneFamilyAssignment
   geneFamily(id: ID!): GeneFamily
+  geneticMap(id: ID!): GeneticMap
   gwas(id: ID!): GWAS
   gwasResult(id: ID!): GWASResult
+  linkageGroup(id: ID!): LinkageGroup
   ontology(id: ID!): Ontology
   ontologyTerm(id: ID!): OntologyTerm
   organism(id: ID!): Organism
@@ -18,6 +22,7 @@ type Query {
   protein(id: ID!): Protein
   proteinDomain(id: ID!): ProteinDomain
   qtl(id: ID!): QTL
+  qtlStudy(id: ID!): QTLStudy
   strain(id: ID!): Strain
   trait(id: ID!): Trait
 
