@@ -6,7 +6,7 @@
 # 	<reference name="dataSet" referenced-type="DataSet"/>
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 # </class>
-type QTLStudy {
+type QTLStudy implements Annotatable {
   id: ID!
   identifier: String!
   # ontologyAnnotations

@@ -16,6 +16,9 @@
 const intermineProteinAttributes = [
     'Protein.id',
     'Protein.primaryIdentifier',
+    'Protein.description',
+    'Protein.symbol',
+    'Protein.name',
     'Protein.assemblyVersion',
     'Protein.annotationVersion',
     'Protein.organism.id',
@@ -25,38 +28,39 @@ const intermineProteinAttributes = [
     'Protein.isPrimary',
 ];
 const intermineProteinSort = 'Protein.primaryIdentifier';
-// Protein GraphQL attributes
-// id: ID!
-// identifier: String!
-// # ontologyAnnotations
-// # publications
-// # description: String
-// # symbol: String
-// # name: String
-// assemblyVersion: String
-// annotationVersion: String
-// organism: Organism
-// strain: Strain
-// # locations
-// # synonyms
-// # crossReferences
-// # dataSets
-// # locatedFeatures
-// md5checksum: String
-// # primaryAccession: String
-// # molecularWeight: Float
-// length: Int
-// isPrimary: Boolean
-// # phylonode: Phylonode
-// # transcript
-// # CDS
-// # sequence
-// genes: [Gene]
-// geneFamilyAssignments: [GeneFamilyAssignment]
-// # proteinMatches
+
+// type Protein implements BioEntity {
+//   description: String
+//   symbol: String
+//   name: String
+//   assemblyVersion: String
+//   annotationVersion: String
+//   organism: Organism
+//   strain: Strain
+//   # locations
+//   # synonyms
+//   # crossReferences
+//   # dataSets
+//   # locatedFeatures
+//   md5checksum: String
+//   # primaryAccession: String - not populated in LIS mines 5.1.0.1
+//   # molecularWeight: Float - not populated in LIS mines 5.1.0.1
+//   length: Int
+//   isPrimary: Boolean
+//   # phylonode: Phylonode - not populated in LIS mines 5.1.0.1
+//   # transcript
+//   # CDS
+//   # sequence
+//   genes: [Gene]
+//   geneFamilyAssignments: [GeneFamilyAssignment]
+//   # proteinMatches
+// }
 const graphqlProteinAttributes = [
     'id',
     'identifier',
+    'description',
+    'symbol',
+    'name',
     'assemblyVersion',
     'annotationVersion',
     'organismId',

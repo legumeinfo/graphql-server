@@ -7,7 +7,7 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="trait"/>
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
-type Trait {
+type Trait implements Annotatable {
   id: ID!
   identifier: String!
   # ontologyAnnotations

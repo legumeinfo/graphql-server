@@ -4,7 +4,7 @@
 # 	<collection name="nodes" referenced-type="Phylonode" reverse-reference="tree"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type Phylotree {
+type Phylotree implements Annotatable {
   id: ID!
   identifier: String!
   # ontologyAnnotations

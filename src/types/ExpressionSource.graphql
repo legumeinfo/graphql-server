@@ -10,7 +10,7 @@
 # 	<reference name="dataSet" referenced-type="DataSet"/>
 # 	<collection name="samples" referenced-type="ExpressionSample" reverse-reference="source"/>
 # </class>
-type ExpressionSource {
+type ExpressionSource implements Annotatable {
   id: ID!
   identifier: String!
   # ontologyAnnotations

@@ -12,14 +12,14 @@
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # 	<collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
 # </class>
-type Protein {
+type Protein implements BioEntity {
   id: ID!
   identifier: String!
   # ontologyAnnotations
   # publications
-  # description: String - not populated in LIS mines 5.1.0.1
-  # symbol: String - not populated in LIS mines 5.1.0.1
-  # name: String - not populated in LIS mines 5.1.0.1
+  description: String
+  symbol: String
+  name: String
   assemblyVersion: String
   annotationVersion: String
   organism: Organism

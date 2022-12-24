@@ -8,7 +8,7 @@
 # 	<reference name="dataSet" referenced-type="DataSet"/>
 # 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
 # </class>
-type GWAS {
+type GWAS implements Annotatable {
   id: ID!
   identifier: String!
   # ontologyAnnotations
