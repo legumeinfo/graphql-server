@@ -3,6 +3,14 @@ const geneticMapFactory = (sourceName) => ({
         geneticMap:  async (_source, { id }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getGeneticMap(id);
         },
+        geneticMaps: async (_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+            return dataSources[sourceName].searchGeneticMaps(args);
+        },
     },
     GeneticMap: {
         organism: async (geneticMap, { }, { dataSources }) => {

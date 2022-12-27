@@ -3,14 +3,10 @@ const traitFactory = (sourceName) => ({
         trait: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getTrait(id);
         },
-        //traits: async (_source, { description, start, size }, { dataSources }) => {
-        //  const args = {description, start, size};
-        //  return dataSources[sourceName].getTraits(args);
-        //},
-        //traitSearch: async (_source, { keyword, start, size }, { dataSources }) => {
-        //  const args = {start, size};
-        //  return dataSources[sourceName].traitSearch(keyword, args);
-        //},
+        traits: async (_source, { name, start, size }, { dataSources }) => {
+            const args = {name, start, size};
+            return dataSources[sourceName].searchTraits(args);
+        },
     },
     Trait: {
         qtls: async (trait, { start, size }, { dataSources }) => {

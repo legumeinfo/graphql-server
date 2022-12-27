@@ -4,33 +4,57 @@
 
 type Query {
 
-  ## single objects by ID
   expressionSample(id: ID!): ExpressionSample
+  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
+  
   expressionSource(id: ID!): ExpressionSource
-  gene(id: ID!): Gene
-  geneFamilyAssignment(id: ID!): GeneFamilyAssignment
-  geneFamily(id: ID!): GeneFamily
-  geneticMap(id: ID!): GeneticMap
-  gwas(id: ID!): GWAS
-  gwasResult(id: ID!): GWASResult
-  linkageGroup(id: ID!): LinkageGroup
-  ontology(id: ID!): Ontology
-  ontologyTerm(id: ID!): OntologyTerm
-  organism(id: ID!): Organism
-  phylonode(id: ID!): Phylonode
-  phylotree(id: ID!): Phylotree
-  protein(id: ID!): Protein
-  proteinDomain(id: ID!): ProteinDomain
-  qtl(id: ID!): QTL
-  qtlStudy(id: ID!): QTLStudy
-  strain(id: ID!): Strain
-  trait(id: ID!): Trait
+  expressionSources(description: String, start: Int, size: Int): [ExpressionSource]
 
-  # organisms(genus: String, species: String, start: Int, size: Int): [Organism]
-  # strains(organismId: ID!): [Strain]
-  # genes(strain: String, family: String, description: String, start: Int, size: Int): [Gene]
-  # geneSearch(keyword: String!, start: Int, size: Int): [Gene]
-  # geneFamilies(start: Int, size: Int): [GeneFamily]
-  # traits(description: String, start: Int, size: Int): [Trait]
-  # traitSearch(keyword: String!, start: Int, size: Int): [Trait]
+  gene(id: ID!): Gene
+  genes(description: String, start: Int, size: Int): [Gene]
+
+  geneFamily(id: ID!): GeneFamily
+  geneFamilies(description: String, start: Int, size: Int): [GeneFamily]
+
+  geneFamilyAssignment(id: ID!): GeneFamilyAssignment
+
+  geneticMap(id: ID!): GeneticMap
+  geneticMaps(description: String, start: Int, size: Int): [GeneticMap]
+
+  gwas(id: ID!): GWAS
+  gwases(description: String, start: Int, size: Int): [GWAS]
+  
+  gwasResult(id: ID!): GWASResult
+
+  linkageGroup(id: ID!): LinkageGroup
+
+  ontology(id: ID!): Ontology
+
+  ontologyTerm(id: ID!): OntologyTerm
+  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
+
+  organism(id: ID!): Organism
+  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
+
+  phylonode(id: ID!): Phylonode
+
+  phylotree(id: ID!): Phylotree
+
+  protein(id: ID!): Protein
+  proteins(description: String, start: Int, size: Int): [Protein]
+
+  proteinDomain(id: ID!): ProteinDomain
+  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
+
+  qtl(id: ID!): QTL
+
+  qtlStudy(id: ID!): QTLStudy
+  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
+  
+  strain(id: ID!): Strain
+  strains(description: String, origin: String, start: Int, size: Int): [Strain]
+
+  trait(id: ID!): Trait
+  traits(name: String, start: Int, size: Int): [Trait]
+
 }

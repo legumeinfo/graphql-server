@@ -3,20 +3,14 @@ const geneFactory = (sourceName) => ({
         gene: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGene(id);
         },
-        //genes: async (_source, { strain, family, description, start, size }, { dataSources }) => {
-        //  const args = {
-        //      strain,
-        //      family,
-        //      description,
-        //      start,
-        //      size,
-        //    };
-        //  return dataSources[sourceName].getGenes(args);
-        //},
-        //geneSearch: async (_source, { keyword, start, size }, { dataSources }) => {
-        //  const args = {start, size};
-        //  return dataSources[sourceName].geneSearch(keyword, args);
-        //},
+        genes: async (_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+            return dataSources[sourceName].searchGenes(args);
+        },
     },
     Gene: {
         organism: async (gene, { }, { dataSources }) => {

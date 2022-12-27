@@ -3,6 +3,14 @@ const proteinFactory = (sourceName) => ({
         protein: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getProtein(id);
         },
+        proteins: async (_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+            return dataSources[sourceName].searchProteins(args);
+        },
     },
     Protein: {
         organism: async(protein, { }, { dataSources }) => {

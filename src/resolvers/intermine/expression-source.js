@@ -3,6 +3,14 @@ const expressionSampleFactory = (sourceName) => ({
         expressionSource:  async (_source, { id }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getExpressionSource(id);
         },
+        expressionSources: async (_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+            return dataSources[sourceName].searchExpressionSources(args);
+        },
     },
     ExpressionSource: {
         organism: async (expressionSource, { }, { dataSources }) => {

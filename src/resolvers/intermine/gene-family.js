@@ -3,10 +3,14 @@ const geneFamilyFactory = (sourceName) => ({
         geneFamily: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(id);
         },
-        //geneFamilies: async (_source, { start, size }, { dataSources }) => {
-        //  const args = {start, size};
-        //  return dataSources[sourceName].getGeneFamilies(args);
-        //},
+        geneFamilies: async (_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+         return dataSources[sourceName].searchGeneFamilies(args);
+        },
     },
     GeneFamily: {
         phylotree: async(geneFamily, { }, { dataSources }) => {
