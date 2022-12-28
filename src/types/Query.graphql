@@ -57,4 +57,7 @@ type Query {
   trait(id: ID!): Trait
   traits(name: String, start: Int, size: Int): [Trait]
 
+
+  mineWebProperties: MineWebProperties
+
 }

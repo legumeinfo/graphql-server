@@ -1,0 +1,21 @@
+# Encapsulates the web-properties.project object returned in the JSON from the mine WebPropertiesServlet.
+# "web-properties": {
+#   "project": {
+#     "subTitle": "A small variety of genomes and annotations to aid code development.",
+#     "citation": "<a href=\"http://www.ncbi.nlm.nih.gov/pubmed/23023984\" target=\"_blank\">Smith RN, et al. InterMine: a flexible data warehouse system for the integration and analysis of heterogeneous biological data. Bioinformatics. 2012 Dec 1;28(23):3163-5.</a>",
+#     "releaseVersion": "5.1.0.1",
+#     "standalone": "true",
+#     "helpLocation": "https://dev.lis.ncgr.org/minimine/help",
+#     "title": "MiniMine",
+#     "sitePrefix": "https://dev.lis.ncgr.org/minimine"
+#   },
+# }
+type MineWebProperties {
+  subTitle: String,
+  citation: String,
+  releaseVersion: String,
+  standalone: String,
+  helpLocation: String,
+  title: String,
+  sitePrefix: String,
+}

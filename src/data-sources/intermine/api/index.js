@@ -65,6 +65,9 @@ const getTrait = require('./get-trait.js');
 const getTraits = require('./get-traits.js');
 const searchTraits = require('./search-traits.js');
 
+
+const getMineWebProperties = require('./get-mine-web-properties.js');
+
 module.exports = {
 
     getExpressionSample,
@@ -133,5 +136,7 @@ module.exports = {
     getTrait,
     getTraits,
     searchTraits,
+
+    getMineWebProperties,
 
 };
