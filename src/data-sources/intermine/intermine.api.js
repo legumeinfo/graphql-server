@@ -27,6 +27,13 @@ class IntermineAPI extends RESTDataSource {
         return this.get('search', params);
     }
 
+    async webProperties() {
+        const params = {
+            format: 'json',
+        };
+        return this.get('web-properties', params);
+    }
+
     inputError(msg) {
         throw new UserInputError(msg);
     }

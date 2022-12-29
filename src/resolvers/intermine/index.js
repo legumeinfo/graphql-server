@@ -21,6 +21,7 @@ const qtlStudyFactory = require('./qtl-study.js');
 const strainFactory = require('./strain.js');
 const traitFactory = require('./trait.js');
 
+const mineWebPropertiesFactory = require('./mine-web-properties.js');
 
 const factories = [
     expressionSampleFactory,
@@ -43,6 +44,8 @@ const factories = [
     qtlStudyFactory,
     strainFactory,
     traitFactory,
+
+    mineWebPropertiesFactory,
 ];
 
 
