@@ -1,5 +1,6 @@
 const { mergeResolvers } = require('@graphql-tools/merge');
 
+const authorFactory = require('./author.js');
 const expressionSampleFactory = require('./expression-sample.js');
 const expressionSourceFactory = require('./expression-source.js');
 const geneFamilyAssignmentFactory = require('./gene-family-assignment.js');
@@ -16,6 +17,7 @@ const phylonodeFactory = require('./phylonode.js');
 const phylotreeFactory = require('./phylotree.js');
 const proteinDomainFactory = require('./protein-domain.js');
 const proteinFactory = require('./protein.js');
+const publicationFactory = require('./publication.js');
 const qtlFactory = require('./qtl.js');
 const qtlStudyFactory = require('./qtl-study.js');
 const strainFactory = require('./strain.js');
@@ -24,6 +26,7 @@ const traitFactory = require('./trait.js');
 const mineWebPropertiesFactory = require('./mine-web-properties.js');
 
 const factories = [
+    authorFactory,
     expressionSampleFactory,
     expressionSourceFactory,
     geneFamilyAssignmentFactory,
@@ -40,6 +43,7 @@ const factories = [
     phylotreeFactory,
     proteinDomainFactory,
     proteinFactory,
+    publicationFactory,
     qtlFactory,
     qtlStudyFactory,
     strainFactory,

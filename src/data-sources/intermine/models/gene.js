@@ -54,9 +54,8 @@ const intermineGeneAttributes = [
     'Gene.organism.id',        // internal resolution of organism
     'Gene.strain.id',          // internal resolution of strain
 ];
-
-
 const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
+
 // type Gene implements SequenceFeature {
 //   id: ID!
 //   identifier: String!
@@ -70,8 +69,6 @@ const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 //   geneFamilyAssignments: [GeneFamilyAssignment]
 //   proteinDomains: [ProteinDomain]
 // }
-
-
 const graphqlGeneAttributes = [
     'id',
     'identifier',
@@ -85,12 +82,10 @@ const graphqlGeneAttributes = [
     'strainId',                // internal resolution of strain
 ];
 
-
 // converts an Intermine response into an array of GraphQL Gene objects
 function response2genes(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlGeneAttributes);
 }
-
 
 
 module.exports = {

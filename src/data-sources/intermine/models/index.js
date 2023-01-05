@@ -1,5 +1,6 @@
 const { response2graphqlObjects } = require('../intermine.pathquery.js');
 
+const authorModels = require('./author.js');
 const expressionSampleModels = require('./expression-sample.js');
 const expressionSourceModels = require('./expression-source.js');
 const geneModels = require('./gene.js');
@@ -16,6 +17,7 @@ const phylonodeModels = require('./phylonode.js');
 const phylotreeModels = require('./phylotree.js');
 const proteinDomainModels = require('./protein-domain.js');
 const proteinModels = require('./protein.js');
+const publicationModels = require('./publication.js');
 const qtlModels = require('./qtl.js');
 const qtlStudyModels = require('./qtl-study.js');
 const strainModels = require('./strain.js');
@@ -23,6 +25,7 @@ const traitModels = require('./trait.js');
 
 module.exports = {
 
+    ...authorModels,
     ...expressionSampleModels,
     ...expressionSourceModels,
     ...geneModels,
@@ -39,6 +42,7 @@ module.exports = {
     ...phylotreeModels,
     ...proteinModels,
     ...proteinDomainModels,
+    ...publicationModels,
     ...qtlModels,
     ...qtlStudyModels,
     ...strainModels,

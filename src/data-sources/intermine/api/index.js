@@ -1,3 +1,6 @@
+const getAuthor = require('./get-author.js');
+const getAuthors = require('./get-authors.js');
+
 const getExpressionSample = require('./get-expression-sample.js');
 const getExpressionSamples = require('./get-expression-samples.js');
 const searchExpressionSamples = require('./search-expression-samples.js');
@@ -51,6 +54,9 @@ const getProteinDomain = require('./get-protein-domain.js');
 const getProteinDomains = require('./get-protein-domains.js');
 const searchProteinDomains = require('./search-protein-domains.js');
 
+const getPublication = require('./get-publication.js');
+const getPublications = require('./get-publications.js');
+
 const getQTL = require('./get-qtl.js');
 const getQTLs = require('./get-qtls.js');
 
@@ -70,6 +76,9 @@ const getMineWebProperties = require('./get-mine-web-properties.js');
 
 module.exports = {
 
+    getAuthor,
+    getAuthors,
+    
     getExpressionSample,
     getExpressionSamples,
     searchExpressionSamples,
@@ -123,6 +132,9 @@ module.exports = {
     getProteinDomains,
     searchProteinDomains,
 
+    getPublication,
+    getPublications,
+    
     getQTL,
     getQTLs,
     

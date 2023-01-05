@@ -4,6 +4,8 @@
 
 type Query {
 
+  author(id: ID!): Author
+  
   expressionSample(id: ID!): ExpressionSample
   expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
   
@@ -46,6 +48,8 @@ type Query {
   proteinDomain(id: ID!): ProteinDomain
   proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
 
+  publication(id: ID!): Publication
+  
   qtl(id: ID!): QTL
 
   qtlStudy(id: ID!): QTLStudy
