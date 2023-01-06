@@ -28,6 +28,8 @@ const proteinModels = require('./protein.js');
 const publicationModels = require('./publication.js');
 const qtlModels = require('./qtl.js');
 const qtlStudyModels = require('./qtl-study.js');
+const syntenicRegionModels = require('./syntenic-region.js');
+const syntenyBlockModels = require('./synteny-block.js');
 const strainModels = require('./strain.js');
 const traitModels = require('./trait.js');
 
@@ -62,6 +64,8 @@ module.exports = {
     ...qtlModels,
     ...qtlStudyModels,
     ...strainModels,
+    ...syntenicRegionModels,
+    ...syntenyBlockModels,
     ...traitModels,
     
 };

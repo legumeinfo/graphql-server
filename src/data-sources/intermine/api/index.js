@@ -86,6 +86,11 @@ const getQTLs = require('./get-qtls.js');
 const getQTLStudy = require('./get-qtl-study.js');
 const searchQTLStudies  = require('./search-qtl-studies.js');
 
+const getSyntenicRegion = require('./get-syntenic-region.js');
+const getSyntenicRegions = require('./get-syntenic-regions.js');
+
+const getSyntenyBlock = require('./get-synteny-block.js');
+
 const getStrain = require('./get-strain.js');
 const getStrains = require('./get-strains.js');
 const searchStrains = require('./search-strains.js');
@@ -190,6 +195,11 @@ module.exports = {
     getStrain,
     getStrains,
     searchStrains,
+
+    getSyntenicRegion,
+    getSyntenicRegions,
+
+    getSyntenyBlock,
     
     getTrait,
     getTraits,

@@ -28,6 +28,8 @@ const proteinFactory = require('./protein.js');
 const publicationFactory = require('./publication.js');
 const qtlFactory = require('./qtl.js');
 const qtlStudyFactory = require('./qtl-study.js');
+const syntenicRegionFactory = require('./syntenic-region.js');
+const syntenyBlockFactory = require('./synteny-block.js');
 const strainFactory = require('./strain.js');
 const traitFactory = require('./trait.js');
 
@@ -63,6 +65,8 @@ const factories = [
     qtlFactory,
     qtlStudyFactory,
     strainFactory,
+    syntenicRegionFactory,
+    syntenyBlockFactory,
     traitFactory,
 
     mineWebPropertiesFactory,

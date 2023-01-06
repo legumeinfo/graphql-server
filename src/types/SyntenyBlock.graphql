@@ -1,0 +1,13 @@
+# <class name="SyntenyBlock" is-interface="true" term="">
+# 	<attribute name="medianKs" type="java.lang.Double"/>
+# 	<collection name="publications" referenced-type="Publication"/>
+# 	<collection name="syntenicRegions" referenced-type="SyntenicRegion" reverse-reference="syntenyBlock"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
+type SyntenyBlock {
+  id: ID!
+  medianKs: Float
+  # publications: [Publication]
+  syntenicRegions: [SyntenicRegion]
+  # dataSets
+}

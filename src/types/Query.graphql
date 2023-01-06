@@ -74,6 +74,10 @@ type Query {
   strain(id: ID!): Strain
   strains(description: String, origin: String, start: Int, size: Int): [Strain]
 
+  syntenicRegion(id: ID!): SyntenicRegion
+
+  syntenyBlock(id: ID!): SyntenyBlock
+
   trait(id: ID!): Trait
   traits(name: String, start: Int, size: Int): [Trait]
 
