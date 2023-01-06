@@ -17,6 +17,14 @@ const traitFactory = (sourceName) => ({
             const args = {trait, start, size};
             return dataSources[sourceName].getGWASResults(args);
         },
+        ontologyAnnotations: async (trait, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: trait,
+                start,
+                size
+            };
+            return dataSources[sourceName].getOntologyAnnotations(args);
+        },
     },
 });
 

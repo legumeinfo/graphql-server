@@ -23,6 +23,14 @@ const expressionSampleFactory = (sourceName) => ({
             const args = {expressionSource, start, size};
             return dataSources[sourceName].getExpressionSamples(args);
         },
+        publications: async (expressionSource, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: expressionSource,
+                start,
+                size
+            };
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });
 

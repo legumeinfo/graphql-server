@@ -1,9 +1,13 @@
-// get Publications associated with an Author
-async function getPublications({author, start=0, size=10}={}) {
+// get Publications associated with an Author or any type that extends Annotatable
+async function getPublications({author, annotatable, start=0, size=10}={}) {
     const constraints = [];
     if (author) {
-        const authorConstraint = this.pathquery.intermineConstraint('Publication.authors.id', '=', author.id);
-        constraints.push(authorConstraint);
+        const constraint = this.pathquery.intermineConstraint('Publication.authors.id', '=', author.id);
+        constraints.push(constraint);
+    }
+    if (annotatable) {
+        const constraint = this.pathquery.intermineConstraint('Publication.entities.id', '=', annotatable.id);
+        constraints.push(constraint);
     }
     const query = this.pathquery.interminePathQuery(
         this.models.interminePublicationAttributes,

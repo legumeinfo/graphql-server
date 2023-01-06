@@ -13,9 +13,9 @@ const ontologyTermFactory = (sourceName) => ({
         },
     },
     OntologyTerm: {
-        ontology: async(ontologyTerm, { }, { dataSources }) => {
-            const id = ontologyTerm.ontologyId;
-            return dataSources[sourceName].getOntology(id);
+        // Note: ontology is sometimes null so we have to do a secondary query here
+        ontology: async (ontologyTerm, { }, { dataSources }) => {
+            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm);
         },
     },
 });

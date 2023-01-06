@@ -11,8 +11,8 @@
 type GeneticMarker implements SequenceFeature {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   description: String
   symbol: String
   name: String
@@ -20,7 +20,7 @@ type GeneticMarker implements SequenceFeature {
   annotationVersion: String
   organism: Organism
   strain: Strain
-  # locations
+  locations: [Location]
   # synonyms
   # crossReferences
   # dataSets

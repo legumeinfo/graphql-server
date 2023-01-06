@@ -43,6 +43,14 @@ const geneticMarkerFactory = (sourceName) => ({
             };
             return dataSources.lisIntermineAPI.getLinkageGroupPositions(args);
         },
+        locations: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {
+                sequenceFeature: geneticMarker,
+                start,
+                size
+            };
+            return dataSources[sourceName].getLocations(args);
+        },
     },
 });
 

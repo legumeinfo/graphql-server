@@ -10,6 +10,6 @@
 interface Annotatable {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
 }

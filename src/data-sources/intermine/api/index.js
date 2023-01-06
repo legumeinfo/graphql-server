@@ -44,10 +44,17 @@ const getLinkageGroups = require('./get-linkage-groups.js');
 const getLinkageGroupPosition = require('./get-linkage-group-position.js');
 const getLinkageGroupPositions = require('./get-linkage-group-positions.js');
 
+const getLocation = require('./get-location.js');
+const getLocations = require('./get-locations.js');
+
 const getOntology = require('./get-ontology.js');
+
+const getOntologyAnnotation = require('./get-ontology-annotation.js');
+const getOntologyAnnotations = require('./get-ontology-annotations.js');
 
 const getOntologyTerm = require('./get-ontology-term.js');
 const getOntologyTerms = require('./get-ontology-terms.js');
+const getOntologyTermOntology = require('./get-ontology-term-ontology.js');
 const searchOntologyTerms = require('./search-ontology-terms.js');
 
 const getOrganism = require('./get-organism.js');
@@ -134,11 +141,18 @@ module.exports = {
 
     getLinkageGroupPosition,
     getLinkageGroupPositions,
+
+    getLocation,
+    getLocations,
     
     getOntology,
 
+    getOntologyAnnotation,
+    getOntologyAnnotations,
+    
     getOntologyTerm,
     getOntologyTerms,
+    getOntologyTermOntology,
     searchOntologyTerms,
     
     getOrganism,

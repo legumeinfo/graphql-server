@@ -21,6 +21,14 @@ const proteinDomainFactory = (sourceName) => ({
             const args = {proteinDomain, start, size};
             return dataSources[sourceName].getGeneFamilies(args);
         },
+        ontologyAnnotations: async (proteinDomain, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: proteinDomain,
+                start,
+                size
+            };
+            return dataSources[sourceName].getOntologyAnnotations(args);
+        },
     },
 });
 

@@ -15,8 +15,7 @@ const strainFactory = (sourceName) => ({
     },
     Strain: {
         organism: async (strain, { }, { dataSources }) => {
-            const id = strain.organismId;
-            return dataSources[sourceName].getOrganism(id);
+            return dataSources[sourceName].getOrganism(strain.organismId);
         },
     },
 });

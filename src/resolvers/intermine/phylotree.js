@@ -6,8 +6,7 @@ const phylotreeFactory = (sourceName) => ({
     },
     Phylotree: {
         geneFamily: async(phylotree, { }, { dataSources }) => {
-            const id = phylotree.geneFamilyId;
-            return dataSources[sourceName].getGeneFamily(id);
+            return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyId);
         },
         nodes: async (phylotree, { start, size }, { dataSources }) => {
             const args = {phylotree, start, size};

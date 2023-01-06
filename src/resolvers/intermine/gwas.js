@@ -20,6 +20,14 @@ const gwasFactory = (sourceName) => ({
             const args = {gwas, start, size};
             return dataSources[sourceName].getGWASResults(args);
         },
+        publications: async (gwas, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: gwas,
+                start,
+                size
+            };
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });
 

@@ -15,8 +15,8 @@
 type ExpressionSample implements Annotatable {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   tissue: String
   num: Int
   description: String

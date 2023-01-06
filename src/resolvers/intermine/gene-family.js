@@ -28,6 +28,14 @@ const geneFamilyFactory = (sourceName) => ({
             const args = {geneFamily, start, size};
             return dataSources[sourceName].getGeneFamilyTallies(args);
         },
+        ontologyAnnotations: async (geneFamily, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: geneFamily,
+                start,
+                size
+            };
+            return dataSources[sourceName].getOntologyAnnotations(args);
+        },
     },
 });
 

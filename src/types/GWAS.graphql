@@ -11,8 +11,8 @@
 type GWAS implements Annotatable {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   genotypingPlatform: String
   description: String
   genotypes: String

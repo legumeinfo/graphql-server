@@ -20,8 +20,8 @@
 interface BioEntity {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   description: String
   symbol: String
   name: String

@@ -13,8 +13,8 @@
 type ProteinDomain implements Annotatable {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   description: String
   type: String
   name: String

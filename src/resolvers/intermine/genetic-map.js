@@ -24,6 +24,14 @@ const geneticMapFactory = (sourceName) => ({
             };
             return dataSources.lisIntermineAPI.getLinkageGroups(args);
         },
+        publications: async (geneticMap, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: geneticMap,
+                start,
+                size
+            };
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });
 

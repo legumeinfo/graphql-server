@@ -15,7 +15,9 @@ const gwasModels = require('./gwas.js');
 const gwasResultModels = require('./gwas-result.js');
 const linkageGroupModels = require('./linkage-group.js');
 const linkageGroupPositionModels = require('./linkage-group-position.js');
+const locationModels = require('./location.js');
 const ontologyModels = require('./ontology.js');
+const ontologyAnnotationModels = require('./ontology-annotation.js');
 const ontologyTermModels = require('./ontology-term.js');
 const organismModels = require('./organism.js');
 const phylonodeModels = require('./phylonode.js');
@@ -45,7 +47,9 @@ module.exports = {
     ...gwasResultModels,
     ...linkageGroupModels,
     ...linkageGroupPositionModels,
+    ...locationModels,
     ...ontologyModels,
+    ...ontologyAnnotationModels,
     ...ontologyTermModels,
     ...organismModels,
     ...phylonodeModels,

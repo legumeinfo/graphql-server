@@ -40,8 +40,12 @@ type Query {
 
   linkageGroupPosition(id: ID!): LinkageGroupPosition
 
+  location(id: ID!): Location
+
   ontology(id: ID!): Ontology
 
+  ontologyAnnotation(id: ID!): OntologyAnnotation
+  
   ontologyTerm(id: ID!): OntologyTerm
   ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
 

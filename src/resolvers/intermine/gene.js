@@ -27,6 +27,30 @@ const geneFactory = (sourceName) => ({
             const args = {gene, start, size};
             return dataSources[sourceName].getProteinDomains(args);
         },
+        locations: async (gene, { start, size }, { dataSources }) => {
+            const args = {
+                sequenceFeature: gene,
+                start,
+                size
+            };
+            return dataSources[sourceName].getLocations(args);
+        },
+        ontologyAnnotations: async (gene, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: gene,
+                start,
+                size
+            };
+            return dataSources[sourceName].getOntologyAnnotations(args);
+        },
+        publications: async (gene, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: gene,
+                start,
+                size
+            };
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });
 

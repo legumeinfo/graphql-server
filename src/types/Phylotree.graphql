@@ -7,8 +7,8 @@
 type Phylotree implements Annotatable {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   numLeaves: Int
   geneFamily: GeneFamily
   nodes: [Phylonode]

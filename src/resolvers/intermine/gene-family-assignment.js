@@ -6,8 +6,7 @@ const geneFamilyAssignmentFactory = (sourceName) => ({
     },
     GeneFamilyAssignment: {
         geneFamily: async(geneFamilyAssignment, { }, { dataSources }) => {
-            const id = geneFamilyAssignment.geneFamilyId;
-            return dataSources[sourceName].getGeneFamily(id);
+            return dataSources[sourceName].getGeneFamily(geneFamilyAssignment.geneFamilyId);
         },
     },
 });

@@ -16,6 +16,14 @@ const expressionSampleFactory = (sourceName) => ({
         source: async (expressionSample, { }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getExpressionSource(expressionSample.sourceId);
         },
+        ontologyAnnotations: async (expressionSample, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: expressionSample,
+                start,
+                size
+            };
+            return dataSources[sourceName].getOntologyAnnotations(args);
+        },
     },
 });
 

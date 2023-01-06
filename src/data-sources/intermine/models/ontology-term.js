@@ -12,6 +12,7 @@
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
 // </class>
+// NOTE: we can't query OntologyTerm.ontology.id here because ontology is sometimes null.
 const intermineOntologyTermAttributes = [
     'OntologyTerm.id',
     'OntologyTerm.identifier',
@@ -19,7 +20,6 @@ const intermineOntologyTermAttributes = [
     'OntologyTerm.obsolete',
     'OntologyTerm.name',
     'OntologyTerm.namespace',
-    'OntologyTerm.ontology.id',
 ]
 const intermineOntologyTermSort = 'OntologyTerm.identifier';
 // type OntologyTerm {
@@ -44,7 +44,6 @@ const graphqlOntologyTermAttributes = [
     'obsolete',
     'name',
     'namespace',
-    'ontologyId',
 ];
 function response2ontologyTerms(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlOntologyTermAttributes);

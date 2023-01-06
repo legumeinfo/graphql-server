@@ -6,12 +6,10 @@ const phyloNodeFactory = (sourceName) => ({
     },
     Phylonode: {
         tree: async(phylonode, { }, { dataSources }) => {
-            const id = phylonode.treeId;
-            return dataSources[sourceName].getPhylotree(id);
+            return dataSources[sourceName].getPhylotree(phylonode.treeId);
         },
         parent: async(phylonode, { }, { dataSources }) => {
-            const id = phylonode.parentId;
-            return dataSources[sourceName].getPhylonode(id);
+            return dataSources[sourceName].getPhylonode(phylonode.parentId);
         },
         children: async (phylonode, { start, size }, { dataSources }) => {
             const args = {parent: phylonode, start, size};

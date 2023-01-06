@@ -24,10 +24,18 @@ function response2ontologies(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlOntologyAttributes);
 }
 
+const intermineOntologyTermOntologyAttributes = [
+    'OntologyTerm.ontology.id',
+    'OntologyTerm.ontology.url',
+    'OntologyTerm.ontology.name',
+];
+const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
 
 module.exports = {
     intermineOntologyAttributes,
     intermineOntologySort,
     graphqlOntologyAttributes,
     response2ontologies,
+    intermineOntologyTermOntologyAttributes,
+    intermineOntologyTermOntologySort,
 };

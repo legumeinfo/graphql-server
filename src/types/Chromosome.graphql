@@ -2,8 +2,8 @@
 type Chromosome implements SequenceFeature {
   id: ID!
   identifier: String!
-  # ontologyAnnotations
-  # publications
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
   description: String
   symbol: String
   name: String
@@ -11,7 +11,7 @@ type Chromosome implements SequenceFeature {
   annotationVersion: String
   organism: Organism
   strain: Strain
-  # locations
+  locations: [Location]
   # synonyms
   # crossReferences
   # dataSets

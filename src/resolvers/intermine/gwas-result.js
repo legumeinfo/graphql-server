@@ -6,12 +6,10 @@ const gwasResultFactory = (sourceName) => ({
     },
     GWASResult: {
         gwas: async(gwasResult, { }, { dataSources }) => {
-            const id = gwasResult.gwasId;
-            return dataSources[sourceName].getGWAS(id);
+            return dataSources[sourceName].getGWAS(gwasResult.gwasId);
         },
         trait: async(gwasResult, { }, { dataSources }) => {
-            const id = gwasResult.traitId;
-            return dataSources[sourceName].getTrait(id);
+            return dataSources[sourceName].getTrait(gwasResult.traitId);
         },
     },
 });
