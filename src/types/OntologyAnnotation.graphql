@@ -10,7 +10,7 @@ type OntologyAnnotation {
   qualifier: String
   # subject: Annotatable
   ontologyTerm: OntologyTerm
-  # dataSets: [DataSet]
-  # evidence: [OntologyEvidence]
+  # dataSets
+  # evidence
 }
   

@@ -55,7 +55,7 @@ type Gene implements SequenceFeature {
   # CDSs
   proteinDomains: [ProteinDomain]
   # exons
-  # pathways
+  pathways: [Pathway]
   # regulatoryRegions
   # UTRs
 }

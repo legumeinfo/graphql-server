@@ -43,6 +43,14 @@ const geneFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getOntologyAnnotations(args);
         },
+        pathways: async (gene, { start, size }, { dataSources }) => {
+            const args = {
+                annotatable: gene,
+                start,
+                size
+            };
+            return dataSources[sourceName].getPathways(args);
+        },
         publications: async (gene, { start, size }, { dataSources }) => {
             const args = {
                 annotatable: gene,

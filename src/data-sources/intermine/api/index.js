@@ -61,6 +61,9 @@ const getOrganism = require('./get-organism.js');
 const getOrganisms = require('./get-organisms.js');
 const searchOrganisms = require('./search-organisms.js');
 
+const getPathway = require('./get-pathway.js');
+const getPathways = require('./get-pathways.js');
+
 const getPhylonode = require('./get-phylonode.js');
 const getPhylonodes = require('./get-phylonodes.js');
 
@@ -159,6 +162,9 @@ module.exports = {
     getOrganisms,
     searchOrganisms,
 
+    getPathway,
+    getPathways,
+    
     getPhylonode,
     getPhylonodes,
 

@@ -20,6 +20,7 @@ const ontologyModels = require('./ontology.js');
 const ontologyAnnotationModels = require('./ontology-annotation.js');
 const ontologyTermModels = require('./ontology-term.js');
 const organismModels = require('./organism.js');
+const pathwayModels = require('./pathway.js');
 const phylonodeModels = require('./phylonode.js');
 const phylotreeModels = require('./phylotree.js');
 const proteinDomainModels = require('./protein-domain.js');
@@ -52,6 +53,7 @@ module.exports = {
     ...ontologyAnnotationModels,
     ...ontologyTermModels,
     ...organismModels,
+    ...pathwayModels,
     ...phylonodeModels,
     ...phylotreeModels,
     ...proteinModels,

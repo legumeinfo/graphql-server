@@ -52,6 +52,8 @@ type Query {
   organism(id: ID!): Organism
   organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
 
+  pathway(id: ID!): Pathway
+  
   phylonode(id: ID!): Phylonode
 
   phylotree(id: ID!): Phylotree

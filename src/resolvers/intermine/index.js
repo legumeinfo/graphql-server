@@ -20,6 +20,7 @@ const ontologyFactory = require('./ontology.js');
 const ontologyAnnotationFactory = require('./ontology-annotation.js');
 const ontologyTermFactory = require('./ontology-term.js');
 const organismFactory = require('./organism.js');
+const pathwayFactory = require('./pathway.js');
 const phylonodeFactory = require('./phylonode.js');
 const phylotreeFactory = require('./phylotree.js');
 const proteinDomainFactory = require('./protein-domain.js');
@@ -53,6 +54,7 @@ const factories = [
     ontologyAnnotationFactory,
     ontologyTermFactory,
     organismFactory,
+    pathwayFactory,
     phylonodeFactory,
     phylotreeFactory,
     proteinDomainFactory,

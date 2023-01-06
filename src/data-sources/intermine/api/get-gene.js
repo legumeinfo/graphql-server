@@ -1,4 +1,4 @@
-// get a gene by ID
+// get a Gene by ID
 async function getGene(id) {
     const constraints = [this.pathquery.intermineConstraint('Gene.id', '=', id)];
     const query = this.pathquery.interminePathQuery(
