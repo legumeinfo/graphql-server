@@ -28,10 +28,21 @@ function response2linkageGroupPositions(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlLinkageGroupPositionAttributes);
 }
 
+// Handle lack of reverse reference to GeneticMarker in LinkageGroupPosition
+const intermineGeneticMarkerLinkageGroupPositionsAttributes = [
+    'GeneticMarker.linkageGroupPositions.id',
+    'GeneticMarker.linkageGroupPositions.position',
+    'GeneticMarker.linkageGroupPositions.markerName',
+    'GeneticMarker.linkageGroupPositions.linkageGroup.id',
+];
+const intermineGeneticMarkerLinkageGroupPositionsSort = 'GeneticMarker.linkageGroupPositions.position';
+
 
 module.exports = {
     intermineLinkageGroupPositionAttributes,
     intermineLinkageGroupPositionSort,
     graphqlLinkageGroupPositionAttributes,
     response2linkageGroupPositions,
+    intermineGeneticMarkerLinkageGroupPositionsAttributes,
+    intermineGeneticMarkerLinkageGroupPositionsSort,
 };

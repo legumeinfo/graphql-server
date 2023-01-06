@@ -85,7 +85,6 @@ function response2geneticMarkers(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlGeneticMarkerAttributes);
 }
 
-
 module.exports = {
     intermineGeneticMarkerAttributes,
     intermineGeneticMarkerSort,
