@@ -6,11 +6,12 @@ This schema is based closely on the LIS InterMine data model:
 
 https://github.com/legumeinfo/minimine/blob/main/dbmodel/build/resources/main/genomic_model.xml
 
-There are three interface types which correspond to widely-extended objects in the InterMine data model:
+There are four interface types which correspond to widely-extended objects in the InterMine data model:
 
 - Annotatable
-- BioEntity
-- SequenceFeature
+- BioEntity (extends Annotatable)
+- SequenceFeature (extends BioEntity)
+- Transcript (extends SequenceFeature)
 
 This way we ensure that implementing types contain the attributes defined in the corresponding interface.
 
