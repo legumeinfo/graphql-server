@@ -31,53 +31,54 @@ the version of the mine and other things. Example:
 }
 ```
 
-## classes populated in LIS InterMine 5.1.0.2 (excluding simple objects) ##
+## classes populated in LIS InterMine 5.1.0.2 (excluding simple objects)
+### checked if implemented here as a type ##
 
-- org.intermine.model.bio.Author
-- org.intermine.model.bio.CDS
-- org.intermine.model.bio.CDSRegion
-- org.intermine.model.bio.Chromosome
-- org.intermine.model.bio.CrossReference
-- org.intermine.model.bio.DataSet
-- org.intermine.model.bio.DataSource
-- org.intermine.model.bio.Exon
-- org.intermine.model.bio.ExpressionSample
-- org.intermine.model.bio.ExpressionSource
-- org.intermine.model.bio.FivePrimeUTR
-- org.intermine.model.bio.GOTerm
-- org.intermine.model.bio.GWAS
-- org.intermine.model.bio.GWASResult
-- org.intermine.model.bio.Gene
-- org.intermine.model.bio.GeneFamily
-- org.intermine.model.bio.GeneFamilyAssignment
-- org.intermine.model.bio.GeneFamilyTally
-- org.intermine.model.bio.GeneFlankingRegion
-- org.intermine.model.bio.GeneticMap
-- org.intermine.model.bio.GeneticMarker
-- org.intermine.model.bio.IntergenicRegion
-- org.intermine.model.bio.LinkageGroup
-- org.intermine.model.bio.LinkageGroupPosition
-- org.intermine.model.bio.Location
-- org.intermine.model.bio.MRNA
-- org.intermine.model.bio.Ontology
-- org.intermine.model.bio.OntologyAnnotation
-- org.intermine.model.bio.OntologyRelation
-- org.intermine.model.bio.OntologyTerm
-- org.intermine.model.bio.OntologyTermSynonym
-- org.intermine.model.bio.Organism
-- org.intermine.model.bio.Pathway
-- org.intermine.model.bio.Phylonode
-- org.intermine.model.bio.Phylotree
-- org.intermine.model.bio.Protein
-- org.intermine.model.bio.ProteinDomain
-- org.intermine.model.bio.Publication
-- org.intermine.model.bio.QTL
-- org.intermine.model.bio.QTLStudy
-- org.intermine.model.bio.SOTerm
-- org.intermine.model.bio.Sequence
-- org.intermine.model.bio.Strain
-- org.intermine.model.bio.Supercontig
-- org.intermine.model.bio.SyntenicRegion
-- org.intermine.model.bio.SyntenyBlock
-- org.intermine.model.bio.ThreePrimeUTR
-- org.intermine.model.bio.Trait
+- [x] org.intermine.model.bio.Author
+- [ ] org.intermine.model.bio.CDS
+- [ ] org.intermine.model.bio.CDSRegion
+- [x] org.intermine.model.bio.Chromosome
+- [ ] org.intermine.model.bio.CrossReference
+- [x] org.intermine.model.bio.DataSet
+- [ ] org.intermine.model.bio.DataSource
+- [ ] org.intermine.model.bio.Exon
+- [x] org.intermine.model.bio.ExpressionSample
+- [x] org.intermine.model.bio.ExpressionSource
+- [ ] org.intermine.model.bio.FivePrimeUTR
+- [ ] org.intermine.model.bio.GOTerm
+- [x] org.intermine.model.bio.GWAS
+- [x] org.intermine.model.bio.GWASResult
+- [x] org.intermine.model.bio.Gene
+- [x] org.intermine.model.bio.GeneFamily
+- [x] org.intermine.model.bio.GeneFamilyAssignment
+- [x] org.intermine.model.bio.GeneFamilyTally
+- [ ] org.intermine.model.bio.GeneFlankingRegion
+- [x] org.intermine.model.bio.GeneticMap
+- [x] org.intermine.model.bio.GeneticMarker
+- [ ] org.intermine.model.bio.IntergenicRegion
+- [x] org.intermine.model.bio.LinkageGroup
+- [x] org.intermine.model.bio.LinkageGroupPosition
+- [x] org.intermine.model.bio.Location
+- [x] org.intermine.model.bio.MRNA
+- [x] org.intermine.model.bio.Ontology
+- [x] org.intermine.model.bio.OntologyAnnotation
+- [ ] org.intermine.model.bio.OntologyRelation
+- [x] org.intermine.model.bio.OntologyTerm
+- [ ] org.intermine.model.bio.OntologyTermSynonym
+- [x] org.intermine.model.bio.Organism
+- [x] org.intermine.model.bio.Pathway
+- [x] org.intermine.model.bio.Phylonode
+- [x] org.intermine.model.bio.Phylotree
+- [x] org.intermine.model.bio.Protein
+- [x] org.intermine.model.bio.ProteinDomain
+- [x] org.intermine.model.bio.Publication
+- [x] org.intermine.model.bio.QTL
+- [x] org.intermine.model.bio.QTLStudy
+- [ ] org.intermine.model.bio.SOTerm
+- [ ] org.intermine.model.bio.Sequence
+- [x] org.intermine.model.bio.Strain
+- [ ] org.intermine.model.bio.Supercontig
+- [x] org.intermine.model.bio.SyntenicRegion
+- [x] org.intermine.model.bio.SyntenyBlock
+- [ ] org.intermine.model.bio.ThreePrimeUTR
+- [x] org.intermine.model.bio.Trait
