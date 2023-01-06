@@ -20,6 +20,7 @@ const ontologyModels = require('./ontology.js');
 const ontologyAnnotationModels = require('./ontology-annotation.js');
 const ontologyTermModels = require('./ontology-term.js');
 const organismModels = require('./organism.js');
+const mRNAModels = require('./mrna.js');
 const pathwayModels = require('./pathway.js');
 const phylonodeModels = require('./phylonode.js');
 const phylotreeModels = require('./phylotree.js');
@@ -51,6 +52,7 @@ module.exports = {
     ...linkageGroupModels,
     ...linkageGroupPositionModels,
     ...locationModels,
+    ...mRNAModels,
     ...ontologyModels,
     ...ontologyAnnotationModels,
     ...ontologyTermModels,

@@ -16,6 +16,7 @@ const gwasResultFactory = require('./gwas-result.js');
 const linkageGroupFactory = require('./linkage-group.js');
 const linkageGroupPositionFactory = require('./linkage-group-position.js');
 const locationFactory = require('./location.js');
+const mRNAFactory = require('./mrna.js');
 const ontologyFactory = require('./ontology.js');
 const ontologyAnnotationFactory = require('./ontology-annotation.js');
 const ontologyTermFactory = require('./ontology-term.js');
@@ -52,6 +53,7 @@ const factories = [
     linkageGroupFactory,
     linkageGroupPositionFactory,
     locationFactory,
+    mRNAFactory,
     ontologyFactory,
     ontologyAnnotationFactory,
     ontologyTermFactory,

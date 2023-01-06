@@ -42,6 +42,8 @@ type Query {
 
   location(id: ID!): Location
 
+  mRNA(id: ID!): MRNA
+
   ontology(id: ID!): Ontology
 
   ontologyAnnotation(id: ID!): OntologyAnnotation

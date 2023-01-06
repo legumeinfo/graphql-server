@@ -47,6 +47,8 @@ const getLinkageGroupPositions = require('./get-linkage-group-positions.js');
 const getLocation = require('./get-location.js');
 const getLocations = require('./get-locations.js');
 
+const getMRNA = require('./get-mrna.js');
+
 const getOntology = require('./get-ontology.js');
 
 const getOntologyAnnotation = require('./get-ontology-annotation.js');
@@ -152,6 +154,8 @@ module.exports = {
 
     getLocation,
     getLocations,
+    
+    getMRNA,
     
     getOntology,
 
