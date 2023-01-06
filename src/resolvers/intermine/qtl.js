@@ -14,6 +14,14 @@ const qtlFactory = (sourceName) => ({
         linkageGroup: async (qtl, { }, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupId);
         },
+        markers: async (qtl, { start, size }, { dataSources }) => {
+            const args = {
+                qtl: qtl,
+                start,
+                size
+            };
+            return dataSources[sourceName].getGeneticMarkers(args);
+        },
     },
 });
 

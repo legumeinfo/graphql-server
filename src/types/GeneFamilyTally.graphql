@@ -1,0 +1,12 @@
+# <class name="GeneFamilyTally" is-interface="true" term="">
+# 	<attribute name="tally" type="java.lang.Integer"/>
+# 	<reference name="organism" referenced-type="Organism"/>
+# 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="tallies"/>
+# </class>
+type GeneFamilyTally {
+  id: ID!
+  tally: Int
+  organism: Organism
+  geneFamily: GeneFamily
+}
+  

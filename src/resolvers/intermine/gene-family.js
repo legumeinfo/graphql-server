@@ -24,6 +24,10 @@ const geneFamilyFactory = (sourceName) => ({
             const args = {geneFamily, start, size};
             return dataSources[sourceName].getProteinDomains(args);
         },
+        tallies: async (geneFamily, { start, size }, { dataSources }) => {
+            const args = {geneFamily, start, size};
+            return dataSources[sourceName].getGeneFamilyTallies(args);
+        },
     },
 });
 

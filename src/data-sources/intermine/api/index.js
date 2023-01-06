@@ -1,6 +1,10 @@
 const getAuthor = require('./get-author.js');
 const getAuthors = require('./get-authors.js');
 
+const getChromosome = require('./get-chromosome.js');
+
+const getDataSet = require('./get-data-set.js');
+
 const getExpressionSample = require('./get-expression-sample.js');
 const getExpressionSamples = require('./get-expression-samples.js');
 const searchExpressionSamples = require('./search-expression-samples.js');
@@ -19,8 +23,14 @@ const searchGeneFamilies = require('./search-gene-families.js');
 const getGeneFamilyAssignment = require('./get-gene-family-assignment.js');
 const getGeneFamilyAssignments = require('./get-gene-family-assignments.js');
 
+const getGeneFamilyTally = require('./get-gene-family-tally.js');
+const getGeneFamilyTallies = require('./get-gene-family-tallies.js');
+
 const getGeneticMap = require('./get-genetic-map.js');
 const searchGeneticMaps = require('./search-genetic-maps.js');
+
+const getGeneticMarker = require('./get-genetic-marker.js');
+const getGeneticMarkers = require('./get-genetic-markers.js');
 
 const getGWAS = require('./get-gwas.js');
 const searchGWASes = require('./search-gwases.js');
@@ -30,6 +40,9 @@ const getGWASResults = require('./get-gwas-results.js');
 
 const getLinkageGroup = require('./get-linkage-group.js');
 const getLinkageGroups = require('./get-linkage-groups.js');
+
+const getLinkageGroupPosition = require('./get-linkage-group-position.js');
+const getLinkageGroupPositions = require('./get-linkage-group-positions.js');
 
 const getOntology = require('./get-ontology.js');
 
@@ -78,6 +91,10 @@ module.exports = {
 
     getAuthor,
     getAuthors,
+
+    getChromosome,
+
+    getDataSet,
     
     getExpressionSample,
     getExpressionSamples,
@@ -97,8 +114,14 @@ module.exports = {
     getGeneFamilyAssignment,
     getGeneFamilyAssignments,
 
+    getGeneFamilyTally,
+    getGeneFamilyTallies,
+
     getGeneticMap,
     searchGeneticMaps,
+
+    getGeneticMarker,
+    getGeneticMarkers,
 
     getGWAS,
     searchGWASes,
@@ -108,6 +131,9 @@ module.exports = {
 
     getLinkageGroup,
     getLinkageGroups,
+
+    getLinkageGroupPosition,
+    getLinkageGroupPositions,
     
     getOntology,
 

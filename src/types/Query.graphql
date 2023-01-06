@@ -5,6 +5,10 @@
 type Query {
 
   author(id: ID!): Author
+
+  chromosome(id: ID!): Chromosome
+
+  dataSet(id: ID!): DataSet
   
   expressionSample(id: ID!): ExpressionSample
   expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
@@ -19,9 +23,13 @@ type Query {
   geneFamilies(description: String, start: Int, size: Int): [GeneFamily]
 
   geneFamilyAssignment(id: ID!): GeneFamilyAssignment
+ 
+  geneFamilyTally(id: ID!): GeneFamilyTally
 
   geneticMap(id: ID!): GeneticMap
   geneticMaps(description: String, start: Int, size: Int): [GeneticMap]
+
+  geneticMarker(id: ID!): GeneticMarker
 
   gwas(id: ID!): GWAS
   gwases(description: String, start: Int, size: Int): [GWAS]
@@ -29,6 +37,8 @@ type Query {
   gwasResult(id: ID!): GWASResult
 
   linkageGroup(id: ID!): LinkageGroup
+
+  linkageGroupPosition(id: ID!): LinkageGroupPosition
 
   ontology(id: ID!): Ontology
 

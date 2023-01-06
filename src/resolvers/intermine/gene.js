@@ -17,8 +17,7 @@ const geneFactory = (sourceName) => ({
             return dataSources[sourceName].getOrganism(gene.organismId);
         },
         strain: async (gene, { }, { dataSources }) => {
-            const id = gene.strainId;
-            return dataSources[sourceName].getStrain(id);
+            return dataSources[sourceName].getStrain(gene.strainId);
         },
         geneFamilyAssignments: async (gene, { start, size }, { dataSources }) => {
             const args = {gene, start, size};

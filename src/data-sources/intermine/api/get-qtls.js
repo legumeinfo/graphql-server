@@ -1,5 +1,5 @@
-// get QTLs for a LinkageGroup, Trait
-async function getQTLs({linkageGroup, trait, start=0, size=10}={}) {
+// get QTLs for a LinkageGroup, Trait, GeneticMarker
+async function getQTLs({linkageGroup, trait, geneticMarker, start=0, size=10}={}) {
     const constraints = [];
     if (linkageGroup) {
         const linkageGroupConstraint = this.pathquery.intermineConstraint('QTL.linkageGroup.id', '=', linkageGroup.id);
@@ -8,6 +8,10 @@ async function getQTLs({linkageGroup, trait, start=0, size=10}={}) {
     if (trait) {
         const traitConstraint = this.pathquery.intermineConstraint('QTL.trait.id', '=', trait.id);
         constraints.push(traitConstraint);
+    }
+    if (geneticMarker) {
+        const geneticMarkerConstraint = this.pathquery.intermineConstraint('QTL.markers.id', '=', geneticMarker.id);
+        constraints.push(geneticMarkerConstraint);
     }
     const query = this.pathquery.interminePathQuery(
         this.models.intermineQTLAttributes,
