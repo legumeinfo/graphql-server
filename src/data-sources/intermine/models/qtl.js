@@ -24,7 +24,7 @@ const intermineQTLAttributes = [
     'QTL.qtlStudy.id',
     'QTL.linkageGroup.id',
 ];
-const intermineQTLSort = 'QTL.identifier';
+const intermineQTLSort = 'QTL.trait.name ASC QTL.identifier ASC';
 
 // type QTL {
 //   id: ID!

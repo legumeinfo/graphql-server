@@ -12,7 +12,7 @@ function intermineConstraint(path, op, value) {
 function interminePathQuery(viewAttributes, sortBy, constraints=[]) {
   const view = viewAttributes.join(' ');
   const constraint = constraints.join('');
-  return `<query model='genomic' view='${view}' sortOrder='${sortBy} ASC'>${constraint}</query>`;
+  return `<query model='genomic' view='${view}' sortOrder='${sortBy}'>${constraint}</query>`;
 }
 
 
