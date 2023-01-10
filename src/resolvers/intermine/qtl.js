@@ -3,6 +3,10 @@ const qtlFactory = (sourceName) => ({
         qtl:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getQTL(id);
         },
+        qtls: async (_source, { traitName, start, size }, { dataSources }) => {
+            const args = {traitName, start, size};
+            return dataSources[sourceName].searchQTLs(args);
+        },
     },
     QTL: {
         trait: async (qtl, { }, { dataSources }) => {

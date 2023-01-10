@@ -84,6 +84,7 @@ const getPublications = require('./get-publications.js');
 
 const getQTL = require('./get-qtl.js');
 const getQTLs = require('./get-qtls.js');
+const searchQTLs = require('./search-qtls.js');
 
 const getQTLStudy = require('./get-qtl-study.js');
 const searchQTLStudies  = require('./search-qtl-studies.js');
@@ -98,7 +99,6 @@ const getStrains = require('./get-strains.js');
 const searchStrains = require('./search-strains.js');
 
 const getTrait = require('./get-trait.js');
-const getTraits = require('./get-traits.js');
 const searchTraits = require('./search-traits.js');
 
 
@@ -192,6 +192,7 @@ module.exports = {
     
     getQTL,
     getQTLs,
+    searchQTLs,
     
     getQTLStudy,
     searchQTLStudies,
@@ -206,7 +207,6 @@ module.exports = {
     getSyntenyBlock,
     
     getTrait,
-    getTraits,
     searchTraits,
 
     getMineWebProperties,

@@ -69,7 +69,8 @@ type Query {
   publication(id: ID!): Publication
   
   qtl(id: ID!): QTL
-
+  qtls(traitName: String, start: Int, size: Int): [QTL]
+  
   qtlStudy(id: ID!): QTLStudy
   qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
   
