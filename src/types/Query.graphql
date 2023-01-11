@@ -67,6 +67,7 @@ type Query {
   proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
 
   publication(id: ID!): Publication
+  publications(title: String, start: Int, size: Int): [Publication]
   
   qtl(id: ID!): QTL
   qtls(traitName: String, start: Int, size: Int): [QTL]

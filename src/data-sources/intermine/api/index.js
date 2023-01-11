@@ -81,6 +81,7 @@ const searchProteinDomains = require('./search-protein-domains.js');
 
 const getPublication = require('./get-publication.js');
 const getPublications = require('./get-publications.js');
+const searchPublications = require('./search-publications.js');
 
 const getQTL = require('./get-qtl.js');
 const getQTLs = require('./get-qtls.js');
@@ -189,6 +190,7 @@ module.exports = {
 
     getPublication,
     getPublications,
+    searchPublications,
     
     getQTL,
     getQTLs,
