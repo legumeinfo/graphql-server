@@ -4,7 +4,7 @@ a query that searches for publications containing a given string in their title.
 
 ## `src/types/Query.graphql` ##
 Add your new query, which is typically the lower-case name of your target type in plural:
-```
+```graphql
     publications(title: String, start: Int, size: Int): [Publication]
 ```   
 The arguments are the arguments needed for the search (typically a single string) as well as the paging parameters `start` and `size`. Your query
@@ -12,7 +12,7 @@ returns a list of your target type, `[Publication]` in this example.
 
 ## `src/resolvers/intermine/publication.js` ##
 Add the above query to the resolvers for your type, in this example the file `publication.js`:
-```
+```javascript
     Query: {
         publication: ... already here ...,
         publications: async (_source, { title, start, size }, { dataSources }) => {
@@ -30,7 +30,7 @@ This resolver calls an API method `searchPublications` which we will now impleme
 ## `src/data-sources/intermine/api/search-publications.js` ##
 Create the API method `searchPublications` in the new file `search-publications.js`. Here's this example; one generally copies and edits an
 existing search method.
-```
+```javascript
 // path query search for Publications by title
 async function searchPublications({title, start=0, size=10}={}) {
     const constraints = [];
