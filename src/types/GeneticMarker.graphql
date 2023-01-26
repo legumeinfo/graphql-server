@@ -1,0 +1,47 @@
+# <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
+# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
+# 	<attribute name="motif" type="java.lang.String"/>
+# 	<attribute name="alias" type="java.lang.String"/>
+# 	<attribute name="type" type="java.lang.String"/>
+# 	<attribute name="alleles" type="java.lang.String"/>
+# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
+# 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
+# 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
+# </class>
+type GeneticMarker implements SequenceFeature {
+  id: ID!
+  identifier: String!
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
+  description: String
+  symbol: String
+  name: String
+  assemblyVersion: String
+  annotationVersion: String
+  organism: Organism
+  strain: Strain
+  locations: [Location]
+  # synonyms
+  # crossReferences
+  # dataSets
+  # locatedFeatures
+  # score
+  # scoreType
+  length: Int
+  # sequenceOntologyTerm
+  # supercontigLocation
+  # chromosomeLocation
+  # supercontig
+  # sequence
+  # chromosome
+  # overlappingFeatures
+  # childFeatures
+  genotypingPlatform: String
+  motif: String
+  alias: String
+  type: String
+  alleles: String
+  qtls: [QTL]
+  gwasResults: [GWASResult]
+  linkageGroupPositions: [LinkageGroupPosition]
+}

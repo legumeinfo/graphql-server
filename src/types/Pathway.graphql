@@ -1,0 +1,16 @@
+# <class name="Pathway" extends="Annotatable" is-interface="true" term="">
+# 	<attribute name="name" type="java.lang.String"/>
+# 	<attribute name="stableIdentifier" type="java.lang.String"/>
+# 	<collection name="genes" referenced-type="Gene" reverse-reference="pathways"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
+type Pathway implements Annotatable {
+  id: ID!
+  identifier: String!
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
+  name: String
+  stableIdentifier: String
+  genes: [Gene]
+  # dataSets
+}

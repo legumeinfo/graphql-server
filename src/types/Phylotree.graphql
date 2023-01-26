@@ -1,0 +1,16 @@
+# <class name="Phylotree" extends="Annotatable" is-interface="true" term="">
+# 	<attribute name="numLeaves" type="java.lang.Integer"/>
+# 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="phylotree"/>
+# 	<collection name="nodes" referenced-type="Phylonode" reverse-reference="tree"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
+type Phylotree implements Annotatable {
+  id: ID!
+  identifier: String!
+  ontologyAnnotations: [OntologyAnnotation]
+  publications: [Publication]
+  numLeaves: Int
+  geneFamily: GeneFamily
+  nodes: [Phylonode]
+  # dataSets
+}

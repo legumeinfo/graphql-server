@@ -1,0 +1,23 @@
+# <class name="Organism" is-interface="true" term="http://semanticscience.org/resource/SIO_010000">
+# 	<attribute name="taxonId" type="java.lang.String" term="http://edamontology.org/data_1179"/>
+# 	<attribute name="abbreviation" type="java.lang.String"/>
+# 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
+# 	<attribute name="commonName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
+# 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="genus" type="java.lang.String" term="http://edamontology.org/data_1870"/>
+# 	<attribute name="species" type="java.lang.String" term="http://edamontology.org/data_1045"/>
+# 	<attribute name="shortName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
+# 	<collection name="strains" referenced-type="Strain" reverse-reference="organism"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
+# </class>
+type Organism {
+  id: ID!
+  taxonId: Int!
+  abbreviation: String
+  name: String
+  commonName: String
+  description: String
+  genus: String
+  species: String
+  strains: [Strain!]
+}
