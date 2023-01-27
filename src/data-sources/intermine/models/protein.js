@@ -24,6 +24,8 @@ const intermineProteinAttributes = [
     'Protein.organism.id',
     'Protein.strain.id',
     'Protein.md5checksum',
+    'Protein.primaryAccession',
+    'Protein.molecularWeight',
     'Protein.length',
     'Protein.isPrimary',
 ];
@@ -43,11 +45,11 @@ const intermineProteinSort = 'Protein.primaryIdentifier';
 //   # dataSets
 //   # locatedFeatures
 //   md5checksum: String
-//   # primaryAccession: String - not populated in LIS mines 5.1.0.1
-//   # molecularWeight: Float - not populated in LIS mines 5.1.0.1
+//   primaryAccession: String
+//   molecularWeight: Float
 //   length: Int
 //   isPrimary: Boolean
-//   # phylonode: Phylonode - not populated in LIS mines 5.1.0.1
+//   phylonode: Phylonode
 //   # transcript
 //   # CDS
 //   # sequence
@@ -66,6 +68,8 @@ const graphqlProteinAttributes = [
     'organismId',
     'strainId',
     'md5checksum',
+    'primaryAccession',
+    'molecularWeight',
     'length',
     'isPrimary',
 ];

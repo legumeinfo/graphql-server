@@ -4,6 +4,7 @@ const getAuthors = require('./get-authors.js');
 const getChromosome = require('./get-chromosome.js');
 
 const getDataSet = require('./get-data-set.js');
+const getDataSets = require('./get-data-sets.js');
 
 const getExpressionSample = require('./get-expression-sample.js');
 const getExpressionSamples = require('./get-expression-samples.js');
@@ -113,6 +114,7 @@ module.exports = {
     getChromosome,
 
     getDataSet,
+    getDataSets,
     
     getExpressionSample,
     getExpressionSamples,

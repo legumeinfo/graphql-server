@@ -16,6 +16,7 @@
 # 	<collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
 # </class>
 type Gene implements SequenceFeature {
+  ## SequenceFeature
   id: ID!
   identifier: String!
   ontologyAnnotations: [OntologyAnnotation]
@@ -30,7 +31,7 @@ type Gene implements SequenceFeature {
   locations: [Location]
   # synonyms
   # crossReferences
-  # dataSets
+  dataSets: [DataSet]
   # locatedFeatures
   # score
   # scoreType
@@ -43,7 +44,8 @@ type Gene implements SequenceFeature {
   # chromosome
   # overlappingFeatures
   # childFeatures
-  # briefDescription
+  ## Gene
+  briefDescription: String
   # upstreamIntergenicRegion
   # downstreamIntergenicRegion
   # flankingRegions

@@ -19,6 +19,14 @@ const geneticMarkerFactory = (sourceName) => ({
         strain: async (geneticMarker, { }, { dataSources }) => {
             return dataSources[sourceName].getStrain(geneticMarker.strainId);
         },
+        dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: geneticMarker,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         qtls: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {
                 geneticMarker: geneticMarker,

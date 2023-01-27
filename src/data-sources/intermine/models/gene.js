@@ -51,6 +51,7 @@ const intermineGeneAttributes = [
     'Gene.assemblyVersion',
     'Gene.annotationVersion',
     'Gene.length',
+    'Gene.briefDescription',
     'Gene.organism.id',        // internal resolution of organism
     'Gene.strain.id',          // internal resolution of strain
 ];
@@ -78,6 +79,7 @@ const graphqlGeneAttributes = [
     'assemblyVersion',
     'annotationVersion',
     'length',
+    'briefDescription',
     'organismId',              // internal resolution of organism
     'strainId',                // internal resolution of strain
 ];
