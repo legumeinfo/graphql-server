@@ -20,5 +20,5 @@ type GeneticMap implements Annotatable {
   synopsis: String
   organism: Organism
   linkageGroups: [LinkageGroup]
-  # dataSets
+  dataSets: [DataSet]
 }

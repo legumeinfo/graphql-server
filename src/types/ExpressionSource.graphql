@@ -23,6 +23,6 @@ type ExpressionSource implements Annotatable {
   synopsis: String
   organism: Organism
   strain: Strain
-  # dataSet
+  dataSet: DataSet
   samples: [ExpressionSample]
 }

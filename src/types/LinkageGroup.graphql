@@ -13,5 +13,5 @@ type LinkageGroup {
   number: Int
   geneticMap: GeneticMap
   qtls: [QTL]
-  # dataSets
+  dataSets: [DataSet]
 }

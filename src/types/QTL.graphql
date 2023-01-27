@@ -27,7 +27,7 @@ type QTL {
   trait: Trait
   qtlStudy: QTLStudy
   linkageGroup: LinkageGroup
-  # dataSet: DataSet
+  dataSet: DataSet
   # genes: [Gene]
   markers: [GeneticMarker]
 }

@@ -14,6 +14,7 @@ const intermineTraitAttributes = [
     'Trait.primaryIdentifier',
     'Trait.description',
     'Trait.name',
+    'Trait.dataSet.id',
 ];
 const intermineTraitSort = 'Trait.name';
 
@@ -26,7 +27,7 @@ const intermineTraitSort = 'Trait.name';
 //   name: String
 //   # qtlStudy: QTLStudy
 //   # gwas: GWAS
-//   # dataSet
+//   dataSet: DataSet
 //   qtls: [QTL]
 //   gwasResults: [GWASResult]
 // }
@@ -35,6 +36,7 @@ const graphqlTraitAttributes = [
     'identifier',
     'description',
     'name',
+    'dataSetId',
 ];
 function response2traits(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlTraitAttributes);

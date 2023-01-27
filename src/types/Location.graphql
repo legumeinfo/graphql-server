@@ -13,5 +13,5 @@ type Location {
   end: Int
   chromosome: Chromosome
   # feature
-  # dataSets
+  dataSets: [DataSet]
 }

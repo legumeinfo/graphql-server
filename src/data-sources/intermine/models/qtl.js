@@ -23,6 +23,7 @@ const intermineQTLAttributes = [
     'QTL.trait.id',
     'QTL.qtlStudy.id',
     'QTL.linkageGroup.id',
+    'QTL.dataSet.id',
 ];
 const intermineQTLSort = 'QTL.trait.name ASC QTL.identifier ASC';
 
@@ -39,7 +40,7 @@ const intermineQTLSort = 'QTL.trait.name ASC QTL.identifier ASC';
 //   trait: Trait
 //   qtlStudy: QTLStudy
 //   linkageGroup
-//   # dataSet: DataSet
+//   dataSet: DataSet
 //   # genes: [Gene]
 //   # markers: [GeneticMarker]
 // }
@@ -52,6 +53,7 @@ const graphqlQTLAttributes = [
     'traitId',
     'qtlStudyId',
     'linkageGroupId',
+    'dataSetId',
 ];
 
 function response2qtls(response) {

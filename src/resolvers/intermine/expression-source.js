@@ -19,6 +19,9 @@ const expressionSampleFactory = (sourceName) => ({
         strain: async (expressionSource, { }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getStrain(expressionSource.strainId);
         },
+        dataSet: async (expressionSource, { }, { dataSources }) => {
+            return dataSources.lisIntermineAPI.getDataSet(expressionSource.dataSetId);
+        },
         samples: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {expressionSource, start, size};
             return dataSources[sourceName].getExpressionSamples(args);

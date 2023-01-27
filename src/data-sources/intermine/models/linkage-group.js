@@ -37,10 +37,25 @@ function response2linkageGroups(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlLinkageGroupAttributes);
 }
 
+// LinkageGroup.dataSets has no reverse reference
+const intermineLinkageGroupDataSetAttributes = [
+    'LinkageGroup.dataSets.id',
+    'LinkageGroup.dataSets.description',
+    'LinkageGroup.dataSets.licence',
+    'LinkageGroup.dataSets.url',
+    'LinkageGroup.dataSets.name',
+    'LinkageGroup.dataSets.version',
+    'LinkageGroup.dataSets.synopsis',
+    'LinkageGroup.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineLinkageGroupDataSetSort = 'LinkageGroup.dataSets.name'; // guaranteed not null
 
 module.exports = {
     intermineLinkageGroupAttributes,
     intermineLinkageGroupSort,
     graphqlLinkageGroupAttributes,
     response2linkageGroups,
+
+    intermineLinkageGroupDataSetAttributes,
+    intermineLinkageGroupDataSetSort,
 };

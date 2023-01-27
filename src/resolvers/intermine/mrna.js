@@ -17,6 +17,14 @@ const mRNAFactory = (sourceName) => ({
         protein: async (mRNA, { }, { dataSources }) => {
             return dataSources[sourceName].getProtein(mRNA.proteinId);
         },
+        dataSets: async (mRNA, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: mRNA,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         locations: async (mRNA, { start, size }, { dataSources }) => {
             const args = {
                 sequenceFeature: mRNA,

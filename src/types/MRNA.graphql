@@ -18,7 +18,7 @@ type MRNA implements Transcript {
   locations: [Location]
   # synonyms
   # crossReferences
-  # dataSets
+  dataSets: [DataSet]
   # locatedFeatures
   # score
   # scoreType

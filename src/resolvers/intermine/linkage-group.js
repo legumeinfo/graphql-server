@@ -8,6 +8,14 @@ const linkageGroupFactory = (sourceName) => ({
         geneticMap: async (linkageGroup, { }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getGeneticMap(linkageGroup.geneticMapId);
         },
+        dataSets: async (linkageGroup, { start, size }, { dataSources }) => {
+            const args = {
+                linkageGroup: linkageGroup,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         qtls: async (linkageGroup, { start, size }, { dataSources }) => {
             const args = {
                 linkageGroup: linkageGroup,

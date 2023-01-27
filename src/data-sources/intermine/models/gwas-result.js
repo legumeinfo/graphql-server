@@ -12,6 +12,7 @@ const intermineGWASResultAttributes = [
     'GWASResult.markerName',
     'GWASResult.gwas.id',
     'GWASResult.trait.id',
+    'GWASResult.dataSet.id',
 ];
 const intermineGWASResultSort = 'GWASResult.markerName';
 // type GWASResult {
@@ -20,7 +21,7 @@ const intermineGWASResultSort = 'GWASResult.markerName';
 //   markerName: String
 //   # gwas: GWAS
 //   trait: Trait
-//   # dataSet
+//   dataSet
 //   # markers
 // }
 const graphqlGWASResultAttributes = [
@@ -29,6 +30,7 @@ const graphqlGWASResultAttributes = [
     'markerName',
     'gwasId',
     'traitId',
+    'dataSetId',
 ];
 function response2gwasResults(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlGWASResultAttributes);

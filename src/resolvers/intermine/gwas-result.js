@@ -11,6 +11,9 @@ const gwasResultFactory = (sourceName) => ({
         trait: async(gwasResult, { }, { dataSources }) => {
             return dataSources[sourceName].getTrait(gwasResult.traitId);
         },
+        dataSet: async(gwasResult, { }, { dataSources }) => {
+            return dataSources[sourceName].getDataSet(gwasResult.dataSetId);
+        },
     },
 });
 

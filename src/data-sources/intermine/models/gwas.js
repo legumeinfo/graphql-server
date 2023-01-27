@@ -17,6 +17,7 @@ const intermineGWASAttributes = [
     'GWAS.genotypingMethod',
     'GWAS.synopsis',
     'GWAS.organism.id',
+    'GWAS.dataSet.id',
 ];
 const intermineGWASSort = 'GWAS.primaryIdentifier';
 // type GWAS {
@@ -30,7 +31,7 @@ const intermineGWASSort = 'GWAS.primaryIdentifier';
 //   genotypingMethod: String
 //   synopsis: String
 //   organism: Organism
-//   # dataSet
+//   dataSet
 //   results: [GWASResult]
 // }
 const graphqlGWASAttributes = [
@@ -42,6 +43,7 @@ const graphqlGWASAttributes = [
     'genotypingMethod',
     'synopsis',
     'organismId',
+    'dataSetId',
 ];
 function response2gwas(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlGWASAttributes);

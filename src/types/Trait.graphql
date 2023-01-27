@@ -16,7 +16,7 @@ type Trait implements Annotatable {
   name: String
   # qtlStudy: QTLStudy
   # gwas: GWAS
-  # dataSet
+  dataSet: DataSet
   qtls: [QTL]
   gwasResults: [GWASResult]
 }

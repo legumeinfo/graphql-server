@@ -27,10 +27,26 @@ function response2syntenyBlocks(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlSyntenyBlockAttributes);
 }
 
+// SyntenyBlock.dataSets has no reverse reference
+const intermineSyntenyBlockDataSetAttributes = [
+    'SyntenyBlock.dataSets.id',
+    'SyntenyBlock.dataSets.description',
+    'SyntenyBlock.dataSets.licence',
+    'SyntenyBlock.dataSets.url',
+    'SyntenyBlock.dataSets.name',
+    'SyntenyBlock.dataSets.version',
+    'SyntenyBlock.dataSets.synopsis',
+    'SyntenyBlock.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineSyntenyBlockDataSetSort = 'SyntenyBlock.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     intermineSyntenyBlockAttributes,
     intermineSyntenyBlockSort,
     graphqlSyntenyBlockAttributes,
     response2syntenyBlocks,
+
+    intermineSyntenyBlockDataSetAttributes,
+    intermineSyntenyBlockDataSetSort,
 }

@@ -9,6 +9,9 @@ const traitFactory = (sourceName) => ({
         },
     },
     Trait: {
+        dataSet: async (trait, { }, { dataSources }) => {
+            return dataSources[sourceName].getDataSet(trait.dataSetId);
+        },
         qtls: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};
             return dataSources[sourceName].getQTLs(args);

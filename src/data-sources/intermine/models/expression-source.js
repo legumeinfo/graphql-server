@@ -21,6 +21,7 @@ const intermineExpressionSourceAttributes = [
     'ExpressionSource.synopsis',
     'ExpressionSource.organism.id',
     'ExpressionSource.strain.id',
+    'ExpressionSource.dataSet.id',
 ];
 const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
 
@@ -37,7 +38,7 @@ const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
 //   synopsis: String
 //   organism: Organism
 //   strain: Strain
-//   # dataSet
+//   dataSet: DataSet
 //   samples: [ExpressionSample]
 // }
 const graphqlExpressionSourceAttributes = [
@@ -51,6 +52,7 @@ const graphqlExpressionSourceAttributes = [
     'synopsis',
     'organismId',
     'strainId',
+    'dataSetId',
 ];
 
 function response2expressionSources(response) {

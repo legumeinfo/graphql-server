@@ -12,5 +12,5 @@ type Phylotree implements Annotatable {
   numLeaves: Int
   geneFamily: GeneFamily
   nodes: [Phylonode]
-  # dataSets
+  dataSets: [DataSet]
 }

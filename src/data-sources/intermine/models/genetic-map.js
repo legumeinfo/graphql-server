@@ -49,10 +49,26 @@ function response2geneticMaps(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlGeneticMapAttributes);
 }
 
+// GeneticMap.dataSets has no reverse reference
+const intermineGeneticMapDataSetAttributes = [
+    'GeneticMap.dataSets.id',
+    'GeneticMap.dataSets.description',
+    'GeneticMap.dataSets.licence',
+    'GeneticMap.dataSets.url',
+    'GeneticMap.dataSets.name',
+    'GeneticMap.dataSets.version',
+    'GeneticMap.dataSets.synopsis',
+    'GeneticMap.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineGeneticMapDataSetSort = 'GeneticMap.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     intermineGeneticMapAttributes,
     intermineGeneticMapSort,
     graphqlGeneticMapAttributes,
     response2geneticMaps,
+
+    intermineGeneticMapDataSetAttributes,
+    intermineGeneticMapDataSetSort,
 };

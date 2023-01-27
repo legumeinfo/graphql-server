@@ -19,6 +19,6 @@ type GWAS implements Annotatable {
   genotypingMethod: String
   synopsis: String
   organism: Organism
-  # dataSet
+  dataSet: DataSet
   results: [GWASResult]
 }

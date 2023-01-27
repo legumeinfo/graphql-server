@@ -8,6 +8,14 @@ const locationFactory = (sourceName) => ({
         chromosome: async (location, { }, { dataSources }) => {
             return dataSources[sourceName].getChromosome(location.chromosomeId);
         },
+        dataSets: async (location, { start, size }, { dataSources }) => {
+            const args = {
+                location: location,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
     },
 });
 

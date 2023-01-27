@@ -30,10 +30,26 @@ function response2ontologyAnnotations(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlOntologyAnnotationAttributes);
 }
 
-    
+// OntologyAnnotation.dataSets has no reverse reference
+const intermineOntologyAnnotationDataSetAttributes = [
+    'OntologyAnnotation.dataSets.id',
+    'OntologyAnnotation.dataSets.description',
+    'OntologyAnnotation.dataSets.licence',
+    'OntologyAnnotation.dataSets.url',
+    'OntologyAnnotation.dataSets.name',
+    'OntologyAnnotation.dataSets.version',
+    'OntologyAnnotation.dataSets.synopsis',
+    'OntologyAnnotation.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineOntologyAnnotationDataSetSort = 'OntologyAnnotation.dataSets.name'; // guaranteed not null
+
+
 module.exports = {
     intermineOntologyAnnotationAttributes,
     intermineOntologyAnnotationSort,
     graphqlOntologyAnnotationAttributes,
     response2ontologyAnnotations,
+
+    intermineOntologyAnnotationDataSetAttributes,
+    intermineOntologyAnnotationDataSetSort,
 };
