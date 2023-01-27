@@ -55,7 +55,7 @@ Only attributes, not references or collections, are populated using the definiti
 is done via resolver methods that use additional API methods as well as temporary attributes defined in the model.
 
 For example, `intermineGeneAttributes` includes two attributes of references:
-```json
+```
 const intermineGeneAttributes = [
     'Gene.id',
     'Gene.primaryIdentifier',
@@ -70,7 +70,7 @@ const intermineGeneAttributes = [
 ];
 ```
 Those are included in `graphqlGeneAttributes` (even though they are not fields of the Gene type):
-```json
+```
 const graphqlGeneAttributes = [
     'id',
     'identifier',
@@ -86,7 +86,7 @@ const graphqlGeneAttributes = [
 ```
 
 The `Gene.organism` and `Gene.strain` resolvers then use these temporary attributes to populate the corresponding objects:
-```json
+```
     Gene: {
         organism: async (gene, { }, { dataSources }) => {
             return dataSources[sourceName].getOrganism(gene.organismId);
@@ -99,7 +99,7 @@ The `Gene.organism` and `Gene.strain` resolvers then use these temporary attribu
 
 Collections are populated using custom API methods that incorporate pagination. For example, the `Gene.locations` resolver
 uses the `getLocations({sequenceFeature, start, size})` API method:
-```json
+```
         locations: async (gene, { start, size }, { dataSources }) => {
             const args = {
                 sequenceFeature: gene,
