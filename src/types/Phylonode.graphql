@@ -17,7 +17,7 @@ type Phylonode {
   length: Float
   numChildren: Int
   isLeaf: Boolean
-  # protein: Protein
+  protein: Protein
   tree: Phylotree
   parent: Phylonode
   children: [Phylonode]

@@ -34,6 +34,7 @@ const getGeneticMarker = require('./get-genetic-marker.js');
 const getGeneticMarkers = require('./get-genetic-markers.js');
 
 const getGWAS = require('./get-gwas.js');
+const getGWASForTrait = require('./get-gwas-for-trait.js');
 const searchGWASes = require('./search-gwases.js');
 
 const getGWASResult = require('./get-gwas-result.js');
@@ -68,6 +69,7 @@ const getPathway = require('./get-pathway.js');
 const getPathways = require('./get-pathways.js');
 
 const getPhylonode = require('./get-phylonode.js');
+const getPhylonodeForProtein = require('./get-phylonode-for-protein.js');
 const getPhylonodes = require('./get-phylonodes.js');
 
 const getPhylotree = require('./get-phylotree.js');
@@ -89,6 +91,7 @@ const getQTLs = require('./get-qtls.js');
 const searchQTLs = require('./search-qtls.js');
 
 const getQTLStudy = require('./get-qtl-study.js');
+const getQTLStudyForTrait = require('./get-qtl-study-for-trait.js');
 const searchQTLStudies  = require('./search-qtl-studies.js');
 
 const getSyntenicRegion = require('./get-syntenic-region.js');
@@ -144,6 +147,7 @@ module.exports = {
     getGeneticMarkers,
 
     getGWAS,
+    getGWASForTrait,
     searchGWASes,
     
     getGWASResult,
@@ -178,6 +182,7 @@ module.exports = {
     getPathways,
     
     getPhylonode,
+    getPhylonodeForProtein,
     getPhylonodes,
 
     getPhylotree,
@@ -199,6 +204,7 @@ module.exports = {
     searchQTLs,
     
     getQTLStudy,
+    getQTLStudyForTrait,
     searchQTLStudies,
 
     getStrain,

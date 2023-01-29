@@ -1,12 +1,12 @@
 const linkageGroupPositionFactory = (sourceName) => ({
     Query: {
         linkageGroupPosition:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getLinkageGroupPosition(id);
+            return dataSources[sourceName].getLinkageGroupPosition(id);
         },
     },
     LinkageGroupPosition: {
         linkageGroup: async (linkageGroupPosition, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getLinkageGroup(linkageGroupPosition.linkageGroupId);
+            return dataSources[sourceName].getLinkageGroup(linkageGroupPosition.linkageGroupId);
         },
     },
 });

@@ -17,6 +17,7 @@ const interminePhylonodeAttributes = [
     'Phylonode.length',
     'Phylonode.numChildren',
     'Phylonode.isLeaf',
+    'Phylonode.protein.id',
     'Phylonode.tree.id',
     'Phylonode.parent.id',
 ];
@@ -29,6 +30,7 @@ const graphqlPhylonodeAttributes = [
     'length',
     'numChildren',
     'isLeaf',
+    'proteinId',
     'treeId',
     'parentId',
 ];

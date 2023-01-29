@@ -1,7 +1,7 @@
 const geneticMarkerFactory = (sourceName) => ({
     Query: {
         geneticMarker:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getGeneticMarker(id);
+            return dataSources[sourceName].getGeneticMarker(id);
         },
         // geneticMarkers: async (_source, { description, start, size }, { dataSources }) => {
         //     const args = {
@@ -33,7 +33,7 @@ const geneticMarkerFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getQTLs(args);
+            return dataSources[sourceName].getQTLs(args);
         },
         gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {
@@ -41,7 +41,7 @@ const geneticMarkerFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getGWASResults(args);
+            return dataSources[sourceName].getGWASResults(args);
         },
         linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {
@@ -49,7 +49,7 @@ const geneticMarkerFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getLinkageGroupPositions(args);
+            return dataSources[sourceName].getLinkageGroupPositions(args);
         },
         locations: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {

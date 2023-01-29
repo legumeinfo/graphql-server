@@ -16,7 +16,7 @@ const traitFactory = (sourceName) => ({
             const args = {
                 trait: trait
             };
-            return dataSources[sourceName].getQTLStudy(args);
+            return dataSources[sourceName].getQTLStudyForTrait(args);
         },
         qtls: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};
@@ -26,7 +26,7 @@ const traitFactory = (sourceName) => ({
             const args = {
                 trait: trait
             };
-            return dataSources[sourceName].getGWAS(args);
+            return dataSources[sourceName].getGWASForTrait(args);
         },
         gwasResults: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};

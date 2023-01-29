@@ -1,7 +1,7 @@
 const geneticMapFactory = (sourceName) => ({
     Query: {
         geneticMap:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getGeneticMap(id);
+            return dataSources[sourceName].getGeneticMap(id);
         },
         geneticMaps: async (_source, { description, start, size }, { dataSources }) => {
             const args = {
@@ -14,7 +14,7 @@ const geneticMapFactory = (sourceName) => ({
     },
     GeneticMap: {
         organism: async (geneticMap, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getOrganism(geneticMap.organismId);
+            return dataSources[sourceName].getOrganism(geneticMap.organismId);
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {
@@ -30,7 +30,7 @@ const geneticMapFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getLinkageGroups(args);
+            return dataSources[sourceName].getLinkageGroups(args);
         },
         publications: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {

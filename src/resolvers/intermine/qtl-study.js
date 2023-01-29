@@ -1,7 +1,7 @@
 const qtlStudyFactory = (sourceName) => ({
     Query: {
         qtlStudy:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getQTLStudy(id);
+            return dataSources[sourceName].getQTLStudy(id);
         },
         qtlStudies: async (_source, { description, start, size }, { dataSources }) => {
             const args = {
@@ -14,10 +14,10 @@ const qtlStudyFactory = (sourceName) => ({
     },
     QTLStudy: {
         organism: async (qtlStudy, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getOrganism(qtlStudy.organismId);
+            return dataSources[sourceName].getOrganism(qtlStudy.organismId);
         },
         dataSet: async (qtlStudy, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getDataSet(qtlStudy.dataSetId);
+            return dataSources[sourceName].getDataSet(qtlStudy.dataSetId);
         },
         qtls: async (qtlStudy, { start, size }, { dataSources }) => {
             const args = {
@@ -25,7 +25,7 @@ const qtlStudyFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getQTLs(args);
+            return dataSources[sourceName].getQTLs(args);
         },
         publications: async (qtlStudy, { start, size }, { dataSources }) => {
             const args = {
