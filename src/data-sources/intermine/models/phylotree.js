@@ -22,10 +22,26 @@ function response2phylotrees(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlPhylotreeAttributes);
 }
 
+// Phylotree.dataSets has no reverse reference
+const interminePhylotreeDataSetAttributes = [
+    'Phylotree.dataSets.id',
+    'Phylotree.dataSets.description',
+    'Phylotree.dataSets.licence',
+    'Phylotree.dataSets.url',
+    'Phylotree.dataSets.name',
+    'Phylotree.dataSets.version',
+    'Phylotree.dataSets.synopsis',
+    'Phylotree.dataSets.publication.id',  // internal resolution of publication
+];
+const interminePhylotreeDataSetSort = 'Phylotree.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     interminePhylotreeAttributes,
     interminePhylotreeSort,
     graphqlPhylotreeAttributes,
     response2phylotrees,
+
+    interminePhylotreeDataSetAttributes,
+    interminePhylotreeDataSetSort,
 };

@@ -13,6 +13,14 @@ const syntenyBlockFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getSyntenicRegions(args);
         },
+        dataSets: async (syntenyBlock, { start, size }, { dataSources }) => {
+            const args = {
+                syntenyBlock: syntenyBlock,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
     },
 });
 

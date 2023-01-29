@@ -12,5 +12,5 @@ type Pathway implements Annotatable {
   name: String
   stableIdentifier: String
   genes: [Gene]
-  # dataSets
+  dataSets: [DataSet]
 }

@@ -9,5 +9,5 @@ type SyntenyBlock {
   medianKs: Float
   # publications: [Publication]
   syntenicRegions: [SyntenicRegion]
-  # dataSets
+  dataSets: [DataSet]
 }

@@ -18,6 +18,9 @@ const qtlFactory = (sourceName) => ({
         linkageGroup: async (qtl, { }, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupId);
         },
+        dataSet: async (qtl, { }, { dataSources }) => {
+            return dataSources[sourceName].getDataSet(qtl.dataSetId);
+        },
         markers: async (qtl, { start, size }, { dataSources }) => {
             const args = {
                 qtl: qtl,

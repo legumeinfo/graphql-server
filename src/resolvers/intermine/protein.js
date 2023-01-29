@@ -19,12 +19,34 @@ const proteinFactory = (sourceName) => ({
         strain: async(protein, { }, { dataSources }) => {
             return dataSources[sourceName].getStrain(protein.strainId);
         },
+        phylonode: async(protein, { }, { dataSources }) => {
+            const args = {
+                protein: protein
+            };
+            return dataSources[sourceName].getPhylonode(args);
+        },
+        dataSets: async (protein, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: protein,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         genes: async (protein, { start, size }, { dataSources }) => {
-            const args = {protein, start, size};
+            const args = {
+                protein: protein,
+                start,
+                size
+            };
             return dataSources[sourceName].getGenes(args);
         },
         geneFamilyAssignments: async (protein, { start, size }, { dataSources }) => {
-            const args = {protein, start, size};
+            const args = {
+                protein:protein,
+                start,
+                size
+            };
             return dataSources[sourceName].getGeneFamilyAssignments(args);
         },
     },

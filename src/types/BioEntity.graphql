@@ -29,9 +29,8 @@ interface BioEntity {
   annotationVersion: String
   organism: Organism
   strain: Strain
-  # locations
   # synonyms
   # crossReferences
-  # dataSets
+  dataSets: [DataSet]
   # locatedFeatures
 }

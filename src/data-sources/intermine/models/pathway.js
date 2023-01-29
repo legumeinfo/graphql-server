@@ -34,11 +34,27 @@ function response2pathways(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlPathwayAttributes);
 }
 
+// Pathway.dataSets has no reverse reference
+const interminePathwayDataSetAttributes = [
+    'Pathway.dataSets.id',
+    'Pathway.dataSets.description',
+    'Pathway.dataSets.licence',
+    'Pathway.dataSets.url',
+    'Pathway.dataSets.name',
+    'Pathway.dataSets.version',
+    'Pathway.dataSets.synopsis',
+    'Pathway.dataSets.publication.id',  // internal resolution of publication
+];
+const interminePathwayDataSetSort = 'Pathway.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     interminePathwayAttributes,
     interminePathwaySort,
     graphqlPathwayAttributes,
     response2pathways,
+
+    interminePathwayDataSetAttributes,
+    interminePathwayDataSetSort,
 }
 

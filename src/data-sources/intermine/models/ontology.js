@@ -31,6 +31,20 @@ const intermineOntologyTermOntologyAttributes = [
 ];
 const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
 
+// Ontology.dataSets has no reverse reference
+// publication is often null so skipped
+const intermineOntologyDataSetAttributes = [
+    'Ontology.dataSets.id',
+    'Ontology.dataSets.description',
+    'Ontology.dataSets.licence',
+    'Ontology.dataSets.url',
+    'Ontology.dataSets.name',
+    'Ontology.dataSets.version',
+    'Ontology.dataSets.synopsis',
+];
+const intermineOntologyDataSetSort = 'Ontology.dataSets.name'; // guaranteed not null
+
+
 module.exports = {
     intermineOntologyAttributes,
     intermineOntologySort,
@@ -38,4 +52,7 @@ module.exports = {
     response2ontologies,
     intermineOntologyTermOntologyAttributes,
     intermineOntologyTermOntologySort,
+
+    intermineOntologyDataSetAttributes,
+    intermineOntologyDataSetSort,
 };

@@ -13,6 +13,7 @@ const intermineQTLStudyAttributes = [
     'QTLStudy.genotypes',
     'QTLStudy.synopsis',
     'QTLStudy.organism.id',
+    'QTLStudy.dataSet.id',
 ];
 
 const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
@@ -26,7 +27,7 @@ const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
 //   genotypes: String
 //   synopsis: String
 //   organism: Organism
-//   # dataSet
+//   dataSet: DataSet
 //   qtls: [QTL]
 // }
 const graphqlQTLStudyAttributes = [
@@ -36,6 +37,7 @@ const graphqlQTLStudyAttributes = [
     'genotypes',
     'synopsis',
     'organismId',
+    'dataSetId',
 ];
 
 function response2qtlStudies(response) {

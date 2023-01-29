@@ -13,6 +13,7 @@
 # 	<collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
 # </class>
 type Protein implements BioEntity {
+  ## BioEntity
   id: ID!
   identifier: String!
   ontologyAnnotations: [OntologyAnnotation]
@@ -27,14 +28,15 @@ type Protein implements BioEntity {
   # locations
   # synonyms
   # crossReferences
-  # dataSets
+  dataSets: [DataSet]
   # locatedFeatures
+  ## Protein
   md5checksum: String
-  # primaryAccession: String - not populated in LIS mines 5.1.0.1
-  # molecularWeight: Float - not populated in LIS mines 5.1.0.1
+  primaryAccession: String
+  molecularWeight: Float
   length: Int
   isPrimary: Boolean
-  # phylonode: Phylonode - not populated in LIS mines 5.1.0.1
+  phylonode: Phylonode
   # transcript
   # CDS
   # sequence

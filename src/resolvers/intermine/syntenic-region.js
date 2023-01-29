@@ -14,6 +14,14 @@ const syntenicRegionFactory = (sourceName) => ({
         syntenyBlock: async (syntenicRegion, { }, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId);
         },
+        dataSets: async (syntenicRegion, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: syntenicRegion,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         locations: async (syntenicRegion, { start, size }, { dataSources }) => {
             const args = {
                 sequenceFeature: syntenicRegion,

@@ -5,6 +5,14 @@ const pathwayFactory = (sourceName) => ({
         },
     },
     Pathway: {
+        dataSets: async (pathway, { start, size }, { dataSources }) => {
+            const args = {
+                pathway: pathway,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         ontologyAnnotations: async (pathway, { start, size }, { dataSources }) => {
             const args = {
                 annotatable: pathway,

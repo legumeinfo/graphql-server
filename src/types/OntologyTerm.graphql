@@ -24,6 +24,6 @@ type OntologyTerm {
   # synonyms
   # ontologyAnnotations
   # parents
-  # dataSets
+  dataSets: [DataSet]
   # crossReferences
 }

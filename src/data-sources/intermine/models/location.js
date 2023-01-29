@@ -37,10 +37,26 @@ function response2locations(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlLocationAttributes);
 }
 
+// Location.dataSets has no reverse reference
+const intermineLocationDataSetAttributes = [
+    'Location.dataSets.id',
+    'Location.dataSets.description',
+    'Location.dataSets.licence',
+    'Location.dataSets.url',
+    'Location.dataSets.name',
+    'Location.dataSets.version',
+    'Location.dataSets.synopsis',
+    'Location.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     intermineLocationAttributes,
     intermineLocationSort,
     graphqlLocationAttributes,
     response2locations,
+
+    intermineLocationDataSetAttributes,
+    intermineLocationDataSetSort,
 }

@@ -17,6 +17,14 @@ const ontologyTermFactory = (sourceName) => ({
         ontology: async (ontologyTerm, { }, { dataSources }) => {
             return dataSources[sourceName].getOntologyTermOntology(ontologyTerm);
         },
+        dataSets: async (ontologyTerm, { start, size }, { dataSources }) => {
+            const args = {
+                ontologyTerm: ontologyTerm,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
     },
 });
 

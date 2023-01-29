@@ -19,6 +19,14 @@ const chromosomeFactory = (sourceName) => ({
         strain: async (chromosome, { }, { dataSources }) => {
             return dataSources[sourceName].getStrain(chromosome.strainId);
         },
+        dataSets: async (chromosome, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: chromosome,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
     },
 });
 

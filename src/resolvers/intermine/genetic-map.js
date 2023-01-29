@@ -16,6 +16,14 @@ const geneticMapFactory = (sourceName) => ({
         organism: async (geneticMap, { }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getOrganism(geneticMap.organismId);
         },
+        dataSets: async (geneticMap, { start, size }, { dataSources }) => {
+            const args = {
+                geneticMap: geneticMap,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {
                 geneticMap: geneticMap,

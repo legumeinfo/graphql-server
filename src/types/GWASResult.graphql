@@ -12,6 +12,6 @@ type GWASResult {
   markerName: String
   gwas: GWAS
   trait: Trait
-  # dataSet
+  dataSet: DataSet
   # markers
 }

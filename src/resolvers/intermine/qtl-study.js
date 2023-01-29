@@ -16,6 +16,9 @@ const qtlStudyFactory = (sourceName) => ({
         organism: async (qtlStudy, { }, { dataSources }) => {
             return dataSources.lisIntermineAPI.getOrganism(qtlStudy.organismId);
         },
+        dataSet: async (qtlStudy, { }, { dataSources }) => {
+            return dataSources.lisIntermineAPI.getDataSet(qtlStudy.dataSetId);
+        },
         qtls: async (qtlStudy, { start, size }, { dataSources }) => {
             const args = {
                 qtlStudy: qtlStudy,

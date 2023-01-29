@@ -23,7 +23,7 @@ type GeneticMarker implements SequenceFeature {
   locations: [Location]
   # synonyms
   # crossReferences
-  # dataSets
+  dataSets: [DataSet]
   # locatedFeatures
   # score
   # scoreType

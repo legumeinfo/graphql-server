@@ -19,8 +19,20 @@ const geneFactory = (sourceName) => ({
         strain: async (gene, { }, { dataSources }) => {
             return dataSources[sourceName].getStrain(gene.strainId);
         },
+        dataSets: async (gene, { start, size }, { dataSources }) => {
+            const args = {
+                bioEntity: gene,
+                start,
+                size
+            };
+            return dataSources[sourceName].getDataSets(args);
+        },
         geneFamilyAssignments: async (gene, { start, size }, { dataSources }) => {
-            const args = {gene, start, size};
+            const args = {
+                gene: gene,
+                start,
+                size
+            };
             return dataSources[sourceName].getGeneFamilyAssignments(args);
         },
         proteinDomains: async (gene, { start, size }, { dataSources }) => {

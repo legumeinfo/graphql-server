@@ -49,10 +49,26 @@ function response2ontologyTerms(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlOntologyTermAttributes);
 }
 
+// OntologyTerm.dataSets has no reverse reference
+const intermineOntologyTermDataSetAttributes = [
+    'OntologyTerm.dataSets.id',
+    'OntologyTerm.dataSets.description',
+    'OntologyTerm.dataSets.licence',
+    'OntologyTerm.dataSets.url',
+    'OntologyTerm.dataSets.name',
+    'OntologyTerm.dataSets.version',
+    'OntologyTerm.dataSets.synopsis',
+    'OntologyTerm.dataSets.publication.id',  // internal resolution of publication
+];
+const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name'; // guaranteed not null
+
 
 module.exports = {
     intermineOntologyTermAttributes,
     intermineOntologyTermSort,
     graphqlOntologyTermAttributes,
     response2ontologyTerms,
+
+    intermineOntologyTermDataSetAttributes,
+    intermineOntologyTermDataSetSort,
 };
