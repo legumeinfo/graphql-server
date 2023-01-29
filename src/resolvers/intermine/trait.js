@@ -12,9 +12,21 @@ const traitFactory = (sourceName) => ({
         dataSet: async (trait, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(trait.dataSetId);
         },
+        qtlStudy: async (trait, { }, { dataSources }) => {
+            const args = {
+                trait: trait
+            };
+            return dataSources[sourceName].getQTLStudy(args);
+        },
         qtls: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};
             return dataSources[sourceName].getQTLs(args);
+        },
+        gwas: async (trait, { }, { dataSources }) => {
+            const args = {
+                trait: trait
+            };
+            return dataSources[sourceName].getGWAS(args);
         },
         gwasResults: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};
