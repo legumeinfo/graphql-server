@@ -1,12 +1,12 @@
 const linkageGroupFactory = (sourceName) => ({
     Query: {
         linkageGroup:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getLinkageGroup(id);
+            return dataSources[sourceName].getLinkageGroup(id);
         },
     },
     LinkageGroup: {
         geneticMap: async (linkageGroup, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getGeneticMap(linkageGroup.geneticMapId);
+            return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId);
         },
         dataSets: async (linkageGroup, { start, size }, { dataSources }) => {
             const args = {
@@ -22,7 +22,7 @@ const linkageGroupFactory = (sourceName) => ({
                 start,
                 size,
             };
-            return dataSources.lisIntermineAPI.getQTLs(args);
+            return dataSources[sourceName].getQTLs(args);
         },
     },
 });

@@ -5,6 +5,9 @@ const phyloNodeFactory = (sourceName) => ({
         },
     },
     Phylonode: {
+        protein: async(phylonode, { }, { dataSources }) => {
+            return dataSources[sourceName].getProtein(phylonode.proteinId);
+        },
         tree: async(phylonode, { }, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(phylonode.treeId);
         },

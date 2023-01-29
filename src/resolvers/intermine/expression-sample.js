@@ -1,7 +1,7 @@
 const expressionSampleFactory = (sourceName) => ({
     Query: {
         expressionSample:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getExpressionSample(id);
+            return dataSources[sourceName].getExpressionSample(id);
         },
         expressionSamples: async (_source, { description, start, size }, { dataSources }) => {
             const args = {
@@ -14,7 +14,7 @@ const expressionSampleFactory = (sourceName) => ({
     },
     ExpressionSample: {
         source: async (expressionSample, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getExpressionSource(expressionSample.sourceId);
+            return dataSources[sourceName].getExpressionSource(expressionSample.sourceId);
         },
         ontologyAnnotations: async (expressionSample, { start, size }, { dataSources }) => {
             const args = {

@@ -1,7 +1,7 @@
 const expressionSampleFactory = (sourceName) => ({
     Query: {
         expressionSource:  async (_source, { id }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getExpressionSource(id);
+            return dataSources[sourceName].getExpressionSource(id);
         },
         expressionSources: async (_source, { description, start, size }, { dataSources }) => {
             const args = {
@@ -14,13 +14,13 @@ const expressionSampleFactory = (sourceName) => ({
     },
     ExpressionSource: {
         organism: async (expressionSource, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getOrganism(expressionSource.organismId);
+            return dataSources[sourceName].getOrganism(expressionSource.organismId);
         },
         strain: async (expressionSource, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getStrain(expressionSource.strainId);
+            return dataSources[sourceName].getStrain(expressionSource.strainId);
         },
         dataSet: async (expressionSource, { }, { dataSources }) => {
-            return dataSources.lisIntermineAPI.getDataSet(expressionSource.dataSetId);
+            return dataSources[sourceName].getDataSet(expressionSource.dataSetId);
         },
         samples: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {expressionSource, start, size};
