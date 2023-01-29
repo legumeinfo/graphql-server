@@ -3,14 +3,6 @@ const geneticMarkerFactory = (sourceName) => ({
         geneticMarker:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneticMarker(id);
         },
-        // geneticMarkers: async (_source, { description, start, size }, { dataSources }) => {
-        //     const args = {
-        //         description,
-        //         start,
-        //         size,
-        //     };
-        //     return dataSources[sourceName].searchGeneticMarkers(args);
-        // },
     },
     GeneticMarker: {
         organism: async (geneticMarker, { }, { dataSources }) => {

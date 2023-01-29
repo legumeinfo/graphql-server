@@ -3,14 +3,6 @@ const chromosomeFactory = (sourceName) => ({
         chromosome: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getChromosome(id);
         },
-        // chromosomes: async (_source, { description, start, size }, { dataSources }) => {
-        //     const args = {
-        //         description,
-        //         start,
-        //         size,
-        //     };
-        //     return dataSources[sourceName].searchChromosomes(args);
-        // },
     },
     Chromosome: {
         organism: async (chromosome, { }, { dataSources }) => {
