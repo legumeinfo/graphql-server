@@ -20,10 +20,7 @@ const proteinFactory = (sourceName) => ({
             return dataSources[sourceName].getStrain(protein.strainId);
         },
         phylonode: async(protein, { }, { dataSources }) => {
-            const args = {
-                protein: protein
-            };
-            return dataSources[sourceName].getPhylonodeForProtein(args);
+            return dataSources[sourceName].getPhylonode(protein);
         },
         dataSets: async (protein, { start, size }, { dataSources }) => {
             const args = {
