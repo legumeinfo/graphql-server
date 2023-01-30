@@ -11,6 +11,16 @@ const gwasFactory = (sourceName) => ({
             };
             return dataSources[sourceName].searchGWASes(args);
         },
+        gwasesMulti: async(_source, { description, start, size }, { dataSources }) => {
+            const args = {
+                description,
+                start,
+                size,
+            };
+            return Object.keys(dataSources).map((sourceName) => {
+                return dataSources[sourceName].searchGWASes(args);
+            });
+        },
     },
     GWAS: {
         organism: async(gwas, { }, { dataSources }) => {

@@ -33,6 +33,7 @@ type Query {
 
   gwas(id: ID!): GWAS
   gwases(description: String, start: Int, size: Int): [GWAS]
+  gwasesMulti(description: String, start: Int, size: Int): [[GWAS]]
   
   gwasResult(id: ID!): GWASResult
 
@@ -87,5 +88,6 @@ type Query {
 
 
   mineWebProperties: MineWebProperties
+  mineWebPropertiesMulti: [MineWebProperties]
 
 }
