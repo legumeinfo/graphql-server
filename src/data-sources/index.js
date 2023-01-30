@@ -3,7 +3,7 @@ const { IntermineAPI } = require('./intermine/intermine.api.js');
 const dataSources = () => {
     return {
         // use MiniMine for development, it has genomic and genetic data
-        lisMiniMineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service'),
+        // lisMiniMineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service'),
 
         // genus mines with only genomic data
         // lisAeschynomeneMineAPI: new IntermineAPI('https://mines.legumeinfo.org/aeschynomenemine/service'),

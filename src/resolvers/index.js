@@ -7,7 +7,7 @@ const intermineResolverFactory = require('./intermine');
 
 const resolvers = [
     // mine for development work with genomic and genetic data
-    intermineResolverFactory('lisMiniMineAPI'),
+    // intermineResolverFactory('lisMiniMineAPI'),
 
     // add more resolvers here
     // NOTE: you can't use mergeResolvers with multiple intermine resolvers; you'll
@@ -28,7 +28,7 @@ const resolvers = [
     // intermineResolverFactory('lisVignaMineAPI'),
 
     // across-the-board genomic data
-    // intermineResolverFactory('lisLegumeMineAPI'),
+    intermineResolverFactory('lisLegumeMineAPI'),
 ];
 
 // I don't get why we'd use mergeResolvers on intermine resolvers as per above.
