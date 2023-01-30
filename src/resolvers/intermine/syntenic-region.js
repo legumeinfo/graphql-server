@@ -6,10 +6,10 @@ const syntenicRegionFactory = (sourceName) => ({
     },
     SyntenicRegion: {
         organism: async (syntenicRegion, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(syntenicRegion.organismId);
+            return dataSources[sourceName].getOrganism(syntenicRegion.organismTaxonId);
         },
         strain: async (syntenicRegion, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(syntenicRegion.strainId);
+            return dataSources[sourceName].getStrain(syntenicRegion.strainIdentifier);
         },
         syntenyBlock: async (syntenicRegion, { }, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId);

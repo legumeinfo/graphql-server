@@ -14,10 +14,10 @@ const proteinFactory = (sourceName) => ({
     },
     Protein: {
         organism: async(protein, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(protein.organismId);
+            return dataSources[sourceName].getOrganism(protein.organismTaxonId);
         },
         strain: async(protein, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(protein.strainId);
+            return dataSources[sourceName].getStrain(protein.strainIdentifier);
         },
         phylonode: async(protein, { }, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(protein);

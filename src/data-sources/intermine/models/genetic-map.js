@@ -16,7 +16,7 @@ const intermineGeneticMapAttributes = [
     'GeneticMap.genotypes',
     'GeneticMap.genotypingMethod',
     'GeneticMap.synopsis',
-    'GeneticMap.organism.id',
+    'GeneticMap.organism.taxonId',
 ];
 const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
 
@@ -42,7 +42,7 @@ const graphqlGeneticMapAttributes = [
     'genotypes',
     'genotypingMethod',
     'synopsis',
-    'organismId',
+    'organismTaxonId',
 ];
 
 function response2geneticMaps(response) {

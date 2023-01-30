@@ -14,7 +14,7 @@ const gwasFactory = (sourceName) => ({
     },
     GWAS: {
         organism: async(gwas, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gwas.organismId);
+            return dataSources[sourceName].getOrganism(gwas.organismTaxonId);
         },
         dataSet: async(gwas, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwas.dataSetId);

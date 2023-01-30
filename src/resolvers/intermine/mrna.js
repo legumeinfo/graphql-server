@@ -6,10 +6,10 @@ const mRNAFactory = (sourceName) => ({
     },
     MRNA: {
         organism: async (mRNA, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(mRNA.organismId);
+            return dataSources[sourceName].getOrganism(mRNA.organismTaxonId);
         },
         strain: async (mRNA, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(mRNA.strainId);
+            return dataSources[sourceName].getStrain(mRNA.strainIdentifier);
         },
         gene: async (mRNA, { }, { dataSources }) => {
             return dataSources[sourceName].getGene(mRNA.geneId);

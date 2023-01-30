@@ -14,7 +14,7 @@ const qtlStudyFactory = (sourceName) => ({
     },
     QTLStudy: {
         organism: async (qtlStudy, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(qtlStudy.organismId);
+            return dataSources[sourceName].getOrganism(qtlStudy.organismTaxonId);
         },
         dataSet: async (qtlStudy, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(qtlStudy.dataSetId);

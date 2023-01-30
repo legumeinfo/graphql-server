@@ -52,8 +52,8 @@ const intermineGeneAttributes = [
     'Gene.annotationVersion',
     'Gene.length',
     'Gene.briefDescription',
-    'Gene.organism.id',        // internal resolution of organism
-    'Gene.strain.id',          // internal resolution of strain
+    'Gene.organism.taxonId',        // internal resolution of organism
+    'Gene.strain.identifier',       // internal resolution of strain
 ];
 const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 
@@ -80,8 +80,8 @@ const graphqlGeneAttributes = [
     'annotationVersion',
     'length',
     'briefDescription',
-    'organismId',              // internal resolution of organism
-    'strainId',                // internal resolution of strain
+    'organismTaxonId',              // internal resolution of organism
+    'strainIdentifier',             // internal resolution of strain
 ];
 
 // converts an Intermine response into an array of GraphQL Gene objects

@@ -1,7 +1,7 @@
 const strainFactory = (sourceName) => ({
     Query: {
-        strain: async (_source, { id }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(id);
+        strain: async (_source, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getStrain(identifier);
         },
         strains: async (_source, { description, origin, start, size }, { dataSources }) => {
             const args = {
@@ -15,7 +15,7 @@ const strainFactory = (sourceName) => ({
     },
     Strain: {
         organism: async (strain, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(strain.organismId);
+            return dataSources[sourceName].getOrganism(strain.organismTaxonId);
         },
     },
 });

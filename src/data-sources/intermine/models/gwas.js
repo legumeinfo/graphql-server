@@ -16,7 +16,7 @@ const intermineGWASAttributes = [
     'GWAS.genotypes',
     'GWAS.genotypingMethod',
     'GWAS.synopsis',
-    'GWAS.organism.id',
+    'GWAS.organism.taxonId',
     'GWAS.dataSet.id',
 ];
 const intermineGWASSort = 'GWAS.primaryIdentifier';
@@ -42,7 +42,7 @@ const graphqlGWASAttributes = [
     'genotypes',
     'genotypingMethod',
     'synopsis',
-    'organismId',
+    'organismTaxonId',
     'dataSetId',
 ];
 function response2gwas(response) {

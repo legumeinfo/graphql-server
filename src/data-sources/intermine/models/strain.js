@@ -14,7 +14,7 @@ const intermineStrainAttributes = [
     'Strain.description',
     'Strain.origin',
     'Strain.accession',
-    'Strain.organism.id', // internal resolution of organism
+    'Strain.organism.taxonId',
 ];
 const intermineStrainSort = 'Strain.identifier'; // guaranteed not null
 // type Strain {
@@ -33,7 +33,7 @@ const graphqlStrainAttributes = [
     'description',
     'origin',
     'accession',
-    'organismId',    // internal resolution of organism
+    'organismTaxonId',
 ];
 function response2strains(response) {
     return this.pathquery.response2graphqlObjects(response, graphqlStrainAttributes);

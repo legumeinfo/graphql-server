@@ -14,7 +14,7 @@ const geneticMapFactory = (sourceName) => ({
     },
     GeneticMap: {
         organism: async (geneticMap, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMap.organismId);
+            return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId);
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {

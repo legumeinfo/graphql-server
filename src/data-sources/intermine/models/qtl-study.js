@@ -12,7 +12,7 @@ const intermineQTLStudyAttributes = [
     'QTLStudy.description',
     'QTLStudy.genotypes',
     'QTLStudy.synopsis',
-    'QTLStudy.organism.id',
+    'QTLStudy.organism.taxonId',
     'QTLStudy.dataSet.id',
 ];
 
@@ -36,7 +36,7 @@ const graphqlQTLStudyAttributes = [
     'description',
     'genotypes',
     'synopsis',
-    'organismId',
+    'organismTaxonId',
     'dataSetId',
 ];
 

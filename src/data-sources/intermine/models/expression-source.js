@@ -19,8 +19,8 @@ const intermineExpressionSourceAttributes = [
     'ExpressionSource.unit',
     'ExpressionSource.geoSeries',
     'ExpressionSource.synopsis',
-    'ExpressionSource.organism.id',
-    'ExpressionSource.strain.id',
+    'ExpressionSource.organism.taxonId',
+    'ExpressionSource.strain.identifier',
     'ExpressionSource.dataSet.id',
 ];
 const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
@@ -50,8 +50,8 @@ const graphqlExpressionSourceAttributes = [
     'unit',
     'geoSeries',
     'synopsis',
-    'organismId',
-    'strainId',
+    'organismTaxonId',
+    'strainIdentifier',
     'dataSetId',
 ];
 

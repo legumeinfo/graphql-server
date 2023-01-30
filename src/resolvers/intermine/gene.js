@@ -14,10 +14,10 @@ const geneFactory = (sourceName) => ({
     },
     Gene: {
         organism: async (gene, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gene.organismId);
+            return dataSources[sourceName].getOrganism(gene.organismTaxonId);
         },
         strain: async (gene, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(gene.strainId);
+            return dataSources[sourceName].getStrain(gene.strainIdentifier);
         },
         dataSets: async (gene, { start, size }, { dataSources }) => {
             const args = {

@@ -51,7 +51,7 @@ type Query {
   ontologyTerm(id: ID!): OntologyTerm
   ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
 
-  organism(id: ID!): Organism
+  organism(taxonId: ID!): Organism
   organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
 
   pathway(id: ID!): Pathway
@@ -75,7 +75,7 @@ type Query {
   qtlStudy(id: ID!): QTLStudy
   qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
   
-  strain(id: ID!): Strain
+  strain(identifier: ID!): Strain
   strains(description: String, origin: String, start: Int, size: Int): [Strain]
 
   syntenicRegion(id: ID!): SyntenicRegion

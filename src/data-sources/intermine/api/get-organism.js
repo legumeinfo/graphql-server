@@ -1,6 +1,6 @@
-// get an Organism by ID
-async function getOrganism(id) {
-    const constraints = [this.pathquery.intermineConstraint('Organism.id', '=', id)];
+// get an Organism by Taxon ID
+async function getOrganism(taxonId) {
+    const constraints = [this.pathquery.intermineConstraint('Organism.taxonId', '=', taxonId)];
     const query = this.pathquery.interminePathQuery(
         this.models.intermineOrganismAttributes,
         this.models.intermineOrganismSort,
@@ -10,7 +10,7 @@ async function getOrganism(id) {
         .then((response) => this.models.response2organisms(response))
         .then((organisms) => {
             if (!organisms.length) {
-                const msg = `Organism with ID '${id}' not found`;
+                const msg = `Organism with Taxon ID '${taxonId}' not found`;
                 this.inputError(msg);
             }
             return organisms[0];

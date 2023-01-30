@@ -8,8 +8,8 @@ const intermineChromosomeAttributes = [
     'Chromosome.assemblyVersion',
     'Chromosome.annotationVersion',
     'Chromosome.length',
-    'Chromosome.organism.id',        // internal resolution of organism
-    'Chromosome.strain.id',          // internal resolution of strain
+    'Chromosome.organism.taxonId',        // internal resolution of organism
+    'Chromosome.strain.identifier',       // internal resolution of strain
 ];
 const intermineChromosomeSort = 'Chromosome.primaryIdentifier'; // guaranteed not null
 
@@ -34,8 +34,8 @@ const graphqlChromosomeAttributes = [
     'assemblyVersion',
     'annotationVersion',
     'length',
-    'organismId',              // internal resolution of organism
-    'strainId',                // internal resolution of strain
+    'organismTaxonId',              // internal resolution of organism
+    'strainIdentifier',             // internal resolution of strain
 ];
 
 // converts an Intermine response into an array of GraphQL Chromosome objects

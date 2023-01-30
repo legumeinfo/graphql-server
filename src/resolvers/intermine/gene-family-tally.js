@@ -6,7 +6,7 @@ const geneFamilyTallyFactory = (sourceName) => ({
     },
     GeneFamilyTally : {
         organism: async(geneFamilyTally, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneFamilyTally.organismId);
+            return dataSources[sourceName].getOrganism(geneFamilyTally.organismTaxonId);
         },
         geneFamily: async (geneFamilyTally, { }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyId);

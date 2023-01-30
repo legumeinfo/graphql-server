@@ -6,7 +6,7 @@
 const intermineGeneFamilyTallyAttributes = [
     'GeneFamilyTally.id',
     'GeneFamilyTally.tally',
-    'GeneFamilyTally.organism.id',
+    'GeneFamilyTally.organism.taxonId',
     'GeneFamilyTally.geneFamily.id',
 ];
 const intermineGeneFamilyTallySort = 'GeneFamilyTally.id';
@@ -19,7 +19,7 @@ const intermineGeneFamilyTallySort = 'GeneFamilyTally.id';
 const graphqlGeneFamilyTallyAttributes = [
     'id',
     'tally',
-    'organismId',
+    'organismTaxonId',
     'geneFamilyId',
 ];
 function response2geneFamilyTallies(response) {

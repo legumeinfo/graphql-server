@@ -14,10 +14,10 @@ const expressionSampleFactory = (sourceName) => ({
     },
     ExpressionSource: {
         organism: async (expressionSource, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(expressionSource.organismId);
+            return dataSources[sourceName].getOrganism(expressionSource.organismTaxonId);
         },
         strain: async (expressionSource, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(expressionSource.strainId);
+            return dataSources[sourceName].getStrain(expressionSource.strainIdentifier);
         },
         dataSet: async (expressionSource, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(expressionSource.dataSetId);

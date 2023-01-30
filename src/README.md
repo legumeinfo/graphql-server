@@ -65,8 +65,8 @@ const intermineGeneAttributes = [
     'Gene.assemblyVersion',
     'Gene.annotationVersion',
     'Gene.length',
-    'Gene.organism.id',        // internal resolution of organism
-    'Gene.strain.id',          // internal resolution of strain
+    'Gene.organism.taxonId',
+    'Gene.strain.identifier',
 ];
 ```
 Those are included in `graphqlGeneAttributes` (even though they are not fields of the Gene type):
@@ -80,8 +80,8 @@ const graphqlGeneAttributes = [
     'assemblyVersion',
     'annotationVersion',
     'length',
-    'organismId',              // internal resolution of organism
-    'strainId',                // internal resolution of strain
+    'organismTaxonId',
+    'strainIdentifier',
 ];
 ```
 
@@ -89,10 +89,10 @@ The `Gene.organism` and `Gene.strain` resolvers then use these temporary attribu
 ```
     Gene: {
         organism: async (gene, { }, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gene.organismId);
+            return dataSources[sourceName].getOrganism(gene.organismTaxonId);
         },
         strain: async (gene, { }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(gene.strainId);
+            return dataSources[sourceName].getStrain(gene.strainIdentifier);
         },
         ...
 ```
