@@ -1,19 +1,24 @@
-FROM node:18
+FROM node:19-alpine3.16 as base
 
 # Create app directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# Prepare to install dependencies
+COPY package.json .
+COPY package-lock.json .
 
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+# Install dependencies
+RUN npm ci
 
-# Bundle app source
+# Prepare to build the project
 COPY . .
 
+
+# dev image
+FROM base as dev
+
 EXPOSE 4000
-CMD [ "node", "src/index.js" ]
+CMD ["npm", "run", "serve:dev"]
+
+
+# TODO: production image

@@ -1,3 +1,3 @@
-# resolvers #
+# Resolvers
 
-Each GraphQL type's resolvers are defined in a Javascript file here, e.g. `intermine/gene.js`.
+Each GraphQL type's resolvers are defined in a TypeScript file here, e.g. `intermine/gene.ts`.
