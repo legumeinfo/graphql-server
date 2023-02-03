@@ -1,4 +1,4 @@
-import { AugmentedRequest, RESTDataSource } from '@apollo/datasource-rest';
+import { RESTDataSource } from '@apollo/datasource-rest';
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 import { GraphQLError } from 'graphql';
 
