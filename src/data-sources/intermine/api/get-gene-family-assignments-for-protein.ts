@@ -1,5 +1,6 @@
 // get GeneFamilyAssignments for a Protein
-export async function getGeneFamilyAssignmentsForProtein(protein, {start=0, size=10}) {
+//export async function getGeneFamilyAssignmentsForProtein(protein, {start=0, size=10}) {
+export async function getGeneFamilyAssignmentsForProtein(protein) {
     const constraints = [this.pathquery.intermineConstraint('Protein.id', '=', protein.id)];
     const query = this.pathquery.interminePathQuery(
         this.models.intermineProteinGeneFamilyAssignmentsAttributes,

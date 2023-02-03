@@ -37,11 +37,12 @@ export const geneFactory = (sourceName) => ({
             const args = {gene, start, size};
             return dataSources[sourceName].getProteinDomains(args);
         },
-        locations: async (gene, { start, size }, { dataSources }) => {
+        //locations: async (gene, { start, size }, { dataSources }) => {
+        locations: async (gene, { }, { dataSources }) => {
             const args = {
                 sequenceFeature: gene,
-                start,
-                size
+                //start,
+                //size
             };
             return dataSources[sourceName].getLocations(args);
         },

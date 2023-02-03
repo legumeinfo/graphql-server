@@ -18,15 +18,25 @@ export const traitFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getQTLStudyForTrait(args);
         },
-        qtls: async (trait, { start, size }, { dataSources }) => {
-            const args = {trait, start, size};
+        //qtls: async (trait, { start, size }, { dataSources }) => {
+        qtls: async (trait, { }, { dataSources }) => {
+            const args = {
+                trait,
+                //start,
+                //size,
+            };
             return dataSources[sourceName].getQTLs(args);
         },
         gwas: async (trait, { }, { dataSources }) => {
             return dataSources[sourceName].getGWASForTrait(trait);
         },
-        gwasResults: async (trait, { start, size }, { dataSources }) => {
-            const args = {trait, start, size};
+        //gwasResults: async (trait, { start, size }, { dataSources }) => {
+        gwasResults: async (trait, { }, { dataSources }) => {
+            const args = {
+                trait,
+                //start,
+                //size,
+            };
             return dataSources[sourceName].getGWASResults(args);
         },
         ontologyAnnotations: async (trait, { start, size }, { dataSources }) => {

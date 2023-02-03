@@ -6,6 +6,7 @@
     "target": "es2020",
     "module": "esnext",
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "types": ["node"]

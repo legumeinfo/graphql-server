@@ -1,5 +1,6 @@
 // get GWASResults for a GWAS, Trait, GeneticMarker
-export async function getGWASResults({gwas=null, trait=null, geneticMarker=null, start=0, size=10}) {
+//export async function getGWASResults({gwas=null, trait=null, geneticMarker=null, start=0, size=10}) {
+export async function getGWASResults({gwas=null, trait=null, geneticMarker=null}) {
     const constraints = [];
     if (gwas) {
         const gwasConstraint = this.pathquery.intermineConstraint('GWASResult.gwas.id', '=', gwas.id);

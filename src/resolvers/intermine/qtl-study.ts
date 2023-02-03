@@ -19,11 +19,12 @@ export const qtlStudyFactory = (sourceName) => ({
         dataSet: async (qtlStudy, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(qtlStudy.dataSetId);
         },
-        qtls: async (qtlStudy, { start, size }, { dataSources }) => {
+        //qtls: async (qtlStudy, { start, size }, { dataSources }) => {
+        qtls: async (qtlStudy, { }, { dataSources }) => {
             const args = {
                 qtlStudy: qtlStudy,
-                start,
-                size,
+                //start,
+                //size,
             };
             return dataSources[sourceName].getQTLs(args);
         },

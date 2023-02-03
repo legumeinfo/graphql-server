@@ -1,5 +1,6 @@
 // get LinkageGroups for a GeneticMap
-export async function getLinkageGroups({geneticMap=null, start=0, size=10}) {
+//export async function getLinkageGroups({geneticMap=null, start=0, size=10}) {
+export async function getLinkageGroups({geneticMap=null}) {
     const constraints = [];
     if (geneticMap) {
         const geneticMapConstraint = this.pathquery.intermineConstraint('LinkageGroup.geneticMap.id', '=', geneticMap.id);

@@ -17,8 +17,13 @@ export const organismFactory = (sourceName) => ({
         },
     },
     Organism: {
-        strains: async (organism, { start, size }, { dataSources }) => {
-            const args = {organism, start, size};
+        //strains: async (organism, { start, size }, { dataSources }) => {
+        strains: async (organism, { }, { dataSources }) => {
+            const args = {
+                organism,
+                //start,
+                //size,
+            };
             return dataSources[sourceName].getStrains(args);
         },
     },

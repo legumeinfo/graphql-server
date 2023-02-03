@@ -1,5 +1,6 @@
 // get QTLs for a LinkageGroup, Trait, GeneticMarker
-export async function getQTLs({linkageGroup=null, trait=null, geneticMarker=null, start=0, size=10}) {
+//export async function getQTLs({linkageGroup=null, trait=null, geneticMarker=null, start=0, size=10}) {
+export async function getQTLs({linkageGroup=null, trait=null, geneticMarker=null}) {
     const constraints = [];
     if (linkageGroup) {
         const linkageGroupConstraint = this.pathquery.intermineConstraint('QTL.linkageGroup.id', '=', linkageGroup.id);

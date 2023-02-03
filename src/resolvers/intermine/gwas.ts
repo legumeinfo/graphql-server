@@ -19,8 +19,13 @@ export const gwasFactory = (sourceName) => ({
         dataSet: async(gwas, { }, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwas.dataSetId);
         },
-        results: async (gwas, { start, size }, { dataSources }) => {
-            const args = {gwas, start, size};
+        //results: async (gwas, { start, size }, { dataSources }) => {
+        results: async (gwas, { }, { dataSources }) => {
+            const args = {
+                gwas,
+                //start,
+                //size,
+            };
             return dataSources[sourceName].getGWASResults(args);
         },
         publications: async (gwas, { start, size }, { dataSources }) => {

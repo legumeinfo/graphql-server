@@ -21,11 +21,12 @@ export const syntenicRegionFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getDataSetsForBioEntity(syntenicRegion, args);
         },
-        locations: async (syntenicRegion, { start, size }, { dataSources }) => {
+        //locations: async (syntenicRegion, { start, size }, { dataSources }) => {
+        locations: async (syntenicRegion, { }, { dataSources }) => {
             const args = {
                 sequenceFeature: syntenicRegion,
-                start,
-                size
+                //start,
+                //size
             };
             return dataSources[sourceName].getLocations(args);
         },
