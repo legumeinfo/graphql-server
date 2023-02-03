@@ -1,5 +1,6 @@
 // get LinkageGroupPositions for a GeneticMarker
-export async function getLinkageGroupPositions(geneticMarker, {start=0, size=10}) {
+//export async function getLinkageGroupPositions(geneticMarker, {start=0, size=10}) {
+export async function getLinkageGroupPositions(geneticMarker) {
     // no reverse reference in LinkageGroupPosition so query GeneticMarker
     const constraints = [this.pathquery.intermineConstraint('GeneticMarker.id', '=', geneticMarker.id)];
     const query = this.pathquery.interminePathQuery(

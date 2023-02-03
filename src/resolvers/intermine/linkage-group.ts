@@ -15,11 +15,12 @@ export const linkageGroupFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args);
         },
-        qtls: async (linkageGroup, { start, size }, { dataSources }) => {
+        //qtls: async (linkageGroup, { start, size }, { dataSources }) => {
+        qtls: async (linkageGroup, { }, { dataSources }) => {
             const args = {
                 linkageGroup: linkageGroup,
-                start,
-                size,
+                //start,
+                //size,
             };
             return dataSources[sourceName].getQTLs(args);
         },

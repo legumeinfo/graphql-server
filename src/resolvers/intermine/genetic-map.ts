@@ -23,11 +23,12 @@ export const geneticMapFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args);
         },
-        linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
+        //linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
+        linkageGroups: async (geneticMap, { }, { dataSources }) => {
             const args = {
                 geneticMap: geneticMap,
-                start,
-                size,
+                //start,
+                //size,
             };
             return dataSources[sourceName].getLinkageGroups(args);
         },

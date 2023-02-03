@@ -24,11 +24,12 @@ export const mRNAFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getDataSetsForBioEntity(mRNA, args);
         },
-        locations: async (mRNA, { start, size }, { dataSources }) => {
+        //locations: async (mRNA, { start, size }, { dataSources }) => {
+        locations: async (mRNA, { }, { dataSources }) => {
             const args = {
                 sequenceFeature: mRNA,
-                start,
-                size
+                //start,
+                //size
             };
             return dataSources[sourceName].getLocations(args);
         },

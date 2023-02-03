@@ -26,34 +26,39 @@ export const geneticMarkerFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getDataSetsForBioEntity(geneticMarker, args);
         },
-        qtls: async (geneticMarker, { start, size }, { dataSources }) => {
+        //qtls: async (geneticMarker, { start, size }, { dataSources }) => {
+        qtls: async (geneticMarker, { }, { dataSources }) => {
             const args = {
                 geneticMarker: geneticMarker,
-                start,
-                size,
+                //start,
+                //size,
             };
             return dataSources[sourceName].getQTLs(args);
         },
-        gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
+        //gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
+        gwasResults: async (geneticMarker, { }, { dataSources }) => {
             const args = {
                 geneticMarker: geneticMarker,
-                start,
-                size,
+                //start,
+                //size,
             };
             return dataSources[sourceName].getGWASResults(args);
         },
-        linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size,
-            };
-            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args);
+        //linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
+        linkageGroupPositions: async (geneticMarker, { }, { dataSources }) => {
+            //const args = {
+            //    start,
+            //    size,
+            //};
+            //return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args);
+            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker);
         },
-        locations: async (geneticMarker, { start, size }, { dataSources }) => {
+        //locations: async (geneticMarker, { start, size }, { dataSources }) => {
+        locations: async (geneticMarker, { }, { dataSources }) => {
             const args = {
                 sequenceFeature: geneticMarker,
-                start,
-                size
+                //start,
+                //size
             };
             return dataSources[sourceName].getLocations(args);
         },

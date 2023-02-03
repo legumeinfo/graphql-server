@@ -37,12 +37,14 @@ export const proteinFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getGenes(args);
         },
-        geneFamilyAssignments: async (protein, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
-            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args);
+        //geneFamilyAssignments: async (protein, { start, size }, { dataSources }) => {
+        geneFamilyAssignments: async (protein, {}, { dataSources }) => {
+            //const args = {
+            //    start,
+            //    size
+            //};
+            //return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args);
+            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein);
         },
     },
 });

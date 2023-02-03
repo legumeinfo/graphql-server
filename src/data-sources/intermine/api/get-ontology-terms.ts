@@ -1,5 +1,6 @@
 // get OntologyTerms for a Trait
-export async function getOntologyTerms({trait=null, start=0, size=10}) {
+//export async function getOntologyTerms({trait=null, start=0, size=10}) {
+export async function getOntologyTerms({trait=null}) {
     const constraints = [];
     if (trait) {
         const traitConstraint = this.pathquery.intermineConstraint('Trait.id', '=', trait.id);
