@@ -7,6 +7,7 @@
     "module": "esnext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "types": ["node"]
