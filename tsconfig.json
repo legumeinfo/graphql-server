@@ -5,6 +5,7 @@
     "lib": ["es2020"],
     "target": "es2020",
     "module": "esnext",
+    "noUnusedLocals": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "types": ["node"]
