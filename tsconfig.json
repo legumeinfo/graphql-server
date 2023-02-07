@@ -11,6 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "noImplicitOverride": true,
     "types": ["node"]
   }
 }
