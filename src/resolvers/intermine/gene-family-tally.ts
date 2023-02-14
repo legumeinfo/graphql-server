@@ -4,15 +4,15 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneFamilyTallyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneFamilyTally: async (_source, { id }, { dataSources }) => {
+        geneFamilyTally: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamilyTally(id);
         },
     },
     GeneFamilyTally : {
-        organism: async(geneFamilyTally, { }, { dataSources }) => {
+        organism: async(geneFamilyTally, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(geneFamilyTally.organismId);
         },
-        geneFamily: async (geneFamilyTally, { }, { dataSources }) => {
+        geneFamily: async (geneFamilyTally, _, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyId);
         },
     },

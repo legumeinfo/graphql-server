@@ -4,7 +4,7 @@ import { ResolverMap } from '../resolver.js';
 
 export const syntenyBlockFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        syntenyBlock: async (_source, { id }, { dataSources }) => {
+        syntenyBlock: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(id);
         },
     },

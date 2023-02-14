@@ -4,22 +4,22 @@ import { ResolverMap } from '../resolver.js';
 
 export const gwasFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        gwas: async (_source, { id }, { dataSources }) => {
+        gwas: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGWAS(id);
         },
-        gwases: async (_source, { description, start, size }, { dataSources }) => {
+        gwases: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchGWASes(args);
         },
     },
     GWAS: {
-        organism: async(gwas, { }, { dataSources }) => {
+        organism: async(gwas, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(gwas.organismId);
         },
-        dataSet: async(gwas, { }, { dataSources }) => {
+        dataSet: async(gwas, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwas.dataSetId);
         },
-        results: async (gwas, { }, { dataSources }) => {
+        results: async (gwas, _, { dataSources }) => {
             const args = {gwas};
             return dataSources[sourceName].getGWASResults(args);
         },

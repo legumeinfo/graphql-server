@@ -4,22 +4,22 @@ import { ResolverMap } from '../resolver.js';
 
 export const qtlStudyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        qtlStudy:  async (_source, { id }, { dataSources }) => {
+        qtlStudy:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getQTLStudy(id);
         },
-        qtlStudies: async (_source, { description, start, size }, { dataSources }) => {
+        qtlStudies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchQTLStudies(args);
         },
     },
     QTLStudy: {
-        organism: async (qtlStudy, { }, { dataSources }) => {
+        organism: async (qtlStudy, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(qtlStudy.organismId);
         },
-        dataSet: async (qtlStudy, { }, { dataSources }) => {
+        dataSet: async (qtlStudy, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(qtlStudy.dataSetId);
         },
-        qtls: async (qtlStudy, { }, { dataSources }) => {
+        qtls: async (qtlStudy, _, { dataSources }) => {
             const args = {qtlStudy};
             return dataSources[sourceName].getQTLs(args);
         },

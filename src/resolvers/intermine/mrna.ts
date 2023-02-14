@@ -4,28 +4,28 @@ import { ResolverMap } from '../resolver.js';
 
 export const mRNAFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        mRNA: async (_source, { id }, { dataSources }) => {
+        mRNA: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getMRNA(id);
         },
     },
     MRNA: {
-        organism: async (mRNA, { }, { dataSources }) => {
+        organism: async (mRNA, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(mRNA.organismId);
         },
-        strain: async (mRNA, { }, { dataSources }) => {
+        strain: async (mRNA, _, { dataSources }) => {
             return dataSources[sourceName].getStrain(mRNA.strainId);
         },
-        gene: async (mRNA, { }, { dataSources }) => {
+        gene: async (mRNA, _, { dataSources }) => {
             return dataSources[sourceName].getGene(mRNA.geneId);
         },
-        protein: async (mRNA, { }, { dataSources }) => {
+        protein: async (mRNA, _, { dataSources }) => {
             return dataSources[sourceName].getProtein(mRNA.proteinId);
         },
         dataSets: async (mRNA, { start, size }, { dataSources }) => {
             const args = {start, size};
             return dataSources[sourceName].getDataSetsForBioEntity(mRNA, args);
         },
-        locations: async (mRNA, { }, { dataSources }) => {
+        locations: async (mRNA, _, { dataSources }) => {
             const args = {sequenceFeature: mRNA};
             return dataSources[sourceName].getLocations(args);
         },

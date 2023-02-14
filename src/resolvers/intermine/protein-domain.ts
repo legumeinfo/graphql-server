@@ -4,10 +4,10 @@ import { ResolverMap } from '../resolver.js';
 
 export const proteinDomainFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        proteinDomain: async (_source, { id }, { dataSources }) => {
+        proteinDomain: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getProteinDomain(id);
         },
-        proteinDomains: async (_source, { description, start, size }, { dataSources }) => {
+        proteinDomains: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchProteinDomains(args);
         },

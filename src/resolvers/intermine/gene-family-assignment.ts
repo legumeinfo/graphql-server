@@ -4,12 +4,12 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneFamilyAssignmentFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneFamilyAssignment: async (_source, { id }, { dataSources }) => {
+        geneFamilyAssignment: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamilyAssignment(id);
         },
     },
     GeneFamilyAssignment: {
-        geneFamily: async(geneFamilyAssignment, { }, { dataSources }) => {
+        geneFamily: async(geneFamilyAssignment, _, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(geneFamilyAssignment.geneFamilyId);
         },
     },

@@ -4,16 +4,16 @@ import { ResolverMap } from '../resolver.js';
 
 export const expressionSampleFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        expressionSample:  async (_source, { id }, { dataSources }) => {
+        expressionSample:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getExpressionSample(id);
         },
-        expressionSamples: async (_source, { description, start, size }, { dataSources }) => {
+        expressionSamples: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchExpressionSamples(args);
         },
     },
     ExpressionSample: {
-        source: async (expressionSample, { }, { dataSources }) => {
+        source: async (expressionSample, _, { dataSources }) => {
             return dataSources[sourceName].getExpressionSource(expressionSample.sourceId);
         },
         ontologyAnnotations: async (expressionSample, { start, size }, { dataSources }) => {

@@ -4,16 +4,16 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneFamilyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneFamily: async (_source, { id }, { dataSources }) => {
+        geneFamily: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(id);
         },
-        geneFamilies: async (_source, { description, start, size }, { dataSources }) => {
+        geneFamilies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
          return dataSources[sourceName].searchGeneFamilies(args);
         },
     },
     GeneFamily: {
-        phylotree: async(geneFamily, { }, { dataSources }) => {
+        phylotree: async(geneFamily, _, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(geneFamily.phylotreeId);
         },
         genes: async (geneFamily, { start, size }, { dataSources }) => {

@@ -4,7 +4,7 @@ import { ResolverMap } from '../resolver.js';
 
 export const mineWebPropertiesFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        mineWebProperties: async (_source, { }, { dataSources }) => {
+        mineWebProperties: async (_, __, { dataSources }) => {
             return dataSources[sourceName].getMineWebProperties();
         },
     },

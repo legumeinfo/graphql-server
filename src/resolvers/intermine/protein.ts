@@ -4,22 +4,22 @@ import { ResolverMap } from '../resolver.js';
 
 export const proteinFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        protein: async (_source, { id }, { dataSources }) => {
+        protein: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getProtein(id);
         },
-        proteins: async (_source, { description, start, size }, { dataSources }) => {
+        proteins: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchProteins(args);
         },
     },
     Protein: {
-        organism: async(protein, { }, { dataSources }) => {
+        organism: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(protein.organismId);
         },
-        strain: async(protein, { }, { dataSources }) => {
+        strain: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getStrain(protein.strainId);
         },
-        phylonode: async(protein, { }, { dataSources }) => {
+        phylonode: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonodeForProtein(protein);
         },
         dataSets: async (protein, { start, size }, { dataSources }) => {
@@ -30,7 +30,7 @@ export const proteinFactory = (sourceName: keyof DataSources): ResolverMap => ({
             const args = {protein, start, size};
             return dataSources[sourceName].getGenes(args);
         },
-        geneFamilyAssignments: async (protein, {}, { dataSources }) => {
+        geneFamilyAssignments: async (protein, _, { dataSources }) => {
             return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein);
         },
     },

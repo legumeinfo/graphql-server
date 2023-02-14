@@ -4,19 +4,19 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        gene: async (_source, { id }, { dataSources }) => {
+        gene: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGene(id);
         },
-        genes: async (_source, { description, start, size }, { dataSources }) => {
+        genes: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchGenes(args);
         },
     },
     Gene: {
-        organism: async (gene, { }, { dataSources }) => {
+        organism: async (gene, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(gene.organismId);
         },
-        strain: async (gene, { }, { dataSources }) => {
+        strain: async (gene, _, { dataSources }) => {
             return dataSources[sourceName].getStrain(gene.strainId);
         },
         dataSets: async (gene, { start, size }, { dataSources }) => {
@@ -31,7 +31,7 @@ export const geneFactory = (sourceName: keyof DataSources): ResolverMap => ({
             const args = {gene, start, size};
             return dataSources[sourceName].getProteinDomains(args);
         },
-        locations: async (gene, { }, { dataSources }) => {
+        locations: async (gene, _, { dataSources }) => {
             const args = {sequenceFeature: gene};
             return dataSources[sourceName].getLocations(args);
         },

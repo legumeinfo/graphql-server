@@ -4,7 +4,7 @@ import { ResolverMap } from '../resolver.js';
 
 export const ontologyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        ontology: async (_source, { id }, { dataSources }) => {
+        ontology: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getOntology(id);
         },
     },
