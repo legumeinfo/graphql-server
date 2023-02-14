@@ -1,4 +1,8 @@
-export const linkageGroupFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const linkageGroupFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         linkageGroup:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroup(id);
@@ -9,19 +13,11 @@ export const linkageGroupFactory = (sourceName) => ({
             return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId);
         },
         dataSets: async (linkageGroup, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args);
         },
-        //qtls: async (linkageGroup, { start, size }, { dataSources }) => {
         qtls: async (linkageGroup, { }, { dataSources }) => {
-            const args = {
-                linkageGroup: linkageGroup,
-                //start,
-                //size,
-            };
+            const args = {linkageGroup};
             return dataSources[sourceName].getQTLs(args);
         },
     },

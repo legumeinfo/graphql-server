@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GeneFamilyTally" is-interface="true" term="">
 // 	<attribute name="tally" type="java.lang.Integer"/>
 // 	<reference name="organism" referenced-type="Organism"/>
@@ -10,6 +13,12 @@ export const intermineGeneFamilyTallyAttributes = [
     'GeneFamilyTally.geneFamily.id',
 ];
 export const intermineGeneFamilyTallySort = 'GeneFamilyTally.id';
+export type IntermineGeneFamilyTally = [
+  number,
+  number,
+  number,
+  number,
+];
 
 
 // type GeneFamilyTally {
@@ -24,8 +33,12 @@ export const graphqlGeneFamilyTallyAttributes = [
     'organismId',
     'geneFamilyId',
 ];
+export type GraphQLGeneFamilyTally = {
+  [prop in typeof graphqlGeneFamilyTallyAttributes[number]]: string;
+}
 
 
-export function response2geneFamilyTallies(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneFamilyTallyAttributes);
+export type IntermineGeneFamilyTallyResponse = Response<IntermineGeneFamilyTally>;
+export function response2geneFamilyTallies(response: IntermineGeneFamilyTallyResponse): Array<GraphQLGeneFamilyTally> {
+    return response2graphqlObjects(response, graphqlGeneFamilyTallyAttributes);
 }

@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGeneFamilyTally,
+  IntermineGeneFamilyTallyResponse,
+  intermineGeneFamilyTallyAttributes,
+  intermineGeneFamilyTallySort,
+  response2geneFamilyTallies,
+} from '../models/index.js';
+
+
 // get a GeneFamilyTally by ID
-export async function getGeneFamilyTally(id) {
-    const constraints = [this.pathquery.intermineConstraint('GeneFamilyTally.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneFamilyTallyAttributes,
-        this.models.intermineGeneFamilyTallySort,
+export async function getGeneFamilyTally(id: number): Promise<GraphQLGeneFamilyTally> {
+    const constraints = [intermineConstraint('GeneFamilyTally.id', '=', id)];
+    const query = interminePathQuery(
+        intermineGeneFamilyTallyAttributes,
+        intermineGeneFamilyTallySort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2geneFamilyTallies(response))
-        .then((geneFamilyTallies) => {
+        .then((response: IntermineGeneFamilyTallyResponse) => response2geneFamilyTallies(response))
+        .then((geneFamilyTallies: Array<GraphQLGeneFamilyTally>) => {
             if (!geneFamilyTallies.length) {
                 const msg = `GeneFamilyTally with ID '${id}' not found`;
                 this.inputError(msg);

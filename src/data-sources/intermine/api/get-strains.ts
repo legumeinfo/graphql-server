@@ -1,16 +1,31 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLOrganism,
+  GraphQLStrain,
+  IntermineStrainResponse,
+  intermineStrainAttributes,
+  intermineStrainSort,
+  response2strains,
+} from '../models/index.js';
+
+
+export type GetStrainsOptions = {
+  organism?: GraphQLOrganism;
+};
+
+
 // get Strains associated with an Organism
-//export async function getStrains({organism=null, start=0, size=10}) {
-export async function getStrains({organism=null}) {
+export async function getStrains({organism}: GetStrainsOptions): Promise<GraphQLStrain[]> {
     const constraints = [];
     if (organism) {
-        const organismConstraint = this.pathquery.intermineConstraint('Strain.organism.id', '=', organism.id);
+        const organismConstraint = intermineConstraint('Strain.organism.id', '=', organism.id);
         constraints.push(organismConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineStrainAttributes,
-        this.models.intermineStrainSort,
+    const query = interminePathQuery(
+        intermineStrainAttributes,
+        intermineStrainSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2strains(response));
+        .then((response: IntermineStrainResponse) => response2strains(response));
 }

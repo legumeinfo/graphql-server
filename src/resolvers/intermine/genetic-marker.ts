@@ -1,14 +1,14 @@
-export const geneticMarkerFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const geneticMarkerFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         geneticMarker:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneticMarker(id);
         },
         // geneticMarkers: async (_source, { description, start, size }, { dataSources }) => {
-        //     const args = {
-        //         description,
-        //         start,
-        //         size,
-        //     };
+        //     const args = {description, start, size};
         //     return dataSources[sourceName].searchGeneticMarkers(args);
         // },
     },
@@ -20,46 +20,22 @@ export const geneticMarkerFactory = (sourceName) => ({
             return dataSources[sourceName].getStrain(geneticMarker.strainId);
         },
         dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForBioEntity(geneticMarker, args);
         },
-        //qtls: async (geneticMarker, { start, size }, { dataSources }) => {
         qtls: async (geneticMarker, { }, { dataSources }) => {
-            const args = {
-                geneticMarker: geneticMarker,
-                //start,
-                //size,
-            };
+            const args = {geneticMarker};
             return dataSources[sourceName].getQTLs(args);
         },
-        //gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
         gwasResults: async (geneticMarker, { }, { dataSources }) => {
-            const args = {
-                geneticMarker: geneticMarker,
-                //start,
-                //size,
-            };
+            const args = {geneticMarker};
             return dataSources[sourceName].getGWASResults(args);
         },
-        //linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
         linkageGroupPositions: async (geneticMarker, { }, { dataSources }) => {
-            //const args = {
-            //    start,
-            //    size,
-            //};
-            //return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args);
             return dataSources[sourceName].getLinkageGroupPositions(geneticMarker);
         },
-        //locations: async (geneticMarker, { start, size }, { dataSources }) => {
         locations: async (geneticMarker, { }, { dataSources }) => {
-            const args = {
-                sequenceFeature: geneticMarker,
-                //start,
-                //size
-            };
+            const args = {sequenceFeature: geneticMarker};
             return dataSources[sourceName].getLocations(args);
         },
     },

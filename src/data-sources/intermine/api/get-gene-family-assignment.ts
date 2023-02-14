@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGeneFamilyAssignment,
+  IntermineGeneFamilyAssignmentResponse,
+  intermineGeneFamilyAssignmentAttributes,
+  intermineGeneFamilyAssignmentSort,
+  response2geneFamilyAssignments,
+} from '../models/index.js';
+
+
 // get a GeneFamilyAssignment by ID
-export async function getGeneFamilyAssignment(id) {
-    const constraints = [this.pathquery.intermineConstraint('GeneFamilyAssignment.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneFamilyAssignmentAttributes,
-        this.models.intermineGeneFamilyAssignmentSort,
+export async function getGeneFamilyAssignment(id: number): Promise<GraphQLGeneFamilyAssignment> {
+    const constraints = [intermineConstraint('GeneFamilyAssignment.id', '=', id)];
+    const query = interminePathQuery(
+        intermineGeneFamilyAssignmentAttributes,
+        intermineGeneFamilyAssignmentSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2geneFamilyAssignments(response))
-	.then((geneFamilyAssignments) => {
+        .then((response: IntermineGeneFamilyAssignmentResponse) => response2geneFamilyAssignments(response))
+	.then((geneFamilyAssignments: Array<GraphQLGeneFamilyAssignment>) => {
             if (!geneFamilyAssignments.length) {
                 const msg = `GeneFamilyAssignment with ID '${id}' not found`;
                 this.inputError(msg);

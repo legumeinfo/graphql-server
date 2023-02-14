@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="OntologyTerm" is-interface="true" term="http://semanticscience.org/resource/SIO_000275">
 // 	<attribute name="identifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000675"/>
 // 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
@@ -22,6 +25,14 @@ export const intermineOntologyTermAttributes = [
     'OntologyTerm.namespace',
 ]
 export const intermineOntologyTermSort = 'OntologyTerm.identifier';
+export type IntermineOntologyTerm = [
+  number,
+  string,
+  string,
+  boolean,
+  string,
+  string,
+];
 
 
 // type OntologyTerm {
@@ -47,10 +58,14 @@ export const graphqlOntologyTermAttributes = [
     'name',
     'namespace',
 ];
+export type GraphQLOntologyTerm = {
+  [prop in typeof graphqlOntologyTermAttributes[number]]: string;
+}
 
 
-export function response2ontologyTerms(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlOntologyTermAttributes);
+export type IntermineOntologyTermResponse = Response<IntermineOntologyTerm>;
+export function response2ontologyTerms(response: IntermineOntologyTermResponse): Array<GraphQLOntologyTerm> {
+    return response2graphqlObjects(response, graphqlOntologyTermAttributes);
 }
 
 
@@ -66,3 +81,13 @@ export const intermineOntologyTermDataSetAttributes = [
     'OntologyTerm.dataSets.publication.id',  // internal resolution of publication
 ];
 export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name'; // guaranteed not null
+export type IntermineOntologyTermDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

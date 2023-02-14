@@ -1,24 +1,44 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGeneticMarker,
+  GraphQLGWAS,
+  GraphQLGWASResult,
+  GraphQLTrait,
+  IntermineGWASResultResponse,
+  intermineGWASResultAttributes,
+  intermineGWASResultSort,
+  response2gwasResults,
+} from '../models/index.js';
+
+
+export type GetGWASResultsOptions = {
+  gwas?: GraphQLGWAS;
+  trait?: GraphQLTrait;
+  geneticMarker?: GraphQLGeneticMarker;
+}
+
+
 // get GWASResults for a GWAS, Trait, GeneticMarker
-//export async function getGWASResults({gwas=null, trait=null, geneticMarker=null, start=0, size=10}) {
-export async function getGWASResults({gwas=null, trait=null, geneticMarker=null}) {
+export async function getGWASResults({gwas, trait, geneticMarker}: GetGWASResultsOptions)
+: Promise<GraphQLGWASResult[]> {
     const constraints = [];
     if (gwas) {
-        const gwasConstraint = this.pathquery.intermineConstraint('GWASResult.gwas.id', '=', gwas.id);
+        const gwasConstraint = intermineConstraint('GWASResult.gwas.id', '=', gwas.id);
         constraints.push(gwasConstraint);
     }
     if (trait) {
-        const traitConstraint = this.pathquery.intermineConstraint('GWASResult.trait.id', '=', trait.id);
+        const traitConstraint = intermineConstraint('GWASResult.trait.id', '=', trait.id);
         constraints.push(traitConstraint);
     }
     if (geneticMarker) {
-        const geneticMarkerConstraint = this.pathquery.intermineConstraint('GWASResult.markers.id', '=', geneticMarker.id);
+        const geneticMarkerConstraint = intermineConstraint('GWASResult.markers.id', '=', geneticMarker.id);
         constraints.push(geneticMarkerConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGWASResultAttributes,
-        this.models.intermineGWASResultSort,
+    const query = interminePathQuery(
+        intermineGWASResultAttributes,
+        intermineGWASResultSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2gwasResults(response));
+        .then((response: IntermineGWASResultResponse) => response2gwasResults(response));
 }

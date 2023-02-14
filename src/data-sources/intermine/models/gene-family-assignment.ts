@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GeneFamilyAssignment" is-interface="true" term="">
 // 	<attribute name="bestDomainScore" type="java.lang.Double"/>
 // 	<attribute name="score" type="java.lang.Double"/>
@@ -12,6 +15,13 @@ export const intermineGeneFamilyAssignmentAttributes = [
     'GeneFamilyAssignment.geneFamily.id', // internal resolution of GeneFamily
 ];
 export const intermineGeneFamilyAssignmentSort = 'GeneFamilyAssignment.evalue';
+export type IntermineGeneFamilyAssignment = [
+  number,
+  number,
+  number,
+  number,
+  number,
+];
 
 
 // type GeneFamilyAssignment {
@@ -28,10 +38,14 @@ export const graphqlGeneFamilyAssignmentAttributes = [
     'evalue',
     'geneFamilyId', // internal resolution of GeneFamily
 ];
+export type GraphQLGeneFamilyAssignment = {
+  [prop in typeof graphqlGeneFamilyAssignmentAttributes[number]]: string;
+}
 
 
-export function response2geneFamilyAssignments(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneFamilyAssignmentAttributes);
+export type IntermineGeneFamilyAssignmentResponse = Response<IntermineGeneFamilyAssignment>;
+export function response2geneFamilyAssignments(response: IntermineGeneFamilyAssignmentResponse): Array<GraphQLGeneFamilyAssignment>{
+    return response2graphqlObjects(response, graphqlGeneFamilyAssignmentAttributes);
 }
 
 
@@ -44,6 +58,13 @@ export const intermineGeneGeneFamilyAssignmentsAttributes = [
     'Gene.geneFamilyAssignments.geneFamily.id', // internal resolution of GeneFamily
 ];
 export const intermineGeneGeneFamilyAssignmentsSort = 'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier';
+export type IntermineGeneGeneFamilyAssignments = [
+  number,
+  number,
+  number,
+  number,
+  number,
+];
 
 
 // GeneFamilyAssignment does not have reverse reference - have to query Protein to get its assignments
@@ -55,3 +76,10 @@ export const intermineProteinGeneFamilyAssignmentsAttributes = [
     'Protein.geneFamilyAssignments.geneFamily.id', // internal resolution of GeneFamily
 ];
 export const intermineProteinGeneFamilyAssignmentsSort = 'Protein.geneFamilyAssignments.geneFamily.primaryIdentifier';
+export type IntermineProteinGeneFamilyAssignments = [
+  number,
+  number,
+  number,
+  number,
+  number,
+];

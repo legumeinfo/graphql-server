@@ -1,4 +1,8 @@
-export const syntenicRegionFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const syntenicRegionFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         syntenicRegion: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getSyntenicRegion(id);
@@ -15,19 +19,11 @@ export const syntenicRegionFactory = (sourceName) => ({
             return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId);
         },
         dataSets: async (syntenicRegion, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForBioEntity(syntenicRegion, args);
         },
-        //locations: async (syntenicRegion, { start, size }, { dataSources }) => {
         locations: async (syntenicRegion, { }, { dataSources }) => {
-            const args = {
-                sequenceFeature: syntenicRegion,
-                //start,
-                //size
-            };
+            const args = {sequenceFeature: syntenicRegion};
             return dataSources[sourceName].getLocations(args);
         },
     },

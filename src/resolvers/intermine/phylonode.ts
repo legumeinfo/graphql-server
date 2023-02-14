@@ -1,4 +1,8 @@
-export const phylonodeFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const phylonodeFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         phylonode: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(id);

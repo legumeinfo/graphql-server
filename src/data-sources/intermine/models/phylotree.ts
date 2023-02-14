@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // Phylotree InterMine path query attributes
 // <class name="Phylotree" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="numLeaves" type="java.lang.Integer"/>
@@ -12,6 +15,12 @@ export const interminePhylotreeAttributes = [
     'Phylotree.geneFamily.id',
 ];
 export const interminePhylotreeSort = 'Phylotree.primaryIdentifier';
+export type InterminePhylotree = [
+  number,
+  string,
+  number,
+  number,
+];
 
 
 export const graphqlPhylotreeAttributes = [
@@ -20,10 +29,14 @@ export const graphqlPhylotreeAttributes = [
     'numLeaves',
     'geneFamilyId',
 ];
+export type GraphQLPhylotree = {
+  [prop in typeof graphqlPhylotreeAttributes[number]]: string;
+}
 
 
-export function response2phylotrees(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlPhylotreeAttributes);
+export type InterminePhylotreeResponse = Response<InterminePhylotree>;
+export function response2phylotrees(response: InterminePhylotreeResponse): Array<GraphQLPhylotree> {
+    return response2graphqlObjects(response, graphqlPhylotreeAttributes);
 }
 
 
@@ -39,3 +52,13 @@ export const interminePhylotreeDataSetAttributes = [
     'Phylotree.dataSets.publication.id',  // internal resolution of publication
 ];
 export const interminePhylotreeDataSetSort = 'Phylotree.dataSets.name'; // guaranteed not null
+export type InterminePhylotreeDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

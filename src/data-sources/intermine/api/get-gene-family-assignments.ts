@@ -1,12 +1,22 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGene,
+  GraphQLGeneFamilyAssignment,
+  IntermineGeneFamilyAssignmentResponse,
+  intermineGeneGeneFamilyAssignmentsAttributes,
+  intermineGeneGeneFamilyAssignmentsSort,
+  response2geneFamilyAssignments,
+} from '../models/index.js';
+
+
 // get GeneFamilyAssignments for a Gene
-//export async function getGeneFamilyAssignments(gene, {start=0, size=10}) {
-export async function getGeneFamilyAssignments(gene) {
-    const constraints = [this.pathquery.intermineConstraint('Gene.id', '=', gene.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneGeneFamilyAssignmentsAttributes,
-        this.models.intermineGeneGeneFamilyAssignmentsSort,
+export async function getGeneFamilyAssignments(gene: GraphQLGene): Promise<GraphQLGeneFamilyAssignment[]> {
+    const constraints = [intermineConstraint('Gene.id', '=', gene.id)];
+    const query = interminePathQuery(
+        intermineGeneGeneFamilyAssignmentsAttributes,
+        intermineGeneGeneFamilyAssignmentsSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2geneFamilyAssignments(response));
+        .then((response: IntermineGeneFamilyAssignmentResponse) => response2geneFamilyAssignments(response));
 }

@@ -1,4 +1,8 @@
-export const phylotreeFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const phylotreeFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         phylotree: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(id);
@@ -9,10 +13,7 @@ export const phylotreeFactory = (sourceName) => ({
             return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyId);
         },
         dataSets: async (phylotree, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForPhylotree(phylotree, args);
         },
         nodes: async (phylotree, { start, size }, { dataSources }) => {

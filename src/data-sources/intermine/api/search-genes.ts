@@ -1,16 +1,38 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGene,
+  IntermineGeneResponse,
+  intermineGeneAttributes,
+  intermineGeneSort,
+  response2genes,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type SearchGenesOptions = {
+  description?: string;
+} & PaginationOptions;
+
+
 // path query search for Gene by description
-export async function searchGenes({description=null, start=0, size=10}) {
+export async function searchGenes(
+  {
+    description,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: SearchGenesOptions,
+): Promise<GraphQLGene[]> {
     const constraints = [];
     if (description) {
-        const descriptionConstraint = this.pathquery.intermineConstraint('Gene.description', 'CONTAINS', description);
+        const descriptionConstraint = intermineConstraint('Gene.description', 'CONTAINS', description);
         constraints.push(descriptionConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneAttributes,
-        this.models.intermineGeneSort,
+    const query = interminePathQuery(
+        intermineGeneAttributes,
+        intermineGeneSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2genes(response));
+        .then((response: IntermineGeneResponse) => response2genes(response));
 }

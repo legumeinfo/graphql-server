@@ -1,4 +1,8 @@
-export const ontologyFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const ontologyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         ontology: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getOntology(id);
@@ -6,10 +10,7 @@ export const ontologyFactory = (sourceName) => ({
     },
     Ontology: {
         dataSets: async (ontology, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForOntology(ontology, args);
         },
     }

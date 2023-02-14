@@ -1,4 +1,8 @@
-export const mRNAFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const mRNAFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         mRNA: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getMRNA(id);
@@ -18,35 +22,19 @@ export const mRNAFactory = (sourceName) => ({
             return dataSources[sourceName].getProtein(mRNA.proteinId);
         },
         dataSets: async (mRNA, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForBioEntity(mRNA, args);
         },
-        //locations: async (mRNA, { start, size }, { dataSources }) => {
         locations: async (mRNA, { }, { dataSources }) => {
-            const args = {
-                sequenceFeature: mRNA,
-                //start,
-                //size
-            };
+            const args = {sequenceFeature: mRNA};
             return dataSources[sourceName].getLocations(args);
         },
         ontologyAnnotations: async (mRNA, { start, size }, { dataSources }) => {
-            const args = {
-                annotatable: mRNA,
-                start,
-                size
-            };
+            const args = {annotatable: mRNA, start, size};
             return dataSources[sourceName].getOntologyAnnotations(args);
         },
         publications: async (mRNA, { start, size }, { dataSources }) => {
-            const args = {
-                annotatable: mRNA,
-                start,
-                size
-            };
+            const args = {annotatable: mRNA, start, size};
             return dataSources[sourceName].getPublications(args);
         },
     },

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // Protein InterMine path query attributes
 // <class name="Protein" extends="BioEntity" is-interface="true" term="http://semanticscience.org/resource/SIO_010043,http://purl.uniprot.org/core/Protein">
 // 	<attribute name="md5checksum" type="java.lang.String" term="http://purl.uniprot.org/core/md5Checksum"/>
@@ -30,6 +33,22 @@ export const intermineProteinAttributes = [
     'Protein.isPrimary',
 ];
 export const intermineProteinSort = 'Protein.primaryIdentifier';
+export type IntermineProtein = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+  string,
+  string,
+  number,
+  number,
+  boolean,
+];
 
 
 // type Protein implements BioEntity {
@@ -74,9 +93,13 @@ export const graphqlProteinAttributes = [
     'length',
     'isPrimary',
 ];
+export type GraphQLProtein = {
+  [prop in typeof graphqlProteinAttributes[number]]: string;
+}
 
 
+export type IntermineProteinResponse = Response<IntermineProtein>;
 // converts an Intermine response into an array of GraphQL Protein objects
-export function response2proteins(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlProteinAttributes);
+export function response2proteins(response: Response<IntermineProtein>): Array<GraphQLProtein> {
+    return response2graphqlObjects(response, graphqlProteinAttributes);
 }

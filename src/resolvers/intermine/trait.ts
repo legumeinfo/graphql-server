@@ -1,4 +1,8 @@
-export const traitFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         trait: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getTrait(id);
@@ -18,33 +22,19 @@ export const traitFactory = (sourceName) => ({
             };
             return dataSources[sourceName].getQTLStudyForTrait(args);
         },
-        //qtls: async (trait, { start, size }, { dataSources }) => {
         qtls: async (trait, { }, { dataSources }) => {
-            const args = {
-                trait,
-                //start,
-                //size,
-            };
+            const args = {trait};
             return dataSources[sourceName].getQTLs(args);
         },
         gwas: async (trait, { }, { dataSources }) => {
             return dataSources[sourceName].getGWASForTrait(trait);
         },
-        //gwasResults: async (trait, { start, size }, { dataSources }) => {
         gwasResults: async (trait, { }, { dataSources }) => {
-            const args = {
-                trait,
-                //start,
-                //size,
-            };
+            const args = {trait};
             return dataSources[sourceName].getGWASResults(args);
         },
         ontologyAnnotations: async (trait, { start, size }, { dataSources }) => {
-            const args = {
-                annotatable: trait,
-                start,
-                size
-            };
+            const args = {annotatable: trait, start, size};
             return dataSources[sourceName].getOntologyAnnotations(args);
         },
     },

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GWASResult" is-interface="true" term="">
 // 	<attribute name="pValue" type="java.lang.Double"/>
 //      <attribute name="markerName" type="java.lang.String"/>
@@ -15,6 +18,14 @@ export const intermineGWASResultAttributes = [
     'GWASResult.dataSet.id',
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
+export type IntermineGWASResult = [
+  number,
+  number,
+  string,
+  number,
+  number,
+  number,
+];
 
 
 // type GWASResult {
@@ -34,8 +45,12 @@ export const graphqlGWASResultAttributes = [
     'traitId',
     'dataSetId',
 ];
+export type GraphQLGWASResult = {
+  [prop in typeof graphqlGWASResultAttributes[number]]: string;
+}
 
 
-export function response2gwasResults(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGWASResultAttributes);
+export type IntermineGWASResultResponse = Response<IntermineGWASResult>;
+export function response2gwasResults(response: IntermineGWASResultResponse): Array<GraphQLGWASResult> {
+    return response2graphqlObjects(response, graphqlGWASResultAttributes);
 }

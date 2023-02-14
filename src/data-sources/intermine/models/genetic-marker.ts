@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
 // 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="motif" type="java.lang.String"/>
@@ -25,6 +28,22 @@ export const intermineGeneticMarkerAttributes = [
     'GeneticMarker.alleles',
 ];
 export const intermineGeneticMarkerSort = 'GeneticMarker.primaryIdentifier';
+export type IntermineGeneticMarker = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+  number,
+  string,
+  string,
+  string,
+  string,
+];
 
 
 // type GeneticMarker implements SequenceFeature {
@@ -81,8 +100,12 @@ export const graphqlGeneticMarkerAttributes = [
     'type',
     'alleles',
 ];
+export type GraphQLGeneticMarker = {
+  [prop in typeof graphqlGeneticMarkerAttributes[number]]: string;
+}
 
 
-export function response2geneticMarkers(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneticMarkerAttributes);
+export type IntermineGeneticMarkerResponse = Response<IntermineGeneticMarker>;
+export function response2geneticMarkers(response: IntermineGeneticMarkerResponse): Array<GraphQLGeneticMarker> {
+    return response2graphqlObjects(response, graphqlGeneticMarkerAttributes);
 }

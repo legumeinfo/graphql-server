@@ -1,4 +1,8 @@
-export const linkageGroupPositionFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const linkageGroupPositionFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         linkageGroupPosition:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroupPosition(id);

@@ -1,16 +1,39 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGeneticMarker,
+  GraphQLQTL,
+  IntermineGeneticMarkerResponse,
+  intermineGeneticMarkerAttributes,
+  intermineGeneticMarkerSort,
+  response2geneticMarkers,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetGeneticMarkersOptions = {
+  qtl?: GraphQLQTL;
+} & PaginationOptions;
+
+
 // get GeneticMarkers for a QTL
-export async function getGeneticMarkers({qtl=null, start=0, size=10}) {
+export async function getGeneticMarkers(
+  {
+    qtl,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetGeneticMarkersOptions,
+): Promise<GraphQLGeneticMarker[]> {
     const constraints = [];
     if (qtl) {
-        const qtlConstraint = this.pathquery.intermineConstraint('GeneticMarker.qtls.id', '=', qtl.id);
+        const qtlConstraint = intermineConstraint('GeneticMarker.qtls.id', '=', qtl.id);
         constraints.push(qtlConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneticMarkerAttributes,
-        this.models.intermineGeneticMarkerSort,
+    const query = interminePathQuery(
+        intermineGeneticMarkerAttributes,
+        intermineGeneticMarkerSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2geneticMarkers(response));
+        .then((response: IntermineGeneticMarkerResponse) => response2geneticMarkers(response));
 }

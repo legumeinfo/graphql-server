@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // Phylonode InterMine path query attributes
 // <class name="Phylonode" is-interface="true" term="">
 // 	<attribute name="identifier" type="java.lang.String"/>
@@ -22,6 +25,17 @@ export const interminePhylonodeAttributes = [
     'Phylonode.parent.id',
 ];
 export const interminePhylonodeSort = 'Phylonode.identifier';
+export type InterminePhylonode = [
+  number,
+  string,
+  boolean,
+  number,
+  number,
+  boolean,
+  number,
+  number,
+  number,
+];
 
 
 export const graphqlPhylonodeAttributes = [
@@ -35,8 +49,12 @@ export const graphqlPhylonodeAttributes = [
     'treeId',
     'parentId',
 ];
+export type GraphQLPhylonode = {
+  [prop in typeof graphqlPhylonodeAttributes[number]]: string;
+}
 
 
-export function response2phylonodes(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlPhylonodeAttributes);
+export type InterminePhylonodeResponse = Response<InterminePhylonode>;
+export function response2phylonodes(response: InterminePhylonodeResponse): Array<GraphQLPhylonode> {
+    return response2graphqlObjects(response, graphqlPhylonodeAttributes);
 }

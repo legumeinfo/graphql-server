@@ -1,4 +1,8 @@
-export const gwasResultFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const gwasResultFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         gwasResult: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGWASResult(id);

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
 // 	<attribute name="identifier" type="java.lang.String" term="http://edamontology.org/data_2379"/>
 // 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_1046"/>
@@ -17,6 +20,15 @@ export const intermineStrainAttributes = [
     'Strain.organism.id', // internal resolution of organism
 ];
 export const intermineStrainSort = 'Strain.identifier'; // guaranteed not null
+export type IntermineStrain = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];
 
 
 // type Strain {
@@ -37,8 +49,12 @@ export const graphqlStrainAttributes = [
     'accession',
     'organismId',    // internal resolution of organism
 ];
+export type GraphQLStrain = {
+  [prop in typeof graphqlStrainAttributes[number]]: string;
+}
 
 
-export function response2strains(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlStrainAttributes);
+export type IntermineStrainResponse = Response<IntermineStrain>;
+export function response2strains(response: IntermineStrainResponse): Array<GraphQLStrain> {
+    return response2graphqlObjects(response, graphqlStrainAttributes);
 }
