@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GeneFamily" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="description" type="java.lang.String"/>
 // 	<attribute name="version" type="java.lang.String"/>
@@ -18,6 +21,14 @@ export const intermineGeneFamilyAttributes = [
     'GeneFamily.phylotree.id', // internal resolution of Phylotree
 ];
 export const intermineGeneFamilySort = 'GeneFamily.primaryIdentifier';
+export type IntermineGeneFamily = [
+  number,
+  string,
+  string,
+  string,
+  number,
+  number,
+];
 
 
 // type GeneFamily implements Annotatable {
@@ -42,8 +53,12 @@ export const graphqlGeneFamilyAttributes = [
     'size',
     'phylotreeId', // internal resolution of Phylotree
 ];
+export type GraphQLGeneFamily = {
+  [prop in typeof graphqlGeneFamilyAttributes[number]]: string;
+}
 
 
-export function response2geneFamilies(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneFamilyAttributes);
+export type IntermineGeneFamilyResponse = Response<IntermineGeneFamily>;
+export function response2geneFamilies(response: IntermineGeneFamilyResponse): Array<GraphQLGeneFamily> {
+    return response2graphqlObjects(response, graphqlGeneFamilyAttributes);
 }

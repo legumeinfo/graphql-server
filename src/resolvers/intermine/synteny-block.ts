@@ -1,4 +1,8 @@
-export const syntenyBlockFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const syntenyBlockFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         syntenyBlock: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(id);
@@ -6,18 +10,11 @@ export const syntenyBlockFactory = (sourceName) => ({
     },
     SyntenyBlock: {
         syntenicRegions: async (syntenyBlock, { start, size }, { dataSources }) => {
-            const args = {
-                syntenyBlock: syntenyBlock,
-                start,
-                size
-            };
+            const args = {syntenyBlock, start, size};
             return dataSources[sourceName].getSyntenicRegions(args);
         },
         dataSets: async (syntenyBlock, { start, size }, { dataSources }) => {
-            const args = {
-                start,
-                size
-            };
+            const args = {start, size};
             return dataSources[sourceName].getDataSetsForSyntenyBlock(syntenyBlock, args);
         },
     },

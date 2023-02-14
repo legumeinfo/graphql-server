@@ -1,4 +1,8 @@
-export const organismFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const organismFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         organism: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getOrganism(id);
@@ -17,13 +21,8 @@ export const organismFactory = (sourceName) => ({
         },
     },
     Organism: {
-        //strains: async (organism, { start, size }, { dataSources }) => {
         strains: async (organism, { }, { dataSources }) => {
-            const args = {
-                organism,
-                //start,
-                //size,
-            };
+            const args = {organism};
             return dataSources[sourceName].getStrains(args);
         },
     },

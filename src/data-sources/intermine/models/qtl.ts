@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
 // 	<attribute name="identifier" type="java.lang.String"/>
 // 	<attribute name="lod" type="java.lang.Double"/>
@@ -26,6 +29,17 @@ export const intermineQTLAttributes = [
     'QTL.dataSet.id',
 ];
 export const intermineQTLSort = 'QTL.trait.name ASC QTL.identifier ASC';
+export type IntermineQTL = [
+  number,
+  string,
+  number,
+  string,
+  number,
+  number,
+  number,
+  number,
+  number,
+];
 
 
 // type QTL {
@@ -56,8 +70,12 @@ export const graphqlQTLAttributes = [
     'linkageGroupId',
     'dataSetId',
 ];
+export type GraphQLQTL = {
+  [prop in typeof graphqlQTLAttributes[number]]: string;
+}
 
 
-export function response2qtls(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlQTLAttributes);
+export type IntermineQTLResponse = Response<IntermineQTL>;
+export function response2qtls(response: IntermineQTLResponse): Array<GraphQLQTL> {
+    return response2graphqlObjects(response, graphqlQTLAttributes);
 }

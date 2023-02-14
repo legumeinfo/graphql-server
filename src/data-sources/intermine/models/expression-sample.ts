@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="ExpressionSample" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="tissue" type="java.lang.String"/>
 // 	<attribute name="num" type="java.lang.Integer"/>
@@ -29,6 +32,22 @@ export const intermineExpressionSampleAttributes = [
     'ExpressionSample.source.id',
 ];
 export const intermineExpressionSampleSort = 'ExpressionSample.primaryIdentifier';
+export type IntermineExpressionSample = [
+  number,
+  string,
+  string,
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];
 
 
 // type ExpressionSample {
@@ -65,8 +84,12 @@ export const graphqlExpressionSampleAttributes = [
     'developmentStage',
     'sourceId',
 ];
+export type GraphQLExpressionSample = {
+  [prop in typeof graphqlExpressionSampleAttributes[number]]: string;
+}
 
 
-export function response2expressionSamples(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlExpressionSampleAttributes);
+export type IntermineExpressionSampleResponse = Response<IntermineExpressionSample>;
+export function response2expressionSamples(response: IntermineExpressionSampleResponse): Array<GraphQLExpressionSample> {
+    return response2graphqlObjects(response, graphqlExpressionSampleAttributes);
 }

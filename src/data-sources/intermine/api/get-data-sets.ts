@@ -1,131 +1,227 @@
-// get DataSets for a BioEntity, GeneticMap, LinkageGroup, Location, OntologyAnnotation, Ontology, OntologyTerm, Pathway, Phylotree, SyntenyBlock
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLBioEntity,
+  GraphQLDataSet,
+  GraphQLGeneticMap,
+  GraphQLLinkageGroup,
+  GraphQLLocation,
+  GraphQLOntology,
+  GraphQLOntologyAnnotation,
+  GraphQLOntologyTerm,
+  GraphQLPathway,
+  GraphQLPhylotree,
+  GraphQLSyntenyBlock,
+  IntermineDataSetResponse,
+  intermineDataSetAttributes,
+  intermineDataSetSort,
+  intermineGeneticMapDataSetAttributes,
+  intermineGeneticMapDataSetSort,
+  intermineLinkageGroupDataSetAttributes,
+  intermineLinkageGroupDataSetSort,
+  intermineLocationDataSetAttributes,
+  intermineLocationDataSetSort,
+  intermineOntologyAnnotationDataSetAttributes,
+  intermineOntologyAnnotationDataSetSort,
+  intermineOntologyDataSetAttributes,
+  intermineOntologyDataSetSort,
+  intermineOntologyTermDataSetAttributes,
+  intermineOntologyTermDataSetSort,
+  interminePathwayDataSetAttributes,
+  interminePathwayDataSetSort,
+  interminePhylotreeDataSetAttributes,
+  interminePhylotreeDataSetSort,
+  intermineSyntenyBlockDataSetAttributes,
+  intermineSyntenyBlockDataSetSort,
+  response2dataSets,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
 
 
-export async function getDataSetsForBioEntity(bioEntity, {start=0, size=10}) {
+export async function getDataSetsForBioEntity(
+  bioEntity: GraphQLBioEntity,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('DataSet.bioEntities.id', '=', bioEntity.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineDataSetAttributes,
-        this.models.intermineDataSetSort,
+    const constraints = [intermineConstraint('DataSet.bioEntities.id', '=', bioEntity.id)];
+    const query = interminePathQuery(
+        intermineDataSetAttributes,
+        intermineDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForGeneticMap(geneticMap, {start=0, size=10}) {
+export async function getDataSetsForGeneticMap(
+  geneticMap: GraphQLGeneticMap,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('GeneticMap.id', '=', geneticMap.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneticMapDataSetAttributes,
-        this.models.intermineGeneticMapDataSetSort,
+    const constraints = [intermineConstraint('GeneticMap.id', '=', geneticMap.id)];
+    const query = interminePathQuery(
+        intermineGeneticMapDataSetAttributes,
+        intermineGeneticMapDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForLinkageGroup(linkageGroup, {start=0, size=10}) {
+export async function getDataSetsForLinkageGroup(
+  linkageGroup: GraphQLLinkageGroup,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('LinkageGroup.id', '=', linkageGroup.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineLinkageGroupDataSetAttributes,
-        this.models.intermineLinkageGroupDataSetSort,
+    const constraints = [intermineConstraint('LinkageGroup.id', '=', linkageGroup.id)];
+    const query = interminePathQuery(
+        intermineLinkageGroupDataSetAttributes,
+        intermineLinkageGroupDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForLocation(location, {start=0, size=10}) {
+export async function getDataSetsForLocation(
+  location: GraphQLLocation,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('Location.id', '=', location.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineLocationDataSetAttributes,
-        this.models.intermineLocationDataSetSort,
+    const constraints = [intermineConstraint('Location.id', '=', location.id)];
+    const query = interminePathQuery(
+        intermineLocationDataSetAttributes,
+        intermineLocationDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForOntologyAnnotation(ontologyAnnotation, {start=0, size=10}) {
+export async function getDataSetsForOntology(
+  ontology: GraphQLOntology,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('OntologyAnnotation.id', '=', ontologyAnnotation.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOntologyAnnotationDataSetAttributes,
-        this.models.intermineOntologyAnnotationDataSetSort,
+    const constraints = [intermineConstraint('Ontology.id', '=', ontology.id)];
+    const query = interminePathQuery(
+        intermineOntologyDataSetAttributes,
+        intermineOntologyDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForOntology(ontology, {start=0, size=10}) {
+export async function getDataSetsForOntologyAnnotation(
+  ontologyAnnotation: GraphQLOntologyAnnotation,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('Ontology.id', '=', ontology.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOntologyDataSetAttributes,
-        this.models.intermineOntologyDataSetSort,
+    const constraints = [intermineConstraint('OntologyAnnotation.id', '=', ontologyAnnotation.id)];
+    const query = interminePathQuery(
+        intermineOntologyAnnotationDataSetAttributes,
+        intermineOntologyAnnotationDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForOntologyTerm(ontologyTerm, {start=0, size=10}) {
+export async function getDataSetsForOntologyTerm(
+  ontologyTerm: GraphQLOntologyTerm,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('OntologyTerm.id', '=', ontologyTerm.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOntologyTermDataSetAttributes,
-        this.models.intermineOntologyTermDataSetSort,
+    const constraints = [intermineConstraint('OntologyTerm.id', '=', ontologyTerm.id)];
+    const query = interminePathQuery(
+        intermineOntologyTermDataSetAttributes,
+        intermineOntologyTermDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForPathway(pathway, {start=0, size=10}) {
+export async function getDataSetsForPathway(
+  pathway: GraphQLPathway,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('Pathway.id', '=', pathway.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.interminePathwayDataSetAttributes,
-        this.models.interminePathwayDataSetSort,
+    const constraints = [intermineConstraint('Pathway.id', '=', pathway.id)];
+    const query = interminePathQuery(
+        interminePathwayDataSetAttributes,
+        interminePathwayDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForPhylotree(phylotree, {start=0, size=10}) {
+export async function getDataSetsForPhylotree(
+  phylotree: GraphQLPhylotree,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('Phylotree.id', '=', phylotree.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.interminePhylotreeDataSetAttributes,
-        this.models.interminePhylotreeDataSetSort,
+    const constraints = [intermineConstraint('Phylotree.id', '=', phylotree.id)];
+    const query = interminePathQuery(
+        interminePhylotreeDataSetAttributes,
+        interminePhylotreeDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }
 
 
-export async function getDataSetsForSyntenyBlock(syntenyBlock, {start=0, size=10}) {
+export async function getDataSetsForSyntenyBlock(
+  syntenyBlock: GraphQLSyntenyBlock,
+  {
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: PaginationOptions,
+): Promise<GraphQLDataSet> {
     const options = {start, size};
-    const constraints = [this.pathquery.intermineConstraint('SyntenyBlock.id', '=', syntenyBlock.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineSyntenyBlockDataSetAttributes,
-        this.models.intermineSyntenyBlockDataSetSort,
+    const constraints = [intermineConstraint('SyntenyBlock.id', '=', syntenyBlock.id)];
+    const query = interminePathQuery(
+        intermineSyntenyBlockDataSetAttributes,
+        intermineSyntenyBlockDataSetSort,
         constraints,
     );
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2dataSets(response));
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
 }

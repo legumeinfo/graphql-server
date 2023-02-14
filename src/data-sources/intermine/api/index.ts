@@ -1,111 +1,383 @@
+import { IntermineServer } from '../intermine.server.js';
+
 // author
-export * from './get-author.js';
-export * from './get-authors.js';
-// chromosome 
-export * from './get-chromosome.js';
+import { getAuthor } from './get-author.js';
+import { getAuthors } from './get-authors.js';
+// chromosome
+import { getChromosome } from './get-chromosome.js';
 // data set
-export * from './get-data-set.js';
-export * from './get-data-sets.js';
+import { getDataSet } from './get-data-set.js';
+import {
+  getDataSetsForBioEntity,
+  getDataSetsForGeneticMap,
+  getDataSetsForLinkageGroup,
+  getDataSetsForLocation,
+  getDataSetsForOntologyAnnotation,
+  getDataSetsForOntology,
+  getDataSetsForOntologyTerm,
+  getDataSetsForPathway,
+  getDataSetsForPhylotree,
+  getDataSetsForSyntenyBlock,
+} from './get-data-sets.js';
 // expression sample
-export * from './get-expression-sample.js';
-export * from './get-expression-samples.js';
-export * from './search-expression-samples.js';
+import { getExpressionSample } from './get-expression-sample.js';
+import { getExpressionSamples } from './get-expression-samples.js';
+import { searchExpressionSamples } from './search-expression-samples.js';
 // expression source
-export * from './get-expression-source.js';
-export * from './search-expression-sources.js';
+import { getExpressionSource } from './get-expression-source.js';
+import { searchExpressionSources } from './search-expression-sources.js';
 // genes
-export * from './get-gene.js';
-export * from './get-genes.js';
-export * from './search-genes.js';
+import { getGene } from './get-gene.js';
+import { getGenes } from './get-genes.js';
+import { searchGenes } from './search-genes.js';
 // gene family
-export * from './get-gene-family.js';
-export * from './get-gene-families.js';
-export * from './search-gene-families.js';
+import { getGeneFamily } from './get-gene-family.js';
+import { getGeneFamilies } from './get-gene-families.js';
+import { searchGeneFamilies } from './search-gene-families.js';
 // gene family assignment
-export * from './get-gene-family-assignment.js';
-export * from './get-gene-family-assignments.js';
-export * from './get-gene-family-assignments-for-protein.js';
+import { getGeneFamilyAssignment } from './get-gene-family-assignment.js';
+import { getGeneFamilyAssignments} from './get-gene-family-assignments.js';
+import { getGeneFamilyAssignmentsForProtein } from './get-gene-family-assignments-for-protein.js';
 // gene family tally
-export * from './get-gene-family-tally.js';
-export * from './get-gene-family-tallies.js';
+import { getGeneFamilyTally } from './get-gene-family-tally.js';
+import { getGeneFamilyTallies } from './get-gene-family-tallies.js';
 // genetic map
-export * from './get-genetic-map.js';
-export * from './search-genetic-maps.js';
+import { getGeneticMap } from './get-genetic-map.js';
+import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
-export * from './get-genetic-marker.js';
-export * from './get-genetic-markers.js';
+import { getGeneticMarker } from './get-genetic-marker.js';
+import { getGeneticMarkers } from './get-genetic-markers.js';
 // gwas
-export * from './get-gwas.js';
-export * from './get-gwas-for-trait.js';
-export * from './search-gwases.js';
+import { getGWAS } from './get-gwas.js';
+import { getGWASForTrait } from './get-gwas-for-trait.js';
+import { searchGWASes } from './search-gwases.js';
 // gwas result
-export * from './get-gwas-result.js';
-export * from './get-gwas-results.js';
+import { getGWASResult } from './get-gwas-result.js';
+import { getGWASResults } from './get-gwas-results.js';
 // linkage group
-export * from './get-linkage-group.js';
-export * from './get-linkage-groups.js';
+import { getLinkageGroup } from './get-linkage-group.js';
+import { getLinkageGroups } from './get-linkage-groups.js';
 // linkage group position
-export * from './get-linkage-group-position.js';
-export * from './get-linkage-group-positions.js';
+import { getLinkageGroupPosition } from './get-linkage-group-position.js';
+import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
 // location
-export * from './get-location.js';
-export * from './get-locations.js';
+import { getLocation } from './get-location.js';
+import { getLocations } from './get-locations.js';
 // mRNA
-export * from './get-mrna.js';
+import { getMRNA } from './get-mrna.js';
 // ontology
-export * from './get-ontology.js';
+import { getOntology } from './get-ontology.js';
 // ontology annotation
-export * from './get-ontology-annotation.js';
-export * from './get-ontology-annotations.js';
+import { getOntologyAnnotation } from './get-ontology-annotation.js';
+import { getOntologyAnnotations } from './get-ontology-annotations.js';
 // ontology term
-export * from './get-ontology-term.js';
-export * from './get-ontology-terms.js';
-export * from './get-ontology-term-ontology.js';
-export * from './search-ontology-terms.js';
+import { getOntologyTerm } from './get-ontology-term.js';
+import { getOntologyTerms } from './get-ontology-terms.js';
+import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
+import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
-export * from './get-organism.js';
-export * from './get-organisms.js';
-export * from './search-organisms.js';
+import { getOrganism } from './get-organism.js';
+import { getOrganisms } from './get-organisms.js';
+import { searchOrganisms } from './search-organisms.js';
 // pathway
-export * from './get-pathway.js';
-export * from './get-pathways.js';
+import { getPathway } from './get-pathway.js';
+import { getPathways } from './get-pathways.js';
 // phylonode
-export * from './get-phylonode.js';
-export * from './get-phylonode-for-protein.js';
-export * from './get-phylonodes.js';
+import { getPhylonode } from './get-phylonode.js';
+import { getPhylonodeForProtein } from './get-phylonode-for-protein.js';
+import { getPhylonodes } from './get-phylonodes.js';
 // phylotree
-export * from './get-phylotree.js';
-export * from './get-protein-domain.js';
+import { getPhylotree } from './get-phylotree.js';
 // protein
-export * from './get-protein.js';
-export * from './search-proteins.js';
+import { getProtein } from './get-protein.js';
+import { searchProteins } from './search-proteins.js';
 // protein domain
-export * from './get-protein-domain.js';
-export * from './get-protein-domains.js';
-export * from './search-protein-domains.js';
+import { getProteinDomain } from './get-protein-domain.js';
+import { getProteinDomains } from './get-protein-domains.js';
+import { searchProteinDomains } from './search-protein-domains.js';
 // publication
-export * from './get-publication.js';
-export * from './get-publications.js';
-export * from './search-publications.js';
+import { getPublication } from './get-publication.js';
+import { getPublications } from './get-publications.js';
+import { searchPublications } from './search-publications.js';
 // qtl
-export * from './get-qtl.js';
-export * from './get-qtls.js';
-export * from './search-qtls.js';
+import { getQTL } from './get-qtl.js';
+import { getQTLs } from './get-qtls.js';
+import { searchQTLs } from './search-qtls.js';
 // qtl study
-export * from './get-qtl-study.js';
-export * from './get-qtl-study-for-trait.js';
-export * from './search-qtl-studies.js';
+import { getQTLStudy } from './get-qtl-study.js';
+import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
+import { searchQTLStudies } from './search-qtl-studies.js';
 // syntenic region
-export * from './get-syntenic-region.js';
-export * from './get-syntenic-regions.js';
+import { getSyntenicRegion } from './get-syntenic-region.js';
+import { getSyntenicRegions } from './get-syntenic-regions.js';
 // synteny block
-export * from './get-synteny-block.js';
+import { getSyntenyBlock } from './get-synteny-block.js';
 // strain
-export * from './get-strain.js';
-export * from './get-strains.js';
-export * from './search-strains.js';
+import { getStrain } from './get-strain.js';
+import { getStrains } from './get-strains.js';
+import { searchStrains } from './search-strains.js';
 // trait
-export * from './get-trait.js';
-export * from './search-traits.js';
+import { getTrait } from './get-trait.js';
+import { searchTraits } from './search-traits.js';
 // mine web properties
-export * from './get-mine-web-properties.js';
+import { getMineWebProperties } from './get-mine-web-properties.js';
+
+
+// the constructor used to type constrain the super class
+export type ApiBaseConstructor<T = IntermineServer> = new (...args: any[]) => T;
+
+
+// the interface of the class generated by the mixin
+export declare class ApiMixinInterface {
+  // author
+  getAuthor: Function;
+  getAuthors: Function;
+  // chromosome
+  getChromosome: Function;
+  // data set
+  getDataSet: Function;
+  getDataSetsForBioEntity: Function;
+  getDataSetsForGeneticMap: Function;
+  getDataSetsForLinkageGroup: Function;
+  getDataSetsForLocation: Function;
+  getDataSetsForOntologyAnnotation: Function;
+  getDataSetsForOntology: Function;
+  getDataSetsForOntologyTerm: Function;
+  getDataSetsForPathway: Function;
+  getDataSetsForPhylotree: Function;
+  getDataSetsForSyntenyBlock: Function;
+  // expression sample
+  getExpressionSample: Function;
+  getExpressionSamples: Function;
+  searchExpressionSamples: Function;
+  // expression source
+  getExpressionSource: Function;
+  searchExpressionSources: Function;
+  // genes
+  getGene: Function;
+  getGenes: Function;
+  searchGenes: Function;
+  // gene family
+  getGeneFamily: Function;
+  getGeneFamilies: Function;
+  searchGeneFamilies: Function;
+  // gene family assignment
+  getGeneFamilyAssignment: Function;
+  getGeneFamilyAssignments: Function;
+  getGeneFamilyAssignmentsForProtein: Function;
+  // gene family tally
+  getGeneFamilyTally: Function;
+  getGeneFamilyTallies: Function;
+  // genetic map
+  getGeneticMap: Function;
+  searchGeneticMaps: Function;
+  // genetic marker
+  getGeneticMarker: Function;
+  getGeneticMarkers: Function;
+  // gwas
+  getGWAS: Function;
+  getGWASForTrait: Function;
+  searchGWASes: Function;
+  // gwas result
+  getGWASResult: Function;
+  getGWASResults: Function;
+  // linkage group
+  getLinkageGroup: Function;
+  getLinkageGroups: Function;
+  // linkage group position
+  getLinkageGroupPosition: Function;
+  getLinkageGroupPositions: Function;
+  // location
+  getLocation: Function;
+  getLocations: Function;
+  // mRNA
+  getMRNA: Function;
+  // ontology
+  getOntology: Function;
+  // ontology annotation
+  getOntologyAnnotation: Function;
+  getOntologyAnnotations: Function;
+  // ontology term
+  getOntologyTerm: Function;
+  getOntologyTerms: Function;
+  getOntologyTermOntology: Function;
+  searchOntologyTerms: Function;
+  // organism
+  getOrganism: Function;
+  getOrganisms: Function;
+  searchOrganisms: Function;
+  // pathway
+  getPathway: Function;
+  getPathways: Function;
+  // phylonode
+  getPhylonode: Function;
+  getPhylonodeForProtein: Function;
+  getPhylonodes: Function;
+  // phylotree
+  getPhylotree: Function;
+  // protein
+  getProtein: Function;
+  searchProteins: Function;
+  // protein domain
+  getProteinDomain: Function;
+  getProteinDomains: Function;
+  searchProteinDomains: Function;
+  // publication
+  getPublication: Function;
+  getPublications: Function;
+  searchPublications: Function;
+  // qtl
+  getQTL: Function;
+  getQTLs: Function;
+  searchQTLs: Function;
+  // qtl study
+  getQTLStudy: Function;
+  getQTLStudyForTrait: Function;
+  searchQTLStudies: Function;
+  // syntenic region
+  getSyntenicRegion: Function;
+  getSyntenicRegions: Function;
+  // synteny block
+  getSyntenyBlock: Function;
+  // strain
+  getStrain: Function;
+  getStrains: Function;
+  searchStrains: Function;
+  // trait
+  getTrait: Function;
+  searchTraits: Function;
+  // mine web properties
+  getMineWebProperties: Function;
+}
+
+
+// a mixin that adds the API to the IntermineServer class
+export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superClass: T) => {
+
+  class ApiMixinClass extends superClass {
+    // author
+    getAuthor = getAuthor;
+    getAuthors = getAuthors;
+    // chromosome
+    getChromosome = getChromosome;
+    // data set
+    getDataSet = getDataSet;
+    getDataSetsForBioEntity = getDataSetsForBioEntity;
+    getDataSetsForGeneticMap = getDataSetsForGeneticMap;
+    getDataSetsForLinkageGroup = getDataSetsForLinkageGroup;
+    getDataSetsForLocation = getDataSetsForLocation;
+    getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
+    getDataSetsForOntology = getDataSetsForOntology;
+    getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
+    getDataSetsForPathway = getDataSetsForPathway;
+    getDataSetsForPhylotree = getDataSetsForPhylotree;
+    getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+    // expression sample
+    getExpressionSample = getExpressionSample;
+    getExpressionSamples = getExpressionSamples;
+    searchExpressionSamples = searchExpressionSamples;
+    // expression source
+    getExpressionSource = getExpressionSource;
+    searchExpressionSources = searchExpressionSources;
+    // genes
+    getGene = getGene;
+    getGenes = getGenes;
+    searchGenes = searchGenes;
+    // gene family
+    getGeneFamily = getGeneFamily;
+    getGeneFamilies = getGeneFamilies;
+    searchGeneFamilies = searchGeneFamilies;
+    // gene family assignment
+    getGeneFamilyAssignment = getGeneFamilyAssignment;
+    getGeneFamilyAssignments = getGeneFamilyAssignments;
+    getGeneFamilyAssignmentsForProtein = getGeneFamilyAssignmentsForProtein;
+    // gene family tally
+    getGeneFamilyTally = getGeneFamilyTally;
+    getGeneFamilyTallies = getGeneFamilyTallies;
+    // genetic map
+    getGeneticMap = getGeneticMap;
+    searchGeneticMaps = searchGeneticMaps;
+    // genetic marker
+    getGeneticMarker = getGeneticMarker;
+    getGeneticMarkers = getGeneticMarkers;
+    // gwas
+    getGWAS = getGWAS;
+    getGWASForTrait = getGWASForTrait;
+    searchGWASes = searchGWASes;
+    // gwas result
+    getGWASResult = getGWASResult;
+    getGWASResults = getGWASResults;
+    // linkage group
+    getLinkageGroup = getLinkageGroup;
+    getLinkageGroups = getLinkageGroups;
+    // linkage group position
+    getLinkageGroupPosition = getLinkageGroupPosition;
+    getLinkageGroupPositions = getLinkageGroupPositions;
+    // location
+    getLocation = getLocation;
+    getLocations = getLocations;
+    // mRNA
+    getMRNA = getMRNA;
+    // ontology
+    getOntology = getOntology;
+    // ontology annotation
+    getOntologyAnnotation = getOntologyAnnotation;
+    getOntologyAnnotations = getOntologyAnnotations;
+    // ontology term
+    getOntologyTerm = getOntologyTerm;
+    getOntologyTerms = getOntologyTerms;
+    getOntologyTermOntology = getOntologyTermOntology;
+    searchOntologyTerms = searchOntologyTerms;
+    // organism
+    getOrganism = getOrganism;
+    getOrganisms = getOrganisms;
+    searchOrganisms = searchOrganisms;
+    // pathway
+    getPathway = getPathway;
+    getPathways = getPathways;
+    // phylonode
+    getPhylonode = getPhylonode;
+    getPhylonodeForProtein = getPhylonodeForProtein;
+    getPhylonodes = getPhylonodes;
+    // phylotree
+    getPhylotree = getPhylotree;
+    // protein
+    getProtein = getProtein;
+    searchProteins = searchProteins;
+    // protein domain
+    getProteinDomain = getProteinDomain;
+    getProteinDomains = getProteinDomains;
+    searchProteinDomains = searchProteinDomains;
+    // publication
+    getPublication = getPublication;
+    getPublications = getPublications;
+    searchPublications = searchPublications;
+    // qtl
+    getQTL = getQTL;
+    getQTLs = getQTLs;
+    searchQTLs = searchQTLs;
+    // qtl study
+    getQTLStudy = getQTLStudy;
+    getQTLStudyForTrait = getQTLStudyForTrait;
+    searchQTLStudies = searchQTLStudies;
+    // syntenic region
+    getSyntenicRegion = getSyntenicRegion;
+    getSyntenicRegions = getSyntenicRegions;
+    // synteny block
+    getSyntenyBlock = getSyntenyBlock;
+    // strain
+    getStrain = getStrain;
+    getStrains = getStrains;
+    searchStrains = searchStrains;
+    // trait
+    getTrait = getTrait;
+    searchTraits = searchTraits;
+    // mine web properties
+    getMineWebProperties = getMineWebProperties;
+  }
+
+  // cast return type to mixin's interface intersected with the superClass type
+  // necessary because TypeScript can't infer mixed-in types...
+  return ApiMixinClass as ApiBaseConstructor<ApiMixinInterface> & T;
+
+};

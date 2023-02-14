@@ -1,14 +1,14 @@
-export const expressionSourceFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const expressionSourceFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         expressionSource:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getExpressionSource(id);
         },
         expressionSources: async (_source, { description, start, size }, { dataSources }) => {
-            const args = {
-                description,
-                start,
-                size,
-            };
+            const args = {description, start, size};
             return dataSources[sourceName].searchExpressionSources(args);
         },
     },
@@ -27,11 +27,7 @@ export const expressionSourceFactory = (sourceName) => ({
             return dataSources[sourceName].getExpressionSamples(args);
         },
         publications: async (expressionSource, { start, size }, { dataSources }) => {
-            const args = {
-                annotatable: expressionSource,
-                start,
-                size
-            };
+            const args = {annotatable: expressionSource, start, size};
             return dataSources[sourceName].getPublications(args);
         },
     },

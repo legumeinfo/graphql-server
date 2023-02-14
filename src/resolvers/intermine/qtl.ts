@@ -1,4 +1,8 @@
-export const qtlFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         qtl:  async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getQTL(id);
@@ -22,11 +26,7 @@ export const qtlFactory = (sourceName) => ({
             return dataSources[sourceName].getDataSet(qtl.dataSetId);
         },
         markers: async (qtl, { start, size }, { dataSources }) => {
-            const args = {
-                qtl: qtl,
-                start,
-                size
-            };
+            const args = {qtl, start, size};
             return dataSources[sourceName].getGeneticMarkers(args);
         },
     },

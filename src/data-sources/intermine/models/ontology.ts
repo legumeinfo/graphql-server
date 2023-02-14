@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Ontology" is-interface="true" term="http://semanticscience.org/resource/SIO_001391">
 // 	<attribute name="url" type="java.lang.String" term="http://edamontology.org/data_1052"/>
 // 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
@@ -9,6 +12,11 @@ export const intermineOntologyAttributes = [
     'Ontology.name',
 ]
 export const intermineOntologySort = 'Ontology.name';
+export type IntermineOntology = [
+  number,
+  string,
+  string,
+];
 
 
 // type Ontology {
@@ -22,10 +30,8 @@ export const graphqlOntologyAttributes = [
     'url',
     'name',
 ]
-
-
-export function response2ontologies(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlOntologyAttributes);
+export type GraphQLOntology = {
+  [prop in typeof graphqlOntologyAttributes[number]]: string;
 }
 
 
@@ -35,6 +41,18 @@ export const intermineOntologyTermOntologyAttributes = [
     'OntologyTerm.ontology.name',
 ];
 export const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
+export type IntermineOntologyTermOntology = [
+  number,
+  string,
+  string,
+];
+
+
+export type IntermineOntologyResponse = Response<IntermineOntology>;
+export type IntermineOntologyTermOntologyResponse = Response<IntermineOntologyTermOntology>;
+export function response2ontologies(response: IntermineOntologyResponse | IntermineOntologyTermOntologyResponse): Array<GraphQLOntology> {
+    return response2graphqlObjects(response, graphqlOntologyAttributes);
+}
 
 
 // Ontology.dataSets has no reverse reference
@@ -49,3 +67,12 @@ export const intermineOntologyDataSetAttributes = [
     'Ontology.dataSets.synopsis',
 ];
 export const intermineOntologyDataSetSort = 'Ontology.dataSets.name'; // guaranteed not null
+export type IntermineOntologyDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+];

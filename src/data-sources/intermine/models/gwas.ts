@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GWAS" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="description" type="java.lang.String"/>
@@ -20,6 +23,20 @@ export const intermineGWASAttributes = [
     'GWAS.dataSet.id',
 ];
 export const intermineGWASSort = 'GWAS.primaryIdentifier';
+//export type IntermineGWAS = {
+//  [prop in typeof intermineGWASAttributes[number]]: string;
+//}
+export type IntermineGWAS = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+];
 
 
 // type GWAS {
@@ -47,8 +64,12 @@ export const graphqlGWASAttributes = [
     'organismId',
     'dataSetId',
 ];
+export type GraphQLGWAS = {
+  [prop in typeof graphqlGWASAttributes[number]]: string;
+}
 
 
-export function response2gwas(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGWASAttributes);
+export type IntermineGWASResponse = Response<IntermineGWAS>;
+export function response2gwas(response: IntermineGWASResponse): Array<GraphQLGWAS> {
+    return response2graphqlObjects(response, graphqlGWASAttributes);
 }

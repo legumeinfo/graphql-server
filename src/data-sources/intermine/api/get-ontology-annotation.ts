@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLOntologyAnnotation,
+  IntermineOntologyAnnotationResponse,
+  intermineOntologyAnnotationAttributes,
+  intermineOntologyAnnotationSort,
+  response2ontologyAnnotations,
+} from '../models/index.js';
+
+
 // get an OntologyAnnotation by ID
-export async function getOntologyAnnotation(id) {
-    const constraints = [this.pathquery.intermineConstraint('OntologyAnnotation.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOntologyAnnotationAttributes,
-        this.models.intermineOntologyAnnotationSort,
+export async function getOntologyAnnotation(id: number): Promise<GraphQLOntologyAnnotation> {
+    const constraints = [intermineConstraint('OntologyAnnotation.id', '=', id)];
+    const query = interminePathQuery(
+        intermineOntologyAnnotationAttributes,
+        intermineOntologyAnnotationSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2ontologyAnnotations(response))
-        .then((ontologyAnnotations) => {
+        .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response))
+        .then((ontologyAnnotations: Array<GraphQLOntologyAnnotation>) => {
             if (!ontologyAnnotations.length) {
                 const msg = `OntologyAnnotation with ID '${id}' not found`;
                 this.inputError(msg);

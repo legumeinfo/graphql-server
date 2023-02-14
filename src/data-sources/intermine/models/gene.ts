@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Gene" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000704,http://purl.obolibrary.org/obo/SO:0000704">
 // 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
 // 	<attribute name="description" type="java.lang.String"/>
@@ -56,6 +59,19 @@ export const intermineGeneAttributes = [
     'Gene.strain.id',          // internal resolution of strain
 ];
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
+export type IntermineGene = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  string,
+  number,
+  number,
+];
 
 
 // type Gene implements SequenceFeature {
@@ -84,9 +100,13 @@ export const graphqlGeneAttributes = [
     'organismId',              // internal resolution of organism
     'strainId',                // internal resolution of strain
 ];
+export type GraphQLGene = {
+  [prop in typeof graphqlGeneAttributes[number]]: string;
+}
 
 
+export type IntermineGeneResponse = Response<IntermineGene>;
 // converts an Intermine response into an array of GraphQL Gene objects
-export function response2genes(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneAttributes);
+export function response2genes(response: IntermineGeneResponse): Array<GraphQLGene> {
+    return response2graphqlObjects(response, graphqlGeneAttributes);
 }

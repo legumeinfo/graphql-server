@@ -1,34 +1,63 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGene,
+  GraphQLGeneFamily,
+  GraphQLProtein,
+  GraphQLProteinDomain,
+  IntermineGeneResponse,
+  intermineGeneAttributes,
+  intermineGeneSort,
+  response2genes,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetGenesOptions = {
+  protein?: GraphQLProtein;
+  geneFamily?: GraphQLGeneFamily;
+  proteinDomain?: GraphQLProteinDomain;
+} & PaginationOptions;
+
+
 // get Genes associated with a Protein, GeneFamily, ProteinDomain
-export async function getGenes({protein=null, geneFamily=null, proteinDomain=null, start=0, size=10}) {
+export async function getGenes(
+  {
+    protein,
+    geneFamily,
+    proteinDomain,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetGenesOptions,
+): Promise<GraphQLGene> {
     const constraints = [];
     if (protein) {
-        const proteinConstraint = this.pathquery.intermineConstraint('Gene.proteins.id', '=', protein.id);
+        const proteinConstraint = intermineConstraint('Gene.proteins.id', '=', protein.id);
         constraints.push(proteinConstraint);
     }
     if (geneFamily) {
-        const geneFamilyConstraint = this.pathquery.intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
+        const geneFamilyConstraint = intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
         constraints.push(geneFamilyConstraint);
     }
     if (proteinDomain) {
-        const proteinDomainConstraint = this.pathquery.intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id);
+        const proteinDomainConstraint = intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id);
         constraints.push(proteinDomainConstraint);
     }
     // if (strain) {
     //     const strainConstraint =
-    //           this.pathquery.intermineConstraint('Gene.strain.name', '=', strain);
+    //           intermineConstraint('Gene.strain.name', '=', strain);
     //     constraints.push(strainConstraint);
     // }
     // if (description) {
     //     const descriptionConstraint =
-    //           this.pathquery.intermineConstraint('Gene.description', 'CONTAINS', description);
+    //           intermineConstraint('Gene.description', 'CONTAINS', description);
     //     constraints.push(descriptionConstraint);
     // }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneAttributes,
-        this.models.intermineGeneSort,
+    const query = interminePathQuery(
+        intermineGeneAttributes,
+        intermineGeneSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2genes(response));
+        .then((response: IntermineGeneResponse) => response2genes(response));
 }

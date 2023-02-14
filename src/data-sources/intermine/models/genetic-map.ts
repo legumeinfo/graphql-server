@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
 // 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="description" type="java.lang.String"/>
@@ -19,6 +22,16 @@ export const intermineGeneticMapAttributes = [
     'GeneticMap.organism.id',
 ];
 export const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
+export type IntermineGeneticMap = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];
 
 
 // type GeneticMap {
@@ -45,10 +58,14 @@ export const graphqlGeneticMapAttributes = [
     'synopsis',
     'organismId',
 ];
+export type GraphQLGeneticMap = {
+  [prop in typeof graphqlGeneticMapAttributes[number]]: string;
+}
 
 
-export function response2geneticMaps(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlGeneticMapAttributes);
+export type IntermineGeneticMapResponse = Response<IntermineGeneticMap>;
+export function response2geneticMaps(response: IntermineGeneticMapResponse): Array<GraphQLGeneticMap> {
+    return response2graphqlObjects(response, graphqlGeneticMapAttributes);
 }
 
 // GeneticMap.dataSets has no reverse reference
@@ -63,3 +80,13 @@ export const intermineGeneticMapDataSetAttributes = [
     'GeneticMap.dataSets.publication.id',  // internal resolution of publication
 ];
 export const intermineGeneticMapDataSetSort = 'GeneticMap.dataSets.name'; // guaranteed not null
+export type IntermineGeneticMapDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

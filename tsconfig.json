@@ -9,6 +9,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitOverride": true,

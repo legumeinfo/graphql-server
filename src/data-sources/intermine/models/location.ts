@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
 // 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
 // 	<attribute name="start" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002231"/>
@@ -14,6 +17,13 @@ export const intermineLocationAttributes = [
     'Location.locatedOn.id',
 ];
 export const intermineLocationSort = 'Location.start'; // guaranteed not null
+export type IntermineLocation = [
+  number,
+  string,
+  number,
+  number,
+  number,
+];
 
 
 // type Location {
@@ -32,11 +42,15 @@ export const graphqlLocationAttributes = [
     'end',
     'chromosomeId',
 ];
+export type GraphQLLocation = {
+  [prop in typeof graphqlLocationAttributes[number]]: string;
+}
 
 
+export type IntermineLocationResponse = Response<IntermineLocation>;
 // converts an Intermine response into an array of GraphQL Location objects
-export function response2locations(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlLocationAttributes);
+export function response2locations(response: IntermineLocationResponse): Array<GraphQLLocation> {
+    return response2graphqlObjects(response, graphqlLocationAttributes);
 }
 
 
@@ -52,3 +66,13 @@ export const intermineLocationDataSetAttributes = [
     'Location.dataSets.publication.id',  // internal resolution of publication
 ];
 export const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
+export type IntermineLocationDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

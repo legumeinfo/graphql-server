@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Organism" is-interface="true" term="http://semanticscience.org/resource/SIO_010000">
 // 	<attribute name="taxonId" type="java.lang.String" term="http://edamontology.org/data_1179"/>
 // 	<attribute name="abbreviation" type="java.lang.String"/>
@@ -22,6 +25,17 @@ export const intermineOrganismAttributes = [
     'Organism.shortName',
 ];
 export const intermineOrganismSort = 'Organism.taxonId'; // guaranteed not null
+export type IntermineOrganism = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+];
 
 
 // type Organism {
@@ -45,8 +59,12 @@ export const graphqlOrganismAttributes = [
     'genus',
     'species',
 ];
+export type GraphQLOrganism = {
+  [prop in typeof graphqlOrganismAttributes[number]]: string;
+}
 
 
-export function response2organisms(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlOrganismAttributes);
+export type IntermineOrganismResponse = Response<IntermineOrganism>;
+export function response2organisms(response: IntermineOrganismResponse): Array<GraphQLOrganism> {
+    return response2graphqlObjects(response, graphqlOrganismAttributes);
 }

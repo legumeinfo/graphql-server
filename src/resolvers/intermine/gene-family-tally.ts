@@ -1,4 +1,8 @@
-export const geneFamilyTallyFactory = (sourceName) => ({
+import { DataSources } from '../../data-sources/index.js';
+import { ResolverMap } from '../resolver.js';
+
+
+export const geneFamilyTallyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         geneFamilyTally: async (_source, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamilyTally(id);

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="SyntenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0005858">
 // 	<reference name="syntenyBlock" referenced-type="SyntenyBlock" reverse-reference="syntenicRegions"/>
 // </class>
@@ -15,6 +18,19 @@ export const intermineSyntenicRegionAttributes = [
     'SyntenicRegion.syntenyBlock.id',
 ];
 export const intermineSyntenicRegionSort = 'SyntenicRegion.primaryIdentifier';
+export type IntermineSyntenicRegion = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+  number,
+  number,
+];
 
 
 // type SyntenicRegion implements SequenceFeature {
@@ -60,9 +76,13 @@ export const graphqlSyntenicRegionAttributes = [
     'length',
     'syntenyBlockId',
 ];
+export type GraphQLSyntenicRegion = {
+  [prop in typeof graphqlSyntenicRegionAttributes[number]]: string;
+}
     
 
+export type IntermineSyntenicRegionResponse = Response<IntermineSyntenicRegion>;
 // converts an Intermine response into an array of GraphQL SyntenicRegion objects
-export function response2syntenicRegions(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlSyntenicRegionAttributes);
+export function response2syntenicRegions(response: IntermineSyntenicRegionResponse): Array<GraphQLSyntenicRegion> {
+    return response2graphqlObjects(response, graphqlSyntenicRegionAttributes);
 }

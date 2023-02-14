@@ -1,19 +1,44 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLPhylonode,
+  GraphQLPhylotree,
+  InterminePhylonodeResponse,
+  interminePhylonodeAttributes,
+  interminePhylonodeSort,
+  response2phylonodes,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetPhylonodesOptions = {
+  phylotree?: GraphQLPhylotree;
+  parent?: GraphQLPhylonode;
+} & PaginationOptions;
+
+
 // get Phylonodes for a Phylotree or parent Phylonode
-export async function getPhylonodes({phylotree=null, parent=null, start=0, size=10}) {
+export async function getPhylonodes(
+  {
+    phylotree,
+    parent,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetPhylonodesOptions,
+): Promise<GraphQLPhylonode[]> {
     const constraints = [];
     if (phylotree) {
-        const phylotreeConstraint = this.pathquery.intermineConstraint('Phylonode.tree.id', '=', phylotree.id);
+        const phylotreeConstraint = intermineConstraint('Phylonode.tree.id', '=', phylotree.id);
         constraints.push(phylotreeConstraint);
     } else if (parent) {
-        const parentConstraint = this.pathquery.intermineConstraint('Phylonode.parent.id', '=', parent.id);
+        const parentConstraint = intermineConstraint('Phylonode.parent.id', '=', parent.id);
         constraints.push(parentConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.interminePhylonodeAttributes,
-        this.models.interminePhylonodeSort,
+    const query = interminePathQuery(
+        interminePhylonodeAttributes,
+        interminePhylonodeSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2phylonodes(response));
+        .then((response: InterminePhylonodeResponse) => response2phylonodes(response));
 }

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234,http://purl.obolibrary.org/obo/SO_0000234">
 // 	<attribute name="isPrimary" type="java.lang.Boolean"/>
 // 	<reference name="threePrimeUTR" referenced-type="ThreePrimeUTR"/>
@@ -19,6 +22,21 @@ export const intermineMRNAAttributes = [
     'MRNA.isPrimary',
 ];
 export const intermineMRNASort = 'MRNA.primaryIdentifier';
+export type IntermineMRNA = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+  number,
+  number,
+  number,
+  boolean,
+];
 
 
 // type MRNA extends Transcript {
@@ -71,9 +89,13 @@ export const graphqlMRNAAttributes = [
     'proteinId',
     'isPrimary',
 ];
+export type GraphQLMRNA = {
+  [prop in typeof graphqlMRNAAttributes[number]]: string;
+}
 
 
+export type IntermineMRNAResponse = Response<IntermineMRNA>;
 // converts an Intermine response into an array of GraphQL MRNA objects
-export function response2mRNAs(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlMRNAAttributes);
+export function response2mRNAs(response: IntermineMRNAResponse): Array<GraphQLMRNA> {
+    return response2graphqlObjects(response, graphqlMRNAAttributes);
 }

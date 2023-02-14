@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="LinkageGroupPosition" is-interface="true" term="">
 // 	<attribute name="position" type="java.lang.Double"/>
 // 	<attribute name="markerName" type="java.lang.String"/>
@@ -10,6 +13,12 @@ export const intermineLinkageGroupPositionAttributes = [
     'LinkageGroupPosition.linkageGroup.id',
 ];
 export const intermineLinkageGroupPositionSort = 'LinkageGroupPosition.position';
+export type IntermineLinkageGroupPosition = [
+  number,
+  number,
+  string,
+  number,
+];
 
 
 // type LinkageGroupPosition {
@@ -24,10 +33,14 @@ export const graphqlLinkageGroupPositionAttributes = [
     'markerName',
     'linkageGroupId',
 ];
+export type GraphQLLinkageGroupPosition = {
+  [prop in typeof graphqlLinkageGroupPositionAttributes[number]]: string;
+}
 
 
-export function response2linkageGroupPositions(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlLinkageGroupPositionAttributes);
+export type IntermineLinkageGroupPositionResponse = Response<IntermineLinkageGroupPosition>;
+export function response2linkageGroupPositions(response: IntermineLinkageGroupPositionResponse): Array<GraphQLLinkageGroupPosition> {
+    return response2graphqlObjects(response, graphqlLinkageGroupPositionAttributes);
 }
 
 
@@ -39,3 +52,9 @@ export const intermineGeneticMarkerLinkageGroupPositionsAttributes = [
     'GeneticMarker.linkageGroupPositions.linkageGroup.id',
 ];
 export const intermineGeneticMarkerLinkageGroupPositionsSort = 'GeneticMarker.linkageGroupPositions.position';
+export type IntermineGeneticMarkerLinkageGroupPositions = [
+  number,
+  number,
+  string,
+  number,
+];

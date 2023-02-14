@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="SyntenyBlock" is-interface="true" term="">
 // 	<attribute name="medianKs" type="java.lang.Double"/>
 // 	<collection name="publications" referenced-type="Publication"/>
@@ -9,6 +12,10 @@ export const intermineSyntenyBlockAttributes = [
     'SyntenyBlock.medianKs',
 ];
 export const intermineSyntenyBlockSort = 'SyntenyBlock.medianKs';
+export type IntermineSyntenyBlock = [
+  number,
+  number,
+];
 
 
 // type SyntenyBlock {
@@ -22,11 +29,15 @@ export const graphqlSyntenyBlockAttributes = [
     'id',
     'medianKs',
 ];
+export type GraphQLSyntenyBlock = {
+  [prop in typeof graphqlSyntenyBlockAttributes[number]]: string;
+}
 
 
+export type IntermineSyntenyBlockResponse = Response<IntermineSyntenyBlock>;
 // converts an Intermine response into an array of GraphQL SyntenyBlock objects
-export function response2syntenyBlocks(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlSyntenyBlockAttributes);
+export function response2syntenyBlocks(response: IntermineSyntenyBlockResponse): Array<GraphQLSyntenyBlock> {
+    return response2graphqlObjects(response, graphqlSyntenyBlockAttributes);
 }
 
 
@@ -42,3 +53,13 @@ export const intermineSyntenyBlockDataSetAttributes = [
     'SyntenyBlock.dataSets.publication.id',  // internal resolution of publication
 ];
 export const intermineSyntenyBlockDataSetSort = 'SyntenyBlock.dataSets.name'; // guaranteed not null
+export type IntermineSyntenyBlockDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

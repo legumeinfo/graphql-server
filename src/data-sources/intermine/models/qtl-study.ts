@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="QTLStudy" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="description" type="java.lang.String"/>
 // 	<attribute name="genotypes" type="java.lang.String"/>
@@ -16,6 +19,15 @@ export const intermineQTLStudyAttributes = [
     'QTLStudy.dataSet.id',
 ];
 export const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
+export type IntermineQTLStudy = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  number,
+  number,
+];
 
 
 // type QTLStudy {
@@ -39,8 +51,12 @@ export const graphqlQTLStudyAttributes = [
     'organismId',
     'dataSetId',
 ];
+export type GraphQLQTLStudy = {
+  [prop in typeof graphqlQTLStudyAttributes[number]]: string;
+}
 
 
-export function response2qtlStudies(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlQTLStudyAttributes);
+export type IntermineQTLStudyResponse = Response<IntermineQTLStudy>;
+export function response2qtlStudies(response: IntermineQTLStudyResponse): Array<GraphQLQTLStudy> {
+    return response2graphqlObjects(response, graphqlQTLStudyAttributes);
 }

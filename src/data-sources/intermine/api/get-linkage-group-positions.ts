@@ -1,12 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLGeneticMarker,
+  GraphQLLinkageGroupPosition,
+  IntermineLinkageGroupPositionResponse,
+  intermineGeneticMarkerLinkageGroupPositionsAttributes,
+  intermineGeneticMarkerLinkageGroupPositionsSort,
+  response2linkageGroupPositions,
+} from '../models/index.js';
+
+
 // get LinkageGroupPositions for a GeneticMarker
-//export async function getLinkageGroupPositions(geneticMarker, {start=0, size=10}) {
-export async function getLinkageGroupPositions(geneticMarker) {
+export async function getLinkageGroupPositions(geneticMarker: GraphQLGeneticMarker)
+: Promise<GraphQLLinkageGroupPosition[]> {
     // no reverse reference in LinkageGroupPosition so query GeneticMarker
-    const constraints = [this.pathquery.intermineConstraint('GeneticMarker.id', '=', geneticMarker.id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineGeneticMarkerLinkageGroupPositionsAttributes,
-        this.models.intermineGeneticMarkerLinkageGroupPositionsSort,
+    const constraints = [intermineConstraint('GeneticMarker.id', '=', geneticMarker.id)];
+    const query = interminePathQuery(
+        intermineGeneticMarkerLinkageGroupPositionsAttributes,
+        intermineGeneticMarkerLinkageGroupPositionsSort,
         constraints,
     );
-    return this.pathQuery(query).then((response) => this.models.response2linkageGroupPositions(response));
+    return this.pathQuery(query)
+      .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response));
 }

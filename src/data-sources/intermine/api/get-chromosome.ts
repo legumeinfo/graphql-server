@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLChromosome,
+  IntermineChromosomeResponse,
+  intermineChromosomeAttributes,
+  intermineChromosomeSort,
+  response2chromosomes,
+} from '../models/index.js';
+
+
 // get a Chromosome by ID
-export async function getChromosome(id) {
-    const constraints = [this.pathquery.intermineConstraint('Chromosome.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineChromosomeAttributes,
-        this.models.intermineChromosomeSort,
+export async function getChromosome(id: number): Promise<GraphQLChromosome> {
+    const constraints = [intermineConstraint('Chromosome.id', '=', id)];
+    const query = interminePathQuery(
+        intermineChromosomeAttributes,
+        intermineChromosomeSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2chromosomes(response))
-        .then((chromosomes) => {
+        .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
+        .then((chromosomes: Array<GraphQLChromosome>) => {
             if (!chromosomes.length) {
                 const msg = `Chromosome with ID '${id}' not found`;
                 this.inputError(msg);

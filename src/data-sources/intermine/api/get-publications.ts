@@ -1,20 +1,46 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLAnnotatable,
+  GraphQLAuthor,
+  GraphQLPublication,
+  InterminePublicationResponse,
+  interminePublicationAttributes,
+  interminePublicationSort,
+  response2publications,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetPublicationsOptions = {
+  author?: GraphQLAuthor;
+  annotatable?: GraphQLAnnotatable;
+} & PaginationOptions;
+
+
 // get Publications associated with an Author or any type that extends Annotatable
-export async function getPublications({author=null, annotatable=null, start=0, size=10}) {
+export async function getPublications(
+  {
+    author,
+    annotatable,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetPublicationsOptions,
+): Promise<GraphQLPublication[]> {
     const constraints = [];
     if (author) {
-        const constraint = this.pathquery.intermineConstraint('Publication.authors.id', '=', author.id);
+        const constraint = intermineConstraint('Publication.authors.id', '=', author.id);
         constraints.push(constraint);
     }
     if (annotatable) {
-        const constraint = this.pathquery.intermineConstraint('Publication.entities.id', '=', annotatable.id);
+        const constraint = intermineConstraint('Publication.entities.id', '=', annotatable.id);
         constraints.push(constraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.interminePublicationAttributes,
-        this.models.interminePublicationSort,
+    const query = interminePathQuery(
+        interminePublicationAttributes,
+        interminePublicationSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2publications(response));
+        .then((response: InterminePublicationResponse) => response2publications(response));
 }

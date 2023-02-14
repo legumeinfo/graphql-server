@@ -1,4 +1,4 @@
-import { IntermineAPI } from './intermine/intermine.api.js';
+import { IntermineAPI } from './intermine/index.js';
 
 
 export type DataSources = {

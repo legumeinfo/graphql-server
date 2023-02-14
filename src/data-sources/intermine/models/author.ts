@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Author" is-interface="true" term="http://purl.obolibrary.org/obo/NCIT_C42781">
 // 	<attribute name="firstName" type="java.lang.String" term="http://xmlns.com/foaf/0.1/givenname"/>
 // 	<attribute name="initials" type="java.lang.String"/>
@@ -13,6 +16,13 @@ export const intermineAuthorAttributes = [
     'Author.name',
 ];
 export const intermineAuthorSort = 'Author.lastName'; // guaranteed not null
+export type IntermineAuthor = [
+  number,
+  string,
+  string,
+  string,
+  string,
+];
 
 
 // type Author {
@@ -30,9 +40,13 @@ export const graphqlAuthorAttributes = [
     'lastName',
     'name',
 ];
+export type GraphQLAuthor = {
+  [prop in typeof graphqlAuthorAttributes[number]]: string;
+}
 
 
+export type IntermineAuthorResponse = Response<IntermineAuthor>;
 // converts an Intermine response into an array of GraphQL Author objects
-export function response2authors(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlAuthorAttributes);
+export function response2authors(response: IntermineAuthorResponse): Array<GraphQLAuthor> {
+    return response2graphqlObjects(response, graphqlAuthorAttributes);
 }

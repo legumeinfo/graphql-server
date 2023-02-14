@@ -1,16 +1,39 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLExpressionSample,
+  GraphQLExpressionSource,
+  IntermineExpressionSampleResponse,
+  intermineExpressionSampleAttributes,
+  intermineExpressionSampleSort,
+  response2expressionSamples,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetExpressionSamplesOptions = {
+  expressionSource?: GraphQLExpressionSource;
+} & PaginationOptions;
+
+
 // get ExpressionSamples for an ExpressionSource
-export async function getExpressionSamples({expressionSource=null, start=0, size=10}) {
+export async function getExpressionSamples(
+  {
+    expressionSource,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetExpressionSamplesOptions,
+): Promise<GraphQLExpressionSample[]> {
     const constraints = [];
     if (expressionSource) {
-        const expressionSourceConstraint = this.pathquery.intermineConstraint('ExpressionSample.source.id', '=', expressionSource.id);
+        const expressionSourceConstraint = intermineConstraint('ExpressionSample.source.id', '=', expressionSource.id);
         constraints.push(expressionSourceConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineExpressionSampleAttributes,
-        this.models.intermineExpressionSampleSort,
+    const query = interminePathQuery(
+        intermineExpressionSampleAttributes,
+        intermineExpressionSampleSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2expressionSamples(response));
+        .then((response: IntermineExpressionSampleResponse) => response2expressionSamples(response));
 }

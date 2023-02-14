@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLStrain,
+  IntermineStrainResponse,
+  intermineStrainAttributes,
+  intermineStrainSort,
+  response2strains,
+} from '../models/index.js';
+
+
 // get a Strain by ID
-export async function getStrain(id) {
-    const constraints = [this.pathquery.intermineConstraint('Strain.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineStrainAttributes,
-        this.models.intermineStrainSort,
+export async function getStrain(id: number): Promise<GraphQLStrain> {
+    const constraints = [intermineConstraint('Strain.id', '=', id)];
+    const query = interminePathQuery(
+        intermineStrainAttributes,
+        intermineStrainSort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2strains(response))
-        .then((strains) => {
+        .then((response: IntermineStrainResponse) => response2strains(response))
+        .then((strains: Array<GraphQLStrain>) => {
             if (!strains.length) {
                 const msg = `Strain with ID '${id}' not found`;
                 this.inputError(msg);

@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="LinkageGroup" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
 // 	<attribute name="identifier" type="java.lang.String"/>
 // 	<attribute name="length" type="java.lang.Double"/>
@@ -14,6 +17,13 @@ export const intermineLinkageGroupAttributes = [
     'LinkageGroup.geneticMap.id',
 ];
 export const intermineLinkageGroupSort = 'LinkageGroup.identifier';
+export type IntermineLinkageGroup = [
+  number,
+  string,
+  number,
+  number,
+  number,
+];
 
 
 // type LinkageGroup {
@@ -32,10 +42,14 @@ export const graphqlLinkageGroupAttributes = [
     'number',
     'geneticMapId',
 ];
+export type GraphQLLinkageGroup = {
+  [prop in typeof graphqlLinkageGroupAttributes[number]]: string;
+}
 
 
-export function response2linkageGroups(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlLinkageGroupAttributes);
+export type IntermineLinkageGroupResponse = Response<IntermineLinkageGroup>;
+export function response2linkageGroups(response: IntermineLinkageGroupResponse): Array<GraphQLLinkageGroup> {
+    return response2graphqlObjects(response, graphqlLinkageGroupAttributes);
 }
 
 
@@ -51,3 +65,13 @@ export const intermineLinkageGroupDataSetAttributes = [
     'LinkageGroup.dataSets.publication.id',  // internal resolution of publication
 ];
 export const intermineLinkageGroupDataSetSort = 'LinkageGroup.dataSets.name'; // guaranteed not null
+export type IntermineLinkageGroupDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

@@ -1,20 +1,44 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLOrganism,
+  IntermineOrganismResponse,
+  intermineOrganismAttributes,
+  intermineOrganismSort,
+  response2organisms,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type GetOrganismsOptions = {
+  genus?: string;
+  species?: string;
+} & PaginationOptions;
+
+
 // get Organisms belonging to a genus, species
-export async function getOrganisms({genus=null, species=null, start=0, size=10}) {
+export async function getOrganisms(
+  {
+    genus,
+    species,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: GetOrganismsOptions,
+): Promise<GraphQLOrganism[]> {
     const constraints = [];
     if (genus) {
-        const genusConstraint = this.pathquery.intermineConstraint('Organism.genus', '=', genus);
+        const genusConstraint = intermineConstraint('Organism.genus', '=', genus);
         constraints.push(genusConstraint);
     }
     if (species) {
-        const speciesConstraint = this.pathquery.intermineConstraint('Organism.species', '=', species);
+        const speciesConstraint = intermineConstraint('Organism.species', '=', species);
         constraints.push(speciesConstraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOrganismAttributes,
-        this.models.intermineOrganismSort,
+    const query = interminePathQuery(
+        intermineOrganismAttributes,
+        intermineOrganismSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2organisms(response));
+        .then((response: IntermineOrganismResponse) => response2organisms(response));
 }

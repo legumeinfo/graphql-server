@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // ProteinDomain InterMine path query attributes
 // <class name="ProteinDomain" extends="Annotatable" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000417">
 //  	<attribute name="description" type="java.lang.String"/>
@@ -20,6 +23,14 @@ export const intermineProteinDomainAttributes = [
     'ProteinDomain.shortName',
 ];
 export const intermineProteinDomainSort = 'ProteinDomain.primaryIdentifier';
+export type IntermineProteinDomain = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+];
 
 
 // the attributes of a ProteinDomain in the GraphQL API
@@ -45,9 +56,13 @@ export const graphqlProteinDomainAttributes = [
     'name',
     'shortName',
 ];
+export type GraphQLProteinDomain = {
+  [prop in typeof graphqlProteinDomainAttributes[number]]: string;
+}
 
 
+export type IntermineProteinDomainResponse = Response<IntermineProteinDomain>;
 // converts an Intermine response into an array of GraphQL ProteinDomain objects
-export function response2proteinDomains(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlProteinDomainAttributes);
+export function response2proteinDomains(response: Response<IntermineProteinDomain>): Array<GraphQLProteinDomain> {
+    return response2graphqlObjects(response, graphqlProteinDomainAttributes);
 }

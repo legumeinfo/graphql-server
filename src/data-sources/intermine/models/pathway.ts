@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Pathway" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="name" type="java.lang.String"/>
 // 	<attribute name="stableIdentifier" type="java.lang.String"/>
@@ -11,6 +14,12 @@ export const interminePathwayAttributes = [
     'Pathway.stableIdentifier',
 ];
 export const interminePathwaySort = 'Pathway.primaryIdentifier';
+export type InterminePathway = [
+  number,
+  string,
+  string,
+  string,
+];
 
 
 // type Pathway implements Annotatable {
@@ -29,11 +38,15 @@ export const graphqlPathwayAttributes = [
     'name',
     'stableIdentifier',
 ];
+export type GraphQLPathway = {
+  [prop in typeof graphqlPathwayAttributes[number]]: string;
+}
 
 
+export type InterminePathwayResponse = Response<InterminePathway>;
 // converts an Intermine response into an array of GraphQL Pathway objects
-export function response2pathways(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlPathwayAttributes);
+export function response2pathways(response: InterminePathwayResponse): Array<GraphQLPathway> {
+    return response2graphqlObjects(response, graphqlPathwayAttributes);
 }
 
 
@@ -49,3 +62,13 @@ export const interminePathwayDataSetAttributes = [
     'Pathway.dataSets.publication.id',  // internal resolution of publication
 ];
 export const interminePathwayDataSetSort = 'Pathway.dataSets.name'; // guaranteed not null
+export type InterminePathwayDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];

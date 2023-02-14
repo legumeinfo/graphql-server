@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="Trait" extends="Annotatable" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
 // 	<attribute name="description" type="java.lang.String"/>
 // 	<attribute name="name" type="java.lang.String"/>
@@ -17,6 +20,13 @@ export const intermineTraitAttributes = [
     'Trait.dataSet.id',
 ];
 export const intermineTraitSort = 'Trait.name';
+export type IntermineTrait = [
+  number,
+  string,
+  string,
+  string,
+  number,
+];
 
 
 // type Trait {
@@ -39,8 +49,12 @@ export const graphqlTraitAttributes = [
     'name',
     'dataSetId',
 ];
+export type GraphQLTrait = {
+  [prop in typeof graphqlTraitAttributes[number]]: string;
+}
 
 
-export function response2traits(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlTraitAttributes);
+export type IntermineTraitResponse = Response<IntermineTrait>;
+export function response2traits(response: IntermineTraitResponse): Array<GraphQLTrait> {
+    return response2graphqlObjects(response, graphqlTraitAttributes);
 }

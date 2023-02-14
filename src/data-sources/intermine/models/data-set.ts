@@ -1,3 +1,6 @@
+import { Response, response2graphqlObjects } from '../intermine.server.js';
+
+
 // <class name="DataSet" is-interface="true" term="http://semanticscience.org/resource/SIO_000089">
 // 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
 // 	<attribute name="licence" type="java.lang.String" term="http://purl.org/dc/terms/license"/>
@@ -20,6 +23,16 @@ export const intermineDataSetAttributes = [
     'DataSet.publication.id',  // internal resolution of publication
 ];
 export const intermineDataSetSort = 'DataSet.name'; // guaranteed not null
+export type IntermineDataSet = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+];
 
 
 // type DataSet {
@@ -44,9 +57,13 @@ export const graphqlDataSetAttributes = [
     'synopsis',
     'publicationId',
 ];
+export type GraphQLDataSet = {
+  [prop in typeof graphqlDataSetAttributes[number]]: string;
+}
 
 
+export type IntermineDataSetResponse = Response<IntermineDataSet>;
 // converts an Intermine response into an array of GraphQL DataSet objects
-export function response2dataSets(response) {
-    return this.pathquery.response2graphqlObjects(response, graphqlDataSetAttributes);
+export function response2dataSets(response: IntermineDataSetResponse): Array<GraphQLDataSet> {
+    return response2graphqlObjects(response, graphqlDataSetAttributes);
 }

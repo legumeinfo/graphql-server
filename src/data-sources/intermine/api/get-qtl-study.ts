@@ -1,14 +1,24 @@
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLQTLStudy,
+  IntermineQTLStudyResponse,
+  intermineQTLStudyAttributes,
+  intermineQTLStudySort,
+  response2qtlStudies,
+} from '../models/index.js';
+
+
 // get a QTLStudy by ID
-export async function getQTLStudy(id) {
-    const constraints = [this.pathquery.intermineConstraint('QTLStudy.id', '=', id)];
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineQTLStudyAttributes,
-        this.models.intermineQTLStudySort,
+export async function getQTLStudy(id: number): Promise<GraphQLQTLStudy> {
+    const constraints = [intermineConstraint('QTLStudy.id', '=', id)];
+    const query = interminePathQuery(
+        intermineQTLStudyAttributes,
+        intermineQTLStudySort,
         constraints,
     );
     return this.pathQuery(query)
-        .then((response) => this.models.response2qtlStudies(response))
-        .then((qtlStudies) => {
+        .then((response: IntermineQTLStudyResponse) => response2qtlStudies(response))
+        .then((qtlStudies: GraphQLQTLStudy[]) => {
             if (!qtlStudies.length) {
                 const msg = `QTLStudy with ID '${id}' not found`;
                 this.inputError(msg);

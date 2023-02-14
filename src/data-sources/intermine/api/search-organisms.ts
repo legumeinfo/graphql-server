@@ -1,32 +1,62 @@
-// path query search for Organism of a given taxonId, abbreviation, name, genus, and/or species
-export async function searchOrganisms({taxonId=null, abbreviation=null, name=null, genus=null, species=null, start=0, size=10}) {
+import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  GraphQLOrganism,
+  IntermineOrganismResponse,
+  intermineOrganismAttributes,
+  intermineOrganismSort,
+  response2organisms,
+} from '../models/index.js';
+import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+
+
+export type SearchOrganismsOptions = {
+  taxonId?: string;
+  abbreviation?: string;
+  name?: string;
+  genus?: string;
+  species?: string;
+} & PaginationOptions;
+
+
+/// path query search for Organism of a given taxonId, abbreviation, name, genus, and/or species
+export async function searchOrganisms(
+  {
+    taxonId,
+    abbreviation,
+    name,
+    genus,
+    species,
+    start=defaultPaginationOptions.start,
+    size=defaultPaginationOptions.size,
+  }: SearchOrganismsOptions,
+): Promise<GraphQLOrganism[]> {
     const constraints = [];
     if (taxonId) {
-        const constraint = this.pathquery.intermineConstraint('Organism.taxonId', '=', taxonId);
+        const constraint = intermineConstraint('Organism.taxonId', '=', taxonId);
         constraints.push(constraint);
     }
     if (abbreviation) {
-        const constraint = this.pathquery.intermineConstraint('Organism.abbreviation', '=', abbreviation);
+        const constraint = intermineConstraint('Organism.abbreviation', '=', abbreviation);
         constraints.push(constraint);
     }
     if (name) {
-        const constraint = this.pathquery.intermineConstraint('Organism.name', '=',  name);
+        const constraint = intermineConstraint('Organism.name', '=',  name);
         constraints.push(constraint);
     }
     if (genus) {
-        const constraint = this.pathquery.intermineConstraint('Organism.genus', '=', genus);
+        const constraint = intermineConstraint('Organism.genus', '=', genus);
         constraints.push(constraint);
     }
     if (species) {
-        const constraint = this.pathquery.intermineConstraint('Organism.species', '=', species);
+        const constraint = intermineConstraint('Organism.species', '=', species);
         constraints.push(constraint);
     }
-    const query = this.pathquery.interminePathQuery(
-        this.models.intermineOrganismAttributes,
-        this.models.intermineOrganismSort,
+    const query = interminePathQuery(
+        intermineOrganismAttributes,
+        intermineOrganismSort,
         constraints,
     );
     const options = {start, size};
     return this.pathQuery(query, options)
-        .then((response) => this.models.response2organisms(response));
+        .then((response: IntermineOrganismResponse) => response2organisms(response));
 }
