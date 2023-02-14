@@ -4,18 +4,18 @@ import { ResolverMap } from '../resolver.js';
 
 export const phylonodeFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        phylonode: async (_source, { id }, { dataSources }) => {
+        phylonode: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(id);
         },
     },
     Phylonode: {
-        protein: async(phylonode, { }, { dataSources }) => {
+        protein: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getProtein(phylonode.proteinId);
         },
-        tree: async(phylonode, { }, { dataSources }) => {
+        tree: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(phylonode.treeId);
         },
-        parent: async(phylonode, { }, { dataSources }) => {
+        parent: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(phylonode.parentId);
         },
         children: async (phylonode, { start, size }, { dataSources }) => {

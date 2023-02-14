@@ -4,25 +4,25 @@ import { ResolverMap } from '../resolver.js';
 
 export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        qtl:  async (_source, { id }, { dataSources }) => {
+        qtl:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getQTL(id);
         },
-        qtls: async (_source, { traitName, start, size }, { dataSources }) => {
+        qtls: async (_, { traitName, start, size }, { dataSources }) => {
             const args = {traitName, start, size};
             return dataSources[sourceName].searchQTLs(args);
         },
     },
     QTL: {
-        trait: async (qtl, { }, { dataSources }) => {
+        trait: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getTrait(qtl.traitId);
         },
-        qtlStudy: async (qtl, { }, { dataSources }) => {
+        qtlStudy: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudy(qtl.qtlStudyId);
         },
-        linkageGroup: async (qtl, { }, { dataSources }) => {
+        linkageGroup: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupId);
         },
-        dataSet: async (qtl, { }, { dataSources }) => {
+        dataSet: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(qtl.dataSetId);
         },
         markers: async (qtl, { start, size }, { dataSources }) => {

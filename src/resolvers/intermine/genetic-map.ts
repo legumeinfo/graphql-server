@@ -4,23 +4,23 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneticMapFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneticMap:  async (_source, { id }, { dataSources }) => {
+        geneticMap:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneticMap(id);
         },
-        geneticMaps: async (_source, { description, start, size }, { dataSources }) => {
+        geneticMaps: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchGeneticMaps(args);
         },
     },
     GeneticMap: {
-        organism: async (geneticMap, { }, { dataSources }) => {
+        organism: async (geneticMap, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(geneticMap.organismId);
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {start, size};
             return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args);
         },
-        linkageGroups: async (geneticMap, { }, { dataSources }) => {
+        linkageGroups: async (geneticMap, _, { dataSources }) => {
             const args = {geneticMap};
             return dataSources[sourceName].getLinkageGroups(args);
         },

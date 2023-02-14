@@ -4,12 +4,12 @@ import { ResolverMap } from '../resolver.js';
 
 export const phylotreeFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        phylotree: async (_source, { id }, { dataSources }) => {
+        phylotree: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(id);
         },
     },
     Phylotree: {
-        geneFamily: async(phylotree, { }, { dataSources }) => {
+        geneFamily: async(phylotree, _, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyId);
         },
         dataSets: async (phylotree, { start, size }, { dataSources }) => {

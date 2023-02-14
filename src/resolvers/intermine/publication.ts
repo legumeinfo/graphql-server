@@ -4,10 +4,10 @@ import { ResolverMap } from '../resolver.js';
 
 export const publicationFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        publication: async (_source, { id }, { dataSources }) => {
+        publication: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getPublication(id);
         },
-        publications: async (_source, { title, start, size }, { dataSources }) => {
+        publications: async (_, { title, start, size }, { dataSources }) => {
             const args = {title, start, size};
             return dataSources[sourceName].searchPublications(args);
         },

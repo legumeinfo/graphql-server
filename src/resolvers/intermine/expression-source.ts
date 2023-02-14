@@ -4,22 +4,22 @@ import { ResolverMap } from '../resolver.js';
 
 export const expressionSourceFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        expressionSource:  async (_source, { id }, { dataSources }) => {
+        expressionSource:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getExpressionSource(id);
         },
-        expressionSources: async (_source, { description, start, size }, { dataSources }) => {
+        expressionSources: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
             return dataSources[sourceName].searchExpressionSources(args);
         },
     },
     ExpressionSource: {
-        organism: async (expressionSource, { }, { dataSources }) => {
+        organism: async (expressionSource, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(expressionSource.organismId);
         },
-        strain: async (expressionSource, { }, { dataSources }) => {
+        strain: async (expressionSource, _, { dataSources }) => {
             return dataSources[sourceName].getStrain(expressionSource.strainId);
         },
-        dataSet: async (expressionSource, { }, { dataSources }) => {
+        dataSet: async (expressionSource, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(expressionSource.dataSetId);
         },
         samples: async (expressionSource, { start, size }, { dataSources }) => {

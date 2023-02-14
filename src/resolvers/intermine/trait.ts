@@ -4,32 +4,32 @@ import { ResolverMap } from '../resolver.js';
 
 export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        trait: async (_source, { id }, { dataSources }) => {
+        trait: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getTrait(id);
         },
-        traits: async (_source, { name, start, size }, { dataSources }) => {
+        traits: async (_, { name, start, size }, { dataSources }) => {
             const args = {name, start, size};
             return dataSources[sourceName].searchTraits(args);
         },
     },
     Trait: {
-        dataSet: async (trait, { }, { dataSources }) => {
+        dataSet: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(trait.dataSetId);
         },
-        qtlStudy: async (trait, { }, { dataSources }) => {
+        qtlStudy: async (trait, _, { dataSources }) => {
             const args = {
                 trait: trait
             };
             return dataSources[sourceName].getQTLStudyForTrait(args);
         },
-        qtls: async (trait, { }, { dataSources }) => {
+        qtls: async (trait, _, { dataSources }) => {
             const args = {trait};
             return dataSources[sourceName].getQTLs(args);
         },
-        gwas: async (trait, { }, { dataSources }) => {
+        gwas: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getGWASForTrait(trait);
         },
-        gwasResults: async (trait, { }, { dataSources }) => {
+        gwasResults: async (trait, _, { dataSources }) => {
             const args = {trait};
             return dataSources[sourceName].getGWASResults(args);
         },

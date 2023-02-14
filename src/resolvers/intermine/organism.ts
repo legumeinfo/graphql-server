@@ -4,10 +4,10 @@ import { ResolverMap } from '../resolver.js';
 
 export const organismFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        organism: async (_source, { id }, { dataSources }) => {
+        organism: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getOrganism(id);
         },
-        organisms: async (_source, { taxonId, abbreviation, name, genus, species, start, size }, { dataSources }) => {
+        organisms: async (_, { taxonId, abbreviation, name, genus, species, start, size }, { dataSources }) => {
             const args = {
                 taxonId,
                 abbreviation,
@@ -21,7 +21,7 @@ export const organismFactory = (sourceName: keyof DataSources): ResolverMap => (
         },
     },
     Organism: {
-        strains: async (organism, { }, { dataSources }) => {
+        strains: async (organism, _, { dataSources }) => {
             const args = {organism};
             return dataSources[sourceName].getStrains(args);
         },
