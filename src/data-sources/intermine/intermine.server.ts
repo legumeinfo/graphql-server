@@ -1,7 +1,7 @@
 // This file contains functions to help work with Intermine's PathQuery API,
 // including functions for building queries and parsing their results.
 
-import { RESTDataSource } from '@apollo/datasource-rest';
+import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 import { GraphQLError } from 'graphql';
 
@@ -10,8 +10,8 @@ import { GraphQLModel, IntermineModel } from './models/index.js';
 
 export class IntermineServer extends RESTDataSource {
 
-    constructor(baseURL: string) {
-        super();
+    constructor(baseURL: string, config: DataSourceConfig={}) {
+        super(config);
         // set the URL all requests will be sent to
         this.baseURL = baseURL;
         // NOTE: RESTDataSource uses the Web API URL interface to add paths to
