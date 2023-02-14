@@ -2,7 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
 // import *.js files because node doesn't support directory imports in modules!
-import { ContextValue, context } from './context.js';
+import { ContextValue, contextFactory } from './context.js';
 import { typeDefs } from './types/index.js';
 import { resolvers } from './resolvers/index.js';
 
@@ -15,13 +15,16 @@ const server = new ApolloServer<ContextValue>({
 });
 
 
+const { cache } = server;
+
+
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
 //  1. creates an Express app
 //  2. installs the ApolloServer instance as middleware
 //  3. prepares the app to handle incoming requests
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
-  context,
+  context: contextFactory(cache),
 });
 
 

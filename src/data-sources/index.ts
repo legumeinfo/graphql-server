@@ -1,3 +1,5 @@
+import type { KeyValueCache } from '@apollo/utils.keyvaluecache';
+
 import { IntermineAPI } from './intermine/index.js';
 
 
@@ -6,8 +8,9 @@ export type DataSources = {
 };
 
 
-export const dataSources = (): DataSources => {
+export const dataSources = (cache: KeyValueCache): DataSources => {
+  const config = {cache};
   return {
-    lisIntermineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service'),
+    lisIntermineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service', config),
   };
 };
