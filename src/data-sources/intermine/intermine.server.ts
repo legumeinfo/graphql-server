@@ -98,35 +98,7 @@ export const response2graphqlObjects =
 <I extends IntermineModel>
 (response: Response<I>, graphqlAttributes: Array<string>):
 Array<GraphQLModel> => {
-  //return consolidate(
-  //  response.results.map(
-  //    (result: I) => result2graphqlObject(result, graphqlAttributes)
-  //  )
-  //);
   return response.results.map(
       (result: I) => result2graphqlObject(result, graphqlAttributes)
   );
 };
-
-
-// HACK: finds duplicates and merges 
-//export const consolidate =
-//(possibly_duplicated_obj_list: Array<GraphQLModel>): Array<GraphQLModel> => {
-//  const lookup = new Map();
-//  for (const obj of possibly_duplicated_obj_list) {
-//   const urobj = lookup.get(obj.id);
-//   if (urobj) {
-//     //HACK:
-//     if (obj.hasOwnProperty('proteinDomains')) {
-//       urobj.proteinDomains.push({name: obj.proteinDomains});
-//     }
-//   }
-//   else {
-//     if (obj.hasOwnProperty('proteinDomains')) {
-//       obj.proteinDomains = [{name : obj.proteinDomains}];
-//     }
-//     lookup.set(obj.id, obj);
-//   }
-//  }
-//  return Array.from(lookup.values());
-//};
