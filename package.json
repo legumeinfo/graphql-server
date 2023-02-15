@@ -9,8 +9,8 @@
     "build:watch": "tsc-watch",
     "clean": "rm -rf ./dist",
     "serve": "node ./dist/index.js",
-    "serve:dev": "npm run build:watch -- --onSuccess \"npm run serve\"",
-    "serve:prod": "MODE=prod npm run serve",
+    "serve:dev": "NODE_ENV=development npm run build:watch -- --onSuccess \"npm run serve\"",
+    "serve:prod": "NODE_ENV=production npm run serve",
     "start": "npm run clean && npm run build && npm run serve:dev"
   },
   "keywords": [],

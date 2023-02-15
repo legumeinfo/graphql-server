@@ -9,12 +9,15 @@ import { resolvers } from './resolvers/index.js';
 
 // The ApolloServer constructor requires two parameters: a schema definition and
 // a set of resolvers.
+// NOTE: 'introspection' option is automatically set to false when NODE_ENV is
+// 'production'; see package.json
 const server = new ApolloServer<ContextValue>({
   typeDefs,
   resolvers,
 });
 
 
+const port = Number(process.env.PORT) || 4000;
 const { cache } = server;
 
 
@@ -23,7 +26,7 @@ const { cache } = server;
 //  2. installs the ApolloServer instance as middleware
 //  3. prepares the app to handle incoming requests
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port },
   context: contextFactory(cache),
 });
 
