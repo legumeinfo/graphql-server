@@ -1,10 +1,15 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { config } from 'dotenv';
 
 // import *.js files because node doesn't support directory imports in modules!
 import { ContextValue, contextFactory } from './context.js';
 import { typeDefs } from './types/index.js';
 import { resolvers } from './resolvers/index.js';
+
+
+// load environment variables from the .env file into process.env
+config();
 
 
 // The ApolloServer constructor requires two parameters: a schema definition and
