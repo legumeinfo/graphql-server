@@ -1,7 +1,7 @@
-FROM node:19-alpine3.16 as base
+FROM node:19-alpine3.16
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Prepare to install dependencies
 COPY package.json .
@@ -13,12 +13,6 @@ RUN npm ci
 # Prepare to build the project
 COPY . .
 
-
-# dev image
-FROM base as dev
-
 EXPOSE 4000
-CMD ["npm", "run", "serve:dev"]
-
-
-# TODO: production image
+ENTRYPOINT ["npm", "run"]
+CMD ["start"]

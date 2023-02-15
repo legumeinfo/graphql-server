@@ -13,7 +13,10 @@ You can use the Apollo Explorer by navigating your browser to [http://localhost:
 
 ### Docker
 A Docker image can be built that contains the environment necessary to build and run the server.
-Currently this only runs the server in development mode.
+The `entrypoint` for this image is the `npm run` command.
+The default `command` for this `entrypoint` is the `start` script defined in `package.json`, which simply compiles and runs the code in neither development or production mode.
+**The default `command` should not be used for production.**
+Override the `command` to compile and run the code in a specific environment or to run another command from `package.json`; see the Local instructions below for details on commands for development and production.
 
 #### Setup
 Use the following command to build the Docker image:
@@ -29,7 +32,7 @@ docker run -p 4000:4000 legumeinfo-graphql-server
 
 
 ### Local
-The following instructions describe how to setup you local environment for running the server in both development and production mode.
+The following instructions describe how to setup your local environment for running the server in both development and production mode.
 See the `package.json` file for other commands.
 
 #### Setup
