@@ -2,6 +2,7 @@
 dist
 node_modules
 .dockerignore
+.env
 .gitignore
 CODE_OF_CONDUCT.md
 create-search-query.md

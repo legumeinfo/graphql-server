@@ -5,4 +5,5 @@ services:
       disable: true
     volumes:
       - .:/app
+      - /dev/null:/app/.env
       - /app/node_modules
