@@ -1,4 +1,4 @@
-# File Structure #
+# File Structure
 
 ## Types
 Each type is defined in a file under `types/`:
@@ -19,9 +19,9 @@ types/
 Each *InterMine* resolver is defined in a file under `resolvers/intermine/`:
 ```
 resolvers/intermine/
-├── author.js
-├── chromosome.js
-├── data-set.js
+├── author.ts
+├── chromosome.ts
+├── data-set.ts
 ...
 ```
 
@@ -29,9 +29,9 @@ resolvers/intermine/
 The *InterMine API* methods used by the resolvers are defined under `data-sources/intermine/api`:
 ```
 data-sources/intermine/api/
-├── get-author.js
-├── get-authors.js
-├── get-chromosome.js
+├── get-author.ts
+├── get-authors.ts
+├── get-chromosome.ts
 ...
 ```
 
@@ -44,9 +44,9 @@ The queries run in the API methods use these constants to query and populate the
 InterMine models are defined under `data-sources/intermine/models`:
 ```
 data-sources/intermine/models/
-├── author.js
-├── chromosome.js
-├── data-set.js
+├── author.ts
+├── chromosome.ts
+├── data-set.ts
 ...
 ```
 
@@ -88,10 +88,10 @@ const graphqlGeneAttributes = [
 The `Gene.organism` and `Gene.strain` resolvers then use these temporary attributes to populate the corresponding objects:
 ```
     Gene: {
-        organism: async (gene, { }, { dataSources }) => {
+        organism: async (gene, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(gene.organismId);
         },
-        strain: async (gene, { }, { dataSources }) => {
+        strain: async (gene, _, { dataSources }) => {
             return dataSources[sourceName].getStrain(gene.strainId);
         },
         ...
@@ -101,11 +101,7 @@ Collections are populated using custom API methods that incorporate pagination. 
 uses the `getLocations({sequenceFeature, start, size})` API method:
 ```
         locations: async (gene, { start, size }, { dataSources }) => {
-            const args = {
-                sequenceFeature: gene,
-                start,
-                size
-            };
+            const args = {sequenceFeature: gene, start, size};
             return dataSources[sourceName].getLocations(args);
         },
 ```
