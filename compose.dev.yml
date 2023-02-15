@@ -1,0 +1,8 @@
+services:
+  graphql-server:
+    command: serve:dev
+    healthcheck:
+      disable: true
+    volumes:
+      - .:/app
+      - /app/node_modules

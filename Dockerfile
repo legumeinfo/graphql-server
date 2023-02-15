@@ -13,6 +13,16 @@ RUN npm ci
 # Prepare to build the project
 COPY . .
 
+# Build
+RUN npm run build
+
+# Check if the server is healthy
+HEALTHCHECK CMD curl f --request POST \
+  --header 'content-type: application/json' \
+  --url http://localhost:4000/ \
+  --data '{"query":"query { __typename }"}' || exit 1
+
+# Run the server
 EXPOSE 4000
 ENTRYPOINT ["npm", "run"]
 CMD ["start"]

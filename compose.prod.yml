@@ -1,0 +1,3 @@
+services:
+  graphql-server:
+    command: serve:prod
