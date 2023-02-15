@@ -1,2 +1,9 @@
+.git
+dist
 node_modules
-npm-debug.log
+.dockerignore
+.gitignore
+CODE_OF_CONDUCT.md
+create-search-query.md
+Dockerfile
+README.md
