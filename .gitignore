@@ -3,3 +3,5 @@
 /dist/
 # emacs backups from Sammy
 *~
+# .env is for local settings
+.env
