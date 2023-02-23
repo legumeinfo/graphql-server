@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const qtlStudyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        qtlStudy:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudy(id);
+        qtlStudy:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getQTLStudy(identifier);
         },
         qtlStudies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,10 +14,10 @@ export const qtlStudyFactory = (sourceName: keyof DataSources): ResolverMap => (
     },
     QTLStudy: {
         organism: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(qtlStudy.organismId);
+            return dataSources[sourceName].getOrganism(qtlStudy.organismTaxonId);
         },
         dataSet: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtlStudy.dataSetId);
+            return dataSources[sourceName].getDataSet(qtlStudy.dataSetName);
         },
         qtls: async (qtlStudy, _, { dataSources }) => {
             const args = {qtlStudy};

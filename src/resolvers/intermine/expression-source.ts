@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const expressionSourceFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        expressionSource:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getExpressionSource(id);
+        expressionSource:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getExpressionSource(identifier);
         },
         expressionSources: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,13 +14,13 @@ export const expressionSourceFactory = (sourceName: keyof DataSources): Resolver
     },
     ExpressionSource: {
         organism: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(expressionSource.organismId);
+            return dataSources[sourceName].getOrganism(expressionSource.organismTaxonId);
         },
         strain: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(expressionSource.strainId);
+            return dataSources[sourceName].getStrain(expressionSource.strainIdentifier);
         },
         dataSet: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(expressionSource.dataSetId);
+            return dataSources[sourceName].getDataSet(expressionSource.dataSetName);
         },
         samples: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {expressionSource, start, size};

@@ -4,16 +4,16 @@ import { ResolverMap } from '../resolver.js';
 
 export const syntenicRegionFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        syntenicRegion: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getSyntenicRegion(id);
+        syntenicRegion: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getSyntenicRegion(identifier);
         },
     },
     SyntenicRegion: {
         organism: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(syntenicRegion.organismId);
+            return dataSources[sourceName].getOrganism(syntenicRegion.organismTaxonId);
         },
         strain: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(syntenicRegion.strainId);
+            return dataSources[sourceName].getStrain(syntenicRegion.strainIdentifier);
         },
         syntenyBlock: async (syntenicRegion, _, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId);

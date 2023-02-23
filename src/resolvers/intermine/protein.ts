@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const proteinFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        protein: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getProtein(id);
+        protein: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getProtein(identifier);
         },
         proteins: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,10 +14,10 @@ export const proteinFactory = (sourceName: keyof DataSources): ResolverMap => ({
     },
     Protein: {
         organism: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(protein.organismId);
+            return dataSources[sourceName].getOrganism(protein.organismTaxonId);
         },
         strain: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(protein.strainId);
+            return dataSources[sourceName].getStrain(protein.strainIdentifier);
         },
         phylonode: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonodeForProtein(protein);

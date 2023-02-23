@@ -4,20 +4,16 @@ import { ResolverMap } from '../resolver.js';
 
 export const chromosomeFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        chromosome: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(id);
+        chromosome: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getChromosome(identifier);
         },
-        // chromosomes: async (_, { description, start, size }, { dataSources }) => {
-        //     const args = {description, start, size};
-        //     return dataSources[sourceName].searchChromosomes(args);
-        // },
     },
     Chromosome: {
         organism: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(chromosome.organismId);
+            return dataSources[sourceName].getOrganism(chromosome.organismTaxonId);
         },
         strain: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(chromosome.strainId);
+            return dataSources[sourceName].getStrain(chromosome.strainIdentifier);
         },
         dataSets: async (chromosome, { start, size }, { dataSources }) => {
             const args = {start, size};

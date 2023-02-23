@@ -4,20 +4,16 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneticMarkerFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneticMarker:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGeneticMarker(id);
+        geneticMarker:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getGeneticMarker(identifier);
         },
-        // geneticMarkers: async (_, { description, start, size }, { dataSources }) => {
-        //     const args = {description, start, size};
-        //     return dataSources[sourceName].searchGeneticMarkers(args);
-        // },
     },
     GeneticMarker: {
         organism: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMarker.organismId);
+            return dataSources[sourceName].getOrganism(geneticMarker.organismTaxonId);
         },
         strain: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(geneticMarker.strainId);
+            return dataSources[sourceName].getStrain(geneticMarker.strainIdentifier);
         },
         dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {start, size};

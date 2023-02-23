@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const pathwayFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        pathway: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getPathway(id);
+        pathway: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getPathway(identifier);
         },
     },
     Pathway: {

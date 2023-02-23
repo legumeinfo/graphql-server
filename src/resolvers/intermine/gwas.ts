@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const gwasFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        gwas: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGWAS(id);
+        gwas: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getGWAS(identifier);
         },
         gwases: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,10 +14,10 @@ export const gwasFactory = (sourceName: keyof DataSources): ResolverMap => ({
     },
     GWAS: {
         organism: async(gwas, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gwas.organismId);
+            return dataSources[sourceName].getOrganism(gwas.organismTaxonId);
         },
         dataSet: async(gwas, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(gwas.dataSetId);
+            return dataSources[sourceName].getDataSet(gwas.dataSetName);
         },
         results: async (gwas, _, { dataSources }) => {
             const args = {gwas};

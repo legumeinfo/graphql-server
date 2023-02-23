@@ -11,8 +11,8 @@ export const intermineChromosomeAttributes = [
     'Chromosome.assemblyVersion',
     'Chromosome.annotationVersion',
     'Chromosome.length',
-    'Chromosome.organism.id',        // internal resolution of organism
-    'Chromosome.strain.id',          // internal resolution of strain
+    'Chromosome.organism.taxonId',   // internal resolution of organism
+    'Chromosome.strain.identifier',  // internal resolution of strain
 ];
 export const intermineChromosomeSort = 'Chromosome.primaryIdentifier'; // guaranteed not null
 export type IntermineChromosome = [
@@ -24,8 +24,8 @@ export type IntermineChromosome = [
   string,
   string,
   number,
-  number,
-  number,
+  string,
+  string,
 ];
 
 
@@ -50,8 +50,8 @@ export const graphqlChromosomeAttributes = [
     'assemblyVersion',
     'annotationVersion',
     'length',
-    'organismId',              // internal resolution of organism
-    'strainId',                // internal resolution of strain
+    'organismTaxonId',  // internal resolution of organism
+    'strainIdentifier', // internal resolution of strain
 ];
 export type GraphQLChromosome = {
   [prop in typeof graphqlChromosomeAttributes[number]]: string;

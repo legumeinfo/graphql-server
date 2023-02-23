@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneFamilyFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneFamily: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(id);
+        geneFamily: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getGeneFamily(identifier);
         },
         geneFamilies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,7 +14,7 @@ export const geneFamilyFactory = (sourceName: keyof DataSources): ResolverMap =>
     },
     GeneFamily: {
         phylotree: async(geneFamily, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylotree(geneFamily.phylotreeId);
+            return dataSources[sourceName].getPhylotree(geneFamily.phylotreeIdentifier);
         },
         genes: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};

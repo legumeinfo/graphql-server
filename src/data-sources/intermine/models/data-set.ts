@@ -20,7 +20,7 @@ export const intermineDataSetAttributes = [
     'DataSet.name',
     'DataSet.version',
     'DataSet.synopsis',
-    'DataSet.publication.id',  // internal resolution of publication
+    'DataSet.publication.doi',  // internal resolution of publication
 ];
 export const intermineDataSetSort = 'DataSet.name'; // guaranteed not null
 export type IntermineDataSet = [
@@ -31,7 +31,7 @@ export type IntermineDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];
 
 
@@ -55,7 +55,7 @@ export const graphqlDataSetAttributes = [
     'name',
     'version',
     'synopsis',
-    'publicationId',
+    'publicationDOI',
 ];
 export type GraphQLDataSet = {
   [prop in typeof graphqlDataSetAttributes[number]]: string;

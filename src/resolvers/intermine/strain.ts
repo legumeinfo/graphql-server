@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const strainFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        strain: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getStrain(id);
+        strain: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getStrain(identifier);
         },
         strains: async (_, { description, origin, start, size }, { dataSources }) => {
             const args = {description, origin, start, size};
@@ -14,7 +14,7 @@ export const strainFactory = (sourceName: keyof DataSources): ResolverMap => ({
     },
     Strain: {
         organism: async (strain, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(strain.organismId);
+            return dataSources[sourceName].getOrganism(strain.organismTaxonId);
         },
     },
 });

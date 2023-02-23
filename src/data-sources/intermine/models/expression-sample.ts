@@ -29,7 +29,7 @@ export const intermineExpressionSampleAttributes = [
     'ExpressionSample.genotype',
     'ExpressionSample.name',
     'ExpressionSample.developmentStage',
-    'ExpressionSample.source.id',
+    'ExpressionSample.source.primaryIdentifier',
 ];
 export const intermineExpressionSampleSort = 'ExpressionSample.primaryIdentifier';
 export type IntermineExpressionSample = [
@@ -46,7 +46,7 @@ export type IntermineExpressionSample = [
   string,
   string,
   string,
-  number,
+  string,
 ];
 
 
@@ -82,7 +82,7 @@ export const graphqlExpressionSampleAttributes = [
     'genotype',
     'name',
     'developmentStage',
-    'sourceId',
+    'sourceIdentifier',
 ];
 export type GraphQLExpressionSample = {
   [prop in typeof graphqlExpressionSampleAttributes[number]]: string;

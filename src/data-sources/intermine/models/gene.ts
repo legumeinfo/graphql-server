@@ -55,8 +55,8 @@ export const intermineGeneAttributes = [
     'Gene.annotationVersion',
     'Gene.length',
     'Gene.briefDescription',
-    'Gene.organism.id',        // internal resolution of organism
-    'Gene.strain.id',          // internal resolution of strain
+    'Gene.organism.taxonId',   // internal resolution of organism
+    'Gene.strain.identifier',  // internal resolution of strain
 ];
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 export type IntermineGene = [
@@ -70,7 +70,7 @@ export type IntermineGene = [
   number,
   string,
   number,
-  number,
+  string,
 ];
 
 
@@ -97,8 +97,8 @@ export const graphqlGeneAttributes = [
     'annotationVersion',
     'length',
     'briefDescription',
-    'organismId',              // internal resolution of organism
-    'strainId',                // internal resolution of strain
+    'organismTaxonId',   // internal resolution of organism
+    'strainIdentifier',  // internal resolution of strain
 ];
 export type GraphQLGene = {
   [prop in typeof graphqlGeneAttributes[number]]: string;

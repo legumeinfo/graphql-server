@@ -22,9 +22,9 @@ export const intermineExpressionSourceAttributes = [
     'ExpressionSource.unit',
     'ExpressionSource.geoSeries',
     'ExpressionSource.synopsis',
-    'ExpressionSource.organism.id',
-    'ExpressionSource.strain.id',
-    'ExpressionSource.dataSet.id',
+    'ExpressionSource.organism.taxonId',
+    'ExpressionSource.strain.identifier',
+    'ExpressionSource.dataSet.name',
 ];
 export const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
 export type IntermineExpressionSource = [
@@ -37,8 +37,8 @@ export type IntermineExpressionSource = [
   string,
   string,
   number,
-  number,
-  number,
+  string,
+  string,
 ];
 
 
@@ -67,9 +67,9 @@ export const graphqlExpressionSourceAttributes = [
     'unit',
     'geoSeries',
     'synopsis',
-    'organismId',
-    'strainId',
-    'dataSetId',
+    'organismTaxonId',
+    'strainIdentifier',
+    'dataSetName',
 ];
 export type GraphQLExpressionSource = {
   [prop in typeof graphqlExpressionSourceAttributes[number]]: string;
