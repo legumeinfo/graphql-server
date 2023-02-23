@@ -17,10 +17,7 @@ export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
             return dataSources[sourceName].getDataSet(trait.dataSetId);
         },
         qtlStudy: async (trait, _, { dataSources }) => {
-            const args = {
-                trait: trait
-            };
-            return dataSources[sourceName].getQTLStudyForTrait(args);
+            return dataSources[sourceName].getQTLStudyForTrait(trait);
         },
         qtls: async (trait, _, { dataSources }) => {
             const args = {trait};
