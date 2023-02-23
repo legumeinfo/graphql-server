@@ -9,8 +9,8 @@ import {
 
 
 // get a Chromosome by ID
-export async function getChromosome(id: number): Promise<GraphQLChromosome> {
-    const constraints = [intermineConstraint('Chromosome.id', '=', id)];
+export async function getChromosome(identifier: string): Promise<GraphQLChromosome> {
+    const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineChromosomeAttributes,
         intermineChromosomeSort,
@@ -20,7 +20,7 @@ export async function getChromosome(id: number): Promise<GraphQLChromosome> {
         .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
         .then((chromosomes: Array<GraphQLChromosome>) => {
             if (!chromosomes.length) {
-                const msg = `Chromosome with ID '${id}' not found`;
+                const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return chromosomes[0];

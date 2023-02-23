@@ -4,88 +4,63 @@
 
 type Query {
 
+  ### Annotatables
+  chromosome(identifier: ID!): Chromosome
+  expressionSample(identifier: ID!): ExpressionSample
+  expressionSource(identifier: ID!): ExpressionSource
+  gene(identifier: ID!): Gene
+  geneFamily(identifier: ID!): GeneFamily
+  geneticMap(identifier: ID!): GeneticMap
+  geneticMarker(identifier: ID!): GeneticMarker
+  gwas(identifier: ID!): GWAS
+  mRNA(identifier: ID!): MRNA
+  pathway(identifier: ID!): Pathway
+  phylotree(identifier: ID!): Phylotree
+  protein(identifier: ID!): Protein
+  proteinDomain(identifier: ID!): ProteinDomain
+  qtlStudy(identifier: ID!): QTLStudy
+  syntenicRegion(identifier: ID!): SyntenicRegion
+  trait(identifier: ID!): Trait
+
+  ### other types with unique non-id keys
+  dataSet(name: ID!): DataSet
+  ontologyTerm(identifier: ID!): OntologyTerm
+  organism(taxonId: ID!): Organism
+  publication(doi: ID!): Publication
+  strain(identifier: ID!): Strain
+
+  ### types identified by numerical id
   author(id: ID!): Author
-
-  chromosome(id: ID!): Chromosome
-
-  dataSet(id: ID!): DataSet
-  
-  expressionSample(id: ID!): ExpressionSample
-  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
-  
-  expressionSource(id: ID!): ExpressionSource
-  expressionSources(description: String, start: Int, size: Int): [ExpressionSource]
-
-  gene(id: ID!): Gene
-  genes(description: String, start: Int, size: Int): [Gene]
-
-  geneFamily(id: ID!): GeneFamily
-  geneFamilies(description: String, start: Int, size: Int): [GeneFamily]
-
   geneFamilyAssignment(id: ID!): GeneFamilyAssignment
- 
   geneFamilyTally(id: ID!): GeneFamilyTally
-
-  geneticMap(id: ID!): GeneticMap
-  geneticMaps(description: String, start: Int, size: Int): [GeneticMap]
-
-  geneticMarker(id: ID!): GeneticMarker
-
-  gwas(id: ID!): GWAS
-  gwases(description: String, start: Int, size: Int): [GWAS]
-  
   gwasResult(id: ID!): GWASResult
-
   linkageGroup(id: ID!): LinkageGroup
-
   linkageGroupPosition(id: ID!): LinkageGroupPosition
-
   location(id: ID!): Location
-
-  mRNA(id: ID!): MRNA
-
   ontology(id: ID!): Ontology
-
   ontologyAnnotation(id: ID!): OntologyAnnotation
-  
-  ontologyTerm(id: ID!): OntologyTerm
-  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
-
-  organism(id: ID!): Organism
-  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
-
-  pathway(id: ID!): Pathway
-  
   phylonode(id: ID!): Phylonode
-
-  phylotree(id: ID!): Phylotree
-
-  protein(id: ID!): Protein
-  proteins(description: String, start: Int, size: Int): [Protein]
-
-  proteinDomain(id: ID!): ProteinDomain
-  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
-
-  publication(id: ID!): Publication
-  publications(title: String, start: Int, size: Int): [Publication]
-  
   qtl(id: ID!): QTL
-  qtls(traitName: String, start: Int, size: Int): [QTL]
-  
-  qtlStudy(id: ID!): QTLStudy
-  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
-  
-  strain(id: ID!): Strain
-  strains(description: String, origin: String, start: Int, size: Int): [Strain]
-
-  syntenicRegion(id: ID!): SyntenicRegion
-
   syntenyBlock(id: ID!): SyntenyBlock
-
-  trait(id: ID!): Trait
+  
+  ### multiple-result queries (typically searches)
+  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
+  expressionSources(description: String, start: Int, size: Int): [ExpressionSource]
+  genes(description: String, start: Int, size: Int): [Gene]
+  geneFamilies(description: String, start: Int, size: Int): [GeneFamily]
+  geneticMaps(description: String, start: Int, size: Int): [GeneticMap]
+  gwases(description: String, start: Int, size: Int): [GWAS]
+  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
+  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
+  proteins(description: String, start: Int, size: Int): [Protein]
+  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
+  publications(title: String, start: Int, size: Int): [Publication]
+  qtls(traitName: String, start: Int, size: Int): [QTL]
+  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
+  strains(description: String, origin: String, start: Int, size: Int): [Strain]
   traits(name: String, start: Int, size: Int): [Trait]
 
-
+  ### no-parameter queries
   mineWebProperties: MineWebProperties
 
 }

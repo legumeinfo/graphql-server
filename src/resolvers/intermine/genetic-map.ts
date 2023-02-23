@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const geneticMapFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        geneticMap:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGeneticMap(id);
+        geneticMap:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getGeneticMap(identifier);
         },
         geneticMaps: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -14,7 +14,7 @@ export const geneticMapFactory = (sourceName: keyof DataSources): ResolverMap =>
     },
     GeneticMap: {
         organism: async (geneticMap, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMap.organismId);
+            return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId);
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {start, size};

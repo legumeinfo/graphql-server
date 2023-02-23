@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const ontologyTermFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        ontologyTerm: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTerm(id);
+        ontologyTerm: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getOntologyTerm(identifier);
         },
         ontologyTerms: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

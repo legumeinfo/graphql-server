@@ -19,7 +19,7 @@ export const intermineGeneticMapAttributes = [
     'GeneticMap.genotypes',
     'GeneticMap.genotypingMethod',
     'GeneticMap.synopsis',
-    'GeneticMap.organism.id',
+    'GeneticMap.organism.taxonId',
 ];
 export const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
 export type IntermineGeneticMap = [
@@ -56,7 +56,7 @@ export const graphqlGeneticMapAttributes = [
     'genotypes',
     'genotypingMethod',
     'synopsis',
-    'organismId',
+    'organismTaxonId',
 ];
 export type GraphQLGeneticMap = {
   [prop in typeof graphqlGeneticMapAttributes[number]]: string;

@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const publicationFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        publication: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getPublication(id);
+        publication: async (_, { doi }, { dataSources }) => {
+            return dataSources[sourceName].getPublication(doi);
         },
         publications: async (_, { title, start, size }, { dataSources }) => {
             const args = {title, start, size};

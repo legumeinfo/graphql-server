@@ -4,7 +4,7 @@ import { ResolverMap } from '../resolver.js';
 
 export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        trait: async (_, { id }, { dataSources }) => {
+        trait: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getTrait(id);
         },
         traits: async (_, { name, start, size }, { dataSources }) => {

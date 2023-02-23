@@ -9,8 +9,8 @@ import {
 
 
 // get an Organism by ID
-export async function getOrganism(id: number): Promise<GraphQLOrganism> {
-    const constraints = [intermineConstraint('Organism.id', '=', id)];
+export async function getOrganism(taxonId: number): Promise<GraphQLOrganism> {
+    const constraints = [intermineConstraint('Organism.taxonId', '=', taxonId)];
     const query = interminePathQuery(
         intermineOrganismAttributes,
         intermineOrganismSort,
@@ -20,7 +20,7 @@ export async function getOrganism(id: number): Promise<GraphQLOrganism> {
         .then((response: IntermineOrganismResponse) => response2organisms(response))
         .then((organisms: Array<GraphQLOrganism>) => {
             if (!organisms.length) {
-                const msg = `Organism with ID '${id}' not found`;
+                const msg = `Organism with taxon ID '${taxonId}' not found`;
                 this.inputError(msg);
             }
             return organisms[0];
