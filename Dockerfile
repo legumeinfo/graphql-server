@@ -20,7 +20,7 @@ COPY . .
 RUN npm run build
 
 # Check if the server is healthy
-HEALTHCHECK CMD curl f --request POST \
+HEALTHCHECK CMD curl -f --request POST \
   --header 'content-type: application/json' \
   --url http://localhost:4000/ \
   --data '{"query":"query { __typename }"}' || exit 1
