@@ -1,5 +1,8 @@
 FROM node:19-alpine3.16
 
+#needed for healthcheck
+RUN apk --no-cache add curl
+
 # Create app directory
 WORKDIR /app
 
