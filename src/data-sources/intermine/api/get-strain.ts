@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a Strain by ID
-export async function getStrain(id: number): Promise<GraphQLStrain> {
-    const constraints = [intermineConstraint('Strain.id', '=', id)];
+// get a Strain by identifier
+export async function getStrain(identifier: string): Promise<GraphQLStrain> {
+    const constraints = [intermineConstraint('Strain.identifier', '=', identifier)];
     const query = interminePathQuery(
         intermineStrainAttributes,
         intermineStrainSort,
@@ -20,7 +20,7 @@ export async function getStrain(id: number): Promise<GraphQLStrain> {
         .then((response: IntermineStrainResponse) => response2strains(response))
         .then((strains: Array<GraphQLStrain>) => {
             if (!strains.length) {
-                const msg = `Strain with ID '${id}' not found`;
+                const msg = `Strain with identifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return strains[0];

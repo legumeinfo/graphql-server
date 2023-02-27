@@ -9,15 +9,15 @@ import { Response, response2graphqlObjects } from '../intermine.server.js';
 export const intermineGeneFamilyTallyAttributes = [
     'GeneFamilyTally.id',
     'GeneFamilyTally.tally',
-    'GeneFamilyTally.organism.id',
-    'GeneFamilyTally.geneFamily.id',
+    'GeneFamilyTally.organism.taxonId',
+    'GeneFamilyTally.geneFamily.primaryIdentifier',
 ];
 export const intermineGeneFamilyTallySort = 'GeneFamilyTally.id';
 export type IntermineGeneFamilyTally = [
   number,
   number,
   number,
-  number,
+  string,
 ];
 
 
@@ -30,8 +30,8 @@ export type IntermineGeneFamilyTally = [
 export const graphqlGeneFamilyTallyAttributes = [
     'id',
     'tally',
-    'organismId',
-    'geneFamilyId',
+    'organismTaxonId',
+    'geneFamilyIdentifier',
 ];
 export type GraphQLGeneFamilyTally = {
   [prop in typeof graphqlGeneFamilyTallyAttributes[number]]: string;

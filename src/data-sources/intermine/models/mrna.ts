@@ -15,10 +15,10 @@ export const intermineMRNAAttributes = [
     'MRNA.assemblyVersion',
     'MRNA.annotationVersion',
     'MRNA.length',
-    'MRNA.organism.id',
-    'MRNA.strain.id',
-    'MRNA.gene.id',
-    'MRNA.protein.id',
+    'MRNA.organism.taxonId',
+    'MRNA.strain.identifier',
+    'MRNA.gene.primaryIdentifier',
+    'MRNA.protein.primaryIdentifier',
     'MRNA.isPrimary',
 ];
 export const intermineMRNASort = 'MRNA.primaryIdentifier';
@@ -31,10 +31,10 @@ export type IntermineMRNA = [
   string,
   string,
   number,
-  number,
-  number,
-  number,
-  number,
+  string,
+  string,
+  string,
+  string,
   boolean,
 ];
 
@@ -83,10 +83,10 @@ export const graphqlMRNAAttributes = [
     'assemblyVersion',
     'annotationVersion',
     'length',
-    'organismId',
-    'strainId',
-    'geneId',
-    'proteinId',
+    'organismTaxonId',
+    'strainIdentifier',
+    'geneIdentifier',
+    'proteinIdentifier',
     'isPrimary',
 ];
 export type GraphQLMRNA = {

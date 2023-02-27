@@ -12,14 +12,14 @@ export const interminePhylotreeAttributes = [
     'Phylotree.id',
     'Phylotree.primaryIdentifier',
     'Phylotree.numLeaves',
-    'Phylotree.geneFamily.id',
+    'Phylotree.geneFamily.primaryIdentifier',
 ];
 export const interminePhylotreeSort = 'Phylotree.primaryIdentifier';
 export type InterminePhylotree = [
   number,
   string,
   number,
-  number,
+  string,
 ];
 
 
@@ -27,7 +27,7 @@ export const graphqlPhylotreeAttributes = [
     'id',
     'identifier',
     'numLeaves',
-    'geneFamilyId',
+    'geneFamilyIdentifier',
 ];
 export type GraphQLPhylotree = {
   [prop in typeof graphqlPhylotreeAttributes[number]]: string;
@@ -49,7 +49,7 @@ export const interminePhylotreeDataSetAttributes = [
     'Phylotree.dataSets.name',
     'Phylotree.dataSets.version',
     'Phylotree.dataSets.synopsis',
-    'Phylotree.dataSets.publication.id',  // internal resolution of publication
+    'Phylotree.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const interminePhylotreeDataSetSort = 'Phylotree.dataSets.name'; // guaranteed not null
 export type InterminePhylotreeDataSet = [
@@ -60,5 +60,5 @@ export type InterminePhylotreeDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a Protein by ID
-export async function getProtein(id: number): Promise<GraphQLProtein> {
-    const constraints = [intermineConstraint('Protein.id', '=', id)];
+// get a Protein by identifier
+export async function getProtein(identifier: string): Promise<GraphQLProtein> {
+    const constraints = [intermineConstraint('Protein.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineProteinAttributes,
         intermineProteinSort,
@@ -20,7 +20,7 @@ export async function getProtein(id: number): Promise<GraphQLProtein> {
         .then((response: IntermineProteinResponse) => response2proteins(response))
         .then((proteins: Array<GraphQLProtein>) => {
             if (!proteins.length) {
-                const msg = `Protein with ID '${id}' not found`;
+                const msg = `Protein with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return proteins[0];

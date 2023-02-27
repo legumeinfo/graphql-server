@@ -5,7 +5,7 @@ import { ResolverMap } from '../resolver.js';
 export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
         trait: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getTrait(id);
+            return dataSources[sourceName].getTrait(identifier);
         },
         traits: async (_, { name, start, size }, { dataSources }) => {
             const args = {name, start, size};
@@ -14,7 +14,7 @@ export const traitFactory = (sourceName: keyof DataSources): ResolverMap => ({
     },
     Trait: {
         dataSet: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(trait.dataSetId);
+            return dataSources[sourceName].getDataSet(trait.dataSetName);
         },
         qtlStudy: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudyForTrait(trait);

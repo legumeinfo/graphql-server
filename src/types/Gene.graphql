@@ -37,11 +37,11 @@ type Gene implements SequenceFeature {
   # scoreType
   length: Int
   # sequenceOntologyTerm
-  # supercontigLocation
-  # chromosomeLocation
-  # supercontig
+  # supercontigLocation: Location
+  # chromosomeLocation: Location
+  # supercontig: Supercontig
   # sequence
-  # chromosome
+  # chromosome: Chromosome
   # overlappingFeatures
   # childFeatures
   ## Gene

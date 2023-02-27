@@ -10,10 +10,10 @@ export const geneFamilyTallyFactory = (sourceName: keyof DataSources): ResolverM
     },
     GeneFamilyTally : {
         organism: async(geneFamilyTally, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneFamilyTally.organismId);
+            return dataSources[sourceName].getOrganism(geneFamilyTally.organismTaxonId);
         },
         geneFamily: async (geneFamilyTally, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyId);
+            return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyIdentifier);
         },
     },
 });

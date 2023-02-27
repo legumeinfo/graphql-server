@@ -50,7 +50,7 @@ export const intermineSyntenyBlockDataSetAttributes = [
     'SyntenyBlock.dataSets.name',
     'SyntenyBlock.dataSets.version',
     'SyntenyBlock.dataSets.synopsis',
-    'SyntenyBlock.dataSets.publication.id',  // internal resolution of publication
+    'SyntenyBlock.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineSyntenyBlockDataSetSort = 'SyntenyBlock.dataSets.name'; // guaranteed not null
 export type IntermineSyntenyBlockDataSet = [
@@ -61,5 +61,5 @@ export type IntermineSyntenyBlockDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

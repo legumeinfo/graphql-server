@@ -13,18 +13,18 @@ export const intermineGWASResultAttributes = [
     'GWASResult.id',
     'GWASResult.pValue',
     'GWASResult.markerName',
-    'GWASResult.gwas.id',
-    'GWASResult.trait.id',
-    'GWASResult.dataSet.id',
+    'GWASResult.gwas.primaryIdentifier',
+    'GWASResult.trait.primaryIdentifier',
+    'GWASResult.dataSet.name',
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
 export type IntermineGWASResult = [
   number,
   number,
   string,
-  number,
-  number,
-  number,
+  string,
+  string,
+  string,
 ];
 
 
@@ -41,9 +41,9 @@ export const graphqlGWASResultAttributes = [
     'id',
     'pValue',
     'markerName',
-    'gwasId',
-    'traitId',
-    'dataSetId',
+    'gwasIdentifier',
+    'traitIdentifier',
+    'dataSetName',
 ];
 export type GraphQLGWASResult = {
   [prop in typeof graphqlGWASResultAttributes[number]]: string;

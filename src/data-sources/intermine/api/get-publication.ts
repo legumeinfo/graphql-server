@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a publication by ID
-export async function getPublication(id: number): Promise<GraphQLPublication> {
-    const constraints = [intermineConstraint('Publication.id', '=', id)];
+// get a publication by DOI
+export async function getPublication(doi: string): Promise<GraphQLPublication> {
+    const constraints = [intermineConstraint('Publication.doi', '=', doi)];
     const query = interminePathQuery(
         interminePublicationAttributes,
         interminePublicationSort,
@@ -20,7 +20,7 @@ export async function getPublication(id: number): Promise<GraphQLPublication> {
         .then((response: InterminePublicationResponse) => response2publications(response))
         .then((publications: Array<GraphQLPublication>) => {
             if (!publications.length) {
-                const msg = `Publication with ID '${id}' not found`;
+                const msg = `Publication with DOI '${doi}' not found`;
                 this.inputError(msg);
             }
             return publications[0];

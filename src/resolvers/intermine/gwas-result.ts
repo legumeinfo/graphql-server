@@ -10,13 +10,13 @@ export const gwasResultFactory = (sourceName: keyof DataSources): ResolverMap =>
     },
     GWASResult: {
         gwas: async(gwasResult, _, { dataSources }) => {
-            return dataSources[sourceName].getGWAS(gwasResult.gwasId);
+            return dataSources[sourceName].getGWAS(gwasResult.gwasIdentifier);
         },
         trait: async(gwasResult, _, { dataSources }) => {
-            return dataSources[sourceName].getTrait(gwasResult.traitId);
+            return dataSources[sourceName].getTrait(gwasResult.traitIdentifier);
         },
         dataSet: async(gwasResult, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(gwasResult.dataSetId);
+            return dataSources[sourceName].getDataSet(gwasResult.dataSetName);
         },
     },
 });

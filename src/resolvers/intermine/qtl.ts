@@ -14,16 +14,16 @@ export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
     },
     QTL: {
         trait: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getTrait(qtl.traitId);
+            return dataSources[sourceName].getTrait(qtl.traitIdentifier);
         },
         qtlStudy: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudy(qtl.qtlStudyId);
+            return dataSources[sourceName].getQTLStudy(qtl.qtlStudyIdentifier);
         },
         linkageGroup: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupId);
         },
         dataSet: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtl.dataSetId);
+            return dataSources[sourceName].getDataSet(qtl.dataSetName);
         },
         markers: async (qtl, { start, size }, { dataSources }) => {
             const args = {qtl, start, size};

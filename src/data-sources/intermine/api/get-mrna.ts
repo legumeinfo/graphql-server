@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get an MRNA by ID
-export async function getMRNA(id: number): Promise<GraphQLMRNA> {
-    const constraints = [intermineConstraint('MRNA.id', '=', id)];
+// get an MRNA by identifier
+export async function getMRNA(identifier: string): Promise<GraphQLMRNA> {
+    const constraints = [intermineConstraint('MRNA.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineMRNAAttributes,
         intermineMRNASort,
@@ -20,7 +20,7 @@ export async function getMRNA(id: number): Promise<GraphQLMRNA> {
         .then((response: IntermineMRNAResponse) => response2mRNAs(response))
         .then((mRNAs: Array<GraphQLMRNA>) => {
             if (!mRNAs.length) {
-                const msg = `MRNA with ID '${id}' not found`;
+                const msg = `MRNA with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return mRNAs[0];

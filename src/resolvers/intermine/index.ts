@@ -33,6 +33,7 @@ import { proteinFactory } from './protein.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
+import { supercontigFactory } from './supercontig.js';
 import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
 import { strainFactory } from './strain.js';
@@ -71,6 +72,7 @@ const factories = [
     qtlFactory,
     qtlStudyFactory,
     strainFactory,
+    supercontigFactory,
     syntenicRegionFactory,
     syntenyBlockFactory,
     traitFactory,

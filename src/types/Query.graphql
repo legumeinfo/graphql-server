@@ -19,6 +19,7 @@ type Query {
   protein(identifier: ID!): Protein
   proteinDomain(identifier: ID!): ProteinDomain
   qtlStudy(identifier: ID!): QTLStudy
+  supercontig(identifier: ID!): Supercontig
   syntenicRegion(identifier: ID!): SyntenicRegion
   trait(identifier: ID!): Trait
 

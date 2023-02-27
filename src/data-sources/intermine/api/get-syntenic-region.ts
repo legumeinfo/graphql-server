@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a SyntenicRegion by ID
-export async function getSyntenicRegion(id: number): Promise<GraphQLSyntenicRegion> {
-    const constraints = [intermineConstraint('SyntenicRegion.id', '=', id)];
+// get a SyntenicRegion by identifier
+export async function getSyntenicRegion(identifier: string): Promise<GraphQLSyntenicRegion> {
+    const constraints = [intermineConstraint('SyntenicRegion.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineSyntenicRegionAttributes,
         intermineSyntenicRegionSort,
@@ -20,7 +20,7 @@ export async function getSyntenicRegion(id: number): Promise<GraphQLSyntenicRegi
         .then((response: IntermineSyntenicRegionResponse) => response2syntenicRegions(response))
         .then((syntenicRegions: Array<GraphQLSyntenicRegion>) => {
             if (!syntenicRegions.length) {
-                const msg = `SyntenicRegion with ID '${id}' not found`;
+                const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return syntenicRegions[0];

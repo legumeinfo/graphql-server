@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get an OntologyTerm by ID
-export async function getOntologyTerm(id: number): Promise<GraphQLOntologyTerm> {
-    const constraints = [intermineConstraint('OntologyTerm.id', '=', id)];
+// get an OntologyTerm by identifier
+export async function getOntologyTerm(identifier: string): Promise<GraphQLOntologyTerm> {
+    const constraints = [intermineConstraint('OntologyTerm.identifier', '=', identifier)];
     const query = interminePathQuery(
         intermineOntologyTermAttributes,
         intermineOntologyTermSort,
@@ -20,7 +20,7 @@ export async function getOntologyTerm(id: number): Promise<GraphQLOntologyTerm> 
         .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response))
         .then((ontologyTerms: Array<GraphQLOntologyTerm>) => {
             if (!ontologyTerms.length) {
-                const msg = `OntologyTerm with ID '${id}' not found`;
+                const msg = `OntologyTerm with identifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return ontologyTerms[0];

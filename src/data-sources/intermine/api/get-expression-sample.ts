@@ -9,8 +9,8 @@ import {
 
 
 // get an ExpressionSample by ID
-export async function getExpressionSample(id: number): Promise<GraphQLExpressionSample> {
-    const constraints = [intermineConstraint('ExpressionSample.id', '=', id)];
+export async function getExpressionSample(identifier: string): Promise<GraphQLExpressionSample> {
+    const constraints = [intermineConstraint('ExpressionSample.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineExpressionSampleAttributes,
         intermineExpressionSampleSort,
@@ -20,7 +20,7 @@ export async function getExpressionSample(id: number): Promise<GraphQLExpression
         .then((response: IntermineExpressionSampleResponse) => response2expressionSamples(response))
         .then((expressionSamples: Array<GraphQLExpressionSample>) => {
             if (!expressionSamples.length) {
-                const msg = `ExpressionSample with ID '${id}' not found`;
+                const msg = `ExpressionSample with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return expressionSamples[0];

@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a Pathway by ID
-export async function getPathway(id: number): Promise<GraphQLPathway> {
-    const constraints = [intermineConstraint('Pathway.id', '=', id)];
+// get a Pathway by identifier
+export async function getPathway(identifier: string): Promise<GraphQLPathway> {
+    const constraints = [intermineConstraint('Pathway.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         interminePathwayAttributes,
         interminePathwaySort,
@@ -20,7 +20,7 @@ export async function getPathway(id: number): Promise<GraphQLPathway> {
         .then((response: InterminePathwayResponse) => response2pathways(response))
         .then((pathways: Array<GraphQLPathway>) => {
             if (!pathways.length) {
-                const msg = `Pathway with ID '${id}' not found`;
+                const msg = `Pathway with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return pathways[0];

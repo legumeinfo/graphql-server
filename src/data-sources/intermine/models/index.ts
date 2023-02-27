@@ -28,6 +28,7 @@ import { GraphQLProtein, IntermineProtein } from './protein.js';
 import { GraphQLPublication, InterminePublication } from './publication.js';
 import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
+import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
 import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
 import { GraphQLStrain, IntermineStrain } from './strain.js';
@@ -35,75 +36,77 @@ import { GraphQLTrait, IntermineTrait } from './trait.js';
 
 
 export type GraphQLModel =
-  GraphQLAuthor |
-  GraphQLChromosome |
-  GraphQLDataSet |
-  GraphQLExpressionSample |
-  GraphQLExpressionSource |
-  GraphQLGene |
-  GraphQLGeneFamily |
-  GraphQLGeneFamilyAssignment |
-  GraphQLGeneFamilyTally |
-  GraphQLGeneticMap |
-  GraphQLGeneticMarker |
-  GraphQLGWAS |
-  GraphQLGWASResult |
-  GraphQLLinkageGroup |
-  GraphQLLinkageGroupPosition |
-  GraphQLLocation |
-  GraphQLOntology |
-  GraphQLOntologyAnnotation |
-  GraphQLOntologyTerm |
-  GraphQLOrganism |
-  GraphQLMRNA |
-  GraphQLPathway |
-  GraphQLPhylonode |
-  GraphQLPhylotree |
-  GraphQLProteinDomain |
-  GraphQLProtein |
-  GraphQLPublication |
-  GraphQLQTL |
-  GraphQLQTLStudy |
-  GraphQLSyntenicRegion |
-  GraphQLSyntenyBlock |
-  GraphQLStrain |
-  GraphQLTrait;
+    GraphQLAuthor |
+    GraphQLChromosome |
+    GraphQLDataSet |
+    GraphQLExpressionSample |
+    GraphQLExpressionSource |
+    GraphQLGene |
+    GraphQLGeneFamily |
+    GraphQLGeneFamilyAssignment |
+    GraphQLGeneFamilyTally |
+    GraphQLGeneticMap |
+    GraphQLGeneticMarker |
+    GraphQLGWAS |
+    GraphQLGWASResult |
+    GraphQLLinkageGroup |
+    GraphQLLinkageGroupPosition |
+    GraphQLLocation |
+    GraphQLOntology |
+    GraphQLOntologyAnnotation |
+    GraphQLOntologyTerm |
+    GraphQLOrganism |
+    GraphQLMRNA |
+    GraphQLPathway |
+    GraphQLPhylonode |
+    GraphQLPhylotree |
+    GraphQLProteinDomain |
+    GraphQLProtein |
+    GraphQLPublication |
+    GraphQLQTL |
+    GraphQLQTLStudy |
+    GraphQLSupercontig |
+    GraphQLSyntenicRegion |
+    GraphQLSyntenyBlock |
+    GraphQLStrain |
+    GraphQLTrait;
 
 
 export type IntermineModel =
-  IntermineAuthor |
-  IntermineChromosome |
-  IntermineDataSet |
-  IntermineExpressionSample |
-  IntermineExpressionSource |
-  IntermineGene |
-  IntermineGeneFamily |
-  IntermineGeneFamilyAssignment |
-  IntermineGeneFamilyTally |
-  IntermineGeneticMap |
-  IntermineGeneticMarker |
-  IntermineGWAS |
-  IntermineGWASResult |
-  IntermineLinkageGroup |
-  IntermineLinkageGroupPosition |
-  IntermineLocation |
-  IntermineOntology |
-  IntermineOntologyAnnotation |
-  IntermineOntologyTerm |
-  IntermineOrganism |
-  IntermineMRNA |
-  InterminePathway |
-  InterminePhylonode |
-  InterminePhylotree |
-  IntermineProteinDomain |
-  IntermineProtein |
-  InterminePublication |
-  IntermineQTL |
-  IntermineQTLStudy |
-  IntermineSyntenicRegion |
-  IntermineSyntenyBlock |
-  IntermineStrain |
-  IntermineTrait;
+    IntermineAuthor |
+    IntermineChromosome |
+    IntermineDataSet |
+    IntermineExpressionSample |
+    IntermineExpressionSource |
+    IntermineGene |
+    IntermineGeneFamily |
+    IntermineGeneFamilyAssignment |
+    IntermineGeneFamilyTally |
+    IntermineGeneticMap |
+    IntermineGeneticMarker |
+    IntermineGWAS |
+    IntermineGWASResult |
+    IntermineLinkageGroup |
+    IntermineLinkageGroupPosition |
+    IntermineLocation |
+    IntermineOntology |
+    IntermineOntologyAnnotation |
+    IntermineOntologyTerm |
+    IntermineOrganism |
+    IntermineMRNA |
+    InterminePathway |
+    InterminePhylonode |
+    InterminePhylotree |
+    IntermineProteinDomain |
+    IntermineProtein |
+    InterminePublication |
+    IntermineQTL |
+    IntermineQTLStudy |
+    IntermineSupercontig |
+    IntermineSyntenicRegion |
+    IntermineSyntenyBlock |
+    IntermineStrain |
+    IntermineTrait;
 
 
 export * from './annotatable.js';
@@ -138,6 +141,7 @@ export * from './publication.js';
 export * from './qtl.js';
 export * from './qtl-study.js';
 export * from './sequence-feature.js';
+export * from './supercontig.js';
 export * from './syntenic-region.js';
 export * from './synteny-block.js';
 export * from './strain.js';

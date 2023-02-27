@@ -60,17 +60,17 @@ export const intermineGeneAttributes = [
 ];
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 export type IntermineGene = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  number,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    number,
+    string,
+    number,
+    string,
 ];
 
 
@@ -101,7 +101,7 @@ export const graphqlGeneAttributes = [
     'strainIdentifier',  // internal resolution of strain
 ];
 export type GraphQLGene = {
-  [prop in typeof graphqlGeneAttributes[number]]: string;
+    [prop in typeof graphqlGeneAttributes[number]]: string;
 }
 
 

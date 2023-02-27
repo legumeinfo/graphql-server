@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a Phylotree by ID
-export async function getPhylotree(id: number): Promise<GraphQLPhylotree> {
-    const constraints = [intermineConstraint('Phylotree.id', '=', id)];
+// get a Phylotree by identifier
+export async function getPhylotree(identifier: string): Promise<GraphQLPhylotree> {
+    const constraints = [intermineConstraint('Phylotree.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         interminePhylotreeAttributes,
         interminePhylotreeSort,
@@ -20,7 +20,7 @@ export async function getPhylotree(id: number): Promise<GraphQLPhylotree> {
         .then((response: InterminePhylotreeResponse) => response2phylotrees(response))
         .then((phylotrees: Array<GraphQLPhylotree>) => {
             if (!phylotrees.length) {
-                const msg = `Phylotree with ID '${id}' not found`;
+                const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return phylotrees[0];
