@@ -18,7 +18,7 @@ export const intermineGeneFamilyAttributes = [
     'GeneFamily.description',
     'GeneFamily.version',
     'GeneFamily.size',
-    'GeneFamily.phylotree.identifier', // internal resolution of Phylotree
+    'GeneFamily.phylotree.primaryIdentifier', // internal resolution of Phylotree
 ];
 export const intermineGeneFamilySort = 'GeneFamily.primaryIdentifier';
 export type IntermineGeneFamily = [

@@ -14,7 +14,7 @@ export const intermineLinkageGroupAttributes = [
     'LinkageGroup.identifier',
     'LinkageGroup.length',
     'LinkageGroup.number',
-    'LinkageGroup.geneticMap.id',
+    'LinkageGroup.geneticMap.primaryIdentifier',
 ];
 export const intermineLinkageGroupSort = 'LinkageGroup.identifier';
 export type IntermineLinkageGroup = [
@@ -22,7 +22,7 @@ export type IntermineLinkageGroup = [
   string,
   number,
   number,
-  number,
+  string,
 ];
 
 
@@ -40,7 +40,7 @@ export const graphqlLinkageGroupAttributes = [
     'identifier',
     'length',
     'number',
-    'geneticMapId',
+    'geneticMapIdentifier',
 ];
 export type GraphQLLinkageGroup = {
   [prop in typeof graphqlLinkageGroupAttributes[number]]: string;

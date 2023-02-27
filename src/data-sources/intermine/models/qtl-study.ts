@@ -15,8 +15,8 @@ export const intermineQTLStudyAttributes = [
     'QTLStudy.description',
     'QTLStudy.genotypes',
     'QTLStudy.synopsis',
-    'QTLStudy.organism.id',
-    'QTLStudy.dataSet.id',
+    'QTLStudy.organism.taxonId',
+    'QTLStudy.dataSet.name',
 ];
 export const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
 export type IntermineQTLStudy = [
@@ -26,7 +26,7 @@ export type IntermineQTLStudy = [
   string,
   string,
   number,
-  number,
+  string,
 ];
 
 
@@ -48,8 +48,8 @@ export const graphqlQTLStudyAttributes = [
     'description',
     'genotypes',
     'synopsis',
-    'organismId',
-    'dataSetId',
+    'organismTaxonId',
+    'dataSetName',
 ];
 export type GraphQLQTLStudy = {
   [prop in typeof graphqlQTLStudyAttributes[number]]: string;

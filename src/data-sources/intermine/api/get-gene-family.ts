@@ -9,8 +9,8 @@ import {
 
 
 // get a GeneFamily by ID
-export async function getGeneFamily(id: number): Promise<GraphQLGeneFamily> {
-    const constraints = [intermineConstraint('GeneFamily.id', '=', id)];
+export async function getGeneFamily(identifier: string): Promise<GraphQLGeneFamily> {
+    const constraints = [intermineConstraint('GeneFamily.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGeneFamilyAttributes,
         intermineGeneFamilySort,
@@ -20,7 +20,7 @@ export async function getGeneFamily(id: number): Promise<GraphQLGeneFamily> {
         .then((response: IntermineGeneFamilyResponse) => response2geneFamilies(response))
         .then((geneFamilies: Array<GraphQLGeneFamily>) => {
             if (!geneFamilies.length) {
-                const msg = `GeneFamily with ID '${id}' not found`;
+                const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return geneFamilies[0];

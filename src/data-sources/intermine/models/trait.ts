@@ -17,7 +17,7 @@ export const intermineTraitAttributes = [
     'Trait.primaryIdentifier',
     'Trait.description',
     'Trait.name',
-    'Trait.dataSet.id',
+    'Trait.dataSet.name',
 ];
 export const intermineTraitSort = 'Trait.name';
 export type IntermineTrait = [
@@ -25,7 +25,7 @@ export type IntermineTrait = [
   string,
   string,
   string,
-  number,
+  string,
 ];
 
 
@@ -47,7 +47,7 @@ export const graphqlTraitAttributes = [
     'identifier',
     'description',
     'name',
-    'dataSetId',
+    'dataSetName',
 ];
 export type GraphQLTrait = {
   [prop in typeof graphqlTraitAttributes[number]]: string;

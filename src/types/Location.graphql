@@ -6,12 +6,14 @@
 # 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
+## NOTE: Restrict locatedOn to be a chromosome or supercontig.
 type Location {
   id: ID!
   strand: String
   start: Int
   end: Int
   chromosome: Chromosome
+  supercontig: Supercontig
   # feature
   dataSets: [DataSet]
 }

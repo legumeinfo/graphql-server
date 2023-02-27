@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a Trait by ID
-export async function getTrait(id: number): Promise<GraphQLTrait> {
-    const constraints = [intermineConstraint('Trait.id', '=', id)];
+// get a Trait by identifier
+export async function getTrait(identifier: string): Promise<GraphQLTrait> {
+    const constraints = [intermineConstraint('Trait.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineTraitAttributes,
         intermineTraitSort,
@@ -20,7 +20,7 @@ export async function getTrait(id: number): Promise<GraphQLTrait> {
         .then((response: IntermineTraitResponse) => response2traits(response))
         .then((traits: Array<GraphQLTrait>) => {
             if (!traits.length) {
-                const msg = `Trait with ID '${id}' not found`;
+                const msg = `Trait with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return traits[0];

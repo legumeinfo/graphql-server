@@ -10,8 +10,12 @@ export const locationFactory = (sourceName: keyof DataSources): ResolverMap => (
     },
     Location: {
         chromosome: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(location.chromosomeId);
+            return dataSources[sourceName].getChromosome(location.locatedOnIdentifier);
         },
+        supercontig: async (location, _, { dataSources }) => {
+            return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier);
+        },
+        
         dataSets: async (location, { start, size }, { dataSources }) => {
             const args = {start, size};
             return dataSources[sourceName].getDataSetsForLocation(location, args);

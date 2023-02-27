@@ -12,8 +12,8 @@ export const intermineSyntenicRegionAttributes = [
     'SyntenicRegion.name',
     'SyntenicRegion.assemblyVersion',
     'SyntenicRegion.annotationVersion',
-    'SyntenicRegion.organism.id',
-    'SyntenicRegion.strain.id',
+    'SyntenicRegion.organism.taxonId',
+    'SyntenicRegion.strain.identifier',
     'SyntenicRegion.length',
     'SyntenicRegion.syntenyBlock.id',
 ];
@@ -27,7 +27,7 @@ export type IntermineSyntenicRegion = [
   string,
   string,
   number,
-  number,
+  string,
   number,
   number,
 ];
@@ -71,8 +71,8 @@ export const graphqlSyntenicRegionAttributes = [
     'name',
     'assemblyVersion',
     'annotationVersion',
-    'organismId',
-    'strainId',
+    'organismTaxonId',
+    'strainIdentifier',
     'length',
     'syntenyBlockId',
 ];

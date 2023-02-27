@@ -17,7 +17,7 @@ export const intermineStrainAttributes = [
     'Strain.description',
     'Strain.origin',
     'Strain.accession',
-    'Strain.organism.id', // internal resolution of organism
+    'Strain.organism.taxonId', // internal resolution of organism
 ];
 export const intermineStrainSort = 'Strain.identifier'; // guaranteed not null
 export type IntermineStrain = [
@@ -47,7 +47,7 @@ export const graphqlStrainAttributes = [
     'description',
     'origin',
     'accession',
-    'organismId',    // internal resolution of organism
+    'organismTaxonId',    // internal resolution of organism
 ];
 export type GraphQLStrain = {
   [prop in typeof graphqlStrainAttributes[number]]: string;

@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a QTLStudy by ID
-export async function getQTLStudy(id: number): Promise<GraphQLQTLStudy> {
-    const constraints = [intermineConstraint('QTLStudy.id', '=', id)];
+// get a QTLStudy by identifier
+export async function getQTLStudy(identifier: string): Promise<GraphQLQTLStudy> {
+    const constraints = [intermineConstraint('QTLStudy.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineQTLStudyAttributes,
         intermineQTLStudySort,
@@ -20,7 +20,7 @@ export async function getQTLStudy(id: number): Promise<GraphQLQTLStudy> {
         .then((response: IntermineQTLStudyResponse) => response2qtlStudies(response))
         .then((qtlStudies: GraphQLQTLStudy[]) => {
             if (!qtlStudies.length) {
-                const msg = `QTLStudy with ID '${id}' not found`;
+                const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return qtlStudies[0];

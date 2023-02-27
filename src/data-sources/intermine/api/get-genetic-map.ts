@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a GeneticMap by ID
-export async function getGeneticMap(id: number): Promise<GraphQLGeneticMap> {
-    const constraints = [intermineConstraint('GeneticMap.id', '=', id)];
+// get a GeneticMap by identifier
+export async function getGeneticMap(identifier: string): Promise<GraphQLGeneticMap> {
+    const constraints = [intermineConstraint('GeneticMap.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGeneticMapAttributes,
         intermineGeneticMapSort,
@@ -20,7 +20,7 @@ export async function getGeneticMap(id: number): Promise<GraphQLGeneticMap> {
         .then((response: IntermineGeneticMapResponse) => response2geneticMaps(response))
         .then((geneticMaps: Array<GraphQLGeneticMap>) => {
             if (!geneticMaps.length) {
-                const msg = `GeneticMap with ID '${id}' not found`;
+                const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return geneticMaps[0];

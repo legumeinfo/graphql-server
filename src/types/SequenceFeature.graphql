@@ -36,11 +36,11 @@ interface SequenceFeature {
   # scoreType
   length: Int
   # sequenceOntologyTerm
-  # supercontigLocation
-  # chromosomeLocation
-  # supercontig
-  # sequence
-  # chromosome
+  # supercontigLocation: Location
+  # chromosomeLocation: Location
+  # supercontig: Supercontig
+  # sequence 
+  # chromosome: Chromosome
   # overlappingFeatures
   # childFeatures
 }

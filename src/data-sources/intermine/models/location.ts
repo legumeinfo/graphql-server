@@ -14,7 +14,7 @@ export const intermineLocationAttributes = [
     'Location.strand',
     'Location.start',
     'Location.end',
-    'Location.locatedOn.id',
+    'Location.locatedOn.primaryIdentifier',
 ];
 export const intermineLocationSort = 'Location.start'; // guaranteed not null
 export type IntermineLocation = [
@@ -22,7 +22,7 @@ export type IntermineLocation = [
   string,
   number,
   number,
-  number,
+  string,
 ];
 
 
@@ -40,7 +40,7 @@ export const graphqlLocationAttributes = [
     'strand',
     'start',
     'end',
-    'chromosomeId',
+    'locatedOnIdentifier',
 ];
 export type GraphQLLocation = {
   [prop in typeof graphqlLocationAttributes[number]]: string;
@@ -63,7 +63,7 @@ export const intermineLocationDataSetAttributes = [
     'Location.dataSets.name',
     'Location.dataSets.version',
     'Location.dataSets.synopsis',
-    'Location.dataSets.publication.id',  // internal resolution of publication
+    'Location.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
 export type IntermineLocationDataSet = [
@@ -74,5 +74,5 @@ export type IntermineLocationDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

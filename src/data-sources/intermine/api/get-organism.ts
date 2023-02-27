@@ -8,7 +8,7 @@ import {
 } from '../models/index.js';
 
 
-// get an Organism by ID
+// get an Organism by taxon ID
 export async function getOrganism(taxonId: number): Promise<GraphQLOrganism> {
     const constraints = [intermineConstraint('Organism.taxonId', '=', taxonId)];
     const query = interminePathQuery(

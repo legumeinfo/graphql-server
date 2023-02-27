@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a ProteinDomain by ID
-export async function getProteinDomain(id: number): Promise<GraphQLProteinDomain> {
-    const constraints = [intermineConstraint('ProteinDomain.id', '=', id)];
+// get a ProteinDomain by identifier
+export async function getProteinDomain(identifier: string): Promise<GraphQLProteinDomain> {
+    const constraints = [intermineConstraint('ProteinDomain.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineProteinDomainAttributes,
         intermineProteinDomainSort,
@@ -20,7 +20,7 @@ export async function getProteinDomain(id: number): Promise<GraphQLProteinDomain
         .then((response: IntermineProteinDomainResponse) => response2proteinDomains(response))
         .then((proteinDomains: Array<GraphQLProteinDomain>) => {
             if (!proteinDomains.length) {
-                const msg = `ProteinDomain with ID '${id}' not found`;
+                const msg = `ProteinDomain with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return proteinDomains[0];

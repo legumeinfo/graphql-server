@@ -12,7 +12,7 @@ export const intermineGeneFamilyAssignmentAttributes = [
     'GeneFamilyAssignment.bestDomainScore',
     'GeneFamilyAssignment.score',
     'GeneFamilyAssignment.evalue',
-    'GeneFamilyAssignment.geneFamily.id', // internal resolution of GeneFamily
+    'GeneFamilyAssignment.geneFamily.primaryIdentifier', // internal resolution of GeneFamily
 ];
 export const intermineGeneFamilyAssignmentSort = 'GeneFamilyAssignment.evalue';
 export type IntermineGeneFamilyAssignment = [
@@ -36,7 +36,7 @@ export const graphqlGeneFamilyAssignmentAttributes = [
     'bestDomainScore',
     'score',
     'evalue',
-    'geneFamilyId', // internal resolution of GeneFamily
+    'geneFamilyIdentifier', // internal resolution of GeneFamily
 ];
 export type GraphQLGeneFamilyAssignment = {
   [prop in typeof graphqlGeneFamilyAssignmentAttributes[number]]: string;
@@ -55,7 +55,7 @@ export const intermineGeneGeneFamilyAssignmentsAttributes = [
     'Gene.geneFamilyAssignments.bestDomainScore',
     'Gene.geneFamilyAssignments.score',
     'Gene.geneFamilyAssignments.evalue',
-    'Gene.geneFamilyAssignments.geneFamily.id', // internal resolution of GeneFamily
+    'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', // internal resolution of GeneFamily
 ];
 export const intermineGeneGeneFamilyAssignmentsSort = 'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier';
 export type IntermineGeneGeneFamilyAssignments = [
@@ -63,7 +63,7 @@ export type IntermineGeneGeneFamilyAssignments = [
   number,
   number,
   number,
-  number,
+  string,
 ];
 
 
@@ -73,7 +73,7 @@ export const intermineProteinGeneFamilyAssignmentsAttributes = [
     'Protein.geneFamilyAssignments.bestDomainScore',
     'Protein.geneFamilyAssignments.score',
     'Protein.geneFamilyAssignments.evalue',
-    'Protein.geneFamilyAssignments.geneFamily.id', // internal resolution of GeneFamily
+    'Protein.geneFamilyAssignments.geneFamily.primaryIdentifier', // internal resolution of GeneFamily
 ];
 export const intermineProteinGeneFamilyAssignmentsSort = 'Protein.geneFamilyAssignments.geneFamily.primaryIdentifier';
 export type IntermineProteinGeneFamilyAssignments = [
@@ -81,5 +81,5 @@ export type IntermineProteinGeneFamilyAssignments = [
   number,
   number,
   number,
-  number,
+  string,
 ];

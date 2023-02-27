@@ -11,7 +11,7 @@ import { Response, response2graphqlObjects } from '../intermine.server.js';
 export const intermineOntologyAnnotationAttributes = [
     'OntologyAnnotation.id',
     'OntologyAnnotation.qualifier',
-    'OntologyAnnotation.ontologyTerm.id',
+    'OntologyAnnotation.ontologyTerm.identifier',
 ];
 export const intermineOntologyAnnotationSort = 'OntologyAnnotation.id';
 export type IntermineOntologyAnnotation = [
@@ -32,7 +32,7 @@ export type IntermineOntologyAnnotation = [
 export const graphqlOntologyAnnotationAttributes = [
     'id',
     'qualifier',
-    'ontologyTermId',
+    'ontologyTermIdentifier',
 ];
 export type GraphQLOntologyAnnotation = {
   [prop in typeof graphqlOntologyAnnotationAttributes[number]]: string;
@@ -54,7 +54,7 @@ export const intermineOntologyAnnotationDataSetAttributes = [
     'OntologyAnnotation.dataSets.name',
     'OntologyAnnotation.dataSets.version',
     'OntologyAnnotation.dataSets.synopsis',
-    'OntologyAnnotation.dataSets.publication.id',  // internal resolution of publication
+    'OntologyAnnotation.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineOntologyAnnotationDataSetSort = 'OntologyAnnotation.dataSets.name'; // guaranteed not null
 export type IntermineOntologyAnnotationDataSet = [
@@ -65,5 +65,5 @@ export type IntermineOntologyAnnotationDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

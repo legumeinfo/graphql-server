@@ -9,8 +9,8 @@ import {
 
 
 // get an ExpressionSource by ID
-export async function getExpressionSource(id: number): Promise<GraphQLExpressionSource> {
-    const constraints = [intermineConstraint('ExpressionSource.id', '=', id)];
+export async function getExpressionSource(identifier: string): Promise<GraphQLExpressionSource> {
+    const constraints = [intermineConstraint('ExpressionSource.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineExpressionSourceAttributes,
         intermineExpressionSourceSort,
@@ -20,7 +20,7 @@ export async function getExpressionSource(id: number): Promise<GraphQLExpression
         .then((response: IntermineExpressionSourceResponse) => response2expressionSources(response))
         .then((expressionSources: Array<GraphQLExpressionSource>) => {
             if (!expressionSources.length) {
-                const msg = `ExpressionSource with ID '${id}' not found`;
+                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return expressionSources[0];
