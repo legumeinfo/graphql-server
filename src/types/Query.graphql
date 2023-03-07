@@ -25,6 +25,7 @@ type Query {
 
   ### other types with unique non-id keys
   dataSet(name: ID!): DataSet
+  ontology(name: ID!): Ontology
   ontologyTerm(identifier: ID!): OntologyTerm
   organism(taxonId: ID!): Organism
   publication(doi: ID!): Publication
@@ -38,7 +39,6 @@ type Query {
   linkageGroup(id: ID!): LinkageGroup
   linkageGroupPosition(id: ID!): LinkageGroupPosition
   location(id: ID!): Location
-  ontology(id: ID!): Ontology
   ontologyAnnotation(id: ID!): OntologyAnnotation
   phylonode(id: ID!): Phylonode
   qtl(id: ID!): QTL
