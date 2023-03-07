@@ -6,7 +6,7 @@
 # </class>
 type Phylotree implements Annotatable {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   numLeaves: Int

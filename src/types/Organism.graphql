@@ -12,7 +12,7 @@
 # </class>
 type Organism {
   id: ID!
-  taxonId: Int!
+  taxonId: ID!
   abbreviation: String
   name: String
   commonName: String

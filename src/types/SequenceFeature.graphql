@@ -17,7 +17,7 @@
 # </class>
 interface SequenceFeature {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

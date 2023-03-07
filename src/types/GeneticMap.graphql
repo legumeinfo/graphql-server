@@ -10,7 +10,7 @@
 # </class>
 type GeneticMap implements Annotatable {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   genotypingPlatform: String

@@ -9,7 +9,7 @@
 # </class>
 type Trait implements Annotatable {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

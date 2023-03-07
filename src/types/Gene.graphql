@@ -18,7 +18,7 @@
 type Gene implements SequenceFeature {
   ## SequenceFeature
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

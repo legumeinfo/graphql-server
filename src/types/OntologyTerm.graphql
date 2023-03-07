@@ -14,7 +14,7 @@
 # </class>
 type OntologyTerm {
   id: ID!
-  identifier: String!
+  identifier: ID!
   description: String
   obsolete: Boolean
   name: String
