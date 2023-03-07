@@ -6,6 +6,6 @@
 type Ontology {
   id: ID!
   url: String
-  name: String
+  name: String!
   dataSets: [DataSet]
 }

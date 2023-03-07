@@ -9,8 +9,8 @@ import {
 
 
 // get an Ontology by ID
-export async function getOntology(id: number): Promise<GraphQLOntology> {
-    const constraints = [intermineConstraint('Ontology.id', '=', id)];
+export async function getOntology(name: string): Promise<GraphQLOntology> {
+    const constraints = [intermineConstraint('Ontology.name', '=', name)];
     const query = interminePathQuery(
         intermineOntologyAttributes,
         intermineOntologySort,
@@ -20,7 +20,7 @@ export async function getOntology(id: number): Promise<GraphQLOntology> {
         .then((response: IntermineOntologyResponse) => response2ontologies(response))
         .then((ontologies: Array<GraphQLOntology>) => {
             if (!ontologies.length) {
-                const msg = `Ontology with ID '${id}' not found`;
+                const msg = `Ontology with name '${name}' not found`;
                 this.inputError(msg);
             }
             return ontologies[0];
