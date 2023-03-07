@@ -15,7 +15,7 @@
 type Protein implements BioEntity {
   ## BioEntity
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

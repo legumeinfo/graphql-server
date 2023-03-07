@@ -5,7 +5,7 @@
 # </class>
 type MRNA implements Transcript {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

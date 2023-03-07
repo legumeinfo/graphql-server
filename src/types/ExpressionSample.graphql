@@ -14,7 +14,7 @@
 # </class>
 type ExpressionSample implements Annotatable {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   tissue: String

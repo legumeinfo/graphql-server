@@ -16,11 +16,11 @@
 # </class>
 type Publication {
   id: ID!
+  doi: ID!
   year: Int
   issue: String
   title: String
   pages: String
-  doi: String
   volume: String
   journal: String
   firstAuthor: String

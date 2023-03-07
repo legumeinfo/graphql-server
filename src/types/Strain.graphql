@@ -9,7 +9,7 @@
 # </class>
 type Strain {
   id: ID!
-  identifier: String!
+  identifier: ID!
   name: String
   description: String
   origin: String

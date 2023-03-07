@@ -10,7 +10,7 @@
 # </class>
 type GeneticMarker implements SequenceFeature {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   description: String

@@ -5,7 +5,7 @@
 # </class>
 type Ontology {
   id: ID!
+  name: ID!
   url: String
-  name: String!
   dataSets: [DataSet]
 }

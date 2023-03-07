@@ -6,7 +6,7 @@
 # </class>
 type Pathway implements Annotatable {
   id: ID!
-  identifier: String!
+  identifier: ID!
   ontologyAnnotations: [OntologyAnnotation]
   publications: [Publication]
   name: String

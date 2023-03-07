@@ -11,10 +11,10 @@
 # </class>
 type DataSet {
   id: ID!
+  name: ID!
   description: String
   licence: String
   url: String
-  name: String
   version: String
   synopsis: String
   # dataSource
