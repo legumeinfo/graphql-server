@@ -9,8 +9,8 @@ import {
 
 
 // get a GWASResult by ID
-export async function getGWASResult(id: number): Promise<GraphQLGWASResult> {
-    const constraints = [intermineConstraint('GWASResult.id', '=', id)];
+export async function getGWASResult(identifier: string): Promise<GraphQLGWASResult> {
+    const constraints = [intermineConstraint('GWASResult.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGWASResultAttributes,
         intermineGWASResultSort,
@@ -20,7 +20,7 @@ export async function getGWASResult(id: number): Promise<GraphQLGWASResult> {
         .then((response: IntermineGWASResultResponse) => response2gwasResults(response))
         .then((gwasResults: Array<GraphQLGWASResult>) => {
             if (!gwasResults.length) {
-                const msg = `GWASResult with ID '${id}' not found`;
+                const msg = `GWASResult with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return gwasResults[0];

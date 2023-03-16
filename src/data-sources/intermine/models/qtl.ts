@@ -1,7 +1,7 @@
 import { Response, response2graphqlObjects } from '../intermine.server.js';
 
 
-// <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
+// <class name="QTL" extends="Annotatable" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
 // 	<attribute name="identifier" type="java.lang.String"/>
 // 	<attribute name="lod" type="java.lang.Double"/>
 // 	<attribute name="likelihoodRatio" type="java.lang.Double"/>
@@ -19,6 +19,7 @@ import { Response, response2graphqlObjects } from '../intermine.server.js';
 // </class>
 export const intermineQTLAttributes = [
     'QTL.id',
+    'QTL.primaryIdentifier',
     'QTL.identifier',
     'QTL.end',
     'QTL.markerNames',
@@ -44,7 +45,8 @@ export type IntermineQTL = [
 
 // type QTL {
 //   id: ID!
-//   identifier: String!
+//   identifier: ID!
+//   name: String!
 //   # lod: Float
 //   # likelihoodRatio: Float
 //   end: Float
@@ -62,6 +64,7 @@ export type IntermineQTL = [
 export const graphqlQTLAttributes = [
     'id',
     'identifier',
+    'name',
     'end',
     'markerNames',
     'start',

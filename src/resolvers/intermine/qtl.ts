@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        qtl:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getQTL(id);
+        qtl:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getQTL(identifier);
         },
         qtls: async (_, { traitName, start, size }, { dataSources }) => {
             const args = {traitName, start, size};
@@ -28,6 +28,10 @@ export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
         markers: async (qtl, { start, size }, { dataSources }) => {
             const args = {qtl, start, size};
             return dataSources[sourceName].getGeneticMarkers(args);
+        },
+        publications: async (qtl, { start, size }, { dataSources }) => {
+            const args = {annotatable: qtl, start, size};
+            return dataSources[sourceName].getPublications(args);
         },
     },
 });

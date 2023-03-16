@@ -1,7 +1,7 @@
 import { Response, response2graphqlObjects } from '../intermine.server.js';
 
 
-// <class name="LinkageGroup" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
+// <class name="LinkageGroup" extends="Annotatable" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
 // 	<attribute name="identifier" type="java.lang.String"/>
 // 	<attribute name="length" type="java.lang.Double"/>
 // 	<attribute name="number" type="java.lang.Integer"/>
@@ -11,6 +11,7 @@ import { Response, response2graphqlObjects } from '../intermine.server.js';
 // </class>
 export const intermineLinkageGroupAttributes = [
     'LinkageGroup.id',
+    'LinkageGroup.primaryIdentifier',
     'LinkageGroup.identifier',
     'LinkageGroup.length',
     'LinkageGroup.number',
@@ -18,17 +19,19 @@ export const intermineLinkageGroupAttributes = [
 ];
 export const intermineLinkageGroupSort = 'LinkageGroup.identifier';
 export type IntermineLinkageGroup = [
-  number,
-  string,
-  number,
-  number,
-  string,
+    number,
+    string,
+    string,
+    number,
+    number,
+    string,
 ];
 
 
 // type LinkageGroup {
 //   id: ID!
-//   identifier: String!
+//   identifier: ID!
+//   name: String!
 //   length: Float
 //   number: Int
 //   geneticMap: GeneticMap
@@ -38,6 +41,7 @@ export type IntermineLinkageGroup = [
 export const graphqlLinkageGroupAttributes = [
     'id',
     'identifier',
+    'name',
     'length',
     'number',
     'geneticMapIdentifier',

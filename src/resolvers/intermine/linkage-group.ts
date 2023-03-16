@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const linkageGroupFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        linkageGroup:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(id);
+        linkageGroup:  async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkageGroup(identifier);
         },
     },
     LinkageGroup: {
@@ -19,6 +19,10 @@ export const linkageGroupFactory = (sourceName: keyof DataSources): ResolverMap 
         qtls: async (linkageGroup, _, { dataSources }) => {
             const args = {linkageGroup};
             return dataSources[sourceName].getQTLs(args);
+        },
+        publications: async (linkageGroup, { start, size }, { dataSources }) => {
+            const args = {annotatable: linkageGroup, start, size};
+            return dataSources[sourceName].getPublications(args);
         },
     },
 });

@@ -4,8 +4,8 @@ import { ResolverMap } from '../resolver.js';
 
 export const gwasResultFactory = (sourceName: keyof DataSources): ResolverMap => ({
     Query: {
-        gwasResult: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGWASResult(id);
+        gwasResult: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getGWASResult(identifier);
         },
     },
     GWASResult: {
@@ -17,6 +17,10 @@ export const gwasResultFactory = (sourceName: keyof DataSources): ResolverMap =>
         },
         dataSet: async(gwasResult, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwasResult.dataSetName);
+        },
+        publications: async (gwasResult, { start, size }, { dataSources }) => {
+            const args = {annotatable: gwasResult, start, size};
+            return dataSources[sourceName].getPublications(args);
         },
     },
 });

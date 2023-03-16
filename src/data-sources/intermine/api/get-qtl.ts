@@ -9,8 +9,8 @@ import {
 
 
 // get a QTL by ID
-export async function getQTL(id: number): Promise<GraphQLQTL> {
-    const constraints = [intermineConstraint('QTL.id', '=', id)];
+export async function getQTL(identifier: string): Promise<GraphQLQTL> {
+    const constraints = [intermineConstraint('QTL.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,
@@ -20,7 +20,7 @@ export async function getQTL(id: number): Promise<GraphQLQTL> {
         .then((response: IntermineQTLResponse) => response2qtls(response))
         .then((qtls: Array<GraphQLQTL>) => {
             if (!qtls.length) {
-                const msg = `QTL with ID '${id}' not found`;
+                const msg = `QTL with primaryIdentifier '${identifier}' not found`;
                 this.inputError(msg);
             }
             return qtls[0];
