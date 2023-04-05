@@ -77,7 +77,6 @@ import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
-import { getOrganisms } from './get-organisms.js';
 import { searchOrganisms } from './search-organisms.js';
 // pathway
 import { getPathway } from './get-pathway.js';
@@ -206,7 +205,6 @@ export declare class ApiMixinInterface {
     searchOntologyTerms: Function;
     // organism
     getOrganism: Function;
-    getOrganisms: Function;
     searchOrganisms: Function;
     // pathway
     getPathway: Function;
@@ -334,7 +332,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchOntologyTerms = searchOntologyTerms;
         // organism
         getOrganism = getOrganism;
-        getOrganisms = getOrganisms;
         searchOrganisms = searchOrganisms;
         // pathway
         getPathway = getPathway;
