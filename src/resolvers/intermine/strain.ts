@@ -7,8 +7,8 @@ export const strainFactory = (sourceName: keyof DataSources): ResolverMap => ({
         strain: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getStrain(identifier);
         },
-        strains: async (_, { description, origin, start, size }, { dataSources }) => {
-            const args = {description, origin, start, size};
+        strains: async (_, { description, origin, species, start, size }, { dataSources }) => {
+            const args = {description, origin, species, start, size};
             return dataSources[sourceName].searchStrains(args);
         },
     },
