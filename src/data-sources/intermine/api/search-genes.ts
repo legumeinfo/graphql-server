@@ -14,19 +14,21 @@ export type SearchGenesOptions = {
     genus?: string;
     species?: string;
     strain?: string;
-    nameOrIdentifier?: string;
+    identifier?: string;
+    name?: string;
     geneFamilyIdentifier?: string;
 } & PaginationOptions;
 
 
-// path query search for Gene by description
+// path query search for Gene by description, etc.
 export async function searchGenes(
     {
         description,
         genus,
         species,
         strain,
-        nameOrIdentifier,
+        identifier,
+        name,
         geneFamilyIdentifier,
         start=defaultPaginationOptions.start,
         size=defaultPaginationOptions.size,
@@ -45,9 +47,11 @@ export async function searchGenes(
     if (strain) {
         constraints.push(intermineConstraint('Gene.strain.identifier', '=', strain));
     }
-    // TODO: make this an OR on name or identifier
-    if (nameOrIdentifier) {
-        constraints.push(intermineConstraint('Gene.primaryIdentifier', 'CONTAINS', nameOrIdentifier));
+    if (identifier) {
+        constraints.push(intermineConstraint('Gene.primaryIdentifier', 'CONTAINS', identifier));
+    }
+    if (name) {
+        constraints.push(intermineConstraint('Gene.name', 'CONTAINS', name));
     }
     if (geneFamilyIdentifier) {
         constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', '=', geneFamilyIdentifier));
