@@ -54,7 +54,7 @@ export async function searchGenes(
         constraints.push(intermineConstraint('Gene.name', 'CONTAINS', name));
     }
     if (geneFamilyIdentifier) {
-        constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', '=', geneFamilyIdentifier));
+        constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', 'CONTAINS', geneFamilyIdentifier));
     }
     const query = interminePathQuery(
         intermineGeneAttributes,
