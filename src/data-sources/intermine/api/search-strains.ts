@@ -1,28 +1,28 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLStrain,
-  IntermineStrainResponse,
-  intermineStrainAttributes,
-  intermineStrainSort,
-  response2strains,
+    GraphQLStrain,
+    IntermineStrainResponse,
+    intermineStrainAttributes,
+    intermineStrainSort,
+    response2strains,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchStrainsOptions = {
-  description?: string;
-  origin?: string;
+    description?: string;
+    origin?: string;
 } & PaginationOptions;
 
 
 // path query search for Strain by description and/or origin
 export async function searchStrains(
-  {
-    description,
-    origin,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchStrainsOptions,
+    {
+        description,
+        origin,
+        start,
+        size,
+    }: SearchStrainsOptions,
 ): Promise<GraphQLStrain[]> {
     const constraints = [];
     if (description) {

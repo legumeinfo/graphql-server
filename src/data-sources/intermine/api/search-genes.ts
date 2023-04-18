@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGene,
-  IntermineGeneResponse,
-  intermineGeneAttributes,
-  intermineGeneSort,
-  response2genes,
+    GraphQLGene,
+    IntermineGeneResponse,
+    intermineGeneAttributes,
+    intermineGeneSort,
+    response2genes,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchGenesOptions = {
-  description?: string;
+    description?: string;
 } & PaginationOptions;
 
 
 // path query search for Gene by description
 export async function searchGenes(
-  {
-    description,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchGenesOptions,
+    {
+        description,
+        start,
+        size,
+    }: SearchGenesOptions,
 ): Promise<GraphQLGene[]> {
     const constraints = [];
     if (description) {

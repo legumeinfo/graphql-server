@@ -1,30 +1,30 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLAnnotatable,
-  GraphQLAuthor,
-  GraphQLPublication,
-  InterminePublicationResponse,
-  interminePublicationAttributes,
-  interminePublicationSort,
-  response2publications,
+    GraphQLAnnotatable,
+    GraphQLAuthor,
+    GraphQLPublication,
+    InterminePublicationResponse,
+    interminePublicationAttributes,
+    interminePublicationSort,
+    response2publications,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetPublicationsOptions = {
-  author?: GraphQLAuthor;
-  annotatable?: GraphQLAnnotatable;
+    author?: GraphQLAuthor;
+    annotatable?: GraphQLAnnotatable;
 } & PaginationOptions;
 
 
 // get Publications associated with an Author or any type that extends Annotatable
 export async function getPublications(
-  {
-    author,
-    annotatable,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: GetPublicationsOptions,
+    {
+        author,
+        annotatable,
+        start,
+        size,
+    }: GetPublicationsOptions,
 ): Promise<GraphQLPublication[]> {
     const constraints = [];
     if (author) {

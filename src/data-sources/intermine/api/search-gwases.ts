@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGWAS,
-  IntermineGWASResponse,
-  intermineGWASAttributes,
-  intermineGWASSort,
-  response2gwas,
+    GraphQLGWAS,
+    IntermineGWASResponse,
+    intermineGWASAttributes,
+    intermineGWASSort,
+    response2gwas,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchGWASesOptions = {
-  description?: string;
+    description?: string;
 } & PaginationOptions;
 
 
 // path query search for GWAS by description
 export async function searchGWASes(
-  {
-    description,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchGWASesOptions,
+    {
+        description,
+        start,
+        size,
+    }: SearchGWASesOptions,
 ): Promise<GraphQLGWAS[]> {
     const constraints = [];
     if (description) {

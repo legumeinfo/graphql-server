@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGeneticMap,
-  IntermineGeneticMapResponse,
-  intermineGeneticMapAttributes,
-  intermineGeneticMapSort,
-  response2geneticMaps,
+    GraphQLGeneticMap,
+    IntermineGeneticMapResponse,
+    intermineGeneticMapAttributes,
+    intermineGeneticMapSort,
+    response2geneticMaps,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchGeneticMapsOptions = {
-  description?: string;
+    description?: string;
 } & PaginationOptions;
 
 
 // path query search for GeneticMap by description
 export async function searchGeneticMaps(
-  {
-    description,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchGeneticMapsOptions,
+    {
+        description,
+        start,
+        size,
+    }: SearchGeneticMapsOptions,
 ): Promise<GraphQLGeneticMap[]> {
     const constraints = [];
     if (description) {

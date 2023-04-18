@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLPublication,
-  InterminePublicationResponse,
-  interminePublicationAttributes,
-  interminePublicationSort,
-  response2publications,
+    GraphQLPublication,
+    InterminePublicationResponse,
+    interminePublicationAttributes,
+    interminePublicationSort,
+    response2publications,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchPublicationsOptions = {
-  title?: string;
+    title?: string;
 } & PaginationOptions;
 
 
 // path query search for Publications by title
 export async function searchPublications(
-  {
-    title,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchPublicationsOptions,
+    {
+        title,
+        start,
+        size,
+    }: SearchPublicationsOptions,
 ): Promise<GraphQLPublication[]> {
     const constraints = [];
     if (title) {
