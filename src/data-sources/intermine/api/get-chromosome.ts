@@ -9,6 +9,7 @@ import {
 
 
 // get a Chromosome by ID
+// does NOT throw an error if the chromosome is not found, since this happens when the identifier belongs to a supercontig
 export async function getChromosome(identifier: string): Promise<GraphQLChromosome> {
     const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
@@ -19,10 +20,10 @@ export async function getChromosome(identifier: string): Promise<GraphQLChromoso
     return this.pathQuery(query)
         .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
         .then((chromosomes: Array<GraphQLChromosome>) => {
-            if (!chromosomes.length) {
-                const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
+            if (chromosomes.length) {
+                return chromosomes[0];
+            } else {
+                return null;
             }
-            return chromosomes[0];
         });
 }

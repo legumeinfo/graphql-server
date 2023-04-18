@@ -53,52 +53,56 @@ export class IntermineServer extends RESTDataSource {
     }
 
     inputError(msg: string) {
-      throw new GraphQLError(msg, {
-        extensions: {
-          code: ApolloServerErrorCode.BAD_USER_INPUT,
-        },
-      });
+        throw new GraphQLError(msg, {
+            extensions: {
+                code: ApolloServerErrorCode.BAD_USER_INPUT,
+            },
+        });
     }
 
 }
 
 
 export interface Response<I> {
-  results: Array<I>;
+    results: Array<I>;
 }
 
 
 // creates a Path Query constraint XML string
 export const intermineConstraint =
-(path: string, op: string, value: number|string): string => {
-  return `<constraint path='${path}' op='${op}' value='${value}'/>`;
-};
+    (path: string, op: string, value: number|string): string => {
+        return `<constraint path='${path}' op='${op}' value='${value}'/>`;
+    };
 
+// creates a Path Query NOT NULL constraint XML string
+export const intermineNotNullConstraint =
+    (path: string): string => {
+        return `<constraint path='${path}' op='IS NOT NULL'/>`;
+    };
 
 // creates a Path Query XML string
 export const interminePathQuery =
-(viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[]):
-string => {
-  const view = viewAttributes.join(' ');
-  const constraint = constraints.join('');
-  return `<query model='genomic' view='${view}' sortOrder='${sortBy}'>${constraint}</query>`;
-};
+    (viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[]): string => {
+        const view = viewAttributes.join(' ');
+        const constraint = constraints.join('');
+        return `<query model='genomic' view='${view}' sortOrder='${sortBy}'>${constraint}</query>`;
+    };
 
 
 // converts an InterMine result array into a GraphQL type
 export const result2graphqlObject =
-(result: IntermineModel, graphqlAttributes: Array<string>): GraphQLModel => {
-  const entries = graphqlAttributes.map((e, i) => [e, result[i]]);
-  return Object.fromEntries(entries);
-};
+    (result: IntermineModel, graphqlAttributes: Array<string>): GraphQLModel => {
+        const entries = graphqlAttributes.map((e, i) => [e, result[i]]);
+        return Object.fromEntries(entries);
+    };
 
 
 // converts an Intermine response into an array of GraphQL types
 export const response2graphqlObjects =
-<I extends IntermineModel>
-(response: Response<I>, graphqlAttributes: Array<string>):
+    <I extends IntermineModel>
+    (response: Response<I>, graphqlAttributes: Array<string>):
 Array<GraphQLModel> => {
-  return response.results.map(
-      (result: I) => result2graphqlObject(result, graphqlAttributes)
-  );
-};
+        return response.results.map(
+            (result: I) => result2graphqlObject(result, graphqlAttributes)
+        );
+    };

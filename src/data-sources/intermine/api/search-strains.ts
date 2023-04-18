@@ -12,6 +12,7 @@ import { PaginationOptions } from './pagination.js';
 export type SearchStrainsOptions = {
     description?: string;
     origin?: string;
+    species?: string;
 } & PaginationOptions;
 
 
@@ -20,18 +21,20 @@ export async function searchStrains(
     {
         description,
         origin,
+        species,
         start,
         size,
     }: SearchStrainsOptions,
 ): Promise<GraphQLStrain[]> {
     const constraints = [];
     if (description) {
-        const constraint = intermineConstraint('Strain.description', 'CONTAINS', description);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Strain.description', 'CONTAINS', description));
     }
     if (origin) {
-        const constraint = intermineConstraint('Strain.origin', 'CONTAINS', origin);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Strain.origin', 'CONTAINS', origin));
+    }
+    if (species) {
+        constraints.push(intermineConstraint('Strain.organism.species', '=', species));
     }
     const query = interminePathQuery(
         intermineStrainAttributes,

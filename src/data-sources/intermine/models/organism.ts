@@ -24,7 +24,7 @@ export const intermineOrganismAttributes = [
     'Organism.species',
     'Organism.shortName',
 ];
-export const intermineOrganismSort = 'Organism.taxonId'; // guaranteed not null
+export const intermineOrganismSort = 'Organism.genus'; // guaranteed not null
 export type IntermineOrganism = [
   number,
   string,

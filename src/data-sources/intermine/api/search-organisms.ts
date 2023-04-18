@@ -1,4 +1,4 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import { intermineConstraint, intermineNotNullConstraint, interminePathQuery } from '../intermine.server.js';
 import {
     GraphQLOrganism,
     IntermineOrganismResponse,
@@ -31,25 +31,22 @@ export async function searchOrganisms(
     }: SearchOrganismsOptions,
 ): Promise<GraphQLOrganism[]> {
     const constraints = [];
+    // some organisms have null genus because they are family imports, we don't want them.
+    constraints.push(intermineNotNullConstraint('Organism.genus'));
     if (taxonId) {
-        const constraint = intermineConstraint('Organism.taxonId', '=', taxonId);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Organism.taxonId', '=', taxonId));
     }
     if (abbreviation) {
-        const constraint = intermineConstraint('Organism.abbreviation', '=', abbreviation);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Organism.abbreviation', '=', abbreviation));
     }
     if (name) {
-        const constraint = intermineConstraint('Organism.name', '=',  name);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Organism.name', '=',  name));
     }
     if (genus) {
-        const constraint = intermineConstraint('Organism.genus', '=', genus);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Organism.genus', '=', genus));
     }
     if (species) {
-        const constraint = intermineConstraint('Organism.species', '=', species);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('Organism.species', '=', species));
     }
     const query = interminePathQuery(
         intermineOrganismAttributes,
