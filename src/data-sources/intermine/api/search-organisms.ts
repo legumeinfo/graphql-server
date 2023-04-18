@@ -1,34 +1,34 @@
 import { intermineConstraint, intermineNotNullConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLOrganism,
-  IntermineOrganismResponse,
-  intermineOrganismAttributes,
-  intermineOrganismSort,
-  response2organisms,
+    GraphQLOrganism,
+    IntermineOrganismResponse,
+    intermineOrganismAttributes,
+    intermineOrganismSort,
+    response2organisms,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchOrganismsOptions = {
-  taxonId?: string;
-  abbreviation?: string;
-  name?: string;
-  genus?: string;
-  species?: string;
+    taxonId?: string;
+    abbreviation?: string;
+    name?: string;
+    genus?: string;
+    species?: string;
 } & PaginationOptions;
 
 
 /// path query search for Organism of a given taxonId, abbreviation, name, genus, and/or species
 export async function searchOrganisms(
-  {
-    taxonId,
-    abbreviation,
-    name,
-    genus,
-    species,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchOrganismsOptions,
+    {
+        taxonId,
+        abbreviation,
+        name,
+        genus,
+        species,
+        start,
+        size,
+    }: SearchOrganismsOptions,
 ): Promise<GraphQLOrganism[]> {
     const constraints = [];
     // some organisms have null genus because they are family imports, we don't want them.

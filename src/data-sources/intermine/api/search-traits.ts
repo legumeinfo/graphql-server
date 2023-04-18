@@ -1,27 +1,27 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLTrait,
-  IntermineTraitResponse,
-  intermineTraitAttributes,
-  intermineTraitSort,
-  response2traits,
+    GraphQLTrait,
+    IntermineTraitResponse,
+    intermineTraitAttributes,
+    intermineTraitSort,
+    response2traits,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchTraitsOptions = {
-  name?: string;
+    name?: string;
 } & PaginationOptions;
 
 
 // path query search for Traits by name
 // NOTE: description is typically empty, as it describes the methods used to measure the trait.
 export async function searchTraits(
-  {
-    name,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchTraitsOptions,
+    {
+        name,
+        start,
+        size,
+    }: SearchTraitsOptions,
 ): Promise<GraphQLTrait[]> {
     const constraints = [];
     if (name) {

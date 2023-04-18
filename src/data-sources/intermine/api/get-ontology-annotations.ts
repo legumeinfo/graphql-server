@@ -1,27 +1,27 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLAnnotatable,
-  GraphQLOntologyAnnotation,
-  IntermineOntologyAnnotationResponse,
-  intermineOntologyAnnotationAttributes,
-  intermineOntologyAnnotationSort,
-  response2ontologyAnnotations,
+    GraphQLAnnotatable,
+    GraphQLOntologyAnnotation,
+    IntermineOntologyAnnotationResponse,
+    intermineOntologyAnnotationAttributes,
+    intermineOntologyAnnotationSort,
+    response2ontologyAnnotations,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetOntologyAnnotationsOptions = {
-  annotatable?: GraphQLAnnotatable;
+    annotatable?: GraphQLAnnotatable;
 } & PaginationOptions;
 
 
 // get OntologyAnnotations for any type that extends Annotatable
 export async function getOntologyAnnotations(
-  {
-    annotatable,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: GetOntologyAnnotationsOptions,
+    {
+        annotatable,
+        start,
+        size,
+    }: GetOntologyAnnotationsOptions,
 ): Promise<GraphQLOntologyAnnotation[]> {
     const constraints = [];
     if (annotatable) {

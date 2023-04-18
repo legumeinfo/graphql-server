@@ -6,7 +6,7 @@ import {
     intermineStrainSort,
     response2strains,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchStrainsOptions = {
@@ -22,8 +22,8 @@ export async function searchStrains(
         description,
         origin,
         species,
-        start=defaultPaginationOptions.start,
-        size=defaultPaginationOptions.size,
+        start,
+        size,
     }: SearchStrainsOptions,
 ): Promise<GraphQLStrain[]> {
     const constraints = [];

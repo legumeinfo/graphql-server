@@ -1,27 +1,27 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGeneFamily,
-  GraphQLProteinDomain,
-  IntermineGeneFamilyResponse,
-  intermineGeneFamilyAttributes,
-  intermineGeneFamilySort,
-  response2geneFamilies,
+    GraphQLGeneFamily,
+    GraphQLProteinDomain,
+    IntermineGeneFamilyResponse,
+    intermineGeneFamilyAttributes,
+    intermineGeneFamilySort,
+    response2geneFamilies,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GeneGeneFamiliesOptions = {
-  proteinDomain?: GraphQLProteinDomain;
+    proteinDomain?: GraphQLProteinDomain;
 } & PaginationOptions;
 
 
 // get GeneFamilies for a ProteinDomain
 export async function getGeneFamilies(
-  {
-    proteinDomain,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: GeneGeneFamiliesOptions,
+    {
+        proteinDomain,
+        start,
+        size,
+    }: GeneGeneFamiliesOptions,
 ): Promise<GraphQLGeneFamily[]> {
     const constraints = [];
     if (proteinDomain) {
