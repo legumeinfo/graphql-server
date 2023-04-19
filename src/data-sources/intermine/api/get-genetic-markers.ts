@@ -1,27 +1,27 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGeneticMarker,
-  GraphQLQTL,
-  IntermineGeneticMarkerResponse,
-  intermineGeneticMarkerAttributes,
-  intermineGeneticMarkerSort,
-  response2geneticMarkers,
+    GraphQLGeneticMarker,
+    GraphQLQTL,
+    IntermineGeneticMarkerResponse,
+    intermineGeneticMarkerAttributes,
+    intermineGeneticMarkerSort,
+    response2geneticMarkers,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetGeneticMarkersOptions = {
-  qtl?: GraphQLQTL;
+    qtl?: GraphQLQTL;
 } & PaginationOptions;
 
 
 // get GeneticMarkers for a QTL
 export async function getGeneticMarkers(
-  {
-    qtl,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: GetGeneticMarkersOptions,
+    {
+        qtl,
+        start,
+        size,
+    }: GetGeneticMarkersOptions,
 ): Promise<GraphQLGeneticMarker[]> {
     const constraints = [];
     if (qtl) {

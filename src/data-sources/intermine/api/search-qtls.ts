@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLQTL,
-  IntermineQTLResponse,
-  intermineQTLAttributes,
-  intermineQTLSort,
-  response2qtls,
+    GraphQLQTL,
+    IntermineQTLResponse,
+    intermineQTLAttributes,
+    intermineQTLSort,
+    response2qtls,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchQTLsOptions = {
-  traitName?: string;
+    traitName?: string;
 } & PaginationOptions;
 
 
 // path query search for QTLs by Trait.name
 export async function searchQTLs(
-  {
-    traitName,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchQTLsOptions,
+    {
+        traitName,
+        start,
+        size,
+    }: SearchQTLsOptions,
 ): Promise<GraphQLQTL[]> {
     const constraints = [];
     if (traitName) {

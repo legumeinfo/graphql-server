@@ -1,27 +1,27 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLExpressionSample,
-  GraphQLExpressionSource,
-  IntermineExpressionSampleResponse,
-  intermineExpressionSampleAttributes,
-  intermineExpressionSampleSort,
-  response2expressionSamples,
+    GraphQLExpressionSample,
+    GraphQLExpressionSource,
+    IntermineExpressionSampleResponse,
+    intermineExpressionSampleAttributes,
+    intermineExpressionSampleSort,
+    response2expressionSamples,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetExpressionSamplesOptions = {
-  expressionSource?: GraphQLExpressionSource;
+    expressionSource?: GraphQLExpressionSource;
 } & PaginationOptions;
 
 
 // get ExpressionSamples for an ExpressionSource
 export async function getExpressionSamples(
-  {
-    expressionSource,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: GetExpressionSamplesOptions,
+    {
+        expressionSource,
+        start,
+        size,
+    }: GetExpressionSamplesOptions,
 ): Promise<GraphQLExpressionSample[]> {
     const constraints = [];
     if (expressionSource) {

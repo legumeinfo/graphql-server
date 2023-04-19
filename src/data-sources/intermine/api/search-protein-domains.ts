@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLProteinDomain,
-  IntermineProteinDomainResponse,
-  intermineProteinDomainAttributes,
-  intermineProteinDomainSort,
-  response2proteinDomains,
+    GraphQLProteinDomain,
+    IntermineProteinDomainResponse,
+    intermineProteinDomainAttributes,
+    intermineProteinDomainSort,
+    response2proteinDomains,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchProteinDomainsOptions = {
-  description?: string;
+    description?: string;
 } & PaginationOptions;
 
 
 // path query search for ProteinDomain by description
 export async function searchProteinDomains(
-  {
-    description,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchProteinDomainsOptions,
+    {
+        description,
+        start,
+        size,
+    }: SearchProteinDomainsOptions,
 ): Promise<GraphQLProteinDomain[]> {
     const constraints = [];
     if (description) {

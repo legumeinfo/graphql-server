@@ -9,7 +9,7 @@ import {
   intermineGeneSort,
   response2genes,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetGenesOptions = {
@@ -25,8 +25,8 @@ export async function getGenes(
     protein,
     geneFamily,
     proteinDomain,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
+    start,
+    size,
   }: GetGenesOptions,
 ): Promise<GraphQLGene> {
     const constraints = [];

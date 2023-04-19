@@ -1,26 +1,26 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLQTLStudy,
-  IntermineQTLStudyResponse,
-  intermineQTLStudyAttributes,
-  intermineQTLStudySort,
-  response2qtlStudies,
+    GraphQLQTLStudy,
+    IntermineQTLStudyResponse,
+    intermineQTLStudyAttributes,
+    intermineQTLStudySort,
+    response2qtlStudies,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchQTLStudiesOptions = {
-  description?: string;
+    description?: string;
 } & PaginationOptions;
 
 
 // path query search for QTLStudies by description
 export async function searchQTLStudies(
-  {
-    description,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
-  }: SearchQTLStudiesOptions,
+    {
+        description,
+        start,
+        size,
+    }: SearchQTLStudiesOptions,
 ): Promise<GraphQLQTLStudy[]> {
     const constraints = [];
     if (description) {

@@ -35,7 +35,7 @@ import {
   interminePublicationSort,
   response2publications,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchPublicationsOptions = {
@@ -47,8 +47,8 @@ export type SearchPublicationsOptions = {
 export async function searchPublications(
   {
     title,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size}: SearchPublicationsOptions,
+    start,
+    size}: SearchPublicationsOptions,
 ): Promise<GraphQLPublication[]> {
     const constraints = [];
     if (title) {
