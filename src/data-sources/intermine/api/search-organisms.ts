@@ -6,7 +6,7 @@ import {
   intermineOrganismSort,
   response2organisms,
 } from '../models/index.js';
-import { PaginationOptions, defaultPaginationOptions } from './pagination.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type SearchOrganismsOptions = {
@@ -26,8 +26,8 @@ export async function searchOrganisms(
     name,
     genus,
     species,
-    start=defaultPaginationOptions.start,
-    size=defaultPaginationOptions.size,
+    start,
+    size,
   }: SearchOrganismsOptions,
 ): Promise<GraphQLOrganism[]> {
     const constraints = [];
