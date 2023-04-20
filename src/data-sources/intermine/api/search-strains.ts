@@ -1,40 +1,37 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-    GraphQLStrain,
-    IntermineStrainResponse,
-    intermineStrainAttributes,
-    intermineStrainSort,
-    response2strains,
+  GraphQLStrain,
+  IntermineStrainResponse,
+  intermineStrainAttributes,
+  intermineStrainSort,
+  response2strains,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
 export type SearchStrainsOptions = {
-    description?: string;
-    origin?: string;
-    species?: string;
+  description?: string;
+  origin?: string;
 } & PaginationOptions;
 
 
 // path query search for Strain by description and/or origin
 export async function searchStrains(
-    {
-        description,
-        origin,
-        species,
-        start,
-        size,
-    }: SearchStrainsOptions,
+  {
+    description,
+    origin,
+    start,
+    size,
+  }: SearchStrainsOptions,
 ): Promise<GraphQLStrain[]> {
     const constraints = [];
     if (description) {
-        constraints.push(intermineConstraint('Strain.description', 'CONTAINS', description));
+        const constraint = intermineConstraint('Strain.description', 'CONTAINS', description);
+        constraints.push(constraint);
     }
     if (origin) {
-        constraints.push(intermineConstraint('Strain.origin', 'CONTAINS', origin));
-    }
-    if (species) {
-        constraints.push(intermineConstraint('Strain.organism.species', '=', species));
+        const constraint = intermineConstraint('Strain.origin', 'CONTAINS', origin);
+        constraints.push(constraint);
     }
     const query = interminePathQuery(
         intermineStrainAttributes,
