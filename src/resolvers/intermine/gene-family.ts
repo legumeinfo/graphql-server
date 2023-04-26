@@ -14,7 +14,8 @@ export const geneFamilyFactory = (sourceName: keyof DataSources): ResolverMap =>
     },
     GeneFamily: {
         phylotree: async(geneFamily, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylotree(geneFamily.phylotreeIdentifier);
+            // phylotrees have the same identifier as their corresponding gene family
+            return dataSources[sourceName].getPhylotree(geneFamily.identifier);
         },
         genes: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};
