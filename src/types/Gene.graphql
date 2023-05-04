@@ -60,4 +60,5 @@ type Gene implements SequenceFeature {
   pathways: [Pathway]
   # regulatoryRegions
   # UTRs
+  linkouts: [Linkout]
 }
