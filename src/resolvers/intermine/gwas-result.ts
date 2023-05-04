@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const gwasResultFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const gwasResultFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         gwasResult: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGWASResult(id);

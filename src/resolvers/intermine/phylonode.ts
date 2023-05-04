@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const phylonodeFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         phylonode: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(id);

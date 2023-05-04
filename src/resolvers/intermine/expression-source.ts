@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const expressionSourceFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const expressionSourceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         expressionSource:  async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getExpressionSource(identifier);

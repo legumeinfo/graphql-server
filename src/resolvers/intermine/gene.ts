@@ -1,8 +1,14 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const geneFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const geneFactory =
+(
+    sourceName: KeyOfType<DataSources, IntermineAPI>,
+    microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+):
+ResolverMap => ({
     Query: {
         gene: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getGene(identifier);
@@ -46,6 +52,10 @@ export const geneFactory = (sourceName: keyof DataSources): ResolverMap => ({
         publications: async (gene, { start, size }, { dataSources }) => {
             const args = {annotatable: gene, start, size};
             return dataSources[sourceName].getPublications(args);
+        },
+        linkouts: async (gene, _, { dataSources }) => {
+          const {identifier} = gene;
+          return dataSources[microservicesSource].getLinkoutsForGene(identifier);
         },
     },
 });

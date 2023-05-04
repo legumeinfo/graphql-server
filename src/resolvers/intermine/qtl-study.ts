@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const qtlStudyFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         qtlStudy:  async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getQTLStudy(identifier);

@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const geneFamilyTallyFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const geneFamilyTallyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         geneFamilyTally: async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getGeneFamilyTally(id);

@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const pathwayFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const pathwayFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         pathway: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getPathway(identifier);

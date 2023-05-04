@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const qtlFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         qtl:  async (_, { id }, { dataSources }) => {
             return dataSources[sourceName].getQTL(id);
