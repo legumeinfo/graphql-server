@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const ontologyFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const ontologyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         ontology: async (_, { name }, { dataSources }) => {
             return dataSources[sourceName].getOntology(name);

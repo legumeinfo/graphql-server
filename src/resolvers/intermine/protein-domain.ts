@@ -1,8 +1,10 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const proteinDomainFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         proteinDomain: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getProteinDomain(identifier);

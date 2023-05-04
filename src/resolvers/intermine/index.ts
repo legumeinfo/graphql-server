@@ -2,7 +2,8 @@
 
 import { mergeResolvers } from '@graphql-tools/merge';
 
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
+import { KeyOfType } from '../../utils/index.js';
 
 import { authorFactory } from './author.js';
 import { chromosomeFactory } from './chromosome.js';
@@ -84,9 +85,13 @@ const factories = [
 // data source.
 // TODO: our resolver type returned by the factories doesn't match the type
 // expected by mergeResolvers
-export const intermineResolverFactory = (sourceName: keyof DataSources) => {
+export const intermineResolverFactory =
+(
+    sourceName: KeyOfType<DataSources, IntermineAPI>,
+    microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+) => {
     const sourceResolvers = factories.map((factory) => {
-        return factory(sourceName);
+        return factory(sourceName, microservicesSource);
     });
     return mergeResolvers(sourceResolvers);
 };
