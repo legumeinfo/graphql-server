@@ -16,4 +16,5 @@ type Location {
   supercontig: Supercontig
   # feature
   dataSets: [DataSet]
+  linkouts: [Linkout]
 }
