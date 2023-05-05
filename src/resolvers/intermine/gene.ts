@@ -7,8 +7,7 @@ export const geneFactory =
 (
     sourceName: KeyOfType<DataSources, IntermineAPI>,
     microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
-):
-ResolverMap => ({
+): ResolverMap => ({
     Query: {
         gene: async (_, { identifier }, { dataSources }) => {
             return dataSources[sourceName].getGene(identifier);

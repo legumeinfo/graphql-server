@@ -4,7 +4,6 @@ import { mergeResolvers } from '@graphql-tools/merge';
 
 import { DataSources, MicroservicesAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
- './linkage-group.js';
 
 import { linkoutsFactory } from './linkouts.js';
 
