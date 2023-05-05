@@ -65,6 +65,6 @@ type Query {
   mineWebProperties: MineWebProperties
 
   ### microservices queries
-  geneLinkout(identifier: String!): [Linkout!]!
-  locationLinkout(identifier: ID!, start: Int!, end: Int!): [Linkout!]!
+  geneLinkouts(identifier: String!): [Linkout!]!
+  locationLinkouts(identifier: ID!, start: Int!, end: Int!): [Linkout!]!
 }
