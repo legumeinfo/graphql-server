@@ -19,10 +19,7 @@ export async function getPhylotree(identifier: string): Promise<GraphQLPhylotree
     return this.pathQuery(query)
         .then((response: InterminePhylotreeResponse) => response2phylotrees(response))
         .then((phylotrees: Array<GraphQLPhylotree>) => {
-            if (!phylotrees.length) {
-                const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!phylotrees.length) return null;
             return phylotrees[0];
         });
 }

@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const linkageGroupFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         linkageGroup:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(id);
+            const group = dataSources[sourceName].getLinkageGroup(id);
+            if (group == null) {
+                const msg = `LinkageGroup with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return group;
         },
     },
     LinkageGroup: {

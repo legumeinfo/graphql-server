@@ -19,10 +19,7 @@ export async function getPublication(doi: string): Promise<GraphQLPublication> {
     return this.pathQuery(query)
         .then((response: InterminePublicationResponse) => response2publications(response))
         .then((publications: Array<GraphQLPublication>) => {
-            if (!publications.length) {
-                const msg = `Publication with DOI '${doi}' not found`;
-                this.inputError(msg);
-            }
+            if (!publications.length) return null;
             return publications[0];
         });
 }

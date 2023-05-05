@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const ontologyAnnotationFactory = (sourceName: KeyOfType<DataSources, Int
 ResolverMap => ({
     Query: {
         ontologyAnnotation: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getOntologyAnnotation(id);
+            const annotation = dataSources[sourceName].getOntologyAnnotation(id);
+            if (annotation == null) {
+                const msg = `OntologyAnnotation with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return annotation;
         },
     },
     OntologyAnnotation: {

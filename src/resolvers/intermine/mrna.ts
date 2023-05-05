@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const mRNAFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         mRNA: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getMRNA(identifier);
+            const mrna = dataSources[sourceName].getMRNA(identifier);
+            if (mrna == null) {
+                const msg = `mRNA with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return mrna;
         },
     },
     MRNA: {

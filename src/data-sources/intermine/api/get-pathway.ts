@@ -19,10 +19,7 @@ export async function getPathway(identifier: string): Promise<GraphQLPathway> {
     return this.pathQuery(query)
         .then((response: InterminePathwayResponse) => response2pathways(response))
         .then((pathways: Array<GraphQLPathway>) => {
-            if (!pathways.length) {
-                const msg = `Pathway with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!pathways.length) return null;
             return pathways[0];
         });
 }

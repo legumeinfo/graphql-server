@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const phylotreeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI
 ResolverMap => ({
     Query: {
         phylotree: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getPhylotree(identifier);
+            const tree = dataSources[sourceName].getPhylotree(identifier);
+            if (tree == null) {
+                const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return tree;
         },
     },
     Phylotree: {

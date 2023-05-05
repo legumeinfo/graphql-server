@@ -19,10 +19,7 @@ export async function getGeneticMap(identifier: string): Promise<GraphQLGeneticM
     return this.pathQuery(query)
         .then((response: IntermineGeneticMapResponse) => response2geneticMaps(response))
         .then((geneticMaps: Array<GraphQLGeneticMap>) => {
-            if (!geneticMaps.length) {
-                const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!geneticMaps.length) return null;
             return geneticMaps[0];
         });
 }

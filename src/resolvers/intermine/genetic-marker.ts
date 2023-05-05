@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const geneticMarkerFactory = (sourceName: KeyOfType<DataSources, Intermin
 ResolverMap => ({
     Query: {
         geneticMarker:  async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getGeneticMarker(identifier);
+            const marker = dataSources[sourceName].getGeneticMarker(identifier);
+            if (marker == null) {
+                const msg = `GeneticMarker with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return marker;
         },
     },
     GeneticMarker: {

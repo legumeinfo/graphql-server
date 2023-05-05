@@ -19,10 +19,7 @@ export async function getSyntenyBlock(id: number): Promise<GraphQLSyntenyBlock> 
     return this.pathQuery(query)
         .then((response: IntermineSyntenyBlockResponse) => response2syntenyBlocks(response))
         .then((syntenyBlocks: Array<GraphQLSyntenyBlock>) => {
-            if (!syntenyBlocks.length) {
-                const msg = `SyntenyBlock with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!syntenyBlocks.length) return null;
             return syntenyBlocks[0];
         });
 }

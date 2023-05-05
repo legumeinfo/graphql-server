@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const gwasResultFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         gwasResult: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGWASResult(id);
+            const result = dataSources[sourceName].getGWASResult(id);
+            if (result == null) {
+                const msg = `GWASResult with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return result;
         },
     },
     GWASResult: {

@@ -19,10 +19,7 @@ export async function getDataSet(name: string): Promise<GraphQLDataSet> {
     return this.pathQuery(query)
         .then((response: IntermineDataSetResponse) => response2dataSets(response))
         .then((dataSets: Array<GraphQLDataSet>) => {
-            if (!dataSets.length) {
-                const msg = `DataSet with name '${name}' not found`;
-                this.inputError(msg);
-            }
+            if (!dataSets.length) return null;
             return dataSets[0];
         });
 }

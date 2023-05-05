@@ -19,10 +19,7 @@ export async function getOntologyAnnotation(id: number): Promise<GraphQLOntology
     return this.pathQuery(query)
         .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response))
         .then((ontologyAnnotations: Array<GraphQLOntologyAnnotation>) => {
-            if (!ontologyAnnotations.length) {
-                const msg = `OntologyAnnotation with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!ontologyAnnotations.length) return null;
             return ontologyAnnotations[0];
         });
 }

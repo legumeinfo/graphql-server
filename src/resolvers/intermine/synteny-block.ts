@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const syntenyBlockFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         syntenyBlock: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getSyntenyBlock(id);
+            const block = dataSources[sourceName].getSyntenyBlock(id);
+            if (block == null) {
+                const msg = `SyntenyBlock with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return block;
         },
     },
     SyntenyBlock: {

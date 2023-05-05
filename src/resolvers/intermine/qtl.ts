@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         qtl:  async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getQTL(id);
+            const qtl = dataSources[sourceName].getQTL(id);
+            if (qtl == null) {
+                const msg = `QTL with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return qtl;
         },
         qtls: async (_, { traitName, start, size }, { dataSources }) => {
             const args = {traitName, start, size};

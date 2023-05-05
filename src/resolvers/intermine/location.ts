@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -10,7 +10,12 @@ export const locationFactory =
 ): ResolverMap => ({
     Query: {
         location: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getLocation(id);
+            const location = dataSources[sourceName].getLocation(id);
+            if (location == null) {
+                const msg = `Location with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return location;
         },
     },
     Location: {

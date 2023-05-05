@@ -19,10 +19,7 @@ export async function getExpressionSource(identifier: string): Promise<GraphQLEx
     return this.pathQuery(query)
         .then((response: IntermineExpressionSourceResponse) => response2expressionSources(response))
         .then((expressionSources: Array<GraphQLExpressionSource>) => {
-            if (!expressionSources.length) {
-                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!expressionSources.length) return null;
             return expressionSources[0];
         });
 }

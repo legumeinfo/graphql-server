@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const publicationFactory = (sourceName: KeyOfType<DataSources, IntermineA
 ResolverMap => ({
     Query: {
         publication: async (_, { doi }, { dataSources }) => {
-            return dataSources[sourceName].getPublication(doi);
+            const publication = dataSources[sourceName].getPublication(doi);
+            if (publication == null) {
+                const msg = `Publication with DOI '${doi}' not found`;
+                inputError(msg);
+            }
+            return publication;
         },
         publications: async (_, { title, start, size }, { dataSources }) => {
             const args = {title, start, size};
