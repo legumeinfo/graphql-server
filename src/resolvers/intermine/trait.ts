@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         trait: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getTrait(identifier);
+            const trait = dataSources[sourceName].getTrait(identifier);
+            if (trait == null) {
+                const msg = `Trait with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return trait;
         },
         traits: async (_, { name, start, size }, { dataSources }) => {
             const args = {name, start, size};

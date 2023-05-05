@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const expressionSourceFactory = (sourceName: KeyOfType<DataSources, Inter
 ResolverMap => ({
     Query: {
         expressionSource:  async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getExpressionSource(identifier);
+            const source = dataSources[sourceName].getExpressionSource(identifier);
+            if (source == null) {
+                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return source;
         },
         expressionSources: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

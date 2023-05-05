@@ -19,10 +19,7 @@ export async function getChromosome(identifier: string): Promise<GraphQLChromoso
     return this.pathQuery(query)
         .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
         .then((chromosomes: Array<GraphQLChromosome>) => {
-            if (!chromosomes.length) {
-                const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!chromosomes.length) return null;
             return chromosomes[0];
         });
 }

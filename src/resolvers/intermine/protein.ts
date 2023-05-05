@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>)
 ResolverMap => ({
     Query: {
         protein: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getProtein(identifier);
+            const protein = dataSources[sourceName].getProtein(identifier);
+            if (protein == null) {
+                const msg = `Protein with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return protein;
         },
         proteins: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

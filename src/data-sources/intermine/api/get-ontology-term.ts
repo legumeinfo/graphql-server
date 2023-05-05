@@ -19,10 +19,7 @@ export async function getOntologyTerm(identifier: string): Promise<GraphQLOntolo
     return this.pathQuery(query)
         .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response))
         .then((ontologyTerms: Array<GraphQLOntologyTerm>) => {
-            if (!ontologyTerms.length) {
-                const msg = `OntologyTerm with identifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!ontologyTerms.length) return null;
             return ontologyTerms[0];
         });
 }

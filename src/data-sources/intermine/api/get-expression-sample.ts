@@ -19,10 +19,7 @@ export async function getExpressionSample(identifier: string): Promise<GraphQLEx
     return this.pathQuery(query)
         .then((response: IntermineExpressionSampleResponse) => response2expressionSamples(response))
         .then((expressionSamples: Array<GraphQLExpressionSample>) => {
-            if (!expressionSamples.length) {
-                const msg = `ExpressionSample with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!expressionSamples.length) return null;
             return expressionSamples[0];
         });
 }

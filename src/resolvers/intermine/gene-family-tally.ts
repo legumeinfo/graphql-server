@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -7,7 +7,12 @@ export const geneFamilyTallyFactory = (sourceName: KeyOfType<DataSources, Interm
 ResolverMap => ({
     Query: {
         geneFamilyTally: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamilyTally(id);
+            const tally = dataSources[sourceName].getGeneFamilyTally(id);
+            if (tally == null) {
+                const msg = `GeneFamilyTally with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return tally;
         },
     },
     GeneFamilyTally : {

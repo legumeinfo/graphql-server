@@ -19,10 +19,7 @@ export async function getMRNA(identifier: string): Promise<GraphQLMRNA> {
     return this.pathQuery(query)
         .then((response: IntermineMRNAResponse) => response2mRNAs(response))
         .then((mRNAs: Array<GraphQLMRNA>) => {
-            if (!mRNAs.length) {
-                const msg = `MRNA with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!mRNAs.length) return null;
             return mRNAs[0];
         });
 }

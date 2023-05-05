@@ -19,10 +19,7 @@ export async function getOntology(name: string): Promise<GraphQLOntology> {
     return this.pathQuery(query)
         .then((response: IntermineOntologyResponse) => response2ontologies(response))
         .then((ontologies: Array<GraphQLOntology>) => {
-            if (!ontologies.length) {
-                const msg = `Ontology with name '${name}' not found`;
-                this.inputError(msg);
-            }
+            if (!ontologies.length) return null;
             return ontologies[0];
         });
 }

@@ -19,10 +19,7 @@ export async function getQTLStudy(identifier: string): Promise<GraphQLQTLStudy> 
     return this.pathQuery(query)
         .then((response: IntermineQTLStudyResponse) => response2qtlStudies(response))
         .then((qtlStudies: GraphQLQTLStudy[]) => {
-            if (!qtlStudies.length) {
-                const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!qtlStudies.length) return null;
             return qtlStudies[0];
         });
 }

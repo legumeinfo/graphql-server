@@ -19,10 +19,7 @@ export async function getGeneFamilyTally(id: number): Promise<GraphQLGeneFamilyT
     return this.pathQuery(query)
         .then((response: IntermineGeneFamilyTallyResponse) => response2geneFamilyTallies(response))
         .then((geneFamilyTallies: Array<GraphQLGeneFamilyTally>) => {
-            if (!geneFamilyTallies.length) {
-                const msg = `GeneFamilyTally with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!geneFamilyTallies.length) return null;
             return geneFamilyTallies[0];
         });
 }

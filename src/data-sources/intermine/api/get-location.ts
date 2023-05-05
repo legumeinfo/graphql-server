@@ -19,10 +19,7 @@ export async function getLocation(id: number): Promise<GraphQLLocation> {
     return this.pathQuery(query)
         .then((response: IntermineLocationResponse) => response2locations(response))
         .then((locations: Array<GraphQLLocation>) => {
-            if (!locations.length) {
-                const msg = `Location with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!locations.length) return null;
             return locations[0];
         });
 }

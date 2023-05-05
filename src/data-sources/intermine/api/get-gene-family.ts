@@ -19,10 +19,7 @@ export async function getGeneFamily(identifier: string): Promise<GraphQLGeneFami
     return this.pathQuery(query)
         .then((response: IntermineGeneFamilyResponse) => response2geneFamilies(response))
         .then((geneFamilies: Array<GraphQLGeneFamily>) => {
-            if (!geneFamilies.length) {
-                const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!geneFamilies.length) return null;
             return geneFamilies[0];
         });
 }

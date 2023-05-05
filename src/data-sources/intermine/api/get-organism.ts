@@ -19,10 +19,7 @@ export async function getOrganism(taxonId: number): Promise<GraphQLOrganism> {
     return this.pathQuery(query)
         .then((response: IntermineOrganismResponse) => response2organisms(response))
         .then((organisms: Array<GraphQLOrganism>) => {
-            if (!organisms.length) {
-                const msg = `Organism with taxon ID '${taxonId}' not found`;
-                this.inputError(msg);
-            }
+            if (!organisms.length) return null;
             return organisms[0];
         });
 }

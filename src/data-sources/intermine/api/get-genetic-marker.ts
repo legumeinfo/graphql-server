@@ -19,10 +19,7 @@ export async function getGeneticMarker(identifier: string): Promise<GraphQLGenet
     return this.pathQuery(query)
         .then((response: IntermineGeneticMarkerResponse) => response2geneticMarkers(response))
         .then((geneticMarkers: Array<GraphQLGeneticMarker>) => {
-            if (!geneticMarkers.length) {
-                const msg = `GeneticMarker with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!geneticMarkers.length) return null;
             return geneticMarkers[0];
         });
 }

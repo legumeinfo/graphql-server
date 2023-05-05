@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
@@ -10,7 +10,12 @@ export const geneFactory =
 ): ResolverMap => ({
     Query: {
         gene: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getGene(identifier);
+            const gene = dataSources[sourceName].getGene(identifier);
+            if (gene == null) {
+                const msg = `Gene with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return gene;
         },
         genes: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
