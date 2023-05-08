@@ -4,8 +4,8 @@
 type SyntenicRegion implements SequenceFeature {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   symbol: String
   name: String
@@ -13,10 +13,10 @@ type SyntenicRegion implements SequenceFeature {
   annotationVersion: String
   organism: Organism
   strain: Strain
-  locations: [Location]
+  locations: [Location!]!
   # synonyms
   # crossReferences
-  dataSets: [DataSet]
+  dataSets: [DataSet!]!
   # locatedFeatures
   # score
   # scoreType

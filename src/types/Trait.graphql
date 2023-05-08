@@ -10,13 +10,13 @@
 type Trait implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   name: String
   qtlStudy: QTLStudy
   gwas: GWAS
   dataSet: DataSet
-  qtls: [QTL]
-  gwasResults: [GWASResult]
+  qtls: [QTL!]!
+  gwasResults: [GWASResult!]!
 }

@@ -29,5 +29,5 @@ type QTL {
   linkageGroup: LinkageGroup
   dataSet: DataSet
   # genes: [Gene]
-  markers: [GeneticMarker]
+  markers: [GeneticMarker!]!
 }

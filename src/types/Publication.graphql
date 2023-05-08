@@ -27,7 +27,7 @@ type Publication {
   month: String
   abstractText: String
   pubMedId: String
-  authors: [Author]
+  authors: [Author!]!
   # entities: []
   # meshTerms: []
 }

@@ -7,7 +7,7 @@
 type SyntenyBlock {
   id: ID!
   medianKs: Float
-  # publications: [Publication]
-  syntenicRegions: [SyntenicRegion]
-  dataSets: [DataSet]
+  # publications: [Publication!]!
+  syntenicRegions: [SyntenicRegion!]!
+  dataSets: [DataSet!]!
 }

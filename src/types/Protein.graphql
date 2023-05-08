@@ -16,8 +16,8 @@ type Protein implements BioEntity {
   ## BioEntity
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   symbol: String
   name: String
@@ -28,7 +28,7 @@ type Protein implements BioEntity {
   # locations
   # synonyms
   # crossReferences
-  dataSets: [DataSet]
+  dataSets: [DataSet!]!
   # locatedFeatures
   ## Protein
   md5checksum: String
@@ -40,7 +40,7 @@ type Protein implements BioEntity {
   # transcript
   # CDS
   # sequence
-  genes: [Gene]
-  geneFamilyAssignments: [GeneFamilyAssignment]
+  genes: [Gene!]!
+  geneFamilyAssignments: [GeneFamilyAssignment!]!
   # proteinMatches
 }
