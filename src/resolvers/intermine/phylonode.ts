@@ -7,7 +7,7 @@ export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI
 ResolverMap => ({
     Query: {
         phylonode: async (_, { id }, { dataSources }) => {
-            const node = dataSources[sourceName].getPhylonode(id);
+            const node = await dataSources[sourceName].getPhylonode(id);
             if (node == null) {
                 const msg = `Phylonode with ID '${id}' not found`;
                 inputError(msg);

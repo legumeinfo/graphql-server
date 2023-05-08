@@ -7,7 +7,7 @@ export const supercontigFactory = (sourceName: KeyOfType<DataSources, IntermineA
 ResolverMap => ({
     Query: {
         supercontig: async (_, { identifier }, { dataSources }) => {
-            const supercontig = dataSources[sourceName].getSupercontig(identifier);
+            const supercontig = await dataSources[sourceName].getSupercontig(identifier);
             if (supercontig == null) {
                 const msg = `Supercontig with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

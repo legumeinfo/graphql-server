@@ -7,7 +7,7 @@ export const syntenicRegionFactory = (sourceName: KeyOfType<DataSources, Intermi
 ResolverMap => ({
     Query: {
         syntenicRegion: async (_, { identifier }, { dataSources }) => {
-            const region = dataSources[sourceName].getSyntenicRegion(identifier);
+            const region = await dataSources[sourceName].getSyntenicRegion(identifier);
             if (region == null) {
                 const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

@@ -7,7 +7,7 @@ export const geneFamilyTallyFactory = (sourceName: KeyOfType<DataSources, Interm
 ResolverMap => ({
     Query: {
         geneFamilyTally: async (_, { id }, { dataSources }) => {
-            const tally = dataSources[sourceName].getGeneFamilyTally(id);
+            const tally = await dataSources[sourceName].getGeneFamilyTally(id);
             if (tally == null) {
                 const msg = `GeneFamilyTally with ID '${id}' not found`;
                 inputError(msg);

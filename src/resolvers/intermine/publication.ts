@@ -7,7 +7,7 @@ export const publicationFactory = (sourceName: KeyOfType<DataSources, IntermineA
 ResolverMap => ({
     Query: {
         publication: async (_, { doi }, { dataSources }) => {
-            const publication = dataSources[sourceName].getPublication(doi);
+            const publication = await dataSources[sourceName].getPublication(doi);
             if (publication == null) {
                 const msg = `Publication with DOI '${doi}' not found`;
                 inputError(msg);

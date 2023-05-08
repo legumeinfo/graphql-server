@@ -7,7 +7,7 @@ export const dataSetFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>)
 ResolverMap => ({
     Query: {
         dataSet: async (_, { name }, { dataSources }) => {
-            const dataset = dataSources[sourceName].getDataSet(name);
+            const dataset = await dataSources[sourceName].getDataSet(name);
             if (dataset == null) {
                 const msg = `DataSet with name '${name}' not found`;
                 inputError(msg);

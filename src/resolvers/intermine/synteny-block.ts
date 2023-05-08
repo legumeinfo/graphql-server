@@ -7,7 +7,7 @@ export const syntenyBlockFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         syntenyBlock: async (_, { id }, { dataSources }) => {
-            const block = dataSources[sourceName].getSyntenyBlock(id);
+            const block = await dataSources[sourceName].getSyntenyBlock(id);
             if (block == null) {
                 const msg = `SyntenyBlock with ID '${id}' not found`;
                 inputError(msg);

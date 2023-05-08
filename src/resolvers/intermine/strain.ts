@@ -7,7 +7,7 @@ export const strainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         strain: async (_, { identifier }, { dataSources }) => {
-            const strain = dataSources[sourceName].getStrain(identifier);
+            const strain = await dataSources[sourceName].getStrain(identifier);
             if (strain == null) {
                 const msg = `Strain with identifier '${identifier}' not found`;
                 inputError(msg);

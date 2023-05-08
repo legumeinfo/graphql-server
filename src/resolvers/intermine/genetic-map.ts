@@ -6,8 +6,8 @@ import { ResolverMap } from '../resolver.js';
 export const geneticMapFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        geneticMap:  async (_, { identifier }, { dataSources }) => {
-            const map = dataSources[sourceName].getGeneticMap(identifier);
+        geneticMap: async (_, { identifier }, { dataSources }) => {
+            const map = await dataSources[sourceName].getGeneticMap(identifier);
             if (map == null) {
                 const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

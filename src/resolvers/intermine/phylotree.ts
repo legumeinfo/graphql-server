@@ -7,7 +7,7 @@ export const phylotreeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI
 ResolverMap => ({
     Query: {
         phylotree: async (_, { identifier }, { dataSources }) => {
-            const tree = dataSources[sourceName].getPhylotree(identifier);
+            const tree = await dataSources[sourceName].getPhylotree(identifier);
             if (tree == null) {
                 const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

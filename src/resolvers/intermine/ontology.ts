@@ -7,7 +7,7 @@ export const ontologyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>
 ResolverMap => ({
     Query: {
         ontology: async (_, { name }, { dataSources }) => {
-            const ontology = dataSources[sourceName].getOntology(name);
+            const ontology = await dataSources[sourceName].getOntology(name);
             if (ontology == null) {
                 const msg = `Ontology with name '${name}' not found`;
                 inputError(msg);

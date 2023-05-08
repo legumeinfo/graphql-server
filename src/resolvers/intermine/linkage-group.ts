@@ -6,8 +6,8 @@ import { ResolverMap } from '../resolver.js';
 export const linkageGroupFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        linkageGroup:  async (_, { id }, { dataSources }) => {
-            const group = dataSources[sourceName].getLinkageGroup(id);
+        linkageGroup: async (_, { id }, { dataSources }) => {
+            const group = await dataSources[sourceName].getLinkageGroup(id);
             if (group == null) {
                 const msg = `LinkageGroup with ID '${id}' not found`;
                 inputError(msg);

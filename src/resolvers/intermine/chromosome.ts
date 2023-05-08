@@ -7,7 +7,7 @@ export const chromosomeFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         chromosome: async (_, { identifier }, { dataSources }) => {
-            const chromosome = dataSources[sourceName].getChromosome(identifier);
+            const chromosome = await dataSources[sourceName].getChromosome(identifier);
             if (chromosome == null) {
                 const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

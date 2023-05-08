@@ -7,7 +7,7 @@ export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         trait: async (_, { identifier }, { dataSources }) => {
-            const trait = dataSources[sourceName].getTrait(identifier);
+            const trait = await dataSources[sourceName].getTrait(identifier);
             if (trait == null) {
                 const msg = `Trait with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

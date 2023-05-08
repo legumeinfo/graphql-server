@@ -7,7 +7,7 @@ export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         ontologyTerm: async (_, { identifier }, { dataSources }) => {
-            const term = dataSources[sourceName].getOntologyTerm(identifier);
+            const term = await dataSources[sourceName].getOntologyTerm(identifier);
             if (term == null) {
                 const msg = `OntologyTerm with identifier '${identifier}' not found`;
                 inputError(msg);
