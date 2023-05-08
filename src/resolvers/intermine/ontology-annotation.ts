@@ -7,7 +7,7 @@ export const ontologyAnnotationFactory = (sourceName: KeyOfType<DataSources, Int
 ResolverMap => ({
     Query: {
         ontologyAnnotation: async (_, { id }, { dataSources }) => {
-            const annotation = dataSources[sourceName].getOntologyAnnotation(id);
+            const annotation = await dataSources[sourceName].getOntologyAnnotation(id);
             if (annotation == null) {
                 const msg = `OntologyAnnotation with ID '${id}' not found`;
                 inputError(msg);

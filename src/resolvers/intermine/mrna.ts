@@ -7,7 +7,7 @@ export const mRNAFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         mRNA: async (_, { identifier }, { dataSources }) => {
-            const mrna = dataSources[sourceName].getMRNA(identifier);
+            const mrna = await dataSources[sourceName].getMRNA(identifier);
             if (mrna == null) {
                 const msg = `mRNA with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

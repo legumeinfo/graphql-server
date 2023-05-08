@@ -10,7 +10,7 @@ export const geneFactory =
 ): ResolverMap => ({
     Query: {
         gene: async (_, { identifier }, { dataSources }) => {
-            const gene = dataSources[sourceName].getGene(identifier);
+            const gene = await dataSources[sourceName].getGene(identifier);
             if (gene == null) {
                 const msg = `Gene with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

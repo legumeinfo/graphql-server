@@ -7,7 +7,7 @@ export const geneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         geneFamily: async (_, { identifier }, { dataSources }) => {
-            const family = dataSources[sourceName].getGeneFamily(identifier);
+            const family = await dataSources[sourceName].getGeneFamily(identifier);
             if (family == null) {
                 const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

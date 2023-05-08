@@ -10,7 +10,7 @@ export const locationFactory =
 ): ResolverMap => ({
     Query: {
         location: async (_, { id }, { dataSources }) => {
-            const location = dataSources[sourceName].getLocation(id);
+            const location = await dataSources[sourceName].getLocation(id);
             if (location == null) {
                 const msg = `Location with ID '${id}' not found`;
                 inputError(msg);

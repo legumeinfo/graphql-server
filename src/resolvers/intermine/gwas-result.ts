@@ -7,7 +7,7 @@ export const gwasResultFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         gwasResult: async (_, { id }, { dataSources }) => {
-            const result = dataSources[sourceName].getGWASResult(id);
+            const result = await dataSources[sourceName].getGWASResult(id);
             if (result == null) {
                 const msg = `GWASResult with ID '${id}' not found`;
                 inputError(msg);

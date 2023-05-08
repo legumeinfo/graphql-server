@@ -6,8 +6,8 @@ import { ResolverMap } from '../resolver.js';
 export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        qtlStudy:  async (_, { identifier }, { dataSources }) => {
-            const study = dataSources[sourceName].getQTLStudy(identifier);
+        qtlStudy: async (_, { identifier }, { dataSources }) => {
+            const study = await dataSources[sourceName].getQTLStudy(identifier);
             if (study == null) {
                 const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

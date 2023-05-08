@@ -7,7 +7,7 @@ export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>)
 ResolverMap => ({
     Query: {
         protein: async (_, { identifier }, { dataSources }) => {
-            const protein = dataSources[sourceName].getProtein(identifier);
+            const protein = await dataSources[sourceName].getProtein(identifier);
             if (protein == null) {
                 const msg = `Protein with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

@@ -6,8 +6,8 @@ import { ResolverMap } from '../resolver.js';
 export const expressionSampleFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        expressionSample:  async (_, { identifier }, { dataSources }) => {
-            const sample = dataSources[sourceName].getExpressionSample(identifier);
+        expressionSample: async (_, { identifier }, { dataSources }) => {
+            const sample = await dataSources[sourceName].getExpressionSample(identifier);
             if (sample == null) {
                 const msg = `ExpressionSample with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);

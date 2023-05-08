@@ -7,7 +7,7 @@ export const geneFamilyAssignmentFactory = (sourceName: KeyOfType<DataSources, I
 ResolverMap => ({
     Query: {
         geneFamilyAssignment: async (_, { id }, { dataSources }) => {
-            const family = dataSources[sourceName].getGeneFamilyAssignment(id);
+            const family = await dataSources[sourceName].getGeneFamilyAssignment(id);
             if (family == null) {
                 const msg = `GeneFamilyAssignment with ID '${id}' not found`;
                 inputError(msg);
