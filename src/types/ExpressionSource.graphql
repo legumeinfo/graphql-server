@@ -13,8 +13,8 @@
 type ExpressionSource implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   sra: String
   description: String
   bioProject: String
@@ -24,5 +24,5 @@ type ExpressionSource implements Annotatable {
   organism: Organism
   strain: Strain
   dataSet: DataSet
-  samples: [ExpressionSample]
+  samples: [ExpressionSample!]!
 }

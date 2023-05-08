@@ -13,14 +13,14 @@
 type ProteinDomain implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   type: String
   name: String
   shortName: String
-  genes: [Gene]
-  geneFamilies: [GeneFamily]
+  genes: [Gene!]!
+  geneFamilies: [GeneFamily!]!
   # childFeatures: [ProteinDomain]
   # foundIn: [ProteinDomain]
   # parentFeatures: [ProteinDomain]

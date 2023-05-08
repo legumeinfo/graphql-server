@@ -11,14 +11,14 @@
 type GeneticMap implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   genotypingPlatform: String
   description: String
   genotypes: String
   genotypingMethod: String
   synopsis: String
   organism: Organism
-  linkageGroups: [LinkageGroup]
-  dataSets: [DataSet]
+  linkageGroups: [LinkageGroup!]!
+  dataSets: [DataSet!]!
 }

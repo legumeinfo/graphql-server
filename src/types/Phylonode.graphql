@@ -20,5 +20,5 @@ type Phylonode {
   protein: Protein
   tree: Phylotree
   parent: Phylonode
-  children: [Phylonode]
+  children: [Phylonode!]!
 }

@@ -11,5 +11,5 @@ type Author {
   initials: String
   lastName: String
   name: String
-  publications: [Publication]
+  publications: [Publication!]!
 }
