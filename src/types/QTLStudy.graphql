@@ -9,12 +9,12 @@
 type QTLStudy implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   genotypes: String
   synopsis: String
   organism: Organism
   dataSet: DataSet
-  qtls: [QTL]
+  qtls: [QTL!]!
 }

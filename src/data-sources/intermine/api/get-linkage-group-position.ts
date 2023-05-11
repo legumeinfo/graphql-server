@@ -19,10 +19,7 @@ export async function getLinkageGroupPosition(id: number): Promise<GraphQLLinkag
     return this.pathQuery(query)
         .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response))
         .then((linkageGroupPositions: Array<GraphQLLinkageGroupPosition>) => {
-            if (!linkageGroupPositions.length) {
-                const msg = `LinkageGroupPosition with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!linkageGroupPositions.length) return null;
             return linkageGroupPositions[0];
         });
 }

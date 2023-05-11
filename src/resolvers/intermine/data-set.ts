@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const dataSetFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const dataSetFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         dataSet: async (_, { name }, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(name);
+            const dataset = await dataSources[sourceName].getDataSet(name);
+            if (dataset == null) {
+                const msg = `DataSet with name '${name}' not found`;
+                inputError(msg);
+            }
+            return dataset;
         },
     },
     DataSet: {

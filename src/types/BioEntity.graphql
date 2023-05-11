@@ -20,8 +20,8 @@
 interface BioEntity {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   symbol: String
   name: String
@@ -31,6 +31,6 @@ interface BioEntity {
   strain: Strain
   # synonyms
   # crossReferences
-  dataSets: [DataSet]
+  dataSets: [DataSet!]!
   # locatedFeatures
 }

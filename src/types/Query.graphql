@@ -45,23 +45,26 @@ type Query {
   syntenyBlock(id: ID!): SyntenyBlock
   
   ### multiple-result queries (typically searches)
-  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample]
-  expressionSources(description: String, start: Int, size: Int): [ExpressionSource]
-  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): [Gene]
-  geneFamilies(description: String, start: Int, size: Int): [GeneFamily]
-  geneticMaps(description: String, start: Int, size: Int): [GeneticMap]
-  gwases(description: String, start: Int, size: Int): [GWAS]
-  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm]
-  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism]
-  proteins(description: String, start: Int, size: Int): [Protein]
-  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain]
-  publications(title: String, start: Int, size: Int): [Publication]
-  qtls(traitName: String, start: Int, size: Int): [QTL]
-  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain]
-  strains(description: String, origin: String, species: String, start: Int, size: Int): [Strain]
-  traits(name: String, start: Int, size: Int): [Trait]
+  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample!]!
+  expressionSources(description: String, start: Int, size: Int): [ExpressionSource!]!
+  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): [Gene!]!
+  geneFamilies(description: String, start: Int, size: Int): [GeneFamily!]!
+  geneticMaps(description: String, start: Int, size: Int): [GeneticMap!]!
+  gwases(description: String, start: Int, size: Int): [GWAS!]!
+  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm!]!
+  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism!]!
+  proteins(description: String, start: Int, size: Int): [Protein!]!
+  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain!]!
+  publications(title: String, start: Int, size: Int): [Publication!]!
+  qtls(traitName: String, start: Int, size: Int): [QTL!]!
+  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain!]!
+  strains(description: String, origin: String, species: String, start: Int, size: Int): [Strain!]!
+  traits(name: String, start: Int, size: Int): [Trait!]!
 
   ### no-parameter queries
   mineWebProperties: MineWebProperties
 
+  ### microservices queries
+  geneLinkouts(identifier: String!): [Linkout!]!
+  locationLinkouts(identifier: ID!, start: Int!, end: Int!): [Linkout!]!
 }

@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const pathwayFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const pathwayFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         pathway: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getPathway(identifier);
+            const pathway = await dataSources[sourceName].getPathway(identifier);
+            if (pathway == null) {
+                const msg = `Pathway with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return pathway;
         },
     },
     Pathway: {

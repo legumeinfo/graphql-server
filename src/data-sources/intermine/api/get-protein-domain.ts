@@ -19,10 +19,7 @@ export async function getProteinDomain(identifier: string): Promise<GraphQLProte
     return this.pathQuery(query)
         .then((response: IntermineProteinDomainResponse) => response2proteinDomains(response))
         .then((proteinDomains: Array<GraphQLProteinDomain>) => {
-            if (!proteinDomains.length) {
-                const msg = `ProteinDomain with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!proteinDomains.length) return null;
             return proteinDomains[0];
         });
 }

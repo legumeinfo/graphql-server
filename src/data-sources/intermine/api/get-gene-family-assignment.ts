@@ -19,10 +19,7 @@ export async function getGeneFamilyAssignment(id: number): Promise<GraphQLGeneFa
     return this.pathQuery(query)
         .then((response: IntermineGeneFamilyAssignmentResponse) => response2geneFamilyAssignments(response))
 	.then((geneFamilyAssignments: Array<GraphQLGeneFamilyAssignment>) => {
-            if (!geneFamilyAssignments.length) {
-                const msg = `GeneFamilyAssignment with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!geneFamilyAssignments.length) return null;
             return geneFamilyAssignments[0];
         });
 }

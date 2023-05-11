@@ -20,10 +20,7 @@ export async function getSupercontig(identifier: string): Promise<GraphQLSuperco
     return this.pathQuery(query)
         .then((response: IntermineSupercontigResponse) => response2supercontigs(response))
         .then((supercontigs: Array<GraphQLSupercontig>) => {
-            if (supercontigs.length) {
-                return supercontigs[0];
-            } else {
-                return null;
-            }
+            if (!supercontigs.length) return null;
+            return supercontigs[0];
         });
 }

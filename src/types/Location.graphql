@@ -15,5 +15,6 @@ type Location {
   chromosome: Chromosome
   supercontig: Supercontig
   # feature
-  dataSets: [DataSet]
+  dataSets: [DataSet!]!
+  linkouts: [Linkout!]!
 }

@@ -19,10 +19,7 @@ export async function getQTL(id: number): Promise<GraphQLQTL> {
     return this.pathQuery(query)
         .then((response: IntermineQTLResponse) => response2qtls(response))
         .then((qtls: Array<GraphQLQTL>) => {
-            if (!qtls.length) {
-                const msg = `QTL with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!qtls.length) return null;
             return qtls[0];
         });
 }

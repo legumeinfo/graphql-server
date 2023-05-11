@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const geneFamilyFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const geneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         geneFamily: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(identifier);
+            const family = await dataSources[sourceName].getGeneFamily(identifier);
+            if (family == null) {
+                const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return family;
         },
         geneFamilies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

@@ -19,10 +19,7 @@ export async function getPhylonode(id: number): Promise<GraphQLPhylonode> {
     return this.pathQuery(query)
         .then((response: InterminePhylonodeResponse) => response2phylonodes(response))
         .then((phylonodes: Array<GraphQLPhylonode>) => {
-            if (!phylonodes.length) {
-                const msg = `Phylonode with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!phylonodes.length) return null;
             return phylonodes[0];
         });
 }

@@ -19,8 +19,8 @@ type Gene implements SequenceFeature {
   ## SequenceFeature
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   description: String
   symbol: String
   name: String
@@ -28,10 +28,10 @@ type Gene implements SequenceFeature {
   annotationVersion: String
   organism: Organism
   strain: Strain
-  locations: [Location]
+  locations: [Location!]!
   # synonyms
   # crossReferences
-  dataSets: [DataSet]
+  dataSets: [DataSet!]!
   # locatedFeatures
   # score
   # scoreType
@@ -53,11 +53,12 @@ type Gene implements SequenceFeature {
   # introns
   # proteins
   # alleles
-  geneFamilyAssignments: [GeneFamilyAssignment]
+  geneFamilyAssignments: [GeneFamilyAssignment!]!
   # CDSs
-  proteinDomains: [ProteinDomain]
+  proteinDomains: [ProteinDomain!]!
   # exons
-  pathways: [Pathway]
+  pathways: [Pathway!]!
   # regulatoryRegions
   # UTRs
+  linkouts: [Linkout!]!
 }

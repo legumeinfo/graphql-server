@@ -19,10 +19,7 @@ export async function getGWASResult(id: number): Promise<GraphQLGWASResult> {
     return this.pathQuery(query)
         .then((response: IntermineGWASResultResponse) => response2gwasResults(response))
         .then((gwasResults: Array<GraphQLGWASResult>) => {
-            if (!gwasResults.length) {
-                const msg = `GWASResult with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!gwasResults.length) return null;
             return gwasResults[0];
         });
 }

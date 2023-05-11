@@ -19,10 +19,7 @@ export async function getAuthor(id: number): Promise<GraphQLAuthor> {
     return this.pathQuery(query)
         .then((response: IntermineAuthorResponse) => response2authors(response))
         .then((authors: Array<GraphQLAuthor>) => {
-            if (!authors.length) {
-                const msg = `Author with ID '${id}' not found`;
-                this.inputError(msg);
-            }
+            if (!authors.length) return null;
             return authors[0];
         });
 }

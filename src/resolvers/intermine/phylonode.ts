@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const phylonodeFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         phylonode: async (_, { id }, { dataSources }) => {
-            return dataSources[sourceName].getPhylonode(id);
+            const node = await dataSources[sourceName].getPhylonode(id);
+            if (node == null) {
+                const msg = `Phylonode with ID '${id}' not found`;
+                inputError(msg);
+            }
+            return node;
         },
     },
     Phylonode: {

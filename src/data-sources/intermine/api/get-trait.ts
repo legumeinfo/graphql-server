@@ -19,10 +19,7 @@ export async function getTrait(identifier: string): Promise<GraphQLTrait> {
     return this.pathQuery(query)
         .then((response: IntermineTraitResponse) => response2traits(response))
         .then((traits: Array<GraphQLTrait>) => {
-            if (!traits.length) {
-                const msg = `Trait with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!traits.length) return null;
             return traits[0];
         });
 }

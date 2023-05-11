@@ -19,10 +19,7 @@ export async function getSyntenicRegion(identifier: string): Promise<GraphQLSynt
     return this.pathQuery(query)
         .then((response: IntermineSyntenicRegionResponse) => response2syntenicRegions(response))
         .then((syntenicRegions: Array<GraphQLSyntenicRegion>) => {
-            if (!syntenicRegions.length) {
-                const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!syntenicRegions.length) return null;
             return syntenicRegions[0];
         });
 }

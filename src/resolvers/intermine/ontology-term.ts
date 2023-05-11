@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const ontologyTermFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         ontologyTerm: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTerm(identifier);
+            const term = await dataSources[sourceName].getOntologyTerm(identifier);
+            if (term == null) {
+                const msg = `OntologyTerm with identifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return term;
         },
         ontologyTerms: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

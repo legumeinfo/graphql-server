@@ -19,10 +19,7 @@ export async function getStrain(identifier: string): Promise<GraphQLStrain> {
     return this.pathQuery(query)
         .then((response: IntermineStrainResponse) => response2strains(response))
         .then((strains: Array<GraphQLStrain>) => {
-            if (!strains.length) {
-                const msg = `Strain with identifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!strains.length) return null;
             return strains[0];
         });
 }

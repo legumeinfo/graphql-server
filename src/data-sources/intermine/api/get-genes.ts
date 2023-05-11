@@ -21,13 +21,13 @@ export type GetGenesOptions = {
 
 // get Genes associated with a Protein, GeneFamily, ProteinDomain
 export async function getGenes(
-    {
-        protein,
-        geneFamily,
-        proteinDomain,
-        start,
-        size,
-    }: GetGenesOptions,
+  {
+    protein,
+    geneFamily,
+    proteinDomain,
+    start,
+    size,
+  }: GetGenesOptions,
 ): Promise<GraphQLGene> {
     const constraints = [];
     if (protein) {

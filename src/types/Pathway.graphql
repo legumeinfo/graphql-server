@@ -7,10 +7,10 @@
 type Pathway implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   name: String
   stableIdentifier: String
-  genes: [Gene]
-  dataSets: [DataSet]
+  genes: [Gene!]!
+  dataSets: [DataSet!]!
 }

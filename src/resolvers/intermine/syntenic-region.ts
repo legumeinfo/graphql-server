@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const syntenicRegionFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const syntenicRegionFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
         syntenicRegion: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getSyntenicRegion(identifier);
+            const region = await dataSources[sourceName].getSyntenicRegion(identifier);
+            if (region == null) {
+                const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return region;
         },
     },
     SyntenicRegion: {

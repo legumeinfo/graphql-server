@@ -12,6 +12,6 @@ type LinkageGroup {
   length: Float
   number: Int
   geneticMap: GeneticMap
-  qtls: [QTL]
-  dataSets: [DataSet]
+  qtls: [QTL!]!
+  dataSets: [DataSet!]!
 }

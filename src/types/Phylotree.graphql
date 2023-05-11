@@ -7,10 +7,10 @@
 type Phylotree implements Annotatable {
   id: ID!
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation]
-  publications: [Publication]
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
   numLeaves: Int
   geneFamily: GeneFamily
-  nodes: [Phylonode]
-  dataSets: [DataSet]
+  nodes: [Phylonode!]!
+  dataSets: [DataSet!]!
 }

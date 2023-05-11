@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const expressionSourceFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const expressionSourceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
-        expressionSource:  async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getExpressionSource(identifier);
+        expressionSource: async (_, { identifier }, { dataSources }) => {
+            const source = await dataSources[sourceName].getExpressionSource(identifier);
+            if (source == null) {
+                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return source;
         },
         expressionSources: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

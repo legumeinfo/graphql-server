@@ -19,5 +19,5 @@ type Organism {
   description: String
   genus: String
   species: String
-  strains: [Strain!]
+  strains: [Strain!]!
 }

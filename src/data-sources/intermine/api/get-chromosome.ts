@@ -20,10 +20,7 @@ export async function getChromosome(identifier: string): Promise<GraphQLChromoso
     return this.pathQuery(query)
         .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
         .then((chromosomes: Array<GraphQLChromosome>) => {
-            if (chromosomes.length) {
-                return chromosomes[0];
-            } else {
-                return null;
-            }
+            if (!chromosomes.length) return null;
+            return chromosomes[0];
         });
 }

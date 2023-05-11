@@ -1,11 +1,18 @@
-import { DataSources } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
 
-export const qtlStudyFactory = (sourceName: keyof DataSources): ResolverMap => ({
+export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
     Query: {
-        qtlStudy:  async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudy(identifier);
+        qtlStudy: async (_, { identifier }, { dataSources }) => {
+            const study = await dataSources[sourceName].getQTLStudy(identifier);
+            if (study == null) {
+                const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
+                inputError(msg);
+            }
+            return study;
         },
         qtlStudies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
