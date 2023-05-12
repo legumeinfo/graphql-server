@@ -17,8 +17,8 @@ export const geneFactory =
             }
             return gene;
         },
-        genes: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size }, { dataSources }) => {
+            const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size};
             return dataSources[sourceName].searchGenes(args);
         },
     },

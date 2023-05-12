@@ -1,31 +1,60 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGene,
-  IntermineGeneResponse,
-  intermineGeneAttributes,
-  intermineGeneSort,
-  response2genes,
+    GraphQLGene,
+    IntermineGeneResponse,
+    intermineGeneAttributes,
+    intermineGeneSort,
+    response2genes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
 export type SearchGenesOptions = {
-  description?: string;
+    description?: string;
+    genus?: string;
+    species?: string;
+    strain?: string;
+    identifier?: string;
+    name?: string;
+    geneFamilyIdentifier?: string;
 } & PaginationOptions;
 
 
-// path query search for Gene by description
+// path query search for Gene by description, etc.
 export async function searchGenes(
-  {
-    description,
-    start,
-    size,
-  }: SearchGenesOptions,
+    {
+        description,
+        genus,
+        species,
+        strain,
+        identifier,
+        name,
+        geneFamilyIdentifier,
+        start,
+        size,
+    }: SearchGenesOptions,
 ): Promise<GraphQLGene[]> {
     const constraints = [];
     if (description) {
-        const descriptionConstraint = intermineConstraint('Gene.description', 'CONTAINS', description);
-        constraints.push(descriptionConstraint);
+        constraints.push(intermineConstraint('Gene.description', 'CONTAINS', description));
+    }
+    if (genus) {
+        constraints.push(intermineConstraint('Gene.organism.genus', '=', genus));
+    }
+    if (species) {
+        constraints.push(intermineConstraint('Gene.organism.species', '=', species));
+    }
+    if (strain) {
+        constraints.push(intermineConstraint('Gene.strain.identifier', '=', strain));
+    }
+    if (identifier) {
+        constraints.push(intermineConstraint('Gene.primaryIdentifier', 'CONTAINS', identifier));
+    }
+    if (name) {
+        constraints.push(intermineConstraint('Gene.name', 'CONTAINS', name));
+    }
+    if (geneFamilyIdentifier) {
+        constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', 'CONTAINS', geneFamilyIdentifier));
     }
     const query = interminePathQuery(
         intermineGeneAttributes,

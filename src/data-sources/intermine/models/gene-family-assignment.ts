@@ -20,7 +20,7 @@ export type IntermineGeneFamilyAssignment = [
   number,
   number,
   number,
-  number,
+  string,
 ];
 
 

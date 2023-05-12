@@ -47,7 +47,7 @@ type Query {
   ### multiple-result queries (typically searches)
   expressionSamples(description: String, start: Int, size: Int): [ExpressionSample!]!
   expressionSources(description: String, start: Int, size: Int): [ExpressionSource!]!
-  genes(description: String, start: Int, size: Int): [Gene!]!
+  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): [Gene!]!
   geneFamilies(description: String, start: Int, size: Int): [GeneFamily!]!
   geneticMaps(description: String, start: Int, size: Int): [GeneticMap!]!
   gwases(description: String, start: Int, size: Int): [GWAS!]!
@@ -58,7 +58,7 @@ type Query {
   publications(title: String, start: Int, size: Int): [Publication!]!
   qtls(traitName: String, start: Int, size: Int): [QTL!]!
   qtlStudies(description: String, start: Int, size: Int): [ProteinDomain!]!
-  strains(description: String, origin: String, start: Int, size: Int): [Strain!]!
+  strains(description: String, origin: String, species: String, start: Int, size: Int): [Strain!]!
   traits(name: String, start: Int, size: Int): [Trait!]!
 
   ### no-parameter queries

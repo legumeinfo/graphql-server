@@ -14,8 +14,8 @@ ResolverMap => ({
             }
             return strain;
         },
-        strains: async (_, { description, origin, start, size }, { dataSources }) => {
-            const args = {description, origin, start, size};
+        strains: async (_, { description, origin, species, start, size }, { dataSources }) => {
+            const args = {description, origin, species, start, size};
             return dataSources[sourceName].searchStrains(args);
         },
     },

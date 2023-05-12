@@ -17,7 +17,7 @@ ResolverMap => ({
     },
     GeneFamilyAssignment: {
         geneFamily: async(geneFamilyAssignment, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(geneFamilyAssignment.geneFamilyId);
+            return dataSources[sourceName].getGeneFamily(geneFamilyAssignment.geneFamilyIdentifier);
         },
     },
 });

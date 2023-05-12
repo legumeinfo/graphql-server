@@ -18,7 +18,6 @@ export const intermineGeneFamilyAttributes = [
     'GeneFamily.description',
     'GeneFamily.version',
     'GeneFamily.size',
-    'GeneFamily.phylotree.primaryIdentifier', // internal resolution of Phylotree
 ];
 export const intermineGeneFamilySort = 'GeneFamily.primaryIdentifier';
 export type IntermineGeneFamily = [
@@ -27,7 +26,6 @@ export type IntermineGeneFamily = [
   string,
   string,
   number,
-  string,
 ];
 
 
@@ -51,7 +49,6 @@ export const graphqlGeneFamilyAttributes = [
     'description',
     'version',
     'size',
-    'phylotreeIdentifier', // internal resolution of Phylotree
 ];
 export type GraphQLGeneFamily = {
   [prop in typeof graphqlGeneFamilyAttributes[number]]: string;

@@ -9,6 +9,7 @@ import {
 
 
 // get a Supercontig by identifier
+// does NOT throw an error if the supercontig is not found, since this happens when the identifier belongs to a chromosome
 export async function getSupercontig(identifier: string): Promise<GraphQLSupercontig> {
     const constraints = [intermineConstraint('Supercontig.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(

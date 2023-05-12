@@ -1,21 +1,21 @@
 import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
 import {
-  GraphQLGene,
-  GraphQLGeneFamily,
-  GraphQLProtein,
-  GraphQLProteinDomain,
-  IntermineGeneResponse,
-  intermineGeneAttributes,
-  intermineGeneSort,
-  response2genes,
+    GraphQLGene,
+    GraphQLGeneFamily,
+    GraphQLProtein,
+    GraphQLProteinDomain,
+    IntermineGeneResponse,
+    intermineGeneAttributes,
+    intermineGeneSort,
+    response2genes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
 export type GetGenesOptions = {
-  protein?: GraphQLProtein;
-  geneFamily?: GraphQLGeneFamily;
-  proteinDomain?: GraphQLProteinDomain;
+    protein?: GraphQLProtein;
+    geneFamily?: GraphQLGeneFamily;
+    proteinDomain?: GraphQLProteinDomain;
 } & PaginationOptions;
 
 
