@@ -13,11 +13,14 @@ type Query {
   geneticMap(identifier: ID!): GeneticMap
   geneticMarker(identifier: ID!): GeneticMarker
   gwas(identifier: ID!): GWAS
+  gwasResult(identifier: ID!): GWASResult
+  linkageGroup(identifier: ID!): LinkageGroup
   mRNA(identifier: ID!): MRNA
   pathway(identifier: ID!): Pathway
   phylotree(identifier: ID!): Phylotree
   protein(identifier: ID!): Protein
   proteinDomain(identifier: ID!): ProteinDomain
+  qtl(identifier: ID!): QTL
   qtlStudy(identifier: ID!): QTLStudy
   supercontig(identifier: ID!): Supercontig
   syntenicRegion(identifier: ID!): SyntenicRegion
@@ -35,13 +38,10 @@ type Query {
   author(id: ID!): Author
   geneFamilyAssignment(id: ID!): GeneFamilyAssignment
   geneFamilyTally(id: ID!): GeneFamilyTally
-  gwasResult(id: ID!): GWASResult
-  linkageGroup(id: ID!): LinkageGroup
   linkageGroupPosition(id: ID!): LinkageGroupPosition
   location(id: ID!): Location
   ontologyAnnotation(id: ID!): OntologyAnnotation
   phylonode(id: ID!): Phylonode
-  qtl(id: ID!): QTL
   syntenyBlock(id: ID!): SyntenyBlock
   
   ### multiple-result queries (typically searches)

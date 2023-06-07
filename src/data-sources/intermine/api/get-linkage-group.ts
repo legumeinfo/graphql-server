@@ -8,9 +8,9 @@ import {
 } from '../models/index.js';
 
 
-// get a LinkageGroup by ID
-export async function getLinkageGroup(id: number): Promise<GraphQLLinkageGroup> {
-    const constraints = [intermineConstraint('LinkageGroup.id', '=', id)];
+// get a LinkageGroup by identifier
+export async function getLinkageGroup(identifier: string): Promise<GraphQLLinkageGroup> {
+    const constraints = [intermineConstraint('LinkageGroup.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineLinkageGroupAttributes,
         intermineLinkageGroupSort,

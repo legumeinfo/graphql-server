@@ -25,5 +25,9 @@ ResolverMap => ({
         dataSet: async(gwasResult, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwasResult.dataSetName);
         },
+        publications: async (gwasResult, { start, size }, { dataSources }) => {
+            const args = {annotatable: gwasResult, start, size};
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });

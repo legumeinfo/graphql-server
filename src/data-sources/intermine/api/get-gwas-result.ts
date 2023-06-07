@@ -9,8 +9,8 @@ import {
 
 
 // get a GWASResult by ID
-export async function getGWASResult(id: number): Promise<GraphQLGWASResult> {
-    const constraints = [intermineConstraint('GWASResult.id', '=', id)];
+export async function getGWASResult(identifier: string): Promise<GraphQLGWASResult> {
+    const constraints = [intermineConstraint('GWASResult.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGWASResultAttributes,
         intermineGWASResultSort,

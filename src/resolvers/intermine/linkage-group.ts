@@ -27,5 +27,9 @@ ResolverMap => ({
             const args = {linkageGroup};
             return dataSources[sourceName].getQTLs(args);
         },
+        publications: async (linkageGroup, { start, size }, { dataSources }) => {
+            const args = {annotatable: linkageGroup, start, size};
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });

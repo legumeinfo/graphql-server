@@ -11,6 +11,7 @@ import { Response, response2graphqlObjects } from '../intermine.server.js';
 // </class>
 export const intermineGWASResultAttributes = [
     'GWASResult.id',
+    'GWASResult.primaryIdentifier',
     'GWASResult.pValue',
     'GWASResult.markerName',
     'GWASResult.gwas.primaryIdentifier',
@@ -19,17 +20,19 @@ export const intermineGWASResultAttributes = [
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
 export type IntermineGWASResult = [
-  number,
-  number,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    number,
+    string,
+    string,
+    string,
+    string,
 ];
 
 
 // type GWASResult {
 //   id: ID!
+//   identifier: ID!
 //   pValue: Float
 //   markerName: String
 //   # gwas: GWAS
@@ -39,6 +42,7 @@ export type IntermineGWASResult = [
 // }
 export const graphqlGWASResultAttributes = [
     'id',
+    'identifier',
     'pValue',
     'markerName',
     'gwasIdentifier',

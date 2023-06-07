@@ -36,5 +36,9 @@ ResolverMap => ({
             const args = {qtl, start, size};
             return dataSources[sourceName].getGeneticMarkers(args);
         },
+        publications: async (qtl, { start, size }, { dataSources }) => {
+            const args = {annotatable: qtl, start, size};
+            return dataSources[sourceName].getPublications(args);
+        },
     },
 });
