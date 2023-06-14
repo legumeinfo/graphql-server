@@ -2,69 +2,318 @@
 # Queries for all the types contained in this directory
 # -----------------------------------------------------
 
+# Metadata types
+
+type PageInfo {
+  currentPage: Int
+  perPage: Int
+  itemCount: Int
+  pageCount: Int
+  hasPreviousPage: Boolean
+  hasNextPage: Boolean
+}
+
+# Wrapper types that allow inclusion of metadata with results
+
+### Annotatables
+type ChromosomeResults {
+  results: Chromosome
+}
+
+type ExpressionSampleResultResults {
+  results: ExpressionSample
+}
+
+type ExpressionSourceResults {
+  results: ExpressionSource
+}
+
+type GeneResults {
+  results: Gene
+}
+
+type GeneFamilyResults {
+  results: GeneFamily
+}
+
+type GeneticMapResults {
+  results: GeneticMap
+}
+
+type GeneticMarkerResults {
+  results: GeneticMarker
+}
+
+type GwasResults {
+  results: GWAS
+}
+
+type MRNAResults {
+  results: MRNA
+}
+
+type PathwayResults {
+  results: Pathway
+}
+
+type PhylotreeResults {
+  results: Phylotree
+}
+
+type ProteinResults {
+  results: Protein
+}
+
+type ProteinDomainResults {
+  results: ProteinDomain
+}
+
+type QtlStudyResults {
+  results: QTLStudy
+}
+
+type SupercontigResults {
+  results: Supercontig
+}
+
+type SyntenicRegionResults {
+  results: SyntenicRegion
+}
+
+type TraitResults {
+  results: Trait
+}
+
+### other types with unique non-id keys
+type DataSetResults {
+  results: DataSet
+}
+
+type OntologyResults {
+  results: Ontology
+}
+
+type OntologyTermResults {
+  results: OntologyTerm
+}
+
+type OrganismResults {
+  results: Organism
+}
+
+type PublicationResults {
+  results: Publication
+}
+
+type StrainResults {
+  results: Strain
+}
+
+
+### types identified by numerical id
+type AuthorResults {
+  results: Author
+}
+
+type GeneFamilyAssignmentResults {
+  results: GeneFamilyAssignment
+}
+
+type GeneFamilyTallyResults {
+  results: GeneFamilyTally
+}
+
+type GwasResultResults {
+  results: GWASResult
+}
+
+type LinkageGroupResults {
+  results: LinkageGroup
+}
+
+type LinkageGroupPositionResults {
+  results: LinkageGroupPosition
+}
+
+type LocationResults {
+  results: Location
+}
+
+type OntologyAnnotationResults {
+  results: OntologyAnnotation
+}
+
+type PhylonodeResults {
+  results: Phylonode
+}
+
+type QtlResults {
+  results: QTL
+}
+
+type SyntenyBlockResults {
+  results: SyntenyBlock
+}
+
+### multiple-result queries (typically searches)
+type ExpressionSamplesResults {
+  results: [ExpressionSample!]!
+  pageInfo: PageInfo
+}
+
+type ExpressionSourcesResults {
+  results: [ExpressionSource!]!
+  pageInfo: PageInfo
+}
+
+type GenesResults {
+  results: [Gene!]!
+  pageInfo: PageInfo
+}
+
+type GeneFamiliesResults {
+  results: [GeneFamily!]!
+  pageInfo: PageInfo
+}
+
+type GeneticMapsResults {
+  results: [GeneticMap!]!
+  pageInfo: PageInfo
+}
+
+type GwasesResults {
+  results: [GWAS!]!
+  pageInfo: PageInfo
+}
+
+type OntologyTermsResults {
+  results: [OntologyTerm!]!
+  pageInfo: PageInfo
+}
+
+type OrganismsResults {
+  results: [Organism!]!
+  pageInfo: PageInfo
+}
+
+type ProteinsResults {
+  results: [Protein!]!
+  pageInfo: PageInfo
+}
+
+type ProteinDomainsResults {
+  results: [ProteinDomain!]!
+  pageInfo: PageInfo
+}
+
+type PublicationsResults {
+  results: [Publication!]!
+  pageInfo: PageInfo
+}
+
+type QtlsResults {
+  results: [QTL!]!
+  pageInfo: PageInfo
+}
+
+type QtlStudiesResults {
+  results: [ProteinDomain!]!
+  pageInfo: PageInfo
+}
+
+type StrainsResults {
+  results: [Strain!]!
+  pageInfo: PageInfo
+}
+
+type TraitsResults {
+  results: [Trait!]!
+  pageInfo: PageInfo
+}
+
+
+### no-parameter queries
+type MineWebPropertiesResults {
+  results: MineWebProperties
+}
+
+### microservices queries
+type GeneLinkoutsResults {
+  results: [Linkout!]!
+}
+
+type LocationLinkoutsResults {
+  results: [Linkout!]!
+  pageInfo: PageInfo
+}
+
+
+# Top-level queries
+
 type Query {
 
   ### Annotatables
-  chromosome(identifier: ID!): Chromosome
-  expressionSample(identifier: ID!): ExpressionSample
-  expressionSource(identifier: ID!): ExpressionSource
-  gene(identifier: ID!): Gene
-  geneFamily(identifier: ID!): GeneFamily
-  geneticMap(identifier: ID!): GeneticMap
-  geneticMarker(identifier: ID!): GeneticMarker
-  gwas(identifier: ID!): GWAS
-  mRNA(identifier: ID!): MRNA
-  pathway(identifier: ID!): Pathway
-  phylotree(identifier: ID!): Phylotree
-  protein(identifier: ID!): Protein
-  proteinDomain(identifier: ID!): ProteinDomain
-  qtlStudy(identifier: ID!): QTLStudy
-  supercontig(identifier: ID!): Supercontig
-  syntenicRegion(identifier: ID!): SyntenicRegion
-  trait(identifier: ID!): Trait
+  chromosome(identifier: ID!): ChromosomeResults
+  expressionSample(identifier: ID!): ExpressionSampleResults
+  expressionSource(identifier: ID!): ExpressionSourceResults
+  gene(identifier: ID!): GeneResults
+  geneFamily(identifier: ID!): GeneFamilyResults
+  geneticMap(identifier: ID!): GeneticMapResults
+  geneticMarker(identifier: ID!): GeneticMarkerResults
+  gwas(identifier: ID!): GwasResults
+  mRNA(identifier: ID!): MRNAResults
+  pathway(identifier: ID!): PathwayResults
+  phylotree(identifier: ID!): PhylotreeResults
+  protein(identifier: ID!): ProteinResults
+  proteinDomain(identifier: ID!): ProteinDomainResults
+  qtlStudy(identifier: ID!): QtlStudyResults
+  supercontig(identifier: ID!): SupercontigResults
+  syntenicRegion(identifier: ID!): SyntenicRegionResults
+  trait(identifier: ID!): TraitResults
 
   ### other types with unique non-id keys
-  dataSet(name: ID!): DataSet
-  ontology(name: ID!): Ontology
-  ontologyTerm(identifier: ID!): OntologyTerm
-  organism(taxonId: ID!): Organism
-  publication(doi: ID!): Publication
-  strain(identifier: ID!): Strain
+  dataSet(name: ID!): DataSetResults
+  ontology(name: ID!): OntologyResults
+  ontologyTerm(identifier: ID!): OntologyTermResults
+  organism(taxonId: ID!): OrganismResults
+  publication(doi: ID!): PublicationResults
+  strain(identifier: ID!): StrainResults
 
   ### types identified by numerical id
-  author(id: ID!): Author
-  geneFamilyAssignment(id: ID!): GeneFamilyAssignment
-  geneFamilyTally(id: ID!): GeneFamilyTally
-  gwasResult(id: ID!): GWASResult
-  linkageGroup(id: ID!): LinkageGroup
-  linkageGroupPosition(id: ID!): LinkageGroupPosition
-  location(id: ID!): Location
-  ontologyAnnotation(id: ID!): OntologyAnnotation
-  phylonode(id: ID!): Phylonode
-  qtl(id: ID!): QTL
-  syntenyBlock(id: ID!): SyntenyBlock
+  author(id: ID!): AuthorResults
+  geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
+  geneFamilyTally(id: ID!): GeneFamilyTallyResults
+  gwasResult(id: ID!): GwasResultResults
+  linkageGroup(id: ID!): LinkageGroupResults
+  linkageGroupPosition(id: ID!): LinkageGroupPositionResults
+  location(id: ID!): LocationResults
+  ontologyAnnotation(id: ID!): OntologyAnnotationResults
+  phylonode(id: ID!): PhylonodeResults
+  qtl(id: ID!): QtlResults
+  syntenyBlock(id: ID!): SyntenyBlockResults
   
   ### multiple-result queries (typically searches)
-  expressionSamples(description: String, start: Int, size: Int): [ExpressionSample!]!
-  expressionSources(description: String, start: Int, size: Int): [ExpressionSource!]!
-  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): [Gene!]!
-  geneFamilies(description: String, start: Int, size: Int): [GeneFamily!]!
-  geneticMaps(description: String, start: Int, size: Int): [GeneticMap!]!
-  gwases(description: String, start: Int, size: Int): [GWAS!]!
-  ontologyTerms(description: String, start: Int, size: Int): [OntologyTerm!]!
-  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): [Organism!]!
-  proteins(description: String, start: Int, size: Int): [Protein!]!
-  proteinDomains(description: String, start: Int, size: Int): [ProteinDomain!]!
-  publications(title: String, start: Int, size: Int): [Publication!]!
-  qtls(traitName: String, start: Int, size: Int): [QTL!]!
-  qtlStudies(description: String, start: Int, size: Int): [ProteinDomain!]!
-  strains(description: String, origin: String, species: String, start: Int, size: Int): [Strain!]!
-  traits(name: String, start: Int, size: Int): [Trait!]!
+  expressionSamples(description: String, start: Int, size: Int): ExpressionSamplesResults
+  expressionSources(description: String, start: Int, size: Int): ExpressionSourcesResults
+  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): GenesResults
+  geneFamilies(description: String, start: Int, size: Int): GeneFamiliesResults
+  geneticMaps(description: String, start: Int, size: Int): GeneticMapsResults
+  gwases(description: String, start: Int, size: Int): GwasesResults
+  ontologyTerms(description: String, start: Int, size: Int): OntologyTermsResults
+  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): OrganismsResults
+  proteins(description: String, start: Int, size: Int): ProteinsResults
+  proteinDomains(description: String, start: Int, size: Int): ProteinDomainsResults
+  publications(title: String, start: Int, size: Int): PublicationsResults
+  qtls(traitName: String, start: Int, size: Int): QtlsResults
+  qtlStudies(description: String, start: Int, size: Int): QtlStudiesResults
+  strains(description: String, origin: String, species: String, start: Int, size: Int): StrainsResults
+  traits(name: String, start: Int, size: Int): TraitsResults
 
   ### no-parameter queries
-  mineWebProperties: MineWebProperties
+  mineWebProperties: MineWebPropertiesResults
 
   ### microservices queries
-  geneLinkouts(identifier: ID!): [Linkout!]!
-  locationLinkouts(identifier: ID!, start: Int!, end: Int!): [Linkout!]!
+  geneLinkouts(identifier: ID!): GeneLinkoutsResults
+  locationLinkouts(identifier: ID!, start: Int!, end: Int!): LocationLinkoutsResults
+
 }
