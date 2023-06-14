@@ -244,7 +244,6 @@ type GeneLinkoutsResults {
 
 type LocationLinkoutsResults {
   results: [Linkout!]!
-  pageInfo: PageInfo
 }
 
 
