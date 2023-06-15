@@ -6,8 +6,8 @@
 
 type PageInfo {
   currentPage: Int
-  perPage: Int
-  itemCount: Int
+  pageSize: Int
+  numResults: Int
   pageCount: Int
   hasPreviousPage: Boolean
   hasNextPage: Boolean
@@ -20,7 +20,7 @@ type ChromosomeResults {
   results: Chromosome
 }
 
-type ExpressionSampleResultResults {
+type ExpressionSampleResults {
   results: ExpressionSample
 }
 
