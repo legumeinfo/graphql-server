@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="LinkageGroup" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
@@ -47,7 +47,7 @@ export type GraphQLLinkageGroup = {
 }
 
 
-export type IntermineLinkageGroupResponse = Response<IntermineLinkageGroup>;
+export type IntermineLinkageGroupResponse = IntermineDataResponse<IntermineLinkageGroup>;
 export function response2linkageGroups(response: IntermineLinkageGroupResponse): Array<GraphQLLinkageGroup> {
     return response2graphqlObjects(response, graphqlLinkageGroupAttributes);
 }

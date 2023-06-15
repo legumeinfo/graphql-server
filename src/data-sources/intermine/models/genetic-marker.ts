@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
@@ -105,7 +105,7 @@ export type GraphQLGeneticMarker = {
 }
 
 
-export type IntermineGeneticMarkerResponse = Response<IntermineGeneticMarker>;
+export type IntermineGeneticMarkerResponse = IntermineDataResponse<IntermineGeneticMarker>;
 export function response2geneticMarkers(response: IntermineGeneticMarkerResponse): Array<GraphQLGeneticMarker> {
     return response2graphqlObjects(response, graphqlGeneticMarkerAttributes);
 }

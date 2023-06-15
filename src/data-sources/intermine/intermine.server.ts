@@ -4,6 +4,7 @@
 import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
 
 import { GraphQLModel, IntermineModel } from './models/index.js';
+import { GraphQLPageInfo, pageInfoFactory } from '../../models/index.js';
 
 
 export class IntermineServer extends RESTDataSource {
@@ -53,8 +54,21 @@ export class IntermineServer extends RESTDataSource {
 }
 
 
-export interface Response<I> {
+export interface IntermineDataResponse<I> {
     results: Array<I>;
+}
+
+
+export interface IntermineSummaryResponse {
+    uniqueValues: number;
+}
+
+
+export interface ApiResponse<G> {
+  data: G;
+  metadata: {
+    pageInfo?: GraphQLPageInfo;
+  };
 }
 
 
@@ -90,9 +104,18 @@ export const result2graphqlObject =
 // converts an Intermine response into an array of GraphQL types
 export const response2graphqlObjects =
     <I extends IntermineModel>
-    (response: Response<I>, graphqlAttributes: Array<string>):
-Array<GraphQLModel> => {
+    (response: IntermineDataResponse<I>, graphqlAttributes: Array<string>):
+    Array<GraphQLModel> => {
         return response.results.map(
             (result: I) => result2graphqlObject(result, graphqlAttributes)
         );
+    };
+
+
+// converts an Intermine response into a GraphQL PageInfo type
+export const response2graphqlPageInfo =
+    (response: IntermineSummaryResponse, start: number|null, size: number|null):
+    GraphQLPageInfo => {
+        const numResults = response.uniqueValues;
+        return pageInfoFactory(numResults, start, size);
     };

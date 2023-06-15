@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Pathway" extends="Annotatable" is-interface="true" term="">
@@ -43,7 +43,7 @@ export type GraphQLPathway = {
 }
 
 
-export type InterminePathwayResponse = Response<InterminePathway>;
+export type InterminePathwayResponse = IntermineDataResponse<InterminePathway>;
 // converts an Intermine response into an array of GraphQL Pathway objects
 export function response2pathways(response: InterminePathwayResponse): Array<GraphQLPathway> {
     return response2graphqlObjects(response, graphqlPathwayAttributes);

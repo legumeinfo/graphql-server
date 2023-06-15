@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
@@ -58,7 +58,7 @@ export type GraphQLChromosome = {
 }
 
 
-export type IntermineChromosomeResponse = Response<IntermineChromosome>;
+export type IntermineChromosomeResponse = IntermineDataResponse<IntermineChromosome>;
 // converts an Intermine response into an array of GraphQL Chromosome objects
 export function response2chromosomes(response: IntermineChromosomeResponse): Array<GraphQLChromosome> {
     return response2graphqlObjects(response, graphqlChromosomeAttributes);

@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="QTLStudy" extends="Annotatable" is-interface="true" term="">
@@ -56,7 +56,7 @@ export type GraphQLQTLStudy = {
 }
 
 
-export type IntermineQTLStudyResponse = Response<IntermineQTLStudy>;
+export type IntermineQTLStudyResponse = IntermineDataResponse<IntermineQTLStudy>;
 export function response2qtlStudies(response: IntermineQTLStudyResponse): Array<GraphQLQTLStudy> {
     return response2graphqlObjects(response, graphqlQTLStudyAttributes);
 }

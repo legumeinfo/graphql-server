@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // Phylotree InterMine path query attributes
@@ -34,7 +34,7 @@ export type GraphQLPhylotree = {
 }
 
 
-export type InterminePhylotreeResponse = Response<InterminePhylotree>;
+export type InterminePhylotreeResponse = IntermineDataResponse<InterminePhylotree>;
 export function response2phylotrees(response: InterminePhylotreeResponse): Array<GraphQLPhylotree> {
     return response2graphqlObjects(response, graphqlPhylotreeAttributes);
 }

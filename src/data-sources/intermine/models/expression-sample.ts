@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="ExpressionSample" extends="Annotatable" is-interface="true" term="">
@@ -89,7 +89,7 @@ export type GraphQLExpressionSample = {
 }
 
 
-export type IntermineExpressionSampleResponse = Response<IntermineExpressionSample>;
+export type IntermineExpressionSampleResponse = IntermineDataResponse<IntermineExpressionSample>;
 export function response2expressionSamples(response: IntermineExpressionSampleResponse): Array<GraphQLExpressionSample> {
     return response2graphqlObjects(response, graphqlExpressionSampleAttributes);
 }

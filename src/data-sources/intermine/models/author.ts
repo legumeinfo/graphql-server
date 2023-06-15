@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Author" is-interface="true" term="http://purl.obolibrary.org/obo/NCIT_C42781">
@@ -45,7 +45,7 @@ export type GraphQLAuthor = {
 }
 
 
-export type IntermineAuthorResponse = Response<IntermineAuthor>;
+export type IntermineAuthorResponse = IntermineDataResponse<IntermineAuthor>;
 // converts an Intermine response into an array of GraphQL Author objects
 export function response2authors(response: IntermineAuthorResponse): Array<GraphQLAuthor> {
     return response2graphqlObjects(response, graphqlAuthorAttributes);

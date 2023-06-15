@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Ontology" is-interface="true" term="http://semanticscience.org/resource/SIO_001391">
@@ -48,8 +48,8 @@ export type IntermineOntologyTermOntology = [
 ];
 
 
-export type IntermineOntologyResponse = Response<IntermineOntology>;
-export type IntermineOntologyTermOntologyResponse = Response<IntermineOntologyTermOntology>;
+export type IntermineOntologyResponse = IntermineDataResponse<IntermineOntology>;
+export type IntermineOntologyTermOntologyResponse = IntermineDataResponse<IntermineOntologyTermOntology>;
 export function response2ontologies(response: IntermineOntologyResponse | IntermineOntologyTermOntologyResponse): Array<GraphQLOntology> {
     return response2graphqlObjects(response, graphqlOntologyAttributes);
 }

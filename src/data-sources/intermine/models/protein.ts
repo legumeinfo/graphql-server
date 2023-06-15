@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // Protein InterMine path query attributes
@@ -98,8 +98,8 @@ export type GraphQLProtein = {
 }
 
 
-export type IntermineProteinResponse = Response<IntermineProtein>;
+export type IntermineProteinResponse = IntermineDataResponse<IntermineProtein>;
 // converts an Intermine response into an array of GraphQL Protein objects
-export function response2proteins(response: Response<IntermineProtein>): Array<GraphQLProtein> {
+export function response2proteins(response: IntermineProteinResponse): Array<GraphQLProtein> {
     return response2graphqlObjects(response, graphqlProteinAttributes);
 }

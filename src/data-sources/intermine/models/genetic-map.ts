@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
@@ -63,7 +63,7 @@ export type GraphQLGeneticMap = {
 }
 
 
-export type IntermineGeneticMapResponse = Response<IntermineGeneticMap>;
+export type IntermineGeneticMapResponse = IntermineDataResponse<IntermineGeneticMap>;
 export function response2geneticMaps(response: IntermineGeneticMapResponse): Array<GraphQLGeneticMap> {
     return response2graphqlObjects(response, graphqlGeneticMapAttributes);
 }

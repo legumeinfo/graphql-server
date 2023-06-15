@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="GeneFamilyAssignment" is-interface="true" term="">
@@ -43,7 +43,7 @@ export type GraphQLGeneFamilyAssignment = {
 }
 
 
-export type IntermineGeneFamilyAssignmentResponse = Response<IntermineGeneFamilyAssignment>;
+export type IntermineGeneFamilyAssignmentResponse = IntermineDataResponse<IntermineGeneFamilyAssignment>;
 export function response2geneFamilyAssignments(response: IntermineGeneFamilyAssignmentResponse): Array<GraphQLGeneFamilyAssignment>{
     return response2graphqlObjects(response, graphqlGeneFamilyAssignmentAttributes);
 }

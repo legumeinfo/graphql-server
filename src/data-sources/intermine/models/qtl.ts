@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
@@ -75,7 +75,7 @@ export type GraphQLQTL = {
 }
 
 
-export type IntermineQTLResponse = Response<IntermineQTL>;
+export type IntermineQTLResponse = IntermineDataResponse<IntermineQTL>;
 export function response2qtls(response: IntermineQTLResponse): Array<GraphQLQTL> {
     return response2graphqlObjects(response, graphqlQTLAttributes);
 }
