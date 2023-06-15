@@ -19,7 +19,9 @@ export const geneFactory =
         },
         genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size }, { dataSources }) => {
             const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size};
-            return dataSources[sourceName].searchGenes(args);
+            return dataSources[sourceName].searchGenes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     Gene: {
