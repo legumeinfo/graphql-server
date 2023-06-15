@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="SyntenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0005858">
@@ -81,7 +81,7 @@ export type GraphQLSyntenicRegion = {
 }
     
 
-export type IntermineSyntenicRegionResponse = Response<IntermineSyntenicRegion>;
+export type IntermineSyntenicRegionResponse = IntermineDataResponse<IntermineSyntenicRegion>;
 // converts an Intermine response into an array of GraphQL SyntenicRegion objects
 export function response2syntenicRegions(response: IntermineSyntenicRegionResponse): Array<GraphQLSyntenicRegion> {
     return response2graphqlObjects(response, graphqlSyntenicRegionAttributes);

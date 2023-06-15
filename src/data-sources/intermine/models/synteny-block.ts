@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="SyntenyBlock" is-interface="true" term="">
@@ -34,7 +34,7 @@ export type GraphQLSyntenyBlock = {
 }
 
 
-export type IntermineSyntenyBlockResponse = Response<IntermineSyntenyBlock>;
+export type IntermineSyntenyBlockResponse = IntermineDataResponse<IntermineSyntenyBlock>;
 // converts an Intermine response into an array of GraphQL SyntenyBlock objects
 export function response2syntenyBlocks(response: IntermineSyntenyBlockResponse): Array<GraphQLSyntenyBlock> {
     return response2graphqlObjects(response, graphqlSyntenyBlockAttributes);

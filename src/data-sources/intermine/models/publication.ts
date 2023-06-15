@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Publication" is-interface="true" term="http://purl.org/ontology/bibo/Article">
@@ -84,8 +84,8 @@ export type GraphQLPublication = {
 }
 
 
-export type InterminePublicationResponse = Response<InterminePublication>;
+export type InterminePublicationResponse = IntermineDataResponse<InterminePublication>;
 // converts an Intermine response into an array of GraphQL Publication objects
-export function response2publications(response: Response<InterminePublication>): Array<GraphQLPublication> {
+export function response2publications(response: InterminePublicationResponse): Array<GraphQLPublication> {
     return response2graphqlObjects(response, graphqlPublicationAttributes);
 }

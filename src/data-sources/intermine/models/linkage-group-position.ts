@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="LinkageGroupPosition" is-interface="true" term="">
@@ -38,7 +38,7 @@ export type GraphQLLinkageGroupPosition = {
 }
 
 
-export type IntermineLinkageGroupPositionResponse = Response<IntermineLinkageGroupPosition>;
+export type IntermineLinkageGroupPositionResponse = IntermineDataResponse<IntermineLinkageGroupPosition>;
 export function response2linkageGroupPositions(response: IntermineLinkageGroupPositionResponse): Array<GraphQLLinkageGroupPosition> {
     return response2graphqlObjects(response, graphqlLinkageGroupPositionAttributes);
 }

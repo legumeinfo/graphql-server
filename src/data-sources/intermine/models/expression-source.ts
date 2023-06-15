@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="ExpressionSource" extends="Annotatable" is-interface="true" term="">
@@ -76,7 +76,7 @@ export type GraphQLExpressionSource = {
 }
 
 
-export type IntermineExpressionSourceResponse = Response<IntermineExpressionSource>;
+export type IntermineExpressionSourceResponse = IntermineDataResponse<IntermineExpressionSource>;
 export function response2expressionSources(response: IntermineExpressionSourceResponse): Array<GraphQLExpressionSource> {
     return response2graphqlObjects(response, graphqlExpressionSourceAttributes);
 }

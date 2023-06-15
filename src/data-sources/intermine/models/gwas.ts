@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="GWAS" extends="Annotatable" is-interface="true" term="">
@@ -69,7 +69,7 @@ export type GraphQLGWAS = {
 }
 
 
-export type IntermineGWASResponse = Response<IntermineGWAS>;
+export type IntermineGWASResponse = IntermineDataResponse<IntermineGWAS>;
 export function response2gwas(response: IntermineGWASResponse): Array<GraphQLGWAS> {
     return response2graphqlObjects(response, graphqlGWASAttributes);
 }

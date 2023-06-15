@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234,http://purl.obolibrary.org/obo/SO_0000234">
@@ -94,7 +94,7 @@ export type GraphQLMRNA = {
 }
 
 
-export type IntermineMRNAResponse = Response<IntermineMRNA>;
+export type IntermineMRNAResponse = IntermineDataResponse<IntermineMRNA>;
 // converts an Intermine response into an array of GraphQL MRNA objects
 export function response2mRNAs(response: IntermineMRNAResponse): Array<GraphQLMRNA> {
     return response2graphqlObjects(response, graphqlMRNAAttributes);

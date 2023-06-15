@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Supercontig" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000148"></class>
@@ -58,7 +58,7 @@ export type GraphQLSupercontig = {
 }
 
 
-export type IntermineSupercontigResponse = Response<IntermineSupercontig>;
+export type IntermineSupercontigResponse = IntermineDataResponse<IntermineSupercontig>;
 // converts an Intermine response into an array of GraphQL Supercontig objects
 export function response2supercontigs(response: IntermineSupercontigResponse): Array<GraphQLSupercontig> {
     return response2graphqlObjects(response, graphqlSupercontigAttributes);

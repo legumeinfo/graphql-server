@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Trait" extends="Annotatable" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
@@ -54,7 +54,7 @@ export type GraphQLTrait = {
 }
 
 
-export type IntermineTraitResponse = Response<IntermineTrait>;
+export type IntermineTraitResponse = IntermineDataResponse<IntermineTrait>;
 export function response2traits(response: IntermineTraitResponse): Array<GraphQLTrait> {
     return response2graphqlObjects(response, graphqlTraitAttributes);
 }

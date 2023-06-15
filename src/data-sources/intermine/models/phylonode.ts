@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // Phylonode InterMine path query attributes
@@ -54,7 +54,7 @@ export type GraphQLPhylonode = {
 }
 
 
-export type InterminePhylonodeResponse = Response<InterminePhylonode>;
+export type InterminePhylonodeResponse = IntermineDataResponse<InterminePhylonode>;
 export function response2phylonodes(response: InterminePhylonodeResponse): Array<GraphQLPhylonode> {
     return response2graphqlObjects(response, graphqlPhylonodeAttributes);
 }

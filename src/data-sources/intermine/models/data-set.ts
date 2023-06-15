@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="DataSet" is-interface="true" term="http://semanticscience.org/resource/SIO_000089">
@@ -62,7 +62,7 @@ export type GraphQLDataSet = {
 }
 
 
-export type IntermineDataSetResponse = Response<IntermineDataSet>;
+export type IntermineDataSetResponse = IntermineDataResponse<IntermineDataSet>;
 // converts an Intermine response into an array of GraphQL DataSet objects
 export function response2dataSets(response: IntermineDataSetResponse): Array<GraphQLDataSet> {
     return response2graphqlObjects(response, graphqlDataSetAttributes);

@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
@@ -54,7 +54,7 @@ export type GraphQLStrain = {
 }
 
 
-export type IntermineStrainResponse = Response<IntermineStrain>;
+export type IntermineStrainResponse = IntermineDataResponse<IntermineStrain>;
 export function response2strains(response: IntermineStrainResponse): Array<GraphQLStrain> {
     return response2graphqlObjects(response, graphqlStrainAttributes);
 }

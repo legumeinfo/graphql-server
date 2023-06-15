@@ -1,4 +1,4 @@
-import { Response, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
 // <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
@@ -47,7 +47,7 @@ export type GraphQLLocation = {
 }
 
 
-export type IntermineLocationResponse = Response<IntermineLocation>;
+export type IntermineLocationResponse = IntermineDataResponse<IntermineLocation>;
 // converts an Intermine response into an array of GraphQL Location objects
 export function response2locations(response: IntermineLocationResponse): Array<GraphQLLocation> {
     return response2graphqlObjects(response, graphqlLocationAttributes);
