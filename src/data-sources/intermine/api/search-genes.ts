@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLGene,
     IntermineGeneResponse,
@@ -33,7 +39,8 @@ export async function searchGenes(
         start,
         size,
     }: SearchGenesOptions,
-): Promise<GraphQLGene[]> {
+): Promise<ApiResponse<GraphQLGene[]>> {
+    // build the PathQuery
     const constraints = [];
     if (description) {
         constraints.push(intermineConstraint('Gene.description', 'CONTAINS', description));
@@ -61,7 +68,13 @@ export async function searchGenes(
         intermineGeneSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineGeneResponse) => response2genes(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
