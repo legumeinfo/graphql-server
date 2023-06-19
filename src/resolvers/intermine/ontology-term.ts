@@ -16,7 +16,9 @@ ResolverMap => ({
         },
         ontologyTerms: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
-            return dataSources[sourceName].searchOntologyTerms(args);
+            return dataSources[sourceName].searchOntologyTerms(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     OntologyTerm: {

@@ -16,7 +16,9 @@ ResolverMap => ({
         },
         qtls: async (_, { traitName, start, size }, { dataSources }) => {
             const args = {traitName, start, size};
-            return dataSources[sourceName].searchQTLs(args);
+            return dataSources[sourceName].searchQTLs(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     QTL: {

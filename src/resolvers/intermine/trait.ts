@@ -16,7 +16,9 @@ ResolverMap => ({
         },
         traits: async (_, { name, start, size }, { dataSources }) => {
             const args = {name, start, size};
-            return dataSources[sourceName].searchTraits(args);
+            return dataSources[sourceName].searchTraits(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     Trait: {

@@ -24,7 +24,9 @@ ResolverMap => ({
                 start,
                 size
             };
-            return dataSources[sourceName].searchOrganisms(args);
+            return dataSources[sourceName].searchOrganisms(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     Organism: {

@@ -1,4 +1,11 @@
-import { intermineConstraint, intermineNotNullConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    intermineNotNullConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLOrganism,
     IntermineOrganismResponse,
@@ -29,7 +36,7 @@ export async function searchOrganisms(
         start,
         size,
     }: SearchOrganismsOptions,
-): Promise<GraphQLOrganism[]> {
+): Promise<ApiResponse<GraphQLOrganism[]>> {
     const constraints = [];
     // some organisms have null genus because they are family imports, we don't want them.
     constraints.push(intermineNotNullConstraint('Organism.genus'));
@@ -53,7 +60,13 @@ export async function searchOrganisms(
         intermineOrganismSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineOrganismResponse) => response2organisms(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Organism.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
