@@ -1,5 +1,6 @@
 services:
   graphql-server:
+    build: .
     command: serve:dev
     healthcheck:
       disable: true

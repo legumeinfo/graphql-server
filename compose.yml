@@ -1,5 +1,4 @@
 services:
   graphql-server:
-    build: .
     ports:
       - "${PORT:-4000}:4000"
