@@ -16,7 +16,9 @@ ResolverMap => ({
         },
         proteins: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
-            return dataSources[sourceName].searchProteins(args);
+            return dataSources[sourceName].searchProteins(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     Protein: {

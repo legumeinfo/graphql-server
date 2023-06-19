@@ -16,7 +16,9 @@ ResolverMap => ({
         },
         geneticMaps: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
-            return dataSources[sourceName].searchGeneticMaps(args);
+            return dataSources[sourceName].searchGeneticMaps(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     GeneticMap: {
