@@ -3,7 +3,7 @@ name: Build container image on graphql-server release
 on:
   push:
     tags:
-      - 'graphql-server@v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 env:
   REGISTRY: ghcr.io
@@ -30,9 +30,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/graphql-server
           tags: |
-            type=match,pattern=[^@]+@v(\d+),group=1
-            type=match,pattern=[^@]+@v(\d+\.\d+),group=1
-            type=match,pattern=[^@]+@v(.*),group=1
+            type=match,pattern=v(\d+),group=1
+            type=match,pattern=v(\d+\.\d+),group=1
+            type=match,pattern=v(.*),group=1
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
