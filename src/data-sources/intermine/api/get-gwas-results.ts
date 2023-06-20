@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
   GraphQLGeneticMarker,
   GraphQLGWAS,
@@ -9,18 +15,20 @@ import {
   intermineGWASResultSort,
   response2gwasResults,
 } from '../models/index.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetGWASResultsOptions = {
   gwas?: GraphQLGWAS;
   trait?: GraphQLTrait;
   geneticMarker?: GraphQLGeneticMarker;
-}
+} & PaginationOptions;
 
 
 // get GWASResults for a GWAS, Trait, GeneticMarker
-export async function getGWASResults({gwas, trait, geneticMarker}: GetGWASResultsOptions)
-: Promise<GraphQLGWASResult[]> {
+export async function getGWASResults(
+    {gwas, trait, geneticMarker, start, size}: GetGWASResultsOptions,
+): Promise<ApiResponse<GraphQLGWASResult[]>> {
     const constraints = [];
     if (gwas) {
         const gwasConstraint = intermineConstraint('GWASResult.gwas.id', '=', gwas.id);
@@ -39,6 +47,13 @@ export async function getGWASResults({gwas, trait, geneticMarker}: GetGWASResult
         intermineGWASResultSort,
         constraints,
     );
-    return this.pathQuery(query)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineGWASResultResponse) => response2gwasResults(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GWASResult.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

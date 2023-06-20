@@ -24,7 +24,9 @@ ResolverMap => ({
     Publication: {
         authors: async (publication, { start, size }, { dataSources }) => {
             const args = {publication, start, size};
-            return dataSources[sourceName].getAuthors(args);
+            return dataSources[sourceName].getAuthors(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results, metadata: {pageInfo}}) => results);
         },
     },
 });

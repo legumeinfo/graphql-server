@@ -28,13 +28,17 @@ ResolverMap => ({
         dataSet: async (qtlStudy, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(qtlStudy.dataSetName);
         },
-        qtls: async (qtlStudy, _, { dataSources }) => {
-            const args = {qtlStudy};
-            return dataSources[sourceName].getQTLs(args);
+        qtls: async (qtlStudy, { start, size }, { dataSources }) => {
+            const args = {qtlStudy, start, size};
+            return dataSources[sourceName].getQTLs(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (qtlStudy, { start, size }, { dataSources }) => {
             const args = {annotatable: qtlStudy, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     }
 });

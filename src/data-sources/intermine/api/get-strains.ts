@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
   GraphQLOrganism,
   GraphQLStrain,
@@ -7,15 +13,17 @@ import {
   intermineStrainSort,
   response2strains,
 } from '../models/index.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetStrainsOptions = {
   organism?: GraphQLOrganism;
-};
+} & PaginationOptions;
 
 
 // get Strains associated with an Organism
-export async function getStrains({organism}: GetStrainsOptions): Promise<GraphQLStrain[]> {
+export async function getStrains({organism, start, size}: GetStrainsOptions):
+Promise<ApiResponse<GraphQLStrain[]>> {
     const constraints = [];
     if (organism) {
         const organismConstraint = intermineConstraint('Strain.organism.id', '=', organism.id);
@@ -26,6 +34,13 @@ export async function getStrains({organism}: GetStrainsOptions): Promise<GraphQL
         intermineStrainSort,
         constraints,
     );
-    return this.pathQuery(query)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineStrainResponse) => response2strains(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Strain.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

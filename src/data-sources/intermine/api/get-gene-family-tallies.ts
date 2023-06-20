@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLGeneFamily,
     GraphQLGeneFamilyTally,
@@ -22,7 +28,7 @@ export async function getGeneFamilyTallies(
         start,
         size,
     }: SearchGeneFamilyTalliesOptions,
-): Promise<GraphQLGeneFamilyTally[]> {
+): Promise<ApiResponse<GraphQLGeneFamilyTally[]>> {
     const constraints = [];
     if (geneFamily) {
         const geneFamilyConstraint = intermineConstraint('GeneFamilyTally.geneFamily.id', '=', geneFamily.id);
@@ -33,7 +39,13 @@ export async function getGeneFamilyTallies(
         intermineGeneFamilyTallySort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineGeneFamilyTallyResponse) => response2geneFamilyTallies(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GeneFamilyTally.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

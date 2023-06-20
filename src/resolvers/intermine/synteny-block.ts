@@ -18,7 +18,9 @@ ResolverMap => ({
     SyntenyBlock: {
         syntenicRegions: async (syntenyBlock, { start, size }, { dataSources }) => {
             const args = {syntenyBlock, start, size};
-            return dataSources[sourceName].getSyntenicRegions(args);
+            return dataSources[sourceName].getSyntenicRegions(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (syntenyBlock, { start, size }, { dataSources }) => {
             const args = {start, size};

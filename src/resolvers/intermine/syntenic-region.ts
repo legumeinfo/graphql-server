@@ -27,11 +27,15 @@ ResolverMap => ({
         },
         dataSets: async (syntenicRegion, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(syntenicRegion, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(syntenicRegion, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        locations: async (syntenicRegion, _, { dataSources }) => {
-            const args = {sequenceFeature: syntenicRegion};
-            return dataSources[sourceName].getLocations(args);
+        locations: async (syntenicRegion, { start, size }, { dataSources }) => {
+            const args = {sequenceFeature: syntenicRegion, start, size};
+            return dataSources[sourceName].getLocations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

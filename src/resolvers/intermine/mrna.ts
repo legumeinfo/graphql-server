@@ -30,19 +30,27 @@ ResolverMap => ({
         },
         dataSets: async (mRNA, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(mRNA, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(mRNA, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        locations: async (mRNA, _, { dataSources }) => {
-            const args = {sequenceFeature: mRNA};
-            return dataSources[sourceName].getLocations(args);
+        locations: async (mRNA, { start, size }, { dataSources }) => {
+            const args = {sequenceFeature: mRNA, start, size};
+            return dataSources[sourceName].getLocations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         ontologyAnnotations: async (mRNA, { start, size }, { dataSources }) => {
             const args = {annotatable: mRNA, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args);
+            return dataSources[sourceName].getOntologyAnnotations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (mRNA, { start, size }, { dataSources }) => {
             const args = {annotatable: mRNA, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

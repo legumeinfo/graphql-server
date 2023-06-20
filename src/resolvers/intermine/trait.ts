@@ -28,20 +28,26 @@ ResolverMap => ({
         qtlStudy: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudyForTrait(trait);
         },
-        qtls: async (trait, _, { dataSources }) => {
-            const args = {trait};
-            return dataSources[sourceName].getQTLs(args);
+        qtls: async (trait, { start, size }, { dataSources }) => {
+            const args = {trait, start, size};
+            return dataSources[sourceName].getQTLs(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         gwas: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getGWASForTrait(trait);
         },
-        gwasResults: async (trait, _, { dataSources }) => {
-            const args = {trait};
-            return dataSources[sourceName].getGWASResults(args);
+        gwasResults: async (trait, { start, size }, { dataSources }) => {
+            const args = {trait, start, size};
+            return dataSources[sourceName].getGWASResults(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         ontologyAnnotations: async (trait, { start, size }, { dataSources }) => {
             const args = {annotatable: trait, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args);
+            return dataSources[sourceName].getOntologyAnnotations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

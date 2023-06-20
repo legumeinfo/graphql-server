@@ -30,9 +30,11 @@ ResolverMap => ({
         },
     },
     Organism: {
-        strains: async (organism, _, { dataSources }) => {
-            const args = {organism};
-            return dataSources[sourceName].getStrains(args);
+        strains: async (organism, { start, size }, { dataSources }) => {
+            const args = {organism, start, size};
+            return dataSources[sourceName].getStrains(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

@@ -24,7 +24,9 @@ ResolverMap => ({
         },
         dataSets: async (supercontig, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(supercontig, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(supercontig, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

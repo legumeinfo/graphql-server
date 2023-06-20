@@ -33,14 +33,21 @@ ResolverMap => ({
         },
         dataSets: async (protein, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(protein, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(protein, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         genes: async (protein, { start, size }, { dataSources }) => {
             const args = {protein, start, size};
-            return dataSources[sourceName].getGenes(args);
+            return dataSources[sourceName].getGenes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        geneFamilyAssignments: async (protein, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein);
+        geneFamilyAssignments: async (protein, { start, size }, { dataSources }) => {
+            const args = {start, size};
+            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

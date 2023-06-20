@@ -24,22 +24,33 @@ ResolverMap => ({
         },
         dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(geneticMarker, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(geneticMarker, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        qtls: async (geneticMarker, _, { dataSources }) => {
-            const args = {geneticMarker};
-            return dataSources[sourceName].getQTLs(args);
+        qtls: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {geneticMarker, start, size};
+            return dataSources[sourceName].getQTLs(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        gwasResults: async (geneticMarker, _, { dataSources }) => {
-            const args = {geneticMarker};
-            return dataSources[sourceName].getGWASResults(args);
+        gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {geneticMarker, start, size};
+            return dataSources[sourceName].getGWASResults(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        linkageGroupPositions: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker);
+        linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {geneticMarker, start, size};
+            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-        locations: async (geneticMarker, _, { dataSources }) => {
-            const args = {sequenceFeature: geneticMarker};
-            return dataSources[sourceName].getLocations(args);
+        locations: async (geneticMarker, { start, size }, { dataSources }) => {
+            const args = {sequenceFeature: geneticMarker, start, size};
+            return dataSources[sourceName].getLocations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

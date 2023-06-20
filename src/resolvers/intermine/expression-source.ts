@@ -37,7 +37,9 @@ ResolverMap => ({
         },
         publications: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {annotatable: expressionSource, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

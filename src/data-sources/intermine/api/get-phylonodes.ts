@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLPhylonode,
     GraphQLPhylotree,
@@ -24,7 +30,7 @@ export async function getPhylonodes(
         start,
         size,
     }: GetPhylonodesOptions,
-): Promise<GraphQLPhylonode[]> {
+): Promise<ApiResponse<GraphQLPhylonode[]>> {
     const constraints = [];
     if (phylotree) {
         const phylotreeConstraint = intermineConstraint('Phylonode.tree.id', '=', phylotree.id);
@@ -38,7 +44,13 @@ export async function getPhylonodes(
         interminePhylonodeSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: InterminePhylonodeResponse) => response2phylonodes(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Phylonode.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

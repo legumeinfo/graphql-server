@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLGeneticMarker,
     GraphQLQTL,
@@ -22,7 +28,7 @@ export async function getGeneticMarkers(
         start,
         size,
     }: GetGeneticMarkersOptions,
-): Promise<GraphQLGeneticMarker[]> {
+): Promise<ApiResponse<GraphQLGeneticMarker[]>> {
     const constraints = [];
     if (qtl) {
         const qtlConstraint = intermineConstraint('GeneticMarker.qtls.id', '=', qtl.id);
@@ -33,7 +39,13 @@ export async function getGeneticMarkers(
         intermineGeneticMarkerSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineGeneticMarkerResponse) => response2geneticMarkers(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GeneticMarker.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
