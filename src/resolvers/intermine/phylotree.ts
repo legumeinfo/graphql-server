@@ -25,7 +25,9 @@ ResolverMap => ({
         },
         nodes: async (phylotree, { start, size }, { dataSources }) => {
             const args = {phylotree, start, size};
-            return dataSources[sourceName].getPhylonodes(args);
+            return dataSources[sourceName].getPhylonodes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

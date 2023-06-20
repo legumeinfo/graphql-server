@@ -24,7 +24,9 @@ ResolverMap => ({
         },
         dataSets: async (chromosome, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(chromosome, args);
+            return dataSources[sourceName].getDataSetsForBioEntity(chromosome, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

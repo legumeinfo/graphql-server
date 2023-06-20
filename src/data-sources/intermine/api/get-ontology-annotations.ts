@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLAnnotatable,
     GraphQLOntologyAnnotation,
@@ -22,7 +28,7 @@ export async function getOntologyAnnotations(
         start,
         size,
     }: GetOntologyAnnotationsOptions,
-): Promise<GraphQLOntologyAnnotation[]> {
+): Promise<ApiResponse<GraphQLOntologyAnnotation[]>> {
     const constraints = [];
     if (annotatable) {
         const constraint = intermineConstraint('OntologyAnnotation.subject.id', '=', annotatable.id);
@@ -33,7 +39,13 @@ export async function getOntologyAnnotations(
         intermineOntologyAnnotationSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyAnnotation.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

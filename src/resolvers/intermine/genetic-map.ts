@@ -29,13 +29,17 @@ ResolverMap => ({
             const args = {start, size};
             return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args);
         },
-        linkageGroups: async (geneticMap, _, { dataSources }) => {
-            const args = {geneticMap};
-            return dataSources[sourceName].getLinkageGroups(args);
+        linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
+            const args = {geneticMap, start, size};
+            return dataSources[sourceName].getLinkageGroups(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {annotatable: geneticMap, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

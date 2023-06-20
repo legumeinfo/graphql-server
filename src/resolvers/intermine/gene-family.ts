@@ -32,15 +32,21 @@ ResolverMap => ({
         },
         proteinDomains: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};
-            return dataSources[sourceName].getProteinDomains(args);
+            return dataSources[sourceName].getProteinDomains(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         tallies: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};
-            return dataSources[sourceName].getGeneFamilyTallies(args);
+            return dataSources[sourceName].getGeneFamilyTallies(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         ontologyAnnotations: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {annotatable: geneFamily, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args);
+            return dataSources[sourceName].getOntologyAnnotations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

@@ -27,7 +27,9 @@ ResolverMap => ({
         },
         ontologyAnnotations: async (expressionSample, { start, size }, { dataSources }) => {
             const args = {annotatable: expressionSample, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args);
+            return dataSources[sourceName].getOntologyAnnotations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

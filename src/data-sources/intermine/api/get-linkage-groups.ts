@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
   GraphQLGeneticMap,
   GraphQLLinkageGroup,
@@ -7,16 +13,18 @@ import {
   intermineLinkageGroupSort,
   response2linkageGroups,
 } from '../models/index.js';
+import { PaginationOptions } from './pagination.js';
 
 
 export type GetLinkageGroupsOptions = {
   geneticMap?: GraphQLGeneticMap;
-}
+} & PaginationOptions;
 
 
 // get LinkageGroups for a GeneticMap
-export async function getLinkageGroups({geneticMap}: GetLinkageGroupsOptions)
-: Promise<GraphQLLinkageGroup[]> {
+export async function getLinkageGroups(
+    {geneticMap, start, size}: GetLinkageGroupsOptions,
+): Promise<ApiResponse<GraphQLLinkageGroup[]>> {
     const constraints = [];
     if (geneticMap) {
         const geneticMapConstraint = intermineConstraint('LinkageGroup.geneticMap.id', '=', geneticMap.id);
@@ -27,6 +35,13 @@ export async function getLinkageGroups({geneticMap}: GetLinkageGroupsOptions)
         intermineLinkageGroupSort,
         constraints,
     );
-    return this.pathQuery(query)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
       .then((response: IntermineLinkageGroupResponse) => response2linkageGroups(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'LinkageGroup.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

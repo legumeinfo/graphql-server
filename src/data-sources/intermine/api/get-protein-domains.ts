@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLGene,
     GraphQLGeneFamily,
@@ -25,7 +31,7 @@ export async function getProteinDomains(
         start,
         size,
     }: GetProteinDomainsOptions,
-): Promise<GraphQLProteinDomain[]> {
+): Promise<ApiResponse<GraphQLProteinDomain[]>> {
     const constraints = [];
     if (gene) {
         const geneConstraint = intermineConstraint('ProteinDomain.genes.id', '=', gene.id);
@@ -40,7 +46,13 @@ export async function getProteinDomains(
         intermineProteinDomainSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineProteinDomainResponse) => response2proteinDomains(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'ProteinDomain.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

@@ -1,4 +1,10 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+    ApiResponse,
+    IntermineSummaryResponse,
+    intermineConstraint,
+    interminePathQuery,
+    response2graphqlPageInfo,
+} from '../intermine.server.js';
 import {
     GraphQLExpressionSample,
     GraphQLExpressionSource,
@@ -22,7 +28,7 @@ export async function getExpressionSamples(
         start,
         size,
     }: GetExpressionSamplesOptions,
-): Promise<GraphQLExpressionSample[]> {
+): Promise<ApiResponse<GraphQLExpressionSample[]>> {
     const constraints = [];
     if (expressionSource) {
         const expressionSourceConstraint = intermineConstraint('ExpressionSample.source.id', '=', expressionSource.id);
@@ -33,7 +39,13 @@ export async function getExpressionSamples(
         intermineExpressionSampleSort,
         constraints,
     );
-    const options = {start, size};
-    return this.pathQuery(query, options)
+    // get the data
+    const dataPromise = this.pathQuery(query, {start, size})
         .then((response: IntermineExpressionSampleResponse) => response2expressionSamples(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'ExpressionSample.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }

@@ -28,13 +28,17 @@ ResolverMap => ({
         dataSet: async(gwas, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(gwas.dataSetName);
         },
-        results: async (gwas, _, { dataSources }) => {
-            const args = {gwas};
-            return dataSources[sourceName].getGWASResults(args);
+        results: async (gwas, { start, size }, { dataSources }) => {
+            const args = {gwas, start, size};
+            return dataSources[sourceName].getGWASResults(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (gwas, { start, size }, { dataSources }) => {
             const args = {annotatable: gwas, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

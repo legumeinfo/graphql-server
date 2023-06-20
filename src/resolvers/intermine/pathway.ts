@@ -22,11 +22,15 @@ ResolverMap => ({
         },
         ontologyAnnotations: async (pathway, { start, size }, { dataSources }) => {
             const args = {annotatable: pathway, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args);
+            return dataSources[sourceName].getOntologyAnnotations(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (pathway, { start, size }, { dataSources }) => {
             const args = {annotatable: pathway, start, size};
-            return dataSources[sourceName].getPublications(args);
+            return dataSources[sourceName].getPublications(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         genes: async (pathway, { start, size }, { dataSources }) => {
             const args = {pathway: pathway, start, size};
