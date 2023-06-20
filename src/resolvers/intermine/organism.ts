@@ -7,12 +7,12 @@ export const organismFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>
 ResolverMap => ({
     Query: {
         organism: async (_, { taxonId }, { dataSources }) => {
-            const organism = await dataSources[sourceName].getOrganism(taxonId);
+            const {data: organism} = await dataSources[sourceName].getOrganism(taxonId);
             if (organism == null) {
                 const msg = `Organism with taxon ID '${taxonId}' not found`;
                 inputError(msg);
             }
-            return organism;
+            return {results: organism};
         },
         organisms: async (_, { taxonId, abbreviation, name, genus, species, start, size }, { dataSources }) => {
             const args = {

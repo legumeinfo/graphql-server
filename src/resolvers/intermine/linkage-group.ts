@@ -7,17 +7,19 @@ export const linkageGroupFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         linkageGroup: async (_, { id }, { dataSources }) => {
-            const group = await dataSources[sourceName].getLinkageGroup(id);
+            const {data: group} = await dataSources[sourceName].getLinkageGroup(id);
             if (group == null) {
                 const msg = `LinkageGroup with ID '${id}' not found`;
                 inputError(msg);
             }
-            return group;
+            return {results: group};
         },
     },
     LinkageGroup: {
         geneticMap: async (linkageGroup, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId);
+            return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (linkageGroup, { start, size }, { dataSources }) => {
             const args = {start, size};

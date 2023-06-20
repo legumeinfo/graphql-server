@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLStrain,
   IntermineStrainResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a Strain by identifier
-export async function getStrain(identifier: string): Promise<GraphQLStrain> {
+export async function getStrain(identifier: string):
+Promise<ApiResponse<GraphQLStrain>> {
     const constraints = [intermineConstraint('Strain.identifier', '=', identifier)];
     const query = interminePathQuery(
         intermineStrainAttributes,
@@ -21,5 +26,6 @@ export async function getStrain(identifier: string): Promise<GraphQLStrain> {
         .then((strains: Array<GraphQLStrain>) => {
             if (!strains.length) return null;
             return strains[0];
-        });
+        })
+        .then((strain: GraphQLStrain) => ({data: strain}));
 }

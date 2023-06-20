@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLLocation,
   IntermineLocationResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a location by ID
-export async function getLocation(id: number): Promise<GraphQLLocation> {
+export async function getLocation(id: number):
+Promise<ApiResponse<GraphQLLocation>> {
     const constraints = [intermineConstraint('Location.id', '=', id)];
     const query = interminePathQuery(
         intermineLocationAttributes,
@@ -21,5 +26,6 @@ export async function getLocation(id: number): Promise<GraphQLLocation> {
         .then((locations: Array<GraphQLLocation>) => {
             if (!locations.length) return null;
             return locations[0];
-        });
+        })
+        .then((location: GraphQLLocation) => ({data: location}));
 }

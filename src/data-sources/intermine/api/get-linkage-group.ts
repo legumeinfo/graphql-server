@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLLinkageGroup,
   IntermineLinkageGroupResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a LinkageGroup by ID
-export async function getLinkageGroup(id: number): Promise<GraphQLLinkageGroup> {
+export async function getLinkageGroup(id: number):
+Promise<ApiResponse<GraphQLLinkageGroup>> {
     const constraints = [intermineConstraint('LinkageGroup.id', '=', id)];
     const query = interminePathQuery(
         intermineLinkageGroupAttributes,
@@ -21,5 +26,6 @@ export async function getLinkageGroup(id: number): Promise<GraphQLLinkageGroup> 
         .then((linkageGroups: Array<GraphQLLinkageGroup>) => {
             if (!linkageGroups.length) return null;
             return linkageGroups[0];
-        });
+        })
+        .then((linkageGroup: GraphQLLinkageGroup) => ({data: linkageGroup}));
 }

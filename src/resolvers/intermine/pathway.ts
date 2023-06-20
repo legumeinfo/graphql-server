@@ -7,12 +7,12 @@ export const pathwayFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>)
 ResolverMap => ({
     Query: {
         pathway: async (_, { identifier }, { dataSources }) => {
-            const pathway = await dataSources[sourceName].getPathway(identifier);
+            const {data: pathway} = await dataSources[sourceName].getPathway(identifier);
             if (pathway == null) {
                 const msg = `Pathway with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return pathway;
+            return {results: pathway};
         },
     },
     Pathway: {

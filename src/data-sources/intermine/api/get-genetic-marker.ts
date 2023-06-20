@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLGeneticMarker,
   IntermineGeneticMarkerResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a GeneticMarker by identifier
-export async function getGeneticMarker(identifier: string): Promise<GraphQLGeneticMarker> {
+export async function getGeneticMarker(identifier: string):
+Promise<ApiResponse<GraphQLGeneticMarker>> {
     const constraints = [intermineConstraint('GeneticMarker.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGeneticMarkerAttributes,
@@ -21,5 +26,6 @@ export async function getGeneticMarker(identifier: string): Promise<GraphQLGenet
         .then((geneticMarkers: Array<GraphQLGeneticMarker>) => {
             if (!geneticMarkers.length) return null;
             return geneticMarkers[0];
-        });
+        })
+        .then((geneticMarker: GraphQLGeneticMarker) => ({data: geneticMarker}));
 }

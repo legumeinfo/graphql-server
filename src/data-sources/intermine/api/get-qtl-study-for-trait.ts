@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLQTLStudy,
   GraphQLTrait,
@@ -10,7 +14,8 @@ import {
 
 
 // get the QTLStudy for a Trait
-export async function getQTLStudyForTrait(trait: GraphQLTrait): Promise<GraphQLQTLStudy|null> {
+export async function getQTLStudyForTrait(trait: GraphQLTrait):
+Promise<ApiResponse<GraphQLQTLStudy>> {
     const constraints = [intermineConstraint('QTLStudy.qtls.trait.id', '=', trait.id)];
     const query = interminePathQuery(
         intermineQTLStudyAttributes,
@@ -25,5 +30,6 @@ export async function getQTLStudyForTrait(trait: GraphQLTrait): Promise<GraphQLQ
             } else {
                 return null;
             }
-        });
+        })
+        .then((qtlStudy: GraphQLQTLStudy) => ({data: qtlStudy}));
 }

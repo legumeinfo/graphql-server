@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLOntologyTerm,
   IntermineOntologyTermResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get an OntologyTerm by identifier
-export async function getOntologyTerm(identifier: string): Promise<GraphQLOntologyTerm> {
+export async function getOntologyTerm(identifier: string):
+Promise<ApiResponse<GraphQLOntologyTerm>> {
     const constraints = [intermineConstraint('OntologyTerm.identifier', '=', identifier)];
     const query = interminePathQuery(
         intermineOntologyTermAttributes,
@@ -21,5 +26,6 @@ export async function getOntologyTerm(identifier: string): Promise<GraphQLOntolo
         .then((ontologyTerms: Array<GraphQLOntologyTerm>) => {
             if (!ontologyTerms.length) return null;
             return ontologyTerms[0];
-        });
+        })
+        .then((ontologyTerm: GraphQLOntologyTerm) => ({data: ontologyTerm}));
 }

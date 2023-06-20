@@ -7,12 +7,12 @@ export const geneticMapFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         geneticMap: async (_, { identifier }, { dataSources }) => {
-            const map = await dataSources[sourceName].getGeneticMap(identifier);
+            const {data: map} = await dataSources[sourceName].getGeneticMap(identifier);
             if (map == null) {
                 const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return map;
+            return {results: map};
         },
         geneticMaps: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -23,7 +23,9 @@ ResolverMap => ({
     },
     GeneticMap: {
         organism: async (geneticMap, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId);
+            return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {start, size};

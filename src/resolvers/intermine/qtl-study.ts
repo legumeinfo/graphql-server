@@ -7,12 +7,12 @@ export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>
 ResolverMap => ({
     Query: {
         qtlStudy: async (_, { identifier }, { dataSources }) => {
-            const study = await dataSources[sourceName].getQTLStudy(identifier);
+            const {data: study} = await dataSources[sourceName].getQTLStudy(identifier);
             if (study == null) {
                 const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return study;
+            return {results: study};
         },
         qtlStudies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -23,10 +23,14 @@ ResolverMap => ({
     },
     QTLStudy: {
         organism: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(qtlStudy.organismTaxonId);
+            return dataSources[sourceName].getOrganism(qtlStudy.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSet: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtlStudy.dataSetName);
+            return dataSources[sourceName].getDataSet(qtlStudy.dataSetName)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         qtls: async (qtlStudy, { start, size }, { dataSources }) => {
             const args = {qtlStudy, start, size};

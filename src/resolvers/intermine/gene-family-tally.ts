@@ -7,20 +7,24 @@ export const geneFamilyTallyFactory = (sourceName: KeyOfType<DataSources, Interm
 ResolverMap => ({
     Query: {
         geneFamilyTally: async (_, { id }, { dataSources }) => {
-            const tally = await dataSources[sourceName].getGeneFamilyTally(id);
+            const {data: tally} = await dataSources[sourceName].getGeneFamilyTally(id);
             if (tally == null) {
                 const msg = `GeneFamilyTally with ID '${id}' not found`;
                 inputError(msg);
             }
-            return tally;
+            return {results: tally};
         },
     },
     GeneFamilyTally : {
         organism: async(geneFamilyTally, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneFamilyTally.organismTaxonId);
+            return dataSources[sourceName].getOrganism(geneFamilyTally.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         geneFamily: async (geneFamilyTally, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyIdentifier);
+            return dataSources[sourceName].getGeneFamily(geneFamilyTally.geneFamilyIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

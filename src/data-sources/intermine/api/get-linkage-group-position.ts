@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLLinkageGroupPosition,
   IntermineLinkageGroupPositionResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a LinkageGroupPosition by ID
-export async function getLinkageGroupPosition(id: number): Promise<GraphQLLinkageGroupPosition> {
+export async function getLinkageGroupPosition(id: number):
+Promise<ApiResponse<GraphQLLinkageGroupPosition>> {
     const constraints = [intermineConstraint('LinkageGroupPosition.id', '=', id)];
     const query = interminePathQuery(
         intermineLinkageGroupPositionAttributes,
@@ -21,5 +26,6 @@ export async function getLinkageGroupPosition(id: number): Promise<GraphQLLinkag
         .then((linkageGroupPositions: Array<GraphQLLinkageGroupPosition>) => {
             if (!linkageGroupPositions.length) return null;
             return linkageGroupPositions[0];
-        });
+        })
+        .then((linkageGroupPosition: GraphQLLinkageGroupPosition) => ({data: linkageGroupPosition}));
 }

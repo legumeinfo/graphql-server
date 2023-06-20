@@ -7,12 +7,12 @@ export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>)
 ResolverMap => ({
     Query: {
         protein: async (_, { identifier }, { dataSources }) => {
-            const protein = await dataSources[sourceName].getProtein(identifier);
+            const {data: protein} = await dataSources[sourceName].getProtein(identifier);
             if (protein == null) {
                 const msg = `Protein with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return protein;
+            return {results: protein};
         },
         proteins: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -23,13 +23,19 @@ ResolverMap => ({
     },
     Protein: {
         organism: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(protein.organismTaxonId);
+            return dataSources[sourceName].getOrganism(protein.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(protein.strainIdentifier);
+            return dataSources[sourceName].getStrain(protein.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         phylonode: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylonodeForProtein(protein);
+            return dataSources[sourceName].getPhylonodeForProtein(protein)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (protein, { start, size }, { dataSources }) => {
             const args = {start, size};

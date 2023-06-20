@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLPhylonode,
   GraphQLProtein,
@@ -11,7 +15,7 @@ import {
 
 // get a Phylonode for a Protein
 export async function getPhylonodeForProtein(protein: GraphQLProtein):
-Promise<GraphQLPhylonode|null> {
+Promise<ApiResponse<GraphQLPhylonode>> {
     const constraints = [intermineConstraint('Phylonode.protein.id', '=', protein.id)];
     const query = interminePathQuery(
         interminePhylonodeAttributes,
@@ -26,5 +30,6 @@ Promise<GraphQLPhylonode|null> {
             } else {
                 return null;
             }
-        });
+        })
+        .then((phylonode: GraphQLPhylonode) => ({data: phylonode}));
 }

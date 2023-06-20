@@ -7,12 +7,12 @@ export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, Intermin
 ResolverMap => ({
     Query: {
         proteinDomain: async (_, { identifier }, { dataSources }) => {
-            const domain = await dataSources[sourceName].getProteinDomain(identifier);
+            const {data: domain} = await dataSources[sourceName].getProteinDomain(identifier);
             if (domain == null) {
                 const msg = `ProteinDomain with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return domain;
+            return {results: domain};
         },
         proteinDomains: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};

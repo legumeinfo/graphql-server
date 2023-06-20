@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLPhylotree,
   InterminePhylotreeResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a Phylotree by identifier
-export async function getPhylotree(identifier: string): Promise<GraphQLPhylotree> {
+export async function getPhylotree(identifier: string):
+Promise<ApiResponse<GraphQLPhylotree>> {
     const constraints = [intermineConstraint('Phylotree.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         interminePhylotreeAttributes,
@@ -21,5 +26,6 @@ export async function getPhylotree(identifier: string): Promise<GraphQLPhylotree
         .then((phylotrees: Array<GraphQLPhylotree>) => {
             if (!phylotrees.length) return null;
             return phylotrees[0];
-        });
+        })
+        .then((phylotree: GraphQLPhylotree) => ({data: phylotree}));
 }

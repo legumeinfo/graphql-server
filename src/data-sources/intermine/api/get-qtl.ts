@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLQTL,
   IntermineQTLResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a QTL by ID
-export async function getQTL(id: number): Promise<GraphQLQTL> {
+export async function getQTL(id: number):
+Promise<ApiResponse<GraphQLQTL>> {
     const constraints = [intermineConstraint('QTL.id', '=', id)];
     const query = interminePathQuery(
         intermineQTLAttributes,
@@ -21,5 +26,6 @@ export async function getQTL(id: number): Promise<GraphQLQTL> {
         .then((qtls: Array<GraphQLQTL>) => {
             if (!qtls.length) return null;
             return qtls[0];
-        });
+        })
+        .then((qtl: GraphQLQTL) => ({data: qtl}));
 }

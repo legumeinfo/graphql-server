@@ -7,12 +7,12 @@ export const authorFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         author: async (_, { id }, { dataSources }) => {
-            const author = await dataSources[sourceName].getAuthor(id);
+            const {data: author} = await dataSources[sourceName].getAuthor(id);
             if (author == null) {
                 const msg = `Author with ID '${id}' not found`;
                 inputError(msg);
             }
-            return author;
+            return {results: author};
         },
     },
     Author: {

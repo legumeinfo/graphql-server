@@ -7,12 +7,12 @@ export const expressionSourceFactory = (sourceName: KeyOfType<DataSources, Inter
 ResolverMap => ({
     Query: {
         expressionSource: async (_, { identifier }, { dataSources }) => {
-            const source = await dataSources[sourceName].getExpressionSource(identifier);
+            const {data: source} = await dataSources[sourceName].getExpressionSource(identifier);
             if (source == null) {
                 const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return source;
+            return {results: source};
         },
         expressionSources: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -23,17 +23,25 @@ ResolverMap => ({
     },
     ExpressionSource: {
         organism: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(expressionSource.organismTaxonId);
+            return dataSources[sourceName].getOrganism(expressionSource.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(expressionSource.strainIdentifier);
+            return dataSources[sourceName].getStrain(expressionSource.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSet: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(expressionSource.dataSetName);
+            return dataSources[sourceName].getDataSet(expressionSource.dataSetName)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         samples: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {expressionSource, start, size};
-            return dataSources[sourceName].getExpressionSamples(args);
+            return dataSources[sourceName].getExpressionSamples(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         publications: async (expressionSource, { start, size }, { dataSources }) => {
             const args = {annotatable: expressionSource, start, size};

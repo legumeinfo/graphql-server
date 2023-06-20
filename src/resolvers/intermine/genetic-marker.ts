@@ -7,20 +7,24 @@ export const geneticMarkerFactory = (sourceName: KeyOfType<DataSources, Intermin
 ResolverMap => ({
     Query: {
         geneticMarker: async (_, { identifier }, { dataSources }) => {
-            const marker = await dataSources[sourceName].getGeneticMarker(identifier);
+            const {data: marker} = await dataSources[sourceName].getGeneticMarker(identifier);
             if (marker == null) {
                 const msg = `GeneticMarker with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return marker;
+            return {results: marker};
         },
     },
     GeneticMarker: {
         organism: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMarker.organismTaxonId);
+            return dataSources[sourceName].getOrganism(geneticMarker.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(geneticMarker.strainIdentifier);
+            return dataSources[sourceName].getStrain(geneticMarker.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {start, size};

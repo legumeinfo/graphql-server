@@ -7,23 +7,27 @@ export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI
 ResolverMap => ({
     Query: {
         phylonode: async (_, { id }, { dataSources }) => {
-            const node = await dataSources[sourceName].getPhylonode(id);
+            const {data: node} = await dataSources[sourceName].getPhylonode(id);
             if (node == null) {
                 const msg = `Phylonode with ID '${id}' not found`;
                 inputError(msg);
             }
-            return node;
+            return {results: node};
         },
     },
     Phylonode: {
         protein: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(phylonode.proteinId);
+            return dataSources[sourceName].getProtein(phylonode.proteinId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         tree: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(phylonode.treeId);
         },
         parent: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylonode(phylonode.parentId);
+            return dataSources[sourceName].getPhylonode(phylonode.parentId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         children: async (phylonode, { start, size }, { dataSources }) => {
             const args = {parent: phylonode, start, size};

@@ -7,17 +7,19 @@ export const phylotreeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI
 ResolverMap => ({
     Query: {
         phylotree: async (_, { identifier }, { dataSources }) => {
-            const tree = await dataSources[sourceName].getPhylotree(identifier);
+            const {data: tree} = await dataSources[sourceName].getPhylotree(identifier);
             if (tree == null) {
                 const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return tree;
+            return {results: tree};
         },
     },
     Phylotree: {
         geneFamily: async(phylotree, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyIdentifier);
+            return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (phylotree, { start, size }, { dataSources }) => {
             const args = {start, size};

@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLGWAS,
   GraphQLTrait,
@@ -10,7 +14,8 @@ import {
 
 
 // get the GWAS for a Trait
-export async function getGWASForTrait(trait: GraphQLTrait): Promise<GraphQLGWAS|null> {
+export async function getGWASForTrait(trait: GraphQLTrait):
+Promise<ApiResponse<GraphQLGWAS|null>> {
     const constraints = [intermineConstraint('GWAS.results.trait.id', '=', trait.id)];
     const query = interminePathQuery(
         intermineGWASAttributes,
@@ -25,5 +30,6 @@ export async function getGWASForTrait(trait: GraphQLTrait): Promise<GraphQLGWAS|
             } else {
                 return null;
             }
-        });
+        })
+        .then((gwas: GraphQLGWAS) => ({data: gwas}));
 }
