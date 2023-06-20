@@ -7,26 +7,34 @@ export const mRNAFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         mRNA: async (_, { identifier }, { dataSources }) => {
-            const mrna = await dataSources[sourceName].getMRNA(identifier);
+            const {data: mrna} = await dataSources[sourceName].getMRNA(identifier);
             if (mrna == null) {
                 const msg = `mRNA with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return mrna;
+            return {results: mrna};
         },
     },
     MRNA: {
         organism: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(mRNA.organismTaxonId);
+            return dataSources[sourceName].getOrganism(mRNA.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(mRNA.strainIdentifier);
+            return dataSources[sourceName].getStrain(mRNA.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         gene: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getGene(mRNA.geneIdentifier);
+            return dataSources[sourceName].getGene(mRNA.geneIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         protein: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(mRNA.proteinIdentifier);
+            return dataSources[sourceName].getProtein(mRNA.proteinIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (mRNA, { start, size }, { dataSources }) => {
             const args = {start, size};

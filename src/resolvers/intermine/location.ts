@@ -10,20 +10,24 @@ export const locationFactory =
 ): ResolverMap => ({
     Query: {
         location: async (_, { id }, { dataSources }) => {
-            const location = await dataSources[sourceName].getLocation(id);
+            const {data: location} = await dataSources[sourceName].getLocation(id);
             if (location == null) {
                 const msg = `Location with ID '${id}' not found`;
                 inputError(msg);
             }
-            return location;
+            return {results: location};
         },
     },
     Location: {
         chromosome: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(location.locatedOnIdentifier);
+            return dataSources[sourceName].getChromosome(location.locatedOnIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         supercontig: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier);
+            return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         
         dataSets: async (location, { start, size }, { dataSources }) => {

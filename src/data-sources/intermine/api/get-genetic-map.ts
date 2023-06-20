@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLGeneticMap,
   IntermineGeneticMapResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a GeneticMap by identifier
-export async function getGeneticMap(identifier: string): Promise<GraphQLGeneticMap> {
+export async function getGeneticMap(identifier: string):
+Promise<ApiResponse<GraphQLGeneticMap>> {
     const constraints = [intermineConstraint('GeneticMap.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGeneticMapAttributes,
@@ -21,5 +26,6 @@ export async function getGeneticMap(identifier: string): Promise<GraphQLGeneticM
         .then((geneticMaps: Array<GraphQLGeneticMap>) => {
             if (!geneticMaps.length) return null;
             return geneticMaps[0];
-        });
+        })
+        .then((geneticMap: GraphQLGeneticMap) => ({data: geneticMap}));
 }

@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLSyntenicRegion,
   IntermineSyntenicRegionResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a SyntenicRegion by identifier
-export async function getSyntenicRegion(identifier: string): Promise<GraphQLSyntenicRegion> {
+export async function getSyntenicRegion(identifier: string):
+Promise<ApiResponse<GraphQLSyntenicRegion>> {
     const constraints = [intermineConstraint('SyntenicRegion.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineSyntenicRegionAttributes,
@@ -21,5 +26,6 @@ export async function getSyntenicRegion(identifier: string): Promise<GraphQLSynt
         .then((syntenicRegions: Array<GraphQLSyntenicRegion>) => {
             if (!syntenicRegions.length) return null;
             return syntenicRegions[0];
-        });
+        })
+        .then((syntenicRegion: GraphQLSyntenicRegion) => ({data: syntenicRegion}));
 }

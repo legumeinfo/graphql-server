@@ -7,23 +7,29 @@ export const syntenicRegionFactory = (sourceName: KeyOfType<DataSources, Intermi
 ResolverMap => ({
     Query: {
         syntenicRegion: async (_, { identifier }, { dataSources }) => {
-            const region = await dataSources[sourceName].getSyntenicRegion(identifier);
+            const {data: region} = await dataSources[sourceName].getSyntenicRegion(identifier);
             if (region == null) {
                 const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return region;
+            return {results: region};
         },
     },
     SyntenicRegion: {
         organism: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(syntenicRegion.organismTaxonId);
+            return dataSources[sourceName].getOrganism(syntenicRegion.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(syntenicRegion.strainIdentifier);
+            return dataSources[sourceName].getStrain(syntenicRegion.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);;
         },
         syntenyBlock: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId);
+            return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (syntenicRegion, { start, size }, { dataSources }) => {
             const args = {start, size};

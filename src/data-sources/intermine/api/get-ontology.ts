@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLOntology,
   IntermineOntologyResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get an Ontology by ID
-export async function getOntology(name: string): Promise<GraphQLOntology> {
+export async function getOntology(name: string):
+Promise<ApiResponse<GraphQLOntology>> {
     const constraints = [intermineConstraint('Ontology.name', '=', name)];
     const query = interminePathQuery(
         intermineOntologyAttributes,
@@ -21,5 +26,6 @@ export async function getOntology(name: string): Promise<GraphQLOntology> {
         .then((ontologies: Array<GraphQLOntology>) => {
             if (!ontologies.length) return null;
             return ontologies[0];
-        });
+        })
+        .then((ontology: GraphQLOntology) => ({data: ontology}));
 }

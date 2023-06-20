@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLExpressionSample,
   IntermineExpressionSampleResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get an ExpressionSample by ID
-export async function getExpressionSample(identifier: string): Promise<GraphQLExpressionSample> {
+export async function getExpressionSample(identifier: string):
+Promise<ApiResponse<GraphQLExpressionSample>> {
     const constraints = [intermineConstraint('ExpressionSample.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineExpressionSampleAttributes,
@@ -21,5 +26,6 @@ export async function getExpressionSample(identifier: string): Promise<GraphQLEx
         .then((expressionSamples: Array<GraphQLExpressionSample>) => {
             if (!expressionSamples.length) return null;
             return expressionSamples[0];
-        });
+        })
+        .then((expressionSample: GraphQLExpressionSample) => ({data: expressionSample}));
 }

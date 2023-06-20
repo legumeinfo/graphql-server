@@ -10,12 +10,12 @@ export const geneFactory =
 ): ResolverMap => ({
     Query: {
         gene: async (_, { identifier }, { dataSources }) => {
-            const gene = await dataSources[sourceName].getGene(identifier);
+            const {data: gene} = await dataSources[sourceName].getGene(identifier);
             if (gene == null) {
                 const msg = `Gene with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return gene;
+            return {results: gene};
         },
         genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size }, { dataSources }) => {
             const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, start, size};
@@ -26,10 +26,14 @@ export const geneFactory =
     },
     Gene: {
         organism: async (gene, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gene.organismTaxonId);
+            return dataSources[sourceName].getOrganism(gene.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (gene, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(gene.strainIdentifier);
+            return dataSources[sourceName].getStrain(gene.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (gene, { start, size }, { dataSources }) => {
             const args = {start, size};

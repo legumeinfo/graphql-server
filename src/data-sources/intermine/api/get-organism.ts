@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLOrganism,
   IntermineOrganismResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get an Organism by taxon ID
-export async function getOrganism(taxonId: number): Promise<GraphQLOrganism> {
+export async function getOrganism(taxonId: number):
+Promise<ApiResponse<GraphQLOrganism>> {
     const constraints = [intermineConstraint('Organism.taxonId', '=', taxonId)];
     const query = interminePathQuery(
         intermineOrganismAttributes,
@@ -21,5 +26,6 @@ export async function getOrganism(taxonId: number): Promise<GraphQLOrganism> {
         .then((organisms: Array<GraphQLOrganism>) => {
             if (!organisms.length) return null;
             return organisms[0];
-        });
+        })
+        .then((organism: GraphQLOrganism) => ({data: organism}));
 }

@@ -7,12 +7,12 @@ export const geneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         geneFamily: async (_, { identifier }, { dataSources }) => {
-            const family = await dataSources[sourceName].getGeneFamily(identifier);
+            const {data: family} = await dataSources[sourceName].getGeneFamily(identifier);
             if (family == null) {
                 const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return family;
+            return {results: family};
         },
         geneFamilies: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -24,7 +24,9 @@ ResolverMap => ({
     GeneFamily: {
         phylotree: async(geneFamily, _, { dataSources }) => {
             // phylotrees have the same identifier as their corresponding gene family
-            return dataSources[sourceName].getPhylotree(geneFamily.identifier);
+            return dataSources[sourceName].getPhylotree(geneFamily.identifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         genes: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};

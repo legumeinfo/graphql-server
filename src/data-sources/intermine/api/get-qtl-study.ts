@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLQTLStudy,
   IntermineQTLStudyResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a QTLStudy by identifier
-export async function getQTLStudy(identifier: string): Promise<GraphQLQTLStudy> {
+export async function getQTLStudy(identifier: string):
+Promise<ApiResponse<GraphQLQTLStudy>> {
     const constraints = [intermineConstraint('QTLStudy.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineQTLStudyAttributes,
@@ -21,5 +26,6 @@ export async function getQTLStudy(identifier: string): Promise<GraphQLQTLStudy> 
         .then((qtlStudies: GraphQLQTLStudy[]) => {
             if (!qtlStudies.length) return null;
             return qtlStudies[0];
-        });
+        })
+        .then((qtlStudy: GraphQLQTLStudy) => ({data: qtlStudy}));
 }

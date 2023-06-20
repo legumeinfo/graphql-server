@@ -7,12 +7,12 @@ export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         trait: async (_, { identifier }, { dataSources }) => {
-            const trait = await dataSources[sourceName].getTrait(identifier);
+            const {data: trait} = await dataSources[sourceName].getTrait(identifier);
             if (trait == null) {
                 const msg = `Trait with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return trait;
+            return {results: trait};
         },
         traits: async (_, { name, start, size }, { dataSources }) => {
             const args = {name, start, size};
@@ -23,10 +23,14 @@ ResolverMap => ({
     },
     Trait: {
         dataSet: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(trait.dataSetName);
+            return dataSources[sourceName].getDataSet(trait.dataSetName)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         qtlStudy: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudyForTrait(trait);
+            return dataSources[sourceName].getQTLStudyForTrait(trait)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         qtls: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};
@@ -35,7 +39,9 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         gwas: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getGWASForTrait(trait);
+            return dataSources[sourceName].getGWASForTrait(trait)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         gwasResults: async (trait, { start, size }, { dataSources }) => {
             const args = {trait, start, size};

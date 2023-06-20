@@ -7,12 +7,12 @@ export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, Intermine
 ResolverMap => ({
     Query: {
         ontologyTerm: async (_, { identifier }, { dataSources }) => {
-            const term = await dataSources[sourceName].getOntologyTerm(identifier);
+            const {data: term} = await dataSources[sourceName].getOntologyTerm(identifier);
             if (term == null) {
                 const msg = `OntologyTerm with identifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return term;
+            return {results: term};
         },
         ontologyTerms: async (_, { description, start, size }, { dataSources }) => {
             const args = {description, start, size};
@@ -24,7 +24,9 @@ ResolverMap => ({
     OntologyTerm: {
         // Note: ontology is sometimes null so we have to do a secondary query here
         ontology: async (ontologyTerm, _, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm);
+            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (ontologyTerm, { start, size }, { dataSources }) => {
             const args = {start, size};

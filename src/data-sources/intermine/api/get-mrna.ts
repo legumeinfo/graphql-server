@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLMRNA,
   IntermineMRNAResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get an MRNA by identifier
-export async function getMRNA(identifier: string): Promise<GraphQLMRNA> {
+export async function getMRNA(identifier: string):
+Promise<ApiResponse<GraphQLMRNA>> {
     const constraints = [intermineConstraint('MRNA.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineMRNAAttributes,
@@ -21,5 +26,6 @@ export async function getMRNA(identifier: string): Promise<GraphQLMRNA> {
         .then((mRNAs: Array<GraphQLMRNA>) => {
             if (!mRNAs.length) return null;
             return mRNAs[0];
-        });
+        })
+        .then((mRNA: GraphQLMRNA) => ({data: mRNA}));
 }

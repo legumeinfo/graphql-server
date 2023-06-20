@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLGeneFamily,
   IntermineGeneFamilyResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a GeneFamily by ID
-export async function getGeneFamily(identifier: string): Promise<GraphQLGeneFamily> {
+export async function getGeneFamily(identifier: string):
+Promise<ApiResponse<GraphQLGeneFamily>> {
     const constraints = [intermineConstraint('GeneFamily.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGeneFamilyAttributes,
@@ -21,5 +26,6 @@ export async function getGeneFamily(identifier: string): Promise<GraphQLGeneFami
         .then((geneFamilies: Array<GraphQLGeneFamily>) => {
             if (!geneFamilies.length) return null;
             return geneFamilies[0];
-        });
+        })
+        .then((geneFamily: GraphQLGeneFamily) => ({data: geneFamily}));
 }

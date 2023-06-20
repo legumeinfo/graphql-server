@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLProteinDomain,
   IntermineProteinDomainResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a ProteinDomain by identifier
-export async function getProteinDomain(identifier: string): Promise<GraphQLProteinDomain> {
+export async function getProteinDomain(identifier: string):
+Promise<ApiResponse<GraphQLProteinDomain>> {
     const constraints = [intermineConstraint('ProteinDomain.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineProteinDomainAttributes,
@@ -21,5 +26,6 @@ export async function getProteinDomain(identifier: string): Promise<GraphQLProte
         .then((proteinDomains: Array<GraphQLProteinDomain>) => {
             if (!proteinDomains.length) return null;
             return proteinDomains[0];
-        });
+        })
+        .then((proteinDomain: GraphQLProteinDomain) => ({data: proteinDomain}));
 }

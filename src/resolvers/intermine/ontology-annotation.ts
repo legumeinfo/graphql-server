@@ -7,17 +7,19 @@ export const ontologyAnnotationFactory = (sourceName: KeyOfType<DataSources, Int
 ResolverMap => ({
     Query: {
         ontologyAnnotation: async (_, { id }, { dataSources }) => {
-            const annotation = await dataSources[sourceName].getOntologyAnnotation(id);
+            const {data: annotation} = await dataSources[sourceName].getOntologyAnnotation(id);
             if (annotation == null) {
                 const msg = `OntologyAnnotation with ID '${id}' not found`;
                 inputError(msg);
             }
-            return annotation;
+            return {results: annotation};
         },
     },
     OntologyAnnotation: {
         ontologyTerm: async(ontologyAnnotation, _, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTerm(ontologyAnnotation.ontologyTermId);
+            return dataSources[sourceName].getOntologyTerm(ontologyAnnotation.ontologyTermId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (ontologyAnnotation, { start, size }, { dataSources }) => {
             const args = {start, size};

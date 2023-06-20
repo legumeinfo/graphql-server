@@ -7,20 +7,24 @@ export const supercontigFactory = (sourceName: KeyOfType<DataSources, IntermineA
 ResolverMap => ({
     Query: {
         supercontig: async (_, { identifier }, { dataSources }) => {
-            const supercontig = await dataSources[sourceName].getSupercontig(identifier);
+            const {data: supercontig} = await dataSources[sourceName].getSupercontig(identifier);
             if (supercontig == null) {
                 const msg = `Supercontig with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return supercontig;
+            return {results: supercontig};
         },
     },
     Supercontig: {
         organism: async (supercontig, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(supercontig.organismTaxonId);
+            return dataSources[sourceName].getOrganism(supercontig.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (supercontig, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(supercontig.strainIdentifier);
+            return dataSources[sourceName].getStrain(supercontig.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (supercontig, { start, size }, { dataSources }) => {
             const args = {start, size};

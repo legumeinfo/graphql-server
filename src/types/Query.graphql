@@ -217,7 +217,7 @@ type QtlsResults {
 }
 
 type QtlStudiesResults {
-  results: [ProteinDomain!]!
+  results: [QTLStudy!]!
   pageInfo: PageInfo
 }
 

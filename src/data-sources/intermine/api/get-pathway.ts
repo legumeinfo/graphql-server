@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLPathway,
   InterminePathwayResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a Pathway by identifier
-export async function getPathway(identifier: string): Promise<GraphQLPathway> {
+export async function getPathway(identifier: string):
+Promise<ApiResponse<GraphQLPathway>> {
     const constraints = [intermineConstraint('Pathway.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         interminePathwayAttributes,
@@ -21,5 +26,6 @@ export async function getPathway(identifier: string): Promise<GraphQLPathway> {
         .then((pathways: Array<GraphQLPathway>) => {
             if (!pathways.length) return null;
             return pathways[0];
-        });
+        })
+        .then((pathway: GraphQLPathway) => ({data: pathway}));
 }

@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLPublication,
   InterminePublicationResponse,
@@ -9,7 +13,8 @@ import {
 
 
 // get a publication by DOI
-export async function getPublication(doi: string): Promise<GraphQLPublication> {
+export async function getPublication(doi: string):
+Promise<ApiResponse<GraphQLPublication>> {
     const constraints = [intermineConstraint('Publication.doi', '=', doi)];
     const query = interminePathQuery(
         interminePublicationAttributes,
@@ -21,5 +26,6 @@ export async function getPublication(doi: string): Promise<GraphQLPublication> {
         .then((publications: Array<GraphQLPublication>) => {
             if (!publications.length) return null;
             return publications[0];
-        });
+        })
+        .then((publication: GraphQLPublication) => ({data: publication}));
 }

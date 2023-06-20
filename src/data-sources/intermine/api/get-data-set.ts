@@ -1,4 +1,8 @@
-import { intermineConstraint, interminePathQuery } from '../intermine.server.js';
+import {
+  ApiResponse,
+  intermineConstraint,
+  interminePathQuery,
+} from '../intermine.server.js';
 import {
   GraphQLDataSet,
   IntermineDataSetResponse,
@@ -9,7 +13,7 @@ import {
 
 
 // get a DataSet by name
-export async function getDataSet(name: string): Promise<GraphQLDataSet> {
+export async function getDataSet(name: string): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('DataSet.name', '=', name)];
     const query = interminePathQuery(
         intermineDataSetAttributes,
@@ -21,5 +25,6 @@ export async function getDataSet(name: string): Promise<GraphQLDataSet> {
         .then((dataSets: Array<GraphQLDataSet>) => {
             if (!dataSets.length) return null;
             return dataSets[0];
-        });
+        })
+        .then((dataSet: GraphQLDataSet) => ({data: dataSet}));
 }

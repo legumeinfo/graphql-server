@@ -7,20 +7,24 @@ export const chromosomeFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         chromosome: async (_, { identifier }, { dataSources }) => {
-            const chromosome = await dataSources[sourceName].getChromosome(identifier);
+            const {data: chromosome} = await dataSources[sourceName].getChromosome(identifier);
             if (chromosome == null) {
                 const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return chromosome;
+            return {results: chromosome};
         },
     },
     Chromosome: {
         organism: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(chromosome.organismTaxonId);
+            return dataSources[sourceName].getOrganism(chromosome.organismTaxonId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         strain: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(chromosome.strainIdentifier);
+            return dataSources[sourceName].getStrain(chromosome.strainIdentifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         dataSets: async (chromosome, { start, size }, { dataSources }) => {
             const args = {start, size};
