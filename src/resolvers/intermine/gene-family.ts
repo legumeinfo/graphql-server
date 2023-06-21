@@ -30,7 +30,9 @@ ResolverMap => ({
         },
         genes: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};
-            return dataSources[sourceName].getGenes(args);
+            return dataSources[sourceName].getGenes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         proteinDomains: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};

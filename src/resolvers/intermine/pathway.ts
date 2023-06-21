@@ -18,7 +18,9 @@ ResolverMap => ({
     Pathway: {
         dataSets: async (pathway, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForPathway(pathway, args);
+            return dataSources[sourceName].getDataSetsForPathway(pathway, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         ontologyAnnotations: async (pathway, { start, size }, { dataSources }) => {
             const args = {annotatable: pathway, start, size};
@@ -34,7 +36,9 @@ ResolverMap => ({
         },
         genes: async (pathway, { start, size }, { dataSources }) => {
             const args = {pathway: pathway, start, size};
-            return dataSources[sourceName].getGenes(args);
+            return dataSources[sourceName].getGenes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

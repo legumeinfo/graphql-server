@@ -29,7 +29,9 @@ ResolverMap => ({
         },
         dataSets: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args);
+            return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
             const args = {geneticMap, start, size};
