@@ -22,7 +22,9 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         tree: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylotree(phylonode.treeId);
+            return dataSources[sourceName].getPhylotree(phylonode.treeId)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         parent: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonode(phylonode.parentId)
@@ -31,7 +33,9 @@ ResolverMap => ({
         },
         children: async (phylonode, { start, size }, { dataSources }) => {
             const args = {parent: phylonode, start, size};
-            return dataSources[sourceName].getPhylonodes(args);
+            return dataSources[sourceName].getPhylonodes(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

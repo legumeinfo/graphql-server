@@ -23,7 +23,9 @@ ResolverMap => ({
         },
         dataSets: async (linkageGroup, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args);
+            return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         qtls: async (linkageGroup, { start, size }, { dataSources }) => {
             const args = {linkageGroup, start, size};

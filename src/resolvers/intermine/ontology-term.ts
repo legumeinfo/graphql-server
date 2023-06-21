@@ -30,7 +30,9 @@ ResolverMap => ({
         },
         dataSets: async (ontologyTerm, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForOntologyTerm(ontologyTerm, args);
+            return dataSources[sourceName].getDataSetsForOntologyTerm(ontologyTerm, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
     },
 });

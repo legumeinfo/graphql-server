@@ -32,7 +32,9 @@ export const locationFactory =
         
         dataSets: async (location, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSetsForLocation(location, args);
+            return dataSources[sourceName].getDataSetsForLocation(location, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
         linkouts: async (location, _, { dataSources }) => {
           const {locatedOnIdentifier, start, end} = location;
