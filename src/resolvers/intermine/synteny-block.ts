@@ -24,9 +24,9 @@ ResolverMap => ({
         },
         dataSets: async (syntenyBlock, { start, size }, { dataSources }) => {
             const args = {start, size};
-            return dataSources[sourceName].getDataSet
+            return dataSources[sourceName].getDataSetsForSyntenyBlock(syntenyBlock, args)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);ForSyntenyBlock(syntenyBlock, args);
+                .then(({data: results}) => results);
         },
     },
 });

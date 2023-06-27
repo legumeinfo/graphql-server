@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { annotatableFactory } from './annotatable.js';
 
 
 export const pathwayFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,21 +17,10 @@ ResolverMap => ({
         },
     },
     Pathway: {
+        ...annotatableFactory(sourceName),
         dataSets: async (pathway, { start, size }, { dataSources }) => {
             const args = {start, size};
             return dataSources[sourceName].getDataSetsForPathway(pathway, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        ontologyAnnotations: async (pathway, { start, size }, { dataSources }) => {
-            const args = {annotatable: pathway, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        publications: async (pathway, { start, size }, { dataSources }) => {
-            const args = {annotatable: pathway, start, size};
-            return dataSources[sourceName].getPublications(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

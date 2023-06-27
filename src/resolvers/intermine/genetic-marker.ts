@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 
 export const geneticMarkerFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,22 +17,7 @@ ResolverMap => ({
         },
     },
     GeneticMarker: {
-        organism: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMarker.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        strain: async (geneticMarker, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(geneticMarker.strainIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(geneticMarker, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...sequenceFeatureFactory(sourceName),
         qtls: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {geneticMarker, start, size};
             return dataSources[sourceName].getQTLs(args)
@@ -47,12 +33,6 @@ ResolverMap => ({
         linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
             const args = {geneticMarker, start, size};
             return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        locations: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {sequenceFeature: geneticMarker, start, size};
-            return dataSources[sourceName].getLocations(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

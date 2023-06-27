@@ -78,7 +78,7 @@ export const intermineOntologyTermDataSetAttributes = [
     'OntologyTerm.dataSets.name',
     'OntologyTerm.dataSets.version',
     'OntologyTerm.dataSets.synopsis',
-    'OntologyTerm.dataSets.publication.id',  // internal resolution of publication
+    'OntologyTerm.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name'; // guaranteed not null
 export type IntermineOntologyTermDataSet = [
@@ -89,5 +89,5 @@ export type IntermineOntologyTermDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

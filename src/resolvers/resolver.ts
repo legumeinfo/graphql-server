@@ -13,6 +13,11 @@ export interface Args {
 export type Resolver = (source: any|Function, args: Args, context: ContextValue) => Promise<any>;
 
 
+export interface SubfieldResolverMap {
+  [field: string]: Resolver;
+}
+
+
 export interface ResolverMap {
-  [type: string]: {[field: string]: Resolver};
+  [type: string]: SubfieldResolverMap;
 }

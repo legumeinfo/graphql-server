@@ -13,10 +13,12 @@
 # 	<reference name="source" referenced-type="ExpressionSource" reverse-reference="samples"/>
 # </class>
 type ExpressionSample implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # ExpressionSample
   tissue: String
   num: Int
   description: String

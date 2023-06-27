@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { annotatableFactory } from './annotatable.js';
 
 
 export const geneFactory =
@@ -25,22 +26,7 @@ export const geneFactory =
         },
     },
     Gene: {
-        organism: async (gene, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gene.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        strain: async (gene, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(gene.strainIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (gene, { start, size }, { dataSources }) => {
-            const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(gene, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...annotatableFactory(sourceName),
         geneFamilyAssignments: async (gene, { start, size }, { dataSources }) => {
             const args = {start, size};
             return dataSources[sourceName].getGeneFamilyAssignments(gene, args)
@@ -53,27 +39,9 @@ export const geneFactory =
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        locations: async (gene, { start, size }, { dataSources }) => {
-            const args = {sequenceFeature: gene, start, size};
-            return dataSources[sourceName].getLocations(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        ontologyAnnotations: async (gene, { start, size }, { dataSources }) => {
-            const args = {annotatable: gene, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         pathways: async (gene, { start, size }, { dataSources }) => {
             const args = {annotatable: gene, start, size};
             return dataSources[sourceName].getPathways(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        publications: async (gene, { start, size }, { dataSources }) => {
-            const args = {annotatable: gene, start, size};
-            return dataSources[sourceName].getPublications(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

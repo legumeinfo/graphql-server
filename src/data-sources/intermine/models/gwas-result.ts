@@ -11,6 +11,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // </class>
 export const intermineGWASResultAttributes = [
     'GWASResult.id',
+    'GWASResult.identifier',
     'GWASResult.pValue',
     'GWASResult.markerName',
     'GWASResult.gwas.primaryIdentifier',
@@ -19,6 +20,7 @@ export const intermineGWASResultAttributes = [
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
 export type IntermineGWASResult = [
+  number,
   number,
   number,
   string,
@@ -39,6 +41,7 @@ export type IntermineGWASResult = [
 // }
 export const graphqlGWASResultAttributes = [
     'id',
+    'identifier',
     'pValue',
     'markerName',
     'gwasIdentifier',

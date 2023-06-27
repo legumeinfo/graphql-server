@@ -12,8 +12,8 @@
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # 	<collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
 # </class>
-type Protein implements BioEntity {
-  ## BioEntity
+type Protein implements BioEntity & Annotatable {
+  # BioEntity
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -24,23 +24,16 @@ type Protein implements BioEntity {
   assemblyVersion: String
   annotationVersion: String
   organism: Organism
+  locations: [Location!]!
   strain: Strain
-  # locations
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  ## Protein
+  # Protein
   md5checksum: String
   primaryAccession: String
   molecularWeight: Float
   length: Int
   isPrimary: Boolean
   phylonode: Phylonode
-  # transcript
-  # CDS
-  # sequence
   genes: [Gene!]!
   geneFamilyAssignments: [GeneFamilyAssignment!]!
-  # proteinMatches
 }

@@ -1,5 +1,6 @@
 # <class name="Supercontig" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000148"></class>
-type Supercontig implements SequenceFeature {
+type Supercontig implements SequenceFeature & BioEntity & Annotatable {
+  # SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -12,19 +13,6 @@ type Supercontig implements SequenceFeature {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation: Location
-  # chromosomeLocation: Location
-  # supercontig: Supercontig
-  # sequence 
-  # chromosome: Chromosome
-  # overlappingFeatures
-  # childFeatures
 }

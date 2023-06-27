@@ -15,11 +15,13 @@
 # 	<collection name="overlappingFeatures" referenced-type="SequenceFeature"/>
 # 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
 # </class>
-interface SequenceFeature {
+interface SequenceFeature implements BioEntity & Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # BioEntity
   description: String
   symbol: String
   name: String
@@ -28,19 +30,7 @@ interface SequenceFeature {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
+  # SequenceFeature
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation: Location
-  # chromosomeLocation: Location
-  # supercontig: Supercontig
-  # sequence 
-  # chromosome: Chromosome
-  # overlappingFeatures
-  # childFeatures
 }

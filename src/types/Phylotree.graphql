@@ -5,10 +5,12 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type Phylotree implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # Phylotree
   numLeaves: Int
   geneFamily: GeneFamily
   nodes: [Phylonode!]!

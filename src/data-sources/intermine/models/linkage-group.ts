@@ -62,7 +62,7 @@ export const intermineLinkageGroupDataSetAttributes = [
     'LinkageGroup.dataSets.name',
     'LinkageGroup.dataSets.version',
     'LinkageGroup.dataSets.synopsis',
-    'LinkageGroup.dataSets.publication.id',  // internal resolution of publication
+    'LinkageGroup.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineLinkageGroupDataSetSort = 'LinkageGroup.dataSets.name'; // guaranteed not null
 export type IntermineLinkageGroupDataSet = [
@@ -73,5 +73,5 @@ export type IntermineLinkageGroupDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

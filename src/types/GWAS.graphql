@@ -9,10 +9,12 @@
 # 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
 # </class>
 type GWAS implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # GWAS
   genotypingPlatform: String
   description: String
   genotypes: String

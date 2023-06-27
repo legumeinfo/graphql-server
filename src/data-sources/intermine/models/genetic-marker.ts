@@ -25,6 +25,7 @@ export const intermineGeneticMarkerAttributes = [
     'GeneticMarker.genotypingPlatform',
     'GeneticMarker.motif',
     'GeneticMarker.alias',
+    'GeneticMarker.type',
     'GeneticMarker.alleles',
 ];
 export const intermineGeneticMarkerSort = 'GeneticMarker.primaryIdentifier';
@@ -39,6 +40,7 @@ export type IntermineGeneticMarker = [
   number,
   string,
   number,
+  string,
   string,
   string,
   string,

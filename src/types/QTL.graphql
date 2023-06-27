@@ -14,9 +14,13 @@
 # 	<collection name="genes" referenced-type="Gene"/>
 # 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="qtls"/>
 # </class>
-type QTL {
+type QTL implements Annotatable {
+  # Annotatable
   id: ID!
-  identifier: String!
+  identifier: ID!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # QTL
   lod: Float
   likelihoodRatio: Float
   end: Float

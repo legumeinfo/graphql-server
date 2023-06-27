@@ -11,10 +11,12 @@
 # 	<collection name="samples" referenced-type="ExpressionSample" reverse-reference="source"/>
 # </class>
 type ExpressionSource implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # ExpressionSource
   sra: String
   description: String
   bioProject: String

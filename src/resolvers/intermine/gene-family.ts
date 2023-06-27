@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { annotatableFactory } from './annotatable.js';
 
 
 export const geneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -22,6 +23,7 @@ ResolverMap => ({
         },
     },
     GeneFamily: {
+        ...annotatableFactory(sourceName),
         phylotree: async(geneFamily, _, { dataSources }) => {
             // phylotrees have the same identifier as their corresponding gene family
             return dataSources[sourceName].getPhylotree(geneFamily.identifier)
@@ -43,12 +45,6 @@ ResolverMap => ({
         tallies: async (geneFamily, { start, size }, { dataSources }) => {
             const args = {geneFamily, start, size};
             return dataSources[sourceName].getGeneFamilyTallies(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        ontologyAnnotations: async (geneFamily, { start, size }, { dataSources }) => {
-            const args = {annotatable: geneFamily, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

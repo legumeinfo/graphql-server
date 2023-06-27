@@ -8,10 +8,12 @@
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
 type Trait implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # Trait
   description: String
   name: String
   qtlStudy: QTLStudy
