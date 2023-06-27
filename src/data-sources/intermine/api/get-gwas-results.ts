@@ -27,7 +27,7 @@ export type GetGWASResultsOptions = {
 
 // get GWASResults for a GWAS, Trait, GeneticMarker
 export async function getGWASResults(
-    {gwas, trait, geneticMarker, start, size}: GetGWASResultsOptions,
+    {gwas, trait, geneticMarker, page, pageSize}: GetGWASResultsOptions,
 ): Promise<ApiResponse<GraphQLGWASResult[]>> {
     const constraints = [];
     if (gwas) {
@@ -48,11 +48,11 @@ export async function getGWASResults(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineGWASResultResponse) => response2gwasResults(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GWASResult.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

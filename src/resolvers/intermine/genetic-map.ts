@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: map};
         },
-        geneticMaps: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        geneticMaps: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchGeneticMaps(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -29,14 +29,14 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSets: async (geneticMap, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (geneticMap, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        linkageGroups: async (geneticMap, { start, size }, { dataSources }) => {
-            const args = {geneticMap, start, size};
+        linkageGroups: async (geneticMap, { page, pageSize }, { dataSources }) => {
+            const args = {geneticMap, page, pageSize};
             return dataSources[sourceName].getLinkageGroups(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

@@ -14,8 +14,8 @@ ResolverMap => ({
             }
             return {results: strain};
         },
-        strains: async (_, { description, origin, species, start, size }, { dataSources }) => {
-            const args = {description, origin, species, start, size};
+        strains: async (_, { description, origin, species, page, pageSize }, { dataSources }) => {
+            const args = {description, origin, species, page, pageSize};
             return dataSources[sourceName].searchStrains(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));

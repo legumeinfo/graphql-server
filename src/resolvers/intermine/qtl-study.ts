@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: study};
         },
-        qtlStudies: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        qtlStudies: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchQTLStudies(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -34,8 +34,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        qtls: async (qtlStudy, { start, size }, { dataSources }) => {
-            const args = {qtlStudy, start, size};
+        qtls: async (qtlStudy, { page, pageSize }, { dataSources }) => {
+            const args = {qtlStudy, page, pageSize};
             return dataSources[sourceName].getQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

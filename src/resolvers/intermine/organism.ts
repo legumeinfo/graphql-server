@@ -14,15 +14,15 @@ ResolverMap => ({
             }
             return {results: organism};
         },
-        organisms: async (_, { taxonId, abbreviation, name, genus, species, start, size }, { dataSources }) => {
+        organisms: async (_, { taxonId, abbreviation, name, genus, species, page, pageSize }, { dataSources }) => {
             const args = {
                 taxonId,
                 abbreviation,
                 name,
                 genus,
                 species,
-                start,
-                size
+                page,
+                pageSize
             };
             return dataSources[sourceName].searchOrganisms(args)
                 // @ts-ignore: implicit type any error
@@ -30,8 +30,8 @@ ResolverMap => ({
         },
     },
     Organism: {
-        strains: async (organism, { start, size }, { dataSources }) => {
-            const args = {organism, start, size};
+        strains: async (organism, { page, pageSize }, { dataSources }) => {
+            const args = {organism, page, pageSize};
             return dataSources[sourceName].getStrains(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

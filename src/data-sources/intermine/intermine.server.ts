@@ -26,10 +26,23 @@ export class IntermineServer extends RESTDataSource {
         }
     }
 
+    // InterMine uses offset pagination but we want to support page-based pagination;
+    // this function converts page-based options in offset options
+    private convertPaginationOptions({page, pageSize, ...rest}: any={}) {
+        if (Number(page) == page && Number(pageSize) == pageSize) {
+            return {
+                ...rest,
+                start: (page-1)*pageSize,
+                size: pageSize,
+            };
+        }
+        return rest;
+    }
+
     async pathQuery(query: string, options={}) {
         const params = {
             query,
-            ...options,
+            ...this.convertPaginationOptions(options),
             format: 'json',
         };
         return await this.get('query/results', {params});
@@ -38,7 +51,7 @@ export class IntermineServer extends RESTDataSource {
     async keywordSearch(q: string, options={}) {
         const params = {
             q,
-            ...options,
+            ...this.convertPaginationOptions(options),
             format: 'json',
         };
         return await this.get('search', {params});
@@ -114,8 +127,8 @@ export const response2graphqlObjects =
 
 // converts an Intermine response into a GraphQL PageInfo type
 export const response2graphqlPageInfo =
-    (response: IntermineSummaryResponse, start: number|null, size: number|null):
+    (response: IntermineSummaryResponse, page: number|null, pageSize: number|null):
     GraphQLPageInfo => {
         const numResults = response.uniqueValues;
-        return pageInfoFactory(numResults, start, size);
+        return pageInfoFactory(numResults, page, pageSize);
     };

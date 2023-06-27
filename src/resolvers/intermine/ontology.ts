@@ -16,8 +16,8 @@ ResolverMap => ({
         },
     },
     Ontology: {
-        dataSets: async (ontology, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (ontology, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForOntology(ontology, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

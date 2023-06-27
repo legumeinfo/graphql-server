@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: domain};
         },
-        proteinDomains: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        proteinDomains: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchProteinDomains(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -24,14 +24,14 @@ ResolverMap => ({
     },
     ProteinDomain: {
         ...annotatableFactory(sourceName),
-        genes: async (proteinDomain, { start, size }, { dataSources }) => {
-            const args = {proteinDomain, start, size};
+        genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
+            const args = {proteinDomain, page, pageSize};
             return dataSources[sourceName].getGenes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        geneFamilies: async (proteinDomain, { start, size }, { dataSources }) => {
-            const args = {proteinDomain, start, size};
+        geneFamilies: async (proteinDomain, { page, pageSize }, { dataSources }) => {
+            const args = {proteinDomain, page, pageSize};
             return dataSources[sourceName].getGeneFamilies(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

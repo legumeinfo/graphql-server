@@ -17,14 +17,14 @@ export const bioEntityFactory =
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    locations: async (bioEntity, { start, size }, { dataSources }) => {
-        const args = {sequenceFeature: bioEntity, start, size};
+    locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
+        const args = {sequenceFeature: bioEntity, page, pageSize};
         return dataSources[sourceName].getLocations(args)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    dataSets: async (bioEntity, { start, size }, { dataSources }) => {
-        const args = {start, size};
+    dataSets: async (bioEntity, { page, pageSize }, { dataSources }) => {
+        const args = {page, pageSize};
         return dataSources[sourceName].getDataSetsForBioEntity(bioEntity, args)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);

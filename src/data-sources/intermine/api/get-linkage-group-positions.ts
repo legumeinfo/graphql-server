@@ -19,7 +19,7 @@ import { PaginationOptions } from './pagination.js';
 // get LinkageGroupPositions for a GeneticMarker
 export async function getLinkageGroupPositions(
     geneticMarker: GraphQLGeneticMarker,
-    {start, size}: PaginationOptions,
+    {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLLinkageGroupPosition[]>> {
     // no reverse reference in LinkageGroupPosition so query GeneticMarker
     const constraints = [intermineConstraint('GeneticMarker.id', '=', geneticMarker.id)];
@@ -29,11 +29,11 @@ export async function getLinkageGroupPositions(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
       .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GeneticMarker.linkageGroupPositions.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

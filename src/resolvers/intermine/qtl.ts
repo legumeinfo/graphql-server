@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: qtl};
         },
-        qtls: async (_, { traitName, start, size }, { dataSources }) => {
-            const args = {traitName, start, size};
+        qtls: async (_, { traitName, page, pageSize }, { dataSources }) => {
+            const args = {traitName, page, pageSize};
             return dataSources[sourceName].searchQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -44,8 +44,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        markers: async (qtl, { start, size }, { dataSources }) => {
-            const args = {qtl, start, size};
+        markers: async (qtl, { page, pageSize }, { dataSources }) => {
+            const args = {qtl, page, pageSize};
             return dataSources[sourceName].getGeneticMarkers(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

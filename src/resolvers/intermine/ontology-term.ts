@@ -14,8 +14,8 @@ ResolverMap => ({
             }
             return {results: term};
         },
-        ontologyTerms: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        ontologyTerms: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchOntologyTerms(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -28,8 +28,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSets: async (ontologyTerm, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForOntologyTerm(ontologyTerm, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

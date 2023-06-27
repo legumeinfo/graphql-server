@@ -24,8 +24,8 @@ export type SearchOntologyTermsOptions = {
 export async function searchOntologyTerms(
     {
         description,
-        start,
-        size,
+        page,
+        pageSize,
     }: SearchOntologyTermsOptions,
 ): Promise<ApiResponse<GraphQLOntologyTerm[]>> {
     const constraints = [];
@@ -39,11 +39,11 @@ export async function searchOntologyTerms(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

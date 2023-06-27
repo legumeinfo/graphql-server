@@ -98,10 +98,10 @@ The `Gene.organism` and `Gene.strain` resolvers then use these temporary attribu
 ```
 
 Collections are populated using custom API methods that incorporate pagination. For example, the `Gene.locations` resolver
-uses the `getLocations({sequenceFeature, start, size})` API method:
+uses the `getLocations({sequenceFeature, page, pageSize})` API method:
 ```
-        locations: async (gene, { start, size }, { dataSources }) => {
-            const args = {sequenceFeature: gene, start, size};
+        locations: async (gene, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: gene, page, pageSize};
             return dataSources[sourceName].getLocations(args);
         },
 ```

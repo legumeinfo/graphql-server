@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: source};
         },
-        expressionSources: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        expressionSources: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchExpressionSources(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -39,8 +39,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        samples: async (expressionSource, { start, size }, { dataSources }) => {
-            const args = {expressionSource, start, size};
+        samples: async (expressionSource, { page, pageSize }, { dataSources }) => {
+            const args = {expressionSource, page, pageSize};
             return dataSources[sourceName].getExpressionSamples(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

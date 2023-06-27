@@ -21,8 +21,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSets: async (ontologyAnnotation, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (ontologyAnnotation, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForOntologyAnnotation(ontologyAnnotation, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
