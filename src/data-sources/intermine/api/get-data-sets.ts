@@ -46,8 +46,8 @@ import { PaginationOptions } from './pagination.js';
 export async function getDataSetsForBioEntity(
     bioEntity: GraphQLBioEntity,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('DataSet.bioEntities.id', '=', bioEntity.id)];
@@ -57,11 +57,11 @@ export async function getDataSetsForBioEntity(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'DataSet.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -71,8 +71,8 @@ export async function getDataSetsForBioEntity(
 export async function getDataSetsForGeneticMap(
     geneticMap: GraphQLGeneticMap,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('GeneticMap.id', '=', geneticMap.id)];
@@ -82,11 +82,11 @@ export async function getDataSetsForGeneticMap(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GeneticMap.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -96,8 +96,8 @@ export async function getDataSetsForGeneticMap(
 export async function getDataSetsForLinkageGroup(
     linkageGroup: GraphQLLinkageGroup,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('LinkageGroup.id', '=', linkageGroup.id)];
@@ -107,11 +107,11 @@ export async function getDataSetsForLinkageGroup(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'LinkageGroup.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -121,8 +121,8 @@ export async function getDataSetsForLinkageGroup(
 export async function getDataSetsForLocation(
     location: GraphQLLocation,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('Location.id', '=', location.id)];
@@ -132,11 +132,11 @@ export async function getDataSetsForLocation(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query,  {start, size})
+    const dataPromise = this.pathQuery(query,  {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Location.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -146,8 +146,8 @@ export async function getDataSetsForLocation(
 export async function getDataSetsForOntology(
     ontology: GraphQLOntology,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('Ontology.id', '=', ontology.id)];
@@ -157,11 +157,11 @@ export async function getDataSetsForOntology(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Ontology.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -171,8 +171,8 @@ export async function getDataSetsForOntology(
 export async function getDataSetsForOntologyAnnotation(
     ontologyAnnotation: GraphQLOntologyAnnotation,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('OntologyAnnotation.id', '=', ontologyAnnotation.id)];
@@ -182,11 +182,11 @@ export async function getDataSetsForOntologyAnnotation(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyAnnotation.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -196,8 +196,8 @@ export async function getDataSetsForOntologyAnnotation(
 export async function getDataSetsForOntologyTerm(
     ontologyTerm: GraphQLOntologyTerm,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('OntologyTerm.id', '=', ontologyTerm.id)];
@@ -207,11 +207,11 @@ export async function getDataSetsForOntologyTerm(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -221,8 +221,8 @@ export async function getDataSetsForOntologyTerm(
 export async function getDataSetsForPathway(
     pathway: GraphQLPathway,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('Pathway.id', '=', pathway.id)];
@@ -232,11 +232,11 @@ export async function getDataSetsForPathway(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Pathway.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -246,8 +246,8 @@ export async function getDataSetsForPathway(
 export async function getDataSetsForPhylotree(
     phylotree: GraphQLPhylotree,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('Phylotree.id', '=', phylotree.id)];
@@ -257,11 +257,11 @@ export async function getDataSetsForPhylotree(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Phylotree.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
@@ -271,8 +271,8 @@ export async function getDataSetsForPhylotree(
 export async function getDataSetsForSyntenyBlock(
     syntenyBlock: GraphQLSyntenyBlock,
     {
-        start,
-        size,
+        page,
+        pageSize,
     }: PaginationOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('SyntenyBlock.id', '=', syntenyBlock.id)];
@@ -282,11 +282,11 @@ export async function getDataSetsForSyntenyBlock(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'SyntenyBlock.dataSets.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

@@ -18,14 +18,14 @@ ResolverMap => ({
     },
     Pathway: {
         ...annotatableFactory(sourceName),
-        dataSets: async (pathway, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (pathway, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForPathway(pathway, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        genes: async (pathway, { start, size }, { dataSources }) => {
-            const args = {pathway: pathway, start, size};
+        genes: async (pathway, { page, pageSize }, { dataSources }) => {
+            const args = {pathway: pathway, page, pageSize};
             return dataSources[sourceName].getGenes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

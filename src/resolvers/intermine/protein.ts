@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: protein};
         },
-        proteins: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        proteins: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchProteins(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -29,14 +29,14 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        genes: async (protein, { start, size }, { dataSources }) => {
-            const args = {protein, start, size};
+        genes: async (protein, { page, pageSize }, { dataSources }) => {
+            const args = {protein, page, pageSize};
             return dataSources[sourceName].getGenes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        geneFamilyAssignments: async (protein, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        geneFamilyAssignments: async (protein, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

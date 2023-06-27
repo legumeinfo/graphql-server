@@ -19,7 +19,7 @@ import { PaginationOptions } from './pagination.js';
 // get GeneFamilyAssignments for a Protein
 export async function getGeneFamilyAssignmentsForProtein(
     protein: GraphQLProtein,
-    {start, size}: PaginationOptions,
+    {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGeneFamilyAssignment>> {
     const constraints = [intermineConstraint('Protein.id', '=', protein.id)];
     const query = interminePathQuery(
@@ -28,11 +28,11 @@ export async function getGeneFamilyAssignmentsForProtein(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineGeneFamilyAssignmentResponse) => response2geneFamilyAssignments(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Protein.geneFamilyAssignments.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

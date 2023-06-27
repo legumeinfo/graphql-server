@@ -16,14 +16,14 @@ ResolverMap => ({
         },
     },
     SyntenyBlock: {
-        syntenicRegions: async (syntenyBlock, { start, size }, { dataSources }) => {
-            const args = {syntenyBlock, start, size};
+        syntenicRegions: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
+            const args = {syntenyBlock, page, pageSize};
             return dataSources[sourceName].getSyntenicRegions(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSets: async (syntenyBlock, { start, size }, { dataSources }) => {
-            const args = {start, size};
+        dataSets: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForSyntenyBlock(syntenyBlock, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

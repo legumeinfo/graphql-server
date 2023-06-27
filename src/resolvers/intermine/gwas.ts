@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: gwas};
         },
-        gwases: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        gwases: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchGWASes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
@@ -34,8 +34,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        results: async (gwas, { start, size }, { dataSources }) => {
-            const args = {gwas, start, size};
+        results: async (gwas, { page, pageSize }, { dataSources }) => {
+            const args = {gwas, page, pageSize};
             return dataSources[sourceName].getGWASResults(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

@@ -25,8 +25,8 @@ export type GetExpressionSamplesOptions = {
 export async function getExpressionSamples(
     {
         expressionSource,
-        start,
-        size,
+        page,
+        pageSize,
     }: GetExpressionSamplesOptions,
 ): Promise<ApiResponse<GraphQLExpressionSample[]>> {
     const constraints = [];
@@ -40,11 +40,11 @@ export async function getExpressionSamples(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineExpressionSampleResponse) => response2expressionSamples(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'ExpressionSample.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

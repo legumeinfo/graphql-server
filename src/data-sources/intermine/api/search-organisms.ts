@@ -33,8 +33,8 @@ export async function searchOrganisms(
         name,
         genus,
         species,
-        start,
-        size,
+        page,
+        pageSize,
     }: SearchOrganismsOptions,
 ): Promise<ApiResponse<GraphQLOrganism[]>> {
     const constraints = [];
@@ -61,11 +61,11 @@ export async function searchOrganisms(
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {start, size})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineOrganismResponse) => response2organisms(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Organism.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, start, size));
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

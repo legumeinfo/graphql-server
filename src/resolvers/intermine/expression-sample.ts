@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: sample};
         },
-        expressionSamples: async (_, { description, start, size }, { dataSources }) => {
-            const args = {description, start, size};
+        expressionSamples: async (_, { description, page, pageSize }, { dataSources }) => {
+            const args = {description, page, pageSize};
             return dataSources[sourceName].searchExpressionSamples(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));

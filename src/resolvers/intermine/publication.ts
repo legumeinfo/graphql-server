@@ -14,16 +14,16 @@ ResolverMap => ({
             }
             return {results: publication};
         },
-        publications: async (_, { title, start, size }, { dataSources }) => {
-            const args = {title, start, size};
+        publications: async (_, { title, page, pageSize }, { dataSources }) => {
+            const args = {title, page, pageSize};
             return dataSources[sourceName].searchPublications(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     Publication: {
-        authors: async (publication, { start, size }, { dataSources }) => {
-            const args = {publication, start, size};
+        authors: async (publication, { page, pageSize }, { dataSources }) => {
+            const args = {publication, page, pageSize};
             return dataSources[sourceName].getAuthors(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => results);

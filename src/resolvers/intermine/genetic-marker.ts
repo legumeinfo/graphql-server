@@ -18,20 +18,20 @@ ResolverMap => ({
     },
     GeneticMarker: {
         ...sequenceFeatureFactory(sourceName),
-        qtls: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {geneticMarker, start, size};
+        qtls: async (geneticMarker, { page, pageSize }, { dataSources }) => {
+            const args = {geneticMarker, page, pageSize};
             return dataSources[sourceName].getQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        gwasResults: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {geneticMarker, start, size};
+        gwasResults: async (geneticMarker, { page, pageSize }, { dataSources }) => {
+            const args = {geneticMarker, page, pageSize};
             return dataSources[sourceName].getGWASResults(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        linkageGroupPositions: async (geneticMarker, { start, size }, { dataSources }) => {
-            const args = {geneticMarker, start, size};
+        linkageGroupPositions: async (geneticMarker, { page, pageSize }, { dataSources }) => {
+            const args = {geneticMarker, page, pageSize};
             return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

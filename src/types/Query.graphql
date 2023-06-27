@@ -292,21 +292,21 @@ type Query {
   syntenyBlock(id: ID!): SyntenyBlockResults
   
   ### multiple-result queries (typically searches)
-  expressionSamples(description: String, start: Int, size: Int): ExpressionSamplesResults
-  expressionSources(description: String, start: Int, size: Int): ExpressionSourcesResults
-  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, start: Int, size: Int): GenesResults
-  geneFamilies(description: String, start: Int, size: Int): GeneFamiliesResults
-  geneticMaps(description: String, start: Int, size: Int): GeneticMapsResults
-  gwases(description: String, start: Int, size: Int): GwasesResults
-  ontologyTerms(description: String, start: Int, size: Int): OntologyTermsResults
-  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, start: Int, size: Int): OrganismsResults
-  proteins(description: String, start: Int, size: Int): ProteinsResults
-  proteinDomains(description: String, start: Int, size: Int): ProteinDomainsResults
-  publications(title: String, start: Int, size: Int): PublicationsResults
-  qtls(traitName: String, start: Int, size: Int): QtlsResults
-  qtlStudies(description: String, start: Int, size: Int): QtlStudiesResults
-  strains(description: String, origin: String, species: String, start: Int, size: Int): StrainsResults
-  traits(name: String, start: Int, size: Int): TraitsResults
+  expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
+  expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
+  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, page: Int, pageSize: Int): GenesResults
+  geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
+  geneticMaps(description: String, page: Int, pageSize: Int): GeneticMapsResults
+  gwases(description: String, page: Int, pageSize: Int): GwasesResults
+  ontologyTerms(description: String, page: Int, pageSize: Int): OntologyTermsResults
+  organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, page: Int, pageSize: Int): OrganismsResults
+  proteins(description: String, page: Int, pageSize: Int): ProteinsResults
+  proteinDomains(description: String, page: Int, pageSize: Int): ProteinDomainsResults
+  publications(title: String, page: Int, pageSize: Int): PublicationsResults
+  qtls(traitName: String, page: Int, pageSize: Int): QtlsResults
+  qtlStudies(description: String, page: Int, pageSize: Int): QtlStudiesResults
+  strains(description: String, origin: String, species: String, page: Int, pageSize: Int): StrainsResults
+  traits(name: String, page: Int, pageSize: Int): TraitsResults
 
   ### no-parameter queries
   mineWebProperties: MineWebPropertiesResults
