@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { annotatableFactory } from './annotatable.js';
 
 
 export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -22,6 +23,7 @@ ResolverMap => ({
         },
     },
     ProteinDomain: {
+        ...annotatableFactory(sourceName),
         genes: async (proteinDomain, { start, size }, { dataSources }) => {
             const args = {proteinDomain, start, size};
             return dataSources[sourceName].getGenes(args)
@@ -31,12 +33,6 @@ ResolverMap => ({
         geneFamilies: async (proteinDomain, { start, size }, { dataSources }) => {
             const args = {proteinDomain, start, size};
             return dataSources[sourceName].getGeneFamilies(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        ontologyAnnotations: async (proteinDomain, { start, size }, { dataSources }) => {
-            const args = {annotatable: proteinDomain, start, size};
-            return dataSources[sourceName].getOntologyAnnotations(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

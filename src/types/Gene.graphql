@@ -15,8 +15,8 @@
 # 	<collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
 # 	<collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
 # </class>
-type Gene implements SequenceFeature {
-  ## SequenceFeature
+type Gene implements SequenceFeature & BioEntity & Annotatable {
+  # SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -29,36 +29,12 @@ type Gene implements SequenceFeature {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation: Location
-  # chromosomeLocation: Location
-  # supercontig: Supercontig
-  # sequence
-  # chromosome: Chromosome
-  # overlappingFeatures
-  # childFeatures
-  ## Gene
+  # Gene
   briefDescription: String
-  # upstreamIntergenicRegion
-  # downstreamIntergenicRegion
-  # flankingRegions
-  # transcripts
-  # introns
-  # proteins
-  # alleles
   geneFamilyAssignments: [GeneFamilyAssignment!]!
-  # CDSs
   proteinDomains: [ProteinDomain!]!
-  # exons
   pathways: [Pathway!]!
-  # regulatoryRegions
-  # UTRs
   linkouts: [Linkout!]!
 }

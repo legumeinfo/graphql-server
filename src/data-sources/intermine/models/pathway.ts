@@ -59,7 +59,7 @@ export const interminePathwayDataSetAttributes = [
     'Pathway.dataSets.name',
     'Pathway.dataSets.version',
     'Pathway.dataSets.synopsis',
-    'Pathway.dataSets.publication.id',  // internal resolution of publication
+    'Pathway.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const interminePathwayDataSetSort = 'Pathway.dataSets.name'; // guaranteed not null
 export type InterminePathwayDataSet = [
@@ -70,5 +70,5 @@ export type InterminePathwayDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

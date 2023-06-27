@@ -65,10 +65,12 @@ export const intermineOntologyDataSetAttributes = [
     'Ontology.dataSets.name',
     'Ontology.dataSets.version',
     'Ontology.dataSets.synopsis',
+    'Ontology.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineOntologyDataSetSort = 'Ontology.dataSets.name'; // guaranteed not null
 export type IntermineOntologyDataSet = [
   number,
+  string,
   string,
   string,
   string,

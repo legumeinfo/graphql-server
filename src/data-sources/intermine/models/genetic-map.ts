@@ -77,7 +77,7 @@ export const intermineGeneticMapDataSetAttributes = [
     'GeneticMap.dataSets.name',
     'GeneticMap.dataSets.version',
     'GeneticMap.dataSets.synopsis',
-    'GeneticMap.dataSets.publication.id',  // internal resolution of publication
+    'GeneticMap.dataSets.publication.doi',  // internal resolution of publication
 ];
 export const intermineGeneticMapDataSetSort = 'GeneticMap.dataSets.name'; // guaranteed not null
 export type IntermineGeneticMapDataSet = [
@@ -88,5 +88,5 @@ export type IntermineGeneticMapDataSet = [
   string,
   string,
   string,
-  number,
+  string,
 ];

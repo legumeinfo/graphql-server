@@ -3,7 +3,8 @@
 # 	<reference name="threePrimeUTR" referenced-type="ThreePrimeUTR"/>
 # 	<reference name="fivePrimeUTR" referenced-type="FivePrimeUTR"/>
 # </class>
-type MRNA implements Transcript {
+type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
+  # Transcript
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -16,26 +17,10 @@ type MRNA implements Transcript {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation
-  # chromosomeLocation
-  # supercontig
-  # sequence
-  # chromosome
-  # overlappingFeatures
-  # childFeatures
   gene: Gene
   protein: Protein
-  # introns
-  # exons
-  # CDSs
-  # UTRs
+  # Gene
   isPrimary: Boolean
 }

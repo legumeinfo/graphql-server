@@ -6,9 +6,13 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="linkageGroup"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type LinkageGroup {
+type LinkageGroup implements Annotatable {
+  # Annotatable
   id: ID!
-  identifier: String!
+  identifier: ID!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # LinkageGroup
   length: Float
   number: Int
   geneticMap: GeneticMap

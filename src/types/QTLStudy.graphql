@@ -7,10 +7,12 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 # </class>
 type QTLStudy implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # QTLStudy
   description: String
   genotypes: String
   synopsis: String

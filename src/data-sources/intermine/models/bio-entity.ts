@@ -1,15 +1,5 @@
-import { GraphQLChromosome } from './chromosome.js';
-import { GraphQLGene } from './gene.js';
-import { GraphQLGeneticMarker } from './genetic-marker.js';
-import { GraphQLMRNA } from './mrna.js';
-import { GraphQLProtein } from './protein.js';
-import { GraphQLSyntenicRegion } from './syntenic-region.js';
+import { GraphQLSequenceFeature } from './sequence-feature.js';
 
 
 export type GraphQLBioEntity =
-  GraphQLChromosome |
-  GraphQLGene |
-  GraphQLGeneticMarker |
-  GraphQLMRNA |
-  GraphQLProtein |
-  GraphQLSyntenicRegion;
+  GraphQLSequenceFeature;  // all SequenceFeatures are BioEntities

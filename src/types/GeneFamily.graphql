@@ -10,16 +10,17 @@
 # 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
 # </class>
 type GeneFamily implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # GeneFamily
   description: String
   version: String
   size: Int
   phylotree: Phylotree
   genes: [Gene!]!
-  # proteins: [Protein]
   proteinDomains: [ProteinDomain!]!
   tallies: [GeneFamilyTally!]!
 }

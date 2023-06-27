@@ -8,7 +8,8 @@
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
 # 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
 # </class>
-type GeneticMarker implements SequenceFeature {
+type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
+  # SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -21,21 +22,9 @@ type GeneticMarker implements SequenceFeature {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation: Location
-  # chromosomeLocation: Location
-  # supercontig: Supercontig
-  # sequence
-  # chromosome: Chromosome
-  # overlappingFeatures
-  # childFeatures
+  # GeneticMarker
   genotypingPlatform: String
   motif: String
   alias: String

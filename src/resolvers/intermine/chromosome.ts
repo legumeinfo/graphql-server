@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 
 export const chromosomeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,21 +17,6 @@ ResolverMap => ({
         },
     },
     Chromosome: {
-        organism: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(chromosome.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        strain: async (chromosome, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(chromosome.strainIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (chromosome, { start, size }, { dataSources }) => {
-            const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(chromosome, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...sequenceFeatureFactory(sourceName),
     },
 });

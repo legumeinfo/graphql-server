@@ -5,10 +5,12 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type Pathway implements Annotatable {
+  # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # Pathway
   name: String
   stableIdentifier: String
   genes: [Gene!]!

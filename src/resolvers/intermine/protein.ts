@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { bioEntityFactory } from './bio-entity.js';
 
 
 export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -22,24 +23,9 @@ ResolverMap => ({
         },
     },
     Protein: {
-        organism: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(protein.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        strain: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(protein.strainIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...bioEntityFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonodeForProtein(protein)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (protein, { start, size }, { dataSources }) => {
-            const args = {start, size};
-            return dataSources[sourceName].getDataSetsForBioEntity(protein, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

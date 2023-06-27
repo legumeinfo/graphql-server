@@ -1,5 +1,6 @@
 # <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
-type Chromosome implements SequenceFeature {
+type Chromosome implements SequenceFeature & BioEntity & Annotatable {
+  # SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -12,19 +13,6 @@ type Chromosome implements SequenceFeature {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  # synonyms
-  # crossReferences
   dataSets: [DataSet!]!
-  # locatedFeatures
-  # score
-  # scoreType
   length: Int
-  # sequenceOntologyTerm
-  # supercontigLocation: Location
-  # chromosomeLocation: Location
-  # supercontig: Supercontig
-  # sequence
-  # chromosome: Chromosome
-  # overlappingFeatures
-  # childFeatures
 }
