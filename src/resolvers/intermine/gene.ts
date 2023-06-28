@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 
 export const geneFactory =
@@ -26,7 +26,7 @@ export const geneFactory =
         },
     },
     Gene: {
-        ...annotatableFactory(sourceName),
+        ...sequenceFeatureFactory(sourceName),
         geneFamilyAssignments: async (gene, { page, pageSize }, { dataSources }) => {
             const args = {page, pageSize};
             return dataSources[sourceName].getGeneFamilyAssignments(gene, args)
