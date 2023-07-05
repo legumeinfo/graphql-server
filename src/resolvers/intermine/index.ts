@@ -26,6 +26,7 @@ import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
 import { organismFactory } from './organism.js';
+import { panGeneSetFactory } from './pan-gene-set.js';
 import { pathwayFactory } from './pathway.js';
 import { phylonodeFactory } from './phylonode.js';
 import { phylotreeFactory } from './phylotree.js';
@@ -64,6 +65,7 @@ const factories = [
     ontologyAnnotationFactory,
     ontologyTermFactory,
     organismFactory,
+    panGeneSetFactory,
     pathwayFactory,
     phylonodeFactory,
     phylotreeFactory,

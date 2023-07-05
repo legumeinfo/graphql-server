@@ -1,5 +1,6 @@
 # --------------------------------------------------------------------
 # This is an interface for InterMine objects which extend Annotatable.
+# Note: We're allowing null publications now in mine 5.1.0.3.
 # --------------------------------------------------------------------
 
 # <class name="Annotatable" is-interface="true">
@@ -11,5 +12,5 @@ interface Annotatable {
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
+  publications: [Publication!]
 }

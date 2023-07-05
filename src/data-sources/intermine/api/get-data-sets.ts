@@ -14,6 +14,7 @@ import {
     GraphQLOntology,
     GraphQLOntologyAnnotation,
     GraphQLOntologyTerm,
+    GraphQLPanGeneSet,
     GraphQLPathway,
     GraphQLPhylotree,
     GraphQLSyntenyBlock,
@@ -32,6 +33,8 @@ import {
     intermineOntologyDataSetSort,
     intermineOntologyTermDataSetAttributes,
     intermineOntologyTermDataSetSort,
+    interminePanGeneSetDataSetAttributes,
+    interminePanGeneSetDataSetSort,
     interminePathwayDataSetAttributes,
     interminePathwayDataSetSort,
     interminePhylotreeDataSetAttributes,
@@ -217,6 +220,29 @@ export async function getDataSetsForOntologyTerm(
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
 
+export async function getDataSetsForPanGeneSet(
+    panGeneSet: GraphQLPanGeneSet,
+    {
+        page,
+        pageSize,
+    }: PaginationOptions,
+): Promise<ApiResponse<GraphQLDataSet>> {
+    const constraints = [intermineConstraint('PanGeneSet.primaryIdentifier', '=', panGeneSet.identifier)];
+    const query = interminePathQuery(
+        interminePanGeneSetDataSetAttributes,
+        interminePanGeneSetDataSetSort,
+        constraints,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'PanGeneSet.dataSets.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
 
 export async function getDataSetsForPathway(
     pathway: GraphQLPathway,
@@ -241,7 +267,6 @@ export async function getDataSetsForPathway(
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
-
 
 export async function getDataSetsForPhylotree(
     phylotree: GraphQLPhylotree,

@@ -15,6 +15,7 @@ import {
     getDataSetsForOntologyAnnotation,
     getDataSetsForOntology,
     getDataSetsForOntologyTerm,
+    getDataSetsForPanGeneSet,
     getDataSetsForPathway,
     getDataSetsForPhylotree,
     getDataSetsForSyntenyBlock,
@@ -78,6 +79,9 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pan-gene set
+import { getPanGeneSet } from './get-pan-gene-set.js';
+import { getPanGeneSets } from './get-pan-gene-sets.js';
 // pathway
 import { getPathway } from './get-pathway.js';
 import { getPathways } from './get-pathways.js';
@@ -89,6 +93,7 @@ import { getPhylonodes } from './get-phylonodes.js';
 import { getPhylotree } from './get-phylotree.js';
 // protein
 import { getProtein } from './get-protein.js';
+import { getProteins } from './get-proteins.js';
 import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
@@ -144,6 +149,7 @@ export declare class ApiMixinInterface {
     getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntology: Function;
     getDataSetsForOntologyTerm: Function;
+    getDataSetsForPanGeneSet: Function;
     getDataSetsForPathway: Function;
     getDataSetsForPhylotree: Function;
     getDataSetsForSyntenyBlock: Function;
@@ -206,6 +212,9 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pan-gene set
+    getPanGeneSet: Function;
+    getPanGeneSets: Function;
     // pathway
     getPathway: Function;
     getPathways: Function;
@@ -217,6 +226,7 @@ export declare class ApiMixinInterface {
     getPhylotree: Function;
     // protein
     getProtein: Function;
+    getProteins: Function;
     searchProteins: Function;
     // protein domain
     getProteinDomain: Function;
@@ -271,6 +281,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntology = getDataSetsForOntology;
         getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
+        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPathway = getDataSetsForPathway;
         getDataSetsForPhylotree = getDataSetsForPhylotree;
         getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
@@ -333,6 +344,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pan-gene set
+        getPanGeneSet = getPanGeneSet;
+        getPanGeneSets = getPanGeneSets;
         // pathway
         getPathway = getPathway;
         getPathways = getPathways;
@@ -344,6 +358,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPhylotree = getPhylotree;
         // protein
         getProtein = getProtein;
+        getProteins = getProteins;
         searchProteins = searchProteins;
         // protein domain
         getProteinDomain = getProteinDomain;

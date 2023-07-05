@@ -2,6 +2,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 
 // <class name="GWASResult" is-interface="true" term="">
+//      <attribute name="primaryIdentifier" type="java.lang.String"/>
 // 	<attribute name="pValue" type="java.lang.Double"/>
 //      <attribute name="markerName" type="java.lang.String"/>
 // 	<reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
@@ -18,23 +19,24 @@ export const intermineGWASResultAttributes = [
     'GWASResult.trait.primaryIdentifier',
     'GWASResult.dataSet.name',
 ];
-export const intermineGWASResultSort = 'GWASResult.markerName';
+export const intermineGWASResultSort = 'GWASResult.primaryIdentifier';
 export type IntermineGWASResult = [
-  number,
-  number,
-  number,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    number,
+    string,
+    string,
+    string,
+    string,
 ];
 
 
 // type GWASResult {
 //   id: ID!
+//   identifier: ID!
 //   pValue: Float
 //   markerName: String
-//   # gwas: GWAS
+//   gwas: GWAS
 //   trait: Trait
 //   dataSet
 //   # markers
@@ -49,7 +51,7 @@ export const graphqlGWASResultAttributes = [
     'dataSetName',
 ];
 export type GraphQLGWASResult = {
-  [prop in typeof graphqlGWASResultAttributes[number]]: string;
+    [prop in typeof graphqlGWASResultAttributes[number]]: string;
 }
 
 

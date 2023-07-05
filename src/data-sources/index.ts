@@ -17,7 +17,7 @@ export type DataSources = {
 export const dataSources = (cache: KeyValueCache): DataSources => {
   const config = {cache};
   return {
-    lisIntermineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service', config),
+    lisIntermineAPI: new IntermineAPI('https://mines.dev.lis.ncgr.org/minimine/service', config),
     lisMicroservicesAPI: new MicroservicesAPI('https://services.lis.ncgr.org', config),
   };
 };

@@ -2,7 +2,8 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 
 // <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
-// 	<attribute name="identifier" type="java.lang.String"/>
+// 	<attribute name="primaryIdentifier" type="java.lang.String"/>
+//      <attribute name="name" type="java.lang.String"/>
 // 	<attribute name="lod" type="java.lang.Double"/>
 // 	<attribute name="likelihoodRatio" type="java.lang.Double"/>
 // 	<attribute name="end" type="java.lang.Double"/>
@@ -19,7 +20,8 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // </class>
 export const intermineQTLAttributes = [
     'QTL.id',
-    'QTL.identifier',
+    'QTL.primaryIdentifier',
+    'QTL.name',
     'QTL.lod',
     'QTL.likelihoodRatio',
     'QTL.end',
@@ -29,47 +31,50 @@ export const intermineQTLAttributes = [
     'QTL.peak',
     'QTL.trait.primaryIdentifier',
     'QTL.qtlStudy.primaryIdentifier',
-    'QTL.linkageGroup.id',
+    'QTL.linkageGroup.primaryIdentifier',
     'QTL.dataSet.name',
 ];
-export const intermineQTLSort = 'QTL.trait.name ASC QTL.identifier ASC';
+export const intermineQTLSort = 'QTL.trait.name ASC QTL.primaryIdentifier ASC';
 export type IntermineQTL = [
-  number,
-  string,
-  number,
-  number,
-  number,
-  string,
-  number,
-  number,
-  number,
-  string,
-  string,
-  number,
-  string,
+    number,
+    string,
+    string,
+    number,
+    number,
+    number,
+    string,
+    number,
+    number,
+    number,
+    string,
+    string,
+    string,
+    string,
 ];
 
 
 // type QTL {
 //   id: ID!
 //   identifier: String!
-//   # lod: Float
-//   # likelihoodRatio: Float
+//   name: String
+//   lod: Float
+//   likelihoodRatio: Float
 //   end: Float
 //   markerNames: String
-//   # markerR2
+//   markerR2
 //   start: Float
-//   # peak
+//   peak: Float
 //   trait: Trait
 //   qtlStudy: QTLStudy
 //   linkageGroup
 //   dataSet: DataSet
 //   # genes: [Gene]
-//   # markers: [GeneticMarker]
+//   markers: [GeneticMarker]
 // }
 export const graphqlQTLAttributes = [
     'id',
     'identifier',
+    'name',
     'lod',
     'likelihoodRatio',
     'end',
@@ -79,11 +84,11 @@ export const graphqlQTLAttributes = [
     'peak',
     'traitIdentifier',
     'qtlStudyIdentifier',
-    'linkageGroupId',
+    'linkageGroupIdentifier',
     'dataSetName',
 ];
 export type GraphQLQTL = {
-  [prop in typeof graphqlQTLAttributes[number]]: string;
+    [prop in typeof graphqlQTLAttributes[number]]: string;
 }
 
 

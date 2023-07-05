@@ -31,7 +31,7 @@ the version of the mine and other things. Example:
 }
 ```
 
-## classes populated in LIS InterMine 5.1.0.2 (excluding simple objects)
+## classes populated in LIS InterMine 5.1.0.3 (excluding simple objects)
 ### checked if implemented here as a type ##
 
 - [x] org.intermine.model.bio.Author
@@ -66,6 +66,7 @@ the version of the mine and other things. Example:
 - [x] org.intermine.model.bio.OntologyTerm
 - [ ] org.intermine.model.bio.OntologyTermSynonym
 - [x] org.intermine.model.bio.Organism
+- [x] org.intermine.model.bio.PanGeneSet
 - [x] org.intermine.model.bio.Pathway
 - [x] org.intermine.model.bio.Phylonode
 - [x] org.intermine.model.bio.Phylotree

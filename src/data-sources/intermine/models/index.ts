@@ -20,6 +20,7 @@ import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontolo
 import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
+import { GraphQLPanGeneSet, InterminePanGeneSet } from './pan-gene-set.js';
 import { GraphQLPathway, InterminePathway } from './pathway.js';
 import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
 import { GraphQLPhylotree, InterminePhylotree } from './phylotree.js';
@@ -57,6 +58,7 @@ export type GraphQLModel =
     GraphQLOntologyTerm |
     GraphQLOrganism |
     GraphQLMRNA |
+    GraphQLPanGeneSet |
     GraphQLPathway |
     GraphQLPhylonode |
     GraphQLPhylotree |
@@ -94,6 +96,7 @@ export type IntermineModel =
     IntermineOntologyTerm |
     IntermineOrganism |
     IntermineMRNA |
+    InterminePanGeneSet |
     InterminePathway |
     InterminePhylonode |
     InterminePhylotree |
@@ -132,6 +135,7 @@ export * from './ontology-annotation.js';
 export * from './ontology-term.js';
 export * from './organism.js';
 export * from './mrna.js';
+export * from './pan-gene-set.js';
 export * from './pathway.js';
 export * from './phylonode.js';
 export * from './phylotree.js';

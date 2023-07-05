@@ -8,6 +8,7 @@ import {
 import {
     GraphQLGene,
     GraphQLGeneFamily,
+    GraphQLPanGeneSet,
     GraphQLProtein,
     GraphQLProteinDomain,
     IntermineGeneResponse,
@@ -21,19 +22,21 @@ import { PaginationOptions } from './pagination.js';
 export type GetGenesOptions = {
     protein?: GraphQLProtein;
     geneFamily?: GraphQLGeneFamily;
+    panGeneSet?: GraphQLPanGeneSet;
     proteinDomain?: GraphQLProteinDomain;
 } & PaginationOptions;
 
 
-// get Genes associated with a Protein, GeneFamily, ProteinDomain
+// get Genes associated with a Protein, GeneFamily, PanGeneSet, ProteinDomain
 export async function getGenes(
-  {
-    protein,
-    geneFamily,
-    proteinDomain,
-    page,
-    pageSize,
-  }: GetGenesOptions,
+    {
+        protein,
+        geneFamily,
+        panGeneSet,
+        proteinDomain,
+        page,
+        pageSize,
+    }: GetGenesOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
     if (protein) {
@@ -44,20 +47,14 @@ export async function getGenes(
         const geneFamilyConstraint = intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
         constraints.push(geneFamilyConstraint);
     }
+    if (panGeneSet) {
+        const panGeneSetConstraint = intermineConstraint('Gene.panGeneSets.id', '=', panGeneSet.id);
+        constraints.push(panGeneSetConstraint);
+    }
     if (proteinDomain) {
         const proteinDomainConstraint = intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id);
         constraints.push(proteinDomainConstraint);
     }
-    // if (strain) {
-    //     const strainConstraint =
-    //           intermineConstraint('Gene.strain.name', '=', strain);
-    //     constraints.push(strainConstraint);
-    // }
-    // if (description) {
-    //     const descriptionConstraint =
-    //           intermineConstraint('Gene.description', 'CONTAINS', description);
-    //     constraints.push(descriptionConstraint);
-    // }
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
