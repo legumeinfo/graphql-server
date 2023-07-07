@@ -12,7 +12,7 @@ import {
 } from '../models/index.js';
 
 
-// get a GWAS by identifier
+// get a GWAS by primaryIdentifier
 export async function getGWAS(identifier: string):
 Promise<ApiResponse<GraphQLGWAS>> {
     const constraints = [intermineConstraint('GWAS.primaryIdentifier', '=', identifier)];
