@@ -44,6 +44,10 @@ type GeneticMarkerResults {
   results: GeneticMarker
 }
 
+type GenotypingPlatformResults {
+  results: GenotypingPlatform
+}
+
 type GwasResults {
   results: GWAS
 }
@@ -185,6 +189,11 @@ type GeneticMapsResults {
   pageInfo: PageInfo
 }
 
+type GenotypingPlatformsResults {
+  results: [GenotypingPlatform!]
+  pageInfo: PageInfo
+}
+
 type GwasesResults {
   results: [GWAS!]!
   pageInfo: PageInfo
@@ -263,6 +272,7 @@ type Query {
   geneFamily(identifier: ID!): GeneFamilyResults
   geneticMap(identifier: ID!): GeneticMapResults
   geneticMarker(identifier: ID!): GeneticMarkerResults
+  genotypingPlatform(identifier: ID!): GenotypingPlatform
   gwas(identifier: ID!): GwasResults
   gwasResult(identifier: ID!): GwasResultResults
   linkageGroup(identifier: ID!): LinkageGroupResults

@@ -8,12 +8,12 @@ export const panGeneSetFactory = (sourceName: KeyOfType<DataSources, IntermineAP
 ResolverMap => ({
     Query: {
         panGeneSet: async (_, { identifier }, { dataSources }) => {
-            const {data: set} = await dataSources[sourceName].getPanGeneSet(identifier);
-            if (set == null) {
+            const {data: pangeneset} = await dataSources[sourceName].getPanGeneSet(identifier);
+            if (pangeneset == null) {
                 const msg = `PanGeneSet with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return {results: set};
+            return {results: pangeneset};
         },
     },
     PanGeneSet: {

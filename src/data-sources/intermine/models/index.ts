@@ -10,6 +10,7 @@ import { GraphQLGeneFamilyAssignment, IntermineGeneFamilyAssignment } from './ge
 import { GraphQLGeneFamilyTally, IntermineGeneFamilyTally } from './gene-family-tally.js';
 import { GraphQLGeneticMap, IntermineGeneticMap } from './genetic-map.js';
 import { GraphQLGeneticMarker, IntermineGeneticMarker } from './genetic-marker.js';
+import { GraphQLGenotypingPlatform, IntermineGenotypingPlatform } from './genotyping-platform.js';
 import { GraphQLGWAS, IntermineGWAS } from './gwas.js';
 import { GraphQLGWASResult, IntermineGWASResult } from './gwas-result.js';
 import { GraphQLLinkageGroup, IntermineLinkageGroup } from './linkage-group.js';
@@ -48,6 +49,7 @@ export type GraphQLModel =
     GraphQLGeneFamilyTally |
     GraphQLGeneticMap |
     GraphQLGeneticMarker |
+    GraphQLGenotypingPlatform |
     GraphQLGWAS |
     GraphQLGWASResult |
     GraphQLLinkageGroup |
@@ -86,6 +88,7 @@ export type IntermineModel =
     IntermineGeneFamilyTally |
     IntermineGeneticMap |
     IntermineGeneticMarker |
+    IntermineGenotypingPlatform |
     IntermineGWAS |
     IntermineGWASResult |
     IntermineLinkageGroup |
@@ -125,6 +128,7 @@ export * from './gene-family-assignment.js';
 export * from './gene-family-tally.js';
 export * from './genetic-map.js';
 export * from './genetic-marker.js';
+export * from './genotyping-platform.js';
 export * from './gwas.js';
 export * from './gwas-result.js';
 export * from './linkage-group.js';

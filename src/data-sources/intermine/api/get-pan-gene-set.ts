@@ -11,7 +11,6 @@ import {
   response2panGeneSets,
 } from '../models/index.js';
 
-
 // get a PanGeneSet by primaryIdentifier
 export async function getPanGeneSet(identifier: string):
 Promise<ApiResponse<GraphQLPanGeneSet>> {

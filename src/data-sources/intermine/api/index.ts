@@ -48,6 +48,8 @@ import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
 import { getGeneticMarker } from './get-genetic-marker.js';
 import { getGeneticMarkers } from './get-genetic-markers.js';
+// genotyping platform
+import { getGenotypingPlatform } from './get-genotyping-platform.js';
 // gwas
 import { getGWAS } from './get-gwas.js';
 import { getGWASForTrait } from './get-gwas-for-trait.js';
@@ -79,7 +81,7 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
-// pan-gene set
+// pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import { getPanGeneSets } from './get-pan-gene-sets.js';
 // pathway
@@ -149,8 +151,8 @@ export declare class ApiMixinInterface {
     getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntology: Function;
     getDataSetsForOntologyTerm: Function;
-    getDataSetsForPanGeneSet: Function;
     getDataSetsForPathway: Function;
+    getDataSetsForPanGeneSet: Function;
     getDataSetsForPhylotree: Function;
     getDataSetsForSyntenyBlock: Function;
     // expression sample
@@ -181,6 +183,8 @@ export declare class ApiMixinInterface {
     // genetic marker
     getGeneticMarker: Function;
     getGeneticMarkers: Function;
+    // genotyping platform
+    getGenotypingPlatform: Function;
     // gwas
     getGWAS: Function;
     getGWASForTrait: Function;
@@ -281,8 +285,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntology = getDataSetsForOntology;
         getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
-        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPathway = getDataSetsForPathway;
+        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPhylotree = getDataSetsForPhylotree;
         getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
         // expression sample
@@ -313,6 +317,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // genetic marker
         getGeneticMarker = getGeneticMarker;
         getGeneticMarkers = getGeneticMarkers;
+        // genotyping platform
+        getGenotypingPlatform = getGenotypingPlatform;
         // gwas
         getGWAS = getGWAS;
         getGWASForTrait = getGWASForTrait;
