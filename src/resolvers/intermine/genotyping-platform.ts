@@ -27,6 +27,9 @@ ResolverMap => ({
         //     },
         markers: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
             const args = {genotypingPlatform, page, pageSize};
+            console.log("###");
+            console.log("### markers call on: " + JSON.stringify(genotypingPlatform));
+            console.log("###");
             return dataSources[sourceName].getGeneticMarkers(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

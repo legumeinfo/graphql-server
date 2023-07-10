@@ -4,9 +4,10 @@
 # 	<attribute name="alias" type="java.lang.String"/>
 # 	<attribute name="type" type="java.lang.String"/>
 # 	<attribute name="alleles" type="java.lang.String"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
+# 	<collection name="genotypingPlatforms" referenced-type="GenotypingPlatform" reverse-reference="markers"/>
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
 # 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
+# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 # </class>
 type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
   # SequenceFeature
@@ -25,12 +26,12 @@ type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
   dataSets: [DataSet!]!
   length: Int
   # GeneticMarker
-  genotypingPlatform: String
   motif: String
   alias: String
   type: String
   alleles: String
-  qtls: [QTL!]!
+  genotypingPlatforms: [GenotypingPlatform!]!
   gwasResults: [GWASResult!]!
   linkageGroupPositions: [LinkageGroupPosition!]!
+  qtls: [QTL!]!
 }
