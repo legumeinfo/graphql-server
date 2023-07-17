@@ -8,7 +8,7 @@ type PanGeneSet implements Annotatable {
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]
+  publications: [Publication!]!
   ## PanGeneSet
   dataSets: [DataSet]
   genes: [Gene]
