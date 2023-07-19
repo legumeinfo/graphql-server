@@ -12,7 +12,7 @@ export const pageInfoFactory =
   (numResults: number, currentPage: number|null, pageSize: number|null) => {
     if (currentPage == null) currentPage = 1;
     if (pageSize == null) pageSize = numResults;
-    const pageCount = Math.ceil(numResults/pageSize);
+    const pageCount = (numResults == 0 ? 1 : Math.ceil(numResults/pageSize));
     return {
       currentPage,
       pageSize,
