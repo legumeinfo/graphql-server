@@ -2,3 +2,6 @@ services:
   graphql-server:
     ports:
       - "${PORT:-4000}:4000"
+    environment:
+      - INTERMINE_URI="${INTERMINE_URI}"
+      - MICROSERVICES_URI="${MICROSERVICES_URI}"
