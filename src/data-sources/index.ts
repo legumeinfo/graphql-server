@@ -14,10 +14,11 @@ export type DataSources = {
 };
 
 
-export const dataSources = (cache: KeyValueCache): DataSources => {
+export const dataSources =
+(intermineURI: string, microservicesURI: string, cache: KeyValueCache): DataSources => {
   const config = {cache};
   return {
-    lisIntermineAPI: new IntermineAPI('https://mines.legumeinfo.org/minimine/service', config),
-    lisMicroservicesAPI: new MicroservicesAPI('https://services.lis.ncgr.org', config),
+    lisIntermineAPI: new IntermineAPI(intermineURI, config),
+    lisMicroservicesAPI: new MicroservicesAPI(microservicesURI, config),
   };
 };
