@@ -115,4 +115,4 @@ The following environment variables are supported by the server:
 
 * `PORT` - What port the server listens on (`4000` by default).
 * `INTERMINE_URI` - The Intermine data source (`'https://mines.legumeinfo.org/minimine/service'` by default).
-* `MICROSERVICES_URI` - The microservices data source ('https://services.lis.ncgr.org' by default).
+* `MICROSERVICES_URI` - The microservices data source (`'https://services.lis.ncgr.org'` by default).
