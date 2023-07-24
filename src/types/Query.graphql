@@ -52,6 +52,10 @@ type MRNAResults {
   results: MRNA
 }
 
+type NewickResults {
+  results: Newick
+}
+
 type PathwayResults {
   results: Pathway
 }
@@ -272,6 +276,7 @@ type Query {
 
   ### other types with unique non-id keys
   dataSet(name: ID!): DataSetResults
+  newick(identifier: ID!): NewickResults
   ontology(name: ID!): OntologyResults
   ontologyTerm(identifier: ID!): OntologyTermResults
   organism(taxonId: ID!): OrganismResults

@@ -1,0 +1,12 @@
+# <class name="Newick" extends="java.lang.Object" is-interface="false" term="">
+#     <attribute name="contents" type="java.lang.String"/>
+#     <attribute name="identifier" type="java.lang.String"/>
+#     <reference name="phylotree" referenced-type="Phylotree"/>
+#     <reference name="geneFamily" referenced-type="GeneFamily"/>
+# </class>
+type Newick {
+   identifier: ID!
+   contents: String!
+   phylotree: Phylotree
+   geneFamily: GeneFamily
+}

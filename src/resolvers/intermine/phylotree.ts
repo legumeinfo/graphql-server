@@ -23,6 +23,11 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+        newick: async(phylotree, _, { dataSources }) => {
+            return dataSources[sourceName].getNewick(phylotree.identifier)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         dataSets: async (phylotree, { page, pageSize }, { dataSources }) => {
             const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForPhylotree(phylotree, args)
