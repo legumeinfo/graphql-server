@@ -19,6 +19,7 @@ import { GraphQLOntology, IntermineOntology } from './ontology.js';
 import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
 import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
+import { GraphQLNewick, IntermineNewick } from './newick.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
 import { GraphQLPathway, InterminePathway } from './pathway.js';
 import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
@@ -56,6 +57,7 @@ export type GraphQLModel =
     GraphQLOntologyAnnotation |
     GraphQLOntologyTerm |
     GraphQLOrganism |
+    GraphQLNewick |
     GraphQLMRNA |
     GraphQLPathway |
     GraphQLPhylonode |
@@ -93,6 +95,7 @@ export type IntermineModel =
     IntermineOntologyAnnotation |
     IntermineOntologyTerm |
     IntermineOrganism |
+    IntermineNewick |
     IntermineMRNA |
     InterminePathway |
     InterminePhylonode |
@@ -131,6 +134,7 @@ export * from './ontology.js';
 export * from './ontology-annotation.js';
 export * from './ontology-term.js';
 export * from './organism.js';
+export * from './newick.js';
 export * from './mrna.js';
 export * from './pathway.js';
 export * from './phylonode.js';
