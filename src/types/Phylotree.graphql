@@ -19,7 +19,7 @@ type Phylotree implements Annotatable {
   # Phylotree
   numLeaves: Int
   geneFamily: GeneFamily
-  newick: Newick
+  newick: String
   nodes: [Phylonode!]!
   dataSets: [DataSet!]!
 }
