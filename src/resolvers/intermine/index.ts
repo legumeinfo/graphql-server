@@ -22,7 +22,6 @@ import { linkageGroupFactory } from './linkage-group.js';
 import { linkageGroupPositionFactory } from './linkage-group-position.js';
 import { locationFactory } from './location.js';
 import { mRNAFactory } from './mrna.js';
-import { newickFactory } from './newick.js';
 import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
@@ -61,7 +60,6 @@ const factories = [
     linkageGroupPositionFactory,
     locationFactory,
     mRNAFactory,
-    newickFactory,
     ontologyFactory,
     ontologyAnnotationFactory,
     ontologyTermFactory,
