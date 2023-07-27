@@ -8,13 +8,14 @@ export interface ContextValue {
 }
 
 
-export const contextFactory = (cache: KeyValueCache) => {
+export const contextFactory =
+(intermineURI: string, microservicesURI: string, cache: KeyValueCache) => {
   return async () => {
     return {
       // We create new instances of our data sources with each request.
       // We can pass in our server's cache, contextValue, or any other
       // info our data sources require.
-      dataSources: dataSources(cache),
+      dataSources: dataSources(intermineURI, microservicesURI, cache),
     };
   };
 };

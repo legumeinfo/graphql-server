@@ -28,4 +28,4 @@ HEALTHCHECK CMD curl -f --request POST \
 # Run the server
 EXPOSE 4000
 ENTRYPOINT ["npm", "run"]
-CMD ["start"]
+CMD ["serve:prod"]

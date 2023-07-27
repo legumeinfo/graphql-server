@@ -4,6 +4,12 @@
 # 	<collection name="nodes" referenced-type="Phylonode" reverse-reference="tree"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
+# <class name="Newick" extends="java.lang.Object" is-interface="false" term="">
+#         <attribute name="contents" type="java.lang.String"/>
+#         <attribute name="identifier" type="java.lang.String"/>
+#         <reference name="phylotree" referenced-type="Phylotree"/>
+#         <reference name="geneFamily" referenced-type="GeneFamily"/>
+# </class> 
 type Phylotree implements Annotatable {
   # Annotatable
   id: ID!
@@ -13,6 +19,7 @@ type Phylotree implements Annotatable {
   # Phylotree
   numLeaves: Int
   geneFamily: GeneFamily
+  newick: String
   nodes: [Phylonode!]!
   dataSets: [DataSet!]!
 }

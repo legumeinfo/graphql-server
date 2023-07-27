@@ -69,6 +69,8 @@ import { getLocation } from './get-location.js';
 import { getLocations } from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
+// newick
+import { getNewick } from './get-newick.js';
 // ontology
 import { getOntology } from './get-ontology.js';
 // ontology annotation
@@ -205,6 +207,8 @@ export declare class ApiMixinInterface {
     getLocations: Function;
     // mRNA
     getMRNA: Function;
+    // newick
+    getNewick: Function;
     // ontology
     getOntology: Function;
     // ontology annotation
@@ -340,6 +344,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLocations = getLocations;
         // mRNA
         getMRNA = getMRNA;
+        // newick
+        getNewick = getNewick;
         // ontology
         getOntology = getOntology;
         // ontology annotation

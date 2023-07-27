@@ -103,10 +103,16 @@ However, for security purposes [introspection](https://www.apollographql.com/blo
 
 
 ### `.env` file
-A `.env` file is included in the repository.
+This project support the use of a `.env` file.
 This file is used to set environment variables that control the server AND Docker Compose.
-For instance, when running the server directly with npm in your local environment the server will load environment variables from the `.env` file, such as the `PORT` variable.
+For instance, when running the server directly with `npm` in your local environment the server will load environment variables from the `.env` file, such as the `PORT` variable.
 However, the `.env` file is not included in the Docker image when it's built and it is explicitly excluded from the mounted volumes in the `compose.dev.yml` file.
 This is to ensure that the environment inside the Docker <u>image</u> is always the same and that environment variables inside a <u>container</u> are set in a canonical way, i.e. via Docker (Compose).
 Continuing the `PORT` example, this means when using Docker Compose the server inside the container will run on the default port - `4000` - but the `compose.yml` file will use the `PORT` environment variable to determine which port on the host to map the container's port to.
 In other words, using the `.env` file to set environment variables will have the same *effect*, but *how* the effect is achieved depends on whether the server is being run locally or with Docker Compose.
+
+The following environment variables are supported by the server:
+
+* `PORT` - What port the server listens on (`4000` by default).
+* `INTERMINE_URI` - The Intermine data source (`'https://mines.legumeinfo.org/minimine/service'` by default).
+* `MICROSERVICES_URI` - The microservices data source (`'https://services.lis.ncgr.org'` by default).

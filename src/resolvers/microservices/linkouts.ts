@@ -7,10 +7,12 @@ export const linkoutsFactory = (sourceName: KeyOfType<DataSources, Microservices
 ResolverMap => ({
     Query: {
         geneLinkouts: async (_, { identifier }, { dataSources }) => {
-            return dataSources[sourceName].getLinkoutsForGene(identifier);
+            return dataSources[sourceName].getLinkoutsForGene(identifier)
+              .then((results) => ({results}));
         },
         locationLinkouts: async (_, { identifier, start, end }, { dataSources }) => {
-            return dataSources[sourceName].getLinkoutsForLocation(identifier, start, end);
+            return dataSources[sourceName].getLinkoutsForLocation(identifier, start, end)
+              .then((results) => ({results}));
         },
     },
 });
