@@ -14,10 +14,11 @@ export type DataSources = {
 };
 
 
-export const dataSources = (cache: KeyValueCache): DataSources => {
+export const dataSources =
+(intermineURI: string, microservicesURI: string, cache: KeyValueCache): DataSources => {
   const config = {cache};
   return {
     lisIntermineAPI: new IntermineAPI(intermineURI, config),
-    lisMicroservicesAPI: new MicroservicesAPI(microservicesURI, config),	  
+    lisMicroservicesAPI: new MicroservicesAPI(microservicesURI, config),
   };
 };
