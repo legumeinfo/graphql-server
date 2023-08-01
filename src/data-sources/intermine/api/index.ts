@@ -80,6 +80,8 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pangenes (which are genes)
+import { getPangenes } from './get-pangenes.js';
 // pathway
 import { getPathway } from './get-pathway.js';
 import { getPathways } from './get-pathways.js';
@@ -210,6 +212,8 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pangenes
+    getPangenes: Function;
     // pathway
     getPathway: Function;
     getPathways: Function;
@@ -339,6 +343,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pangenes
+        getPangenes = getPangenes;
         // pathway
         getPathway = getPathway;
         getPathways = getPathways;

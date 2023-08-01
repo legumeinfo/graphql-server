@@ -37,4 +37,5 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   proteinDomains: [ProteinDomain!]!
   pathways: [Pathway!]!
   linkouts: [Linkout!]!
+  pangenes: [Gene!]!
 }
