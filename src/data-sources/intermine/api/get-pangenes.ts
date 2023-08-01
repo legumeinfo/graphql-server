@@ -14,12 +14,16 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-// get pangenes for a Gene
+
+// get pangenes for a Gene (excluding the gene itself)
 export async function getPangenes(
     gene: GraphQLGene,
     {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
-    const constraints = [intermineConstraint('Gene.id', '=', gene.id)];
+    const constraints = [
+        intermineConstraint('Gene.id', '=', gene.id),
+        intermineConstraint('Gene.panGeneSets.genes.id', '!=', gene.id)
+    ];
     const query = interminePathQuery(
         interminePangeneAttributes,
         interminePangeneSort,
