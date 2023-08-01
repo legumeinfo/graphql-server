@@ -46,10 +46,10 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   # transcripts
   # alleles
   panGeneSets: [PanGeneSet]
+  panGenes: [Gene!]!
   proteinDomains: [ProteinDomain!]!
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   # regulatoryRegions
   ## microservices
   linkouts: [Linkout!]!
-  pangenes: [Gene!]!
 }

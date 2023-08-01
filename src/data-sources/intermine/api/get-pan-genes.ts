@@ -16,7 +16,7 @@ import { PaginationOptions } from './pagination.js';
 
 
 // get pangenes for a Gene (excluding the gene itself)
-export async function getPangenes(
+export async function getPanGenes(
     gene: GraphQLGene,
     {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {

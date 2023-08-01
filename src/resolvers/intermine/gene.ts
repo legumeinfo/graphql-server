@@ -39,9 +39,9 @@ export const geneFactory =
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-            pangenes: async (gene, { page, pageSize }, { dataSources }) => {
+            panGenes: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {page, pageSize};
-                return dataSources[sourceName].getPangenes(gene, args)
+                return dataSources[sourceName].getPanGenes(gene, args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

@@ -88,7 +88,7 @@ import { searchOrganisms } from './search-organisms.js';
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import { getPanGeneSets } from './get-pan-gene-sets.js';
 // pangenes (which are genes)
-import { getPangenes } from './get-pangenes.js';
+import { getPanGenes } from './get-pan-genes.js';
 // pathway
 import { getPathway } from './get-pathway.js';
 import { getPathways } from './get-pathways.js';
@@ -228,7 +228,7 @@ export declare class ApiMixinInterface {
     getPanGeneSet: Function;
     getPanGeneSets: Function;
     // pangenes
-    getPangenes: Function;
+    getPanGenes: Function;
     // pathway
     getPathway: Function;
     getPathways: Function;
@@ -367,7 +367,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPanGeneSet = getPanGeneSet;
         getPanGeneSets = getPanGeneSets;
         // pangenes
-        getPangenes = getPangenes;
+        getPanGenes = getPanGenes;
         // pathway
         getPathway = getPathway;
         getPathways = getPathways;
