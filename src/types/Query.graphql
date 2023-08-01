@@ -44,12 +44,20 @@ type GeneticMarkerResults {
   results: GeneticMarker
 }
 
+type GenotypingPlatformResults {
+  results: GenotypingPlatform
+}
+
 type GwasResults {
   results: GWAS
 }
 
 type MRNAResults {
   results: MRNA
+}
+
+type PanGeneSetResults {
+  results: PanGeneSet
 }
 
 type PathwayResults {
@@ -259,12 +267,17 @@ type Query {
   geneFamily(identifier: ID!): GeneFamilyResults
   geneticMap(identifier: ID!): GeneticMapResults
   geneticMarker(identifier: ID!): GeneticMarkerResults
+  genotypingPlatform(identifier: ID!): GenotypingPlatformResults
   gwas(identifier: ID!): GwasResults
+  gwasResult(identifier: ID!): GwasResultResults
+  linkageGroup(identifier: ID!): LinkageGroupResults
   mRNA(identifier: ID!): MRNAResults
+  panGeneSet(identifier: ID!): PanGeneSetResults
   pathway(identifier: ID!): PathwayResults
   phylotree(identifier: ID!): PhylotreeResults
   protein(identifier: ID!): ProteinResults
   proteinDomain(identifier: ID!): ProteinDomainResults
+  qtl(identifier: ID!): QtlResults
   qtlStudy(identifier: ID!): QtlStudyResults
   supercontig(identifier: ID!): SupercontigResults
   syntenicRegion(identifier: ID!): SyntenicRegionResults
@@ -282,13 +295,10 @@ type Query {
   author(id: ID!): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   geneFamilyTally(id: ID!): GeneFamilyTallyResults
-  gwasResult(id: ID!): GwasResultResults
-  linkageGroup(id: ID!): LinkageGroupResults
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults
   location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
   phylonode(id: ID!): PhylonodeResults
-  qtl(id: ID!): QtlResults
   syntenyBlock(id: ID!): SyntenyBlockResults
   
   ### multiple-result queries (typically searches)

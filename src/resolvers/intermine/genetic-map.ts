@@ -29,6 +29,11 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+        genotypingPlatform: async (geneticMap, _, { dataSources }) => {
+            return dataSources[sourceName].getGenotypingPlatform(geneticMap.genotypingPlatformIdentifier)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         dataSets: async (geneticMap, { page, pageSize }, { dataSources }) => {
             const args = {page, pageSize};
             return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args)

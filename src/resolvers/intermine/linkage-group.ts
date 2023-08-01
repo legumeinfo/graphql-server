@@ -7,10 +7,10 @@ import { annotatableFactory } from './annotatable.js';
 export const linkageGroupFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        linkageGroup: async (_, { id }, { dataSources }) => {
-            const {data: group} = await dataSources[sourceName].getLinkageGroup(id);
+        linkageGroup: async (_, { identifier }, { dataSources }) => {
+            const {data: group} = await dataSources[sourceName].getLinkageGroup(identifier);
             if (group == null) {
-                const msg = `LinkageGroup with ID '${id}' not found`;
+                const msg = `LinkageGroup with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: group};

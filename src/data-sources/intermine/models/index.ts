@@ -10,6 +10,7 @@ import { GraphQLGeneFamilyAssignment, IntermineGeneFamilyAssignment } from './ge
 import { GraphQLGeneFamilyTally, IntermineGeneFamilyTally } from './gene-family-tally.js';
 import { GraphQLGeneticMap, IntermineGeneticMap } from './genetic-map.js';
 import { GraphQLGeneticMarker, IntermineGeneticMarker } from './genetic-marker.js';
+import { GraphQLGenotypingPlatform, IntermineGenotypingPlatform } from './genotyping-platform.js';
 import { GraphQLGWAS, IntermineGWAS } from './gwas.js';
 import { GraphQLGWASResult, IntermineGWASResult } from './gwas-result.js';
 import { GraphQLLinkageGroup, IntermineLinkageGroup } from './linkage-group.js';
@@ -21,6 +22,7 @@ import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
 import { GraphQLNewick, IntermineNewick } from './newick.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
+import { GraphQLPanGeneSet, InterminePanGeneSet } from './pan-gene-set.js';
 import { GraphQLPathway, InterminePathway } from './pathway.js';
 import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
 import { GraphQLPhylotree, InterminePhylotree } from './phylotree.js';
@@ -48,6 +50,7 @@ export type GraphQLModel =
     GraphQLGeneFamilyTally |
     GraphQLGeneticMap |
     GraphQLGeneticMarker |
+    GraphQLGenotypingPlatform |
     GraphQLGWAS |
     GraphQLGWASResult |
     GraphQLLinkageGroup |
@@ -59,6 +62,7 @@ export type GraphQLModel =
     GraphQLOrganism |
     GraphQLNewick |
     GraphQLMRNA |
+    GraphQLPanGeneSet |
     GraphQLPathway |
     GraphQLPhylonode |
     GraphQLPhylotree |
@@ -86,6 +90,7 @@ export type IntermineModel =
     IntermineGeneFamilyTally |
     IntermineGeneticMap |
     IntermineGeneticMarker |
+    IntermineGenotypingPlatform |
     IntermineGWAS |
     IntermineGWASResult |
     IntermineLinkageGroup |
@@ -97,6 +102,7 @@ export type IntermineModel =
     IntermineOrganism |
     IntermineNewick |
     IntermineMRNA |
+    InterminePanGeneSet |
     InterminePathway |
     InterminePhylonode |
     InterminePhylotree |
@@ -125,6 +131,7 @@ export * from './gene-family-assignment.js';
 export * from './gene-family-tally.js';
 export * from './genetic-map.js';
 export * from './genetic-marker.js';
+export * from './genotyping-platform.js';
 export * from './gwas.js';
 export * from './gwas-result.js';
 export * from './linkage-group.js';
@@ -136,6 +143,7 @@ export * from './ontology-term.js';
 export * from './organism.js';
 export * from './newick.js';
 export * from './mrna.js';
+export * from './pan-gene-set.js';
 export * from './pathway.js';
 export * from './phylonode.js';
 export * from './phylotree.js';

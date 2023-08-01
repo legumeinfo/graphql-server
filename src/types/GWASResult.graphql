@@ -1,10 +1,10 @@
-# <class name="GWASResult" is-interface="true" term="">
-# 	<attribute name="pValue" type="java.lang.Double"/>
-# 	<attribute name="markerName" type="java.lang.String"/>
-# 	<reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
-# 	<reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
-# 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
+# <class name="GWASResult" extends="Annotatable" is-interface="true" term="">
+#         <attribute name="pValue" type="java.lang.Double"/>
+#         <attribute name="markerName" type="java.lang.String"/>
+#         <reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
+#         <reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
+#         <reference name="dataSet" referenced-type="DataSet"/>
+#         <collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
 # </class>
 type GWASResult implements Annotatable {
   # Annotatable

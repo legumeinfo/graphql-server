@@ -12,7 +12,7 @@ import {
 } from '../models/index.js';
 
 
-// get a GeneticMap by identifier
+// get a GeneticMap by primaryIdentifier
 export async function getGeneticMap(identifier: string):
 Promise<ApiResponse<GraphQLGeneticMap>> {
     const constraints = [intermineConstraint('GeneticMap.primaryIdentifier', '=', identifier)];

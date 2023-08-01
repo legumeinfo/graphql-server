@@ -15,6 +15,7 @@ import {
     getDataSetsForOntologyAnnotation,
     getDataSetsForOntology,
     getDataSetsForOntologyTerm,
+    getDataSetsForPanGeneSet,
     getDataSetsForPathway,
     getDataSetsForPhylotree,
     getDataSetsForSyntenyBlock,
@@ -47,6 +48,9 @@ import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
 import { getGeneticMarker } from './get-genetic-marker.js';
 import { getGeneticMarkers } from './get-genetic-markers.js';
+// genotyping platform
+import { getGenotypingPlatform } from './get-genotyping-platform.js';
+import { getGenotypingPlatforms } from './get-genotyping-platforms.js';
 // gwas
 import { getGWAS } from './get-gwas.js';
 import { getGWASForTrait } from './get-gwas-for-trait.js';
@@ -80,6 +84,9 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pan gene set
+import { getPanGeneSet } from './get-pan-gene-set.js';
+import { getPanGeneSets } from './get-pan-gene-sets.js';
 // pangenes (which are genes)
 import { getPangenes } from './get-pangenes.js';
 // pathway
@@ -93,6 +100,7 @@ import { getPhylonodes } from './get-phylonodes.js';
 import { getPhylotree } from './get-phylotree.js';
 // protein
 import { getProtein } from './get-protein.js';
+import { getProteins } from './get-proteins.js';
 import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
@@ -149,6 +157,7 @@ export declare class ApiMixinInterface {
     getDataSetsForOntology: Function;
     getDataSetsForOntologyTerm: Function;
     getDataSetsForPathway: Function;
+    getDataSetsForPanGeneSet: Function;
     getDataSetsForPhylotree: Function;
     getDataSetsForSyntenyBlock: Function;
     // expression sample
@@ -179,6 +188,9 @@ export declare class ApiMixinInterface {
     // genetic marker
     getGeneticMarker: Function;
     getGeneticMarkers: Function;
+    // genotyping platform
+    getGenotypingPlatform: Function;
+    getGenotypingPlatforms: Function;
     // gwas
     getGWAS: Function;
     getGWASForTrait: Function;
@@ -212,6 +224,9 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pan-gene set
+    getPanGeneSet: Function;
+    getPanGeneSets: Function;
     // pangenes
     getPangenes: Function;
     // pathway
@@ -225,6 +240,7 @@ export declare class ApiMixinInterface {
     getPhylotree: Function;
     // protein
     getProtein: Function;
+    getProteins: Function;
     searchProteins: Function;
     // protein domain
     getProteinDomain: Function;
@@ -280,6 +296,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSetsForOntology = getDataSetsForOntology;
         getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
         getDataSetsForPathway = getDataSetsForPathway;
+        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPhylotree = getDataSetsForPhylotree;
         getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
         // expression sample
@@ -310,6 +327,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // genetic marker
         getGeneticMarker = getGeneticMarker;
         getGeneticMarkers = getGeneticMarkers;
+        // genotyping platform
+        getGenotypingPlatform = getGenotypingPlatform;
+        getGenotypingPlatforms = getGenotypingPlatforms;
         // gwas
         getGWAS = getGWAS;
         getGWASForTrait = getGWASForTrait;
@@ -343,6 +363,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pan-gene set
+        getPanGeneSet = getPanGeneSet;
+        getPanGeneSets = getPanGeneSets;
         // pangenes
         getPangenes = getPangenes;
         // pathway
@@ -356,6 +379,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPhylotree = getPhylotree;
         // protein
         getProtein = getProtein;
+        getProteins = getProteins;
         searchProteins = searchProteins;
         // protein domain
         getProteinDomain = getProteinDomain;

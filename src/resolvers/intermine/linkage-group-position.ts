@@ -17,7 +17,7 @@ ResolverMap => ({
     },
     LinkageGroupPosition: {
         linkageGroup: async (linkageGroupPosition, _, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(linkageGroupPosition.linkageGroupId)
+            return dataSources[sourceName].getLinkageGroup(linkageGroupPosition.linkageGroupIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

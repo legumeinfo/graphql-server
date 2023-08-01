@@ -31,6 +31,17 @@ export const geneFactory =
                 const args = {page, pageSize};
                 return dataSources[sourceName].getGeneFamilyAssignments(gene, args)
                 // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
+            return dataSources[sourceName].getPanGeneSets(gene, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        proteinDomains: async (gene, { page, pageSize }, { dataSources }) => {
+            const args = {gene, page, pageSize};
+            return dataSources[sourceName].getProteinDomains(args)
                     .then(({data: results}) => results);
             },
             pangenes: async (gene, { page, pageSize }, { dataSources }) => {

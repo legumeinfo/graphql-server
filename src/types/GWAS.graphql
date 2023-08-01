@@ -1,9 +1,9 @@
 # <class name="GWAS" extends="Annotatable" is-interface="true" term="">
-# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 # 	<attribute name="description" type="java.lang.String"/>
 # 	<attribute name="genotypes" type="java.lang.String"/>
 # 	<attribute name="genotypingMethod" type="java.lang.String"/>
 # 	<attribute name="synopsis" type="java.lang.String"/>
+# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 # 	<reference name="organism" referenced-type="Organism"/>
 # 	<reference name="dataSet" referenced-type="DataSet"/>
 # 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
@@ -15,11 +15,11 @@ type GWAS implements Annotatable {
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   # GWAS
-  genotypingPlatform: String
   description: String
   genotypes: String
   genotypingMethod: String
   synopsis: String
+  genotypingPlatform: GenotypingPlatform
   organism: Organism
   dataSet: DataSet
   results: [GWASResult!]!

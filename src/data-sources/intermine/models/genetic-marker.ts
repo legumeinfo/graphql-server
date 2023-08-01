@@ -2,14 +2,14 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 
 // <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
-// 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="motif" type="java.lang.String"/>
 // 	<attribute name="alias" type="java.lang.String"/>
 // 	<attribute name="type" type="java.lang.String"/>
 // 	<attribute name="alleles" type="java.lang.String"/>
-// 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
+// 	<collection name="genotypingPlatforms" referenced-type="GenotypingPlatform" reverse-reference="markers"/>
 // 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
 // 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
+// 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 // </class>
 export const intermineGeneticMarkerAttributes = [
     'GeneticMarker.id',
@@ -22,7 +22,6 @@ export const intermineGeneticMarkerAttributes = [
     'GeneticMarker.organism.taxonId',
     'GeneticMarker.strain.identifier',
     'GeneticMarker.length',
-    'GeneticMarker.genotypingPlatform',
     'GeneticMarker.motif',
     'GeneticMarker.alias',
     'GeneticMarker.type',
@@ -40,7 +39,6 @@ export type IntermineGeneticMarker = [
   number,
   string,
   number,
-  string,
   string,
   string,
   string,
@@ -76,7 +74,6 @@ export type IntermineGeneticMarker = [
 //   # chromosome
 //   # overlappingFeatures
 //   # childFeatures
-//   genotypingPlatform: String
 //   motif: String
 //   alias: String
 //   type: String
@@ -96,7 +93,6 @@ export const graphqlGeneticMarkerAttributes = [
     'organismTaxonId',
     'strainIdentifier',
     'length',
-    'genotypingPlatform',
     'motif',
     'alias',
     'type',

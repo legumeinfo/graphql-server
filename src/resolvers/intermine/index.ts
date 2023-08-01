@@ -16,6 +16,7 @@ import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
 import { geneFamilyTallyFactory } from './gene-family-tally.js';
 import { geneticMapFactory } from './genetic-map.js';
 import { geneticMarkerFactory } from './genetic-marker.js';
+import { genotypingPlatformFactory } from './genotyping-platform.js';
 import { gwasFactory } from './gwas.js';
 import { gwasResultFactory } from './gwas-result.js';
 import { linkageGroupFactory } from './linkage-group.js';
@@ -26,6 +27,7 @@ import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
 import { organismFactory } from './organism.js';
+import { panGeneSetFactory } from './pan-gene-set.js';
 import { pathwayFactory } from './pathway.js';
 import { phylonodeFactory } from './phylonode.js';
 import { phylotreeFactory } from './phylotree.js';
@@ -54,6 +56,7 @@ const factories = [
     geneFamilyTallyFactory,
     geneticMapFactory,
     geneticMarkerFactory,
+    genotypingPlatformFactory,
     gwasFactory,
     gwasResultFactory,
     linkageGroupFactory,
@@ -64,6 +67,7 @@ const factories = [
     ontologyAnnotationFactory,
     ontologyTermFactory,
     organismFactory,
+    panGeneSetFactory,
     pathwayFactory,
     phylonodeFactory,
     phylotreeFactory,

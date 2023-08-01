@@ -1,22 +1,23 @@
 # <class name="Gene" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000704,http://purl.obolibrary.org/obo/SO:0000704">
-# 	<attribute name="briefDescription" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000136"/>
-# 	<reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
-# 	<reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
-# 	<collection name="flankingRegions" referenced-type="GeneFlankingRegion" reverse-reference="gene"/>
-# 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="gene"/>
-# 	<collection name="introns" referenced-type="Intron" reverse-reference="genes"/>
-# 	<collection name="proteins" referenced-type="Protein" reverse-reference="genes" term="https://semanticscience.org/resource/SIO_010078"/>
-# 	<collection name="alleles" referenced-type="Allele" reverse-reference="gene"/>
-# 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
-# 	<collection name="CDSs" referenced-type="CDS" reverse-reference="gene"/>
-# 	<collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="genes"/>
-# 	<collection name="exons" referenced-type="Exon" reverse-reference="gene"/>
-# 	<collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
-# 	<collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
-# 	<collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
+#         <attribute name="briefDescription" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000136"/>
+#         <reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
+#         <reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
+#         <collection name="flankingRegions" referenced-type="GeneFlankingRegion" reverse-reference="gene"/>
+#         <collection name="introns" referenced-type="Intron" reverse-reference="genes"/>
+#         <collection name="proteins" referenced-type="Protein" reverse-reference="genes" term="https://semanticscience.org/resource/SIO_010078"/>
+#         <collection name="CDSs" referenced-type="CDS" reverse-reference="gene"/>
+#         <collection name="exons" referenced-type="Exon" reverse-reference="gene"/>
+#         <collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
+#         <collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
+#         <collection name="transcripts" referenced-type="Transcript" reverse-reference="gene"/>
+#         <collection name="alleles" referenced-type="Allele" reverse-reference="gene"/>
+#         <collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="genes"/>
+#         <collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="genes"/>
+#         <collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment" reverse-reference="gene"/>
+#         <collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
 # </class>
 type Gene implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
+  ## SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -31,11 +32,24 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   locations: [Location!]!
   dataSets: [DataSet!]!
   length: Int
-  # Gene
+  ## Gene
   briefDescription: String
-  geneFamilyAssignments: [GeneFamilyAssignment!]!
-  proteinDomains: [ProteinDomain!]!
+  # upstreamIntergenicRegion
+  # downstreamIntergenicRegion
+  # flankingRegions
+  # introns
+  proteins: [Protein!]!
+  # CDSs
+  # exons
   pathways: [Pathway!]!
+  # UTRs
+  # transcripts
+  # alleles
+  panGeneSets: [PanGeneSet]
+  proteinDomains: [ProteinDomain!]!
+  geneFamilyAssignments: [GeneFamilyAssignment!]!
+  # regulatoryRegions
+  ## microservices
   linkouts: [Linkout!]!
   pangenes: [Gene!]!
 }

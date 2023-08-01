@@ -2,7 +2,8 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 
 // <class name="LinkageGroup" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
-// 	<attribute name="identifier" type="java.lang.String"/>
+// 	<attribute name="primaryIdentifier" type="java.lang.String"/>
+//      <attribute name="name" type="java.lang.String"/>
 // 	<attribute name="length" type="java.lang.Double"/>
 // 	<attribute name="number" type="java.lang.Integer"/>
 // 	<reference name="geneticMap" referenced-type="GeneticMap" reverse-reference="linkageGroups"/>
@@ -11,24 +12,27 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // </class>
 export const intermineLinkageGroupAttributes = [
     'LinkageGroup.id',
-    'LinkageGroup.identifier',
+    'LinkageGroup.primaryIdentifier',
+    'LinkageGroup.name',
     'LinkageGroup.length',
     'LinkageGroup.number',
     'LinkageGroup.geneticMap.primaryIdentifier',
 ];
-export const intermineLinkageGroupSort = 'LinkageGroup.identifier';
+export const intermineLinkageGroupSort = 'LinkageGroup.primaryIdentifier';
 export type IntermineLinkageGroup = [
-  number,
-  string,
-  number,
-  number,
-  string,
+    number,
+    string,
+    string,
+    number,
+    number,
+    string,
 ];
 
 
 // type LinkageGroup {
 //   id: ID!
 //   identifier: String!
+//   name: String
 //   length: Float
 //   number: Int
 //   geneticMap: GeneticMap
@@ -38,12 +42,13 @@ export type IntermineLinkageGroup = [
 export const graphqlLinkageGroupAttributes = [
     'id',
     'identifier',
+    'name',
     'length',
     'number',
     'geneticMapIdentifier',
 ];
 export type GraphQLLinkageGroup = {
-  [prop in typeof graphqlLinkageGroupAttributes[number]]: string;
+    [prop in typeof graphqlLinkageGroupAttributes[number]]: string;
 }
 
 
@@ -66,12 +71,12 @@ export const intermineLinkageGroupDataSetAttributes = [
 ];
 export const intermineLinkageGroupDataSetSort = 'LinkageGroup.dataSets.name'; // guaranteed not null
 export type IntermineLinkageGroupDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
 ];
