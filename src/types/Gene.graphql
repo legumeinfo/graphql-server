@@ -51,4 +51,5 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   # regulatoryRegions
   ## microservices
   linkouts: [Linkout!]!
+  pangenes: [Gene!]!
 }

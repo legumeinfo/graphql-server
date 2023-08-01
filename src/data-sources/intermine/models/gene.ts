@@ -84,3 +84,19 @@ export type IntermineGeneResponse = IntermineDataResponse<IntermineGene>;
 export function response2genes(response: IntermineGeneResponse): Array<GraphQLGene> {
     return response2graphqlObjects(response, graphqlGeneAttributes);
 }
+
+// for querying the pangenes of a gene
+export const interminePangeneAttributes = [
+    'Gene.panGeneSets.genes.id',
+    'Gene.panGeneSets.genes.primaryIdentifier',
+    'Gene.panGeneSets.genes.description',
+    'Gene.panGeneSets.genes.symbol',
+    'Gene.panGeneSets.genes.name',
+    'Gene.panGeneSets.genes.assemblyVersion',
+    'Gene.panGeneSets.genes.annotationVersion',
+    'Gene.panGeneSets.genes.length',
+    'Gene.panGeneSets.genes.briefDescription',
+    'Gene.panGeneSets.genes.organism.taxonId',   // internal resolution of organism
+    'Gene.panGeneSets.genes.strain.identifier',  // internal resolution of strain
+];
+export const interminePangeneSort = 'Gene.panGeneSets.genes.primaryIdentifier'; // guaranteed not null
