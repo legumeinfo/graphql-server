@@ -6,41 +6,47 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneticMarker,
-  GraphQLLinkageGroup,
-  GraphQLTrait,
-  GraphQLQTL,
-  IntermineQTLResponse,
-  intermineQTLAttributes,
-  intermineQTLSort,
-  response2qtls,
+    GraphQLGeneticMarker,
+    GraphQLLinkageGroup,
+    GraphQLTrait,
+    GraphQLQTL,
+    GraphQLQTLStudy,
+    IntermineQTLResponse,
+    intermineQTLAttributes,
+    intermineQTLSort,
+    response2qtls,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
 export type SearchQTLsOptions = {
-  linkageGroup?: GraphQLLinkageGroup;
-  trait?: GraphQLTrait;
-  geneticMarker?: GraphQLGeneticMarker;
+    linkageGroup?: GraphQLLinkageGroup;
+    trait?: GraphQLTrait;
+    geneticMarker?: GraphQLGeneticMarker;
+    qtlStudy?: GraphQLQTLStudy;
 } & PaginationOptions;
 
 
 // get QTLs for a LinkageGroup, Trait, GeneticMarker
 export async function getQTLs(
-  {linkageGroup, trait, geneticMarker, page, pageSize}: SearchQTLsOptions,
+    {linkageGroup, trait, geneticMarker, qtlStudy, page, pageSize}: SearchQTLsOptions,
 ): Promise<ApiResponse<GraphQLQTL[]>> {
     const constraints = [];
     if (linkageGroup) {
-        const linkageGroupConstraint = intermineConstraint('QTL.linkageGroup.id', '=', linkageGroup.id);
-        constraints.push(linkageGroupConstraint);
+        const constraint = intermineConstraint('QTL.linkageGroup.id', '=', linkageGroup.id);
+        constraints.push(constraint);
     }
     if (trait) {
-        const traitConstraint = intermineConstraint('QTL.trait.id', '=', trait.id);
-        constraints.push(traitConstraint);
+        const constraint = intermineConstraint('QTL.trait.id', '=', trait.id);
+        constraints.push(constraint);
     }
     if (geneticMarker) {
-        const geneticMarkerConstraint = intermineConstraint('QTL.markers.id', '=', geneticMarker.id);
-        constraints.push(geneticMarkerConstraint);
+        const constraint = intermineConstraint('QTL.markers.id', '=', geneticMarker.id);
+        constraints.push(constraint);
+    }
+    if (qtlStudy) {
+        const constraint = intermineConstraint('QTL.qtlStudy.id', '=', qtlStudy.id);
+        constraints.push(constraint);
     }
     const query = interminePathQuery(
         intermineQTLAttributes,
