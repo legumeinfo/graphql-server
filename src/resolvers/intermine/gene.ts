@@ -34,14 +34,8 @@ export const geneFactory =
                     .then(({data: results}) => results);
             },
             panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {page, pageSize};
-                return dataSources[sourceName].getPanGeneSets(gene, args)
-                // @ts-ignore: implicit type any error
-                    .then(({data: results}) => results);
-            },
-            panGenes: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {page, pageSize};
-                return dataSources[sourceName].getPanGenes(gene, args)
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getPanGeneSets(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

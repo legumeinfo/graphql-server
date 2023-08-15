@@ -42,8 +42,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         panGeneSets: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getPanGeneSets(protein, args)
+            const args = {protein, page, pageSize};
+            return dataSources[sourceName].getPanGeneSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

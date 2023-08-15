@@ -45,8 +45,7 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   # UTRs
   # transcripts
   # alleles
-  panGeneSets: [PanGeneSet]
-  panGenes: [Gene!]!
+  panGeneSets: [PanGeneSet!]!
   proteinDomains: [ProteinDomain!]!
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   # regulatoryRegions

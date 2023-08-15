@@ -16,12 +16,10 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GenePanGeneSetsOptions = {
     gene?: GraphQLGene;
     protein?: GraphQLProtein;
 } & PaginationOptions;
-
 
 // get PanGeneSets for a Gene or Protein
 export async function getPanGeneSets(
@@ -30,7 +28,7 @@ export async function getPanGeneSets(
         protein,
         page,
         pageSize,
-    }: GenePanGeneSetsOptions,
+    } : GenePanGeneSetsOptions,
 ): Promise<ApiResponse<GraphQLPanGeneSet[]>> {
     const constraints = [];
     if (gene) {
