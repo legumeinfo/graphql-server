@@ -231,12 +231,6 @@ type TraitsResults {
   pageInfo: PageInfo
 }
 
-
-### no-parameter queries
-type MineWebPropertiesResults {
-  results: MineWebProperties
-}
-
 ### microservices queries
 type GeneLinkoutsResults {
   results: [Linkout!]!
@@ -307,9 +301,6 @@ type Query {
   qtlStudies(description: String, page: Int, pageSize: Int): QtlStudiesResults
   strains(description: String, origin: String, species: String, page: Int, pageSize: Int): StrainsResults
   traits(name: String, page: Int, pageSize: Int): TraitsResults
-
-  ### no-parameter queries
-  mineWebProperties: MineWebPropertiesResults
 
   ### microservices queries
   geneLinkouts(identifier: ID!): GeneLinkoutsResults
