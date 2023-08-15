@@ -15,22 +15,6 @@ There are four interface types which correspond to widely-extended objects in th
 
 This way we ensure that implementing types contain the attributes defined in the corresponding interface.
 
-## MineWebProperties type
-
-This type holds properties of the mine, given by the WebPropertiesServlet. It can be used to check
-the version of the mine and other things. Example:
-```json
-"mineWebProperties": {
-    "subTitle": "A small variety of genomes and annotations to aid code development.",
-    "citation": "<a href=\"http://www.ncbi.nlm.nih.gov/pubmed/23023984\" target=\"_blank\">Smith RN, et al. InterMine: a flexible data warehouse system for the integration and analysis of heterogeneous biological data. Bioinformatics. 2012 Dec 1;28(23):3163-5.</a>",
-    "releaseVersion": "5.1.0.2",
-    "standalone": "true",
-    "helpLocation": "https://mines.legumeinfo.org/minimine/help",
-    "title": "MiniMine",
-    "sitePrefix": "https://mines.legumeinfo.org/minimine"
-}
-```
-
 ## classes populated in LIS InterMine 5.1.0.3 (excluding simple objects)
 ### checked if implemented here as a type ##
 

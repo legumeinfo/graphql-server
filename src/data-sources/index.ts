@@ -15,10 +15,13 @@ export type DataSources = {
 
 
 export const dataSources =
-(intermineURI: string, microservicesURI: string, cache: KeyValueCache): DataSources => {
+async (intermineURI: string, microservicesURI: string, cache: KeyValueCache):
+Promise<DataSources> => {
   const config = {cache};
+  const lisIntermineAPI = new IntermineAPI(intermineURI, config);
+  lisIntermineAPI.verifyIntermineVersion();
   return {
-    lisIntermineAPI: new IntermineAPI(intermineURI, config),
+    lisIntermineAPI,
     lisMicroservicesAPI: new MicroservicesAPI(microservicesURI, config),
   };
 };

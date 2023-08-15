@@ -41,7 +41,6 @@ import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
 import { strainFactory } from './strain.js';
 import { traitFactory } from './trait.js';
-import { mineWebPropertiesFactory } from './mine-web-properties.js';
 
 
 const factories = [
@@ -81,7 +80,6 @@ const factories = [
     syntenicRegionFactory,
     syntenyBlockFactory,
     traitFactory,
-    mineWebPropertiesFactory,
 ];
 
 
