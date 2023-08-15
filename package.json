@@ -22,7 +22,7 @@
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.0",
     "dotenv": "^16.3.1",
-    "graphql": "^16.7.1"
+    "graphql": "^16.8.0"
   },
   "devDependencies": {
     "tsc-watch": "^6.0.4",
