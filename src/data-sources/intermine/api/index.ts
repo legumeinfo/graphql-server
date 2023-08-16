@@ -279,7 +279,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
     class ApiMixinClass extends superClass {
 
-        static intermineVersion = '5.1.0.2';
+        static intermineVersion = '5.1.0.3';
 
         // Verifies that the version of the IntermineServer is the version the API is expecting
         async verifyIntermineVersion() {
