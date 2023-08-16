@@ -35,11 +35,11 @@ type Protein implements BioEntity & Annotatable {
   length: Int
   isPrimary: Boolean
   phylonode: Phylonode
-  transcript: Transcript
+  # transcript: Transcript
   # CDS
   # sequence
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   genes: [Gene!]!
-  panGeneSets: [PanGeneSet]
+  panGeneSets: [PanGeneSet!]!
   # proteinMatches
 }

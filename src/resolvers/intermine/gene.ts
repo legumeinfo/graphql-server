@@ -27,6 +27,12 @@ export const geneFactory =
         },
         Gene: {
             ...sequenceFeatureFactory(sourceName),
+            proteins: async (gene, { page, pageSize }, { dataSources }) => {
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getProteins(args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
             geneFamilyAssignments: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {page, pageSize};
                 return dataSources[sourceName].getGeneFamilyAssignments(gene, args)

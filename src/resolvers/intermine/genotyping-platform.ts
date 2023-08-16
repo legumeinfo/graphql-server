@@ -8,12 +8,12 @@ export const genotypingPlatformFactory = (sourceName: KeyOfType<DataSources, Int
 ResolverMap => ({
     Query: {
         genotypingPlatform: async (_, { identifier }, { dataSources }) => {
-            const {data: genotypingplatform} = await dataSources[sourceName].getGenotypingPlatform(identifier);
-            if (genotypingplatform == null) {
+            const {data: genotypingPlatform} = await dataSources[sourceName].getGenotypingPlatform(identifier);
+            if (genotypingPlatform == null) {
                 const msg = `GenotypingPlatform with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return {results: genotypingplatform};
+            return {results: genotypingPlatform};
         },
     },
     GenotypingPlatform: {
@@ -27,9 +27,6 @@ ResolverMap => ({
         //     },
         markers: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
             const args = {genotypingPlatform, page, pageSize};
-            console.log("###");
-            console.log("### markers call on: " + JSON.stringify(genotypingPlatform));
-            console.log("###");
             return dataSources[sourceName].getGeneticMarkers(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

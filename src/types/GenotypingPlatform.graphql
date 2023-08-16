@@ -11,5 +11,5 @@ type GenotypingPlatform implements Annotatable {
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   ## GenotypingPlatform
-  markers: [GeneticMarker]
+  markers: [GeneticMarker!]!
 }
