@@ -12,6 +12,6 @@ type GWASResult {
   pValue: Float!
   gwas: GWAS!
   trait: Trait!
-  markers: [GeneticMarker]
+  markers: [GeneticMarker!]!
   dataSet: DataSet!
 }
