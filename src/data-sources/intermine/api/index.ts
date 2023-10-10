@@ -27,6 +27,9 @@ import { searchExpressionSamples } from './search-expression-samples.js';
 // expression source
 import { getExpressionSource } from './get-expression-source.js';
 import { searchExpressionSources } from './search-expression-sources.js';
+// expression value
+import { getExpressionValue } from './get-expression-value.js';
+import { searchExpressionValues } from './search-expression-values.js';
 // genes
 import { getGene } from './get-gene.js';
 import { getGenes } from './get-genes.js';
@@ -166,6 +169,9 @@ export declare class ApiMixinInterface {
     // expression source
     getExpressionSource: Function;
     searchExpressionSources: Function;
+    // expression value
+    getExpressionValue: Function;
+    searchExpressionValues: Function;
     // genes
     getGene: Function;
     getGenes: Function;
@@ -315,6 +321,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // expression source
         getExpressionSource = getExpressionSource;
         searchExpressionSources = searchExpressionSources;
+        // expression value
+        getExpressionValue = getExpressionValue;
+        searchExpressionValues = searchExpressionValues;
         // genes
         getGene = getGene;
         getGenes = getGenes;
