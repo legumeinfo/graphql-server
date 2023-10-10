@@ -28,6 +28,10 @@ type ExpressionSourceResults {
   results: ExpressionSource
 }
 
+type ExpressionValueResults {
+  results: ExpressionValue
+}
+
 type GeneResults {
   results: Gene
 }
@@ -117,7 +121,6 @@ type StrainResults {
   results: Strain
 }
 
-
 ### types identified by numerical id
 type AuthorResults {
   results: Author
@@ -171,6 +174,11 @@ type ExpressionSamplesResults {
 
 type ExpressionSourcesResults {
   results: [ExpressionSource!]!
+  pageInfo: PageInfo
+}
+
+type ExpressionValuesResults {
+  results: [ExpressionValue!]!
   pageInfo: PageInfo
 }
 
@@ -294,10 +302,14 @@ type Query {
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
   phylonode(id: ID!): PhylonodeResults
   syntenyBlock(id: ID!): SyntenyBlockResults
+
+  ### types without any sort of id
+  expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
   
   ### multiple-result queries (typically searches)
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
+  expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
   genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
   geneticMaps(description: String, page: Int, pageSize: Int): GeneticMapsResults

@@ -10,6 +10,7 @@ import { chromosomeFactory } from './chromosome.js';
 import { dataSetFactory } from './data-set.js';
 import { expressionSampleFactory } from './expression-sample.js';
 import { expressionSourceFactory } from './expression-source.js';
+import { expressionValueFactory } from './expression-value.js';
 import { geneFactory } from './gene.js';
 import { geneFamilyFactory } from './gene-family.js';
 import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
@@ -49,6 +50,7 @@ const factories = [
     dataSetFactory,
     expressionSampleFactory,
     expressionSourceFactory,
+    expressionValueFactory,
     geneFactory,
     geneFamilyFactory,
     geneFamilyAssignmentFactory,

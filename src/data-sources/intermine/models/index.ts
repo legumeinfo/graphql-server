@@ -4,6 +4,7 @@ import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
 import { GraphQLDataSet, IntermineDataSet } from './data-set.js';
 import { GraphQLExpressionSample, IntermineExpressionSample } from './expression-sample.js';
 import { GraphQLExpressionSource, IntermineExpressionSource } from './expression-source.js';
+import { GraphQLExpressionValue, IntermineExpressionValue } from './expression-value.js';
 import { GraphQLGene, IntermineGene } from './gene.js';
 import { GraphQLGeneFamily, IntermineGeneFamily } from './gene-family.js';
 import { GraphQLGeneFamilyAssignment, IntermineGeneFamilyAssignment } from './gene-family-assignment.js';
@@ -44,6 +45,7 @@ export type GraphQLModel =
     GraphQLDataSet |
     GraphQLExpressionSample |
     GraphQLExpressionSource |
+    GraphQLExpressionValue |
     GraphQLGene |
     GraphQLGeneFamily |
     GraphQLGeneFamilyAssignment |
@@ -84,6 +86,7 @@ export type IntermineModel =
     IntermineDataSet |
     IntermineExpressionSample |
     IntermineExpressionSource |
+    IntermineExpressionValue |
     IntermineGene |
     IntermineGeneFamily |
     IntermineGeneFamilyAssignment |
@@ -125,6 +128,7 @@ export * from './chromosome.js';
 export * from './data-set.js';
 export * from './expression-sample.js';
 export * from './expression-source.js';
+export * from './expression-value.js';
 export * from './gene.js';
 export * from './gene-family.js';
 export * from './gene-family-assignment.js';
