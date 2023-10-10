@@ -7,7 +7,7 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLGeneticMarker,
-    GraphQLGenotypingPlatform,
+    GraphQLGWASResult,
     GraphQLQTL,
     IntermineGeneticMarkerResponse,
     intermineGeneticMarkerAttributes,
@@ -19,15 +19,15 @@ import { PaginationOptions } from './pagination.js';
 
 export type GetGeneticMarkersOptions = {
     qtl?: GraphQLQTL;
-    genotypingPlatform?: GraphQLGenotypingPlatform;
+    gwasResult?: GraphQLGWASResult;
 } & PaginationOptions;
 
 
-// get GeneticMarkers for a QTL or GenotypingPlatform
+// get GeneticMarkers for a QTL
 export async function getGeneticMarkers(
     {
         qtl,
-        genotypingPlatform,
+        gwasResult,
         page,
         pageSize,
     }: GetGeneticMarkersOptions,
@@ -37,8 +37,8 @@ export async function getGeneticMarkers(
         const constraint = intermineConstraint('GeneticMarker.qtls.id', '=', qtl.id);
         constraints.push(constraint);
     }
-    if (genotypingPlatform) { 
-        const constraint = intermineConstraint('GeneticMarker.genotypingPlatforms.id', '=', genotypingPlatform.id);
+    if (gwasResult) {
+        const constraint = intermineConstraint('GeneticMarker.gwasResults.id', '=', gwasResult.id);
         constraints.push(constraint);
     }
     const query = interminePathQuery(
