@@ -322,7 +322,7 @@ type Query {
   qtls(traitName: String, page: Int, pageSize: Int): QtlsResults
   qtlStudies(description: String, page: Int, pageSize: Int): QtlStudiesResults
   strains(description: String, origin: String, species: String, page: Int, pageSize: Int): StrainsResults
-  traits(name: String, page: Int, pageSize: Int): TraitsResults
+  traits(name: String, genus: String, species: String, studyType: String, publicationId: String, author: String, page: Int, pageSize: Int): TraitsResults
 
   ### microservices queries
   geneLinkouts(identifier: ID!): GeneLinkoutsResults
