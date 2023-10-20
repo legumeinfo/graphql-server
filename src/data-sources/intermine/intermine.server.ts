@@ -27,7 +27,7 @@ export class IntermineServer extends RESTDataSource {
     }
 
     // InterMine uses offset pagination but we want to support page-based pagination;
-    // this function converts page-based options in offset options
+    // this function converts page-based options to offset options
     private convertPaginationOptions({page, pageSize, ...rest}: any={}) {
         if (Number(page) == page && Number(pageSize) == pageSize) {
             return {
@@ -87,22 +87,36 @@ export interface ApiResponse<G> {
 
 // creates a Path Query constraint XML string
 export const intermineConstraint =
-    (path: string, op: string, value: number|string): string => {
-        return `<constraint path='${path}' op='${op}' value='${value}'/>`;
+    (path: string, op: string, value: number|string, code: string=''): string => {
+        const codeAttr = code ? `code='${code}'` : '';
+        return `<constraint path='${path}' ${codeAttr} op='${op}' value='${value}'/>`;
     };
+
 
 // creates a Path Query NOT NULL constraint XML string
 export const intermineNotNullConstraint =
-    (path: string): string => {
-        return `<constraint path='${path}' op='IS NOT NULL'/>`;
+    (path: string, code: string=''): string => {
+        const codeAttr = code ? `code='${code}'` : '';
+        return `<constraint path='${path}' ${codeAttr} op='IS NOT NULL'/>`;
     };
+
+
+// creates a Path Query join XML string; all Path Queries use INNER join by default so OUTER
+// is the default here, although INNER is supported for more complex queries
+export const intermineJoin =
+    (path: string, style: 'INNER'|'OUTER'='OUTER'): string => {
+        return `<join path='${path}' style='${style}'/>`;
+    };
+
 
 // creates a Path Query XML string
 export const interminePathQuery =
-    (viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[]): string => {
+    (viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[], joins: Array<string>=[], constraintLogic: string=''): string => {
         const view = viewAttributes.join(' ');
-        const constraint = constraints.join('');
-        return `<query model='genomic' view='${view}' sortOrder='${sortBy}'>${constraint}</query>`;
+        const constraintLogicAttr = constraintLogic ? `constraintLogic='${constraintLogic}'` : '';
+        const joinTags = joins.join('');
+        const constraintTags = constraints.join('');
+        return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}}>${joinTags}${constraintTags}</query>`;
     };
 
 
