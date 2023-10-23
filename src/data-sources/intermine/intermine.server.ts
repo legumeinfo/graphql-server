@@ -116,7 +116,7 @@ export const interminePathQuery =
         const constraintLogicAttr = constraintLogic ? `constraintLogic='${constraintLogic}'` : '';
         const joinTags = joins.join('');
         const constraintTags = constraints.join('');
-        return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}}>${joinTags}${constraintTags}</query>`;
+        return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
     };
 
 
