@@ -15,8 +15,8 @@ ResolverMap => ({
             }
             return {results: trait};
         },
-        traits: async (_, { name, genus, species, studyType, publicationId, author, page, pageSize }, { dataSources }) => {
-            const args = {name, genus, species, studyType, publicationId, author, page, pageSize};
+        traits: async (_, { name, page, pageSize }, { dataSources }) => {
+            const args = {name, page, pageSize};
             return dataSources[sourceName].searchTraits(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
