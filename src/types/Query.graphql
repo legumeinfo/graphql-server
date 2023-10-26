@@ -28,6 +28,10 @@ type ExpressionSourceResults {
   results: ExpressionSource
 }
 
+type ExpressionValueResults {
+  results: ExpressionValue
+}
+
 type GeneResults {
   results: Gene
 }
@@ -44,12 +48,20 @@ type GeneticMarkerResults {
   results: GeneticMarker
 }
 
+type GenotypingPlatformResults {
+  results: GenotypingPlatform
+}
+
 type GwasResults {
   results: GWAS
 }
 
 type MRNAResults {
   results: MRNA
+}
+
+type PanGeneSetResults {
+  results: PanGeneSet
 }
 
 type PathwayResults {
@@ -109,7 +121,6 @@ type StrainResults {
   results: Strain
 }
 
-
 ### types identified by numerical id
 type AuthorResults {
   results: Author
@@ -163,6 +174,11 @@ type ExpressionSamplesResults {
 
 type ExpressionSourcesResults {
   results: [ExpressionSource!]!
+  pageInfo: PageInfo
+}
+
+type ExpressionValuesResults {
+  results: [ExpressionValue!]!
   pageInfo: PageInfo
 }
 
@@ -253,12 +269,17 @@ type Query {
   geneFamily(identifier: ID!): GeneFamilyResults
   geneticMap(identifier: ID!): GeneticMapResults
   geneticMarker(identifier: ID!): GeneticMarkerResults
+  genotypingPlatform(identifier: ID!): GenotypingPlatformResults
   gwas(identifier: ID!): GwasResults
+  gwasResult(identifier: ID!): GwasResultResults
+  linkageGroup(identifier: ID!): LinkageGroupResults
   mRNA(identifier: ID!): MRNAResults
+  panGeneSet(identifier: ID!): PanGeneSetResults
   pathway(identifier: ID!): PathwayResults
   phylotree(identifier: ID!): PhylotreeResults
   protein(identifier: ID!): ProteinResults
   proteinDomain(identifier: ID!): ProteinDomainResults
+  qtl(identifier: ID!): QtlResults
   qtlStudy(identifier: ID!): QtlStudyResults
   supercontig(identifier: ID!): SupercontigResults
   syntenicRegion(identifier: ID!): SyntenicRegionResults
@@ -276,18 +297,19 @@ type Query {
   author(id: ID!): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   geneFamilyTally(id: ID!): GeneFamilyTallyResults
-  gwasResult(id: ID!): GwasResultResults
-  linkageGroup(id: ID!): LinkageGroupResults
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults
   location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
   phylonode(id: ID!): PhylonodeResults
-  qtl(id: ID!): QtlResults
   syntenyBlock(id: ID!): SyntenyBlockResults
+
+  ### types without any sort of id
+  expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
   
   ### multiple-result queries (typically searches)
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
+  expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
   genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
   geneticMaps(description: String, page: Int, pageSize: Int): GeneticMapsResults
@@ -300,7 +322,7 @@ type Query {
   qtls(traitName: String, page: Int, pageSize: Int): QtlsResults
   qtlStudies(description: String, page: Int, pageSize: Int): QtlStudiesResults
   strains(description: String, origin: String, species: String, page: Int, pageSize: Int): StrainsResults
-  traits(name: String, page: Int, pageSize: Int): TraitsResults
+  traits(name: String, studyType: String, publicationId: String, author: String, page: Int, pageSize: Int): TraitsResults
 
   ### microservices queries
   geneLinkouts(identifier: ID!): GeneLinkoutsResults
