@@ -25,13 +25,6 @@ export type SearchTraitsOptions = {
     author?: string;
 } & PaginationOptions;
 
-// TODO: resolve the case where a genus or species is given but NOT the studyType.
-// The SQL way of doing that is something like this:
-// (SELECT trait.primaryidentifier FROM trait,qtlstudy,organism WHERE trait.qtlstudyid=qtlstudy.id AND qtlstudy.organismid=organism.id AND organism.genus='Vigna')
-// UNION
-// (SELECT trait.primaryidentifier FROM trait,gwas,organism WHERE trait.gwasid=gwas.id AND gwas.organismid=organism.id AND organism.genus='Vigna')
-// ORDER BY trait.primaryidentifier;
-
 // Path query search for Traits by name, genus, species, study type (GWAS or QTLStudy), publication (DOI or PMID), and author.
 // NOTE: Trait.description is typically empty, as it describes the methods used to measure the trait, which are often not available.
 export async function searchTraits(
@@ -51,35 +44,22 @@ export async function searchTraits(
         const constraint = intermineConstraint('Trait.name', 'CONTAINS', name);
         constraints.push(constraint);
     }
+    if (genus) {
+        const constraint = intermineConstraint('Trait.organism.genus', '=', genus);
+        constraints.push(constraint);
+    }
+    if (species) {
+        const constraint = intermineConstraint('Trait.organism.species', '=', species);
+        constraints.push(constraint);
+    }
     if (studyType == "GWAS") {
-        // any GWAS trait
         const constraint = intermineNotNullConstraint("Trait.gwas");
         constraints.push(constraint);
-        if (species) {
-            // narrow to given species
-            const constraint = intermineConstraint('Trait.gwas.organism.species', '=', species);
-            constraints.push(constraint);
-        }
-        if (genus) {
-            // narrow to given genus
-            const constraint = intermineConstraint('Trait.gwas.organism.genus', '=', genus);
-            constraints.push(constraint);
-        }
     }
     if (studyType == "QTLStudy") {
         // any QTLStudy trait
         const constraint = intermineNotNullConstraint("Trait.qtlStudy");
         constraints.push(constraint);
-        if (species) {
-            // narrow to given species
-            const constraint = intermineConstraint('Trait.qtlStudy.organism.species', '=', species);
-            constraints.push(constraint);
-        }
-        if (genus) {
-            // narrow to given genus
-            const constraint = intermineConstraint('Trait.qtlStudy.organism.genus', '=', genus);
-            constraints.push(constraint);
-        }
     }
     if (publicationId) {
         if (publicationId.includes('/')) {
