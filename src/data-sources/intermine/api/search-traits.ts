@@ -19,7 +19,7 @@ import { PaginationOptions } from './pagination.js';
 export type SearchTraitsOptions = {
     name?: string;
     studyType?: string;
-    publicationId: string;
+    publicationId?: string;
     author?: string;
 } & PaginationOptions;
 
