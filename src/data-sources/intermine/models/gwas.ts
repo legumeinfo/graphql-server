@@ -1,12 +1,11 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="GWAS" extends="Annotatable" is-interface="true" term="">
-// 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="description" type="java.lang.String"/>
 // 	<attribute name="genotypes" type="java.lang.String"/>
 // 	<attribute name="genotypingMethod" type="java.lang.String"/>
 // 	<attribute name="synopsis" type="java.lang.String"/>
+// 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<reference name="organism" referenced-type="Organism"/>
 // 	<reference name="dataSet" referenced-type="DataSet"/>
 // 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
@@ -14,11 +13,11 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 export const intermineGWASAttributes = [
     'GWAS.id',
     'GWAS.primaryIdentifier',
-    'GWAS.genotypingPlatform',
     'GWAS.description',
     'GWAS.genotypes',
     'GWAS.genotypingMethod',
     'GWAS.synopsis',
+    'GWAS.genotypingPlatform.primaryIdentifier',
     'GWAS.organism.taxonId',
     'GWAS.dataSet.name',
 ];
@@ -38,29 +37,30 @@ export type IntermineGWAS = [
   string,
 ];
 
-
-// type GWAS {
+// type GWAS implements Annotatable {
+//   # Annotatable
 //   id: ID!
-//   identifier: String!
-//   # ontologyAnnotations
-//   # publications
-//   genotypingPlatform: String
+//   identifier: ID!
+//   ontologyAnnotations: [OntologyAnnotation!]!
+//   publications: [Publication!]!
+//   # GWAS
 //   description: String
 //   genotypes: String
 //   genotypingMethod: String
 //   synopsis: String
+//   genotypingPlatform: GenotypingPlatform
 //   organism: Organism
-//   dataSet
-//   results: [GWASResult]
+//   dataSet: DataSet
+//   results: [GWASResult!]!
 // }
 export const graphqlGWASAttributes = [
     'id',
     'identifier',
-    'genotypingPlatform',
     'description',
     'genotypes',
     'genotypingMethod',
     'synopsis',
+    'genotypingPlatformIdentifier',
     'organismTaxonId',
     'dataSetName',
 ];

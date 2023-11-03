@@ -10,14 +10,14 @@ export const intermineLinkageGroupPositionAttributes = [
     'LinkageGroupPosition.id',
     'LinkageGroupPosition.position',
     'LinkageGroupPosition.markerName',
-    'LinkageGroupPosition.linkageGroup.id',
+    'LinkageGroupPosition.linkageGroup.primaryIdentifier',
 ];
 export const intermineLinkageGroupPositionSort = 'LinkageGroupPosition.position';
 export type IntermineLinkageGroupPosition = [
   number,
   number,
   string,
-  number,
+  string,
 ];
 
 
@@ -31,7 +31,7 @@ export const graphqlLinkageGroupPositionAttributes = [
     'id',
     'position',
     'markerName',
-    'linkageGroupId',
+    'linkageGroupIdentifier',
 ];
 export type GraphQLLinkageGroupPosition = {
   [prop in typeof graphqlLinkageGroupPositionAttributes[number]]: string;

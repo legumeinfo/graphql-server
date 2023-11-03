@@ -15,7 +15,7 @@ There are four interface types which correspond to widely-extended objects in th
 
 This way we ensure that implementing types contain the attributes defined in the corresponding interface.
 
-## classes populated in LIS InterMine 5.1.0.2 (excluding simple objects)
+## classes populated in LIS InterMine 5.1.0.3 (excluding simple objects)
 ### checked if implemented here as a type ##
 
 - [x] org.intermine.model.bio.Author
@@ -50,6 +50,7 @@ This way we ensure that implementing types contain the attributes defined in the
 - [x] org.intermine.model.bio.OntologyTerm
 - [ ] org.intermine.model.bio.OntologyTermSynonym
 - [x] org.intermine.model.bio.Organism
+- [x] org.intermine.model.bio.PanGeneSet
 - [x] org.intermine.model.bio.Pathway
 - [x] org.intermine.model.bio.Phylonode
 - [x] org.intermine.model.bio.Phylotree

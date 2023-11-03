@@ -7,10 +7,10 @@ import { annotatableFactory } from './annotatable.js';
 export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        qtl: async (_, { id }, { dataSources }) => {
-            const {data: qtl} = await dataSources[sourceName].getQTL(id);
+        qtl: async (_, { identifier }, { dataSources }) => {
+            const {data: qtl} = await dataSources[sourceName].getQTL(identifier);
             if (qtl == null) {
-                const msg = `QTL with ID '${id}' not found`;
+                const msg = `QTL with primaryIdentifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: qtl};
@@ -35,7 +35,7 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         linkageGroup: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupId)
+            return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

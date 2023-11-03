@@ -2,11 +2,11 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 
 // <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
-// 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 // 	<attribute name="description" type="java.lang.String"/>
 // 	<attribute name="genotypes" type="java.lang.String"/>
 // 	<attribute name="genotypingMethod" type="java.lang.String"/>
 // 	<attribute name="synopsis" type="java.lang.String"/>
+//      <reference name="genotypingPlatform" referenced-type="GenotypingPlatform"/>
 // 	<reference name="organism" referenced-type="Organism"/>
 // 	<collection name="linkageGroups" referenced-type="LinkageGroup" reverse-reference="geneticMap"/>
 // 	<collection name="dataSets" referenced-type="DataSet"/>
@@ -14,11 +14,11 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 export const intermineGeneticMapAttributes = [
     'GeneticMap.id',
     'GeneticMap.primaryIdentifier',
-    'GeneticMap.genotypingPlatform',
     'GeneticMap.description',
     'GeneticMap.genotypes',
     'GeneticMap.genotypingMethod',
     'GeneticMap.synopsis',
+    'GeneticMap.genotypingPlatform.primaryIdentifier',
     'GeneticMap.organism.taxonId',
 ];
 export const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
@@ -39,11 +39,11 @@ export type IntermineGeneticMap = [
 //   identifier: String!
 //   # ontologyAnnotations
 //   # publications
-//   genotypingPlatform: String
 //   description: String
 //   genotypes: String
 //   genotypingMethod: String
 //   synopsis: String
+//   genotypingPlatform: GenotypingPlatform
 //   organism: Organism
 //   linkageGroups: [LinkageGroup]
 //   # dataSets
@@ -51,11 +51,11 @@ export type IntermineGeneticMap = [
 export const graphqlGeneticMapAttributes = [
     'id',
     'identifier',
-    'genotypingPlatform',
     'description',
     'genotypes',
     'genotypingMethod',
     'synopsis',
+    'genotypingPlatformIdentifier',
     'organismTaxonId',
 ];
 export type GraphQLGeneticMap = {

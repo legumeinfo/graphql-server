@@ -12,10 +12,10 @@ import {
 } from '../models/index.js';
 
 
-// get a GWASResult by ID
-export async function getGWASResult(id: number):
+// get a GWASResult by primaryIdentifier
+export async function getGWASResult(identifier: string):
 Promise<ApiResponse<GraphQLGWASResult>> {
-    const constraints = [intermineConstraint('GWASResult.id', '=', id)];
+    const constraints = [intermineConstraint('GWASResult.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         intermineGWASResultAttributes,
         intermineGWASResultSort,
