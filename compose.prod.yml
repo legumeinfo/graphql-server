@@ -1,4 +1,4 @@
 services:
   graphql-server:
-    image: ghcr.io/legumeinfo/graphql-server:1.0.0
+    image: ghcr.io/legumeinfo/graphql-server:1.1.0
     command: serve:prod
