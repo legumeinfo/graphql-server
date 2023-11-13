@@ -18,11 +18,11 @@ import { PaginationOptions } from './pagination.js';
 // genus, species, strain, assemblyVersion, annotationVersion, identifiers, page, pageSize
 // all parameters are required!
 export type GetPanGenesOfGenesOptions = {
-    genus: string;
-    species: string;
-    strain: string;
-    assemblyVersion: string;
-    annotationVersion: string;
+    genus?: string;
+    species?: string;
+    strain?: string;
+    assemblyVersion?: string;
+    annotationVersion?: string;
     identifiers: Array<string>;
 } & PaginationOptions;
 
@@ -53,18 +53,28 @@ export async function getPanGenesOfGenes(
     }: GetPanGenesOfGenesOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
-    const genusConstraint = intermineConstraint('Gene.organism.genus', '=', genus, 'A');
-    const speciesConstraint = intermineConstraint('Gene.organism.species', '=', species, 'B');
-    const strainConstraint = intermineConstraint('Gene.strain.identifier', '=', strain, 'C');
-    const assemblyVersionConstraint = intermineConstraint('Gene.assemblyVersion', '=', assemblyVersion, 'D');
-    const annotationVersionConstraint = intermineConstraint('Gene.annotationVersion', '=', annotationVersion, 'E');
     const identifiersConstraint = intermineOneOfConstraint('Gene.panGeneSets.genes.primaryIdentifier', identifiers, 'F');
-    constraints.push(genusConstraint);
-    constraints.push(speciesConstraint);
-    constraints.push(strainConstraint);
-    constraints.push(assemblyVersionConstraint);
-    constraints.push(annotationVersionConstraint);
     constraints.push(identifiersConstraint);
+    if (genus) {
+        const genusConstraint = intermineConstraint('Gene.organism.genus', '=', genus, 'A');
+        constraints.push(genusConstraint);
+        if (species) {
+            const speciesConstraint = intermineConstraint('Gene.organism.species', '=', species, 'B');
+            constraints.push(speciesConstraint);
+            if (strain) {
+                const strainConstraint = intermineConstraint('Gene.strain.identifier', '=', strain, 'C');
+                constraints.push(strainConstraint);
+            }
+        }
+    }
+    if (assemblyVersion) {
+        const assemblyVersionConstraint = intermineConstraint('Gene.assemblyVersion', '=', assemblyVersion, 'D');
+        constraints.push(assemblyVersionConstraint);
+    }
+    if (annotationVersion) {
+        const annotationVersionConstraint = intermineConstraint('Gene.annotationVersion', '=', annotationVersion, 'E');
+        constraints.push(annotationVersionConstraint);
+    }
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
