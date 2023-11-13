@@ -24,6 +24,12 @@ export const geneFactory =
                 // @ts-ignore: implicit type any error
                     .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
             },
+            panGenesOfGenes: async(_, { genus, species, strain, assemblyVersion, annotationVersion, identifiers, page, pageSize }, { dataSources }) => {
+                const args = {genus, species, strain, assemblyVersion, annotationVersion, identifiers, page, pageSize};
+                return dataSources[sourceName].getPanGenesOfGenes(args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
+            },
         },
         Gene: {
             ...sequenceFeatureFactory(sourceName),

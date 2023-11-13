@@ -93,6 +93,15 @@ export const intermineConstraint =
     };
 
 
+// creates a Path Query ONE OF constraint XML string
+export const intermineOneOfConstraint =
+    (path: string, values: Array<string>, code: string=''): string => {
+        const codeAttr = code ? `code='${code}'` : '';
+        const valueTags = values.map((v) => `<value>${v}</value>`).join('');
+        return `<constraint path='${path}' ${codeAttr} op='ONE OF'>${valueTags}</constraint>`;
+    };
+
+
 // creates a Path Query NOT NULL constraint XML string
 export const intermineNotNullConstraint =
     (path: string, code: string=''): string => {

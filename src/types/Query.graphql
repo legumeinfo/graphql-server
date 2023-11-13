@@ -316,6 +316,7 @@ type Query {
   gwases(description: String, page: Int, pageSize: Int): GwasesResults
   ontologyTerms(description: String, page: Int, pageSize: Int): OntologyTermsResults
   organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, page: Int, pageSize: Int): OrganismsResults
+  panGenesOfGenes(genus: String!, species: String!, strain: String!, assemblyVersion: String!, annotationVersion: String!, identifiers: [String!]!): GenesResults
   proteins(description: String, page: Int, pageSize: Int): ProteinsResults
   proteinDomains(description: String, page: Int, pageSize: Int): ProteinDomainsResults
   publications(title: String, page: Int, pageSize: Int): PublicationsResults
