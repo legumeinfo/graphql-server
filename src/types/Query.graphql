@@ -310,7 +310,8 @@ type Query {
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
   expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
-  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String, geneFamilyIdentifier: String, page: Int, pageSize: Int): GenesResults
+  genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String,
+    geneFamilyIdentifier: String, panGeneSetIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
   geneticMaps(description: String, page: Int, pageSize: Int): GeneticMapsResults
   gwases(description: String, page: Int, pageSize: Int): GwasesResults
