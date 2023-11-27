@@ -18,8 +18,8 @@ export const geneFactory =
                 }
                 return {results: gene};
             },
-            genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, page, pageSize }, { dataSources }) => {
-                const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, page, pageSize};
+            genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, panGeneSetIdentifier, page, pageSize }, { dataSources }) => {
+                const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, panGeneSetIdentifier, page, pageSize};
                 return dataSources[sourceName].searchGenes(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
