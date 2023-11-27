@@ -1,5 +1,5 @@
 {
-  "name": "legumeinfo-graphql-server",
+  "name": "@legumeinfo/graphql-server",
   "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
