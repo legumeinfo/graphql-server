@@ -4,7 +4,7 @@
 # 	<reference name="fivePrimeUTR" referenced-type="FivePrimeUTR"/>
 # </class>
 type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
-  # Transcript
+  ## SequenceFeature
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
@@ -19,8 +19,14 @@ type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
   locations: [Location!]!
   dataSets: [DataSet!]!
   length: Int
+  ## Transcript
   gene: Gene
   protein: Protein
-  # Gene
+  # introns
+  # exons
+  # CDSs
+  # UTRs
+  panGeneSets: [PanGeneSet!]!
+  ## MRNA
   isPrimary: Boolean
 }

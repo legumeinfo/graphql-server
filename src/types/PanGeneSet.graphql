@@ -1,7 +1,8 @@
-# <class name="PanGeneSet" extends="Annotatable" is-interface="true">
-#         <collection name="dataSets" referenced-type="DataSet"/>
-#         <collection name="genes" referenced-type="Gene" reverse-reference="panGeneSets"/>
-#         <collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
+# <class name="PanGeneSet" extends="Annotatable" is-interface="true" term="">
+# 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="panGeneSets"/>
+# 	<collection name="genes" referenced-type="Gene" reverse-reference="panGeneSets"/>
+# 	<collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
+# 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type PanGeneSet implements Annotatable {
   ## Annotatable
@@ -10,8 +11,9 @@ type PanGeneSet implements Annotatable {
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   ## PanGeneSet
-  dataSets: [DataSet!]!
+  mRNAs: [MRNA!]!
   genes: [Gene!]!
   proteins: [Protein!]!
+  dataSets: [DataSet!]!
 }
 
