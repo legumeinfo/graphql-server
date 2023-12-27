@@ -1,0 +1,20 @@
+# <class name="SOTerm" extends="OntologyTerm" is-interface="true" term="http://edamontology.org/data_0966"></class>
+# OntologyTerm is a type, not interface, so we just copy it here
+type SOTerm {
+  id: ID!
+  ## OntologyTerm
+  identifier: ID!
+  description: String
+  obsolete: Boolean
+  name: String
+  namespace: String
+  ontology: Ontology
+  # relations
+  # synonyms
+  ontologyAnnotations: [OntologyAnnotation!]!
+  parents: [OntologyTerm!]!
+  dataSets: [DataSet!]!
+  crossReferences: [OntologyTerm!]!
+}
+
+

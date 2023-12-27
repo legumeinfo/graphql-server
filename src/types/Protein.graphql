@@ -4,39 +4,43 @@
 # 	<attribute name="molecularWeight" type="java.lang.Double" term="http://purl.uniprot.org/core/mass"/>
 # 	<attribute name="length" type="java.lang.Integer" term="http://purl.org/dc/terms/SizeOrDuration"/>
 # 	<attribute name="isPrimary" type="java.lang.Boolean"/>
+# 	<reference name="phylonode" referenced-type="Phylonode" reverse-reference="protein"/>
 # 	<reference name="transcript" referenced-type="Transcript" reverse-reference="protein" term="http://purl.obolibrary.org/obo/SO_0000673"/>
 # 	<reference name="sequence" referenced-type="Sequence" term="http://purl.uniprot.org/core/sequence"/>
-#       <reference name="phylonode" referenced-type="Phylonode" reverse-reference="protein"/>
 # 	<collection name="genes" referenced-type="Gene" reverse-reference="proteins" term="http://semanticscience.org/resource/SIO_010079"/>
+# 	<collection name="proteinMatches" referenced-type="ProteinMatch" term="http://purl.obolibrary.org/obo/SO:0000349"/>
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # </class>
 type Protein implements BioEntity & Annotatable {
-  ## BioEntity
   id: ID!
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  ## BioEntity
   description: String
   symbol: String
   name: String
   assemblyVersion: String
   annotationVersion: String
+  secondaryIdentifier: String
   organism: Organism
-  locations: [Location!]!
   strain: Strain
+  locations: [Location!]!
   dataSets: [DataSet!]!
+  locatedFeatures: [Location!]!
   ## Protein
   md5checksum: String
   primaryAccession: String
   molecularWeight: Float
   length: Int
   isPrimary: Boolean
-  transcript: Transcript
-  # sequence
   phylonode: Phylonode
+  transcript: Transcript
+  sequence: Sequence
   genes: [Gene!]!
+  proteinMatches: [ProteinMatch!]!
   panGeneSets: [PanGeneSet!]!
   geneFamilyAssignments: [GeneFamilyAssignment!]!
-  # proteinMatches: [ProteinMatch!]!
 }

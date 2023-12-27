@@ -1,0 +1,38 @@
+# <class name="ProteinMatch" extends="BioEntity" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000349">
+# 	<attribute name="source" type="java.lang.String"/>
+# 	<attribute name="signatureDesc" type="java.lang.String"/>
+# 	<attribute name="status" type="java.lang.String"/>
+# 	<attribute name="length" type="java.lang.Integer"/>
+# 	<attribute name="target" type="java.lang.String"/>
+# 	<attribute name="date" type="java.lang.String"/>
+# 	<attribute name="accession" type="java.lang.String"/>
+# 	<reference name="protein" referenced-type="Protein" reverse-reference="proteinMatches"/>
+# </class>
+type ProteinMatch implements BioEntity & Annotatable {
+  id: ID!
+  ## Annotatable
+  identifier: ID!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  ## BioEntity
+  description: String
+  symbol: String
+  name: String
+  assemblyVersion: String
+  annotationVersion: String
+  secondaryIdentifier: String
+  organism: Organism
+  strain: Strain
+  locations: [Location!]!
+  dataSets: [DataSet!]!
+  locatedFeatures: [Location!]!
+  ## ProteinMatch
+  source: String
+  signatureDesc: String
+  status: String
+  length: Int
+  target: String
+  date: String
+  accession: String
+  protein: Protein!
+}

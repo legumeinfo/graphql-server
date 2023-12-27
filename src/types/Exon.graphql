@@ -1,5 +1,7 @@
-# <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
-type Chromosome implements SequenceFeature & BioEntity & Annotatable {
+# <class name="Exon" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000147,http://purl.obolibrary.org/obo/SO_0000147">
+# 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="exons"/>
+# </class>
+type Exon implements SequenceFeature & BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -28,4 +30,6 @@ type Chromosome implements SequenceFeature & BioEntity & Annotatable {
   chromosome: Chromosome
   overlappingFeatures: [SequenceFeature!]!
   childFeatures: [SequenceFeature!]!
+  ## Exon
+  transcripts: [Transcript!]!
 }
