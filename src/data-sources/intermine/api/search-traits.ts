@@ -18,20 +18,16 @@ import { PaginationOptions } from './pagination.js';
 
 export type SearchTraitsOptions = {
     name?: string;
-    genus?: string;
-    species?: string;
     studyType?: string;
-    publicationId: string;
+    publicationId?: string;
     author?: string;
 } & PaginationOptions;
 
-// Path query search for Traits by name, genus, species, study type (GWAS or QTLStudy), publication (DOI or PMID), and author.
-// NOTE: Trait.description is typically empty, as it describes the methods used to measure the trait, which are often not available.
+// Path query search for Traits by name, studyType ("GWAS" or "QTLStudy"), publication (a DOI or a PMID), and author.
+// NOTE: Trait.description is often empty, as it describes the methods used to measure the trait, which are often not available.
 export async function searchTraits(
     {
         name,
-        genus,
-        species,
         studyType,
         publicationId,
         author,
@@ -44,20 +40,11 @@ export async function searchTraits(
         const constraint = intermineConstraint('Trait.name', 'CONTAINS', name);
         constraints.push(constraint);
     }
-    if (genus) {
-        const constraint = intermineConstraint('Trait.organism.genus', '=', genus);
-        constraints.push(constraint);
-    }
-    if (species) {
-        const constraint = intermineConstraint('Trait.organism.species', '=', species);
-        constraints.push(constraint);
-    }
     if (studyType == "GWAS") {
         const constraint = intermineNotNullConstraint("Trait.gwas");
         constraints.push(constraint);
     }
     if (studyType == "QTLStudy") {
-        // any QTLStudy trait
         const constraint = intermineNotNullConstraint("Trait.qtlStudy");
         constraints.push(constraint);
     }
