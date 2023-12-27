@@ -19,7 +19,8 @@ async (intermineURI: string, microservicesURI: string, cache: KeyValueCache):
 Promise<DataSources> => {
   const config = {cache};
   const lisIntermineAPI = new IntermineAPI(intermineURI, config);
-  lisIntermineAPI.verifyIntermineVersion();
+  // TODO: this crashes the server rather than throwing a GraphQL error
+  //lisIntermineAPI.verifyIntermineVersion();
   return {
     lisIntermineAPI,
     lisMicroservicesAPI: new MicroservicesAPI(microservicesURI, config),

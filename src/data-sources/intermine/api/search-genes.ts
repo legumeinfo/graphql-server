@@ -23,6 +23,7 @@ export type SearchGenesOptions = {
     identifier?: string;
     name?: string;
     geneFamilyIdentifier?: string;
+    panGeneSetIdentifier?: string;
 } & PaginationOptions;
 
 
@@ -36,6 +37,7 @@ export async function searchGenes(
         identifier,
         name,
         geneFamilyIdentifier,
+        panGeneSetIdentifier,
         page,
         pageSize,
     }: SearchGenesOptions,
@@ -62,6 +64,9 @@ export async function searchGenes(
     }
     if (geneFamilyIdentifier) {
         constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.primaryIdentifier', 'CONTAINS', geneFamilyIdentifier));
+    }
+    if (panGeneSetIdentifier) {
+        constraints.push(intermineConstraint('Gene.panGeneSets.primaryIdentifier', 'CONTAINS', panGeneSetIdentifier));
     }
     const query = interminePathQuery(
         intermineGeneAttributes,

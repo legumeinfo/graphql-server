@@ -6,7 +6,7 @@ This repository contains a GraphQL server made with the [Apollo Server](https://
 
 Start a **non-production** instance of the GraphQL Server using Docker Compose as follows:
 ```console
-docker compose -f compose.yml up -d
+docker compose -f compose.yml -f compose.dev.yml up -d
 ```
 The server can be queried at [localhost:4000](http://localhost:4000).
 

@@ -1,6 +1,6 @@
-FROM node:19-alpine3.16
+FROM node:20.10-alpine3.18
 
-#needed for healthcheck
+# Install curl for healthcheck
 RUN apk --no-cache add curl
 
 # Create app directory

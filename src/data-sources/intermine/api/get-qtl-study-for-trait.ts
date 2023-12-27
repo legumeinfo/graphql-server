@@ -15,7 +15,7 @@ import {
 
 // get the QTLStudy for a Trait
 export async function getQTLStudyForTrait(trait: GraphQLTrait):
-Promise<ApiResponse<GraphQLQTLStudy>> {
+Promise<ApiResponse<GraphQLQTLStudy|null>> {
     const constraints = [intermineConstraint('QTLStudy.qtls.trait.id', '=', trait.id)];
     const query = interminePathQuery(
         intermineQTLStudyAttributes,
