@@ -18,13 +18,12 @@ ResolverMap => ({
     },
     GenotypingPlatform: {
         ...annotatableFactory(sourceName),
-        //     Doesn't have dataSets, maybe add in future mine model.
-        //     dataSets: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
-        //         const args = {page, pageSize};
-        //         return dataSources[sourceName].getDataSetsForGenotypingPlatform(genotypingPlatform, args)
-        //         // @ts-ignore: implicit type any error
-        //             .then(({data: results}) => results);
-        //     },
+        dataSets: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
+            const args = {annotatable: genotypingPlatform, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         markers: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
             const args = {genotypingPlatform, page, pageSize};
             return dataSources[sourceName].getGeneticMarkers(args)

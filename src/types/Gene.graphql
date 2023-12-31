@@ -14,9 +14,9 @@
 # 	<collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
 # 	<collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
 # </class>
-type Gene implements SequenceFeature & BioEntity & Annotatable {
+type Gene implements SequenceFeatureInterface {
   id: ID!
-  # Annotatable
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
@@ -32,7 +32,7 @@ type Gene implements SequenceFeature & BioEntity & Annotatable {
   locations: [Location!]!
   dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
-  # SequenceFeature
+  ## SequenceFeature
   score: Float
   scoreType: String
   length: Int

@@ -3,23 +3,13 @@ import { IntermineServer } from '../intermine.server.js';
 // author
 import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
+// bio-entity
+import { getBioEntity } from './get-bio-entity.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // data set
 import { getDataSet } from './get-data-set.js';
-import {
-    getDataSetsForBioEntity,
-    getDataSetsForGeneticMap,
-    getDataSetsForLinkageGroup,
-    getDataSetsForLocation,
-    getDataSetsForOntologyAnnotation,
-    getDataSetsForOntology,
-    getDataSetsForOntologyTerm,
-    getDataSetsForPanGeneSet,
-    getDataSetsForPathway,
-    getDataSetsForPhylotree,
-    getDataSetsForSyntenyBlock,
-} from './get-data-sets.js';
+import { getDataSets } from './get-data-sets.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
 import { getExpressionSamples } from './get-expression-samples.js';
@@ -70,6 +60,8 @@ import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
 // location
 import { getLocation } from './get-location.js';
 import { getLocations } from './get-locations.js';
+// locatedFeatures
+import { getLocatedFeatures } from './get-located-features.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
 import { getMRNAs } from './get-mrnas.js';
@@ -148,21 +140,13 @@ export declare class ApiMixinInterface {
     // author
     getAuthor: Function;
     getAuthors: Function;
+    // bio-entity
+    getBioEntity: Function;
     // chromosome
     getChromosome: Function;
     // data set
     getDataSet: Function;
-    getDataSetsForBioEntity: Function;
-    getDataSetsForGeneticMap: Function;
-    getDataSetsForLinkageGroup: Function;
-    getDataSetsForLocation: Function;
-    getDataSetsForOntologyAnnotation: Function;
-    getDataSetsForOntology: Function;
-    getDataSetsForOntologyTerm: Function;
-    getDataSetsForPathway: Function;
-    getDataSetsForPanGeneSet: Function;
-    getDataSetsForPhylotree: Function;
-    getDataSetsForSyntenyBlock: Function;
+    getDataSets: Function;
     // expression sample
     getExpressionSample: Function;
     getExpressionSamples: Function;
@@ -213,6 +197,8 @@ export declare class ApiMixinInterface {
     // location
     getLocation: Function;
     getLocations: Function;
+    // locatedFeatures
+    getLocatedFeatures: Function;
     // mRNA
     getMRNA: Function;
     getMRNAs: Function;
@@ -291,31 +277,23 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
         // Verifies that the version of the IntermineServer is the version the API is expecting
         async verifyIntermineVersion() {
-          const properties = await this.webProperties();
-          const serverVersion = properties['web-properties'].project.releaseVersion;
-          if (serverVersion != ApiMixinClass.intermineVersion) {
-            console.warn(`data-sources: intermine: ${this.baseURL} has version ${serverVersion}; expected ${ApiMixinClass.intermineVersion}`);
-          }
+            const properties = await this.webProperties();
+            const serverVersion = properties['web-properties'].project.releaseVersion;
+            if (serverVersion != ApiMixinClass.intermineVersion) {
+                console.warn(`data-sources: intermine: ${this.baseURL} has version ${serverVersion}; expected ${ApiMixinClass.intermineVersion}`);
+            }
         }
 
         // author
         getAuthor = getAuthor;
         getAuthors = getAuthors;
+        // bio-entity
+        getBioEntity = getBioEntity;
         // chromosome
         getChromosome = getChromosome;
         // data set
         getDataSet = getDataSet;
-        getDataSetsForBioEntity = getDataSetsForBioEntity;
-        getDataSetsForGeneticMap = getDataSetsForGeneticMap;
-        getDataSetsForLinkageGroup = getDataSetsForLinkageGroup;
-        getDataSetsForLocation = getDataSetsForLocation;
-        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
-        getDataSetsForOntology = getDataSetsForOntology;
-        getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
-        getDataSetsForPathway = getDataSetsForPathway;
-        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
-        getDataSetsForPhylotree = getDataSetsForPhylotree;
-        getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+        getDataSets = getDataSets;
         // expression sample
         getExpressionSample = getExpressionSample;
         getExpressionSamples = getExpressionSamples;
@@ -366,6 +344,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // location
         getLocation = getLocation;
         getLocations = getLocations;
+        // locatedFeatures
+        getLocatedFeatures = getLocatedFeatures;
         // mRNA
         getMRNA = getMRNA;
         getMRNAs = getMRNAs;

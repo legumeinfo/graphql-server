@@ -32,8 +32,8 @@ ResolverMap => ({
                 });
         },
         dataSets: async (phylotree, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPhylotree(phylotree, args)
+            const args = {bioEntity: phylotree, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

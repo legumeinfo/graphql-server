@@ -10,7 +10,7 @@
 # 	<collection name="UTRs" referenced-type="UTR" reverse-reference="transcripts"/>
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="transcripts"/>
 # </class>
-type Transcript implements TranscriptInterface {
+interface TranscriptInterface implements SequenceFeature {
   id: ID!
   ## Annotatable
   identifier: ID!

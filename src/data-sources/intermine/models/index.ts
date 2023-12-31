@@ -1,5 +1,6 @@
 
 import { GraphQLAuthor, IntermineAuthor } from './author.js';
+import { GraphQLBioEntity, IntermineBioEntity } from './bio-entity.js';
 import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
 import { GraphQLDataSet, IntermineDataSet } from './data-set.js';
 import { GraphQLExpressionSample, IntermineExpressionSample } from './expression-sample.js';
@@ -41,6 +42,7 @@ import { GraphQLTrait, IntermineTrait } from './trait.js';
 
 export type GraphQLModel =
     GraphQLAuthor |
+    GraphQLBioEntity |
     GraphQLChromosome |
     GraphQLDataSet |
     GraphQLExpressionSample |
@@ -82,6 +84,7 @@ export type GraphQLModel =
 
 export type IntermineModel =
     IntermineAuthor |
+    IntermineBioEntity |
     IntermineChromosome |
     IntermineDataSet |
     IntermineExpressionSample |

@@ -28,9 +28,9 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion" term="http://purl.obolibrary.org/obo/SO_0000605"/>
 export const intermineGeneAttributes = [
     'Gene.id',
-    // Annotatable
+    //// Annotatable
     'Gene.primaryIdentifier',
-    // BioEntity
+    //// BioEntity
     'Gene.description',
     'Gene.symbol',
     'Gene.name',
@@ -39,7 +39,7 @@ export const intermineGeneAttributes = [
     'Gene.secondaryIdentifier',
     'Gene.organism.taxonId',   // reference resolution
     'Gene.strain.identifier',  // reference resolution
-    // SequenceFeature
+    //// SequenceFeature
     'Gene.score',
     'Gene.scoreType',
     'Gene.length',
@@ -49,7 +49,7 @@ export const intermineGeneAttributes = [
     'Gene.sequence.id', // reference resolution
     'Gene.chromosome.primaryIdentifier', // reference resolution
     'Gene.supercontig.primaryIdentifier', // reference resolution
-    // Gene
+    //// Gene
     'Gene.briefDescription',
     'Gene.ensemblName',
     'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
@@ -58,18 +58,18 @@ export const intermineGeneAttributes = [
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 export type IntermineGene = [
     number,
-    // Annotatable
+    //// Annotatable
     string,
-    // BioEntity
-    string,
-    string,
+    //// BioEntity
     string,
     string,
     string,
     string,
     string,
     string,
-    // SequenceFeature
+    string,
+    string,
+    //// SequenceFeature
     number,
     string,
     number,
@@ -79,40 +79,13 @@ export type IntermineGene = [
     number,
     string,
     string,
-    // Gene
+    //// Gene
     string,
     string,
     string,
     string
 ];
 
-// 'Gene.id',
-// // Annotatable
-// 'Gene.primaryIdentifier',
-// // BioEntity
-// 'Gene.description',
-// 'Gene.symbol',
-// 'Gene.name',
-// 'Gene.assemblyVersion',
-// 'Gene.annotationVersion',
-// 'Gene.secondaryIdentifier',
-// 'Gene.organism.taxonId',   // reference resolution
-// 'Gene.strain.identifier',  // reference resolution
-// // SequenceFeature
-// 'Gene.score',
-// 'Gene.scoreType',
-// 'Gene.length',
-// 'Gene.sequenceOntologyTerm.identifier', // reference resolution
-// 'Gene.chromosomeLocation.id',   // reference resolution
-// 'Gene.supercontigLocation.id',  // reference resolution
-// 'Gene.sequence.id', // reference resolution
-// 'Gene.chromosome.primaryIdentifier', // reference resolution
-// 'Gene.supercontig.primaryIdentifier', // reference resolution
-// // Gene
-// 'Gene.briefDescription',
-// 'Gene.ensemblName',
-// 'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
-// 'Gene.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
 export const graphqlGeneAttributes = [
     'id',
     'identifier',

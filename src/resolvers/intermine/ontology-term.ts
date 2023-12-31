@@ -29,8 +29,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         dataSets: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForOntologyTerm(ontologyTerm, args)
+            const args = {bioEntity: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

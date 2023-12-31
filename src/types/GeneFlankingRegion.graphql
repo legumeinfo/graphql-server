@@ -4,7 +4,7 @@
 # 	<attribute name="includeGene" type="java.lang.Boolean"/>
 # 	<reference name="gene" referenced-type="Gene" reverse-reference="flankingRegions" term="http://purl.obolibrary.org/obo/SO:0000704"/>
 # </class>
-type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable {
+type GeneFlankingRegion implements SequenceFeatureInterface {
   id: ID!
   ## Annotatable
   identifier: ID!

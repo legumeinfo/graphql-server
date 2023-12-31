@@ -21,12 +21,12 @@ export type GetLocationsOptions = {
 } & PaginationOptions;
 
 
-// get locations for any type that extends BioEntity
-export async function getLocations(
+// get locatedFeatures (Locations) for any type that extends BioEntity
+export async function getLocatedFeatures(
     {bioEntity, page, pageSize}: GetLocationsOptions,
 ): Promise<ApiResponse<GraphQLLocation>> {
     const constraints = [
-        intermineConstraint('Location.feature.id', '=', bioEntity.id)
+        intermineConstraint('Location.locatedOn.id', '=', bioEntity.id)
     ];
     const query = interminePathQuery(
         intermineLocationAttributes,

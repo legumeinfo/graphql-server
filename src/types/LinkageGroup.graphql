@@ -6,7 +6,7 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="linkageGroup"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type LinkageGroup implements Annotatable {
+type LinkageGroup implements AnnotatableInterface {
   # Annotatable
   id: ID!
   identifier: ID!
