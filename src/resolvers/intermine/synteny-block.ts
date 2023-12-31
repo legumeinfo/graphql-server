@@ -23,8 +23,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         dataSets: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForSyntenyBlock(syntenyBlock, args)
+            const args = {bioEntity: syntenyBlock, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

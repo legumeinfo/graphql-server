@@ -19,8 +19,8 @@ ResolverMap => ({
     PanGeneSet: {
         ...annotatableFactory(sourceName),
         dataSets: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPanGeneSet(panGeneSet, args)
+            const args = {bioEntity: panGeneSet, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

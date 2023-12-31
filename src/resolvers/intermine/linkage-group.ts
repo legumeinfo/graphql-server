@@ -24,8 +24,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         dataSets: async (linkageGroup, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args)
+            const args = {bioEntity: linkageGroup, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

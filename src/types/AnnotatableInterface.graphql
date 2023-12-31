@@ -6,8 +6,7 @@
 # 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
 # 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
 # </class>
-## core type
-type Annotatable implements AnnotatableInterface {
+interface AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!

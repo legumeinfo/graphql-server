@@ -15,14 +15,16 @@ export const intermineLocationAttributes = [
     'Location.start',
     'Location.end',
     'Location.locatedOn.primaryIdentifier',
+    'Location.feature.primaryIdentifier'
 ];
 export const intermineLocationSort = 'Location.start'; // guaranteed not null
 export type IntermineLocation = [
-  number,
-  string,
-  number,
-  number,
-  string,
+    number,
+    string,
+    number,
+    number,
+    string,
+    string,
 ];
 
 
@@ -31,8 +33,8 @@ export type IntermineLocation = [
 //   strand: String
 //   start: Int
 //   end: Int
-//   # locatedOn
-//   # feature
+//   locatedOn
+//   feature
 //   # dataSets
 // }
 export const graphqlLocationAttributes = [
@@ -40,10 +42,11 @@ export const graphqlLocationAttributes = [
     'strand',
     'start',
     'end',
-    'locatedOnIdentifier',
+    'locatedOnIdentifier', // reference resolution
+    'featureIdentifier',   // reference resolution
 ];
 export type GraphQLLocation = {
-  [prop in typeof graphqlLocationAttributes[number]]: string;
+    [prop in typeof graphqlLocationAttributes[number]]: string;
 }
 
 
@@ -67,12 +70,12 @@ export const intermineLocationDataSetAttributes = [
 ];
 export const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
 export type IntermineLocationDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
 ];

@@ -4,7 +4,7 @@
 # 	<collection name="genes" referenced-type="Gene" reverse-reference="pathways"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type Pathway implements Annotatable {
+type Pathway implements AnnotatableInterface {
   # Annotatable
   id: ID!
   identifier: ID!

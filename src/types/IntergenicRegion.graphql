@@ -1,7 +1,7 @@
 # <class name="IntergenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000605,http://purl.obolibrary.org/obo/SO:0000605">
 # 	<collection name="adjacentGenes" referenced-type="Gene"/>
 # </class>
-type IntergenicRegion implements SequenceFeature & BioEntity & Annotatable {
+type IntergenicRegion implements SequenceFeatureInterface {
   id: ID!
   ## Annotatable
   identifier: ID!

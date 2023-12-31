@@ -12,7 +12,7 @@
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # </class>
-type Protein implements BioEntity & Annotatable {
+type Protein implements BioEntityInterface {
   id: ID!
   ## Annotatable
   identifier: ID!

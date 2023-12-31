@@ -5,6 +5,39 @@ import { bioEntityFactory } from './bio-entity.js';
 
 
 export const sequenceFeatureFactory =
-(sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-    ...bioEntityFactory(sourceName),
-});
+    (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
+        ...bioEntityFactory(sourceName),
+        sequenceOntologyTerm: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getSequenceOntologyTerm(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        chromosomeLocation: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getChromosomeLocation(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        supercontigLocation: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getSupercontigLocation(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        chromosome: async (sequenceFeature, _, { dataSources }) => {
+            const args = {page, pageSize};
+            return dataSources[sourceName].getChromosome(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        overlappingFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: sequenceFeature, page, pageSize};
+            return dataSources[sourceName].getOverlappingFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: sequenceFeature, page, pageSize};
+            return dataSources[sourceName].getChildFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+    });

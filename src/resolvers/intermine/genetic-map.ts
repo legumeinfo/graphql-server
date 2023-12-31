@@ -35,8 +35,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         dataSets: async (geneticMap, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args)
+            const args = {bioEntity: geneticMap, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
