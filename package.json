@@ -18,7 +18,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@apollo/datasource-rest": "^6.2.2",
-    "@apollo/server": "^4.9.5",
+    "@apollo/server": "^4.10.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.1",
     "dotenv": "^16.3.1",
