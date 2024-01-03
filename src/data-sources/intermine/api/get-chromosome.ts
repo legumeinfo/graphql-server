@@ -1,32 +1,41 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    intermineJoin,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLChromosome,
-  IntermineChromosomeResponse,
-  intermineChromosomeAttributes,
-  intermineChromosomeSort,
-  response2chromosomes,
+    GraphQLSequenceFeature,
+    IntermineSequenceFeatureResponse,
+    intermineChromosomeAttributes,
+    intermineChromosomeSort,
+    response2sequenceFeatures,
 } from '../models/index.js';
 
-
-// get a Chromosome by ID
-// does NOT throw an error if the chromosome is not found, since this happens when the identifier belongs to a supercontig
+// get a Chromosome for a given identifier
 export async function getChromosome(identifier: string):
-Promise<ApiResponse<GraphQLChromosome>> {
-    const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];
+Promise<ApiResponse<GraphQLSequenceFeature>> {
+    const constraints = [
+        intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)
+    ];
+    // all SequenceFeature-extending object queries must include these joins
+    const joins = [
+        intermineJoin('Chromosome.chromosome', 'OUTER'),
+        intermineJoin('Chromosome.supercontig', 'OUTER'),
+        intermineJoin('Chromosome.chromosomeLocation', 'OUTER'),
+        intermineJoin('Chromosome.supercontigLocation', 'OUTER')
+    ];
     const query = interminePathQuery(
         intermineChromosomeAttributes,
         intermineChromosomeSort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
-        .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
-        .then((chromosomes: Array<GraphQLChromosome>) => {
+        .then((response: IntermineSequenceFeatureResponse) => response2sequenceFeatures(response))
+        .then((chromosomes: Array<GraphQLSequenceFeature>) => {
             if (!chromosomes.length) return null;
             return chromosomes[0];
         })
-        .then((chromosome: GraphQLChromosome) => ({data: chromosome}));
+        .then((chromosome: GraphQLSequenceFeature) => ({data: chromosome}));
 }

@@ -1,7 +1,4 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
-
-
-// <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
+// Chromosome extends SequenceFeature with no additional attributes, references, or collections
 export const intermineChromosomeAttributes = [
     'Chromosome.id',
     'Chromosome.primaryIdentifier',
@@ -10,56 +7,23 @@ export const intermineChromosomeAttributes = [
     'Chromosome.name',
     'Chromosome.assemblyVersion',
     'Chromosome.annotationVersion',
+    'Chromosome.secondaryIdentifier',
+    'Chromosome.organism.taxonId',   // reference resolution
+    'Chromosome.strain.identifier',  // reference resolution
+    'Chromosome.score',
+    'Chromosome.scoreType',
     'Chromosome.length',
-    'Chromosome.organism.taxonId',   // internal resolution of organism
-    'Chromosome.strain.identifier',  // internal resolution of strain
+    'Chromosome.sequenceOntologyTerm.identifier', // reference resolution
+    'Chromosome.chromosomeLocation.id',           // reference resolution
+    'Chromosome.supercontigLocation.id',          // reference resolution
+    'Chromosome.sequence.id',                     // reference resolution
+    'Chromosome.chromosome.primaryIdentifier',    // reference resolution
+    'Chromosome.supercontig.primaryIdentifier',   // reference resolution
 ];
 export const intermineChromosomeSort = 'Chromosome.primaryIdentifier'; // guaranteed not null
-export type IntermineChromosome = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  string,
-];
 
-
-// type Chromosome implements SequenceFeature {
-//   id: ID!
-//   identifier: String!
-//   description: String
-//   symbol: String
-//   name: String
-//   assemblyVersion: String
-//   annotationVersion: String
-//   organism: Organism
-//   strain: Strain
-//   length: Int
-// }
-export const graphqlChromosomeAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'length',
-    'organismTaxonId',  // internal resolution of organism
-    'strainIdentifier', // internal resolution of strain
-];
-export type GraphQLChromosome = {
-  [prop in typeof graphqlChromosomeAttributes[number]]: string;
-}
-
-
-export type IntermineChromosomeResponse = IntermineDataResponse<IntermineChromosome>;
-// converts an Intermine response into an array of GraphQL Chromosome objects
-export function response2chromosomes(response: IntermineChromosomeResponse): Array<GraphQLChromosome> {
-    return response2graphqlObjects(response, graphqlChromosomeAttributes);
-}
+// use IntermineSequenceFeature
+// use graphqlSequenceFeatureAttributes
+// use GraphQLSequenceFeature
+// use IntermineSequenceFeatureResponse
+// use response2sequenceFeature
