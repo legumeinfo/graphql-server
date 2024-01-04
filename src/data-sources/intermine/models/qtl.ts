@@ -1,96 +1,73 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
-// <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
-// 	<attribute name="primaryIdentifier" type="java.lang.String"/>
-//      <attribute name="name" type="java.lang.String"/>
-// 	<attribute name="lod" type="java.lang.Double"/>
-// 	<attribute name="likelihoodRatio" type="java.lang.Double"/>
-// 	<attribute name="end" type="java.lang.Double"/>
-// 	<attribute name="markerNames" type="java.lang.String"/>
-// 	<attribute name="markerR2" type="java.lang.Double"/>
-// 	<attribute name="start" type="java.lang.Double"/>
-// 	<attribute name="peak" type="java.lang.Double"/>
-// 	<reference name="trait" referenced-type="Trait" reverse-reference="qtls"/>
-// 	<reference name="qtlStudy" referenced-type="QTLStudy" reverse-reference="qtls"/>
-// 	<reference name="linkageGroup" referenced-type="LinkageGroup" reverse-reference="qtls"/>
-// 	<reference name="dataSet" referenced-type="DataSet"/>
-// 	<collection name="genes" referenced-type="Gene"/>
-// 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="qtls"/>
+// <class name="QTL" extends="Annotatable" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
+//     <attribute name="lod" type="java.lang.Double"/>
+//     <attribute name="likelihoodRatio" type="java.lang.Double"/>
+//     <attribute name="end" type="java.lang.Double"/>
+//     <attribute name="markerNames" type="java.lang.String"/>
+//     <attribute name="name" type="java.lang.String"/>
+//     <attribute name="markerR2" type="java.lang.Double"/>
+//     <attribute name="start" type="java.lang.Double"/>
+//     <attribute name="peak" type="java.lang.Double"/>
+//     <reference name="trait" referenced-type="Trait" reverse-reference="qtls"/>
+//     <reference name="qtlStudy" referenced-type="QTLStudy" reverse-reference="qtls"/>
+//     <reference name="linkageGroup" referenced-type="LinkageGroup" reverse-reference="qtls"/>
+//     <collection name="genes" referenced-type="Gene"/>
+//     <collection name="markers" referenced-type="GeneticMarker" reverse-reference="qtls"/>
 // </class>
 export const intermineQTLAttributes = [
     'QTL.id',
-    'QTL.primaryIdentifier',
-    'QTL.name',
+    'QTL.primaryIdentifier',               // Annotatable
     'QTL.lod',
     'QTL.likelihoodRatio',
     'QTL.end',
     'QTL.markerNames',
+    'QTL.name',
     'QTL.markerR2',
     'QTL.start',
     'QTL.peak',
-    'QTL.trait.primaryIdentifier',
-    'QTL.qtlStudy.primaryIdentifier',
-    'QTL.linkageGroup.primaryIdentifier',
-    'QTL.dataSet.name',
+    'QTL.trait.primaryIdentifier',         // reference resolution
+    'QTL.qtlStudy.primaryIdentifier',      // reference resolution
+    'QTL.linkageGroup.primaryIdentifier',  // reference resolution
 ];
+
 export const intermineQTLSort = 'QTL.trait.name ASC QTL.primaryIdentifier ASC';
+
 export type IntermineQTL = [
-    number,
-    string,
-    string,
-    number,
-    number,
-    number,
-    string,
-    number,
-    number,
-    number,
-    string,
-    string,
-    string,
-    string,
+    number, // id
+    string, // primaryIdentifier
+    number, // lod
+    number, // likelihoodRatio
+    number, // end
+    string, // markerNames
+    string, // name
+    number, // markerR2
+    number, // start
+    number, // peak
+    string, // trait.primaryIdentifier
+    string, // qtlStudy.primaryIdentifier
+    string, // linkageGroup.primaryIdentifier
 ];
 
-
-// type QTL {
-//   id: ID!
-//   identifier: String!
-//   name: String
-//   lod: Float
-//   likelihoodRatio: Float
-//   end: Float
-//   markerNames: String
-//   markerR2
-//   start: Float
-//   peak: Float
-//   trait: Trait
-//   qtlStudy: QTLStudy
-//   linkageGroup
-//   dataSet: DataSet
-//   # genes: [Gene]
-//   markers: [GeneticMarker]
-// }
 export const graphqlQTLAttributes = [
-    'id',
-    'identifier',
-    'name',
-    'lod',
-    'likelihoodRatio',
-    'end',
-    'markerNames',
-    'markerR2',
-    'start',
-    'peak',
-    'traitIdentifier',
-    'qtlStudyIdentifier',
-    'linkageGroupIdentifier',
-    'dataSetName',
+    'id',                     // id
+    'identifier',             // primaryIdentifier
+    'name',                   // name
+    'lod',                    // lod
+    'likelihoodRatio',        // likelihoodRatio
+    'end',                    // end
+    'markerNames',            // markerNames
+    'markerR2',               // markerR2
+    'start',                  // start
+    'peak',                   // peak
+    'traitIdentifier',        // resolve Trait
+    'qtlStudyIdentifier',     // resolve QTLStudy
+    'linkageGroupIdentifier', // resolve LinkageGroup
 ];
+
 export type GraphQLQTL = {
     [prop in typeof graphqlQTLAttributes[number]]: string;
 }
-
 
 export type IntermineQTLResponse = IntermineDataResponse<IntermineQTL>;
 export function response2qtls(response: IntermineQTLResponse): Array<GraphQLQTL> {

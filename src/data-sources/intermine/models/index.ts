@@ -1,7 +1,6 @@
 
 import { GraphQLAuthor, IntermineAuthor } from './author.js';
 import { GraphQLBioEntity, IntermineBioEntity } from './bio-entity.js';
-import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
 import { GraphQLDataSet, IntermineDataSet } from './data-set.js';
 import { GraphQLExpressionSample, IntermineExpressionSample } from './expression-sample.js';
 import { GraphQLExpressionSource, IntermineExpressionSource } from './expression-source.js';
@@ -33,17 +32,17 @@ import { GraphQLProtein, IntermineProtein } from './protein.js';
 import { GraphQLPublication, InterminePublication } from './publication.js';
 import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
-import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
+import { GraphQLSequenceFeature, IntermineSequenceFeature } from './sequence-feature.js';
 import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
 import { GraphQLStrain, IntermineStrain } from './strain.js';
 import { GraphQLTrait, IntermineTrait } from './trait.js';
+import { GraphQLTranscript, IntermineTranscript } from './transcript.js';
 
 
 export type GraphQLModel =
     GraphQLAuthor |
     GraphQLBioEntity |
-    GraphQLChromosome |
     GraphQLDataSet |
     GraphQLExpressionSample |
     GraphQLExpressionSource |
@@ -75,17 +74,17 @@ export type GraphQLModel =
     GraphQLPublication |
     GraphQLQTL |
     GraphQLQTLStudy |
-    GraphQLSupercontig |
+    GraphQLSequenceFeature |
     GraphQLSyntenicRegion |
     GraphQLSyntenyBlock |
     GraphQLStrain |
-    GraphQLTrait;
+    GraphQLTrait |
+    GraphQLTranscript;
 
 
 export type IntermineModel =
     IntermineAuthor |
     IntermineBioEntity |
-    IntermineChromosome |
     IntermineDataSet |
     IntermineExpressionSample |
     IntermineExpressionSource |
@@ -117,11 +116,12 @@ export type IntermineModel =
     InterminePublication |
     IntermineQTL |
     IntermineQTLStudy |
-    IntermineSupercontig |
+    IntermineSequenceFeature |
     IntermineSyntenicRegion |
     IntermineSyntenyBlock |
     IntermineStrain |
-    IntermineTrait;
+    IntermineTrait |
+    IntermineTranscript;
 
 
 export * from './annotatable.js';
@@ -148,6 +148,7 @@ export * from './ontology.js';
 export * from './ontology-annotation.js';
 export * from './ontology-term.js';
 export * from './organism.js';
+export * from './overlapping-feature.js';
 export * from './newick.js';
 export * from './mrna.js';
 export * from './pan-gene-set.js';
@@ -160,8 +161,10 @@ export * from './publication.js';
 export * from './qtl.js';
 export * from './qtl-study.js';
 export * from './sequence-feature.js';
+export * from './so-term.js';
 export * from './supercontig.js';
 export * from './syntenic-region.js';
 export * from './synteny-block.js';
 export * from './strain.js';
 export * from './trait.js';
+export * from './transcript.js';

@@ -1,4 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import { graphqlAnnotatableAttributes } from './index.js';
 
 // <class name="BioEntity" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="description" type="java.lang.String"/>
@@ -17,49 +18,51 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // </class>
 export const intermineBioEntityAttributes = [
     'BioEntity.id',
-    'BioEntity.primaryIdentifier',
-    'BioEntity.description',
-    'BioEntity.symbol',
-    'BioEntity.name',
-    'BioEntity.assemblyVersion',
-    'BioEntity.annotationVersion',
-    'BioEntity.secondaryIdentifier',
-    'BioEntity.organism.taxonId',  // resolve reference
-    'BioEntity.strain.identifier', // resolve reference
+    'BioEntity.primaryIdentifier',   // Annotatable
+    'BioEntity.description',         // BioEntity
+    'BioEntity.symbol',              // BioEntity
+    'BioEntity.name',                // BioEntity
+    'BioEntity.assemblyVersion',     // BioEntity
+    'BioEntity.annotationVersion',   // BioEntity
+    'BioEntity.secondaryIdentifier', // BioEntity
+    'BioEntity.organism.taxonId',    // BioEntity - resolve reference
+    'BioEntity.strain.identifier',   // BioEntity - resolve reference
 ];
+
 export const intermineBioEntitySort = 'BioEntity.primaryIdentifier';
+
 export type IntermineBioEntity = [
-    number,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    number,
-    string,
+    number, // id
+    string, // primaryIdentifier
+    string, // description
+    string, // symbol
+    string, // name
+    string, // assemblyVersion
+    string, // annotationVersion
+    string, // secondaryIdentifier
+    number, // organism.taxonId
+    string, // strain.identifier
 ];
 
 export const graphqlBioEntityAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'secondaryIdentifier',
-    'organismTaxonId',
-    'strainIdentifier',
+    ...graphqlAnnotatableAttributes,
+    'description',         // description
+    'symbol',              // symbol
+    'name',                // name
+    'assemblyVersion',     // assemblyVersion
+    'annotationVersion',   // annotationVersion
+    'secondaryIdentifier', // secondaryIdentifier
+    'organismTaxonId',     // Organism resolution
+    'strainIdentifier',    // Strain resolution
 ];
+
 export type GraphQLBioEntity = {
     [prop in typeof graphqlBioEntityAttributes[number]]: string;
 }
 
-
 export type IntermineBioEntityResponse = IntermineDataResponse<IntermineBioEntity>;
 // converts an Intermine response into an array of GraphQL BioEntity objects
+
 export function response2bioEntities(response: IntermineBioEntityResponse): Array<GraphQLBioEntity> {
     return response2graphqlObjects(response, graphqlBioEntityAttributes);
 }

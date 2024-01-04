@@ -18,6 +18,7 @@ type ExpressionSample implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # ExpressionSample
   tissue: String
   num: Int

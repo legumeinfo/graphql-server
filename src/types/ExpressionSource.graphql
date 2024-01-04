@@ -16,6 +16,7 @@ type ExpressionSource implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # ExpressionSource
   sra: String
   description: String

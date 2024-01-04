@@ -1,12 +1,13 @@
 # <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234">
 # 	<attribute name="isPrimary" type="java.lang.Boolean"/>
 # </class>
-type MRNA implements TranscriptInterface {
+type MRNA implements TranscriptInterface & SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -17,7 +18,6 @@ type MRNA implements TranscriptInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

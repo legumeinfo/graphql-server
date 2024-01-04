@@ -17,4 +17,10 @@ export const annotatableFactory =
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
+    dataSets: async (bioEntity, { page, pageSize }, { dataSources }) => {
+        const args = {bioEntity: bioEntity, page, pageSize};
+        return dataSources[sourceName].getDataSets(args)
+            // @ts-ignore: implicit type any error
+            .then(({data: results}) => results);
+    },
 });

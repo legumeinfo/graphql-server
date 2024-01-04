@@ -29,11 +29,6 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtlStudy.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         qtls: async (qtlStudy, { page, pageSize }, { dataSources }) => {
             const args = {qtlStudy, page, pageSize};
             return dataSources[sourceName].getQTLs(args)

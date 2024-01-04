@@ -15,7 +15,6 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
 // </class>
-// NOTE: we can't query OntologyTerm.ontology.id here because ontology is sometimes null.
 export const intermineOntologyTermAttributes = [
     'OntologyTerm.id',
     'OntologyTerm.identifier',
@@ -23,15 +22,17 @@ export const intermineOntologyTermAttributes = [
     'OntologyTerm.obsolete',
     'OntologyTerm.name',
     'OntologyTerm.namespace',
+    'OntologyTerm.ontology.id', // reference resolution
 ]
 export const intermineOntologyTermSort = 'OntologyTerm.identifier';
 export type IntermineOntologyTerm = [
-  number,
-  string,
-  string,
-  boolean,
-  string,
-  string,
+    number,
+    string,
+    string,
+    boolean,
+    string,
+    string,
+    number,
 ];
 
 
@@ -42,7 +43,7 @@ export type IntermineOntologyTerm = [
 //   obsolete: Boolean
 //   name: String
 //   namespace: String
-//   # ontology
+//   ontology
 //   # relations
 //   # synonyms
 //   # ontologyAnnotations
@@ -57,9 +58,10 @@ export const graphqlOntologyTermAttributes = [
     'obsolete',
     'name',
     'namespace',
+    'ontologyId', // reference resolution
 ];
 export type GraphQLOntologyTerm = {
-  [prop in typeof graphqlOntologyTermAttributes[number]]: string;
+    [prop in typeof graphqlOntologyTermAttributes[number]]: string;
 }
 
 
@@ -82,12 +84,12 @@ export const intermineOntologyTermDataSetAttributes = [
 ];
 export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name'; // guaranteed not null
 export type IntermineOntologyTermDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
 ];

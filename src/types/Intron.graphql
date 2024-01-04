@@ -2,12 +2,13 @@
 # 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="introns" term="http://purl.obolibrary.org/obo/SO_0000673"/>
 # 	<collection name="genes" referenced-type="Gene" reverse-reference="introns" term="http://purl.obolibrary.org/obo/SO:0000704"/>
 # </class>
-type Intron implements SequenceFeatureInterface {
+type Intron implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -18,7 +19,6 @@ type Intron implements SequenceFeatureInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

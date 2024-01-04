@@ -14,25 +14,7 @@
 # 	<collection name="overlappingFeatures" referenced-type="SequenceFeature"/>
 # 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
 # </class>
-interface SequenceFeature implements BioEntity {
-  id: ID!
-  ## Annotatable
-  identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
-  ## BioEntity
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
-  annotationVersion: String
-  secondaryIdentifier: String
-  organism: Organism
-  strain: Strain
-  locations: [Location!]!
-  dataSets: [DataSet!]!
-  locatedFeatures: [Location!]!
-  ## SequenceFeature
+interface SequenceFeatureInterface {
   score: Float
   scoreType: String
   length: Int

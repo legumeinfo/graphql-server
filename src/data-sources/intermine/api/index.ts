@@ -7,6 +7,8 @@ import { getAuthors } from './get-authors.js';
 import { getBioEntity } from './get-bio-entity.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
+// chromosome location
+import { getChromosomeLocation } from './get-chromosome-location.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import { getDataSets } from './get-data-sets.js';
@@ -80,6 +82,8 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// overlapping features
+import { getOverlappingFeatures } from './get-overlapping-features.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import { getPanGeneSets } from './get-pan-gene-sets.js';
@@ -112,8 +116,12 @@ import { searchQTLs } from './search-qtls.js';
 import { getQTLStudy } from './get-qtl-study.js';
 import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
+// SO term
+import { getSOTerm } from './get-so-term.js';
 // supercontig
 import { getSupercontig } from './get-supercontig.js';
+// supercontig location
+import { getSupercontigLocation } from './get-supercontig-location.js';
 // syntenic region
 import { getSyntenicRegion } from './get-syntenic-region.js';
 import { getSyntenicRegions } from './get-syntenic-regions.js';
@@ -144,6 +152,8 @@ export declare class ApiMixinInterface {
     getBioEntity: Function;
     // chromosome
     getChromosome: Function;
+    // chromosome location
+    getChromosomeLocation: Function;
     // data set
     getDataSet: Function;
     getDataSets: Function;
@@ -217,6 +227,8 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // overlapping features
+    getOverlappingFeatures: Function;
     // pan-gene set
     getPanGeneSet: Function;
     getPanGeneSets: Function;
@@ -249,8 +261,12 @@ export declare class ApiMixinInterface {
     getQTLStudy: Function;
     getQTLStudyForTrait: Function;
     searchQTLStudies: Function;
+    // SO term
+    getSOTerm: Function;
     // supercontig
     getSupercontig: Function;
+    // supercontig location
+    getSupercontigLocation: Function;
     // syntenic region
     getSyntenicRegion: Function;
     getSyntenicRegions: Function;
@@ -291,6 +307,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getBioEntity = getBioEntity;
         // chromosome
         getChromosome = getChromosome;
+        // chromosome location
+        getChromosomeLocation = getChromosomeLocation;
         // data set
         getDataSet = getDataSet;
         getDataSets = getDataSets;
@@ -364,6 +382,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // overlapping features
+        getOverlappingFeatures = getOverlappingFeatures;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
         getPanGeneSets = getPanGeneSets;
@@ -396,8 +416,12 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getQTLStudy = getQTLStudy;
         getQTLStudyForTrait = getQTLStudyForTrait;
         searchQTLStudies = searchQTLStudies;
+        // SO term
+        getSOTerm = getSOTerm;
         // supercontig
         getSupercontig = getSupercontig;
+        // supercontig location
+        getSupercontigLocation = getSupercontigLocation;
         // syntenic region
         getSyntenicRegion = getSyntenicRegion;
         getSyntenicRegions = getSyntenicRegions;

@@ -10,36 +10,7 @@
 # 	<collection name="UTRs" referenced-type="UTR" reverse-reference="transcripts"/>
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="transcripts"/>
 # </class>
-interface TranscriptInterface implements SequenceFeature {
-  id: ID!
-  ## Annotatable
-  identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
-  ## BioEntity
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
-  annotationVersion: String
-  secondaryIdentifier: String
-  organism: Organism
-  strain: Strain
-  locations: [Location!]!
-  dataSets: [DataSet!]!
-  locatedFeatures: [Location!]!
-  ## SequenceFeature
-  score: Float
-  scoreType: String
-  length: Int
-  sequenceOntologyTerm: SOTerm
-  supercontigLocation: Location
-  chromosomeLocation: Location
-  supercontig: Supercontig
-  chromosome: Chromosome
-  overlappingFeatures: [SequenceFeature!]!
-  childFeatures: [SequenceFeature!]!
-  ## Transcript
+interface TranscriptInterface {
   gene: Gene!
   protein: Protein!
   introns: [Intron!]!

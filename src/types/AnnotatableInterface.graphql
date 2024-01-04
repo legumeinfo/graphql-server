@@ -7,9 +7,8 @@
 # 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
 # </class>
 interface AnnotatableInterface {
-  id: ID!
-  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
 }

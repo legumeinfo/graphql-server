@@ -4,12 +4,13 @@
 # 	<attribute name="includeGene" type="java.lang.Boolean"/>
 # 	<reference name="gene" referenced-type="Gene" reverse-reference="flankingRegions" term="http://purl.obolibrary.org/obo/SO:0000704"/>
 # </class>
-type GeneFlankingRegion implements SequenceFeatureInterface {
+type GeneFlankingRegion implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -20,7 +21,6 @@ type GeneFlankingRegion implements SequenceFeatureInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

@@ -1,10 +1,11 @@
 # <class name="Supercontig" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000148"></class>
-type Supercontig implements SequenceFeatureInterface {
+type Supercontig implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -15,7 +16,6 @@ type Supercontig implements SequenceFeatureInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

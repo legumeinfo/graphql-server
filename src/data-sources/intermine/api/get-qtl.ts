@@ -11,11 +11,12 @@ import {
   response2qtls,
 } from '../models/index.js';
 
-
-// get a QTL by primaryIdentifier
+// get a QTL by identifier
 export async function getQTL(identifier: string):
 Promise<ApiResponse<GraphQLQTL>> {
-    const constraints = [intermineConstraint('QTL.primaryIdentifier', '=', identifier)];
+    const constraints = [
+        intermineConstraint('QTL.primaryIdentifier', '=', identifier)
+    ];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,

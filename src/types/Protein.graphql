@@ -12,12 +12,13 @@
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # </class>
-type Protein implements BioEntityInterface {
+type Protein implements BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -28,7 +29,6 @@ type Protein implements BioEntityInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## Protein
   md5checksum: String

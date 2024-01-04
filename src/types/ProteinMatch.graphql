@@ -8,12 +8,13 @@
 # 	<attribute name="accession" type="java.lang.String"/>
 # 	<reference name="protein" referenced-type="Protein" reverse-reference="proteinMatches"/>
 # </class>
-type ProteinMatch implements BioEntityInterface {
+type ProteinMatch implements BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -24,7 +25,6 @@ type ProteinMatch implements BioEntityInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## ProteinMatch
   source: String

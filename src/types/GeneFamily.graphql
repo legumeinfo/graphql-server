@@ -15,6 +15,7 @@ type GeneFamily implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # GeneFamily
   description: String
   version: String

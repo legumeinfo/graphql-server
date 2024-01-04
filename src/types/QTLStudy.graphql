@@ -12,11 +12,11 @@ type QTLStudy implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # QTLStudy
   description: String
   genotypes: String
   synopsis: String
   organism: Organism
-  dataSet: DataSet
   qtls: [QTL!]!
 }

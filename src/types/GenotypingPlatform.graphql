@@ -10,6 +10,7 @@ type GenotypingPlatform implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## GenotypingPlatform
   markers: [GeneticMarker!]!
 }

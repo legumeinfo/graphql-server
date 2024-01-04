@@ -14,12 +14,13 @@
 # 	<collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
 # 	<collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
 # </class>
-type Gene implements SequenceFeatureInterface {
+type Gene implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -30,7 +31,6 @@ type Gene implements SequenceFeatureInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

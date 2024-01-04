@@ -20,6 +20,7 @@ type QTL implements AnnotatableInterface {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # QTL
   name: String
   lod: Float
@@ -32,7 +33,6 @@ type QTL implements AnnotatableInterface {
   trait: Trait
   qtlStudy: QTLStudy
   linkageGroup: LinkageGroup
-  dataSet: DataSet
   # genes: [Gene]
   markers: [GeneticMarker!]!
 }
