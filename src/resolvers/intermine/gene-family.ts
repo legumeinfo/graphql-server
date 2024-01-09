@@ -53,7 +53,6 @@ export const geneFamilyFactory =
         },
         linkouts: async (geneFamily, _, { dataSources }) => {
             const {identifier} = geneFamily;
-            console.log("gonna call it with identifier");
             return dataSources[microservicesSource].getLinkoutsForGeneFamily(identifier);
         },
     },
