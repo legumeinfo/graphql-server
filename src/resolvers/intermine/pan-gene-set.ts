@@ -1,11 +1,14 @@
-import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 
 
-export const panGeneSetFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
-ResolverMap => ({
+export const panGeneSetFactory = 
+    (
+        sourceName: KeyOfType<DataSources, IntermineAPI>,
+        microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+    ): ResolverMap => ({
     Query: {
         panGeneSet: async (_, { identifier }, { dataSources }) => {
             const {data: panGeneSet} = await dataSources[sourceName].getPanGeneSet(identifier);
@@ -35,6 +38,10 @@ ResolverMap => ({
             return dataSources[sourceName].getProteins(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
+        },
+        linkouts: async (panGeneSet, _, { dataSources }) => {
+            const {identifier} = panGeneSet;
+            return dataSources[microservicesSource].getLinkoutsForPanGeneSet(identifier);
         },
     },
 });
