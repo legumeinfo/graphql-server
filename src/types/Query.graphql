@@ -260,6 +260,14 @@ type LocationLinkoutsResults {
   results: [Linkout!]!
 }
 
+type GeneFamilyLinkoutsResults {
+  results: [Linkout!]!
+}
+
+type PanGeneSetLinkoutsResults {
+  results: [Linkout!]!
+}
+
 
 # Top-level queries
 
@@ -333,5 +341,7 @@ type Query {
   ### microservices queries
   geneLinkouts(identifier: ID!): GeneLinkoutsResults
   locationLinkouts(identifier: ID!, start: Int!, end: Int!): LocationLinkoutsResults
+  geneFamilyLinkouts(identifier: ID!): GeneFamilyLinkoutsResults
+  panGeneSetLinkouts(identifier: ID!): PanGeneSetLinkoutsResults
 
 }

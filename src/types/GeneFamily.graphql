@@ -24,4 +24,6 @@ type GeneFamily implements AnnotatableInterface {
   genes: [Gene!]!
   proteinDomains: [ProteinDomain!]!
   tallies: [GeneFamilyTally!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }

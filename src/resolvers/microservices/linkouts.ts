@@ -14,5 +14,13 @@ ResolverMap => ({
             return dataSources[sourceName].getLinkoutsForLocation(identifier, start, end)
               .then((results) => ({results}));
         },
+        geneFamilyLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForGeneFamily(identifier)
+              .then((results) => ({results}));
+        },
+        panGeneSetLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForPanGeneSet(identifier)
+              .then((results) => ({results}));
+        },
     },
 });
