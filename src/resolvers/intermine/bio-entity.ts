@@ -8,13 +8,13 @@ export const bioEntityFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
     ...annotatableFactory(sourceName),
     organism: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getOrganism(bioEntity)
-            // @ts-ignore: implicit type any error
+        return dataSources[sourceName].getOrganism(bioEntity.organismTaxonId)
+        // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
     strain: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getStrain(bioEntity)
-            // @ts-ignore: implicit type any error
+        return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
+        // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
     locations: async (bioEntity, { page, pageSize }, { dataSources }) => {

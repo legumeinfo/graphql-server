@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="OntologyAnnotation" is-interface="true" term="http://semanticscience.org/resource/SIO_001166">
 // 	<attribute name="qualifier" type="java.lang.String" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl//C41009"/>
 // 	<reference name="subject" referenced-type="Annotatable" reverse-reference="ontologyAnnotations" term=""/>
@@ -8,34 +7,37 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // 	<collection name="evidence" referenced-type="OntologyEvidence"/>
 // </class>
+// Note: qualifier and evidence are not currently populated in LIS mines
 export const intermineOntologyAnnotationAttributes = [
     'OntologyAnnotation.id',
-    'OntologyAnnotation.qualifier',
+    'OntologyAnnotation.subject.primaryIdentifier',
     'OntologyAnnotation.ontologyTerm.identifier',
 ];
-export const intermineOntologyAnnotationSort = 'OntologyAnnotation.id';
-export type IntermineOntologyAnnotation = [
-  number,
-  string,
-  number,
-];
 
+export const intermineOntologyAnnotationSort = 'OntologyAnnotation.ontologyTerm.identifier';
+
+export type IntermineOntologyAnnotation = [
+    number, // id
+    string, // subject.primaryIdentifier
+    string, // ontologyTerm.identifier
+];
 
 // type OntologyAnnotation {
 //   id: ID!
-//   qualifier: String
-//   # subject: Annotatable
+//   // qualifier
+//   subject: Annotatable
 //   ontologyTerm: OntologyTerm
-//   # dataSets: [DataSet]
-//   # evidence: [OntologyEvidence]
+//   dataSets: [DataSet!]!
+//   // evidence
 // }
 export const graphqlOntologyAnnotationAttributes = [
-    'id',
-    'qualifier',
-    'ontologyTermIdentifier',
+    'id',                     // id
+    'subjectIdentifier',      // subject.primaryIdentifier
+    'ontologyTermIdentifier', // ontologyTerm.identifier
 ];
+
 export type GraphQLOntologyAnnotation = {
-  [prop in typeof graphqlOntologyAnnotationAttributes[number]]: string;
+    [prop in typeof graphqlOntologyAnnotationAttributes[number]]: string;
 }
 
 
@@ -43,7 +45,6 @@ export type IntermineOntologyAnnotationResponse = IntermineDataResponse<Intermin
 export function response2ontologyAnnotations(response: IntermineOntologyAnnotationResponse): Array<GraphQLOntologyAnnotation> {
     return response2graphqlObjects(response, graphqlOntologyAnnotationAttributes);
 }
-
 
 // OntologyAnnotation.dataSets has no reverse reference
 export const intermineOntologyAnnotationDataSetAttributes = [
@@ -54,16 +55,8 @@ export const intermineOntologyAnnotationDataSetAttributes = [
     'OntologyAnnotation.dataSets.name',
     'OntologyAnnotation.dataSets.version',
     'OntologyAnnotation.dataSets.synopsis',
-    'OntologyAnnotation.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineOntologyAnnotationDataSetSort = 'OntologyAnnotation.dataSets.name'; // guaranteed not null
-export type IntermineOntologyAnnotationDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
+    'OntologyAnnotation.dataSets.publication.doi',  // resolve reference
+]
+export const intermineOntologyAnnotationDataSetSort = 'OntologyAnnotation.dataSets.name';
+
+// use IntermineDataSet

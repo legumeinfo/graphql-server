@@ -2,7 +2,6 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 
-
 export const annotatableFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
     ontologyAnnotations: async (annotatable, { page, pageSize }, { dataSources }) => {
@@ -17,8 +16,8 @@ export const annotatableFactory =
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    dataSets: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {bioEntity: bioEntity, page, pageSize};
+    dataSets: async (annotatable, { page, pageSize }, { dataSources }) => {
+        const args = {annotatable: annotatable, page, pageSize};
         return dataSources[sourceName].getDataSets(args)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);

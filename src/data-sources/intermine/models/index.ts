@@ -20,6 +20,8 @@ import { GraphQLLocation, IntermineLocation } from './location.js';
 import { GraphQLOntology, IntermineOntology } from './ontology.js';
 import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
 import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
+import { GraphQLOntologyRelation, IntermineOntologyRelation } from './ontology-term.js';
+import { GraphQLOntologyTermSynonym, IntermineOntologyTermSynonym } from './ontology-term.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
 import { GraphQLNewick, IntermineNewick } from './newick.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
@@ -62,6 +64,8 @@ export type GraphQLModel =
     GraphQLOntology |
     GraphQLOntologyAnnotation |
     GraphQLOntologyTerm |
+    GraphQLOntologyRelation |
+    GraphQLOntologyTermSynonym |
     GraphQLOrganism |
     GraphQLNewick |
     GraphQLMRNA |
@@ -104,6 +108,8 @@ export type IntermineModel =
     IntermineOntology |
     IntermineOntologyAnnotation |
     IntermineOntologyTerm |
+    IntermineOntologyRelation |
+    IntermineOntologyTermSynonym |
     IntermineOrganism |
     IntermineNewick |
     IntermineMRNA |
@@ -148,7 +154,6 @@ export * from './ontology.js';
 export * from './ontology-annotation.js';
 export * from './ontology-term.js';
 export * from './organism.js';
-export * from './overlapping-feature.js';
 export * from './newick.js';
 export * from './mrna.js';
 export * from './pan-gene-set.js';

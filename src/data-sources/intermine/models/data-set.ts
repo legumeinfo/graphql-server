@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="DataSet" is-interface="true" term="http://semanticscience.org/resource/SIO_000089">
 // 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
 // 	<attribute name="licence" type="java.lang.String" term="http://purl.org/dc/terms/license"/>
@@ -20,20 +19,21 @@ export const intermineDataSetAttributes = [
     'DataSet.name',
     'DataSet.version',
     'DataSet.synopsis',
-    'DataSet.publication.doi',  // internal resolution of publication
-];
-export const intermineDataSetSort = 'DataSet.name'; // guaranteed not null
-export type IntermineDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    'DataSet.publication.doi',  // resolve reference
 ];
 
+export const intermineDataSetSort = 'DataSet.name'; // guaranteed not null
+
+export type IntermineDataSet = [
+  number, // id
+  string, // description
+  string, // licence
+  string, // url
+  string, // name
+  string, // version
+  string, // synopsis
+  string, // publication.doi
+];
 
 // type DataSet {
 //   id: ID!
@@ -48,14 +48,14 @@ export type IntermineDataSet = [
 //   # bioEntities
 // }
 export const graphqlDataSetAttributes = [
-    'id',
-    'description',
-    'licence',
-    'url',
-    'name',
-    'version',
-    'synopsis',
-    'publicationDOI',
+    'id',             // id
+    'description',    // description
+    'licence',        // licence
+    'url',            // url
+    'name',           // name
+    'version',        // version
+    'synopsis',       // synopsis
+    'publicationDOI', // publication.doi
 ];
 export type GraphQLDataSet = {
   [prop in typeof graphqlDataSetAttributes[number]]: string;

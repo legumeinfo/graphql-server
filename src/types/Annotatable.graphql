@@ -1,17 +1,8 @@
-# --------------------------------------------------------------------
-# This is an interface for InterMine objects which extend Annotatable.
-# --------------------------------------------------------------------
-# <class name="Annotatable" is-interface="true">
-# 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
-# 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
-# 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
-# </class>
-## core type
 type Annotatable implements AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
+  ontologyAnnotations: [OntologyAnnotation!]
   publications: [Publication!]!
   dataSets: [DataSet!]!
 }

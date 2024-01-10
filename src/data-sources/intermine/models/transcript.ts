@@ -1,4 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import { IntermineSequenceFeature, graphqlSequenceFeatureAttributes } from './sequence-feature.js';
 
 // <class name="Transcript" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000673,http://purl.obolibrary.org/obo/SO:0000673">
 // 	<reference name="gene" referenced-type="Gene" reverse-reference="transcripts"/>

@@ -17,21 +17,50 @@ ResolverMap => ({
         ontologyTerms: async (_, { description, page, pageSize }, { dataSources }) => {
             const args = {description, page, pageSize};
             return dataSources[sourceName].searchOntologyTerms(args)
-                // @ts-ignore: implicit type any error
+            // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
         },
     },
     OntologyTerm: {
-        // Note: ontology is sometimes null so we have to do a secondary query here
         ontology: async (ontologyTerm, _, { dataSources }) => {
             return dataSources[sourceName].getOntologyTermOntology(ontologyTerm)
-                // @ts-ignore: implicit type any error
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        relations: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyTermRelations(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        synonyms: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyTermSynonyms(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        ontologyAnnotations: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyAnnotations(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        parents: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyTermParents(args)
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         dataSets: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
-                // @ts-ignore: implicit type any error
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyTermDataSets(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        crossReferences: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
+            const args = {ontologyTerm: ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyTermCrossReferences(args)
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },

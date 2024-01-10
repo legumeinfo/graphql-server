@@ -1,5 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
-import { graphqlAnnotatableAttributes } from './index.js';
+import { IntermineAnnotatable, graphqlAnnotatableAttributes } from './annotatable.js';
 
 // <class name="BioEntity" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="description" type="java.lang.String"/>
@@ -32,8 +32,7 @@ export const intermineBioEntityAttributes = [
 export const intermineBioEntitySort = 'BioEntity.primaryIdentifier';
 
 export type IntermineBioEntity = [
-    number, // id
-    string, // primaryIdentifier
+    ...IntermineAnnotatable,
     string, // description
     string, // symbol
     string, // name

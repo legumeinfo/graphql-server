@@ -15,9 +15,7 @@ import {
 // get a Supercontig for a given primaryIdentifier
 export async function getSupercontig(identifier: string):
 Promise<ApiResponse<GraphQLSequenceFeature>> {
-    const constraints = [
-        intermineConstraint('Supercontig.primaryIdentifier', '=', identifier)
-    ];
+    const constraints = [intermineConstraint('Supercontig.primaryIdentifier', '=', (identifier === null) ? '' : identifier)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('Supercontig.chromosome', 'OUTER'),

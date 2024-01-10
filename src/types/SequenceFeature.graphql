@@ -1,4 +1,4 @@
-type SequenceFeature implements SequenceFeatureInterface & BioEntityInterface {
+type SequenceFeature implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!

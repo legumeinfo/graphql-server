@@ -15,9 +15,7 @@ import {
 // get a Chromosome for a given identifier
 export async function getChromosome(identifier: string):
 Promise<ApiResponse<GraphQLSequenceFeature>> {
-    const constraints = [
-        intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)
-    ];
+    const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', (identifier === null) ? '' : identifier)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('Chromosome.chromosome', 'OUTER'),

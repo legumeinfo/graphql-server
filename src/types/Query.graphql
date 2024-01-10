@@ -162,6 +162,10 @@ type QtlResults {
   results: QTL
 }
 
+type SOTermResults {
+  results: SOTerm
+}
+
 type SyntenyBlockResults {
   results: SyntenyBlock
 }
@@ -291,6 +295,7 @@ type Query {
   ontologyTerm(identifier: ID!): OntologyTermResults
   organism(taxonId: ID!): OrganismResults
   publication(doi: ID!): PublicationResults
+  soTerm(identifier: ID!): SOTermResults
   strain(identifier: ID!): StrainResults
 
   ### types identified by numerical id

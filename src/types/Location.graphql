@@ -13,12 +13,9 @@ type Location {
   strand: String
   start: Int
   end: Int
+  locatedOn: BioEntity
   feature: BioEntity
   dataSets: [DataSet!]!
-  ## locatedOn breakout:
-  chromosome: Chromosome
-  supercontig: Supercontig
-  protein: Protein
   ## microservices
   linkouts: [Linkout!]!
 }

@@ -11,11 +11,10 @@ import {
   response2ontologyTerms,
 } from '../models/index.js';
 
-
 // get an OntologyTerm by identifier
 export async function getOntologyTerm(identifier: string):
 Promise<ApiResponse<GraphQLOntologyTerm>> {
-    const constraints = [intermineConstraint('OntologyTerm.identifier', '=', identifier)];
+    const constraints = [intermineConstraint('OntologyTerm.identifier', '=', (identifier === null) ? '' : identifier)];
     const query = interminePathQuery(
         intermineOntologyTermAttributes,
         intermineOntologyTermSort,

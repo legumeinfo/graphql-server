@@ -11,10 +11,10 @@ import {
   response2strains,
 } from '../models/index.js';
 
-
 // get a Strain by identifier
 export async function getStrain(identifier: string):
 Promise<ApiResponse<GraphQLStrain>> {
+    if (identifier == null) return null;
     const constraints = [intermineConstraint('Strain.identifier', '=', identifier)];
     const query = interminePathQuery(
         intermineStrainAttributes,

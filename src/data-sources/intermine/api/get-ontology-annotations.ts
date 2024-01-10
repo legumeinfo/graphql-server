@@ -7,6 +7,7 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLAnnotatable,
+    GraphQLOntologyTerm,
     GraphQLOntologyAnnotation,
     IntermineOntologyAnnotationResponse,
     intermineOntologyAnnotationAttributes,
@@ -18,21 +19,25 @@ import { PaginationOptions } from './pagination.js';
 
 export type GetOntologyAnnotationsOptions = {
     annotatable?: GraphQLAnnotatable;
+    ontologyTerm?: GraphQLOntologyTerm;
 } & PaginationOptions;
 
 
-// get OntologyAnnotations for any type that extends Annotatable
+// get OntologyAnnotations for any type that extends Annotatable, or for an OntologyTerm
 export async function getOntologyAnnotations(
     {
         annotatable,
+        ontologyTerm,
         page,
         pageSize,
     }: GetOntologyAnnotationsOptions,
 ): Promise<ApiResponse<GraphQLOntologyAnnotation[]>> {
     const constraints = [];
     if (annotatable) {
-        const constraint = intermineConstraint('OntologyAnnotation.subject.id', '=', annotatable.id);
-        constraints.push(constraint);
+        constraints.push(intermineConstraint('OntologyAnnotation.subject.id', '=', annotatable.id));
+    }
+    if (ontologyTerm) {
+        constraints.push(intermineConstraint('OntologyAnnotation.ontologyTerm.id', '=', ontologyTerm.id));
     }
     const query = interminePathQuery(
         intermineOntologyAnnotationAttributes,

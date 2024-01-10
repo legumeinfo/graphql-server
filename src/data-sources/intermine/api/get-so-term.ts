@@ -4,19 +4,17 @@ import {
   interminePathQuery,
 } from '../intermine.server.js';
 import {
-  intermineSOTermAttributes,
-  intermineSOTermSort,
   GraphQLOntologyTerm,
   IntermineOntologyTermResponse,
+  intermineSOTermAttributes,
+  intermineSOTermSort,
   response2ontologyTerms,
 } from '../models/index.js';
 
 // get an SOTerm (an OntologyTerm stored in a different table) by identifier
 export async function getSOTerm(identifier: string):
 Promise<ApiResponse<GraphQLOntologyTerm>> {
-    const constraints = [
-        intermineConstraint('SOTerm.identifier', '=', identifier)
-    ];
+    const constraints = [intermineConstraint('SOTerm.identifier', '=', (identifier === null) ? '' : identifier)];
     const query = interminePathQuery(
         intermineSOTermAttributes,
         intermineSOTermSort,

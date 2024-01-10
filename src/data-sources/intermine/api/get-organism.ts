@@ -11,10 +11,10 @@ import {
   response2organisms,
 } from '../models/index.js';
 
-
-// get an Organism by taxon ID
+// get an Organism for a given taxonId
 export async function getOrganism(taxonId: number):
 Promise<ApiResponse<GraphQLOrganism>> {
+    if (taxonId == null) return null;
     const constraints = [intermineConstraint('Organism.taxonId', '=', taxonId)];
     const query = interminePathQuery(
         intermineOrganismAttributes,

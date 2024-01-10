@@ -17,7 +17,7 @@ import {
 // does NOT throw an error if the supercontig location is not found, since this happens when the feature is on a chromosome
 export async function getSupercontigLocation(sequenceFeature: GraphQLSequenceFeature):
 Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', sequenceFeature.supercontigLocationId)];
+    const constraints = [intermineConstraint('Location.id', '=', (sequenceFeature.supercontigLocationId === null) ? 0 : sequenceFeature.supercontigLocationId)];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,

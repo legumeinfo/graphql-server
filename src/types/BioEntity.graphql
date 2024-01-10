@@ -1,9 +1,12 @@
+## Some BioEntities (e.g. ProteinMatch) are not associated with a particular
+## organism or strain, so those fields must be nullable.
 type BioEntity implements BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
+  ontologyAnnotations: [OntologyAnnotation!]
+  publications: [Publication!]
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -14,6 +17,5 @@ type BioEntity implements BioEntityInterface & AnnotatableInterface {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
 }

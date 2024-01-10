@@ -17,7 +17,7 @@ import {
 // does NOT throw an error if the chromosome location is not found, since this happens when the feature is on a supercontig
 export async function getChromosomeLocation(sequenceFeature: GraphQLSequenceFeature):
 Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', sequenceFeature.chromosomeLocationId)];
+    const constraints = [intermineConstraint('Location.id', '=', (sequenceFeature.chromosomeLocationId === null) ? 0 : sequenceFeature.chromosomeLocationId)];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,

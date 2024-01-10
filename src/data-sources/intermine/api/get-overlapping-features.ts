@@ -37,7 +37,8 @@ export async function getOverlappingFeatures(
         intermineJoin('SequenceFeature.overlappingFeatures.chromosome', 'OUTER'),
         intermineJoin('SequenceFeature.overlappingFeatures.supercontig', 'OUTER'),
         intermineJoin('SequenceFeature.overlappingFeatures.chromosomeLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.overlappingFeatures.supercontigLocation', 'OUTER')
+        intermineJoin('SequenceFeature.overlappingFeatures.supercontigLocation', 'OUTER'),
+        intermineJoin('SequenceFeature.overlappingFeatures.sequenceOntologyTerm', 'OUTER'),
     ];
     const query = interminePathQuery(
         intermineOverlappingFeatureAttributes,

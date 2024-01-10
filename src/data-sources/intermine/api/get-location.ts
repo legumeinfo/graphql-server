@@ -11,11 +11,10 @@ import {
   response2locations,
 } from '../models/index.js';
 
-
 // get a location by ID
 export async function getLocation(id: number):
 Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', id)];
+    const constraints = [intermineConstraint('Location.id', '=', (id === null) ? 0 : id)];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,

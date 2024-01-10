@@ -15,13 +15,11 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetLocationsOptions = {
   bioEntity?: GraphQLBioEntity;
 } & PaginationOptions;
 
-
-// get locatedFeatures (Locations) for any type that extends BioEntity
+// get locatedFeatures (Locations) for any type that extends BioEntity using the Location.locatedOn reverse reference
 export async function getLocatedFeatures(
     {bioEntity, page, pageSize}: GetLocationsOptions,
 ): Promise<ApiResponse<GraphQLLocation>> {

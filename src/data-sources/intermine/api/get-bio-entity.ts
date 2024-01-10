@@ -1,6 +1,7 @@
 import {
   ApiResponse,
   intermineConstraint,
+  intermineJoin,
   interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,15 +12,20 @@ import {
   response2bioEntities,
 } from '../models/index.js';
 
-
-// get a BioEntity by identifier
-export async function getBioEntity(identifier: string):
+// get a BioEntity by id (for internal resolution only)
+export async function getBioEntity(id: number):
 Promise<ApiResponse<GraphQLBioEntity>> {
-    const constraints = [intermineConstraint('BioEntity.primaryIdentifier', '=', identifier)];
+    const constraints = [intermineConstraint('BioEntity.id', '=', id)];
+    // all BioEntity-extending object queries must include these joins
+    const joins = [
+        intermineJoin('BioEntity.organism', 'OUTER'),
+        intermineJoin('BioEntity.strain', 'OUTER')
+    ];
     const query = interminePathQuery(
         intermineBioEntityAttributes,
         intermineBioEntitySort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
         .then((response: IntermineBioEntityResponse) => response2bioEntities(response))

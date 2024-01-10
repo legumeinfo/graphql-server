@@ -15,11 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetLocationsOptions = {
   bioEntity?: GraphQLBioEntity;
 } & PaginationOptions;
-
 
 // get locations for any type that extends BioEntity
 export async function getLocations(

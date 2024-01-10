@@ -7,10 +7,10 @@
 # </class>
 type OntologyAnnotation {
   id: ID!
-  qualifier: String
-  # subject: Annotatable
+  ## qualifier - not currently populated in LIS mines
+  subject: Annotatable
   ontologyTerm: OntologyTerm
   dataSets: [DataSet!]!
-  # evidence
+  ## evidence - not currently populated in LIS mines
 }
   
