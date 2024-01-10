@@ -13,5 +13,7 @@ type PanGeneSet implements Annotatable {
   dataSets: [DataSet!]!
   genes: [Gene!]!
   proteins: [Protein!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }
 
