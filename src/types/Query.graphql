@@ -74,6 +74,9 @@ type ProteinResults {
 type ProteinDomainResults {
   results: ProteinDomain
 }
+type ProteinMatchResults {
+  results: ProteinMatch
+}
 type QtlStudyResults {
   results: QTLStudy
 }
@@ -251,6 +254,7 @@ type Query {
   phylotree(identifier: ID!): PhylotreeResults
   protein(identifier: ID!): ProteinResults
   proteinDomain(identifier: ID!): ProteinDomainResults
+  proteinMatch(identifier: ID!): ProteinMatchResults
   qtl(identifier: ID!): QtlResults
   qtlStudy(identifier: ID!): QtlStudyResults
   supercontig(identifier: ID!): SupercontigResults

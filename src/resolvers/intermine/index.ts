@@ -34,8 +34,9 @@ import { panGeneSetFactory } from './pan-gene-set.js';
 import { pathwayFactory } from './pathway.js';
 import { phylonodeFactory } from './phylonode.js';
 import { phylotreeFactory } from './phylotree.js';
-import { proteinDomainFactory } from './protein-domain.js';
 import { proteinFactory } from './protein.js';
+import { proteinDomainFactory } from './protein-domain.js';
+import { proteinMatchFactory } from './protein-match.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
@@ -77,8 +78,9 @@ const factories = [
     pathwayFactory,
     phylonodeFactory,
     phylotreeFactory,
-    proteinDomainFactory,
     proteinFactory,
+    proteinDomainFactory,
+    proteinMatchFactory,
     publicationFactory,
     qtlFactory,
     qtlStudyFactory,
