@@ -33,11 +33,6 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(expressionSource.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         samples: async (expressionSource, { page, pageSize }, { dataSources }) => {
             const args = {expressionSource, page, pageSize};
             return dataSources[sourceName].getExpressionSamples(args)
