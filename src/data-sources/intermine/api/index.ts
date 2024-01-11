@@ -133,6 +133,8 @@ import { searchProteins } from './search-proteins.js';
 import { getProteinDomain } from './get-protein-domain.js';
 import { getProteinDomains } from './get-protein-domains.js';
 import { searchProteinDomains } from './search-protein-domains.js';
+// protein match
+import { getProteinMatch } from './get-protein-match.js';
 // publication
 import { getPublication } from './get-publication.js';
 import { getPublications } from './get-publications.js';
@@ -304,6 +306,8 @@ export declare class ApiMixinInterface {
     getProteinDomain: Function;
     getProteinDomains: Function;
     searchProteinDomains: Function;
+    // protein match
+    getProteinMatch: Function;
     // publication
     getPublication: Function;
     getPublications: Function;
@@ -488,6 +492,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getProteinDomain = getProteinDomain;
         getProteinDomains = getProteinDomains;
         searchProteinDomains = searchProteinDomains;
+        // protein match
+        getProteinMatch = getProteinMatch;
         // publication
         getPublication = getPublication;
         getPublications = getPublications;

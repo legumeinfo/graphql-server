@@ -32,8 +32,9 @@ import { GraphQLPanGeneSet, InterminePanGeneSet } from './pan-gene-set.js';
 import { GraphQLPathway, InterminePathway } from './pathway.js';
 import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
 import { GraphQLPhylotree, InterminePhylotree } from './phylotree.js';
-import { GraphQLProteinDomain, IntermineProteinDomain } from './protein-domain.js';
 import { GraphQLProtein, IntermineProtein } from './protein.js';
+import { GraphQLProteinDomain, IntermineProteinDomain } from './protein-domain.js';
+import { GraphQLProteinMatch, IntermineProteinMatch } from './protein-match.js';
 import { GraphQLPublication, InterminePublication } from './publication.js';
 import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
@@ -80,8 +81,9 @@ export type GraphQLModel =
     GraphQLPathway |
     GraphQLPhylonode |
     GraphQLPhylotree |
-    GraphQLProteinDomain |
     GraphQLProtein |
+    GraphQLProteinDomain |
+    GraphQLProteinMatch |
     GraphQLPublication |
     GraphQLQTL |
     GraphQLQTLStudy |
@@ -128,8 +130,9 @@ export type IntermineModel =
     InterminePathway |
     InterminePhylonode |
     InterminePhylotree |
-    IntermineProteinDomain |
     IntermineProtein |
+    IntermineProteinDomain |
+    IntermineProteinMatch |
     InterminePublication |
     IntermineQTL |
     IntermineQTLStudy |
@@ -177,8 +180,9 @@ export * from './pan-gene-set.js';
 export * from './pathway.js';
 export * from './phylonode.js';
 export * from './phylotree.js';
-export * from './protein-domain.js';
 export * from './protein.js';
+export * from './protein-domain.js';
+export * from './protein-match.js';
 export * from './publication.js';
 export * from './qtl.js';
 export * from './qtl-study.js';
