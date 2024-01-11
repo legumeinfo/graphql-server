@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="ExpressionSource" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="sra" type="java.lang.String"/>
 // 	<attribute name="description" type="java.lang.String"/>
@@ -10,7 +9,6 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<attribute name="synopsis" type="java.lang.String"/>
 // 	<reference name="organism" referenced-type="Organism"/>
 // 	<reference name="strain" referenced-type="Strain"/>
-// 	<reference name="dataSet" referenced-type="DataSet"/>
 // 	<collection name="samples" referenced-type="ExpressionSample" reverse-reference="source"/>
 // </class>
 export const intermineExpressionSourceAttributes = [
@@ -24,9 +22,9 @@ export const intermineExpressionSourceAttributes = [
     'ExpressionSource.synopsis',
     'ExpressionSource.organism.taxonId',
     'ExpressionSource.strain.identifier',
-    'ExpressionSource.dataSet.name',
 ];
 export const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
+
 export type IntermineExpressionSource = [
   number,
   string,
@@ -38,45 +36,26 @@ export type IntermineExpressionSource = [
   string,
   number,
   string,
-  string,
 ];
 
-
-// type ExpressionSource {
-//   id: ID!
-//   identifier: String!
-//   # ontologyAnnotations
-//   # publications
-//   sra: String
-//   description: String
-//   bioProject: String
-//   unit: String
-//   geoSeries: String
-//   synopsis: String
-//   organism: Organism
-//   strain: Strain
-//   dataSet: DataSet
-//   samples: [ExpressionSample]
-// }
 export const graphqlExpressionSourceAttributes = [
-    'id',
-    'identifier',
-    'sra',
-    'description',
-    'bioProject',
-    'unit',
-    'geoSeries',
-    'synopsis',
-    'organismTaxonId',
-    'strainIdentifier',
-    'dataSetName',
+    'id',               // id
+    'identifier',       // primaryIdentifier
+    'sra',              // sra
+    'description',      // description
+    'bioProject',       // bioProject
+    'unit',             // unit
+    'geoSeries',        // geoSeries
+    'synopsis',         // synopsis
+    'organismTaxonId',  // organism.taxonId
+    'strainIdentifier', // strain.identifier
 ];
 export type GraphQLExpressionSource = {
   [prop in typeof graphqlExpressionSourceAttributes[number]]: string;
 }
 
-
 export type IntermineExpressionSourceResponse = IntermineDataResponse<IntermineExpressionSource>;
+
 export function response2expressionSources(response: IntermineExpressionSourceResponse): Array<GraphQLExpressionSource> {
     return response2graphqlObjects(response, graphqlExpressionSourceAttributes);
 }

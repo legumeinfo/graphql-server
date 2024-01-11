@@ -1,18 +1,17 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLAnnotatable,
-  IntermineAnnotatableResponse,
-  intermineAnnotatableAttributes,
-  intermineAnnotatableSort,
-  response2annotatables,
+    GraphQLAnnotatable,
+    IntermineAnnotatableResponse,
+    intermineAnnotatableAttributes,
+    intermineAnnotatableSort,
+    response2annotatables,
 } from '../models/index.js';
 
-
-// get an Annotatable by id (for internal resolution only)
+// get an Annotatable by id (for internal resolution of collections and references)
 export async function getAnnotatable(id: number):
 Promise<ApiResponse<GraphQLAnnotatable>> {
     const constraints = [intermineConstraint('Annotatable.id', '=', id)];

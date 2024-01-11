@@ -1,31 +1,22 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
-import { SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
+import { ResolverMap } from '../resolver.js';
+import { bioEntityInterfaceFactory } from './bio-entity-interface.js';
 
-export const bioEntityFactory =
-    (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-        ...annotatableFactory(sourceName),
-        organism: async (bioEntity, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(bioEntity.organismTaxonId)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+// for INTERNAL resolution of BioEntity references and collections
+export const bioEntityFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
+    Query: {
+        bioEntity: async (_, { id }, { dataSources }) => {
+            const {data: bioEntity} = await dataSources[sourceName].getBioEntity(id);
+            if (bioEntity == null) {
+                const msg = `BioEntity with id '${id}' not found`;
+                inputError(msg);
+            }
+            return {results: bioEntity};
         },
-        strain: async (bioEntity, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: bioEntity, page, pageSize};
-            return dataSources[sourceName].getLocations(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: bioEntity, page, pageSize};
-            return dataSources[sourceName].getLocatedFeatures(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-    });
+    },
+    BioEntity: {
+        ...bioEntityInterfaceFactory(sourceName),
+    },
+});

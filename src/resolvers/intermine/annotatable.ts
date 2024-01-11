@@ -1,25 +1,22 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { KeyOfType } from '../../utils/index.js';
-import { SubfieldResolverMap } from '../resolver.js';
+import { inputError, KeyOfType } from '../../utils/index.js';
+import { ResolverMap } from '../resolver.js';
+import { annotatableInterfaceFactory } from './annotatable-interface.js';
 
-export const annotatableFactory =
-    (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-        ontologyAnnotations: async (annotatable, { page, pageSize }, { dataSources }) => {
-            const args = {annotatable, page, pageSize};
-            return dataSources[sourceName].getOntologyAnnotations(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+// for INTERNAL resolution of Annotatable references and collections
+export const annotatableFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+ResolverMap => ({
+    Query: {
+        annotatable: async (_, { id }, { dataSources }) => {
+            const {data: source} = await dataSources[sourceName].getAnnotatable(id);
+            if (source == null) {
+                const msg = `Annotatable with id '${id}' not found`;
+                inputError(msg);
+            }
+            return {results: source};
         },
-        // publications: async (annotatable, { page, pageSize }, { dataSources }) => {
-        //     const args = {annotatable, page, pageSize};
-        //     return dataSources[sourceName].getPublications(args)
-        //     // @ts-ignore: implicit type any error
-        //         .then(({data: results}) => results);
-        // },
-        // dataSets: async (annotatable, { page, pageSize }, { dataSources }) => {
-        //     const args = {annotatable: annotatable, page, pageSize};
-        //     return dataSources[sourceName].getDataSets(args)
-        //     // @ts-ignore: implicit type any error
-        //         .then(({data: results}) => results);
-        // },
-    });
+    },
+    Annotatable: {
+        ...annotatableInterfaceFactory(sourceName),
+    },
+});

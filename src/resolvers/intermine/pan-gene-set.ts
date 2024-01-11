@@ -1,8 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
-
+import { annotatableInterfaceFactory } from './annotatable-interface.js';
 
 export const panGeneSetFactory = 
     (
@@ -20,7 +19,7 @@ export const panGeneSetFactory =
         },
     },
     PanGeneSet: {
-        ...annotatableFactory(sourceName),
+        ...annotatableInterfaceFactory(sourceName),
         dataSets: async (panGeneSet, { page, pageSize }, { dataSources }) => {
             const args = {bioEntity: panGeneSet, page, pageSize};
             return dataSources[sourceName].getDataSets(args)

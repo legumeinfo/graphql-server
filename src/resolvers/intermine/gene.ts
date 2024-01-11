@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
 
 export const geneFactory =
     (
@@ -25,7 +25,7 @@ export const geneFactory =
             },
         },
         Gene: {
-            ...sequenceFeatureFactory(sourceName),
+            ...sequenceFeatureInterfaceFactory(sourceName),
 
             // upstreamIntergenicRegion: IntergenicRegion
             // downstreamIntergenicRegion: IntergenicRegion

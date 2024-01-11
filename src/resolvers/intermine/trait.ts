@@ -1,8 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
-
+import { annotatableInterfaceFactory } from './annotatable-interface.js';
 
 export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -23,7 +22,7 @@ ResolverMap => ({
         },
     },
     Trait: {
-        ...annotatableFactory(sourceName),
+        ...annotatableInterfaceFactory(sourceName),
         organism: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(trait.organismTaxonId)
             // @ts-ignore: implicit type any error

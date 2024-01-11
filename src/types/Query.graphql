@@ -14,83 +14,75 @@ type PageInfo {
 
 ## Wrapper types that allow inclusion of metadata with results
 
+### generic types
+type AnnotatableResults {
+  results: Annotatable
+}
+type BioEntityResults {
+  results: BioEntity
+}
+type SequenceFeatureResults {
+  results: SequenceFeature
+}
+
 ### Annotatables
 type ChromosomeResults {
   results: Chromosome
 }
-
 type ExpressionSampleResults {
   results: ExpressionSample
 }
-
 type ExpressionSourceResults {
   results: ExpressionSource
 }
-
 type ExpressionValueResults {
   results: ExpressionValue
 }
-
 type GeneResults {
   results: Gene
 }
-
 type GeneFamilyResults {
   results: GeneFamily
 }
-
 type GeneticMapResults {
   results: GeneticMap
 }
-
 type GeneticMarkerResults {
   results: GeneticMarker
 }
-
 type GenotypingPlatformResults {
   results: GenotypingPlatform
 }
-
 type GwasResults {
   results: GWAS
 }
-
 type MRNAResults {
   results: MRNA
 }
-
 type PanGeneSetResults {
   results: PanGeneSet
 }
-
 type PathwayResults {
   results: Pathway
 }
-
 type PhylotreeResults {
   results: Phylotree
 }
-
 type ProteinResults {
   results: Protein
 }
-
 type ProteinDomainResults {
   results: ProteinDomain
 }
-
 type QtlStudyResults {
   results: QTLStudy
 }
-
 type SupercontigResults {
   results: Supercontig
 }
-
 type SyntenicRegionResults {
   results: SyntenicRegion
 }
-
 type TraitResults {
   results: Trait
 }
@@ -99,27 +91,21 @@ type TraitResults {
 type DataSetResults {
   results: DataSet
 }
-
 type OntologyResults {
   results: Ontology
 }
-
 type OntologyTermResults {
   results: OntologyTerm
 }
-
 type OrganismResults {
   results: Organism
 }
-
 type PublicationResults {
   results: Publication
 }
-
 type SOTermResults {
   results: SOTerm
 }
-
 type StrainResults {
   results: Strain
 }
@@ -128,43 +114,33 @@ type StrainResults {
 type AuthorResults {
   results: Author
 }
-
 type GeneFamilyAssignmentResults {
   results: GeneFamilyAssignment
 }
-
 type GeneFamilyTallyResults {
   results: GeneFamilyTally
 }
-
 type GwasResultResults {
   results: GWASResult
 }
-
 type LinkageGroupResults {
   results: LinkageGroup
 }
-
 type LinkageGroupPositionResults {
   results: LinkageGroupPosition
 }
-
 type LocationResults {
   results: Location
 }
-
 type OntologyAnnotationResults {
   results: OntologyAnnotation
 }
-
 type PhylonodeResults {
   results: Phylonode
 }
-
 type QtlResults {
   results: QTL
 }
-
 type SyntenyBlockResults {
   results: SyntenyBlock
 }
@@ -174,77 +150,62 @@ type ExpressionSamplesResults {
   results: [ExpressionSample!]!
   pageInfo: PageInfo
 }
-
 type ExpressionSourcesResults {
   results: [ExpressionSource!]!
   pageInfo: PageInfo
 }
-
 type ExpressionValuesResults {
   results: [ExpressionValue!]!
   pageInfo: PageInfo
 }
-
 type GenesResults {
   results: [Gene!]!
   pageInfo: PageInfo
 }
-
 type GeneFamiliesResults {
   results: [GeneFamily!]!
   pageInfo: PageInfo
 }
-
 type GeneticMapsResults {
   results: [GeneticMap!]!
   pageInfo: PageInfo
 }
-
 type GwasesResults {
   results: [GWAS!]!
   pageInfo: PageInfo
 }
-
 type OntologyTermsResults {
   results: [OntologyTerm!]!
   pageInfo: PageInfo
 }
-
 type OrganismsResults {
   results: [Organism!]!
   pageInfo: PageInfo
 }
-
 type ProteinsResults {
   results: [Protein!]!
   pageInfo: PageInfo
 }
-
 type ProteinDomainsResults {
   results: [ProteinDomain!]!
   pageInfo: PageInfo
 }
-
 type PublicationsResults {
   results: [Publication!]!
   pageInfo: PageInfo
 }
-
 type QtlsResults {
   results: [QTL!]!
   pageInfo: PageInfo
 }
-
 type QtlStudiesResults {
   results: [QTLStudy!]!
   pageInfo: PageInfo
 }
-
 type StrainsResults {
   results: [Strain!]!
   pageInfo: PageInfo
 }
-
 type TraitsResults {
   results: [Trait!]!
   pageInfo: PageInfo
@@ -254,15 +215,12 @@ type TraitsResults {
 type GeneLinkoutsResults {
   results: [Linkout!]!
 }
-
 type LocationLinkoutsResults {
   results: [Linkout!]!
 }
-
 type GeneFamilyLinkoutsResults {
   results: [Linkout!]!
 }
-
 type PanGeneSetLinkoutsResults {
   results: [Linkout!]!
 }
@@ -270,6 +228,11 @@ type PanGeneSetLinkoutsResults {
 ## Top-level queries
 type Query {
 
+  ### generic types
+  annotatable(id: ID!): AnnotatableResults
+  bioEntity(id: ID!): BioEntityResults
+  sequenceFeature(id: ID!): SequenceFeatureResults
+  
   ### Annotatables
   chromosome(identifier: ID!): ChromosomeResults
   expressionSample(identifier: ID!): ExpressionSampleResults

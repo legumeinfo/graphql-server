@@ -5,7 +5,9 @@ import { mergeResolvers } from '@graphql-tools/merge';
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 
+import { annotatableFactory } from './annotatable.js';
 import { authorFactory } from './author.js';
+import { bioEntityFactory } from './bio-entity.js';
 import { chromosomeFactory } from './chromosome.js';
 import { dataSetFactory } from './data-set.js';
 import { expressionSampleFactory } from './expression-sample.js';
@@ -37,6 +39,7 @@ import { proteinFactory } from './protein.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 import { soTermFactory } from './so-term.js';
 import { supercontigFactory } from './supercontig.js';
 import { syntenicRegionFactory } from './syntenic-region.js';
@@ -45,7 +48,9 @@ import { strainFactory } from './strain.js';
 import { traitFactory } from './trait.js';
 
 const factories = [
+    annotatableFactory,
     authorFactory,
+    bioEntityFactory,
     chromosomeFactory,
     dataSetFactory,
     expressionSampleFactory,
@@ -77,6 +82,7 @@ const factories = [
     publicationFactory,
     qtlFactory,
     qtlStudyFactory,
+    sequenceFeatureFactory,
     soTermFactory,
     strainFactory,
     supercontigFactory,

@@ -1,15 +1,15 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  intermineJoin,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    intermineJoin,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLBioEntity,
-  IntermineBioEntityResponse,
-  intermineBioEntityAttributes,
-  intermineBioEntitySort,
-  response2bioEntities,
+    GraphQLBioEntity,
+    IntermineBioEntityResponse,
+    intermineBioEntityAttributes,
+    intermineBioEntitySort,
+    response2bioEntities,
 } from '../models/index.js';
 
 // get a BioEntity by id (for internal resolution only)

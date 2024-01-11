@@ -126,6 +126,8 @@ import { searchQTLs } from './search-qtls.js';
 import { getQTLStudy } from './get-qtl-study.js';
 import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
+// sequence feature
+import { getSequenceFeature } from './get-sequence-feature.js';
 // SO term
 import { getSOTerm } from './get-so-term.js';
 import { getSOTermParents } from './get-so-term-parents.js';
@@ -282,6 +284,8 @@ export declare class ApiMixinInterface {
     getQTLStudy: Function;
     getQTLStudyForTrait: Function;
     searchQTLStudies: Function;
+    // sequence feature
+    getSequenceFeature: Function;
     // SO term
     getSOTerm: Function;
     getSOTermParents: Function;
@@ -448,6 +452,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getQTLStudy = getQTLStudy;
         getQTLStudyForTrait = getQTLStudyForTrait;
         searchQTLStudies = searchQTLStudies;
+        // sequence feature
+        getSequenceFeature = getSequenceFeature;
         // SO term
         getSOTerm = getSOTerm;
         getSOTermParents = getSOTermParents;
