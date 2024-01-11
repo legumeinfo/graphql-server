@@ -26,6 +26,5 @@ type ExpressionSource implements AnnotatableInterface {
   synopsis: String
   organism: Organism
   strain: Strain
-  dataSet: DataSet
   samples: [ExpressionSample!]!
 }
