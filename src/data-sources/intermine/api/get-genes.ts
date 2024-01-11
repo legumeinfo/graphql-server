@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -18,14 +19,12 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetGenesOptions = {
     protein?: GraphQLProtein;
     geneFamily?: GraphQLGeneFamily;
     panGeneSet?: GraphQLPanGeneSet;
     proteinDomain?: GraphQLProteinDomain;
 } & PaginationOptions;
-
 
 // get Genes associated with a Protein, GeneFamily, PanGeneSet, ProteinDomain
 export async function getGenes(
@@ -46,6 +45,7 @@ export async function getGenes(
     if (geneFamily) {
         const geneFamilyConstraint = intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
         constraints.push(geneFamilyConstraint);
+        console.log(geneFamilyConstraint);
     }
     if (panGeneSet) {
         const panGeneSetConstraint = intermineConstraint('Gene.panGeneSets.id', '=', panGeneSet.id);
@@ -55,10 +55,18 @@ export async function getGenes(
         const proteinDomainConstraint = intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id);
         constraints.push(proteinDomainConstraint);
     }
+    // all SequenceFeature-extending object queries must include these joins
+    const joins = [
+        intermineJoin('Gene.chromosome', 'OUTER'),
+        intermineJoin('Gene.supercontig', 'OUTER'),
+        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
+        intermineJoin('Gene.supercontigLocation', 'OUTER')
+    ];
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})

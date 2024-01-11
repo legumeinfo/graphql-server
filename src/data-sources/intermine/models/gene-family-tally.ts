@@ -1,44 +1,46 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="GeneFamilyTally" is-interface="true" term="">
-// 	<attribute name="tally" type="java.lang.Integer"/>
+// 	<attribute name="averageCount" type="java.lang.Double"/>
+// 	<attribute name="totalCount" type="java.lang.Integer"/>
+// 	<attribute name="numAnnotations" type="java.lang.Integer"/>
 // 	<reference name="organism" referenced-type="Organism"/>
 // 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="tallies"/>
 // </class>
 export const intermineGeneFamilyTallyAttributes = [
     'GeneFamilyTally.id',
-    'GeneFamilyTally.tally',
-    'GeneFamilyTally.organism.taxonId',
-    'GeneFamilyTally.geneFamily.primaryIdentifier',
+    'GeneFamilyTally.averageCount',
+    'GeneFamilyTally.totalCount',
+    'GeneFamilyTally.numAnnotations',
+    'GeneFamilyTally.organism.taxonId',             // resolve reference
+    'GeneFamilyTally.geneFamily.primaryIdentifier', // resolve reference
 ];
 export const intermineGeneFamilyTallySort = 'GeneFamilyTally.id';
+
 export type IntermineGeneFamilyTally = [
-  number,
-  number,
-  number,
-  string,
+    number, // id
+    number, // averageCount
+    number, // totalCount
+    number, // numAnnotations
+    number, // organism.taxonId
+    string, // geneFamily.primaryIdentifier
 ];
 
-
-// type GeneFamilyTally {
-//   id: ID!
-//   tally: Int
-//   organism: Organism
-//   geneFamily: GeneFamily
-// }
 export const graphqlGeneFamilyTallyAttributes = [
-    'id',
-    'tally',
-    'organismTaxonId',
-    'geneFamilyIdentifier',
+    'id',                    // id
+    'averageCount',          // averageCount
+    'totalCount',            // totalCount
+    'numAnnotations',        // numAnnotations
+    'organismTaxonId',       // resolve Organism
+    'geneFamilyIdentifier',  // resolve GeneFamily
 ];
+
 export type GraphQLGeneFamilyTally = {
-  [prop in typeof graphqlGeneFamilyTallyAttributes[number]]: string;
+    [prop in typeof graphqlGeneFamilyTallyAttributes[number]]: string;
 }
 
-
 export type IntermineGeneFamilyTallyResponse = IntermineDataResponse<IntermineGeneFamilyTally>;
+
 export function response2geneFamilyTallies(response: IntermineGeneFamilyTallyResponse): Array<GraphQLGeneFamilyTally> {
     return response2graphqlObjects(response, graphqlGeneFamilyTallyAttributes);
 }

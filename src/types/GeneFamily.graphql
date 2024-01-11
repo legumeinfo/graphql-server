@@ -6,7 +6,6 @@
 # 	<collection name="genes" referenced-type="Gene"/>
 # 	<collection name="proteins" referenced-type="Protein"/>
 # 	<collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="geneFamilies"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
 # 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
 # </class>
 type GeneFamily implements AnnotatableInterface {

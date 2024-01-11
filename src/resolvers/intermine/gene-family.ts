@@ -27,25 +27,24 @@ export const geneFamilyFactory =
     GeneFamily: {
         ...annotatableInterfaceFactory(sourceName),
         phylotree: async(geneFamily, _, { dataSources }) => {
-            // phylotrees have the same identifier as their corresponding gene family
-            return dataSources[sourceName].getPhylotree(geneFamily.identifier)
+            return dataSources[sourceName].getPhylotree(geneFamily.phylotreeIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         genes: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
+            const args = {geneFamily:geneFamily, page, pageSize};
             return dataSources[sourceName].getGenes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         proteinDomains: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
+            const args = {geneFamily:geneFamily, page, pageSize};
             return dataSources[sourceName].getProteinDomains(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         tallies: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
+            const args = {geneFamily:geneFamily, page, pageSize};
             return dataSources[sourceName].getGeneFamilyTallies(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

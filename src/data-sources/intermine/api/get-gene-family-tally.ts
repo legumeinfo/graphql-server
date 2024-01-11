@@ -11,7 +11,6 @@ import {
   response2geneFamilyTallies,
 } from '../models/index.js';
 
-
 // get a GeneFamilyTally by ID
 export async function getGeneFamilyTally(id: number):
 Promise<ApiResponse<GraphQLGeneFamilyTally>> {
