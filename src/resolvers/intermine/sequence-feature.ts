@@ -3,11 +3,19 @@ import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 import { bioEntityFactory } from './bio-entity.js';
 
+// sequenceOntologyTerm: SOTerm
+// supercontigLocation: Location
+// chromosomeLocation: Location
+// supercontig: Supercontig
+// chromosome: Chromosome
+// overlappingFeatures: [SequenceFeature!]!
+// childFeatures: [SequenceFeature!]!
 
 export const sequenceFeatureFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...bioEntityFactory(sourceName),
         sequenceOntologyTerm: async (sequenceFeature, _, { dataSources }) => {
+            console.log(sequenceFeature.soTermIdentifier);
             return dataSources[sourceName].getSOTerm(sequenceFeature.soTermIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
@@ -38,10 +46,10 @@ export const sequenceFeatureFactory =
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        // childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
-        //     const args = {sequenceFeature: sequenceFeature, page, pageSize};
-        //     return dataSources[sourceName].getChildFeatures(args)
-        //     // @ts-ignore: implicit type any error
-        //         .then(({data: results}) => results);
-        // },
+        childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: sequenceFeature, page, pageSize};
+            return dataSources[sourceName].getChildFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
     });

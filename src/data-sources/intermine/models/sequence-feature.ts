@@ -105,3 +105,34 @@ export const intermineOverlappingFeatureSort = 'SequenceFeature.overlappingFeatu
 // use GraphQLSequenceFeature
 // use IntermineSequenceFeatureResponse
 // use response2sequenceFeature
+
+// SequenceFeature.childFeatures are SequenceFeatures
+export const intermineChildFeatureAttributes = [
+    'SequenceFeature.childFeatures.id',
+    'SequenceFeature.childFeatures.primaryIdentifier',               // Annotatable
+    'SequenceFeature.childFeatures.description',                     // BioEntity
+    'SequenceFeature.childFeatures.symbol',                          // BioEntity
+    'SequenceFeature.childFeatures.name',                            // BioEntity
+    'SequenceFeature.childFeatures.assemblyVersion',                 // BioEntity
+    'SequenceFeature.childFeatures.annotationVersion',               // BioEntity
+    'SequenceFeature.childFeatures.secondaryIdentifier',             // BioEntity
+    'SequenceFeature.childFeatures.organism.taxonId',                // BioEntity - reference resolution
+    'SequenceFeature.childFeatures.strain.identifier',               // BioEntity - reference resolution
+    'SequenceFeature.childFeatures.score',                           // SequenceFeature
+    'SequenceFeature.childFeatures.scoreType',                       // SequenceFeature
+    'SequenceFeature.childFeatures.length',                          // SequenceFeature
+    'SequenceFeature.childFeatures.sequenceOntologyTerm.identifier', // SequenceFeature - reference resolution
+    'SequenceFeature.childFeatures.chromosomeLocation.id',           // SequenceFeature - reference resolution
+    'SequenceFeature.childFeatures.supercontigLocation.id',          // SequenceFeature - reference resolution
+    'SequenceFeature.childFeatures.sequence.id',                     // SequenceFeature - reference resolution
+    'SequenceFeature.childFeatures.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
+    'SequenceFeature.childFeatures.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
+];
+
+export const intermineChildFeatureSort = 'SequenceFeature.childFeatures.primaryIdentifier';
+
+// use IntermineSequenceFeature
+// use graphqlSequenceFeatureAttributes
+// use GraphQLSequenceFeature
+// use IntermineSequenceFeatureResponse
+// use response2sequenceFeature

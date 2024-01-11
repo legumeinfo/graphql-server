@@ -27,61 +27,42 @@ export const geneFactory =
         Gene: {
             ...sequenceFeatureFactory(sourceName),
 
-            // ontologyAnnotations: [OntologyAnnotation!]!
-            
-            // publications: [Publication!]!
-            
-            // locations: [Location!]!
-            
-            // dataSets: [DataSet!]!
-            
-            // locatedFeatures: [Location!]!
-            
-            // overlappingFeatures: [SequenceFeature!]!
-            
-            // childFeatures: [SequenceFeature!]!
-            
+            // upstreamIntergenicRegion: IntergenicRegion
+            // downstreamIntergenicRegion: IntergenicRegion
             // flankingRegions: [GeneFlankingRegion!]!
-            
             // transcripts: [Transcript!]!
-            
             // introns: [Intron!]!
-            
+
             proteins: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getProteins(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-            
             pathways: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {annotatable: gene, page, pageSize};
+                const args = {gene, page, pageSize};
                 return dataSources[sourceName].getPathways(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-
             panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getPanGeneSets(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-
             geneFamilyAssignments: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {page, pageSize};
                 return dataSources[sourceName].getGeneFamilyAssignments(gene, args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-
             proteinDomains: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getProteinDomains(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-            
             linkouts: async (gene, _, { dataSources }) => {
                 const {identifier} = gene;
                 return dataSources[microservicesSource].getLinkoutsForGene(identifier);

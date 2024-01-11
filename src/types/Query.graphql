@@ -2,8 +2,7 @@
 # Queries for all the types contained in this directory
 # -----------------------------------------------------
 
-# Metadata types
-
+## Metadata types
 type PageInfo {
   currentPage: Int
   pageSize: Int
@@ -13,7 +12,7 @@ type PageInfo {
   hasNextPage: Boolean
 }
 
-# Wrapper types that allow inclusion of metadata with results
+## Wrapper types that allow inclusion of metadata with results
 
 ### Annotatables
 type ChromosomeResults {
@@ -117,6 +116,10 @@ type PublicationResults {
   results: Publication
 }
 
+type SOTermResults {
+  results: SOTerm
+}
+
 type StrainResults {
   results: Strain
 }
@@ -160,10 +163,6 @@ type PhylonodeResults {
 
 type QtlResults {
   results: QTL
-}
-
-type SOTermResults {
-  results: SOTerm
 }
 
 type SyntenyBlockResults {
@@ -268,9 +267,7 @@ type PanGeneSetLinkoutsResults {
   results: [Linkout!]!
 }
 
-
-# Top-level queries
-
+## Top-level queries
 type Query {
 
   ### Annotatables

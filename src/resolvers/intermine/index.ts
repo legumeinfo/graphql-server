@@ -37,12 +37,12 @@ import { proteinFactory } from './protein.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
+import { soTermFactory } from './so-term.js';
 import { supercontigFactory } from './supercontig.js';
 import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
 import { strainFactory } from './strain.js';
 import { traitFactory } from './trait.js';
-
 
 const factories = [
     authorFactory,
@@ -77,13 +77,13 @@ const factories = [
     publicationFactory,
     qtlFactory,
     qtlStudyFactory,
+    soTermFactory,
     strainFactory,
     supercontigFactory,
     syntenicRegionFactory,
     syntenyBlockFactory,
     traitFactory,
 ];
-
 
 // a factory function that generates resolvers for a specific InterMine
 // data source.

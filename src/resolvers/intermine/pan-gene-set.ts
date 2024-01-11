@@ -44,6 +44,7 @@ export const panGeneSetFactory =
             return dataSources[sourceName].getMRNAs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
+        },
         linkouts: async (panGeneSet, _, { dataSources }) => {
             const {identifier} = panGeneSet;
             return dataSources[microservicesSource].getLinkoutsForPanGeneSet(identifier);

@@ -2,11 +2,11 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
-
 export const soTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         soTerm: async (_, { identifier }, { dataSources }) => {
+            console.log(identifier);
             const {data: term} = await dataSources[sourceName].getSOTerm(identifier);
             if (term == null) {
                 const msg = `SOTerm with identifier '${identifier}' not found`;

@@ -3,30 +3,29 @@ import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 
-
 export const bioEntityFactory =
-(sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-    ...annotatableFactory(sourceName),
-    organism: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getOrganism(bioEntity.organismTaxonId)
-        // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-    strain: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
-        // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-    locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {bioEntity: bioEntity, page, pageSize};
-        return dataSources[sourceName].getLocations(args)
+    (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
+        ...annotatableFactory(sourceName),
+        organism: async (bioEntity, _, { dataSources }) => {
+            return dataSources[sourceName].getOrganism(bioEntity.organismTaxonId)
             // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-    locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {bioEntity: bioEntity, page, pageSize};
-        return dataSources[sourceName].getLocatedFeatures(args)
+                .then(({data: results}) => results);
+        },
+        strain: async (bioEntity, _, { dataSources }) => {
+            return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
             // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-});
+                .then(({data: results}) => results);
+        },
+        locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
+            const args = {bioEntity: bioEntity, page, pageSize};
+            return dataSources[sourceName].getLocations(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
+            const args = {bioEntity: bioEntity, page, pageSize};
+            return dataSources[sourceName].getLocatedFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+    });

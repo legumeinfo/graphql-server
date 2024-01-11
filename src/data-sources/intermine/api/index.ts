@@ -7,6 +7,8 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // bio-entity
 import { getBioEntity } from './get-bio-entity.js';
+// child features
+import { getChildFeatures } from './get-child-features.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // chromosome location
@@ -161,6 +163,8 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // bio-entity
     getBioEntity: Function;
+    // child features
+    getChildFeatures: Function;
     // chromosome
     getChromosome: Function;
     // chromosome location
@@ -325,6 +329,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // bio-entity
         getBioEntity = getBioEntity;
+        // child features
+        getChildFeatures = getChildFeatures;
         // chromosome
         getChromosome = getChromosome;
         // chromosome location

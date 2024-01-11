@@ -15,11 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetPathwaysOptions = {
     gene?: GraphQLGene;
 } & PaginationOptions;
-
 
 // get Pathways associated with a Gene
 export async function getPathways(
@@ -29,11 +27,7 @@ export async function getPathways(
         pageSize,
     }: GetPathwaysOptions,
 ): Promise<ApiResponse<GraphQLPathway[]>> {
-    const constraints = [];
-    if (gene) {
-        const constraint = intermineConstraint('Pathway.genes.id', '=', gene.id);
-        constraints.push(constraint);
-    }
+    const constraints = [intermineConstraint('Pathway.genes.id', '=', gene.id)];
     const query = interminePathQuery(
         interminePathwayAttributes,
         interminePathwaySort,
