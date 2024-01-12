@@ -5,71 +5,50 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<attribute name="genotypes" type="java.lang.String"/>
 // 	<attribute name="genotypingMethod" type="java.lang.String"/>
 // 	<attribute name="synopsis" type="java.lang.String"/>
-// 	<attribute name="genotypingPlatform" type="java.lang.String"/>
+// 	<reference name="genotypingPlatform" referenced-type="GenotypingPlatform"/>
 // 	<reference name="organism" referenced-type="Organism"/>
-// 	<reference name="dataSet" referenced-type="DataSet"/>
 // 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
 // </class>
 export const intermineGWASAttributes = [
-    'GWAS.id',
-    'GWAS.primaryIdentifier',
+    'GWAS.id',                 // Annotatable
+    'GWAS.primaryIdentifier',  // Annotatable
     'GWAS.description',
     'GWAS.genotypes',
     'GWAS.genotypingMethod',
     'GWAS.synopsis',
-    'GWAS.genotypingPlatform.primaryIdentifier',
-    'GWAS.organism.taxonId',
-    'GWAS.dataSet.name',
+    'GWAS.genotypingPlatform.primaryIdentifier', // resolve reference
+    'GWAS.organism.taxonId',                     // resolve reference
 ];
 export const intermineGWASSort = 'GWAS.primaryIdentifier';
-//export type IntermineGWAS = {
-//  [prop in typeof intermineGWASAttributes[number]]: string;
-//}
+
 export type IntermineGWAS = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
+  number, // id
+  string, // primaryIdentifier
+  string, // description
+  string, // genotypes
+  string, // genotypingMethod
+  string, // synopsis
+  string, // genotypingPlatform.primaryIdentifier
+  number, // organism.taxonId
 ];
 
-// type GWAS implements Annotatable {
-//   # Annotatable
-//   id: ID!
-//   identifier: ID!
-//   ontologyAnnotations: [OntologyAnnotation!]!
-//   publications: [Publication!]!
-//   # GWAS
-//   description: String
-//   genotypes: String
-//   genotypingMethod: String
-//   synopsis: String
-//   genotypingPlatform: GenotypingPlatform
-//   organism: Organism
-//   dataSet: DataSet
-//   results: [GWASResult!]!
-// }
 export const graphqlGWASAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'genotypes',
-    'genotypingMethod',
-    'synopsis',
-    'genotypingPlatformIdentifier',
-    'organismTaxonId',
-    'dataSetName',
+    'id',                           // id
+    'identifier',                   // primaryIdentifier
+    'description',                  // description
+    'genotypes',                    // genotypes
+    'genotypingMethod',             // genotypingMethod
+    'synopsis',                     // synopsis
+    'genotypingPlatformIdentifier', // resolve GenotypingPlatform
+    'organismTaxonId',              // resolve Organism
 ];
+
 export type GraphQLGWAS = {
   [prop in typeof graphqlGWASAttributes[number]]: string;
 }
 
-
 export type IntermineGWASResponse = IntermineDataResponse<IntermineGWAS>;
+
 export function response2gwas(response: IntermineGWASResponse): Array<GraphQLGWAS> {
     return response2graphqlObjects(response, graphqlGWASAttributes);
 }
