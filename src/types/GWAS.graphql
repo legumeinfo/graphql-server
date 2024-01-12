@@ -22,6 +22,5 @@ type GWAS implements AnnotatableInterface {
   synopsis: String
   genotypingPlatform: GenotypingPlatform
   organism: Organism
-  dataSet: DataSet
   results: [GWASResult!]!
 }
