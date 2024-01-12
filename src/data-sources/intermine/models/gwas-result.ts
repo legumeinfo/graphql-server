@@ -1,53 +1,46 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-// <class name="GWASResult" is-interface="true">
-//   <attribute name="markerName" type="java.lang.String"/>
-//   <attribute name="pValue" type="java.lang.Double"/>
-//   <reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
-//   <reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
-//   <collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
-//   <reference name="dataSet" referenced-type="DataSet"/>
+// <class name="GWASResult" extends="Annotatable" is-interface="true" term="">
+// 	<attribute name="pValue" type="java.lang.Double"/>
+// 	<attribute name="markerName" type="java.lang.String"/>
+// 	<reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
+// 	<reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
+// 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
 // </class>
 export const intermineGWASResultAttributes = [
-    'GWASResult.id',
-    'GWASResult.markerName',
+    'GWASResult.id',                         // Annotatable
+    'GWASResult.primaryIdentifier',          // Annotatable
     'GWASResult.pValue',
-    'GWASResult.gwas.primaryIdentifier',
-    'GWASResult.trait.primaryIdentifier',
-    'GWASResult.dataSet.name',
+    'GWASResult.markerName',
+    'GWASResult.gwas.primaryIdentifier',     // resolve reference
+    'GWASResult.trait.primaryIdentifier',    // resolve reference
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
+
 export type IntermineGWASResult = [
-    number,
-    string,
-    number,
-    string,
-    string,
-    string,
+    number, // id
+    string, // primaryIdentifier
+    number, // pValue
+    string, // markerName
+    string, // gwas.primaryIdentifier
+    string, // trait.primaryIdentifier
 ];
 
-// type GWASResult {
-//   id: ID!
-//   markerName: String!
-//   pValue: Float!
-//   gwas: GWAS!
-//   trait: Trait!
-//   markers: [GeneticMarker]
-//   dataSet: DataSet!
-// }
 export const graphqlGWASResultAttributes = [
-    'id',
-    'markerName',
-    'pValue',
-    'gwasIdentifier',
-    'traitIdentifier',
-    'dataSetName',
+    'id',              // id
+    'identifier',      // primaryIdentifier
+    'pValue',          // pValue
+    'markerName',      // makerName
+    'gwasIdentifier',  // resolve GWAS
+    'traitIdentifier', // resolve Trait
 ];
+
 export type GraphQLGWASResult = {
     [prop in typeof graphqlGWASResultAttributes[number]]: string;
 }
 
 export type IntermineGWASResultResponse = IntermineDataResponse<IntermineGWASResult>;
+
 export function response2gwasResults(response: IntermineGWASResultResponse): Array<GraphQLGWASResult> {
     return response2graphqlObjects(response, graphqlGWASResultAttributes);
 }

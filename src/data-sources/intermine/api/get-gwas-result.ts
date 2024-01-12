@@ -11,7 +11,6 @@ import {
   response2gwasResults,
 } from '../models/index.js';
 
-
 // get a GWASResult by primaryIdentifier
 export async function getGWASResult(identifier: string):
 Promise<ApiResponse<GraphQLGWASResult>> {

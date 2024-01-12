@@ -17,15 +17,13 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetGWASResultsOptions = {
   gwas?: GraphQLGWAS;
   trait?: GraphQLTrait;
   geneticMarker?: GraphQLGeneticMarker;
 } & PaginationOptions;
 
-
-// get GWASResults for a GWAS, Trait, GeneticMarker
+// get GWASResults for a GWAS, Trait, or GeneticMarker
 export async function getGWASResults(
     {gwas, trait, geneticMarker, page, pageSize}: GetGWASResultsOptions,
 ): Promise<ApiResponse<GraphQLGWASResult[]>> {
