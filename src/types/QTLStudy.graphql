@@ -3,7 +3,6 @@
 # 	<attribute name="genotypes" type="java.lang.String"/>
 # 	<attribute name="synopsis" type="java.lang.String"/>
 # 	<reference name="organism" referenced-type="Organism"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 # </class>
 type QTLStudy implements AnnotatableInterface {
@@ -17,6 +16,6 @@ type QTLStudy implements AnnotatableInterface {
   description: String
   genotypes: String
   synopsis: String
-  organism: Organism
+  organism: Organism!
   qtls: [QTL!]!
 }
