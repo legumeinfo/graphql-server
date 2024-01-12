@@ -18,14 +18,12 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type SearchQTLsOptions = {
     linkageGroup?: GraphQLLinkageGroup;
     trait?: GraphQLTrait;
     geneticMarker?: GraphQLGeneticMarker;
     qtlStudy?: GraphQLQTLStudy;
 } & PaginationOptions;
-
 
 // get QTLs for a LinkageGroup, Trait, GeneticMarker
 export async function getQTLs(

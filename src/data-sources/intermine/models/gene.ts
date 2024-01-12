@@ -42,7 +42,6 @@ export const intermineGeneAttributes = [
     'Gene.upstreamIntergenicRegion.primaryIdentifier',   // reference resolution
     'Gene.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
 ];
-
 export const intermineGeneSort = 'Gene.primaryIdentifier';
 
 export type IntermineGene = [

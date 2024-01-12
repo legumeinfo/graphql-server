@@ -56,6 +56,9 @@ type GenotypingPlatformResults {
 type GwasResults {
   results: GWAS
 }
+type GwasResultResults {
+  results: GWASResult
+}
 type MRNAResults {
   results: MRNA
 }
@@ -122,9 +125,6 @@ type GeneFamilyAssignmentResults {
 }
 type GeneFamilyTallyResults {
   results: GeneFamilyTally
-}
-type GwasResultResults {
-  results: GWASResult
 }
 type LinkageGroupResults {
   results: LinkageGroup

@@ -39,21 +39,16 @@ export async function getGenes(
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
     if (protein) {
-        const proteinConstraint = intermineConstraint('Gene.proteins.id', '=', protein.id);
-        constraints.push(proteinConstraint);
+        constraints.push(intermineConstraint('Gene.proteins.id', '=', protein.id));
     }
     if (geneFamily) {
-        const geneFamilyConstraint = intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
-        constraints.push(geneFamilyConstraint);
-        console.log(geneFamilyConstraint);
+        constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id));
     }
     if (panGeneSet) {
-        const panGeneSetConstraint = intermineConstraint('Gene.panGeneSets.id', '=', panGeneSet.id);
-        constraints.push(panGeneSetConstraint);
+        constraints.push(intermineConstraint('Gene.panGeneSets.id', '=', panGeneSet.id));
     }
     if (proteinDomain) {
-        const proteinDomainConstraint = intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id);
-        constraints.push(proteinDomainConstraint);
+        constraints.push(intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id));
     }
     // all SequenceFeature-extending object queries must include these joins
     const joins = [

@@ -52,7 +52,6 @@ import { getGenotypingPlatform } from './get-genotyping-platform.js';
 import { getGenotypingPlatforms } from './get-genotyping-platforms.js';
 // gwas
 import { getGWAS } from './get-gwas.js';
-import { getGWASForTrait } from './get-gwas-for-trait.js';
 import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
@@ -123,10 +122,10 @@ import { searchPublications } from './search-publications.js';
 // qtl
 import { getQTL } from './get-qtl.js';
 import { getQTLs } from './get-qtls.js';
+import { getQTLGenes } from './get-qtl-genes.js';
 import { searchQTLs } from './search-qtls.js';
 // qtl study
 import { getQTLStudy } from './get-qtl-study.js';
-import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
 // sequence feature
 import { getSequenceFeature } from './get-sequence-feature.js';
@@ -212,7 +211,6 @@ export declare class ApiMixinInterface {
     getGenotypingPlatforms: Function;
     // gwas
     getGWAS: Function;
-    getGWASForTrait: Function;
     searchGWASes: Function;
     // gwas result
     getGWASResult: Function;
@@ -283,10 +281,10 @@ export declare class ApiMixinInterface {
     // qtl
     getQTL: Function;
     getQTLs: Function;
+    getQTLGenes: Function;
     searchQTLs: Function;
     // qtl study
     getQTLStudy: Function;
-    getQTLStudyForTrait: Function;
     searchQTLStudies: Function;
     // sequence feature
     getSequenceFeature: Function;
@@ -382,7 +380,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getGenotypingPlatforms = getGenotypingPlatforms;
         // gwas
         getGWAS = getGWAS;
-        getGWASForTrait = getGWASForTrait;
         searchGWASes = searchGWASes;
         // gwas result
         getGWASResult = getGWASResult;
@@ -453,10 +450,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // qtl
         getQTL = getQTL;
         getQTLs = getQTLs;
+        getQTLGenes = getQTLGenes;
         searchQTLs = searchQTLs;
         // qtl study
         getQTLStudy = getQTLStudy;
-        getQTLStudyForTrait = getQTLStudyForTrait;
         searchQTLStudies = searchQTLStudies;
         // sequence feature
         getSequenceFeature = getSequenceFeature;

@@ -52,11 +52,11 @@ export type IntermineQTL = [
 export const graphqlQTLAttributes = [
     'id',                     // id
     'identifier',             // primaryIdentifier
-    'name',                   // name
     'lod',                    // lod
     'likelihoodRatio',        // likelihoodRatio
     'end',                    // end
     'markerNames',            // markerNames
+    'name',                   // name
     'markerR2',               // markerR2
     'start',                  // start
     'peak',                   // peak
@@ -70,6 +70,35 @@ export type GraphQLQTL = {
 }
 
 export type IntermineQTLResponse = IntermineDataResponse<IntermineQTL>;
+
 export function response2qtls(response: IntermineQTLResponse): Array<GraphQLQTL> {
     return response2graphqlObjects(response, graphqlQTLAttributes);
 }
+
+// QTL.genes does not have a reverse reference from Gene
+export const intermineQTLGenesAttributes = [
+    'QTL.genes.id',
+    'QTL.genes.primaryIdentifier',               // Annotatable
+    'QTL.genes.description',                     // BioEntity
+    'QTL.genes.symbol',                          // BioEntity
+    'QTL.genes.name',                            // BioEntity
+    'QTL.genes.assemblyVersion',                 // BioEntity
+    'QTL.genes.annotationVersion',               // BioEntity
+    'QTL.genes.secondaryIdentifier',             // BioEntity
+    'QTL.genes.organism.taxonId',                // BioEntity - reference resolution
+    'QTL.genes.strain.identifier',               // BioEntity - reference resolution
+    'QTL.genes.score',                           // SequenceFeature
+    'QTL.genes.scoreType',                       // SequenceFeature
+    'QTL.genes.length',                          // SequenceFeature
+    'QTL.genes.sequenceOntologyTerm.identifier', // SequenceFeature - reference resolution
+    'QTL.genes.chromosomeLocation.id',           // SequenceFeature - reference resolution
+    'QTL.genes.supercontigLocation.id',          // SequenceFeature - reference resolution
+    'QTL.genes.sequence.id',                     // SequenceFeature - reference resolution
+    'QTL.genes.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
+    'QTL.genes.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
+    'QTL.genes.briefDescription',
+    'QTL.genes.ensemblName',
+    'QTL.genes.upstreamIntergenicRegion.primaryIdentifier',   // reference resolution
+    'QTL.genes.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
+];
+export const intermineQTLGenesSort = 'QTL.genes.primaryIdentifier';

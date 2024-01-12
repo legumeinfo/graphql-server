@@ -11,7 +11,6 @@ import {
   response2linkageGroups,
 } from '../models/index.js';
 
-
 // get a LinkageGroup by primaryIdentifier
 export async function getLinkageGroup(identifier: string):
 Promise<ApiResponse<GraphQLLinkageGroup>> {

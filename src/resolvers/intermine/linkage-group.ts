@@ -18,13 +18,7 @@ ResolverMap => ({
     LinkageGroup: {
         ...annotatableInterfaceFactory(sourceName),
         geneticMap: async (linkageGroup, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (linkageGroup, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: linkageGroup, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
+            return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
