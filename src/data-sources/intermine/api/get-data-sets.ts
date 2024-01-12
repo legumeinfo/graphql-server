@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -24,10 +25,15 @@ export async function getDataSets(
     {annotatable, page, pageSize}: GetDataSetsOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('DataSet.entities.id', '=', annotatable.id)];
+    // publication is optional
+    const joins = [
+        intermineJoin('DataSet.publication', 'OUTER'),
+    ];
     const query = interminePathQuery(
         intermineDataSetAttributes,
         intermineDataSetSort,
         constraints,
+        joins
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
