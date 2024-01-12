@@ -7,7 +7,7 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLGene,
-    GraphQLMRNA,
+    GraphQLTranscript,
     GraphQLPanGeneSet,
     GraphQLProtein,
     InterminePanGeneSetResponse,
@@ -19,15 +19,15 @@ import { PaginationOptions } from './pagination.js';
 
 export type GenePanGeneSetsOptions = {
     gene?: GraphQLGene;
-    mRNA?: GraphQLMRNA;
+    transcript?: GraphQLTranscript;
     protein?: GraphQLProtein;
 } & PaginationOptions;
 
-// get PanGeneSets for a Gene or Protein
+// get PanGeneSets for a Gene or Transcript or Protein
 export async function getPanGeneSets(
     {
         gene,
-        mRNA,
+        transcript,
         protein,
         page,
         pageSize,
@@ -37,8 +37,8 @@ export async function getPanGeneSets(
     if (gene) {
         constraints.push(intermineConstraint('PanGeneSet.genes.id', '=', gene.id));
     }
-    if (mRNA) {
-        constraints.push(intermineConstraint('PanGeneSet.transcripts.id', '=', mRNA.id));
+    if (transcript) {
+        constraints.push(intermineConstraint('PanGeneSet.transcripts.id', '=', transcript.id));
     }
     if (protein) {
         const proteinConstraint = intermineConstraint('PanGeneSet.proteins.id', '=', protein.id);

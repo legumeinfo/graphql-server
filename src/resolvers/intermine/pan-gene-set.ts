@@ -20,9 +20,9 @@ export const panGeneSetFactory =
     },
     PanGeneSet: {
         ...annotatableInterfaceFactory(sourceName),
-        dataSets: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: panGeneSet, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
+        transcripts: async (panGeneSet, { page, pageSize }, { dataSources }) => {
+            const args = {panGeneSet, page, pageSize};
+            return dataSources[sourceName].getTranscripts(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
@@ -35,12 +35,6 @@ export const panGeneSetFactory =
         proteins: async (panGeneSet, { page, pageSize }, { dataSources }) => {
             const args = {panGeneSet, page, pageSize};
             return dataSources[sourceName].getProteins(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        mRNAs: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
-            return dataSources[sourceName].getMRNAs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
