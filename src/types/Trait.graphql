@@ -1,13 +1,13 @@
 # <class name="Trait" extends="Annotatable" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
-# 	<attribute name="name" type="java.lang.String"/>
 # 	<attribute name="description" type="java.lang.String"/>
+# 	<attribute name="name" type="java.lang.String"/>
 # 	<reference name="organism" referenced-type="Organism"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
-# 	<reference name="qtlStudy" referenced-type="QTLStudy"/>
 # 	<reference name="gwas" referenced-type="GWAS"/>
+# 	<reference name="qtlStudy" referenced-type="QTLStudy"/>
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="trait"/>
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
+## A Trait can be associated with a GWAS or a QTLStudy, so either must be nullable.
 type Trait implements AnnotatableInterface {
   # Annotatable
   id: ID!
@@ -16,12 +16,11 @@ type Trait implements AnnotatableInterface {
   publications: [Publication!]!
   dataSets: [DataSet!]!
   # Trait
-  name: String!
   description: String
+  name: String!
   organism: Organism!
-  dataSet: DataSet!
-  qtlStudy: QTLStudy
   gwas: GWAS
+  qtlStudy: QTLStudy
   qtls: [QTL!]!
   gwasResults: [GWASResult!]!
 }

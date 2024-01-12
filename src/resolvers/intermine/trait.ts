@@ -28,31 +28,30 @@ ResolverMap => ({
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(trait.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         qtlStudy: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudyForTrait(trait)
+            if (trait.qtlStudyIdentifier != null) {
+                return dataSources[sourceName].getQTLStudy(trait.qtlStudyIdentifier)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+                    .then(({data: results}) => results);
+            }
         },
         qtls: async (trait, { page, pageSize }, { dataSources }) => {
             const args = {trait, page, pageSize};
             return dataSources[sourceName].getQTLs(args)
-                // @ts-ignore: implicit type any error
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         gwas: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getGWASForTrait(trait)
+            if (trait.gwasIdentifier != null) {
+                return dataSources[sourceName].getGWAS(trait.gwasIdentifier)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+                    .then(({data: results}) => results);
+            }
         },
         gwasResults: async (trait, { page, pageSize }, { dataSources }) => {
             const args = {trait, page, pageSize};
             return dataSources[sourceName].getGWASResults(args)
-                // @ts-ignore: implicit type any error
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },
