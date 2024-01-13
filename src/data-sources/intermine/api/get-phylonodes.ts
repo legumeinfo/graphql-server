@@ -15,12 +15,10 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetPhylonodesOptions = {
     phylotree?: GraphQLPhylotree;
     parent?: GraphQLPhylonode;
 } & PaginationOptions;
-
 
 // get Phylonodes for a Phylotree or parent Phylonode
 export async function getPhylonodes(
@@ -33,11 +31,9 @@ export async function getPhylonodes(
 ): Promise<ApiResponse<GraphQLPhylonode[]>> {
     const constraints = [];
     if (phylotree) {
-        const phylotreeConstraint = intermineConstraint('Phylonode.tree.id', '=', phylotree.id);
-        constraints.push(phylotreeConstraint);
+        constraints.push(intermineConstraint('Phylonode.tree.id', '=', phylotree.id));
     } else if (parent) {
-        const parentConstraint = intermineConstraint('Phylonode.parent.id', '=', parent.id);
-        constraints.push(parentConstraint);
+        constraints.push(intermineConstraint('Phylonode.parent.id', '=', parent.id));
     }
     const query = interminePathQuery(
         interminePhylonodeAttributes,

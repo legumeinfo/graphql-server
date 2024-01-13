@@ -1,25 +1,25 @@
-# <class name="Phylotree" extends="Annotatable" is-interface="true" term="">
+# <class name="Phylotree" extends="Annotatable" is-interface="true">
 # 	<attribute name="numLeaves" type="java.lang.Integer"/>
 # 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="phylotree"/>
 # 	<collection name="nodes" referenced-type="Phylonode" reverse-reference="tree"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-# <class name="Newick" extends="java.lang.Object" is-interface="false" term="">
-#         <attribute name="contents" type="java.lang.String"/>
-#         <attribute name="identifier" type="java.lang.String"/>
-#         <reference name="phylotree" referenced-type="Phylotree"/>
-#         <reference name="geneFamily" referenced-type="GeneFamily"/>
-# </class> 
+# <class name="Newick" extends="java.lang.Object" is-interface="false">
+# 	<attribute name="contents" type="java.lang.String"/>
+# 	<attribute name="identifier" type="java.lang.String"/>
+# 	<reference name="phylotree" referenced-type="Phylotree"/>
+# 	<reference name="geneFamily" referenced-type="GeneFamily"/>
+# </class>
 type Phylotree implements AnnotatableInterface {
   # Annotatable
   id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # Phylotree
-  numLeaves: Int
-  geneFamily: GeneFamily
-  newick: String
-  nodes: [Phylonode!]!
   dataSets: [DataSet!]!
+  # Phylotree
+  numLeaves: Int!
+  geneFamily: GeneFamily!
+  nodes: [Phylonode!]!
+  # store Newick.contents as a string here rather than a separate object
+  newick: String!
 }

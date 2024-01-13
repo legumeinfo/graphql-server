@@ -23,18 +23,12 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         newick: async(phylotree, _, { dataSources }) => {
-            return dataSources[sourceName].getNewick(phylotree.identifier)
+            return dataSources[sourceName].getNewick(phylotree)
                 // @ts-ignore: implicit type any error
                 .then(({data: newick}) => {
                     if (newick != null) return newick.contents;
                     return null;
                 });
-        },
-        dataSets: async (phylotree, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: phylotree, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
         },
         nodes: async (phylotree, { page, pageSize }, { dataSources }) => {
             const args = {phylotree, page, pageSize};

@@ -1,4 +1,3 @@
-## NOTE: about half of Phylonodes have null proteinid so we don't include protein in schema
 # <class name="Phylonode" is-interface="true" term="">
 # 	<attribute name="identifier" type="java.lang.String"/>
 # 	<attribute name="isRoot" type="java.lang.Boolean"/>
@@ -10,15 +9,17 @@
 # 	<reference name="parent" referenced-type="Phylonode" reverse-reference="children"/>
 # 	<collection name="children" referenced-type="Phylonode" reverse-reference="parent"/>
 # </class>
+## NOTE: about half of Phylonodes have null proteinid so we leave Protein nullable
+## NOTE: parent is nullable, of course, since root nodes don't have parents.
 type Phylonode {
   id: ID!
   identifier: String!
-  isRoot: Boolean
-  length: Float
-  numChildren: Int
-  isLeaf: Boolean
+  isRoot: Boolean!
+  length: Float!
+  numChildren: Int!
+  isLeaf: Boolean!
   protein: Protein
-  tree: Phylotree
+  tree: Phylotree!
   parent: Phylonode
   children: [Phylonode!]!
 }

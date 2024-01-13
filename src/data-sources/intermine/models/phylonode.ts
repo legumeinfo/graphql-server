@@ -1,7 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
-// Phylonode InterMine path query attributes
 // <class name="Phylonode" is-interface="true" term="">
 // 	<attribute name="identifier" type="java.lang.String"/>
 // 	<attribute name="isRoot" type="java.lang.Boolean"/>
@@ -25,36 +23,37 @@ export const interminePhylonodeAttributes = [
     'Phylonode.parent.id',
 ];
 export const interminePhylonodeSort = 'Phylonode.identifier';
-export type InterminePhylonode = [
-  number,
-  string,
-  boolean,
-  number,
-  number,
-  boolean,
-  string,
-  string,
-  number,
-];
 
+export type InterminePhylonode = [
+  number,  // id
+  string,  // identifier
+  boolean, // isRoot
+  number,  // length
+  number,  // numChildren
+  boolean, // isLeaf
+  string,  // protein.primaryIdentifier
+  string,  // tree.primaryIdentifier
+  number,  // parent.id
+];
 
 export const graphqlPhylonodeAttributes = [
-    'id',
-    'identifier',
-    'isRoot',
-    'length',
-    'numChildren',
-    'isLeaf',
-    'proteinIdentifier',
-    'treeIdentifier',
-    'parentId',
+    'id',                // id
+    'identifier',        // identifier
+    'isRoot',            // isRoot
+    'length',            // length
+    'numChildren',       // numChildren
+    'isLeaf',            // isLeaf
+    'proteinIdentifier', // resolve Protein
+    'treeIdentifier',    // resolve Phylotree
+    'parentId',          // resolve parent Phylonode
 ];
+
 export type GraphQLPhylonode = {
   [prop in typeof graphqlPhylonodeAttributes[number]]: string;
 }
 
-
 export type InterminePhylonodeResponse = IntermineDataResponse<InterminePhylonode>;
+
 export function response2phylonodes(response: InterminePhylonodeResponse): Array<GraphQLPhylonode> {
     return response2graphqlObjects(response, graphqlPhylonodeAttributes);
 }
