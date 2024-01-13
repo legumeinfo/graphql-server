@@ -11,7 +11,6 @@ import {
   response2pathways,
 } from '../models/index.js';
 
-
 // get a Pathway by identifier
 export async function getPathway(identifier: string):
 Promise<ApiResponse<GraphQLPathway>> {

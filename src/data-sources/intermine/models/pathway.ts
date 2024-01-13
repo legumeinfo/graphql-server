@@ -5,51 +5,31 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="genes" referenced-type="Gene" reverse-reference="pathways"/>
 // </class>
 export const interminePathwayAttributes = [
-    'Pathway.id',
-    'Pathway.primaryIdentifier',
+    'Pathway.id',                // Annotatable
+    'Pathway.primaryIdentifier', // Annotatable
     'Pathway.name',
 ];
 export const interminePathwaySort = 'Pathway.primaryIdentifier';
+
 export type InterminePathway = [
-  number,
-  string,
-  string,
+  number, // id
+  string, // primaryIdentifier
+  string, // name
 ];
 
 export const graphqlPathwayAttributes = [
-    'id',                // id
-    'identifier',        // identifier
-    'name',              // name
+    'id',         // id
+    'identifier', // primaryIdentifier
+    'name',       // name
 ];
+
 export type GraphQLPathway = {
   [prop in typeof graphqlPathwayAttributes[number]]: string;
 }
 
 export type InterminePathwayResponse = IntermineDataResponse<InterminePathway>;
+
 // converts an Intermine response into an array of GraphQL Pathway objects
 export function response2pathways(response: InterminePathwayResponse): Array<GraphQLPathway> {
     return response2graphqlObjects(response, graphqlPathwayAttributes);
 }
-
-// Pathway.dataSets has no reverse reference
-export const interminePathwayDataSetAttributes = [
-    'Pathway.dataSets.id',
-    'Pathway.dataSets.description',
-    'Pathway.dataSets.licence',
-    'Pathway.dataSets.url',
-    'Pathway.dataSets.name',
-    'Pathway.dataSets.version',
-    'Pathway.dataSets.synopsis',
-    'Pathway.dataSets.publication.doi',  // internal resolution of publication
-];
-export const interminePathwayDataSetSort = 'Pathway.dataSets.name'; // guaranteed not null
-export type InterminePathwayDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
