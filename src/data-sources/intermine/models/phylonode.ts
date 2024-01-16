@@ -18,9 +18,9 @@ export const interminePhylonodeAttributes = [
     'Phylonode.length',
     'Phylonode.numChildren',
     'Phylonode.isLeaf',
-    'Phylonode.protein.primaryIdentifier',
-    'Phylonode.tree.primaryIdentifier',
-    'Phylonode.parent.id',
+    'Phylonode.protein.primaryIdentifier',  // resolve reference
+    'Phylonode.tree.primaryIdentifier',     // resolve reference
+    'Phylonode.parent.identifier',          // resolve reference
 ];
 export const interminePhylonodeSort = 'Phylonode.identifier';
 
@@ -33,7 +33,7 @@ export type InterminePhylonode = [
   boolean, // isLeaf
   string,  // protein.primaryIdentifier
   string,  // tree.primaryIdentifier
-  number,  // parent.id
+  string,  // parent.identifier
 ];
 
 export const graphqlPhylonodeAttributes = [
@@ -45,7 +45,7 @@ export const graphqlPhylonodeAttributes = [
     'isLeaf',            // isLeaf
     'proteinIdentifier', // resolve Protein
     'treeIdentifier',    // resolve Phylotree
-    'parentId',          // resolve parent Phylonode
+    'parentIdentifier',  // resolve parent Phylonode
 ];
 
 export type GraphQLPhylonode = {

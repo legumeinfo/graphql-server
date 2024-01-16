@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -20,7 +21,7 @@ export type GetPhylonodesOptions = {
     parent?: GraphQLPhylonode;
 } & PaginationOptions;
 
-// get Phylonodes for a Phylotree or parent Phylonode
+// get Phylonodes for a Phylotree or children of a parent Phylonode
 export async function getPhylonodes(
     {
         phylotree,
@@ -30,15 +31,21 @@ export async function getPhylonodes(
     }: GetPhylonodesOptions,
 ): Promise<ApiResponse<GraphQLPhylonode[]>> {
     const constraints = [];
+    const joins = [];
     if (phylotree) {
-        constraints.push(intermineConstraint('Phylonode.tree.id', '=', phylotree.id));
+        constraints.push(intermineConstraint('Phylonode.tree.primaryIdentifier', '=', phylotree.identifier));
+        // parent could be null
+        joins.push(intermineJoin('Phylonode.parent', 'OUTER'));
     } else if (parent) {
-        constraints.push(intermineConstraint('Phylonode.parent.id', '=', parent.id));
+        constraints.push(intermineConstraint('Phylonode.parent.identifier', '=', parent.identifier));
     }
+    // protein could be null
+    joins.push(intermineJoin('Phylonode.protein', 'OUTER'));
     const query = interminePathQuery(
         interminePhylonodeAttributes,
         interminePhylonodeSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})

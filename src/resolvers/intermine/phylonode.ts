@@ -5,10 +5,10 @@ import { ResolverMap } from '../resolver.js';
 export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        phylonode: async (_, { id }, { dataSources }) => {
-            const {data: node} = await dataSources[sourceName].getPhylonode(id);
+        phylonode: async (_, { identifier }, { dataSources }) => {
+            const {data: node} = await dataSources[sourceName].getPhylonode(identifier);
             if (node == null) {
-                const msg = `Phylonode with ID '${id}' not found`;
+                const msg = `Phylonode with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: node};
@@ -16,9 +16,11 @@ ResolverMap => ({
     },
     Phylonode: {
         protein: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(phylonode.proteinIdentifier)
+            if (phylonode.proteinIdentifier != null) {
+                return dataSources[sourceName].getProtein(phylonode.proteinIdentifier)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+                    .then(({data: results}) => results);
+            }
         },
         tree: async(phylonode, _, { dataSources }) => {
             return dataSources[sourceName].getPhylotree(phylonode.treeIdentifier)
@@ -26,10 +28,11 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         parent: async(phylonode, _, { dataSources }) => {
-            console.log(phylonode.parentId);
-            return dataSources[sourceName].getPhylonode(phylonode.parentId)
+            if (phylonode.parentIdentifier != null) {
+                return dataSources[sourceName].getPhylonode(phylonode.parentIdentifier)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+                    .then(({data: results}) => results);
+            }
         },
         children: async (phylonode, { page, pageSize }, { dataSources }) => {
             const args = {parent: phylonode, page, pageSize};

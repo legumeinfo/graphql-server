@@ -12,10 +12,10 @@ import {
     response2phylonodes,
 } from '../models/index.js';
 
-// get a Phylonode by ID
-export async function getPhylonode(id: number):
+// get a Phylonode by identifier
+export async function getPhylonode(identifier: string):
 Promise<ApiResponse<GraphQLPhylonode>> {
-    const constraints = [intermineConstraint('Phylonode.id', '=', id)];
+    const constraints = [intermineConstraint('Phylonode.identifier', '=', identifier)];
     // protein and/or parent can be null
     const joins = [
         intermineJoin('Phylonode.protein', 'OUTER'),
