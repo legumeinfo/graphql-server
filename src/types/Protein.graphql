@@ -12,6 +12,8 @@
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
 # 	<collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment"/>
 # </class>
+## Note 1: The mine loader enforces transcript and sequence being non-null.
+## Note 2: phylonode CAN be null since not all loaded proteins are in the phylotrees.
 type Protein implements BioEntityInterface & AnnotatableInterface {
   id: ID!
   ## Annotatable
@@ -31,14 +33,14 @@ type Protein implements BioEntityInterface & AnnotatableInterface {
   locations: [Location!]!
   locatedFeatures: [Location!]!
   ## Protein
-  md5checksum: String
+  md5checksum: String!
   primaryAccession: String
   molecularWeight: Float
-  length: Int
-  isPrimary: Boolean
+  length: Int!
+  isPrimary: Boolean!
   phylonode: Phylonode
-  transcript: Transcript
-  sequence: Sequence
+  transcript: Transcript!
+  sequence: Sequence!
   genes: [Gene!]!
   proteinMatches: [ProteinMatch!]!
   panGeneSets: [PanGeneSet!]!
