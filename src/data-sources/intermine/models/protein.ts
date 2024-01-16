@@ -31,9 +31,9 @@ export const intermineProteinAttributes = [
     'Protein.molecularWeight',
     'Protein.length',
     'Protein.isPrimary',
-    // 'Protein.phylonode.identifier',         // resolve reference
-    // 'Protein.transcript.primaryIdentifier', // resolve reference
-    // 'Protein.sequence.id',                  // resolve reference
+    'Protein.phylonode.identifier',         // resolve reference
+    'Protein.transcript.primaryIdentifier', // resolve reference
+    'Protein.sequence.id',                  // resolve reference
 ];
 
 export const intermineProteinSort = 'Protein.primaryIdentifier';
@@ -45,9 +45,9 @@ export type IntermineProtein = [
     number, // molecularWeight
     number, // length
     boolean, // isPrimary
-    // string, // phylonode.identifier
-    // string, // transcript.primaryIdentifier
-    // number, // sequence.id
+    string, // phylonode.identifier
+    string, // transcript.primaryIdentifier
+    number, // sequence.id
 ];
 
 export const graphqlProteinAttributes = [
@@ -57,9 +57,9 @@ export const graphqlProteinAttributes = [
     'molecularWeight',
     'length',
     'isPrimary',
-    // 'phylonodeIdentifier',  // resolve Phylonode
-    // 'transcriptIdentifier', // resolve Transcript
-    // 'sequenceId',           // resolve Sequence
+    'phylonodeIdentifier',  // resolve Phylonode
+    'transcriptIdentifier', // resolve Transcript
+    'sequenceId',           // resolve Sequence
 ];
 
 export type GraphQLProtein = {

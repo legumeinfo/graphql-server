@@ -24,8 +24,20 @@ ResolverMap => ({
     Protein: {
         ...bioEntityInterfaceFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylonodeForProtein(protein)
+            if (protein.phylonodeIdentifier != null) {
+                return dataSources[sourceName].getPhylonode(protein.phylonodeIdentifier)
                 // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
+        },
+        transcript: async(protein, _, { dataSources }) => {
+            return dataSources[sourceName].getTranscript(protein.transcriptIdentifier)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        sequence: async(protein, _, { dataSources }) => {
+            return dataSources[sourceName].getSequence(protein.sequenceId)
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         genes: async (protein, { page, pageSize }, { dataSources }) => {
@@ -34,15 +46,21 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        geneFamilyAssignments: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args)
+        proteinMatches: async (protein, { page, pageSize }, { dataSources }) => {
+            const args = {protein, page, pageSize};
+            return dataSources[sourceName].getProteinMatches(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         panGeneSets: async (protein, { page, pageSize }, { dataSources }) => {
             const args = {protein, page, pageSize};
             return dataSources[sourceName].getPanGeneSets(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        geneFamilyAssignments: async (protein, { page, pageSize }, { dataSources }) => {
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

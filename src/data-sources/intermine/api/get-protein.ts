@@ -22,6 +22,8 @@ Promise<ApiResponse<GraphQLProtein>> {
         intermineJoin('Protein.organism', 'OUTER'),
         intermineJoin('Protein.strain', 'OUTER')
     ];
+    // phylonode may be null
+    joins.push(intermineJoin('Protein.phylonode', 'OUTER'));
     const query = interminePathQuery(
         intermineProteinAttributes,
         intermineProteinSort,

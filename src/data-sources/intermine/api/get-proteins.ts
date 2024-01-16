@@ -17,13 +17,11 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetProteinsOptions = {
     gene?: GraphQLGene;
     geneFamily?: GraphQLGeneFamily;
     panGeneSet?: GraphQLPanGeneSet;
 } & PaginationOptions;
-
 
 // get Proteins associated with a Gene or GeneFamily or PanGeneSet
 export async function getProteins(
@@ -37,17 +35,21 @@ export async function getProteins(
 ): Promise<ApiResponse<GraphQLProtein[]>> {
     const constraints = [];
     if (gene) {
-        const geneConstraint = intermineConstraint('Protein.genes.id', '=', gene.id);
-        constraints.push(geneConstraint);
+        constraints.push(intermineConstraint('Protein.genes.id', '=', gene.id));
     }
     if (geneFamily) {
-        const geneFamilyConstraint = intermineConstraint('Protein.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id);
-        constraints.push(geneFamilyConstraint);
+        constraints.push(intermineConstraint('Protein.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id));
     }
     if (panGeneSet) {
-        const panGeneSetConstraint = intermineConstraint('Protein.panGeneSets.id', '=', panGeneSet.id);
-        constraints.push(panGeneSetConstraint);
+        constraints.push(intermineConstraint('Protein.panGeneSets.id', '=', panGeneSet.id));
     }
+    // all BioEntity-extending object queries must include these joins
+    const joins = [
+        intermineJoin('Protein.organism', 'OUTER'),
+        intermineJoin('Protein.strain', 'OUTER')
+    ];
+    // phylonode may be null
+    joins.push(intermineJoin('Protein.phylonode', 'OUTER'));
     const query = interminePathQuery(
         intermineProteinAttributes,
         intermineProteinSort,
