@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -54,6 +55,7 @@ export async function getProteins(
         intermineProteinAttributes,
         intermineProteinSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
