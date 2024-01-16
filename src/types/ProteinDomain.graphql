@@ -24,4 +24,8 @@ type ProteinDomain implements AnnotatableInterface {
   shortName: String
   genes: [Gene!]!
   geneFamilies: [GeneFamily!]!
+  childFeatures: [ProteinDomain!]!
+  #  foundIn: [ProteinDomain!]! -- not currently populated in LIS mines
+  parentFeatures: [ProteinDomain!]!
+  #  contains: [ProteinDomain!]! -- not currently populated in LIS mines
 }

@@ -35,5 +35,17 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+        childFeatures: async (proteinDomain, { page, pageSize }, { dataSources }) => {
+            const args = {proteinDomain, page, pageSize};
+            return dataSources[sourceName].getProteinDomainChildFeatures(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        parentFeatures: async (proteinDomain, { page, pageSize }, { dataSources }) => {
+            const args = {proteinDomain, page, pageSize};
+            return dataSources[sourceName].getProteinDomainParentFeatures(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
     },
 });
