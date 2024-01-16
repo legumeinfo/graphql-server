@@ -2,7 +2,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 export const intermineAnnotatableAttributes = [
     'Annotatable.id',
-    'Annotatable.primaryIdentifier',
+    'Annotatable.primaryIdentifier',  // Annotatable
 ];
 export const intermineAnnotatableSort = 'Annotatable.primaryIdentifier';
 
