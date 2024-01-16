@@ -1,21 +1,21 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLNewick,
-  IntermineNewickResponse,
-  intermineNewickAttributes,
-  intermineNewickSort,
-  response2newicks,
+    GraphQLNewick,
+    GraphQLPhylotree,
+    IntermineNewickResponse,
+    intermineNewickAttributes,
+    intermineNewickSort,
+    response2newicks,
 } from '../models/index.js';
 
-
-// get a Newick by identifier
-export async function getNewick(identifier: string):
+// get a Newick string for a given Phylotree (Newick.identifier = Phylotree.identifier)
+export async function getNewick(phylotree: GraphQLPhylotree):
 Promise<ApiResponse<GraphQLNewick>> {
-    const constraints = [intermineConstraint('Newick.identifier', '=', identifier)];
+    const constraints = [intermineConstraint('Newick.identifier', '=', phylotree.identifier)];
     const query = interminePathQuery(
         intermineNewickAttributes,
         intermineNewickSort,
