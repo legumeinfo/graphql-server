@@ -9,6 +9,7 @@ import { getAuthors } from './get-authors.js';
 import { getBioEntity } from './get-bio-entity.js';
 // CDS
 import { getCDS } from './get-cds.js';
+import { getCDSs } from './get-cdss.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // chromosome location
@@ -18,6 +19,7 @@ import { getDataSet } from './get-data-set.js';
 import { getDataSets } from './get-data-sets.js';
 // exon
 import { getExon } from './get-exon.js';
+import { getExons } from './get-exons.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
 import { getExpressionSamples } from './get-expression-samples.js';
@@ -169,6 +171,7 @@ import { getTranscript } from './get-transcript.js';
 import { getTranscripts } from './get-transcripts.js';
 // utr
 import { getUTR } from './get-utr.js';
+import { getUTRs } from './get-utrs.js';
 // mine web properties
 import { getMineWebProperties } from './get-mine-web-properties.js';
 
@@ -189,6 +192,7 @@ export declare class ApiMixinInterface {
     getBioEntity: Function;
     // CDS
     getCDS: Function;
+    getCDSs: Function;
     // chromosome
     getChromosome: Function;
     // chromosome location
@@ -198,6 +202,7 @@ export declare class ApiMixinInterface {
     getDataSets: Function;
     // exon
     getExon: Function;
+    getExons: Function;
     // expression sample
     getExpressionSample: Function;
     getExpressionSamples: Function;
@@ -349,6 +354,7 @@ export declare class ApiMixinInterface {
     getTranscripts: Function;
     // UTR
     getUTR: Function;
+    getUTRs: Function;
     // mine web properties
     getMineWebProperties: Function;
 }
@@ -379,6 +385,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getBioEntity = getBioEntity;
         // CDS
         getCDS = getCDS;
+        getCDSs = getCDSs;
         // chromosome
         getChromosome = getChromosome;
         // chromosome location
@@ -388,6 +395,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSets = getDataSets;
         // exon
         getExon = getExon;
+        getExons = getExons;
         // expression sample
         getExpressionSample = getExpressionSample;
         getExpressionSamples = getExpressionSamples;
@@ -539,6 +547,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getTranscripts = getTranscripts;
         // UTR
         getUTR = getUTR;
+        getUTRs = getUTRs;
         // mine web properties
         getMineWebProperties = getMineWebProperties;
     }
