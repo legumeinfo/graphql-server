@@ -10,32 +10,28 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 export const intermineExpressionValueAttributes = [
     'ExpressionValue.value',
     'ExpressionValue.sample.primaryIdentifier',
-    'ExpressionValue.feature.primaryIdentifier',
+    'ExpressionValue.feature.id',               // id for getSequenceFeature(id)
 ];
 export const intermineExpressionValueSort = 'ExpressionValue.sample.primaryIdentifier';
+
 export type IntermineExpressionValue = [
-  number,
-  string,
-  string,
+  number, // value
+  string, // sample.primaryIdentifier
+  number, // feature.id
 ];
 
-
-// type ExpressionValue {
-//   value: Float!
-//   sample: ExpressionSample!
-//   gene: Gene!
-// }
 export const graphqlExpressionValueAttributes = [
     'value',
     'sampleIdentifier',
-    'geneIdentifier',
+    'featureId',
 ];
+
 export type GraphQLExpressionValue = {
   [prop in typeof graphqlExpressionValueAttributes[number]]: string;
 }
 
-
 export type IntermineExpressionValueResponse = IntermineDataResponse<IntermineExpressionValue>;
+
 export function response2expressionValues(response: IntermineExpressionValueResponse): Array<GraphQLExpressionValue> {
     return response2graphqlObjects(response, graphqlExpressionValueAttributes);
 }
