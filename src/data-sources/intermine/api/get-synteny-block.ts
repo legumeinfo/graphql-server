@@ -1,16 +1,15 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLSyntenyBlock,
-  IntermineSyntenyBlockResponse,
-  intermineSyntenyBlockAttributes,
-  intermineSyntenyBlockSort,
-  response2syntenyBlocks,
+    GraphQLSyntenyBlock,
+    IntermineSyntenyBlockResponse,
+    intermineSyntenyBlockAttributes,
+    intermineSyntenyBlockSort,
+    response2syntenyBlocks,
 } from '../models/index.js';
-
 
 // get a SyntenyBlock by ID
 export async function getSyntenyBlock(id: number):

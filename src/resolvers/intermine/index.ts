@@ -8,8 +8,10 @@ import { KeyOfType } from '../../utils/index.js';
 import { annotatableFactory } from './annotatable.js';
 import { authorFactory } from './author.js';
 import { bioEntityFactory } from './bio-entity.js';
+import { cdsFactory } from './cds.js';
 import { chromosomeFactory } from './chromosome.js';
 import { dataSetFactory } from './data-set.js';
+import { exonFactory } from './exon.js';
 import { expressionSampleFactory } from './expression-sample.js';
 import { expressionSourceFactory } from './expression-source.js';
 import { expressionValueFactory } from './expression-value.js';
@@ -17,11 +19,14 @@ import { geneFactory } from './gene.js';
 import { geneFamilyFactory } from './gene-family.js';
 import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
 import { geneFamilyTallyFactory } from './gene-family-tally.js';
+import { geneFlankingRegionFactory } from './gene-flanking-region.js';
 import { geneticMapFactory } from './genetic-map.js';
 import { geneticMarkerFactory } from './genetic-marker.js';
 import { genotypingPlatformFactory } from './genotyping-platform.js';
 import { gwasFactory } from './gwas.js';
 import { gwasResultFactory } from './gwas-result.js';
+import { intergenicRegionFactory } from './intergenic-region.js';
+import { intronFactory } from './intron.js';
 import { linkageGroupFactory } from './linkage-group.js';
 import { linkageGroupPositionFactory } from './linkage-group-position.js';
 import { locationFactory } from './location.js';
@@ -47,13 +52,17 @@ import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
 import { strainFactory } from './strain.js';
 import { traitFactory } from './trait.js';
+import { transcriptFactory } from './transcript.js';
+import { utrFactory } from './utr.js';
 
 const factories = [
     annotatableFactory,
     authorFactory,
     bioEntityFactory,
+    cdsFactory,
     chromosomeFactory,
     dataSetFactory,
+    exonFactory,
     expressionSampleFactory,
     expressionSourceFactory,
     expressionValueFactory,
@@ -61,11 +70,14 @@ const factories = [
     geneFamilyFactory,
     geneFamilyAssignmentFactory,
     geneFamilyTallyFactory,
+    geneFlankingRegionFactory,
     geneticMapFactory,
     geneticMarkerFactory,
     genotypingPlatformFactory,
     gwasFactory,
     gwasResultFactory,
+    intergenicRegionFactory,
+    intronFactory,
     linkageGroupFactory,
     linkageGroupPositionFactory,
     locationFactory,
@@ -91,12 +103,12 @@ const factories = [
     syntenicRegionFactory,
     syntenyBlockFactory,
     traitFactory,
+    transcriptFactory,
+    utrFactory,
 ];
 
-// a factory function that generates resolvers for a specific InterMine
-// data source.
-// TODO: our resolver type returned by the factories doesn't match the type
-// expected by mergeResolvers
+// a factory function that generates resolvers for a specific InterMine data source.
+// TODO: our resolver type returned by the factories doesn't match the type expected by mergeResolvers.
 export const intermineResolverFactory =
 (
     sourceName: KeyOfType<DataSources, IntermineAPI>,

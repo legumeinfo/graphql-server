@@ -43,7 +43,8 @@ export async function getIntrons(
         intermineJoin('Intron.chromosome', 'OUTER'),
         intermineJoin('Intron.supercontig', 'OUTER'),
         intermineJoin('Intron.chromosomeLocation', 'OUTER'),
-        intermineJoin('Intron.supercontigLocation', 'OUTER')
+        intermineJoin('Intron.supercontigLocation', 'OUTER'),
+        intermineJoin('Intron.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineIntronAttributes,

@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLGeneFlankingRegion>> {
         intermineJoin('GeneFlankingRegion.chromosome', 'OUTER'),
         intermineJoin('GeneFlankingRegion.supercontig', 'OUTER'),
         intermineJoin('GeneFlankingRegion.chromosomeLocation', 'OUTER'),
-        intermineJoin('GeneFlankingRegion.supercontigLocation', 'OUTER')
+        intermineJoin('GeneFlankingRegion.supercontigLocation', 'OUTER'),
+        intermineJoin('GeneFlankingRegion.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineGeneFlankingRegionAttributes,

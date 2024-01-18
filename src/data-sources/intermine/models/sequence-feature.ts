@@ -97,9 +97,7 @@ export const intermineOverlappingFeatureAttributes = [
     'SequenceFeature.overlappingFeatures.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
     'SequenceFeature.overlappingFeatures.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
 ];
-
 export const intermineOverlappingFeatureSort = 'SequenceFeature.overlappingFeatures.primaryIdentifier';
-
 // use IntermineSequenceFeature
 // use graphqlSequenceFeatureAttributes
 // use GraphQLSequenceFeature
@@ -107,7 +105,7 @@ export const intermineOverlappingFeatureSort = 'SequenceFeature.overlappingFeatu
 // use response2sequenceFeature
 
 // SequenceFeature.childFeatures are SequenceFeatures
-export const intermineChildFeatureAttributes = [
+export const intermineSequenceFeatureChildFeatureAttributes = [
     'SequenceFeature.childFeatures.id',
     'SequenceFeature.childFeatures.primaryIdentifier',               // Annotatable
     'SequenceFeature.childFeatures.description',                     // BioEntity
@@ -128,11 +126,9 @@ export const intermineChildFeatureAttributes = [
     'SequenceFeature.childFeatures.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
     'SequenceFeature.childFeatures.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
 ];
-
-export const intermineChildFeatureSort = 'SequenceFeature.childFeatures.primaryIdentifier';
-
+export const intermineSequenceFeatureChildFeatureSort = 'SequenceFeature.childFeatures.primaryIdentifier';
 // use IntermineSequenceFeature
 // use graphqlSequenceFeatureAttributes
 // use GraphQLSequenceFeature
 // use IntermineSequenceFeatureResponse
-// use response2sequenceFeature
+// use response2sequenceFeatures

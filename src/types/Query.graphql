@@ -14,7 +14,7 @@ type PageInfo {
 
 ## Wrapper types that allow inclusion of metadata with results
 
-### generic types
+### generic types corresponding to interfaces
 type AnnotatableResults {
   results: Annotatable
 }
@@ -24,10 +24,19 @@ type BioEntityResults {
 type SequenceFeatureResults {
   results: SequenceFeature
 }
+type TranscriptResults {
+  results: Transcript
+}
 
 ### Annotatables
+type CDSResults {
+  results: CDS
+}
 type ChromosomeResults {
   results: Chromosome
+}
+type ExonResults {
+  results: Exon
 }
 type ExpressionSampleResults {
   results: ExpressionSample
@@ -44,6 +53,9 @@ type GeneResults {
 type GeneFamilyResults {
   results: GeneFamily
 }
+type GeneFlankingRegionResults {
+  results: GeneFlankingRegion
+}
 type GeneticMapResults {
   results: GeneticMap
 }
@@ -58,6 +70,12 @@ type GwasResults {
 }
 type GwasResultResults {
   results: GWASResult
+}
+type IntergenicRegionResults {
+  results: IntergenicRegion
+}
+type IntronResults {
+  results: Intron
 }
 type MRNAResults {
   results: MRNA
@@ -91,6 +109,9 @@ type SyntenicRegionResults {
 }
 type TraitResults {
   results: Trait
+}
+type UTRResults {
+  results: UTR
 }
 
 ### other types with unique non-id keys
@@ -143,6 +164,9 @@ type PhylonodeResults {
 }
 type QtlResults {
   results: QTL
+}
+type SequenceResults {
+  results: Sequence
 }
 type SyntenyBlockResults {
   results: SyntenyBlock
@@ -213,7 +237,7 @@ type TraitsResults {
   results: [Trait!]!
   pageInfo: PageInfo
 }
-
+  
 ### microservices queries
 type GeneLinkoutsResults {
   results: [Linkout!]!
@@ -231,23 +255,29 @@ type PanGeneSetLinkoutsResults {
 ## Top-level queries
 type Query {
 
-  ### generic types
+  ### generic types corresponding to interfaces
   annotatable(id: ID!): AnnotatableResults
   bioEntity(id: ID!): BioEntityResults
   sequenceFeature(id: ID!): SequenceFeatureResults
+  transcript(identifier: ID!): TranscriptResults
   
   ### Annotatables
+  cds(identifier: ID!): CDSResults
   chromosome(identifier: ID!): ChromosomeResults
+  exon(identifier: ID!): ExonResults
   expressionSample(identifier: ID!): ExpressionSampleResults
   expressionSource(identifier: ID!): ExpressionSourceResults
   gene(identifier: ID!): GeneResults
   geneFamily(identifier: ID!): GeneFamilyResults
+  geneFlankingRegion(identifier: ID!): GeneFlankingRegionResults
   geneticMap(identifier: ID!): GeneticMapResults
   geneticMarker(identifier: ID!): GeneticMarkerResults
   genotypingPlatform(identifier: ID!): GenotypingPlatformResults
   gwas(identifier: ID!): GwasResults
   gwasResult(identifier: ID!): GwasResultResults
   linkageGroup(identifier: ID!): LinkageGroupResults
+  intergenicRegion(identifier: ID!): IntergenicRegionResults
+  intron(identifier: ID!): IntronResults
   mRNA(identifier: ID!): MRNAResults
   panGeneSet(identifier: ID!): PanGeneSetResults
   pathway(identifier: ID!): PathwayResults
@@ -260,12 +290,14 @@ type Query {
   supercontig(identifier: ID!): SupercontigResults
   syntenicRegion(identifier: ID!): SyntenicRegionResults
   trait(identifier: ID!): TraitResults
+  utr(identifier: ID!): UTRResults
 
   ### other types with unique non-id keys
   dataSet(name: ID!): DataSetResults
   ontology(name: ID!): OntologyResults
   ontologyTerm(identifier: ID!): OntologyTermResults
   organism(taxonId: ID!): OrganismResults
+  phylonode(identifier: ID!): PhylonodeResults
   publication(doi: ID!): PublicationResults
   soTerm(identifier: ID!): SOTermResults
   strain(identifier: ID!): StrainResults
@@ -277,7 +309,7 @@ type Query {
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults
   location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
-  phylonode(id: ID!): PhylonodeResults
+  sequence(id: ID!): SequenceResults
   syntenyBlock(id: ID!): SyntenyBlockResults
 
   ### types without any sort of id

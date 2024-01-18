@@ -12,39 +12,39 @@ import { IntermineSequenceFeature, graphqlSequenceFeatureAttributes } from './se
 // </class>
 export const intermineTranscriptAttributes = [
     'Transcript.id',
-    'Transcript.primaryIdentifier',             // Annotatable
-    'Transcript.description',                   // BioEntity
-    'Transcript.symbol',                        // BioEntity
-    'Transcript.name',                          // BioEntity
-    'Transcript.assemblyVersion',               // BioEntity
-    'Transcript.annotationVersion',             // BioEntity
-    'Transcript.secondaryIdentifier',           // BioEntity
-    'Transcript.organism.taxonId',              // BioEntity - reference resolution
-    'Transcript.strain.identifier',             // BioEntity - reference resolution
-    'Transcript.score',                         // SequenceFeature
-    'Transcript.scoreType',                     // SequenceFeature
-    'Transcript.length',                        // SequenceFeature
-    'Transcript.soTerm.identifier',             // SequenceFeature - reference resolution
-    'Transcript.chromosomeLocation.id',         // SequenceFeature - reference resolution
-    'Transcript.supercontigLocation.id',        // SequenceFeature - reference resolution
-    'Transcript.sequence.id',                   // SequenceFeature - reference resolution
-    'Transcript.chromosome.primaryIdentifier',  // SequenceFeature - reference resolution
-    'Transcript.supercontig.primaryIdentifier', // SequenceFeature - reference resolution
-    'Transcript.gene.primaryIdentifier',        // Transcript - reference resolution
-    'Transcript.protein.primaryIdentifier',     // Transcript - reference resolution
+    'Transcript.primaryIdentifier',               // Annotatable
+    'Transcript.description',                     // BioEntity
+    'Transcript.symbol',                          // BioEntity
+    'Transcript.name',                            // BioEntity
+    'Transcript.assemblyVersion',                 // BioEntity
+    'Transcript.annotationVersion',               // BioEntity
+    'Transcript.secondaryIdentifier',             // BioEntity
+    'Transcript.organism.taxonId',                // BioEntity - reference resolution
+    'Transcript.strain.identifier',               // BioEntity - reference resolution
+    'Transcript.score',                           // SequenceFeature
+    'Transcript.scoreType',                       // SequenceFeature
+    'Transcript.length',                          // SequenceFeature
+    'Transcript.sequenceOntologyTerm.identifier', // SequenceFeature - reference resolution
+    'Transcript.chromosomeLocation.id',           // SequenceFeature - reference resolution
+    'Transcript.supercontigLocation.id',          // SequenceFeature - reference resolution
+    'Transcript.sequence.id',                     // SequenceFeature - reference resolution
+    'Transcript.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
+    'Transcript.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
+    'Transcript.gene.primaryIdentifier',          // Transcript - reference resolution
+    'Transcript.protein.primaryIdentifier',       // Transcript - reference resolution
 ];
 export const intermineTranscriptSort = 'Transcript.primaryIdentifier';
 
 export type IntermineTranscript = [
     ...IntermineSequenceFeature,
-    string, // gene reference
-    string, // protein reference
+    string, // gene.primaryIdentifier
+    string, // protein.primaryIdentifier
 ];
 
 export const graphqlTranscriptAttributes = [
     ...graphqlSequenceFeatureAttributes,
-    'geneIdentifier',       // Gene resolution
-    'proteinIdentifier'     // Protein resolution
+    'geneIdentifier',       // resolve Gene
+    'proteinIdentifier'     // resolve Protein
 ];
 
 export type GraphQLTranscript = {

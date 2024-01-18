@@ -39,5 +39,5 @@ type MRNA implements TranscriptInterface & SequenceFeatureInterface & BioEntityI
   UTRs: [UTR!]!
   panGeneSets: [PanGeneSet!]!
   ## MRNA
-  isPrimary: Boolean
+  isPrimary: Boolean!
 }

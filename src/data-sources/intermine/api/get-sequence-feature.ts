@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLSequenceFeature>> {
         intermineJoin('SequenceFeature.chromosome', 'OUTER'),
         intermineJoin('SequenceFeature.supercontig', 'OUTER'),
         intermineJoin('SequenceFeature.chromosomeLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.supercontigLocation', 'OUTER')
+        intermineJoin('SequenceFeature.supercontigLocation', 'OUTER'),
+        intermineJoin('SequenceFeature.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineSequenceFeatureAttributes,

@@ -3,14 +3,6 @@ import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 import { bioEntityInterfaceFactory } from './bio-entity-interface.js';
 
-// sequenceOntologyTerm: SOTerm
-// supercontigLocation: Location
-// chromosomeLocation: Location
-// supercontig: Supercontig
-// chromosome: Chromosome
-// overlappingFeatures: [SequenceFeature!]!
-// childFeatures: [SequenceFeature!]!
-
 export const sequenceFeatureInterfaceFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...bioEntityInterfaceFactory(sourceName),
@@ -48,7 +40,7 @@ export const sequenceFeatureInterfaceFactory =
         },
         childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
             const args = {sequenceFeature: sequenceFeature, page, pageSize};
-            return dataSources[sourceName].getChildFeatures(args)
+            return dataSources[sourceName].getSequenceFeatureChildFeatures(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

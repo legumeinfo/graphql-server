@@ -7,8 +7,8 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // bio-entity
 import { getBioEntity } from './get-bio-entity.js';
-// child features
-import { getChildFeatures } from './get-child-features.js';
+// CDS
+import { getCDS } from './get-cds.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // chromosome location
@@ -16,6 +16,8 @@ import { getChromosomeLocation } from './get-chromosome-location.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import { getDataSets } from './get-data-sets.js';
+// exon
+import { getExon } from './get-exon.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
 import { getExpressionSamples } from './get-expression-samples.js';
@@ -41,6 +43,9 @@ import { getGeneFamilyAssignmentsForProtein } from './get-gene-family-assignment
 // gene family tally
 import { getGeneFamilyTally } from './get-gene-family-tally.js';
 import { getGeneFamilyTallies } from './get-gene-family-tallies.js';
+// gene flanking region
+import { getGeneFlankingRegion } from './get-gene-flanking-region.js';
+import { getGeneFlankingRegions } from './get-gene-flanking-regions.js';
 // genetic map
 import { getGeneticMap } from './get-genetic-map.js';
 import { searchGeneticMaps } from './search-genetic-maps.js';
@@ -56,6 +61,12 @@ import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
 import { getGWASResults } from './get-gwas-results.js';
+// intergenic region
+import { getIntergenicRegion } from './get-intergenic-region.js';
+import { getAdjacentGenes } from './get-adjacent-genes.js';
+// intron
+import { getIntron } from './get-intron.js';
+import { getIntrons } from './get-introns.js';
 // linkage group
 import { getLinkageGroup } from './get-linkage-group.js';
 import { getLinkageGroups } from './get-linkage-groups.js';
@@ -69,7 +80,6 @@ import { getLocations } from './get-locations.js';
 import { getLocatedFeatures } from './get-located-features.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
-import { getMRNAs } from './get-mrnas.js';
 // newick
 import { getNewick } from './get-newick.js';
 // ontology
@@ -112,9 +122,12 @@ import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
 import { getProteinDomains } from './get-protein-domains.js';
+import { getProteinDomainChildFeatures } from './get-protein-domain-child-features.js';
+import { getProteinDomainParentFeatures } from './get-protein-domain-parent-features.js';
 import { searchProteinDomains } from './search-protein-domains.js';
 // protein match
 import { getProteinMatch } from './get-protein-match.js';
+import { getProteinMatches } from './get-protein-matches.js';
 // publication
 import { getPublication } from './get-publication.js';
 import { getPublications } from './get-publications.js';
@@ -127,8 +140,11 @@ import { searchQTLs } from './search-qtls.js';
 // qtl study
 import { getQTLStudy } from './get-qtl-study.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
+// sequence
+import { getSequence } from './get-sequence.js';
 // sequence feature
 import { getSequenceFeature } from './get-sequence-feature.js';
+import { getSequenceFeatureChildFeatures } from './get-sequence-feature-child-features.js';
 // SO term
 import { getSOTerm } from './get-so-term.js';
 import { getSOTermParents } from './get-so-term-parents.js';
@@ -148,6 +164,11 @@ import { searchStrains } from './search-strains.js';
 // trait
 import { getTrait } from './get-trait.js';
 import { searchTraits } from './search-traits.js';
+// transcript
+import { getTranscript } from './get-transcript.js';
+import { getTranscripts } from './get-transcripts.js';
+// utr
+import { getUTR } from './get-utr.js';
 // mine web properties
 import { getMineWebProperties } from './get-mine-web-properties.js';
 
@@ -166,8 +187,8 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // bio-entity
     getBioEntity: Function;
-    // child features
-    getChildFeatures: Function;
+    // CDS
+    getCDS: Function;
     // chromosome
     getChromosome: Function;
     // chromosome location
@@ -175,6 +196,8 @@ export declare class ApiMixinInterface {
     // data set
     getDataSet: Function;
     getDataSets: Function;
+    // exon
+    getExon: Function;
     // expression sample
     getExpressionSample: Function;
     getExpressionSamples: Function;
@@ -200,6 +223,9 @@ export declare class ApiMixinInterface {
     // gene family tally
     getGeneFamilyTally: Function;
     getGeneFamilyTallies: Function;
+    // gene flanking region
+    getGeneFlankingRegion: Function;
+    getGeneFlankingRegions: Function;
     // genetic map
     getGeneticMap: Function;
     searchGeneticMaps: Function;
@@ -215,6 +241,12 @@ export declare class ApiMixinInterface {
     // gwas result
     getGWASResult: Function;
     getGWASResults: Function;
+    // intergenic region
+    getIntergenicRegion: Function;
+    getAdjacentGenes: Function;
+    // intron
+    getIntron: Function;
+    getIntrons: Function;
     // linkage group
     getLinkageGroup: Function;
     getLinkageGroups: Function;
@@ -228,7 +260,6 @@ export declare class ApiMixinInterface {
     getLocatedFeatures: Function;
     // mRNA
     getMRNA: Function;
-    getMRNAs: Function;
     // newick
     getNewick: Function;
     // ontology
@@ -271,9 +302,12 @@ export declare class ApiMixinInterface {
     // protein domain
     getProteinDomain: Function;
     getProteinDomains: Function;
+    getProteinDomainChildFeatures: Function;
+    getProteinDomainParentFeatures: Function;
     searchProteinDomains: Function;
     // protein match
     getProteinMatch: Function;
+    getProteinMatches: Function;
     // publication
     getPublication: Function;
     getPublications: Function;
@@ -286,8 +320,11 @@ export declare class ApiMixinInterface {
     // qtl study
     getQTLStudy: Function;
     searchQTLStudies: Function;
+    // sequence
+    getSequence: Function;
     // sequence feature
     getSequenceFeature: Function;
+    getSequenceFeatureChildFeatures: Function;
     // SO term
     getSOTerm: Function;
     getSOTermParents: Function;
@@ -307,6 +344,11 @@ export declare class ApiMixinInterface {
     // trait
     getTrait: Function;
     searchTraits: Function;
+    // transcript
+    getTranscript: Function;
+    getTranscripts: Function;
+    // UTR
+    getUTR: Function;
     // mine web properties
     getMineWebProperties: Function;
 }
@@ -335,8 +377,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // bio-entity
         getBioEntity = getBioEntity;
-        // child features
-        getChildFeatures = getChildFeatures;
+        // CDS
+        getCDS = getCDS;
         // chromosome
         getChromosome = getChromosome;
         // chromosome location
@@ -344,6 +386,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // data set
         getDataSet = getDataSet;
         getDataSets = getDataSets;
+        // exon
+        getExon = getExon;
         // expression sample
         getExpressionSample = getExpressionSample;
         getExpressionSamples = getExpressionSamples;
@@ -369,6 +413,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // gene family tally
         getGeneFamilyTally = getGeneFamilyTally;
         getGeneFamilyTallies = getGeneFamilyTallies;
+        // gene flanking region
+        getGeneFlankingRegion = getGeneFlankingRegion;
+        getGeneFlankingRegions = getGeneFlankingRegions;
         // genetic map
         getGeneticMap = getGeneticMap;
         searchGeneticMaps = searchGeneticMaps;
@@ -384,6 +431,12 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // gwas result
         getGWASResult = getGWASResult;
         getGWASResults = getGWASResults;
+        // intergenic-region
+        getIntergenicRegion = getIntergenicRegion;
+        getAdjacentGenes = getAdjacentGenes;
+        // intron
+        getIntron = getIntron;
+        getIntrons = getIntrons;
         // linkage group
         getLinkageGroup = getLinkageGroup;
         getLinkageGroups = getLinkageGroups;
@@ -397,7 +450,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLocatedFeatures = getLocatedFeatures;
         // mRNA
         getMRNA = getMRNA;
-        getMRNAs = getMRNAs;
         // newick
         getNewick = getNewick;
         // ontology
@@ -440,9 +492,12 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // protein domain
         getProteinDomain = getProteinDomain;
         getProteinDomains = getProteinDomains;
+        getProteinDomainChildFeatures = getProteinDomainChildFeatures;
+        getProteinDomainParentFeatures = getProteinDomainParentFeatures;
         searchProteinDomains = searchProteinDomains;
         // protein match
         getProteinMatch = getProteinMatch;
+        getProteinMatches = getProteinMatches;
         // publication
         getPublication = getPublication;
         getPublications = getPublications;
@@ -455,8 +510,11 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // qtl study
         getQTLStudy = getQTLStudy;
         searchQTLStudies = searchQTLStudies;
+        // sequence
+        getSequence = getSequence;
         // sequence feature
         getSequenceFeature = getSequenceFeature;
+        getSequenceFeatureChildFeatures = getSequenceFeatureChildFeatures;
         // SO term
         getSOTerm = getSOTerm;
         getSOTermParents = getSOTermParents;
@@ -476,6 +534,11 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // trait
         getTrait = getTrait;
         searchTraits = searchTraits;
+        // transcript
+        getTranscript = getTranscript;
+        getTranscripts = getTranscripts;
+        // UTR
+        getUTR = getUTR;
         // mine web properties
         getMineWebProperties = getMineWebProperties;
     }

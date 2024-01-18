@@ -10,6 +10,7 @@ import {
     GraphQLGene,
     GraphQLGeneFamily,
     GraphQLPanGeneSet,
+    GraphQLPathway,
     GraphQLProtein,
     GraphQLProteinDomain,
     IntermineGeneResponse,
@@ -20,32 +21,37 @@ import {
 import { PaginationOptions } from './pagination.js';
 
 export type GetGenesOptions = {
-    protein?: GraphQLProtein;
     geneFamily?: GraphQLGeneFamily;
     panGeneSet?: GraphQLPanGeneSet;
+    pathway?: GraphQLPathway;
+    protein?: GraphQLProtein;
     proteinDomain?: GraphQLProteinDomain;
 } & PaginationOptions;
 
-// get Genes associated with a Protein, GeneFamily, PanGeneSet, ProteinDomain
+// get Genes associated with a GeneFamily, PanGeneSet, Pathway, Protein, or ProteinDomain
 export async function getGenes(
     {
-        protein,
         geneFamily,
         panGeneSet,
+        pathway,
+        protein,
         proteinDomain,
         page,
         pageSize,
     }: GetGenesOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
-    if (protein) {
-        constraints.push(intermineConstraint('Gene.proteins.id', '=', protein.id));
-    }
     if (geneFamily) {
         constraints.push(intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', geneFamily.id));
     }
     if (panGeneSet) {
         constraints.push(intermineConstraint('Gene.panGeneSets.id', '=', panGeneSet.id));
+    }
+    if (pathway) {
+        constraints.push(intermineConstraint('Gene.pathways.id', '=', pathway.id));
+    }
+    if (protein) {
+        constraints.push(intermineConstraint('Gene.proteins.id', '=', protein.id));
     }
     if (proteinDomain) {
         constraints.push(intermineConstraint('Gene.proteinDomains.id', '=', proteinDomain.id));
@@ -55,7 +61,8 @@ export async function getGenes(
         intermineJoin('Gene.chromosome', 'OUTER'),
         intermineJoin('Gene.supercontig', 'OUTER'),
         intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER')
+        intermineJoin('Gene.supercontigLocation', 'OUTER'),
+        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineGeneAttributes,

@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="SyntenyBlock" is-interface="true" term="">
 // 	<attribute name="medianKs" type="java.lang.Double"/>
 // 	<collection name="publications" referenced-type="Publication"/>
@@ -12,11 +11,11 @@ export const intermineSyntenyBlockAttributes = [
     'SyntenyBlock.medianKs',
 ];
 export const intermineSyntenyBlockSort = 'SyntenyBlock.medianKs';
+
 export type IntermineSyntenyBlock = [
   number,
   number,
 ];
-
 
 // type SyntenyBlock {
 //   id: ID!
@@ -29,6 +28,7 @@ export const graphqlSyntenyBlockAttributes = [
     'id',
     'medianKs',
 ];
+
 export type GraphQLSyntenyBlock = {
   [prop in typeof graphqlSyntenyBlockAttributes[number]]: string;
 }

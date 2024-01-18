@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLCDS>> {
         intermineJoin('CDS.chromosome', 'OUTER'),
         intermineJoin('CDS.supercontig', 'OUTER'),
         intermineJoin('CDS.chromosomeLocation', 'OUTER'),
-        intermineJoin('CDS.supercontigLocation', 'OUTER')
+        intermineJoin('CDS.supercontigLocation', 'OUTER'),
+        intermineJoin('CDS.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineCDSAttributes,
