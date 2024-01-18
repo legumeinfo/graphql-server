@@ -17,6 +17,12 @@ ResolverMap => ({
     },
     GeneticMarker: {
         ...sequenceFeatureInterfaceFactory(sourceName),
+        qtls: async (geneticMarker, { page, pageSize }, { dataSources }) => {
+            const args = {geneticMarker, page, pageSize};
+            return dataSources[sourceName].getQTLs(args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         genotypingPlatforms: async (geneticMarker, { page, pageSize }, { dataSources }) => {
             const args = {geneticMarker, page, pageSize};
             return dataSources[sourceName].getGenotypingPlatforms(args)
@@ -26,12 +32,6 @@ ResolverMap => ({
         gwasResults: async (geneticMarker, { page, pageSize }, { dataSources }) => {
             const args = {geneticMarker, page, pageSize};
             return dataSources[sourceName].getGWASResults(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        qtls: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
