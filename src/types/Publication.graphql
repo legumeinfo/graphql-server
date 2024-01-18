@@ -28,6 +28,6 @@ type Publication {
   abstractText: String
   pubMedId: String
   authors: [Author!]!
-  # entities: []
-  # meshTerms: []
+  entities: [Annotatable!]!
+  # meshTerms: not currently populated in LIS mines
 }

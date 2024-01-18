@@ -73,8 +73,8 @@ export const geneFactory =
                     .then(({data: results}) => results);
             },
             geneFamilyAssignments: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {page, pageSize};
-                return dataSources[sourceName].getGeneFamilyAssignments(gene, args)
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getGeneFamilyAssignments(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

@@ -7,6 +7,7 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // bio-entity
 import { getBioEntity } from './get-bio-entity.js';
+import { getBioEntities } from './get-bio-entities.js';
 // CDS
 import { getCDS } from './get-cds.js';
 import { getCDSs } from './get-cdss.js';
@@ -17,6 +18,8 @@ import { getChromosomeLocation } from './get-chromosome-location.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import { getDataSets } from './get-data-sets.js';
+// data source
+import { getDataSource } from './get-data-source.js';
 // exon
 import { getExon } from './get-exon.js';
 import { getExons } from './get-exons.js';
@@ -41,7 +44,6 @@ import { searchGeneFamilies } from './search-gene-families.js';
 // gene family assignment
 import { getGeneFamilyAssignment } from './get-gene-family-assignment.js';
 import { getGeneFamilyAssignments} from './get-gene-family-assignments.js';
-import { getGeneFamilyAssignmentsForProtein } from './get-gene-family-assignments-for-protein.js';
 // gene family tally
 import { getGeneFamilyTally } from './get-gene-family-tally.js';
 import { getGeneFamilyTallies } from './get-gene-family-tallies.js';
@@ -113,7 +115,6 @@ import { getPathway } from './get-pathway.js';
 import { getPathways } from './get-pathways.js';
 // phylonode
 import { getPhylonode } from './get-phylonode.js';
-import { getPhylonodeForProtein } from './get-phylonode-for-protein.js';
 import { getPhylonodes } from './get-phylonodes.js';
 // phylotree
 import { getPhylotree } from './get-phylotree.js';
@@ -190,6 +191,7 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // bio-entity
     getBioEntity: Function;
+    getBioEntities: Function;
     // CDS
     getCDS: Function;
     getCDSs: Function;
@@ -200,6 +202,8 @@ export declare class ApiMixinInterface {
     // data set
     getDataSet: Function;
     getDataSets: Function;
+    // data source
+    getDataSource: Function;
     // exon
     getExon: Function;
     getExons: Function;
@@ -224,7 +228,6 @@ export declare class ApiMixinInterface {
     // gene family assignment
     getGeneFamilyAssignment: Function;
     getGeneFamilyAssignments: Function;
-    getGeneFamilyAssignmentsForProtein: Function;
     // gene family tally
     getGeneFamilyTally: Function;
     getGeneFamilyTallies: Function;
@@ -296,7 +299,6 @@ export declare class ApiMixinInterface {
     getPathways: Function;
     // phylonode
     getPhylonode: Function;
-    getPhylonodeForProtein: Function;
     getPhylonodes: Function;
     // phylotree
     getPhylotree: Function;
@@ -383,6 +385,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // bio-entity
         getBioEntity = getBioEntity;
+        getBioEntities = getBioEntities;
         // CDS
         getCDS = getCDS;
         getCDSs = getCDSs;
@@ -393,6 +396,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // data set
         getDataSet = getDataSet;
         getDataSets = getDataSets;
+        // data source
+        getDataSource = getDataSource;
         // exon
         getExon = getExon;
         getExons = getExons;
@@ -417,7 +422,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // gene family assignment
         getGeneFamilyAssignment = getGeneFamilyAssignment;
         getGeneFamilyAssignments = getGeneFamilyAssignments;
-        getGeneFamilyAssignmentsForProtein = getGeneFamilyAssignmentsForProtein;
         // gene family tally
         getGeneFamilyTally = getGeneFamilyTally;
         getGeneFamilyTallies = getGeneFamilyTallies;
@@ -489,7 +493,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPathways = getPathways;
         // phylonode
         getPhylonode = getPhylonode;
-        getPhylonodeForProtein = getPhylonodeForProtein;
         getPhylonodes = getPhylonodes;
         // phylotree
         getPhylotree = getPhylotree;

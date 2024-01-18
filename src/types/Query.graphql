@@ -118,6 +118,9 @@ type UTRResults {
 type DataSetResults {
   results: DataSet
 }
+type DataSourceResults {
+  results: DataSource
+}
 type OntologyResults {
   results: Ontology
 }
@@ -294,6 +297,7 @@ type Query {
 
   ### other types with unique non-id keys
   dataSet(name: ID!): DataSetResults
+  dataSource(name: ID!): DataSourceResults
   ontology(name: ID!): OntologyResults
   ontologyTerm(identifier: ID!): OntologyTermResults
   organism(taxonId: ID!): OrganismResults
@@ -313,7 +317,7 @@ type Query {
   syntenyBlock(id: ID!): SyntenyBlockResults
 
   ### types without any sort of id
-  expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
+  expressionValue(sampleIdentifier: ID!, featureIdentifier: ID!): ExpressionValueResults
   
   ### multiple-result queries (typically searches)
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults

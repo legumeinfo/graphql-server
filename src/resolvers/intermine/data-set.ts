@@ -2,7 +2,6 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
-
 export const dataSetFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
@@ -16,9 +15,20 @@ ResolverMap => ({
         },
     },
     DataSet: {
+        dataSource: async (dataSet, _, { dataSources }) => {
+            return dataSources[sourceName].getDataSource(dataSet.dataSourceName)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         publication: async (dataSet, _, { dataSources }) => {
             return dataSources[sourceName].getPublication(dataSet.publicationDOI)
-                // @ts-ignore: implicit type any error
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        bioEntities: async (dataSet, { page, pageSize }, { dataSources }) => {
+            const args = {dataSet: dataSet, page, pageSize};
+            return dataSources[sourceName].getBioEntities(args)
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },

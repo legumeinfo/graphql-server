@@ -18,7 +18,7 @@ type DataSet {
   url: String!
   version: String!
   synopsis: String!
-  # dataSource
+  dataSource: DataSource!
   publication: Publication
-  # bioEntities
+  bioEntities: [BioEntity!]!
 }

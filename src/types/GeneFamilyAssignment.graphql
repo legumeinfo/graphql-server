@@ -7,7 +7,7 @@
 type GeneFamilyAssignment {
   id: ID!
   bestDomainScore: Float
-  score:  Float
+  score:  Float!
   evalue: Float
   geneFamily: GeneFamily!
 }

@@ -59,8 +59,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         geneFamilyAssignments: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(protein, args)
+            const args = {protein, page, pageSize};
+            return dataSources[sourceName].getGeneFamilyAssignments(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
