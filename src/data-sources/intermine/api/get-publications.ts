@@ -16,18 +16,16 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetPublicationsOptions = {
-    author?: GraphQLAuthor;
     annotatable?: GraphQLAnnotatable;
+    author?: GraphQLAuthor;
 } & PaginationOptions;
 
-
-// get Publications associated with an Author or any type that extends Annotatable
+// get Publications associated with an Annotatable or an Author
 export async function getPublications(
     {
-        author,
         annotatable,
+        author,
         page,
         pageSize,
     }: GetPublicationsOptions,

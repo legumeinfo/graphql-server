@@ -11,7 +11,6 @@ import {
   response2dataSets,
 } from '../models/index.js';
 
-
 // get a DataSet by name
 export async function getDataSet(name: string): Promise<ApiResponse<GraphQLDataSet>> {
     const constraints = [intermineConstraint('DataSet.name', '=', name)];

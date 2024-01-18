@@ -9,6 +9,7 @@ import {
 import {
     GraphQLAnnotatable,
     GraphQLDataSet,
+    GraphQLDataSource,
     IntermineDataSetResponse,
     intermineDataSetAttributes,
     intermineDataSetSort,
@@ -18,14 +19,26 @@ import { PaginationOptions } from './pagination.js';
 
 export type GetDataSetsOptions = {
     annotatable?: GraphQLAnnotatable;
+    dataSource?: GraphQLDataSource;
 } & PaginationOptions;
 
-// get dataSets for types that extend Annotatable using the DataSet.entities reverse reference
+// get dataSets for an Annotatable or a DataSource
 export async function getDataSets(
-    {annotatable, page, pageSize}: GetDataSetsOptions,
+    {
+        annotatable,
+        dataSource,
+        page,
+        pageSize
+    }: GetDataSetsOptions,
 ): Promise<ApiResponse<GraphQLDataSet>> {
-    const constraints = [intermineConstraint('DataSet.entities.id', '=', annotatable.id)];
-    // publication is optional
+    const constraints = [];
+    if (annotatable) {
+        constraints.push(intermineConstraint('DataSet.entities.id', '=', annotatable.id));
+    }
+    if (dataSource) {
+        constraints.push(intermineConstraint('DataSet.dataSource.id', '=', dataSource.id));
+    }
+    // publication may be null
     const joins = [
         intermineJoin('DataSet.publication', 'OUTER'),
     ];
