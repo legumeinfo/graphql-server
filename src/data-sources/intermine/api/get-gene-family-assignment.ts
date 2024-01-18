@@ -11,7 +11,6 @@ import {
   response2geneFamilyAssignments,
 } from '../models/index.js';
 
-
 // get a GeneFamilyAssignment by ID
 export async function getGeneFamilyAssignment(id: number):
 Promise<ApiResponse<GraphQLGeneFamilyAssignment>> {
