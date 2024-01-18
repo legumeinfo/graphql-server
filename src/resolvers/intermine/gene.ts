@@ -26,13 +26,34 @@ export const geneFactory =
         },
         Gene: {
             ...sequenceFeatureInterfaceFactory(sourceName),
-
-            // upstreamIntergenicRegion: IntergenicRegion
-            // downstreamIntergenicRegion: IntergenicRegion
-            // flankingRegions: [GeneFlankingRegion!]!
-            // transcripts: [Transcript!]!
-            // introns: [Intron!]!
-
+            upstreamIntergenicRegion: async (gene, _, { dataSources }) => {
+                return dataSources[sourceName].getIntergenicRegion(gene.upstreamIntergenicRegionIdentifier)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
+            downstreamIntergenicRegion: async (gene, _, { dataSources }) => {
+                return dataSources[sourceName].getIntergenicRegion(gene.downstreamIntergenicRegionIdentifier)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
+            flankingRegions: async (gene, { page, pageSize }, { dataSources }) => {
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getGeneFlankingRegions(args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
+            transcripts: async (gene, { page, pageSize }, { dataSources }) => {
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getTranscripts(args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
+            introns: async (gene, { page, pageSize }, { dataSources }) => {
+                const args = {gene, page, pageSize};
+                return dataSources[sourceName].getIntrons(args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
             proteins: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getProteins(args)

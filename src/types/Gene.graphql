@@ -53,11 +53,11 @@ type Gene implements SequenceFeatureInterface & BioEntityInterface & Annotatable
   introns: [Intron!]!
   proteins: [Protein!]!
   pathways: [Pathway!]!
-  # alleles
+  # alleles are not populated in LIS mines
   panGeneSets: [PanGeneSet!]!
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   proteinDomains: [ProteinDomain!]!
-  # regulatoryRegions
+  # regulatoryRegions are not populated in LIS mines
   ## microservices
   linkouts: [Linkout!]!
 }

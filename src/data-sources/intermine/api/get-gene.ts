@@ -23,7 +23,8 @@ Promise<ApiResponse<GraphQLGene>> {
         intermineJoin('Gene.chromosome', 'OUTER'),
         intermineJoin('Gene.supercontig', 'OUTER'),
         intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER')
+        intermineJoin('Gene.supercontigLocation', 'OUTER'),
+        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineGeneAttributes,
