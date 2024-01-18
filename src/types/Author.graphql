@@ -7,9 +7,9 @@
 # </class>
 type Author {
   id: ID!
-  firstName: String
+  firstName: String!
   initials: String
-  lastName: String
-  name: String
+  lastName: String!
+  name: String!
   publications: [Publication!]!
 }
