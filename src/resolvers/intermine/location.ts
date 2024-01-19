@@ -2,7 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 
-
+// Note: Location does not have a string identifier so we query on id.
 export const locationFactory =
     (
         sourceName: KeyOfType<DataSources, IntermineAPI>,
@@ -30,15 +30,14 @@ export const locationFactory =
                     .then(({data: results}) => results);
             },
             dataSets: async (location, { page, pageSize }, { dataSources }) => {
-                const args = {bioEntity: location, page, pageSize};
+                const args = {location: location, page, pageSize};
                 return dataSources[sourceName].getDataSets(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             // microservices
             linkouts: async (location, _, { dataSources }) => {
-                const {locatedOnIdentifier, start, end} = location;
-                return dataSources[microservicesSource].getLinkoutsForLocation(locatedOnIdentifier, start, end);
+                return dataSources[microservicesSource].getLinkouts({location});
             },
         },
     });

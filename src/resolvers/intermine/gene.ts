@@ -84,9 +84,9 @@ export const geneFactory =
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
+            // microservices
             linkouts: async (gene, _, { dataSources }) => {
-                const {identifier} = gene;
-                return dataSources[microservicesSource].getLinkoutsForGene(identifier);
+                return dataSources[microservicesSource].getLinkouts({gene});
             },
         },
     });

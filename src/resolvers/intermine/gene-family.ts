@@ -49,9 +49,9 @@ export const geneFamilyFactory =
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+        // microservices
         linkouts: async (geneFamily, _, { dataSources }) => {
-            const {identifier} = geneFamily;
-            return dataSources[microservicesSource].getLinkoutsForGeneFamily(identifier);
+            return dataSources[microservicesSource].getLinkouts({geneFamily});
         },
     },
 });
