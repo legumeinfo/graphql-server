@@ -7,11 +7,9 @@ import { KeyOfType } from '../../utils/index.js';
 
 import { linkoutsFactory } from './linkouts.js';
 
-
 const factories = [
     linkoutsFactory,
 ];
-
 
 // a factory function that generates resolvers for a specific microservices deployment.
 // TODO: our resolver type returned by the factories doesn't match the type
