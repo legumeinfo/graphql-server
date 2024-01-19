@@ -10,10 +10,12 @@ type PanGeneSet implements Annotatable {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## PanGeneSet
   mRNAs: [MRNA!]!
   genes: [Gene!]!
   proteins: [Protein!]!
-  dataSets: [DataSet!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }
 

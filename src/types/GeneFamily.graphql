@@ -23,4 +23,6 @@ type GeneFamily implements Annotatable {
   genes: [Gene!]!
   proteinDomains: [ProteinDomain!]!
   tallies: [GeneFamilyTally!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }
