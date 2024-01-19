@@ -1,7 +1,6 @@
 # ------------------------------------------------------------------------
 # This is an interface for InterMine objects which extend SequenceFeature.
 # ------------------------------------------------------------------------
-
 # <class name="SequenceFeature" extends="BioEntity" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000110,http://purl.obolibrary.org/obo/SO:0000110">
 # 	<attribute name="score" type="java.lang.Double" term="http://edamontology.org/data_1772"/>
 # 	<attribute name="scoreType" type="java.lang.String" term="http://purl.org/dc/terms/type"/>
@@ -16,21 +15,32 @@
 # 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
 # </class>
 interface SequenceFeature implements BioEntity & Annotatable {
-  # Annotatable
   id: ID!
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # BioEntity
+  ## BioEntity
   description: String
   symbol: String
   name: String
   assemblyVersion: String
   annotationVersion: String
+  secondaryIdentifier: String
   organism: Organism
   strain: Strain
   locations: [Location!]!
   dataSets: [DataSet!]!
-  # SequenceFeature
+  locatedFeatures: [Location!]!
+  ## SequenceFeature
+  score: Float
+  scoreType: String
   length: Int
+  sequenceOntologyTerm: SOTerm
+  supercontigLocation: Location
+  chromosomeLocation: Location
+  supercontig: Supercontig
+  chromosome: Chromosome
+  overlappingFeatures: [SequenceFeature!]!
+  childFeatures: [SequenceFeature!]!
 }

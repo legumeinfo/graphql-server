@@ -72,6 +72,7 @@ import { getLocation } from './get-location.js';
 import { getLocations } from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
+import { getMRNAs } from './get-mrnas.js';
 // newick
 import { getNewick } from './get-newick.js';
 // ontology
@@ -214,6 +215,7 @@ export declare class ApiMixinInterface {
     getLocations: Function;
     // mRNA
     getMRNA: Function;
+    getMRNAs: Function;
     // newick
     getNewick: Function;
     // ontology
@@ -285,7 +287,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
     class ApiMixinClass extends superClass {
 
-        static intermineVersion = '5.1.0.3';
+        static intermineVersion = '5.1.0.4';
 
         // Verifies that the version of the IntermineServer is the version the API is expecting
         async verifyIntermineVersion() {
@@ -366,6 +368,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLocations = getLocations;
         // mRNA
         getMRNA = getMRNA;
+        getMRNAs = getMRNAs;
         // newick
         getNewick = getNewick;
         // ontology

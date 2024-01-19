@@ -1,5 +1,8 @@
-# <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
-type Chromosome implements SequenceFeature & BioEntity & Annotatable {
+# <class name="CDS" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000316,http://purl.obolibrary.org/obo/SO:0000316">
+# 	<attribute name="isPrimary" type="java.lang.Boolean"/>
+# 	<reference name="transcript" referenced-type="Transcript" reverse-reference="CDSs"/>
+# </class>
+type CDS implements SequenceFeature & BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -28,4 +31,7 @@ type Chromosome implements SequenceFeature & BioEntity & Annotatable {
   chromosome: Chromosome
   overlappingFeatures: [SequenceFeature!]!
   childFeatures: [SequenceFeature!]!
+  ## CDS
+  isPrimary: Boolean!
+  transcript: Transcript!
 }

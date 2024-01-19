@@ -2,21 +2,34 @@
 # 	<reference name="syntenyBlock" referenced-type="SyntenyBlock" reverse-reference="syntenicRegions"/>
 # </class>
 type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
   id: ID!
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  ## BioEntity
   description: String
   symbol: String
   name: String
   assemblyVersion: String
   annotationVersion: String
+  secondaryIdentifier: String
   organism: Organism
   strain: Strain
   locations: [Location!]!
   dataSets: [DataSet!]!
+  locatedFeatures: [Location!]!
+  ## SequenceFeature
+  score: Float
+  scoreType: String
   length: Int
+  sequenceOntologyTerm: SOTerm
+  supercontigLocation: Location
+  chromosomeLocation: Location
+  supercontig: Supercontig
+  chromosome: Chromosome
+  overlappingFeatures: [SequenceFeature!]!
+  childFeatures: [SequenceFeature!]!
   # SyntenicRegion
   syntenyBlock: SyntenyBlock
 }
