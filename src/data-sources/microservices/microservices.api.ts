@@ -34,26 +34,7 @@ export class MicroservicesAPI extends RESTDataSource {
         }
     }
 
-    async getLinkoutsForGene(identifier: string): Promise<GraphQLLinkout[]> {
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({genes: [identifier]}),
-        };
-        return await this.post('gene_linkouts', options);
-    }
-    
-    // return linkouts for a Gene, Location, GeneFamily, or PanGeneSet
-
-    // async getLinkouts(
-    //     gene: GraphQLGene,
-    //     location: GraphQLLocation,
-    //     geneFamily: GraphQLGeneFamily,
-    //     panGeneSet: GraphQLPanGeneSet
-    // ): Promise<GraphQLLinkout[]> {
-
+    // Return linkouts for a Gene, Location, GeneFamily, or PanGeneSet.
     async getLinkouts(
         {
             gene,
