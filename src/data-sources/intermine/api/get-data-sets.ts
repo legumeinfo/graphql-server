@@ -10,6 +10,7 @@ import {
     GraphQLAnnotatable,
     GraphQLDataSet,
     GraphQLDataSource,
+    GraphQLLocation,
     IntermineDataSetResponse,
     intermineDataSetAttributes,
     intermineDataSetSort,
@@ -20,13 +21,15 @@ import { PaginationOptions } from './pagination.js';
 export type GetDataSetsOptions = {
     annotatable?: GraphQLAnnotatable;
     dataSource?: GraphQLDataSource;
+    location?: GraphQLLocation;
 } & PaginationOptions;
 
-// get dataSets for an Annotatable or a DataSource
+// get dataSets for an Annotatable or a DataSource or a Location
 export async function getDataSets(
     {
         annotatable,
         dataSource,
+        location,
         page,
         pageSize
     }: GetDataSetsOptions,
@@ -34,9 +37,10 @@ export async function getDataSets(
     const constraints = [];
     if (annotatable) {
         constraints.push(intermineConstraint('DataSet.entities.id', '=', annotatable.id));
-    }
-    if (dataSource) {
+    } else if (dataSource) {
         constraints.push(intermineConstraint('DataSet.dataSource.id', '=', dataSource.id));
+    } else if (location) {
+        constraints.push(intermineConstraint('DataSet.entities.id', '=', location.id));
     }
     // publication may be null
     const joins = [

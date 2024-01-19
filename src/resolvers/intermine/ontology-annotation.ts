@@ -16,7 +16,7 @@ ResolverMap => ({
     },
     OntologyAnnotation: {
         subject: async(ontologyAnnotation, _, { dataSources }) => {
-            return dataSources[sourceName].getAnnotatable(ontologyAnnotation.subjectIdentifier)
+            return dataSources[sourceName].getAnnotatable(ontologyAnnotation.subjectId)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

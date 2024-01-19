@@ -6,15 +6,14 @@
 # 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-## NOTE: right now, locatedOn can be a Chromosome, Supercontig, or Protein.
-## We break them out into separate subtypes here.
+## Note: strand can be null (e.g. for location on protein).
 type Location {
   id: ID!
   strand: String
-  start: Int
-  end: Int
-  locatedOn: BioEntity
-  feature: BioEntity
+  start: Int!
+  end: Int!
+  locatedOn: BioEntity!
+  feature: BioEntity!
   dataSets: [DataSet!]!
   ## microservices
   linkouts: [Linkout!]!

@@ -5,7 +5,7 @@
 # </class>
 type LinkageGroupPosition {
   id: ID!
-  position: Float
-  markerName: String
-  linkageGroup: LinkageGroup
+  position: Float!
+  markerName: String!
+  linkageGroup: LinkageGroup!
 }

@@ -9,7 +9,7 @@ type GWASResult {
   id: ID!
   ## Annotatable
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]
+  ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   dataSets: [DataSet!]!
   ## GWASResult

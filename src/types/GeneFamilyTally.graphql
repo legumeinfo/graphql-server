@@ -7,9 +7,9 @@
 # </class>
 type GeneFamilyTally {
   id: ID!
-  averageCount: Float
-  totalCount: Int
-  numAnnotations: Int
-  organism: Organism
-  geneFamily: GeneFamily
+  averageCount: Float!
+  totalCount: Int!
+  numAnnotations: Int!
+  organism: Organism!
+  geneFamily: GeneFamily!
 }
