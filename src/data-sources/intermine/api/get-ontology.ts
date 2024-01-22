@@ -11,8 +11,7 @@ import {
   response2ontologies,
 } from '../models/index.js';
 
-
-// get an Ontology by ID
+// get an Ontology by name
 export async function getOntology(name: string):
 Promise<ApiResponse<GraphQLOntology>> {
     const constraints = [intermineConstraint('Ontology.name', '=', name)];

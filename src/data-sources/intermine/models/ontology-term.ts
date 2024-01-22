@@ -21,7 +21,7 @@ export const intermineOntologyTermAttributes = [
     'OntologyTerm.obsolete',
     'OntologyTerm.name',
     'OntologyTerm.namespace',
-    'OntologyTerm.ontology.id', // reference resolution
+    'OntologyTerm.ontology.name', // reference resolution
 ]
 export const intermineOntologyTermSort = 'OntologyTerm.identifier';
 
@@ -32,7 +32,7 @@ export type IntermineOntologyTerm = [
     boolean, // obsolete
     string,  // name
     string,  // namespace
-    number,  // ontology.id
+    string,  // ontology.name
 ];
 
 export const graphqlOntologyTermAttributes = [
@@ -42,7 +42,7 @@ export const graphqlOntologyTermAttributes = [
     'obsolete',     // obsolete
     'name',         // name
     'namespace',    // namespace
-    'ontologyId',   // Ontology.id
+    'ontologyName', // Ontology.name
 ];
 
 export type GraphQLOntologyTerm = {
@@ -88,6 +88,15 @@ export type IntermineOntologyRelationResponse = IntermineDataResponse<IntermineO
 export function response2ontologyRelations(response: IntermineOntologyRelationResponse): Array<GraphQLOntologyRelation> {
     return response2graphqlObjects(response, graphqlOntologyRelationAttributes);
 }
+
+// OntologyTerm.ontology does not have an Ontology reverse reference
+export const intermineOntologyTermOntologyAttributes = [
+    'OntologyTerm.ontology.id',
+    'OntologyTerm.ontology.url',
+    'OntologyTerm.ontology.name',
+];
+export const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
+// use IntermineOntologyTerm
 
 // OntologyTerm.synonyms has no reverse reference
 export const intermineOntologyTermSynonymAttributes = [
@@ -136,7 +145,8 @@ export const intermineOntologyTermDataSetAttributes = [
     'OntologyTerm.dataSets.name',
     'OntologyTerm.dataSets.version',
     'OntologyTerm.dataSets.synopsis',
-    'OntologyTerm.dataSets.publication.doi',  // resolve Publication
+    'OntologyTerm.dataSets.dataSource.name',  // resolve reference
+    'OntologyTerm.dataSets.publication.doi',  // resolve reference
 ];
 export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name';
 // use IntermineDataSet

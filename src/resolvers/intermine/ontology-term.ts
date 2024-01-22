@@ -22,7 +22,7 @@ ResolverMap => ({
     },
     OntologyTerm: {
         ontology: async (ontologyTerm, _, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm)
+            return dataSources[sourceName].getOntology(ontologyTerm.ontologyName)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
@@ -51,8 +51,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         dataSets: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyTermDataSets(args)
+            const args = {ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getDataSets(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
