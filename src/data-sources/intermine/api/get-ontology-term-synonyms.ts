@@ -6,8 +6,8 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    intermineOntologyTermSynonymAttributes,
-    intermineOntologyTermSynonymSort,
+    intermineOntologyTermOntologyTermSynonymAttributes,
+    intermineOntologyTermOntologyTermSynonymSort,
     GraphQLOntologyTerm,
     GraphQLOntologyTermSynonym,
     IntermineOntologyTermSynonymResponse,
@@ -19,14 +19,18 @@ export type GetOntologyTermSynonymsOptions = {
     ontologyTerm?: GraphQLOntologyTerm;
 } & PaginationOptions;
 
-// get synonyms of an ontology term, which have no reverse reference to OntologyTerm
+// get OntologyTermSynonyms for an OntologyTerm
 export async function getOntologyTermSynonyms(
-    {ontologyTerm, page, pageSize}: GetOntologyTermSynonymsOptions,
+    {
+        ontologyTerm,
+        page,
+        pageSize
+    }: GetOntologyTermSynonymsOptions,
 ): Promise<ApiResponse<GraphQLOntologyTermSynonym>> {
     const constraints = [intermineConstraint('OntologyTerm.id', '=', ontologyTerm.id)];
     const query = interminePathQuery(
-        intermineOntologyTermSynonymAttributes,
-        intermineOntologyTermSynonymSort,
+        intermineOntologyTermOntologyTermSynonymAttributes,
+        intermineOntologyTermOntologyTermSynonymSort,
         constraints,
     );
     // get the data

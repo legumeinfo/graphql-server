@@ -55,7 +55,15 @@ export function response2ontologyTerms(response: IntermineOntologyTermResponse):
     return response2graphqlObjects(response, graphqlOntologyTermAttributes);
 }
 
-// OntologyTerm.relations has no reverse reference
+// OntologyTerm.synonyms has no reverse reference from OntologyTermSynonym
+export const intermineOntologyTermOntologyTermSynonymAttributes = [
+    'OntologyTerm.synonyms.id',
+    'OntologyTerm.synonyms.type', 
+    'OntologyTerm.synonyms.name',
+];
+export const intermineOntologyTermOntologyTermSynonymSort = 'OntologyTerm.synonyms.name';
+
+// OntologyTerm.relations has no reverse reference from OntologyRelation
 export const intermineOntologyTermRelationAttributes = [
     'OntologyTerm.relations.id',
     'OntologyTerm.relations.redundant',
@@ -97,31 +105,6 @@ export const intermineOntologyTermOntologyAttributes = [
 ];
 export const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
 // use IntermineOntologyTerm
-
-// OntologyTerm.synonyms has no reverse reference
-export const intermineOntologyTermSynonymAttributes = [
-    'OntologyTerm.synonyms.id',
-    'OntologyTerm.synonyms.type', 
-    'OntologyTerm.synonyms.name',
-];
-export const intermineOntologyTermSynonymSort = 'OntologyTerm.synonyms.id';
-export type IntermineOntologyTermSynonym = [
-    number,  // id
-    string,  // type
-    string,  // name
-];
-export const graphqlOntologyTermSynonymAttributes = [
-    'id',    // id
-    'type',  // type
-    'name',  // name
-];
-export type GraphQLOntologyTermSynonym = {
-    [prop in typeof graphqlOntologyTermSynonymAttributes[number]]: string;
-}
-export type IntermineOntologyTermSynonymResponse = IntermineDataResponse<IntermineOntologyTermSynonym>;
-export function response2ontologyTermSynonyms(response: IntermineOntologyTermSynonymResponse): Array<GraphQLOntologyTermSynonym> {
-    return response2graphqlObjects(response, graphqlOntologyTermSynonymAttributes);
-}
 
 // OntologyTerm.parents has no reverse reference
 export const intermineOntologyTermParentAttributes = [
