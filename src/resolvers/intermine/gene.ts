@@ -1,5 +1,6 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
+import { hasLinkoutsFactory } from '../microservices/index.js';
 import { ResolverMap } from '../resolver.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 
@@ -27,6 +28,7 @@ export const geneFactory =
         },
         Gene: {
             ...sequenceFeatureFactory(sourceName),
+            ...hasLinkoutsFactory(microservicesSource),
             proteins: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getProteins(args)
@@ -56,10 +58,6 @@ export const geneFactory =
                 return dataSources[sourceName].getPathways(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
-            },
-            linkouts: async (gene, _, { dataSources }) => {
-                const {identifier} = gene;
-                return dataSources[microservicesSource].getLinkoutsForGene(identifier);
             },
         },
     });

@@ -5,12 +5,15 @@ import { mergeResolvers } from '@graphql-tools/merge';
 import { DataSources, MicroservicesAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 
-import { linkoutsFactory } from './linkouts.js';
+import { hasLinkoutsFactory, linkoutsFactory } from './linkouts.js';
 
 
 const factories = [
     linkoutsFactory,
 ];
+
+
+export { hasLinkoutsFactory } from './linkouts.js';
 
 
 // a factory function that generates resolvers for a specific microservices deployment.
