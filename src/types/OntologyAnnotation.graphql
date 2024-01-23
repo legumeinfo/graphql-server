@@ -5,7 +5,7 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # 	<collection name="evidence" referenced-type="OntologyEvidence"/>
 # </class>
-type OntologyAnnotation {
+type OntologyAnnotation implements HasDataSets {
   id: ID!
   qualifier: String
   # subject: Annotatable

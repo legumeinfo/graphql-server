@@ -7,7 +7,7 @@ import { KeyOfType } from '../../utils/index.js';
 
 import { authorFactory } from './author.js';
 import { chromosomeFactory } from './chromosome.js';
-import { dataSetFactory } from './data-set.js';
+import { dataSetFactory, hasDataSetsFactory } from './data-set.js';
 import { expressionSampleFactory } from './expression-sample.js';
 import { expressionSourceFactory } from './expression-source.js';
 import { expressionValueFactory } from './expression-value.js';

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const phylotreeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -18,6 +19,7 @@ ResolverMap => ({
     },
     Phylotree: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetsFactory(sourceName),
         geneFamily: async(phylotree, _, { dataSources }) => {
             return dataSources[sourceName].getGeneFamily(phylotree.geneFamilyIdentifier)
                 // @ts-ignore: implicit type any error
@@ -30,12 +32,6 @@ ResolverMap => ({
                     if (newick != null) return newick.contents;
                     return null;
                 });
-        },
-        dataSets: async (phylotree, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPhylotree(phylotree, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
         },
         nodes: async (phylotree, { page, pageSize }, { dataSources }) => {
             const args = {phylotree, page, pageSize};

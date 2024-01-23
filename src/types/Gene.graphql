@@ -16,7 +16,7 @@
 #         <collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment" reverse-reference="gene"/>
 #         <collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
 # </class>
-type Gene implements SequenceFeature & BioEntity & Annotatable & HasLinkouts {
+type Gene implements SequenceFeature & BioEntity & HasDataSets & Annotatable & HasLinkouts {
   ## SequenceFeature
   id: ID!
   identifier: ID!

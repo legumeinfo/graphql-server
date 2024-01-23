@@ -3,7 +3,7 @@
 #         <collection name="genes" referenced-type="Gene" reverse-reference="panGeneSets"/>
 #         <collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
 # </class>
-type PanGeneSet implements Annotatable {
+type PanGeneSet implements Annotatable & HasDataSets {
   ## Annotatable
   id: ID!
   identifier: ID!

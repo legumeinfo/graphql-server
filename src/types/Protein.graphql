@@ -13,7 +13,7 @@
 #         <collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
 #         <collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
 # </class>
-type Protein implements BioEntity & Annotatable {
+type Protein implements BioEntity & HasDataSets & Annotatable {
   # BioEntity
   id: ID!
   identifier: ID!

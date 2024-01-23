@@ -8,7 +8,7 @@
 # 	<collection name="linkageGroups" referenced-type="LinkageGroup" reverse-reference="geneticMap"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type GeneticMap implements Annotatable {
+type GeneticMap implements Annotatable & HasDataSets {
   # Annotatable
   id: ID!
   identifier: ID!

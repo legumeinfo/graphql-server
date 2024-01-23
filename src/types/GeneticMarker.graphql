@@ -9,7 +9,7 @@
 # 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 # </class>
-type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
+type GeneticMarker implements SequenceFeature & BioEntity & HasDataSets & Annotatable {
   # SequenceFeature
   id: ID!
   identifier: ID!

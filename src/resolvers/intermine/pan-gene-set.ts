@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { hasLinkoutsFactory } from '../microservices/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const panGeneSetFactory = 
@@ -22,13 +23,8 @@ export const panGeneSetFactory =
     },
     PanGeneSet: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetsFactory(sourceName),
         ...hasLinkoutsFactory(microservicesSource),
-        dataSets: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPanGeneSet(panGeneSet, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         genes: async (panGeneSet, { page, pageSize }, { dataSources }) => {
             const args = {panGeneSet, page, pageSize};
             return dataSources[sourceName].getGenes(args)

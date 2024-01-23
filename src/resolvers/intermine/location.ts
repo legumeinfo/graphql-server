@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { hasLinkoutsFactory } from '../microservices/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const locationFactory =
@@ -20,6 +21,7 @@ export const locationFactory =
         },
     },
     Location: {
+        ...hasDataSetsFactory(sourceName),
         ...hasLinkoutsFactory(microservicesSource),
         chromosome: async (location, _, { dataSources }) => {
             return dataSources[sourceName].getChromosome(location.locatedOnIdentifier)
@@ -28,12 +30,6 @@ export const locationFactory =
         },
         supercontig: async (location, _, { dataSources }) => {
             return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (location, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForLocation(location, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -3,7 +3,7 @@
 # 	<reference name="threePrimeUTR" referenced-type="ThreePrimeUTR"/>
 # 	<reference name="fivePrimeUTR" referenced-type="FivePrimeUTR"/>
 # </class>
-type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
+type MRNA implements Transcript & SequenceFeature & BioEntity & HasDataSets & Annotatable {
   # Transcript
   id: ID!
   identifier: ID!

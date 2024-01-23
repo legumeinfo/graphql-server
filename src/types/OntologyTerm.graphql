@@ -12,7 +12,7 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
 # </class>
-type OntologyTerm {
+type OntologyTerm implements HasDataSets {
   id: ID!
   identifier: ID!
   description: String

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const linkageGroupFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -18,14 +19,9 @@ ResolverMap => ({
     },
     LinkageGroup: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetsFactory(sourceName),
         geneticMap: async (linkageGroup, _, { dataSources }) => {
             return dataSources[sourceName].getGeneticMap(linkageGroup.geneticMapId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (linkageGroup, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForLinkageGroup(linkageGroup, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

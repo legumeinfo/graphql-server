@@ -21,3 +21,7 @@ type DataSet {
   publication: Publication
   # bioEntities
 }
+
+interface HasDataSets {
+  dataSets: [DataSet!]!
+}
