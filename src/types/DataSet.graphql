@@ -9,15 +9,15 @@
 # 	<reference name="publication" referenced-type="Publication" term="http://purl.org/dc/terms/bibliographicCitation"/>
 # 	<collection name="bioEntities" referenced-type="BioEntity" reverse-reference="dataSets" term="http://semanticscience.org/resource/SIO_001277"/>
 # </class>
-## DataSet.publication is optional, so leave nullable.
+## publication, synopsis, and version are optional, so leave nullable.
 type DataSet {
   id: ID!
   name: ID!
   description: String!
   licence: String!
   url: String!
-  version: String!
-  synopsis: String!
+  version: String
+  synopsis: String
   dataSource: DataSource!
   publication: Publication
   bioEntities: [BioEntity!]!

@@ -27,8 +27,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         relations: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyTermRelations(args)
+            const args = {ontologyTerm, page, pageSize};
+            return dataSources[sourceName].getOntologyRelations(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

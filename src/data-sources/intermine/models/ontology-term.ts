@@ -61,7 +61,7 @@ export const intermineOntologyTermOntologyTermSynonymAttributes = [
     'OntologyTerm.synonyms.type', 
     'OntologyTerm.synonyms.name',
 ];
-export const intermineOntologyTermOntologyTermSynonymSort = 'OntologyTerm.synonyms.name';
+export const intermineOntologyTermOntologyTermSynonymSort = 'OntologyTerm.synonym.name';
 
 // OntologyTerm.relations has no reverse reference from OntologyRelation
 export const intermineOntologyTermRelationAttributes = [
@@ -73,29 +73,6 @@ export const intermineOntologyTermRelationAttributes = [
     'OntologyTerm.relations.childTerm.id',  // resolve reference
 ];
 export const intermineOntologyTermRelationSort = 'OntologyTerm.relations.id';
-export type IntermineOntologyRelation = [
-    number,  // id
-    boolean, // redundant
-    boolean, // direct
-    string,  // relationship
-    number,  // resolve parentTerm
-    number,  // resolve childTerm
-];
-export const graphqlOntologyRelationAttributes = [
-    'id',           // id
-    'redundant',    // redundant
-    'direct',       // direct
-    'relationship', // relationship
-    'parentTermId', // resolve parentTerm
-    'childTermId',  // resolve childTerm
-];
-export type GraphQLOntologyRelation = {
-    [prop in typeof graphqlOntologyRelationAttributes[number]]: string;
-}
-export type IntermineOntologyRelationResponse = IntermineDataResponse<IntermineOntologyRelation>;
-export function response2ontologyRelations(response: IntermineOntologyRelationResponse): Array<GraphQLOntologyRelation> {
-    return response2graphqlObjects(response, graphqlOntologyRelationAttributes);
-}
 
 // OntologyTerm.ontology does not have an Ontology reverse reference
 export const intermineOntologyTermOntologyAttributes = [

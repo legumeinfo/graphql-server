@@ -92,16 +92,18 @@ import { getOntology } from './get-ontology.js';
 import { getOntologyAnnotation } from './get-ontology-annotation.js';
 import { getOntologyAnnotations } from './get-ontology-annotations.js';
 import { getOntologyAnnotationDataSets } from './get-ontology-annotation-data-sets.js';
+// ontology relation
+import { getOntologyRelation } from './get-ontology-relation.js';
+import { getOntologyRelations } from './get-ontology-relations.js';
 // ontology term
 import { getOntologyTerm } from './get-ontology-term.js';
 import { getOntologyTerms } from './get-ontology-terms.js';
-import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
 import { getOntologyTermCrossReferences } from './get-ontology-term-cross-references.js';
-import { getOntologyTermDataSets } from './get-ontology-term-data-sets.js';
 import { getOntologyTermParents } from './get-ontology-term-parents.js';
-import { getOntologyTermRelations } from './get-ontology-term-relations.js';
-import { getOntologyTermSynonyms } from './get-ontology-term-synonyms.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
+// ontology term synonym
+import { getOntologyTermSynonym } from './get-ontology-term-synonym.js';
+import { getOntologyTermSynonyms } from './get-ontology-term-synonyms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
@@ -276,16 +278,18 @@ export declare class ApiMixinInterface {
     getOntologyAnnotation: Function;
     getOntologyAnnotations: Function;
     getOntologyAnnotationDataSets: Function;
+    // ontology relation
+    getOntologyRelation: Function;
+    getOntologyRelations: Function;
     // ontology term
     getOntologyTerm: Function;
     getOntologyTerms: Function;
-    getOntologyTermOntology: Function;
     getOntologyTermCrossReferences: Function;
-    getOntologyTermDataSets: Function;
     getOntologyTermParents: Function;
-    getOntologyTermRelations: Function;
-    getOntologyTermSynonyms: Function;
     searchOntologyTerms: Function;
+    // ontology term synonym
+    getOntologyTermSynonym: Function;
+    getOntologyTermSynonyms: Function;
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
@@ -470,16 +474,18 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntologyAnnotation = getOntologyAnnotation;
         getOntologyAnnotations = getOntologyAnnotations;
         getOntologyAnnotationDataSets = getOntologyAnnotationDataSets;
+        // ontology relation
+        getOntologyRelation = getOntologyRelation;
+        getOntologyRelations = getOntologyRelations;
         // ontology term
         getOntologyTerm = getOntologyTerm;
         getOntologyTerms = getOntologyTerms;
-        getOntologyTermOntology = getOntologyTermOntology;
         getOntologyTermCrossReferences = getOntologyTermCrossReferences;
-        getOntologyTermDataSets = getOntologyTermDataSets;
         getOntologyTermParents = getOntologyTermParents;
-        getOntologyTermRelations = getOntologyTermRelations;
-        getOntologyTermSynonyms = getOntologyTermSynonyms;
         searchOntologyTerms = searchOntologyTerms;
+        // ontology term synonym
+        getOntologyTermSynonym = getOntologyTermSynonym;
+        getOntologyTermSynonyms = getOntologyTermSynonyms;
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;

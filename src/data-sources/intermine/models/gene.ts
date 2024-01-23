@@ -65,6 +65,7 @@ export type GraphQLGene = {
 }
 
 export type IntermineGeneResponse = IntermineDataResponse<IntermineGene>;
+
 // converts an Intermine response into an array of GraphQL Gene objects
 export function response2genes(response: IntermineGeneResponse): Array<GraphQLGene> {
     return response2graphqlObjects(response, graphqlGeneAttributes);

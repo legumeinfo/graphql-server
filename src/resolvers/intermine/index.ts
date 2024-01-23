@@ -35,6 +35,7 @@ import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
+import { ontologyTermSynonymFactory } from './ontology-term-synonym.js';
 import { organismFactory } from './organism.js';
 import { panGeneSetFactory } from './pan-gene-set.js';
 import { pathwayFactory } from './pathway.js';
@@ -87,6 +88,7 @@ const factories = [
     ontologyFactory,
     ontologyAnnotationFactory,
     ontologyTermFactory,
+    ontologyTermSynonymFactory,
     organismFactory,
     panGeneSetFactory,
     pathwayFactory,
