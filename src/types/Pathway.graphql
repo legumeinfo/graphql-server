@@ -2,7 +2,7 @@
 # 	<attribute name="name" type="java.lang.String"/>
 # 	<collection name="genes" referenced-type="Gene" reverse-reference="pathways"/>
 # </class>
-type Pathway implements AnnotatableInterface {
+type Pathway implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

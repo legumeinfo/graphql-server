@@ -8,7 +8,7 @@
 # 	<attribute name="accession" type="java.lang.String"/>
 # 	<reference name="protein" referenced-type="Protein" reverse-reference="proteinMatches"/>
 # </class>
-type ProteinMatch implements BioEntityInterface & AnnotatableInterface {
+type ProteinMatch implements BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

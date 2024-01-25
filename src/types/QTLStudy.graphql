@@ -5,7 +5,7 @@
 # 	<reference name="organism" referenced-type="Organism"/>
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 # </class>
-type QTLStudy implements AnnotatableInterface {
+type QTLStudy implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

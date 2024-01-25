@@ -10,7 +10,7 @@
 # 	<collection name="parentFeatures" referenced-type="ProteinDomain"/>
 # 	<collection name="contains" referenced-type="ProteinDomain"/>
 # </class>
-type ProteinDomain implements AnnotatableInterface {
+type ProteinDomain implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

@@ -8,7 +8,7 @@
 # 	<collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="geneFamilies"/>
 # 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
 # </class>
-type GeneFamily implements AnnotatableInterface {
+type GeneFamily implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

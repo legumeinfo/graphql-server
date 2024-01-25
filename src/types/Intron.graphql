@@ -3,7 +3,7 @@
 # 	<collection name="genes" referenced-type="Gene" reverse-reference="introns" term="http://purl.obolibrary.org/obo/SO:0000704"/>
 # </class>
 ## NOTE: introns are not typically populated in LIS mines, but we should be ready for them.
-type Intron implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
+type Intron implements SequenceFeature & BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

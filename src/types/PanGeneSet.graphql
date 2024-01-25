@@ -4,7 +4,7 @@
 # 	<collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type PanGeneSet implements AnnotatableInterface {
+type PanGeneSet implements Annotatable {
   ## Annotatable
   id: ID!
   identifier: ID!

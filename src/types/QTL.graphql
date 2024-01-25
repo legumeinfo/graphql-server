@@ -13,7 +13,7 @@
 # 	<collection name="genes" referenced-type="Gene"/>
 # 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="qtls"/>
 # </class>
-type QTL implements AnnotatableInterface {
+type QTL implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

@@ -1,4 +1,4 @@
-type SOTerm implements OntologyTermInterface{
+type SOTerm implements OntologyTerm {
   id: ID!
   ## OntologyTerm
   identifier: ID!

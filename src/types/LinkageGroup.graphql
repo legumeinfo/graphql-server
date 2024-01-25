@@ -6,7 +6,7 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="linkageGroup"/>
 # </class>
 ## Note: length and number are not required, therefore nullable.
-type LinkageGroup implements AnnotatableInterface {
+type LinkageGroup implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

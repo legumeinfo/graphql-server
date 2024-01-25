@@ -4,7 +4,7 @@
 # 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
 #       <collection name="markers" referenced-type="GeneticMarker" reverse-reference="genotypingPlatforms"/>
 # </class>
-type GenotypingPlatform implements AnnotatableInterface {
+type GenotypingPlatform implements Annotatable {
   ## Annotatable
   id: ID!
   identifier: ID!

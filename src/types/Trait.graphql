@@ -8,7 +8,7 @@
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
 ## A Trait can be associated with a GWAS or a QTLStudy, so either must be nullable.
-type Trait implements AnnotatableInterface {
+type Trait implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

@@ -8,7 +8,7 @@
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
 # 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
 # </class>
-type GeneticMarker implements SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
+type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

@@ -14,7 +14,7 @@
 # </class>
 ## Note 1: The mine loader enforces transcript and sequence being non-null.
 ## Note 2: phylonode CAN be null since not all loaded proteins are in the phylotrees.
-type Protein implements BioEntityInterface & AnnotatableInterface {
+type Protein implements BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

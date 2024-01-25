@@ -1,7 +1,7 @@
 # <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234">
 # 	<attribute name="isPrimary" type="java.lang.Boolean"/>
 # </class>
-type MRNA implements TranscriptInterface & SequenceFeatureInterface & BioEntityInterface & AnnotatableInterface {
+type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

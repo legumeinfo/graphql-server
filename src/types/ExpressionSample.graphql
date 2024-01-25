@@ -12,7 +12,7 @@
 # 	<attribute name="developmentStage" type="java.lang.String"/>
 # 	<reference name="source" referenced-type="ExpressionSource" reverse-reference="samples"/>
 # </class>
-type ExpressionSample implements AnnotatableInterface {
+type ExpressionSample implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!

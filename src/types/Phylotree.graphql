@@ -9,7 +9,7 @@
 # 	<reference name="phylotree" referenced-type="Phylotree"/>
 # 	<reference name="geneFamily" referenced-type="GeneFamily"/>
 # </class>
-type Phylotree implements AnnotatableInterface {
+type Phylotree implements Annotatable {
   # Annotatable
   id: ID!
   identifier: ID!
