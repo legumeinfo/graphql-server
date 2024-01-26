@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableInterfaceFactory } from './annotatable-interface.js';
+import { annotatableFactory } from './annotatable.js';
 
 export const gwasFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -22,7 +22,7 @@ ResolverMap => ({
         },
     },
     GWAS: {
-        ...annotatableInterfaceFactory(sourceName),
+        ...annotatableFactory(sourceName),
         organism: async(gwas, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(gwas.organismTaxonId)
                 // @ts-ignore: implicit type any error

@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableInterfaceFactory } from './annotatable-interface.js';
+import { annotatableFactory } from './annotatable.js';
 
 export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -22,7 +22,7 @@ ResolverMap => ({
         },
     },
     ProteinDomain: {
-        ...annotatableInterfaceFactory(sourceName),
+        ...annotatableFactory(sourceName),
         genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
             const args = {proteinDomain, page, pageSize};
             return dataSources[sourceName].getGenes(args)

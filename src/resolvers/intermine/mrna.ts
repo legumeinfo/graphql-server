@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { transcriptInterfaceFactory } from './transcript-interface.js';
+import { transcriptFactory } from './transcript.js';
 
 export const mRNAFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,6 +16,6 @@ ResolverMap => ({
         },
     },
     MRNA: {
-        ...transcriptInterfaceFactory(sourceName),
+        ...transcriptFactory(sourceName),
     },
 });

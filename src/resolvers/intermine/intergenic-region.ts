@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const intergenicRegionFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,7 +16,7 @@ ResolverMap => ({
         },
     },
     IntergenicRegion: {
-        ...sequenceFeatureInterfaceFactory(sourceName),
+        ...sequenceFeatureFactory(sourceName),
         adjacentGenes: async (intergenicRegion, { page, pageSize }, { dataSources }) => {
             const args = {intergenicRegion, page, pageSize};
             return dataSources[sourceName].getAdjacentGenes(args)

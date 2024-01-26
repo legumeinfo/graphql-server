@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableInterfaceFactory } from './annotatable-interface.js';
+import { annotatableFactory } from './annotatable.js';
 
 export const panGeneSetFactory = 
     (
@@ -19,7 +19,7 @@ export const panGeneSetFactory =
         },
     },
     PanGeneSet: {
-        ...annotatableInterfaceFactory(sourceName),
+        ...annotatableFactory(sourceName),
         transcripts: async (panGeneSet, { page, pageSize }, { dataSources }) => {
             const args = {panGeneSet, page, pageSize};
             return dataSources[sourceName].getTranscripts(args)

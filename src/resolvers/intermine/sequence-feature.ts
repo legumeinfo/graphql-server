@@ -1,22 +1,47 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { KeyOfType } from '../../utils/index.js';
+import { SubfieldResolverMap } from '../resolver.js';
+import { bioEntityFactory } from './bio-entity.js';
 
-// for INTERNAL resolution of SequenceFeature references and collections
-export const sequenceFeatureFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
-ResolverMap => ({
-    Query: {
-        sequenceFeature: async (_, { id }, { dataSources }) => {
-            const {data: sequenceFeature} = await dataSources[sourceName].getSequenceFeature(id);
-            if (sequenceFeature == null) {
-                const msg = `SequenceFeature with id '${id}' not found`;
-                inputError(msg);
-            }
-            return {results: sequenceFeature};
+export const sequenceFeatureFactory =
+    (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
+        ...bioEntityFactory(sourceName),
+        sequenceOntologyTerm: async (sequenceFeature, _, { dataSources }) => {
+            console.log(sequenceFeature.soTermIdentifier);
+            return dataSources[sourceName].getSOTerm(sequenceFeature.soTermIdentifier)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
         },
-    },
-    SequenceFeature: {
-        ...sequenceFeatureInterfaceFactory(sourceName),
-    },
-});
+        chromosome: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getChromosome(sequenceFeature.chromosomeIdentifier)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        supercontig: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getSupercontig(sequenceFeature.supercontigIdentifier)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        chromosomeLocation: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getChromosomeLocation(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        supercontigLocation: async (sequenceFeature, _, { dataSources }) => {
+            return dataSources[sourceName].getSupercontigLocation(sequenceFeature)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        overlappingFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: sequenceFeature, page, pageSize};
+            return dataSources[sourceName].getOverlappingFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
+            const args = {sequenceFeature: sequenceFeature, page, pageSize};
+            return dataSources[sourceName].getSequenceFeatureChildFeatures(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+    });

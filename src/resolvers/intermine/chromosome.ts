@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const chromosomeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,6 +16,6 @@ ResolverMap => ({
         },
     },
     Chromosome: {
-        ...sequenceFeatureInterfaceFactory(sourceName),
+        ...sequenceFeatureFactory(sourceName),
     },
 });

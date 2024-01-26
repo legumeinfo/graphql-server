@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const utrFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,7 +16,7 @@ ResolverMap => ({
         },
     },
     UTR: {
-        ...sequenceFeatureInterfaceFactory(sourceName),
+        ...sequenceFeatureFactory(sourceName),
         transcripts: async (utr, { page, pageSize }, { dataSources }) => {
             const args = {utr, page, pageSize};
             return dataSources[sourceName].getTranscripts(args)

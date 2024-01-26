@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const geneFlankingRegionFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,7 +16,7 @@ ResolverMap => ({
         },
     },
     GeneFlankingRegion: {
-        ...sequenceFeatureInterfaceFactory(sourceName),
+        ...sequenceFeatureFactory(sourceName),
         gene: async (geneFlankingRegion, _, { dataSources }) => {
             return dataSources[sourceName].getGene(geneFlankingRegion.geneIdentifier)
             // @ts-ignore: implicit type any error

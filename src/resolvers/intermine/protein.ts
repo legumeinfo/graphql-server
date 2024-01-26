@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { bioEntityInterfaceFactory } from './bio-entity-interface.js';
+import { bioEntityFactory } from './bio-entity.js';
 
 export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -22,7 +22,7 @@ ResolverMap => ({
         },
     },
     Protein: {
-        ...bioEntityInterfaceFactory(sourceName),
+        ...bioEntityFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
             if (protein.phylonodeIdentifier != null) {
                 return dataSources[sourceName].getPhylonode(protein.phylonodeIdentifier)

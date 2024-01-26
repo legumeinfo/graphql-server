@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureInterfaceFactory } from './sequence-feature-interface.js';
+import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const geneFactory =
     (
@@ -25,7 +25,7 @@ export const geneFactory =
             },
         },
         Gene: {
-            ...sequenceFeatureInterfaceFactory(sourceName),
+            ...sequenceFeatureFactory(sourceName),
             upstreamIntergenicRegion: async (gene, _, { dataSources }) => {
                 return dataSources[sourceName].getIntergenicRegion(gene.upstreamIntergenicRegionIdentifier)
                 // @ts-ignore: implicit type any error
