@@ -5,7 +5,7 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # 	<collection name="evidence" referenced-type="OntologyEvidence"/>
 # </class>
-type OntologyAnnotation {
+type OntologyAnnotation implements HasDataSets {
   id: ID!
   ## qualifier - not currently populated in LIS mines
   subject: Annotatable
@@ -14,3 +14,6 @@ type OntologyAnnotation {
   ## evidence - not currently populated in LIS mines
 }
   
+interface HasOntologyAnnotations {
+  ontologyAnnotations: [OntologyAnnotation!]!
+}

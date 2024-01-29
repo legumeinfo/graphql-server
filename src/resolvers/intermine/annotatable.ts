@@ -4,20 +4,20 @@ import { SubfieldResolverMap } from '../resolver.js';
 
 export const annotatableFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-        ontologyAnnotations: async (annotatable, { page, pageSize }, { dataSources }) => {
-            const args = {annotatable, page, pageSize};
+        ontologyAnnotations: async (primaryIdentifier, { page, pageSize }, { dataSources }) => {
+            const args = {primaryIdentifier, page, pageSize};
             return dataSources[sourceName].getOntologyAnnotations(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        publications: async (annotatable, { page, pageSize }, { dataSources }) => {
-            const args = {annotatable, page, pageSize};
+        publications: async (primaryIdentifier, { page, pageSize }, { dataSources }) => {
+            const args = {primaryIdentifier, page, pageSize};
             return dataSources[sourceName].getPublications(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSets: async (annotatable, { page, pageSize }, { dataSources }) => {
-            const args = {annotatable: annotatable, page, pageSize};
+        dataSets: async (primaryIdentifier, { page, pageSize }, { dataSources }) => {
+            const args = {primaryIdentifier, page, pageSize};
             return dataSources[sourceName].getDataSets(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

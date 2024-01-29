@@ -6,8 +6,7 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLAnnotatable,
-    GraphQLOntologyTerm,
+    // GraphQLOntologyTerm,
     GraphQLOntologyAnnotation,
     IntermineOntologyAnnotationResponse,
     intermineOntologyAnnotationAttributes,
@@ -16,29 +15,24 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 export type GetOntologyAnnotationsOptions = {
-    annotatable?: GraphQLAnnotatable;
-    ontologyTerm?: GraphQLOntologyTerm;
+    primaryIdentifier?: string;
+    // ontologyTerm?: GraphQLOntologyTerm;
 } & PaginationOptions;
 
-
-// get OntologyAnnotations for any type that extends Annotatable, or for an OntologyTerm
+// get OntologyAnnotations for an Annotatable, given its primaryIdentifier
 export async function getOntologyAnnotations(
     {
-        annotatable,
-        ontologyTerm,
+        primaryIdentifier,
+        // ontologyTerm,
         page,
         pageSize,
     }: GetOntologyAnnotationsOptions,
 ): Promise<ApiResponse<GraphQLOntologyAnnotation[]>> {
-    const constraints = [];
-    if (annotatable) {
-        constraints.push(intermineConstraint('OntologyAnnotation.subject.id', '=', annotatable.id));
-    }
-    if (ontologyTerm) {
-        constraints.push(intermineConstraint('OntologyAnnotation.ontologyTerm.id', '=', ontologyTerm.id));
-    }
+    const constraints = [intermineConstraint('OntologyAnnotation.subject.primaryIdentifier', '=', primaryIdentifier)];
+    // if (ontologyTerm) {
+    //     constraints.push(intermineConstraint('OntologyAnnotation.ontologyTerm.id', '=', ontologyTerm.id));
+    // }
     const query = interminePathQuery(
         intermineOntologyAnnotationAttributes,
         intermineOntologyAnnotationSort,

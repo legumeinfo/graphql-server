@@ -31,3 +31,7 @@ type Publication {
   entities: [Annotatable!]!
   # meshTerms: not currently populated in LIS mines
 }
+
+interface HasPublications {
+  publications: [Publication!]!
+}
