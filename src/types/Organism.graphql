@@ -10,7 +10,7 @@
 # 	<collection name="strains" referenced-type="Strain" reverse-reference="organism"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type Organism {
+type Organism implements HasDataSets {
   id: ID!
   taxonId: ID!
   abbreviation: String
@@ -20,4 +20,5 @@ type Organism {
   genus: String
   species: String
   strains: [Strain!]!
+  dataSets: [DataSet!]!
 }

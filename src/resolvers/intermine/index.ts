@@ -10,7 +10,7 @@ import { authorFactory } from './author.js';
 import { bioEntityFactory } from './bio-entity.js';
 import { cdsFactory } from './cds.js';
 import { chromosomeFactory } from './chromosome.js';
-import { dataSetFactory } from './data-set.js';
+import { dataSetFactory, hasDataSetsFactory } from './data-set.js';
 import { dataSourceFactory } from './data-source.js';
 import { exonFactory } from './exon.js';
 import { expressionSampleFactory } from './expression-sample.js';

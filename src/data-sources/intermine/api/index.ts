@@ -17,7 +17,8 @@ import { getChromosome } from './get-chromosome.js';
 import { getChromosomeLocation } from './get-chromosome-location.js';
 // data set
 import { getDataSet } from './get-data-set.js';
-import { getDataSets } from './get-data-sets.js';
+import { getDataSetsForAnnotatable } from './get-data-sets.js';
+import { getDataSetsForDataSource } from './get-data-sets.js';
 // data source
 import { getDataSource } from './get-data-source.js';
 // exon
@@ -203,7 +204,8 @@ export declare class ApiMixinInterface {
     getChromosomeLocation: Function;
     // data set
     getDataSet: Function;
-    getDataSets: Function;
+    getDataSetsForAnnotatable: Function;
+    getDataSetsForDataSource: Function;
     // data source
     getDataSource: Function;
     // exon
@@ -399,7 +401,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getChromosomeLocation = getChromosomeLocation;
         // data set
         getDataSet = getDataSet;
-        getDataSets = getDataSets;
+        getDataSetsForAnnotatable = getDataSetsForAnnotatable;
+        getDataSetsForDataSource = getDataSetsForDataSource;
         // data source
         getDataSource = getDataSource;
         // exon

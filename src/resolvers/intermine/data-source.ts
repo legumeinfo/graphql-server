@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 export const dataSourceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -15,12 +16,7 @@ ResolverMap => ({
         },
     },
     DataSource: {
-        // publications:
-        dataSets: async (dataSource, { page, pageSize }, { dataSources }) => {
-            const args = {dataSource: dataSource, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasDataSetsFactory(sourceName),
+        // Note: publications are not currently populated in LIS mines
     },
 });

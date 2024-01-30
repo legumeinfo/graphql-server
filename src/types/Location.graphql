@@ -7,7 +7,7 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 ## Note: strand can be null (e.g. for location on protein).
-type Location {
+type Location implements HasDataSets {
   id: ID!
   strand: String
   start: Int!

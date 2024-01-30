@@ -13,7 +13,7 @@
 # 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
 # </class>
 # Perhaps overkill but SOTerm extends OntologyTerm so we'll define an interface.
-interface OntologyTerm {
+interface OntologyTerm implements HasDataSets {
   id: ID!
   identifier: ID!
   description: String

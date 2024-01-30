@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 export const soTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,6 +17,7 @@ ResolverMap => ({
         },
     },
     SOTerm: {
+        ...hasDataSetsFactory(sourceName),
         // ontology: async (soTerm, _, { dataSources }) => {
         //     return dataSources[sourceName].getSOTermOntology(soTerm)
         //     // @ts-ignore: implicit type any error
@@ -39,12 +41,6 @@ ResolverMap => ({
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        // dataSets: async (soTerm, { page, pageSize }, { dataSources }) => {
-        //     const args = {soTerm: soTerm, page, pageSize};
-        //     return dataSources[sourceName].getSOTermDataSets(args)
-        //     // @ts-ignore: implicit type any error
-        //         .then(({data: results}) => results);
-        // },
         // crossReferences: async (soTerm, { page, pageSize }, { dataSources }) => {
         //     const args = {soTerm: soTerm, page, pageSize};
         //     return dataSources[sourceName].getSOTermCrossReferences(args)

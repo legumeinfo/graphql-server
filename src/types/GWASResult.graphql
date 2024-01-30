@@ -5,7 +5,7 @@
 # 	<reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
 # 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
 # </class>
-type GWASResult {
+type GWASResult implements Annotatable {
   id: ID!
   ## Annotatable
   identifier: ID!

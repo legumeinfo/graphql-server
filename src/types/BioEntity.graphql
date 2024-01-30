@@ -16,7 +16,7 @@
 # 	<collection name="dataSets" referenced-type="DataSet" reverse-reference="bioEntities" term="http://semanticscience.org/resource/SIO_001278"/>
 # 	<collection name="locatedFeatures" referenced-type="Location" reverse-reference="locatedOn"/>
 # </class>
-interface BioEntity {
+interface BioEntity implements Annotatable {
   description: String
   symbol: String
   name: String
