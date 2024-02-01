@@ -19,6 +19,7 @@ import { getChromosomeLocation } from './get-chromosome-location.js';
 import { getDataSet } from './get-data-set.js';
 import { getDataSetsForAnnotatable } from './get-data-sets.js';
 import { getDataSetsForDataSource } from './get-data-sets.js';
+import { getDataSetsForOntologyAnnotation } from './get-data-sets.js';
 // data source
 import { getDataSource } from './get-data-source.js';
 // exon
@@ -91,14 +92,14 @@ import { getNewick } from './get-newick.js';
 import { getOntology } from './get-ontology.js';
 // ontology annotation
 import { getOntologyAnnotation } from './get-ontology-annotation.js';
-import { getOntologyAnnotations } from './get-ontology-annotations.js';
-import { getOntologyAnnotationDataSets } from './get-ontology-annotation-data-sets.js';
+import { getOntologyAnnotationsForAnnotatable } from './get-ontology-annotations.js';
+import { getOntologyAnnotationsForOntologyTerm } from './get-ontology-annotations.js';
 // ontology relation
 import { getOntologyRelation } from './get-ontology-relation.js';
 import { getOntologyRelations } from './get-ontology-relations.js';
 // ontology term
 import { getOntologyTerm } from './get-ontology-term.js';
-import { getOntologyTerms } from './get-ontology-terms.js';
+import { getOntologyTermsForTrait } from './get-ontology-terms.js';
 import { getOntologyTermCrossReferences } from './get-ontology-term-cross-references.js';
 import { getOntologyTermParents } from './get-ontology-term-parents.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
@@ -136,7 +137,8 @@ import { getProteinMatch } from './get-protein-match.js';
 import { getProteinMatches } from './get-protein-matches.js';
 // publication
 import { getPublication } from './get-publication.js';
-import { getPublications } from './get-publications.js';
+import { getPublicationsForAnnotatable } from './get-publications.js';
+import { getPublicationsForAuthor } from './get-publications.js';
 import { searchPublications } from './search-publications.js';
 // qtl
 import { getQTL } from './get-qtl.js';
@@ -206,6 +208,7 @@ export declare class ApiMixinInterface {
     getDataSet: Function;
     getDataSetsForAnnotatable: Function;
     getDataSetsForDataSource: Function;
+    getDataSetsForOntologyAnnotation: Function;
     // data source
     getDataSource: Function;
     // exon
@@ -278,14 +281,14 @@ export declare class ApiMixinInterface {
     getOntology: Function;
     // ontology annotation
     getOntologyAnnotation: Function;
-    getOntologyAnnotations: Function;
-    getOntologyAnnotationDataSets: Function;
+    getOntologyAnnotationsForAnnotatable: Function;
+    getOntologyAnnotationsForOntologyTerm: Function;
     // ontology relation
     getOntologyRelation: Function;
     getOntologyRelations: Function;
     // ontology term
-    getOntologyTerm: Function;
-    getOntologyTerms: Function;
+    getOntologyTerm: Function; 
+    getOntologyTermsForTrait: Function;
     getOntologyTermCrossReferences: Function;
     getOntologyTermParents: Function;
     searchOntologyTerms: Function;
@@ -323,7 +326,8 @@ export declare class ApiMixinInterface {
     getProteinMatches: Function;
     // publication
     getPublication: Function;
-    getPublications: Function;
+    getPublicationsForAnnotatable: Function;
+    getPublicationsForAuthor: Function;
     searchPublications: Function;
     // qtl
     getQTL: Function;
@@ -403,6 +407,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSet = getDataSet;
         getDataSetsForAnnotatable = getDataSetsForAnnotatable;
         getDataSetsForDataSource = getDataSetsForDataSource;
+        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         // data source
         getDataSource = getDataSource;
         // exon
@@ -475,14 +480,14 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntology = getOntology;
         // ontology annotation
         getOntologyAnnotation = getOntologyAnnotation;
-        getOntologyAnnotations = getOntologyAnnotations;
-        getOntologyAnnotationDataSets = getOntologyAnnotationDataSets;
+        getOntologyAnnotationsForAnnotatable = getOntologyAnnotationsForAnnotatable;
+        getOntologyAnnotationsForOntologyTerm = getOntologyAnnotationsForOntologyTerm;
         // ontology relation
         getOntologyRelation = getOntologyRelation;
         getOntologyRelations = getOntologyRelations;
         // ontology term
         getOntologyTerm = getOntologyTerm;
-        getOntologyTerms = getOntologyTerms;
+        getOntologyTermsForTrait = getOntologyTermsForTrait;
         getOntologyTermCrossReferences = getOntologyTermCrossReferences;
         getOntologyTermParents = getOntologyTermParents;
         searchOntologyTerms = searchOntologyTerms;
@@ -520,7 +525,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getProteinMatches = getProteinMatches;
         // publication
         getPublication = getPublication;
-        getPublications = getPublications;
+        getPublicationsForAnnotatable = getPublicationsForAnnotatable;
+        getPublicationsForAuthor = getPublicationsForAuthor;
         searchPublications = searchPublications;
         // qtl
         getQTL = getQTL;

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
+import { hasOntologyAnnotationsFactory } from './ontology-annotation.js';
 
 export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -23,6 +24,7 @@ ResolverMap => ({
     },
     OntologyTerm: {
         ...hasDataSetsFactory(sourceName),
+        ...hasOntologyAnnotationsFactory(sourceName),
         ontology: async (ontologyTerm, _, { dataSources }) => {
             return dataSources[sourceName].getOntology(ontologyTerm.ontologyName)
             // @ts-ignore: implicit type any error
@@ -37,12 +39,6 @@ ResolverMap => ({
         synonyms: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
             const args = {ontologyTerm: ontologyTerm, page, pageSize};
             return dataSources[sourceName].getOntologyTermSynonyms(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        ontologyAnnotations: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyAnnotations(args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

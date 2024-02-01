@@ -33,7 +33,7 @@ import { linkageGroupPositionFactory } from './linkage-group-position.js';
 import { locationFactory } from './location.js';
 import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
-import { ontologyAnnotationFactory } from './ontology-annotation.js';
+import { ontologyAnnotationFactory, hasOntologyAnnotationsFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
 import { ontologyTermSynonymFactory } from './ontology-term-synonym.js';
 import { organismFactory } from './organism.js';
@@ -44,7 +44,7 @@ import { phylotreeFactory } from './phylotree.js';
 import { proteinFactory } from './protein.js';
 import { proteinDomainFactory } from './protein-domain.js';
 import { proteinMatchFactory } from './protein-match.js';
-import { publicationFactory } from './publication.js';
+import { publicationFactory, hasPublicationsFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
@@ -79,6 +79,9 @@ const factories = [
     genotypingPlatformFactory,
     gwasFactory,
     gwasResultFactory,
+    hasDataSetsFactory,
+    hasOntologyAnnotationsFactory,
+    hasPublicationsFactory,
     intergenicRegionFactory,
     intronFactory,
     linkageGroupFactory,

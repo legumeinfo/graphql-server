@@ -4,6 +4,7 @@
 # 	<collection name="syntenicRegions" referenced-type="SyntenicRegion" reverse-reference="syntenyBlock"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
+## Note: publications are not currently populated in LIS mines
 type SyntenyBlock implements HasDataSets {
   id: ID!
   medianKs: Float

@@ -7,7 +7,6 @@ import {
 } from '../intermine.server.js';
 import {
   GraphQLOntologyTerm,
-  GraphQLTrait,
   IntermineOntologyTermResponse,
   intermineOntologyTermAttributes,
   intermineOntologyTermSort,
@@ -15,21 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetOntologyTermsOptions = {
-  trait?: GraphQLTrait;
-} & PaginationOptions;
-
-
-// get OntologyTerms for a Trait
-export async function getOntologyTerms(
-    {trait, page, pageSize}: GetOntologyTermsOptions,
-): Promise<ApiResponse<GraphQLOntologyTerm[]>> {
-    const constraints = [];
-    if (trait) {
-        const traitConstraint = intermineConstraint('Trait.id', '=', trait.id);
-        constraints.push(traitConstraint);
-    }
+// get OntologyTerms for a Trait by id
+export async function getOntologyTermsForTrait(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
+    const constraints = [intermineConstraint('Trait.id', '=', id)];
     const query = interminePathQuery(
         intermineOntologyTermAttributes,
         intermineOntologyTermSort,

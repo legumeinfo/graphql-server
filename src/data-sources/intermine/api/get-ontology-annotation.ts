@@ -11,7 +11,6 @@ import {
   response2ontologyAnnotations,
 } from '../models/index.js';
 
-
 // get an OntologyAnnotation by ID
 export async function getOntologyAnnotation(id: number):
 Promise<ApiResponse<GraphQLOntologyAnnotation>> {

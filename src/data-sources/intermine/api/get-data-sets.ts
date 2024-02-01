@@ -11,6 +11,8 @@ import {
     IntermineDataSetResponse,
     intermineDataSetAttributes,
     intermineDataSetSort,
+    intermineOntologyAnnotationDataSetAttributes,
+    intermineOntologyAnnotationDataSetSort,
     // intermineOntologyDataSetAttributes,
     // intermineOntologyDataSetSort,
     // intermineOntologyTermDataSetAttributes,
@@ -75,6 +77,25 @@ export async function getDataSetsForDataSource(id: number, { page, pageSize }: P
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'DataSet.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get DataSets for an OntologyAnnotation, which has no reverse reference from DataSet
+export async function getDataSetsForOntologyAnnotation(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLDataSet>> {
+    const constraints = [intermineConstraint('OntologyAnnotation.id', '=', id)];
+    const query = interminePathQuery(
+        intermineOntologyAnnotationDataSetAttributes,
+        intermineOntologyAnnotationDataSetSort,
+        constraints,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyAnnotation.dataSets.id'})
         .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])

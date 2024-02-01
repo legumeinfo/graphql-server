@@ -1,7 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 
 export const publicationFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -28,5 +27,34 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => results);
         },
+    },
+});
+
+export const hasPublicationsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    publications: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        const args = {page, pageSize};
+        const { id } = parent;
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+        
+        // handle any Annotatable
+        if (interfaces.includes('Annotatable')) {
+            request = dataSources[sourceName].getPublicationsForAnnotatable(id, args);
+        }
+
+        // handle non-Annotatable objects which have publications
+        if (typeName == 'Author') {
+            request = dataSources[sourceName].getPublicationsForAuthor(id, args);
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });
