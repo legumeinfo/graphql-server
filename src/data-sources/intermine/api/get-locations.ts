@@ -15,7 +15,7 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-// get locations (Location) for a BioEntity given its id
+// get Locations for a BioEntity given its id
 export async function getLocations(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLocation>> {
     const constraints = [ intermineConstraint('Location.feature.id', '=', id) ];
     const query = interminePathQuery(

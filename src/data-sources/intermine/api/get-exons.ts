@@ -8,7 +8,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLExon,
-    GraphQLTranscript,
     IntermineExonResponse,
     intermineExonAttributes,
     intermineExonSort,
@@ -16,22 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetExonsOptions = {
-    transcript?: GraphQLTranscript;
-} & PaginationOptions;
-
 // Get Exons associated with a Transcript
-export async function getExons(
-    {
-        transcript,
-        page,
-        pageSize,
-    }: GetExonsOptions,
-): Promise<ApiResponse<GraphQLExon[]>> {
-    const constraints = [];
-    if (transcript) {
-        constraints.push(intermineConstraint('Exon.transcripts.id', '=', transcript.id));
-    }
+export async function getExonsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLExon>> {
+    const constraints = [intermineConstraint('Exon.transcripts.id', '=', id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('Exon.chromosome', 'OUTER'),

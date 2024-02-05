@@ -7,7 +7,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLAuthor,
-    GraphQLPublication,
     IntermineAuthorResponse,
     intermineAuthorAttributes,
     intermineAuthorSort,
@@ -15,25 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetAuthorsOptions = {
-    publication?: GraphQLPublication;
-} & PaginationOptions;
-
-
 // get Authors associated with an Publication
-export async function getAuthors(
-    {
-        publication,
-        page,
-        pageSize,
-    }: GetAuthorsOptions,
-): Promise<ApiResponse<GraphQLAuthor[]>> {
-    const constraints = [];
-    if (publication) {
-        const publicationConstraint = intermineConstraint('Author.publications.id', '=', publication.id);
-        constraints.push(publicationConstraint);
-    }
+export async function getAuthorsForPublication(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLAuthor>> {
+    const constraints = [intermineConstraint('Author.publications.id', '=', id)];
     const query = interminePathQuery(
         intermineAuthorAttributes,
         intermineAuthorSort,

@@ -7,7 +7,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLExpressionSample,
-    GraphQLExpressionSource,
     IntermineExpressionSampleResponse,
     intermineExpressionSampleAttributes,
     intermineExpressionSampleSort,
@@ -15,25 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetExpressionSamplesOptions = {
-    expressionSource?: GraphQLExpressionSource;
-} & PaginationOptions;
-
-
 // get ExpressionSamples for an ExpressionSource
-export async function getExpressionSamples(
-    {
-        expressionSource,
-        page,
-        pageSize,
-    }: GetExpressionSamplesOptions,
-): Promise<ApiResponse<GraphQLExpressionSample[]>> {
-    const constraints = [];
-    if (expressionSource) {
-        const expressionSourceConstraint = intermineConstraint('ExpressionSample.source.id', '=', expressionSource.id);
-        constraints.push(expressionSourceConstraint);
-    }
+export async function getExpressionSamplesForExpressionSource(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLExpressionSample>> {
+    const constraints = [intermineConstraint('ExpressionSample.source.id', '=', id)];
     const query = interminePathQuery(
         intermineExpressionSampleAttributes,
         intermineExpressionSampleSort,

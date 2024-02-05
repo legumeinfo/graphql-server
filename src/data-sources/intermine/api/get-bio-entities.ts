@@ -8,7 +8,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLBioEntity,
-    GraphQLDataSet,
     IntermineBioEntityResponse,
     intermineBioEntityAttributes,
     intermineBioEntitySort,
@@ -16,22 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetBioEntitiesOptions = {
-    dataSet?: GraphQLDataSet;
-} & PaginationOptions;
-
 // get BioEntity objects associated with a DataSet
-export async function getBioEntities(
-    {
-        dataSet,
-        page,
-        pageSize
-    }: GetBioEntitiesOptions,
-): Promise<ApiResponse<GraphQLBioEntity>> {
-    const constraints = [];
-    if (dataSet) {
-        constraints.push(intermineConstraint('BioEntity.dataSets.id', '=', dataSet.id));
-    }
+export async function getBioEntitiesForDataSet(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLBioEntity>> {
+    const constraints = [intermineConstraint('BioEntity.dataSets.id', '=', dataSet.id)];
     // all BioEntity-extending object queries must include these joins
     const joins = [
         intermineJoin('BioEntity.organism', 'OUTER'),

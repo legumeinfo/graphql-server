@@ -8,7 +8,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLCDS,
-    GraphQLTranscript,
     IntermineCDSResponse,
     intermineCDSAttributes,
     intermineCDSSort,
@@ -16,22 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetCDSsOptions = {
-    transcript?: GraphQLTranscript;
-} & PaginationOptions;
-
 // Get CDSs associated with a Transcript
-export async function getCDSs(
-    {
-        transcript,
-        page,
-        pageSize,
-    }: GetCDSsOptions,
-): Promise<ApiResponse<GraphQLCDS[]>> {
-    const constraints = [];
-    if (transcript) {
-        constraints.push(intermineConstraint('CDS.transcript.id', '=', transcript.id));
-    }
+export async function getCDSsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLCDS>> {
+    const constraints = [intermineConstraint('CDS.transcript.id', '=', transcript.id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('CDS.chromosome', 'OUTER'),

@@ -6,11 +6,7 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGeneticMarker,
-    GraphQLLinkageGroup,
-    GraphQLTrait,
     GraphQLQTL,
-    GraphQLQTLStudy,
     IntermineQTLResponse,
     intermineQTLAttributes,
     intermineQTLSort,
@@ -18,34 +14,66 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type SearchQTLsOptions = {
-    linkageGroup?: GraphQLLinkageGroup;
-    trait?: GraphQLTrait;
-    geneticMarker?: GraphQLGeneticMarker;
-    qtlStudy?: GraphQLQTLStudy;
-} & PaginationOptions;
+// get QTLs associated with a LinkageGroup
+export async function getQTLsForLinkageGroup(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
+    const constraints = ['QTL.linkageGroup.id', '=', id);
+    const query = interminePathQuery(
+        intermineQTLAttributes,
+        intermineQTLSort,
+        constraints,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineQTLResponse) => response2qtls(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'QTL.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
 
-// get QTLs for a LinkageGroup, Trait, GeneticMarker
-export async function getQTLs(
-    {linkageGroup, trait, geneticMarker, qtlStudy, page, pageSize}: SearchQTLsOptions,
-): Promise<ApiResponse<GraphQLQTL[]>> {
-    const constraints = [];
-    if (linkageGroup) {
-        const constraint = intermineConstraint('QTL.linkageGroup.id', '=', linkageGroup.id);
-        constraints.push(constraint);
-    }
-    if (trait) {
-        const constraint = intermineConstraint('QTL.trait.id', '=', trait.id);
-        constraints.push(constraint);
-    }
-    if (geneticMarker) {
-        const constraint = intermineConstraint('QTL.markers.id', '=', geneticMarker.id);
-        constraints.push(constraint);
-    }
-    if (qtlStudy) {
-        const constraint = intermineConstraint('QTL.qtlStudy.id', '=', qtlStudy.id);
-        constraints.push(constraint);
-    }
+// get QTLs associated with a GeneticMarker
+export async function getQTLsForGeneticMarker(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
+    const constraints = ['QTL.markers.id', '=', id);
+    const query = interminePathQuery(
+        intermineQTLAttributes,
+        intermineQTLSort,
+        constraints,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineQTLResponse) => response2qtls(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'QTL.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get QTLs associated with a QTLStudy
+export async function getQTLsForQTLStudy(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
+    const constraints = ['QTL.qtlStudy.id', '=', id);
+    const query = interminePathQuery(
+        intermineQTLAttributes,
+        intermineQTLSort,
+        constraints,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineQTLResponse) => response2qtls(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'QTL.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get QTLs associated with a Trait
+export async function getQTLsForTrait(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
+    const constraints = ['QTL.trait.id', '=', id);
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,

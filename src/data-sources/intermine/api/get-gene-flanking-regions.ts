@@ -7,7 +7,6 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGene,
     GraphQLGeneFlankingRegion,
     IntermineGeneFlankingRegionResponse,
     intermineGeneFlankingRegionAttributes,
@@ -16,22 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetGeneFlankingRegionsOptions = {
-    gene?: GraphQLGene;
-} & PaginationOptions;
-
 // Get GeneFlankingRegions associated with a Gene
-export async function getGeneFlankingRegions(
-    {
-        gene,
-        page,
-        pageSize,
-    }: GetGeneFlankingRegionsOptions,
-): Promise<ApiResponse<GraphQLGeneFlankingRegion[]>> {
-    const constraints = [];
-    if (gene) {
-        constraints.push(intermineConstraint('GeneFlankingRegion.gene.id', '=', gene.id));
-    }
+export async function getGeneFlankingRegionsForGene(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGeneFlankingRegion>> {
+    const constraints = [intermineConstraint('GeneFlankingRegion.gene.id', '=', gene.id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('GeneFlankingRegion.chromosome', 'OUTER'),

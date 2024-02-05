@@ -7,7 +7,6 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLProtein,
     GraphQLProteinMatch,
     IntermineProteinMatchResponse,
     intermineProteinMatchAttributes,
@@ -16,22 +15,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetProteinMatchesOptions = {
-    protein?: GraphQLProtein
-} & PaginationOptions;
-
 // get ProteinMatches associated with a Protein
-export async function getProteinMatches(
-    {
-        protein,
-        page,
-        pageSize,
-    }: GetProteinMatchesOptions,
-): Promise<ApiResponse<GraphQLProteinMatch[]>> {
-    const constraints = [];
-    if (protein) {
-        constraints.push(intermineConstraint('ProteinMatch.protein.primaryIdentifier', '=', protein.identifier));
-    }
+export async function getProteinMatchesForProtein(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLProteinMatch>> {
+    const constraints = [intermineConstraint('ProteinMatch.protein.id', '=', id)];
     // all BioEntity-extending object queries must include these joins
     const joins = [
         intermineJoin('ProteinMatch.organism', 'OUTER'),

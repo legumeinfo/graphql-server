@@ -6,7 +6,6 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGeneFamily,
     GraphQLGeneFamilyTally,
     IntermineGeneFamilyTallyResponse,
     intermineGeneFamilyTallyAttributes,
@@ -15,25 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type SearchGeneFamilyTalliesOptions = {
-    geneFamily?: GraphQLGeneFamily;
-} & PaginationOptions;
-
-
 // get GeneFamilyTallies associated with a GeneFamily
-export async function getGeneFamilyTallies(
-    {
-        geneFamily,
-        page,
-        pageSize,
-    }: SearchGeneFamilyTalliesOptions,
-): Promise<ApiResponse<GraphQLGeneFamilyTally[]>> {
-    const constraints = [];
-    if (geneFamily) {
-        const geneFamilyConstraint = intermineConstraint('GeneFamilyTally.geneFamily.id', '=', geneFamily.id);
-        constraints.push(geneFamilyConstraint);
-    }
+export async function getGeneFamilyTalliesForGeneFamily(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGeneFamilyTally>> {
+    const constraints = [intermineConstraint('GeneFamilyTally.geneFamily.id', '=', id)];
     const query = interminePathQuery(
         intermineGeneFamilyTallyAttributes,
         intermineGeneFamilyTallySort,

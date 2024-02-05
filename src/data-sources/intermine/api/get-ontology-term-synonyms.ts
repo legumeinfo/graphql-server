@@ -8,26 +8,15 @@ import {
 import {
     intermineOntologyTermOntologyTermSynonymAttributes,
     intermineOntologyTermOntologyTermSynonymSort,
-    GraphQLOntologyTerm,
     GraphQLOntologyTermSynonym,
     IntermineOntologyTermSynonymResponse,
     response2ontologyTermSynonyms,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-export type GetOntologyTermSynonymsOptions = {
-    ontologyTerm?: GraphQLOntologyTerm;
-} & PaginationOptions;
-
 // get OntologyTermSynonyms for an OntologyTerm
-export async function getOntologyTermSynonyms(
-    {
-        ontologyTerm,
-        page,
-        pageSize
-    }: GetOntologyTermSynonymsOptions,
-): Promise<ApiResponse<GraphQLOntologyTermSynonym>> {
-    const constraints = [intermineConstraint('OntologyTerm.id', '=', ontologyTerm.id)];
+export async function getOntologyTermSynonymsForOntologyTerm(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTermSynonym>> {
+    const constraints = [intermineConstraint('OntologyTerm.id', '=', id)];
     const query = interminePathQuery(
         intermineOntologyTermOntologyTermSynonymAttributes,
         intermineOntologyTermOntologyTermSynonymSort,
