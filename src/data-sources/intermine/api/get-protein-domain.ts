@@ -11,7 +11,6 @@ import {
   response2proteinDomains,
 } from '../models/index.js';
 
-
 // get a ProteinDomain by identifier
 export async function getProteinDomain(identifier: string):
 Promise<ApiResponse<GraphQLProteinDomain>> {
