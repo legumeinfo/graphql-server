@@ -55,7 +55,7 @@ import { getGeneticMap } from './get-genetic-map.js';
 import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
 import { getGeneticMarker } from './get-genetic-marker.js';
-import { getGeneticMarkersForGWASResult, getGeneticMarkersForQTL } from './get-genetic-markers.js';
+import { getGeneticMarkersForGenotypingPlatform, getGeneticMarkersForGWASResult, getGeneticMarkersForQTL } from './get-genetic-markers.js';
 // genotyping platform
 import { getGenotypingPlatform } from './get-genotyping-platform.js';
 import { getGenotypingPlatformsForGeneticMarker } from './get-genotyping-platforms.js';
@@ -77,7 +77,7 @@ import { getLinkageGroupsForGeneticMap } from './get-linkage-groups.js';
 import { getLinkageGroupPosition } from './get-linkage-group-position.js';
 import { getLinkageGroupPositionsForGeneticMarker } from './get-linkage-group-positions.js';
 // location
-import { getLocation, getChromosomeLocation, getSupercontigLocation } from './get-location.js';
+import { getLocation } from './get-location.js';
 import { getLocationsForBioEntity, getLocatedFeaturesForBioEntity } from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
@@ -109,7 +109,7 @@ import { getPathway } from './get-pathway.js';
 import { getPathwaysForGene } from './get-pathways.js';
 // phylonode
 import { getPhylonode } from './get-phylonode.js';
-import { getPhylonodesForPhylotree, getPhylonodesForParent } from './get-phylonodes.js';
+import { getPhylonodesForPhylotree, getChildrenForPhylonode } from './get-phylonodes.js';
 // phylotree
 import { getPhylotree } from './get-phylotree.js';
 // protein
@@ -232,6 +232,7 @@ export declare class ApiMixinInterface {
     searchGeneticMaps: Function;
     // genetic marker
     getGeneticMarker: Function;
+    getGeneticMarkersForGenotypingPlatform: Function;
     getGeneticMarkersForGWASResult: Function;
     getGeneticMarkersForQTL: Function;
     // genotyping platform
@@ -259,8 +260,6 @@ export declare class ApiMixinInterface {
     getLinkageGroupPositionsForGeneticMarker: Function;
     // location
     getLocation: Function;
-    getChromosomeLocation: Function;
-    getSupercontigLocation: Function;
     getLocationsForBioEntity: Function;
     getLocatedFeaturesForBioEntity: Function;
     // mRNA
@@ -300,7 +299,7 @@ export declare class ApiMixinInterface {
     // phylonode
     getPhylonode: Function;
     getPhylonodesForPhylotree: Function;
-    getPhylonodesForParent: Function;
+    getChildrenForPhylonode: Function;
     // phylotree
     getPhylotree: Function;
     // protein
@@ -447,6 +446,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchGeneticMaps = searchGeneticMaps;
         // genetic marker
         getGeneticMarker = getGeneticMarker;
+        getGeneticMarkersForGenotypingPlatform = getGeneticMarkersForGenotypingPlatform;
         getGeneticMarkersForGWASResult = getGeneticMarkersForGWASResult;
         getGeneticMarkersForQTL = getGeneticMarkersForQTL;
         // genotyping platform
@@ -474,8 +474,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLinkageGroupPositionsForGeneticMarker = getLinkageGroupPositionsForGeneticMarker;
         // location
         getLocation = getLocation;
-        getChromosomeLocation = getChromosomeLocation;
-        getSupercontigLocation = getSupercontigLocation;
         getLocationsForBioEntity = getLocationsForBioEntity;
         getLocatedFeaturesForBioEntity = getLocatedFeaturesForBioEntity;
         // mRNA
@@ -515,7 +513,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // phylonode
         getPhylonode = getPhylonode;
         getPhylonodesForPhylotree = getPhylonodesForPhylotree;
-        getPhylonodesForParent = getPhylonodesForParent;
+        getChildrenForPhylonode = getChildrenForPhylonode;
         // phylotree
         getPhylotree = getPhylotree;
         // protein

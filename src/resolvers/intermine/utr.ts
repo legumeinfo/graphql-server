@@ -18,8 +18,8 @@ ResolverMap => ({
     UTR: {
         ...sequenceFeatureFactory(sourceName),
         transcripts: async (utr, { page, pageSize }, { dataSources }) => {
-            const args = {utr, page, pageSize};
-            return dataSources[sourceName].getTranscripts(args)
+            const { id } = utr;
+            return dataSources[sourceName].getTranscriptsForUTR(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -28,8 +28,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         markers: async (gwasResult, { page, pageSize }, { dataSources }) => {
-            const args = {gwasResult, page, pageSize};
-            return dataSources[sourceName].getGeneticMarkers(args)
+            const { id } = gwasResult;
+            return dataSources[sourceName].getGeneticMarkersForGWASResult(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

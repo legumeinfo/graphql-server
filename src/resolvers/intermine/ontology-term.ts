@@ -31,26 +31,26 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         relations: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyRelations(args)
+            const { id } = ontologyTerm;
+            return dataSources[sourceName].getOntologyRelationsForOntologyTerm(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         synonyms: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyTermSynonyms(args)
+            const { id } = ontologyTerm;
+            return dataSources[sourceName].getOntologyTermSynonymsForOntologyTerm(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         parents: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyTermParents(args)
+            const { id } = ontologyTerm;
+            return dataSources[sourceName].getParentsForOntologyTerm(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         crossReferences: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {ontologyTerm: ontologyTerm, page, pageSize};
-            return dataSources[sourceName].getOntologyTermCrossReferences(args)
+            const { id } = ontologyTerm;
+            return dataSources[sourceName].getCrossReferencesForOntologyTerm(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

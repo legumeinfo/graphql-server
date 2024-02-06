@@ -18,8 +18,8 @@ ResolverMap => ({
     GenotypingPlatform: {
         ...annotatableFactory(sourceName),
         markers: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
-            const args = {genotypingPlatform, page, pageSize};
-            return dataSources[sourceName].getGeneticMarkers(args)
+            const { id } = genotypingPlatform;
+            return dataSources[sourceName].getGeneticMarkersForGenotypingPlatform(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

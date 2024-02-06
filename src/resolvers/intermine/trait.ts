@@ -35,12 +35,6 @@ ResolverMap => ({
                     .then(({data: results}) => results);
             }
         },
-        qtls: async (trait, { page, pageSize }, { dataSources }) => {
-            const args = {trait, page, pageSize};
-            return dataSources[sourceName].getQTLs(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         gwas: async (trait, _, { dataSources }) => {
             if (trait.gwasIdentifier != null) {
                 return dataSources[sourceName].getGWAS(trait.gwasIdentifier)
@@ -48,9 +42,15 @@ ResolverMap => ({
                     .then(({data: results}) => results);
             }
         },
+        qtls: async (trait, { page, pageSize }, { dataSources }) => {
+            const { id } = trait;
+            return dataSources[sourceName].getQTLsForTrait(id, {page, pageSize})
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         gwasResults: async (trait, { page, pageSize }, { dataSources }) => {
-            const args = {trait, page, pageSize};
-            return dataSources[sourceName].getGWASResults(args)
+            const { id } = trait;
+            return dataSources[sourceName].getGWASResultsForTrait(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

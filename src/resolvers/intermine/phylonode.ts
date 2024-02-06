@@ -35,8 +35,8 @@ ResolverMap => ({
             }
         },
         children: async (phylonode, { page, pageSize }, { dataSources }) => {
-            const args = {parent: phylonode, page, pageSize};
-            return dataSources[sourceName].getPhylonodes(args)
+            const { id } = phylonode;
+            return dataSources[sourceName].getChildrenForPhylonode(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

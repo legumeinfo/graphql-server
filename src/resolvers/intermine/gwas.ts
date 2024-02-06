@@ -34,8 +34,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         results: async (gwas, { page, pageSize }, { dataSources }) => {
-            const args = {gwas, page, pageSize};
-            return dataSources[sourceName].getGWASResults(args)
+            const { id } = gwas;
+            return dataSources[sourceName].getGWASResultsForGWAS(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

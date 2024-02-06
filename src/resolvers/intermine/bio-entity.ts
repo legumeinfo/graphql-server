@@ -21,14 +21,14 @@ export const bioEntityFactory =
             }
         },
         locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: bioEntity, page, pageSize};
-            return dataSources[sourceName].getLocations(args)
+            const { id } = bioEntity;
+            return dataSources[sourceName].getLocationsForBioEntity(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
-            const args = {bioEntity: bioEntity, page, pageSize};
-            return dataSources[sourceName].getLocatedFeatures(args)
+            const { id } = bioEntity;
+            return dataSources[sourceName].getLocatedFeaturesForBioEntity(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

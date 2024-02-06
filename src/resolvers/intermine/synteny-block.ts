@@ -18,8 +18,8 @@ ResolverMap => ({
     SyntenyBlock: {
         ...hasDataSetsFactory(sourceName),
         syntenicRegions: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
-            const args = {syntenyBlock, page, pageSize};
-            return dataSources[sourceName].getSyntenicRegions(args)
+            const { id } = syntenyBlock;
+            return dataSources[sourceName].getSyntenicRegionsForSyntenyBlock(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

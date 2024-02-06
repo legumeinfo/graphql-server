@@ -40,8 +40,8 @@ export async function getPhylonodesForPhylotree(id: number, { page, pageSize }: 
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
 
-// get Phylonode children of a parent Phylonode
-export async function getPhylonodesForParent(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPhylonode>> {
+// get Phylonode children of a Phylonode
+export async function getChildrenForPhylonode(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPhylonode>> {
     const constraints = [intermineConstraint('Phylonode.parent.id', '=', id)];
     const joins = [];
     // protein could be null

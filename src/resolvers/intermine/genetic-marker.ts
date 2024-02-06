@@ -18,26 +18,26 @@ ResolverMap => ({
     GeneticMarker: {
         ...sequenceFeatureFactory(sourceName),
         qtls: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getQTLs(args)
+            const { id } = geneticMarker;
+            return dataSources[sourceName].getQTLsForGeneticMarker(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         genotypingPlatforms: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getGenotypingPlatforms(args)
+            const { id } = geneticMarker;
+            return dataSources[sourceName].getGenotypingPlatformsForGeneticMarker(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         gwasResults: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getGWASResults(args)
+            const { id } = geneticMarker;
+            return dataSources[sourceName].getGWASResultsForGeneticMarker(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         linkageGroupPositions: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args)
+            const { id } = geneticMarker;
+            return dataSources[sourceName].getLinkageGroupPositionsForGeneticMarker(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

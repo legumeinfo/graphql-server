@@ -18,8 +18,8 @@ ResolverMap => ({
     IntergenicRegion: {
         ...sequenceFeatureFactory(sourceName),
         adjacentGenes: async (intergenicRegion, { page, pageSize }, { dataSources }) => {
-            const args = {intergenicRegion, page, pageSize};
-            return dataSources[sourceName].getAdjacentGenes(args)
+            const { id } = intergenicRegion;
+            return dataSources[sourceName].getAdjacentGenesForIntergenicRegion(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

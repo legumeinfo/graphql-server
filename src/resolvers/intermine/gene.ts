@@ -37,50 +37,50 @@ export const geneFactory =
                     .then(({data: results}) => results);
             },
             flankingRegions: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getGeneFlankingRegions(args)
+                const { id } = gene;
+                return dataSources[sourceName].getGeneFlankingRegionsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             transcripts: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getTranscripts(args)
+                const { id } = gene;
+                return dataSources[sourceName].getTranscriptsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             introns: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getIntrons(args)
+                const { id } = gene;
+                return dataSources[sourceName].getIntronsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             proteins: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getProteins(args)
+                const { id } = gene;
+                return dataSources[sourceName].getProteinsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             pathways: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getPathways(args)
+                const { id } = gene;
+                return dataSources[sourceName].getPathwaysForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getPanGeneSets(args)
+                const { id } = gene;
+                return dataSources[sourceName].getPanGeneSetsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             geneFamilyAssignments: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getGeneFamilyAssignments(args)
+                const { id } = gene;
+                return dataSources[sourceName].getGeneFamilyAssignmentsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
             proteinDomains: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getProteinDomains(args)
+                const { id } = gene;
+                return dataSources[sourceName].getProteinDomainsForGene(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

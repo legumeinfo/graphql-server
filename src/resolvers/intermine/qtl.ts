@@ -39,14 +39,14 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         genes: async (qtl, { page, pageSize }, { dataSources }) => {
-            const args = {qtl, page, pageSize};
-            return dataSources[sourceName].getQTLGenes(args)
+            const { id } = qtl;
+            return dataSources[sourceName].getGenesForQTL(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         markers: async (qtl, { page, pageSize }, { dataSources }) => {
-            const args = {qtl, page, pageSize};
-            return dataSources[sourceName].getGeneticMarkers(args)
+            const { id } = qtl;
+            return dataSources[sourceName].getGeneticMarkersForQTL(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -28,37 +28,3 @@ export async function getLocation(id: number): Promise<ApiResponse<GraphQLLocati
         .then((location: GraphQLLocation) => ({data: location}));
 }
 
-// Get a chromosome Location by id
-export async function getChromosomeLocation(id: number): Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', id)];
-    const query = interminePathQuery(
-        intermineLocationAttributes,
-        intermineLocationSort,
-        constraints,
-    );
-    return this.pathQuery(query)
-        .then((response: IntermineLocationResponse) => response2locations(response))
-        .then((locations: Array<GraphQLLocation>) => {
-            if (!locations.length) return null;
-            return locations[0];
-        })
-        .then((location: GraphQLLocation) => ({data: location}));
-}
-
-// Get a supercontig Location by id
-export async function getSupercontigLocation(id: number): Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', id)];
-    const query = interminePathQuery(
-        intermineLocationAttributes,
-        intermineLocationSort,
-        constraints,
-    );
-    return this.pathQuery(query)
-        .then((response: IntermineLocationResponse) => response2locations(response))
-        .then((locations: Array<GraphQLLocation>) => {
-            if (!locations.length) return null;
-            return locations[0];
-        })
-        .then((location: GraphQLLocation) => ({data: location}));
-}
-

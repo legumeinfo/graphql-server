@@ -34,8 +34,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         linkageGroups: async (geneticMap, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMap, page, pageSize};
-            return dataSources[sourceName].getLinkageGroups(args)
+            const { id } = geneticMap;
+            return dataSources[sourceName].getLinkageGroupsForGeneticMap(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

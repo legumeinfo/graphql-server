@@ -24,26 +24,26 @@ ResolverMap => ({
     ProteinDomain: {
         ...annotatableFactory(sourceName),
         genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const { id } = proteinDomain;
+            return dataSources[sourceName].getGenesForProteinDomain(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         geneFamilies: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getGeneFamilies(args)
+            const { id } = proteinDomain;
+            return dataSources[sourceName].getGeneFamiliesForProteinDomain(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         childFeatures: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getProteinDomainChildFeatures(args)
+            const { id } = proteinDomain;
+            return dataSources[sourceName].getChildFeaturesForProteinDomain(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         parentFeatures: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getProteinDomainParentFeatures(args)
+            const { id } = proteinDomain;
+            return dataSources[sourceName].getParentFeaturesForProteinDomain(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

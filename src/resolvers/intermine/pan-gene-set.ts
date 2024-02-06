@@ -21,20 +21,20 @@ export const panGeneSetFactory =
     PanGeneSet: {
         ...annotatableFactory(sourceName),
         transcripts: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
-            return dataSources[sourceName].getTranscripts(args)
+            const { id } = panGeneSet;
+            return dataSources[sourceName].getTranscriptsForPanGeneSet(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         genes: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const { id } = panGeneSet;
+            return dataSources[sourceName].getGenesForPanGeneSet(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         proteins: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
-            return dataSources[sourceName].getProteins(args)
+            const { id } = panGeneSet;
+            return dataSources[sourceName].getProteinsForPanGeneSet(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

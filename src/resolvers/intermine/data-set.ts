@@ -26,8 +26,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         bioEntities: async (dataSet, { page, pageSize }, { dataSources }) => {
-            const args = {dataSet: dataSet, page, pageSize};
-            return dataSources[sourceName].getBioEntities(args)
+            const { id } = dataSet;
+            return dataSources[sourceName].getBioEntitiesForDataSet(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -17,32 +17,32 @@ export const transcriptFactory =
                 .then(({data: results}) => results);
         },
         introns: async (transcript, { page, pageSize }, { dataSources }) => {
-            const args = {transcript: transcript, page, pageSize};
-            return dataSources[sourceName].getIntrons(args)
+            const { id } = transcript;
+            return dataSources[sourceName].getIntronsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         exons: async (transcript, { page, pageSize }, { dataSources }) => {
-            const args = {transcript: transcript, page, pageSize};
-            return dataSources[sourceName].getExons(args)
+            const { id } = transcript;
+            return dataSources[sourceName].getExonsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         CDSs: async (transcript, { page, pageSize }, { dataSources }) => {
-            const args = {transcript: transcript, page, pageSize};
-            return dataSources[sourceName].getCDSs(args)
+            const { id } = transcript;
+            return dataSources[sourceName].getCDSsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         UTRs: async (transcript, { page, pageSize }, { dataSources }) => {
-            const args = {transcript: transcript, page, pageSize};
-            return dataSources[sourceName].getUTRs(args)
+            const { id } = transcript;
+            return dataSources[sourceName].getUTRsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         panGeneSets: async (transcript, { page, pageSize }, { dataSources }) => {
-            const args = {transcript: transcript, page, pageSize};
-            return dataSources[sourceName].getPanGeneSets(args)
+            const { id } = transcript;
+            return dataSources[sourceName].getPanGeneSetsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

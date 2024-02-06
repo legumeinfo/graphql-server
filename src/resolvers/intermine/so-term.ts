@@ -36,8 +36,8 @@ ResolverMap => ({
         //         .then(({data: results}) => results);
         // },
         parents: async (soTerm, { page, pageSize }, { dataSources }) => {
-            const args = {soTerm: soTerm, page, pageSize};
-            return dataSources[sourceName].getSOTermParents(args)
+            const { id } = soTerm;
+            return dataSources[sourceName].getParentsForSOTerm(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

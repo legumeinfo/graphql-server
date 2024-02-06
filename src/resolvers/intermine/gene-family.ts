@@ -32,20 +32,20 @@ export const geneFamilyFactory =
                 .then(({data: results}) => results);
         },
         genes: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily:geneFamily, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const { id } = geneFamily;
+            return dataSources[sourceName].getGenesForGeneFamily(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         proteinDomains: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily:geneFamily, page, pageSize};
-            return dataSources[sourceName].getProteinDomains(args)
+            const { id } = geneFamily;
+            return dataSources[sourceName].getProteinDomainsForGeneFamily(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         tallies: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily:geneFamily, page, pageSize};
-            return dataSources[sourceName].getGeneFamilyTallies(args)
+            const { id } = geneFamily;
+            return dataSources[sourceName].getGeneFamilyTalliesForGeneFamily(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

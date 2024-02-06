@@ -23,8 +23,8 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         qtls: async (linkageGroup, { page, pageSize }, { dataSources }) => {
-            const args = {linkageGroup, page, pageSize};
-            return dataSources[sourceName].getQTLs(args)
+            const { id } = linkageGroup;
+            return dataSources[sourceName].getQTLsForLinkageGroup(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

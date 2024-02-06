@@ -13,34 +13,46 @@ export const sequenceFeatureFactory =
                 .then(({data: results}) => results);
         },
         chromosome: async (sequenceFeature, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(sequenceFeature.chromosomeIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const { chromosomeIdentifier } = sequenceFeature;
+            if (chromosomeIdentifier) {
+                return dataSources[sourceName].getChromosome(sequenceFeature.chromosomeIdentifier)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
         },
         supercontig: async (sequenceFeature, _, { dataSources }) => {
-            return dataSources[sourceName].getSupercontig(sequenceFeature.supercontigIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const { supercontigIdentifier } = sequenceFeature;
+            if (supercontigIdentifier) {
+                return dataSources[sourceName].getSupercontig(sequenceFeature.supercontigIdentifier)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
         },
         chromosomeLocation: async (sequenceFeature, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosomeLocation(sequenceFeature)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const { chromosomeLocationId } = sequenceFeature;
+            if (chromosomeLocationId) {
+                return dataSources[sourceName].getLocation(chromosomeLocationId)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
         },
         supercontigLocation: async (sequenceFeature, _, { dataSources }) => {
-            return dataSources[sourceName].getSupercontigLocation(sequenceFeature)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const { supercontigLocationId } = sequenceFeature;
+            if (supercontigLocationId) {
+                return dataSources[sourceName].getLocation(supercontigLocationId)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
         },
         overlappingFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
-            const args = {sequenceFeature: sequenceFeature, page, pageSize};
-            return dataSources[sourceName].getOverlappingFeatures(args)
+            const { id } = sequenceFeature;
+            return dataSources[sourceName].getOverlappingFeaturesForSequenceFeature(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         childFeatures: async (sequenceFeature, { page, pageSize }, { dataSources }) => {
-            const args = {sequenceFeature: sequenceFeature, page, pageSize};
-            return dataSources[sourceName].getSequenceFeatureChildFeatures(args)
+            const { id } = sequenceFeature;
+            return dataSources[sourceName].getChildFeaturesForSequenceFeature(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

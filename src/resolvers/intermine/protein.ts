@@ -41,26 +41,26 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         genes: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {protein, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const { id } = protein;
+            return dataSources[sourceName].getGenesForProtein(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         proteinMatches: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {protein, page, pageSize};
-            return dataSources[sourceName].getProteinMatches(args)
+            const { id } = protein;
+            return dataSources[sourceName].getProteinMatchesForProtein(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         panGeneSets: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {protein, page, pageSize};
-            return dataSources[sourceName].getPanGeneSets(args)
+            const { id } = protein;
+            return dataSources[sourceName].getPanGeneSetsForProtein(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         geneFamilyAssignments: async (protein, { page, pageSize }, { dataSources }) => {
-            const args = {protein, page, pageSize};
-            return dataSources[sourceName].getGeneFamilyAssignments(args)
+            const { id } = protein;
+            return dataSources[sourceName].getGeneFamilyAssignmentsForProtein(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

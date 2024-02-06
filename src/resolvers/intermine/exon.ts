@@ -18,8 +18,8 @@ ResolverMap => ({
     Exon: {
         ...sequenceFeatureFactory(sourceName),
         transcripts: async (exon, { page, pageSize }, { dataSources }) => {
-            const args = {exon, page, pageSize};
-            return dataSources[sourceName].getTranscripts(args)
+            const { id } = exon;
+            return dataSources[sourceName].getTranscriptsForExon(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
