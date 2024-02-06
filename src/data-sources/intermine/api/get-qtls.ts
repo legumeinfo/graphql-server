@@ -16,7 +16,7 @@ import { PaginationOptions } from './pagination.js';
 
 // get QTLs associated with a LinkageGroup
 export async function getQTLsForLinkageGroup(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
-    const constraints = ['QTL.linkageGroup.id', '=', id);
+    const constraints = [intermineConstraint('QTL.linkageGroup.id', '=', id)];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,
@@ -35,7 +35,7 @@ export async function getQTLsForLinkageGroup(id: number, { page, pageSize }: Pag
 
 // get QTLs associated with a GeneticMarker
 export async function getQTLsForGeneticMarker(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
-    const constraints = ['QTL.markers.id', '=', id);
+    const constraints = [intermineConstraint('QTL.markers.id', '=', id)];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,
@@ -54,7 +54,7 @@ export async function getQTLsForGeneticMarker(id: number, { page, pageSize }: Pa
 
 // get QTLs associated with a QTLStudy
 export async function getQTLsForQTLStudy(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
-    const constraints = ['QTL.qtlStudy.id', '=', id);
+    const constraints = [intermineConstraint('QTL.qtlStudy.id', '=', id)];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,
@@ -73,7 +73,7 @@ export async function getQTLsForQTLStudy(id: number, { page, pageSize }: Paginat
 
 // get QTLs associated with a Trait
 export async function getQTLsForTrait(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLQTL>> {
-    const constraints = ['QTL.trait.id', '=', id);
+    const constraints = [intermineConstraint('QTL.trait.id', '=', id)];
     const query = interminePathQuery(
         intermineQTLAttributes,
         intermineQTLSort,

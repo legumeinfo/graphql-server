@@ -17,7 +17,7 @@ import { PaginationOptions } from './pagination.js';
 
 // get BioEntity objects associated with a DataSet
 export async function getBioEntitiesForDataSet(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLBioEntity>> {
-    const constraints = [intermineConstraint('BioEntity.dataSets.id', '=', dataSet.id)];
+    const constraints = [intermineConstraint('BioEntity.dataSets.id', '=', id)];
     // all BioEntity-extending object queries must include these joins
     const joins = [
         intermineJoin('BioEntity.organism', 'OUTER'),

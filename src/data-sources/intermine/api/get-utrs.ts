@@ -17,7 +17,7 @@ import { PaginationOptions } from './pagination.js';
 
 // Get UTRs associated with a Transcript
 export async function getUTRsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLUTR>> {
-    const constraints = [intermineConstraint('UTR.transcripts.id', '=', transcript.id)];
+    const constraints = [intermineConstraint('UTR.transcripts.id', '=', id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('UTR.chromosome', 'OUTER'),

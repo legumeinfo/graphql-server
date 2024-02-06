@@ -15,7 +15,7 @@ import {
 import { PaginationOptions } from './pagination.js';
 
 // get GeneFamilies for a ProteinDomain
-export async function getGeneFamiliesForProteinDomain(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLProteinDomain>> {
+export async function getGeneFamiliesForProteinDomain(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGeneFamily>> {
     const constraints = [intermineConstraint('GeneFamily.proteinDomains.id', '=', id)];
     const query = interminePathQuery(
         intermineGeneFamilyAttributes,

@@ -71,7 +71,7 @@ export async function getProteinsForGeneFamily(id: number, { page, pageSize }: P
 
 // get Proteins associated with a PanGeneSet
 export async function getProteinsForPanGeneSet(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLProtein>> {
-    const constraints = [intermineConstraint('Protein.panGeneSets.id', '=', panGeneSet.id)];
+    const constraints = [intermineConstraint('Protein.panGeneSets.id', '=', id)];
     // all BioEntity-extending object queries must include these joins
     const joins = [
         intermineJoin('Protein.organism', 'OUTER'),

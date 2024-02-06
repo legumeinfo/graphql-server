@@ -16,7 +16,7 @@ import { PaginationOptions } from './pagination.js';
 
 // get LinkageGroups for a GeneticMap
 export async function getLinkageGroupsForGeneticMap(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLinkageGroup>> {
-    const constraints = [intermineConstraint('LinkageGroup.geneticMap.id', '=', geneticMap.id)];
+    const constraints = [intermineConstraint('LinkageGroup.geneticMap.id', '=', id)];
     const query = interminePathQuery(
         intermineLinkageGroupAttributes,
         intermineLinkageGroupSort,

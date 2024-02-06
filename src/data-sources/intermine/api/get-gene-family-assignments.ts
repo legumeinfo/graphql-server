@@ -39,8 +39,8 @@ export async function getGeneFamilyAssignmentsForGene(id: number, { page, pageSi
 export async function getGeneFamilyAssignmentsForProtein(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGeneFamilyAssignment>> {
     const constraints = [intermineConstraint('Protein.id', '=', id)];
     const query = interminePathQuery(
-        intermineGeneGeneFamilyAssignmentsAttributes,
-        intermineGeneGeneFamilyAssignmentsSort,
+        intermineProteinGeneFamilyAssignmentsAttributes,
+        intermineProteinGeneFamilyAssignmentsSort,
         constraints,
     );
     // get the data

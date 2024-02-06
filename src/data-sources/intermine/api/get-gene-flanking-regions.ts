@@ -17,7 +17,7 @@ import { PaginationOptions } from './pagination.js';
 
 // Get GeneFlankingRegions associated with a Gene
 export async function getGeneFlankingRegionsForGene(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGeneFlankingRegion>> {
-    const constraints = [intermineConstraint('GeneFlankingRegion.gene.id', '=', gene.id)];
+    const constraints = [intermineConstraint('GeneFlankingRegion.gene.id', '=', id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('GeneFlankingRegion.chromosome', 'OUTER'),

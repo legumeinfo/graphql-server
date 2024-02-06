@@ -6,11 +6,17 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLOntologyTerm,
-  IntermineOntologyTermResponse,
-  intermineOntologyTermAttributes,
-  intermineOntologyTermSort,
-  response2ontologyTerms,
+    GraphQLOntologyTerm,
+    IntermineOntologyTermResponse,
+    intermineOntologyTermAttributes,
+    intermineOntologyTermSort,
+    intermineOntologyTermCrossReferenceAttributes,
+    intermineOntologyTermCrossReferenceSort,
+    intermineOntologyTermParentAttributes,
+    intermineOntologyTermParentSort,
+    intermineSOTermParentAttributes,
+    intermineSOTermParentSort,
+    response2ontologyTerms,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
@@ -24,7 +30,7 @@ export async function getOntologyTermsForTrait(id: number, { page, pageSize }: P
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
-      .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
+        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.id'})
         .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
@@ -73,8 +79,6 @@ export async function getParentsForSOTerm(id: number, { page, pageSize }: Pagina
 
 // get crossReferences of an OntologyTerm, which have no reverse reference from OntologyTerm
 export async function getCrossReferencesForOntologyTerm(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
-    {ontologyTerm, page, pageSize}: GetOntologyTermCrossReferencesOptions,
-): Promise<ApiResponse<GraphQLOntologyTerm>> {
     const constraints = [intermineConstraint('OntologyTerm.id', '=', id)];
     const query = interminePathQuery(
         intermineOntologyTermCrossReferenceAttributes,

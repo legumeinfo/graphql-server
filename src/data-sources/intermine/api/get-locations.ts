@@ -7,7 +7,6 @@ import {
 } from '../intermine.server.js';
 import {
   GraphQLLocation,
-  GraphQLBioEntity,
   IntermineLocationResponse,
   intermineLocationAttributes,
   intermineLocationSort,
@@ -16,7 +15,7 @@ import {
 import { PaginationOptions } from './pagination.js';
 
 // get Locations for a BioEntity given its id
-export async function getLocations(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLocation>> {
+export async function getLocationsForBioEntity(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLocation>> {
     const constraints = [ intermineConstraint('Location.feature.id', '=', id) ];
     const query = interminePathQuery(
         intermineLocationAttributes,
@@ -34,8 +33,8 @@ export async function getLocations(id: number, { page, pageSize }: PaginationOpt
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
 }
 
-// get locatedFeatures (Location) for any type that extends BioEntity using the Location.locatedOn reverse reference
-export async function getLocatedFeatures(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLocation>> {
+// get locatedFeatures (Location) for a BioEntity using the Location.locatedOn reverse reference
+export async function getLocatedFeaturesForBioEntity(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLocation>> {
     const constraints = [intermineConstraint('Location.locatedOn.id', '=', id)];
     const query = interminePathQuery(
         intermineLocationAttributes,

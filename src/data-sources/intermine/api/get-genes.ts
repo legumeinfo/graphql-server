@@ -11,6 +11,10 @@ import {
     IntermineGeneResponse,
     intermineGeneAttributes,
     intermineGeneSort,
+    intermineIntergenicRegionAdjacentGeneAttributes,
+    intermineIntergenicRegionAdjacentGeneSort,
+    intermineQTLGenesAttributes,
+    intermineQTLGenesSort,
     response2genes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
@@ -164,7 +168,7 @@ export async function getAdjacentGenesForIntergenicRegion(id: number, { page, pa
         intermineJoin('IntergenicRegion.adjacentGenes.supercontig', 'OUTER'),
         intermineJoin('IntergenicRegion.adjacentGenes.chromosomeLocation', 'OUTER'),
         intermineJoin('IntergenicRegion.adjacentGenes.supercontigLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.adjacentGenes.sequenceOntologyTerm', 'OUTER'),
+        intermineJoin('IntergenicRegion.adjacentGenes.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineIntergenicRegionAdjacentGeneAttributes,
@@ -191,8 +195,8 @@ export async function getGenesForQTL(id: number, { page, pageSize }: PaginationO
         intermineJoin('QTL.genes.chromosome', 'OUTER'),
         intermineJoin('QTL.genes.supercontig', 'OUTER'),
         intermineJoin('QTL.genes.chromosomeLocation', 'OUTER'),
-        intermineJoin('QTL.genes.supercontigLocation', 'OUTER')
-        intermineJoin('QTL.genes.sequenceOntologyTerm', 'OUTER'),
+        intermineJoin('QTL.genes.supercontigLocation', 'OUTER'),
+        intermineJoin('QTL.genes.sequenceOntologyTerm', 'OUTER')
     ];
     const query = interminePathQuery(
         intermineQTLGenesAttributes,

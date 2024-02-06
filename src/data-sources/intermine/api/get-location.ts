@@ -30,7 +30,7 @@ export async function getLocation(id: number): Promise<ApiResponse<GraphQLLocati
 
 // Get a chromosome Location by id
 export async function getChromosomeLocation(id: number): Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', id);
+    const constraints = [intermineConstraint('Location.id', '=', id)];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,
@@ -47,7 +47,7 @@ export async function getChromosomeLocation(id: number): Promise<ApiResponse<Gra
 
 // Get a supercontig Location by id
 export async function getSupercontigLocation(id: number): Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [intermineConstraint('Location.id', '=', id);
+    const constraints = [intermineConstraint('Location.id', '=', id)];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,

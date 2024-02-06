@@ -17,7 +17,7 @@ import { PaginationOptions } from './pagination.js';
 
 // Get CDSs associated with a Transcript
 export async function getCDSsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLCDS>> {
-    const constraints = [intermineConstraint('CDS.transcript.id', '=', transcript.id)];
+    const constraints = [intermineConstraint('CDS.transcript.id', '=', id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('CDS.chromosome', 'OUTER'),

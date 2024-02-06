@@ -45,7 +45,7 @@ export async function getIntronsForGene(id: number, { page, pageSize }: Paginati
 
 // Get Introns associated with a Transcript
 export async function getIntronsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLIntron>> {
-    const constraints = [constraints.push(intermineConstraint('Intron.transcripts.id', '=', id));
+    const constraints = [intermineConstraint('Intron.transcripts.id', '=', id)];
     // all SequenceFeature-extending object queries must include these joins
     const joins = [
         intermineJoin('Intron.chromosome', 'OUTER'),
