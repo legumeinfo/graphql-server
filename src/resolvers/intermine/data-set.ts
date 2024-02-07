@@ -39,49 +39,45 @@ SubfieldResolverMap => ({
     dataSets: async (parent, { page, pageSize }, { dataSources }, info) => {
         let request: Promise<any>|null = null;
 
-        const typeName = info.parentType.name;
-        const args = {page, pageSize};
+        // we query dataSets by parent id
         const { id } = parent;
-        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
-        
-        // handle any Annotatable
-        if (interfaces.includes('Annotatable')) {
-            request = dataSources[sourceName].getDataSetsForAnnotatable(id, args);
-        }
 
-        // handle non-Annotatable objects which have dataSets
-        if (typeName == 'DataSource') {
-            request = dataSources[sourceName].getDataSetsForDataSource(id, args);
+        const args = {page, pageSize};
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+
+        if (interfaces.includes('Annotatable')) {
+            // most types
+            request = dataSources[sourceName].getDataSetsForAnnotatable(id, args);
+        } else if (interfaces.includes('OntologyTerm')) {
+            // e.g. SOTerm
+            request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
+        } else {
+            // handle non-Annotatable objects which have dataSets
+            const typeName = info.parentType.name;
+            switch (typeName) {
+                case 'DataSource':
+                    request = dataSources[sourceName].getDataSetsForDataSource(id, args);
+                    break;
+                case 'Location':
+                    request = dataSources[sourceName].getDataSetsForLocation(id, args);
+                    break;
+                case 'Ontology':
+                    request = dataSources[sourceName].getDataSetsForOntology(id, args);
+                    break;
+                case 'OntologyAnnotation':
+                    request = dataSources[sourceName].getDataSetsForOntologyAnnotation(id, args);
+                    break;
+                case 'OntologyTerm':
+                    request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
+                    break;
+                case 'Organism':
+                    request = dataSources[sourceName].getDataSetsForOrganism(id, args);
+                    break;
+                case 'Strain':
+                    request = dataSources[sourceName].getDataSetsForStrain(id, args);
+                    break;
+            }
         }
-        
-        // switch (typeName) {
-        //         // case 'DataSource':
-        //         //     request = dataSources[sourceName].getDataSetsForDataSource(id, args);
-        //         //     break;
-                
-        //         //     case 'GWASResult':
-        //         //         request = dataSources[sourceName].getDataSetsForGWASResult(id, args);
-        //         //         break;
-        //         //     case 'Location':
-        //         //         request = dataSources[sourceName].getDataSetsForLocation(id, args);
-        //         //         break;
-        //         //     case 'Ontology':
-        //         //         request = dataSources[sourceName].getDataSetsForOntology(id, args);
-        //         //         break;
-        //         //     case 'OntologyAnnotation':
-        //         //         request = dataSources[sourceName].getDataSetsForOntologyAnnotation(id, args);
-        //         //         break;
-        //         //     case 'OntologyTerm':
-        //         //         request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
-        //         //         break;
-        //         //     case 'SOTerm':
-        //         //         request = dataSources[sourceName].getDataSetsForSOTerm(id, args);
-        //         //         break;
-        //         //     case 'SyntenyBlock':
-        //         //         request = dataSources[sourceName].getDataSetsForSyntenyBlock(id, args);
-        //         //         break;
-                
-        // }
 
         if (request == null) {
             return null;

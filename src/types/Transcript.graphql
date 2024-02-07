@@ -11,6 +11,7 @@
 # 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="transcripts"/>
 # </class>
 interface Transcript {
+  ## Transcript
   gene: Gene!
   protein: Protein!
   introns: [Intron!]!

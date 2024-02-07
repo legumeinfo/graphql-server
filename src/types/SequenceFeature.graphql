@@ -15,6 +15,7 @@
 # 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
 # </class>
 interface SequenceFeature implements BioEntity {
+  ## SequenceFeature
   score: Float
   scoreType: String
   length: Int
@@ -22,6 +23,7 @@ interface SequenceFeature implements BioEntity {
   supercontigLocation: Location
   chromosomeLocation: Location
   supercontig: Supercontig
+  sequence: Sequence
   chromosome: Chromosome
   overlappingFeatures: [SequenceFeature!]!
   childFeatures: [SequenceFeature!]!

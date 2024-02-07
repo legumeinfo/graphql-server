@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="Organism" is-interface="true" term="http://semanticscience.org/resource/SIO_010000">
 // 	<attribute name="taxonId" type="java.lang.String" term="http://edamontology.org/data_1179"/>
 // 	<attribute name="abbreviation" type="java.lang.String"/>
@@ -24,29 +23,18 @@ export const intermineOrganismAttributes = [
     'Organism.species',
 ];
 export const intermineOrganismSort = 'Organism.genus'; // guaranteed not null
+
 export type IntermineOrganism = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+  number, // id
+  string, // taxonId
+  string, // abbreviation
+  string, // name
+  string, // commonName
+  string, // description
+  string, // genus
+  string, // species
 ];
 
-
-// type Organism {
-//   id: ID!
-//   taxonId: Int!
-//   abbreviation: String
-//   name: String
-//   commonName: String
-//   description: String
-//   genus: String
-//   species: String
-//   strains: [Strain!]
-// }
 export const graphqlOrganismAttributes = [
     'id',
     'taxonId',
@@ -57,12 +45,29 @@ export const graphqlOrganismAttributes = [
     'genus',
     'species',
 ];
+
 export type GraphQLOrganism = {
   [prop in typeof graphqlOrganismAttributes[number]]: string;
 }
 
-
 export type IntermineOrganismResponse = IntermineDataResponse<IntermineOrganism>;
+
 export function response2organisms(response: IntermineOrganismResponse): Array<GraphQLOrganism> {
     return response2graphqlObjects(response, graphqlOrganismAttributes);
 }
+
+// Organism.dataSets does not have a reverse reference
+export const intermineOrganismDataSetAttributes = [
+    'Organism.dataSets.id',
+    'Organism.dataSets.description',
+    'Organism.dataSets.licence',
+    'Organism.dataSets.url',
+    'Organism.dataSets.name',
+    'Organism.dataSets.version',
+    'Organism.dataSets.synopsis',
+    'Organism.dataSets.dataSource.name',  // resolve reference
+    'Organism.dataSets.publication.doi',  // resolve reference
+];
+export const intermineOrganismDataSetSort = 'Organism.dataSets.name';
+// use IntermineDataSet
+

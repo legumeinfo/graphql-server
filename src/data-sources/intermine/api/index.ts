@@ -15,7 +15,9 @@ import { getCDSsForTranscript } from './get-cdss.js';
 import { getChromosome } from './get-chromosome.js';
 // data set
 import { getDataSet } from './get-data-set.js';
-import { getDataSetsForAnnotatable, getDataSetsForDataSource, getDataSetsForOntologyAnnotation } from './get-data-sets.js';
+import { getDataSetsForAnnotatable, getDataSetsForDataSource, getDataSetsForLocation,
+         getDataSetsForOntology, getDataSetsForOntologyAnnotation, getDataSetsForOntologyTerm,
+         getDataSetsForOrganism, getDataSetsForStrain } from './get-data-sets.js';
 // data source
 import { getDataSource } from './get-data-source.js';
 // exon
@@ -187,7 +189,12 @@ export declare class ApiMixinInterface {
     getDataSet: Function;
     getDataSetsForAnnotatable: Function;
     getDataSetsForDataSource: Function;
+    getDataSetsForLocation: Function;
+    getDataSetsForOntology: Function;
     getDataSetsForOntologyAnnotation: Function;
+    getDataSetsForOntologyTerm: Function;
+    getDataSetsForOrganism: Function;
+    getDataSetsForStrain: Function;
     // data source
     getDataSource: Function;
     // exon
@@ -401,7 +408,12 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSet = getDataSet;
         getDataSetsForAnnotatable = getDataSetsForAnnotatable;
         getDataSetsForDataSource = getDataSetsForDataSource;
+        getDataSetsForLocation = getDataSetsForLocation;
+        getDataSetsForOntology = getDataSetsForOntology;
         getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
+        getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
+        getDataSetsForOrganism = getDataSetsForOrganism;
+        getDataSetsForStrain = getDataSetsForStrain;
         // data source
         getDataSource = getDataSource;
         // exon

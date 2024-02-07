@@ -15,8 +15,8 @@
 # 	<collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
 # </class>
 type Gene implements SequenceFeature {
-  id: ID!
   ## Annotatable
+  id: ID!
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

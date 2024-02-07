@@ -8,6 +8,7 @@
 #       <collection name="dataSets" referenced-type="DataSet" reverse-reference="entities" term="http://semanticscience.org/resource/SIO_001278"/>
 # </class>
 interface Annotatable implements HasOntologyAnnotations & HasPublications & HasDataSets {
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]
   publications: [Publication!]

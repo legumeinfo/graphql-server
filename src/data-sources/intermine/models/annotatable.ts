@@ -1,5 +1,11 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
+// <class name="Annotatable" is-interface="true">
+// 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+// 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
+// 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
+//      <collection name="dataSets" referenced-type="DataSet" reverse-reference="entities" term="http://semanticscience.org/resource/SIO_001278"/>
+// </class>
 export const intermineAnnotatableAttributes = [
     'Annotatable.id',
     'Annotatable.primaryIdentifier',  // Annotatable

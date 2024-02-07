@@ -35,7 +35,7 @@ export function response2ontologies(response: IntermineOntologyResponse): Array<
     return response2graphqlObjects(response, graphqlOntologyAttributes);
 }
 
-// DataSet does not have an Ontology reverse reference
+// Ontology.dataSets does not have a reverse reference
 export const intermineOntologyDataSetAttributes = [
     'Ontology.dataSets.id',
     'Ontology.dataSets.description',

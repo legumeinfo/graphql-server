@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
 // 	<attribute name="identifier" type="java.lang.String" term="http://edamontology.org/data_2379"/>
 // 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_1046"/>
@@ -17,29 +16,20 @@ export const intermineStrainAttributes = [
     'Strain.description',
     'Strain.origin',
     'Strain.accession',
-    'Strain.organism.taxonId', // internal resolution of organism
+    'Strain.organism.taxonId', // resolve reference
 ];
 export const intermineStrainSort = 'Strain.identifier'; // guaranteed not null
+
 export type IntermineStrain = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
+  number, // id
+  string, // identifier
+  string, // name
+  string, // description
+  string, // origin
+  string, // accession
+  number, // organism.taxonId
 ];
 
-
-// type Strain {
-//   id: ID!
-//   identifier: String!
-//   name: String
-//   description: String
-//   origin: String
-//   accession: String
-//   organism: Organism
-// }
 export const graphqlStrainAttributes = [
     'id',
     'identifier',
@@ -47,14 +37,31 @@ export const graphqlStrainAttributes = [
     'description',
     'origin',
     'accession',
-    'organismTaxonId',    // internal resolution of organism
+    'organismTaxonId', // resolve Organism
 ];
+
 export type GraphQLStrain = {
   [prop in typeof graphqlStrainAttributes[number]]: string;
 }
 
-
 export type IntermineStrainResponse = IntermineDataResponse<IntermineStrain>;
+
 export function response2strains(response: IntermineStrainResponse): Array<GraphQLStrain> {
     return response2graphqlObjects(response, graphqlStrainAttributes);
 }
+
+// Strain.dataSets does not have a reverse reference
+export const intermineStrainDataSetAttributes = [
+    'Strain.dataSets.id',
+    'Strain.dataSets.description',
+    'Strain.dataSets.licence',
+    'Strain.dataSets.url',
+    'Strain.dataSets.name',
+    'Strain.dataSets.version',
+    'Strain.dataSets.synopsis',
+    'Strain.dataSets.dataSource.name',  // resolve reference
+    'Strain.dataSets.publication.doi',  // resolve reference
+];
+export const intermineStrainDataSetSort = 'Strain.dataSets.name';
+// use IntermineDataSet
+

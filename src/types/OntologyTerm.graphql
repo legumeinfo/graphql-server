@@ -14,7 +14,7 @@
 # </class>
 # Perhaps overkill but SOTerm extends OntologyTerm so we'll define an interface.
 interface OntologyTerm implements HasDataSets {
-  id: ID!
+  ## OntologyTerm
   identifier: ID!
   description: String
   obsolete: Boolean

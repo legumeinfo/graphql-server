@@ -1,3 +1,4 @@
+# <class name="SOTerm" extends="OntologyTerm" is-interface="true" term="http://edamontology.org/data_0966"></class>
 type SOTerm implements OntologyTerm {
   id: ID!
   ## OntologyTerm

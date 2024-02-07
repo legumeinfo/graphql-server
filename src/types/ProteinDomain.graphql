@@ -10,14 +10,15 @@
 # 	<collection name="parentFeatures" referenced-type="ProteinDomain"/>
 # 	<collection name="contains" referenced-type="ProteinDomain"/>
 # </class>
+## Note: Synonym objects exist which have ProteinDomain subject.
 type ProteinDomain implements Annotatable {
-  # Annotatable
   id: ID!
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   dataSets: [DataSet!]!
-  # ProteinDomain
+  ## ProteinDomain
   description: String
   type: String
   name: String
@@ -25,7 +26,7 @@ type ProteinDomain implements Annotatable {
   genes: [Gene!]!
   geneFamilies: [GeneFamily!]!
   childFeatures: [ProteinDomain!]!
-  #  foundIn: [ProteinDomain!]! -- not currently populated in LIS mines
   parentFeatures: [ProteinDomain!]!
-  #  contains: [ProteinDomain!]! -- not currently populated in LIS mines
+  # foundIn: [ProteinDomain!]!  not currently populated in LIS mines
+  # contains: [ProteinDomain!]! not currently populated in LIS mines
 }
