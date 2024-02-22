@@ -13,7 +13,6 @@
 # 	<collection name="locations" referenced-type="Location" reverse-reference="feature"/>
 # 	<collection name="synonyms" referenced-type="Synonym" reverse-reference="subject" term="http://purl.obolibrary.org/obo/synonym"/>
 # 	<collection name="crossReferences" referenced-type="CrossReference" reverse-reference="subject" term="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
-# 	<collection name="dataSets" referenced-type="DataSet" reverse-reference="bioEntities" term="http://semanticscience.org/resource/SIO_001278"/>
 # 	<collection name="locatedFeatures" referenced-type="Location" reverse-reference="locatedOn"/>
 # </class>
 interface BioEntity implements Annotatable {
@@ -32,6 +31,5 @@ interface BioEntity implements Annotatable {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
 }

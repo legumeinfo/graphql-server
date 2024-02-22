@@ -7,7 +7,7 @@
 # 	<attribute name="synopsis" type="java.lang.String"/>
 # 	<reference name="dataSource" referenced-type="DataSource" reverse-reference="dataSets" term="http://purl.org/dc/terms/source"/>
 # 	<reference name="publication" referenced-type="Publication" term="http://purl.org/dc/terms/bibliographicCitation"/>
-# 	<collection name="bioEntities" referenced-type="BioEntity" reverse-reference="dataSets" term="http://semanticscience.org/resource/SIO_001277"/>
+# 	<collection name="entities" referenced-type="Annotatable" reverse-reference="dataSets" term="http://semanticscience.org/resource/SIO_001277"/>
 # </class>
 type DataSet {
   id: ID!
@@ -19,5 +19,5 @@ type DataSet {
   synopsis: String
   # dataSource
   publication: Publication
-  # bioEntities
+  # entities
 }
