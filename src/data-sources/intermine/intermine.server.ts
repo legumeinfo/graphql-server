@@ -150,8 +150,7 @@ export const response2graphqlObjects =
 
 
 // converts an Intermine response into a GraphQL PageInfo type
-// TODO: rename summaryResponse2graphqlObjects
-export const response2graphqlPageInfo =
+export const summmaryResponse2graphqlPageInfo =
     (response: IntermineSummaryResponse, page: number|null, pageSize: number|null):
     GraphQLPageInfo => {
         const numResults = response.uniqueValues;
