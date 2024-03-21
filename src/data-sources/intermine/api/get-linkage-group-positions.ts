@@ -1,9 +1,9 @@
 import {
     ApiResponse,
-    IntermineSummaryResponse,
+    IntermineCountResponse,
     intermineConstraint,
     interminePathQuery,
-    response2graphqlPageInfo,
+    countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
   GraphQLGeneticMarker,
@@ -32,8 +32,8 @@ export async function getLinkageGroupPositions(
     const dataPromise = this.pathQuery(query, {page, pageSize})
       .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response));
     // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'GeneticMarker.linkageGroupPositions.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    const pageInfoPromise = this.pathQueryCount(query)
+        .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
