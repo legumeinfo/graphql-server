@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // Phylotree InterMine path query attributes
@@ -9,23 +14,20 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const interminePhylotreeAttributes = [
-    'Phylotree.id',
-    'Phylotree.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('Phylotree'),
     'Phylotree.numLeaves',
     'Phylotree.geneFamily.primaryIdentifier',
 ];
 export const interminePhylotreeSort = 'Phylotree.primaryIdentifier';
 export type InterminePhylotree = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   number,
   string,
 ];
 
 
 export const graphqlPhylotreeAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'numLeaves',
     'geneFamilyIdentifier',
 ];

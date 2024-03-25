@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineSequenceFeature,
+  graphqlSequenceFeatureAttributes,
+  intermineSequenceFeatureAttributesFactory,
+} from './sequence-feature.js';
 
 // Annotatable
 // 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
@@ -27,29 +32,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion" term="http://purl.obolibrary.org/obo/SO_0000605"/>
 // 	<reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion" term="http://purl.obolibrary.org/obo/SO_0000605"/>
 export const intermineGeneAttributes = [
-    'Gene.id',
-    // Annotatable
-    'Gene.primaryIdentifier',
-    // BioEntity
-    'Gene.description',
-    'Gene.symbol',
-    'Gene.name',
-    'Gene.assemblyVersion',
-    'Gene.annotationVersion',
-    'Gene.secondaryIdentifier',
-    'Gene.organism.taxonId',   // reference resolution
-    'Gene.strain.identifier',  // reference resolution
-    // SequenceFeature
-    'Gene.score',
-    'Gene.scoreType',
-    'Gene.length',
-    'Gene.sequenceOntologyTerm.identifier', // reference resolution
-    'Gene.chromosomeLocation.id',   // reference resolution
-    'Gene.supercontigLocation.id',  // reference resolution
-    'Gene.sequence.id', // reference resolution
-    'Gene.chromosome.primaryIdentifier', // reference resolution
-    'Gene.supercontig.primaryIdentifier', // reference resolution
-    // Gene
+    ...intermineSequenceFeatureAttributesFactory('Gene'),
     'Gene.briefDescription',
     'Gene.ensemblName',
     'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
@@ -57,29 +40,7 @@ export const intermineGeneAttributes = [
 ];
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 export type IntermineGene = [
-    number,
-    // Annotatable
-    string,
-    // BioEntity
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    // SequenceFeature
-    number,
-    string,
-    number,
-    number,
-    number,
-    number,
-    number,
-    string,
-    string,
-    // Gene
+    ...IntermineSequenceFeature,
     string,
     string,
     string,
@@ -114,25 +75,7 @@ export type IntermineGene = [
 // 'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
 // 'Gene.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
 export const graphqlGeneAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'secondaryIdentifier',
-    'organismTaxonId',   // reference resolution
-    'strainIdentifier',  // reference resolution
-    'score',
-    'scoreType',
-    'length',
-    'sequenceOntologyTermIdentifier', // reference resolution
-    'chromosomeLocationId', // reference resolution
-    'supercontigLocationId', // reference resolution
-    'sequenceId', // reference resolution
-    'chromosomeIdentifier', // reference resolution
-    'supercontigIdentifier', // reference resolution
+    ...graphqlSequenceFeatureAttributes,
     'briefDescription',
     'ensemblName',
     'upstreamIntergenicRegionIdentifier', // reference resolution

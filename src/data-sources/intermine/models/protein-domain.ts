@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // ProteinDomain InterMine path query attributes
@@ -15,8 +20,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="contains" referenced-type="ProteinDomain"/>
 // </class>
 export const intermineProteinDomainAttributes = [
-    'ProteinDomain.id',
-    'ProteinDomain.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('ProteinDomain'),
     'ProteinDomain.description',
     'ProteinDomain.type',
     'ProteinDomain.name',
@@ -24,8 +28,7 @@ export const intermineProteinDomainAttributes = [
 ];
 export const intermineProteinDomainSort = 'ProteinDomain.primaryIdentifier';
 export type IntermineProteinDomain = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   string,
@@ -49,8 +52,7 @@ export type IntermineProteinDomain = [
 // # parentFeatures: [ProteinDomain]
 // # contains: [ProteinDomain]
 export const graphqlProteinDomainAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'type',
     'name',

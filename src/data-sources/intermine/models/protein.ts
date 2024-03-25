@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineBioEntity,
+  graphqlBioEntityAttributes,
+  intermineBioEntityAttributesFactory,
+} from './bio-entity.js';
 
 
 // Protein InterMine path query attributes
@@ -17,15 +22,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
 // </class>
 export const intermineProteinAttributes = [
-    'Protein.id',
-    'Protein.primaryIdentifier',
-    'Protein.description',
-    'Protein.symbol',
-    'Protein.name',
-    'Protein.assemblyVersion',
-    'Protein.annotationVersion',
-    'Protein.organism.taxonId',
-    'Protein.strain.identifier',
+    ...intermineBioEntityAttributesFactory('Protein'),
     'Protein.md5checksum',
     'Protein.primaryAccession',
     'Protein.molecularWeight',
@@ -34,15 +31,7 @@ export const intermineProteinAttributes = [
 ];
 export const intermineProteinSort = 'Protein.primaryIdentifier';
 export type IntermineProtein = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
+  ...IntermineBioEntity,
   string,
   string,
   number,
@@ -78,15 +67,7 @@ export type IntermineProtein = [
 //   # proteinMatches
 // }
 export const graphqlProteinAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'organismTaxonId',
-    'strainIdentifier',
+    ...graphqlBioEntityAttributes,
     'md5checksum',
     'primaryAccession',
     'molecularWeight',

@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 // <class name="GWAS" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="description" type="java.lang.String"/>
@@ -11,8 +16,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
 // </class>
 export const intermineGWASAttributes = [
-    'GWAS.id',
-    'GWAS.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('GWAS'),
     'GWAS.description',
     'GWAS.genotypes',
     'GWAS.genotypingMethod',
@@ -26,8 +30,7 @@ export const intermineGWASSort = 'GWAS.primaryIdentifier';
 //  [prop in typeof intermineGWASAttributes[number]]: string;
 //}
 export type IntermineGWAS = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   string,
@@ -54,8 +57,7 @@ export type IntermineGWAS = [
 //   results: [GWASResult!]!
 // }
 export const graphqlGWASAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'genotypes',
     'genotypingMethod',

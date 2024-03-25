@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 // <class name="GenotypingPlatform" extends="Annotatable" is-interface="true" term="">
 // 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
@@ -7,13 +12,11 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 //      <collection name="markers" referenced-type="GeneticMarker" reverse-reference="genotypingPlatforms"/>
 // </class>
 export const intermineGenotypingPlatformAttributes = [
-    'GenotypingPlatform.id',
-    'GenotypingPlatform.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('GenotypingPlatform'),
 ];
 export const intermineGenotypingPlatformSort = 'GenotypingPlatform.primaryIdentifier';
 export type IntermineGenotypingPlatform = [
-  number,
-  string,
+  ...IntermineAnnotatable,
 ];
 
 // type GenotypingPlatform implements Annotatable {
@@ -26,8 +29,7 @@ export type IntermineGenotypingPlatform = [
 //   markers: [GeneticMarker]
 // }
 export const graphqlGenotypingPlatformAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
 ];
 export type GraphQLGenotypingPlatform = {
   [prop in typeof graphqlGenotypingPlatformAttributes[number]]: string;

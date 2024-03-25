@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
@@ -19,8 +24,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="markers" referenced-type="GeneticMarker" reverse-reference="qtls"/>
 // </class>
 export const intermineQTLAttributes = [
-    'QTL.id',
-    'QTL.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('QTL'),
     'QTL.name',
     'QTL.lod',
     'QTL.likelihoodRatio',
@@ -36,8 +40,7 @@ export const intermineQTLAttributes = [
 ];
 export const intermineQTLSort = 'QTL.trait.name ASC QTL.primaryIdentifier ASC';
 export type IntermineQTL = [
-    number,
-    string,
+    ...IntermineAnnotatable,
     string,
     number,
     number,
@@ -72,8 +75,7 @@ export type IntermineQTL = [
 //   markers: [GeneticMarker]
 // }
 export const graphqlQTLAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'name',
     'lod',
     'likelihoodRatio',

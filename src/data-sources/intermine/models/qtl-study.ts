@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="QTLStudy" extends="Annotatable" is-interface="true" term="">
@@ -10,8 +15,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 // </class>
 export const intermineQTLStudyAttributes = [
-    'QTLStudy.id',
-    'QTLStudy.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('QTLStudy'),
     'QTLStudy.description',
     'QTLStudy.genotypes',
     'QTLStudy.synopsis',
@@ -20,8 +24,7 @@ export const intermineQTLStudyAttributes = [
 ];
 export const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
 export type IntermineQTLStudy = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   string,
@@ -43,8 +46,7 @@ export type IntermineQTLStudy = [
 //   qtls: [QTL]
 // }
 export const graphqlQTLStudyAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'genotypes',
     'synopsis',

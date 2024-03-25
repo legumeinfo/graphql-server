@@ -1,31 +1,18 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineSequenceFeature,
+  graphqlSequenceFeatureAttributes,
+  intermineSequenceFeatureAttributesFactory,
+} from './sequence-feature.js';
 
 
 // <class name="Supercontig" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000148"></class>
 export const intermineSupercontigAttributes = [
-    'Supercontig.id',
-    'Supercontig.primaryIdentifier',
-    'Supercontig.description',
-    'Supercontig.symbol',
-    'Supercontig.name',
-    'Supercontig.assemblyVersion',
-    'Supercontig.annotationVersion',
-    'Supercontig.length',
-    'Supercontig.organism.taxonId',   // internal resolution of organism
-    'Supercontig.strain.identifier',  // internal resolution of strain
+    ...intermineSequenceFeatureAttributesFactory('Supercontig'),
 ];
 export const intermineSupercontigSort = 'Supercontig.primaryIdentifier'; // guaranteed not null
 export type IntermineSupercontig = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  string,
+    ...IntermineSequenceFeature,
 ];
 
 
@@ -42,16 +29,7 @@ export type IntermineSupercontig = [
 //   length: Int
 // }
 export const graphqlSupercontigAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'length',
-    'organismTaxonId',  // internal resolution of organism
-    'strainIdentifier', // internal resolution of strain
+    ...graphqlSequenceFeatureAttributes,
 ];
 export type GraphQLSupercontig = {
   [prop in typeof graphqlSupercontigAttributes[number]]: string;

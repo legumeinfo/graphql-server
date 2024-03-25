@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineSequenceFeature,
+  graphqlSequenceFeatureAttributes,
+  intermineSequenceFeatureAttributesFactory,
+} from './sequence-feature.js';
 
 
 // <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
@@ -12,16 +17,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 // </class>
 export const intermineGeneticMarkerAttributes = [
-    'GeneticMarker.id',
-    'GeneticMarker.primaryIdentifier',
-    'GeneticMarker.description',
-    'GeneticMarker.symbol',
-    'GeneticMarker.name',
-    'GeneticMarker.assemblyVersion',
-    'GeneticMarker.annotationVersion',
-    'GeneticMarker.organism.taxonId',
-    'GeneticMarker.strain.identifier',
-    'GeneticMarker.length',
+    ...intermineSequenceFeatureAttributesFactory('GeneticMarker'),
     'GeneticMarker.motif',
     'GeneticMarker.alias',
     'GeneticMarker.type',
@@ -29,16 +25,7 @@ export const intermineGeneticMarkerAttributes = [
 ];
 export const intermineGeneticMarkerSort = 'GeneticMarker.primaryIdentifier';
 export type IntermineGeneticMarker = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  number,
+  ...IntermineSequenceFeature,
   string,
   string,
   string,
@@ -83,16 +70,7 @@ export type IntermineGeneticMarker = [
 //   linkageGroupPositions: [LinkageGroupPosition]
 // }
 export const graphqlGeneticMarkerAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'organismTaxonId',
-    'strainIdentifier',
-    'length',
+    ...graphqlSequenceFeatureAttributes,
     'motif',
     'alias',
     'type',

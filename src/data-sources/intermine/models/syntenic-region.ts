@@ -1,34 +1,21 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineSequenceFeature,
+  graphqlSequenceFeatureAttributes,
+  intermineSequenceFeatureAttributesFactory,
+} from './sequence-feature.js';
 
 
 // <class name="SyntenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0005858">
 // 	<reference name="syntenyBlock" referenced-type="SyntenyBlock" reverse-reference="syntenicRegions"/>
 // </class>
 export const intermineSyntenicRegionAttributes = [
-    'SyntenicRegion.id',
-    'SyntenicRegion.primaryIdentifier',
-    'SyntenicRegion.description',
-    'SyntenicRegion.symbol',
-    'SyntenicRegion.name',
-    'SyntenicRegion.assemblyVersion',
-    'SyntenicRegion.annotationVersion',
-    'SyntenicRegion.organism.taxonId',
-    'SyntenicRegion.strain.identifier',
-    'SyntenicRegion.length',
+    ...intermineSequenceFeatureAttributesFactory('SyntenicRegion'),
     'SyntenicRegion.syntenyBlock.id',
 ];
 export const intermineSyntenicRegionSort = 'SyntenicRegion.primaryIdentifier';
 export type IntermineSyntenicRegion = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  number,
+  ...IntermineSequenceFeature,
   number,
 ];
 
@@ -64,16 +51,7 @@ export type IntermineSyntenicRegion = [
 //   syntenyBlock: [SyntenyBlock]
 // }
 export const graphqlSyntenicRegionAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'symbol',
-    'name',
-    'assemblyVersion',
-    'annotationVersion',
-    'organismTaxonId',
-    'strainIdentifier',
-    'length',
+    ...graphqlSequenceFeatureAttributes,
     'syntenyBlockId',
 ];
 export type GraphQLSyntenicRegion = {

@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="GeneFamily" extends="Annotatable" is-interface="true" term="">
@@ -13,16 +18,14 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
 // </class>
 export const intermineGeneFamilyAttributes = [
-    'GeneFamily.id',
-    'GeneFamily.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('GeneFamily'),
     'GeneFamily.description',
     'GeneFamily.version',
     'GeneFamily.size',
 ];
 export const intermineGeneFamilySort = 'GeneFamily.primaryIdentifier';
 export type IntermineGeneFamily = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   number,
@@ -44,8 +47,7 @@ export type IntermineGeneFamily = [
 //   # tallies: [GeneFamilyTally]
 // }
 export const graphqlGeneFamilyAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'version',
     'size',

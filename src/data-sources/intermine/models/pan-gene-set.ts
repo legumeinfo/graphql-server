@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="PanGeneSet" extends="Annotatable" is-interface="true" term="">
@@ -8,13 +13,11 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const interminePanGeneSetAttributes = [
-    'PanGeneSet.id',
-    'PanGeneSet.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('PanGeneSet'),
 ];
 export const interminePanGeneSetSort = 'PanGeneSet.primaryIdentifier';
 export type InterminePanGeneSet = [
-  number,
-  string,
+    ...IntermineAnnotatable,
 ];
 
 
@@ -29,8 +32,7 @@ export type InterminePanGeneSet = [
 //   # dataSets [DataSet]
 // }
 export const graphqlPanGeneSetAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
 ];
 export type GraphQLPanGeneSet = {
   [prop in typeof graphqlPanGeneSetAttributes[number]]: string;

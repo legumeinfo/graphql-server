@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="SyntenyBlock" is-interface="true" term="">
@@ -8,12 +13,12 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const intermineSyntenyBlockAttributes = [
-    'SyntenyBlock.id',
+    ...intermineAnnotatableAttributesFactory('SyntenyBlock'),
     'SyntenyBlock.medianKs',
 ];
 export const intermineSyntenyBlockSort = 'SyntenyBlock.medianKs';
 export type IntermineSyntenyBlock = [
-  number,
+  ...IntermineAnnotatable,
   number,
 ];
 
@@ -26,7 +31,7 @@ export type IntermineSyntenyBlock = [
 //   # dataSets
 // }
 export const graphqlSyntenyBlockAttributes = [
-    'id',
+    ...graphqlAnnotatableAttributes,
     'medianKs',
 ];
 export type GraphQLSyntenyBlock = {

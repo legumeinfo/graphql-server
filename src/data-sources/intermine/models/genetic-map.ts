@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
@@ -12,8 +17,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const intermineGeneticMapAttributes = [
-    'GeneticMap.id',
-    'GeneticMap.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('GeneticMap'),
     'GeneticMap.description',
     'GeneticMap.genotypes',
     'GeneticMap.genotypingMethod',
@@ -23,8 +27,7 @@ export const intermineGeneticMapAttributes = [
 ];
 export const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
 export type IntermineGeneticMap = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   string,
@@ -49,8 +52,7 @@ export type IntermineGeneticMap = [
 //   # dataSets
 // }
 export const graphqlGeneticMapAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'genotypes',
     'genotypingMethod',

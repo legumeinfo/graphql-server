@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="ExpressionSource" extends="Annotatable" is-interface="true" term="">
@@ -14,8 +19,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="samples" referenced-type="ExpressionSample" reverse-reference="source"/>
 // </class>
 export const intermineExpressionSourceAttributes = [
-    'ExpressionSource.id',
-    'ExpressionSource.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('ExpressionSource'),
     'ExpressionSource.sra',
     'ExpressionSource.description',
     'ExpressionSource.bioProject',
@@ -28,8 +32,7 @@ export const intermineExpressionSourceAttributes = [
 ];
 export const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
 export type IntermineExpressionSource = [
-  number,
-  string,
+  ...IntermineAnnotatable,
   string,
   string,
   string,
@@ -59,8 +62,7 @@ export type IntermineExpressionSource = [
 //   samples: [ExpressionSample]
 // }
 export const graphqlExpressionSourceAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'sra',
     'description',
     'bioProject',

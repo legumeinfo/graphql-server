@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="Trait" extends="Annotatable" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
@@ -14,8 +19,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 
 // NOTE: one of Trait.qtlStudy or Trait.gwas is null, so we cannot grab those IDs here.
 export const intermineTraitAttributes = [
-    'Trait.id',
-    'Trait.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('Trait'),
     'Trait.description',
     'Trait.name',
     'Trait.dataSet.name',
@@ -23,8 +27,7 @@ export const intermineTraitAttributes = [
 ];
 export const intermineTraitSort = 'Trait.name';
 export type IntermineTrait = [
-    number,
-    string,
+    ...IntermineAnnotatable,
     string,
     string,
     string,
@@ -49,8 +52,7 @@ export type IntermineTrait = [
 // gwasResults: [GWASResult!]!
 // }
 export const graphqlTraitAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'description',
     'name',
     'dataSetName',

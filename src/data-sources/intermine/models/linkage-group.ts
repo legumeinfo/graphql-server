@@ -1,4 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
 
 // <class name="LinkageGroup" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000018">
@@ -11,8 +16,7 @@ import { IntermineDataResponse, response2graphqlObjects } from '../intermine.ser
 // 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const intermineLinkageGroupAttributes = [
-    'LinkageGroup.id',
-    'LinkageGroup.primaryIdentifier',
+    ...intermineAnnotatableAttributesFactory('LinkageGroup'),
     'LinkageGroup.name',
     'LinkageGroup.length',
     'LinkageGroup.number',
@@ -20,8 +24,7 @@ export const intermineLinkageGroupAttributes = [
 ];
 export const intermineLinkageGroupSort = 'LinkageGroup.primaryIdentifier';
 export type IntermineLinkageGroup = [
-    number,
-    string,
+    ...IntermineAnnotatable,
     string,
     number,
     number,
@@ -40,8 +43,7 @@ export type IntermineLinkageGroup = [
 //   # dataSets
 // }
 export const graphqlLinkageGroupAttributes = [
-    'id',
-    'identifier',
+    ...graphqlAnnotatableAttributes,
     'name',
     'length',
     'number',
