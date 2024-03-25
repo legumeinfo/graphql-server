@@ -4,7 +4,11 @@ import { GraphQLGeneticMarker } from './genetic-marker.js';
 import { GraphQLMRNA } from './mrna.js';
 import { GraphQLSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSupercontig } from './supercontig.js';
-import { graphqlBioEntityAttributes } from './bio-entity.js';
+import {
+  IntermineBioEntity,
+  graphqlBioEntityAttributes,
+  intermineBioEntityAttributesFactory,
+} from './bio-entity.js';
 
 
 export type GraphQLSequenceFeature =
@@ -16,18 +20,23 @@ export type GraphQLSequenceFeature =
   GraphQLSupercontig;
 
 
+export const intermineSequenceFeatureAttributesFactory = (type = 'SequenceFeature') => [
+    ...intermineBioEntityAttributesFactory(type),
+    'SequenceFeature.score',                           // SequenceFeature
+    'SequenceFeature.scoreType',                       // SequenceFeature
+    'SequenceFeature.length',                          // SequenceFeature
+    'SequenceFeature.sequenceOntologyTerm.identifier', // SequenceFeature - reference resolution
+    'SequenceFeature.chromosomeLocation.id',           // SequenceFeature - reference resolution
+    'SequenceFeature.supercontigLocation.id',          // SequenceFeature - reference resolution
+    'SequenceFeature.sequence.id',                     // SequenceFeature - reference resolution
+    'SequenceFeature.chromosome.primaryIdentifier',    // SequenceFeature - reference resolution
+    'SequenceFeature.supercontig.primaryIdentifier',   // SequenceFeature - reference resolution
+];
+
+
 // this may be used for any type that extends SequenceFeature without additional attributes or references
 export type IntermineSequenceFeature = [
-    number, // id
-    string, // primaryIdentifier
-    string, // description
-    string, // symbol
-    string, // name
-    string, // assemblyVersion
-    string, // annotationVersion
-    string, // secondaryIdentifier
-    number, // organism.taxonId
-    string, // strain.identifier
+    ...IntermineBioEntity,
     number, // score
     string, // scoreType
     number, // length
