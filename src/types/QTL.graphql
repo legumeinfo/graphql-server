@@ -20,6 +20,7 @@ type QTL implements Annotatable {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # QTL
   name: String
   lod: Float
