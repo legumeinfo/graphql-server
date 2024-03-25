@@ -28,5 +28,11 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+        panGeneSets: async (mRNA, { page, pageSize }, { dataSources }) => {
+            const args = {mRNA, page, pageSize};
+            return dataSources[sourceName].getPanGeneSets(args)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
     },
 });

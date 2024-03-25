@@ -1,66 +1,118 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
-// <class name="Gene" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000704,http://purl.obolibrary.org/obo/SO:0000704">
-//         <attribute name="briefDescription" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000136"/>
-//         <reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
-//         <reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion"/>
-//         <collection name="flankingRegions" referenced-type="GeneFlankingRegion" reverse-reference="gene"/>
-//         <collection name="introns" referenced-type="Intron" reverse-reference="genes"/>
-//         <collection name="proteins" referenced-type="Protein" reverse-reference="genes" term="https://semanticscience.org/resource/SIO_010078"/>
-//         <collection name="CDSs" referenced-type="CDS" reverse-reference="gene"/>
-//         <collection name="exons" referenced-type="Exon" reverse-reference="gene"/>
-//         <collection name="pathways" referenced-type="Pathway" reverse-reference="genes"/>
-//         <collection name="UTRs" referenced-type="UTR" reverse-reference="gene"/>
-//         <collection name="transcripts" referenced-type="Transcript" reverse-reference="gene"/>
-//         <collection name="alleles" referenced-type="Allele" reverse-reference="gene"/>
-//         <collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="genes"/>
-//         <collection name="proteinDomains" referenced-type="ProteinDomain" reverse-reference="genes"/>
-//         <collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment" reverse-reference="gene"/>
-//         <collection name="regulatoryRegions" referenced-type="RegulatoryRegion" reverse-reference="gene"/>
-// </class>
+// Annotatable
+// 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+// BioEntity
+// 	<attribute name="description" type="java.lang.String"/>
+// 	<attribute name="symbol" type="java.lang.String" term="http://www.w3.org/2004/02/skos/core//prefLabel"/>
+// 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema//label"/>
+// 	<attribute name="assemblyVersion" type="java.lang.String"/>
+// 	<attribute name="annotationVersion" type="java.lang.String"/>
+// 	<attribute name="secondaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
+// 	<reference name="organism" referenced-type="Organism" term="http://purl.org/net/orth//organism"/>
+// 	<reference name="strain" referenced-type="Strain" term="http://semanticscience.org/resource/SIO_010055"/>
+// SequenceFeature
+// 	<attribute name="score" type="java.lang.Double" term="http://edamontology.org/data_1772"/>
+// 	<attribute name="scoreType" type="java.lang.String" term="http://purl.org/dc/terms/type"/>
+// 	<attribute name="length" type="java.lang.Integer" term="http://purl.org/dc/terms/SizeOrDuration"/>
+// 	<reference name="sequenceOntologyTerm" referenced-type="SOTerm"/>
+// 	<reference name="supercontigLocation" referenced-type="Location"/>
+// 	<reference name="chromosomeLocation" referenced-type="Location"/>
+// 	<reference name="supercontig" referenced-type="Supercontig"/>
+// 	<reference name="sequence" referenced-type="Sequence"/>
+// 	<reference name="chromosome" referenced-type="Chromosome" term="http://purl.org/dc/terms/isPartOf"/>
+// Gene
+// 	<attribute name="briefDescription" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000136"/>
+// 	<attribute name="ensemblName" type="java.lang.String"/>
+// 	<reference name="upstreamIntergenicRegion" referenced-type="IntergenicRegion" term="http://purl.obolibrary.org/obo/SO_0000605"/>
+// 	<reference name="downstreamIntergenicRegion" referenced-type="IntergenicRegion" term="http://purl.obolibrary.org/obo/SO_0000605"/>
 export const intermineGeneAttributes = [
     'Gene.id',
+    // Annotatable
     'Gene.primaryIdentifier',
+    // BioEntity
     'Gene.description',
     'Gene.symbol',
     'Gene.name',
     'Gene.assemblyVersion',
     'Gene.annotationVersion',
+    'Gene.secondaryIdentifier',
+    'Gene.organism.taxonId',   // reference resolution
+    'Gene.strain.identifier',  // reference resolution
+    // SequenceFeature
+    'Gene.score',
+    'Gene.scoreType',
     'Gene.length',
+    'Gene.sequenceOntologyTerm.identifier', // reference resolution
+    'Gene.chromosomeLocation.id',   // reference resolution
+    'Gene.supercontigLocation.id',  // reference resolution
+    'Gene.sequence.id', // reference resolution
+    'Gene.chromosome.primaryIdentifier', // reference resolution
+    'Gene.supercontig.primaryIdentifier', // reference resolution
+    // Gene
     'Gene.briefDescription',
-    'Gene.organism.taxonId',   // internal resolution of organism
-    'Gene.strain.identifier',  // internal resolution of strain
+    'Gene.ensemblName',
+    'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
+    'Gene.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
 ];
 export const intermineGeneSort = 'Gene.primaryIdentifier'; // guaranteed not null
 export type IntermineGene = [
     number,
+    // Annotatable
+    string,
+    // BioEntity
     string,
     string,
     string,
     string,
     string,
     string,
+    string,
+    string,
+    // SequenceFeature
     number,
     string,
     number,
+    number,
+    number,
+    number,
+    number,
     string,
+    string,
+    // Gene
+    string,
+    string,
+    string,
+    string
 ];
 
-
-// type Gene implements SequenceFeature {
-//   id: ID!
-//   identifier: String!
-//   description: String
-//   symbol: String
-//   name: String
-//   assemblyVersion: String!
-//   annotationVersion: String!
-//   length: Int
-//   strain: Strain
-//   geneFamilyAssignments: [GeneFamilyAssignment]
-//   proteinDomains: [ProteinDomain]
-// }
+// 'Gene.id',
+// // Annotatable
+// 'Gene.primaryIdentifier',
+// // BioEntity
+// 'Gene.description',
+// 'Gene.symbol',
+// 'Gene.name',
+// 'Gene.assemblyVersion',
+// 'Gene.annotationVersion',
+// 'Gene.secondaryIdentifier',
+// 'Gene.organism.taxonId',   // reference resolution
+// 'Gene.strain.identifier',  // reference resolution
+// // SequenceFeature
+// 'Gene.score',
+// 'Gene.scoreType',
+// 'Gene.length',
+// 'Gene.sequenceOntologyTerm.identifier', // reference resolution
+// 'Gene.chromosomeLocation.id',   // reference resolution
+// 'Gene.supercontigLocation.id',  // reference resolution
+// 'Gene.sequence.id', // reference resolution
+// 'Gene.chromosome.primaryIdentifier', // reference resolution
+// 'Gene.supercontig.primaryIdentifier', // reference resolution
+// // Gene
+// 'Gene.briefDescription',
+// 'Gene.ensemblName',
+// 'Gene.upstreamIntergenicRegion.primaryIdentifier', // reference resolution
+// 'Gene.downstreamIntergenicRegion.primaryIdentifier', // reference resolution
 export const graphqlGeneAttributes = [
     'id',
     'identifier',
@@ -69,10 +121,22 @@ export const graphqlGeneAttributes = [
     'name',
     'assemblyVersion',
     'annotationVersion',
+    'secondaryIdentifier',
+    'organismTaxonId',   // reference resolution
+    'strainIdentifier',  // reference resolution
+    'score',
+    'scoreType',
     'length',
+    'sequenceOntologyTermIdentifier', // reference resolution
+    'chromosomeLocationId', // reference resolution
+    'supercontigLocationId', // reference resolution
+    'sequenceId', // reference resolution
+    'chromosomeIdentifier', // reference resolution
+    'supercontigIdentifier', // reference resolution
     'briefDescription',
-    'organismTaxonId',   // internal resolution of organism
-    'strainIdentifier',  // internal resolution of strain
+    'ensemblName',
+    'upstreamIntergenicRegionIdentifier', // reference resolution
+    'downstreamIntergenicRegionIdentifier' // reference resolution
 ];
 export type GraphQLGene = {
     [prop in typeof graphqlGeneAttributes[number]]: string;

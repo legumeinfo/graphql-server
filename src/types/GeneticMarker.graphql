@@ -1,37 +1,49 @@
 # <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
-# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
 # 	<attribute name="motif" type="java.lang.String"/>
 # 	<attribute name="alias" type="java.lang.String"/>
 # 	<attribute name="type" type="java.lang.String"/>
 # 	<attribute name="alleles" type="java.lang.String"/>
+# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 # 	<collection name="genotypingPlatforms" referenced-type="GenotypingPlatform" reverse-reference="markers"/>
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
 # 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
 # </class>
 type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
   id: ID!
+  ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  ## BioEntity
   description: String
   symbol: String
   name: String
   assemblyVersion: String
   annotationVersion: String
+  secondaryIdentifier: String
   organism: Organism
   strain: Strain
   locations: [Location!]!
   dataSets: [DataSet!]!
+  locatedFeatures: [Location!]!
+  ## SequenceFeature
+  score: Float
+  scoreType: String
   length: Int
+  sequenceOntologyTerm: SOTerm
+  supercontigLocation: Location
+  chromosomeLocation: Location
+  supercontig: Supercontig
+  chromosome: Chromosome
+  overlappingFeatures: [SequenceFeature!]!
+  childFeatures: [SequenceFeature!]!
   # GeneticMarker
   motif: String
   alias: String
   type: String
   alleles: String
+  qtls: [QTL!]!
   genotypingPlatforms: [GenotypingPlatform!]!
   gwasResults: [GWASResult!]!
   linkageGroupPositions: [LinkageGroupPosition!]!
-  qtls: [QTL!]!
 }

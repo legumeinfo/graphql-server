@@ -1,10 +1,11 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
 
-// <class name="PanGeneSet" extends="Annotatable" is-interface="true">
-//         <collection name="dataSets" referenced-type="DataSet"/>
-//         <collection name="genes" referenced-type="Gene" reverse-reference="panGeneSets"/>
-//         <collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
+// <class name="PanGeneSet" extends="Annotatable" is-interface="true" term="">
+// 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="panGeneSets"/>
+// 	<collection name="genes" referenced-type="Gene" reverse-reference="panGeneSets"/>
+// 	<collection name="proteins" referenced-type="Protein" reverse-reference="panGeneSets"/>
+// 	<collection name="dataSets" referenced-type="DataSet"/>
 // </class>
 export const interminePanGeneSetAttributes = [
     'PanGeneSet.id',
@@ -24,6 +25,7 @@ export type InterminePanGeneSet = [
 //   # publications
 //   genes: [Gene]
 //   proteins: [Protein]
+//   transcripts: [Transcript]
 //   # dataSets [DataSet]
 // }
 export const graphqlPanGeneSetAttributes = [

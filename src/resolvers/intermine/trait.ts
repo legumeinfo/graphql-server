@@ -24,6 +24,11 @@ ResolverMap => ({
     },
     Trait: {
         ...annotatableFactory(sourceName),
+        organism: async (trait, _, { dataSources }) => {
+            return dataSources[sourceName].getOrganism(trait.organismTaxonId)
+            // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         dataSet: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getDataSet(trait.dataSetName)
                 // @ts-ignore: implicit type any error

@@ -14,6 +14,7 @@
 # </class>
 type OntologyTerm {
   id: ID!
+  ## OntologyTerm
   identifier: ID!
   description: String
   obsolete: Boolean
@@ -22,8 +23,8 @@ type OntologyTerm {
   ontology: Ontology
   # relations
   # synonyms
-  # ontologyAnnotations
-  # parents
+  ontologyAnnotations: [OntologyAnnotation!]!
+  parents: [OntologyTerm!]!
   dataSets: [DataSet!]!
-  # crossReferences
+  crossReferences: [OntologyTerm!]!
 }
