@@ -25,8 +25,9 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         genes: async (pathway, { page, pageSize }, { dataSources }) => {
-            const args = {pathway: pathway, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const {id} = pathway;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGenesForPathway(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

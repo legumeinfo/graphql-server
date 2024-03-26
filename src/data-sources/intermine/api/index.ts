@@ -38,7 +38,15 @@ import { getExpressionValue } from './get-expression-value.js';
 import { searchExpressionValues } from './search-expression-values.js';
 // genes
 import { getGene } from './get-gene.js';
-import { getGenes } from './get-genes.js';
+import {
+  getGenesForGeneFamily,
+  getGenesForPanGeneSet,
+  getGenesForPathway,
+  getGenesForProtein,
+  getGenesForProteinDomain,
+  getAdjacentGenesForIntergenicRegion,
+  getGenesForQTL,
+} from './get-genes.js';
 import { searchGenes } from './search-genes.js';
 // gene family
 import { getGeneFamily } from './get-gene-family.js';
@@ -69,6 +77,8 @@ import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
 import { getGWASResults } from './get-gwas-results.js';
+// intergenic region
+import { getIntergenicRegion } from './get-intergenic-region.js';
 // intron
 import { getIntron } from './get-intron.js';
 import { getIntronsForGene, getIntronsForTranscript } from './get-introns.js';
@@ -202,7 +212,13 @@ export declare class ApiMixinInterface {
     searchExpressionValues: Function;
     // genes
     getGene: Function;
-    getGenes: Function;
+    getGenesForGeneFamily: Function;
+    getGenesForPanGeneSet: Function;
+    getGenesForPathway: Function;
+    getGenesForProtein: Function;
+    getGenesForProteinDomain: Function;
+    getAdjacentGenesForIntergenicRegion: Function;
+    getGenesForQTL: Function;
     searchGenes: Function;
     // gene family
     getGeneFamily: Function;
@@ -233,6 +249,8 @@ export declare class ApiMixinInterface {
     // gwas result
     getGWASResult: Function;
     getGWASResults: Function;
+    // intergenic region
+    getIntergenicRegion: Function;
     // intron
     getIntron: Function;
     getIntronsForGene: Function;
@@ -378,7 +396,13 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchExpressionValues = searchExpressionValues;
         // genes
         getGene = getGene;
-        getGenes = getGenes;
+        getGenesForGeneFamily = getGenesForGeneFamily;
+        getGenesForPanGeneSet = getGenesForPanGeneSet;
+        getGenesForPathway = getGenesForPathway;
+        getGenesForProtein = getGenesForProtein;
+        getGenesForProteinDomain = getGenesForProteinDomain;
+        getAdjacentGenesForIntergenicRegion = getAdjacentGenesForIntergenicRegion;
+        getGenesForQTL = getGenesForQTL;
         searchGenes = searchGenes;
         // gene family
         getGeneFamily = getGeneFamily;
@@ -409,6 +433,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // gwas result
         getGWASResult = getGWASResult;
         getGWASResults = getGWASResults;
+        // intergenic region
+        getIntergenicRegion = getIntergenicRegion;
         // intron
         getIntron = getIntron;
         getIntronsForGene = getIntronsForGene;

@@ -25,8 +25,9 @@ ResolverMap => ({
     ProteinDomain: {
         ...annotatableFactory(sourceName),
         genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const {id} = proteinDomain;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGenesForProteinDomain(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

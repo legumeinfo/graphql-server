@@ -4,6 +4,7 @@ import {
   graphqlAnnotatableAttributes,
   intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
+import { intermineGeneAttributesFactory } from './gene.js';
 
 
 // <class name="QTL" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0001645">
@@ -98,3 +99,7 @@ export type IntermineQTLResponse = IntermineDataResponse<IntermineQTL>;
 export function response2qtls(response: IntermineQTLResponse): Array<GraphQLQTL> {
     return response2graphqlObjects(response, graphqlQTLAttributes);
 }
+
+// QTL.genes does not have a reverse reference from Gene
+export const intermineQTLGenesAttributes = intermineGeneAttributesFactory('QTL.genes');
+export const intermineQTLGenesSort = 'QTL.genes.primaryIdentifier';

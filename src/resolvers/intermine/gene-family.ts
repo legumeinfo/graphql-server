@@ -34,8 +34,9 @@ export const geneFamilyFactory =
                 .then(({data: results}) => results);
         },
         genes: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
+            const {id} = geneFamily;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGenesForGeneFamily(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
