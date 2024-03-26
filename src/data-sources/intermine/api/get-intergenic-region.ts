@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLIntergenicRegion>> {
         intermineJoin('IntergenicRegion.chromosome', 'OUTER'),
         intermineJoin('IntergenicRegion.supercontig', 'OUTER'),
         intermineJoin('IntergenicRegion.chromosomeLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.supercontigLocation', 'OUTER')
+        intermineJoin('IntergenicRegion.supercontigLocation', 'OUTER'),
+        intermineJoin('IntergenicRegion.sequenceOntologyTerm', 'OUTER'),
     ];
     const query = interminePathQuery(
         intermineIntergenicRegionAttributes,
