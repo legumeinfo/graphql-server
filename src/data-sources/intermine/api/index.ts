@@ -94,7 +94,11 @@ import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
-import { getPanGeneSets } from './get-pan-gene-sets.js';
+import {
+  getPanGeneSetsForGene,
+  getPanGeneSetsForTranscript,
+  getPanGeneSetsForProtein,
+} from './get-pan-gene-sets.js';
 // pathway
 import { getPathway } from './get-pathway.js';
 import { getPathways } from './get-pathways.js';
@@ -244,7 +248,9 @@ export declare class ApiMixinInterface {
     searchOrganisms: Function;
     // pan-gene set
     getPanGeneSet: Function;
-    getPanGeneSets: Function;
+    getPanGeneSetsForGene: Function;
+    getPanGeneSetsForTranscript: Function;
+    getPanGeneSetsForProtein: Function;
     // pathway
     getPathway: Function;
     getPathways: Function;
@@ -407,7 +413,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchOrganisms = searchOrganisms;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
-        getPanGeneSets = getPanGeneSets;
+        getPanGeneSetsForGene = getPanGeneSetsForGene;
+        getPanGeneSetsForTranscript = getPanGeneSetsForTranscript;
+        getPanGeneSetsForProtein = getPanGeneSetsForProtein;
         // pathway
         getPathway = getPathway;
         getPathways = getPathways;

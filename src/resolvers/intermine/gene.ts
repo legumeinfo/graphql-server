@@ -62,8 +62,9 @@ export const geneFactory =
             },
 
             panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getPanGeneSets(args)
+                const {id} = gene;
+                const args = {page, pageSize};
+                return dataSources[sourceName].getPanGeneSetsForGene(id, args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
