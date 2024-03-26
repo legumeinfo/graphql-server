@@ -3,6 +3,8 @@ import { IntermineServer } from '../intermine.server.js';
 // author
 import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
+// cds
+import { getCDS } from './get-cds.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // data set
@@ -150,6 +152,8 @@ export declare class ApiMixinInterface {
     // author
     getAuthor: Function;
     getAuthors: Function;
+    // cds
+    getCDS: Function;
     // chromosome
     getChromosome: Function;
     // data set
@@ -305,6 +309,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // author
         getAuthor = getAuthor;
         getAuthors = getAuthors;
+        // cds
+        getCDS = getCDS;
         // chromosome
         getChromosome = getChromosome;
         // data set
