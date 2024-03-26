@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLUTR>> {
         intermineJoin('UTR.chromosome', 'OUTER'),
         intermineJoin('UTR.supercontig', 'OUTER'),
         intermineJoin('UTR.chromosomeLocation', 'OUTER'),
-        intermineJoin('UTR.supercontigLocation', 'OUTER')
+        intermineJoin('UTR.supercontigLocation', 'OUTER'),
+        intermineJoin('UTR.sequenceOntologyTerm', 'OUTER'),
     ];
     const query = interminePathQuery(
         intermineUTRAttributes,
