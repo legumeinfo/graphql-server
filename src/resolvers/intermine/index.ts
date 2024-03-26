@@ -42,7 +42,6 @@ import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
 import { strainFactory } from './strain.js';
 import { traitFactory } from './trait.js';
-import { transcriptFactory } from './transcript.js';
 
 
 const factories = [
@@ -83,7 +82,6 @@ const factories = [
     syntenicRegionFactory,
     syntenyBlockFactory,
     traitFactory,
-    transcriptFactory,
 ];
 
 
