@@ -138,6 +138,9 @@ import { searchStrains } from './search-strains.js';
 // trait
 import { getTrait } from './get-trait.js';
 import { searchTraits } from './search-traits.js';
+// transcripts
+import { getTranscript } from './get-transcript.js';
+import { getTranscriptsForExon, getTranscriptsForGene, getTranscriptsForPanGeneSet, getTranscriptsForUTR } from './get-transcripts.js';
 // mine web properties
 import { getMineWebProperties } from './get-mine-web-properties.js';
 
@@ -285,6 +288,12 @@ export declare class ApiMixinInterface {
     // trait
     getTrait: Function;
     searchTraits: Function;
+    // transcript
+    getTranscript: Function;
+    getTranscriptsForExon: Function;
+    getTranscriptsForGene: Function;
+    getTranscriptsForPanGeneSet: Function;
+    getTranscriptsForUTR: Function;
     // mine web properties
     getMineWebProperties: Function;
 }
@@ -442,6 +451,12 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // trait
         getTrait = getTrait;
         searchTraits = searchTraits;
+        // transcript
+        getTranscript = getTranscript;
+        getTranscriptsForExon = getTranscriptsForExon;
+        getTranscriptsForGene = getTranscriptsForGene;
+        getTranscriptsForPanGeneSet = getTranscriptsForPanGeneSet;
+        getTranscriptsForUTR = getTranscriptsForUTR;
         // mine web properties
         getMineWebProperties = getMineWebProperties;
     }

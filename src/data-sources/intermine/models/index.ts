@@ -39,6 +39,7 @@ import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-regio
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
 import { GraphQLStrain, IntermineStrain } from './strain.js';
 import { GraphQLTrait, IntermineTrait } from './trait.js';
+import { GraphQLTranscript, IntermineTranscript } from './transcript.js';
 
 
 export type GraphQLModel =
@@ -81,7 +82,8 @@ export type GraphQLModel =
     GraphQLSyntenicRegion |
     GraphQLSyntenyBlock |
     GraphQLStrain |
-    GraphQLTrait;
+    GraphQLTrait |
+    GraphQLTranscript;
 
 
 export type IntermineModel =
@@ -124,7 +126,8 @@ export type IntermineModel =
     IntermineSyntenicRegion |
     IntermineSyntenyBlock |
     IntermineStrain |
-    IntermineTrait;
+    IntermineTrait |
+    IntermineTranscript;
 
 
 export * from './annotatable.js';
@@ -170,3 +173,4 @@ export * from './syntenic-region.js';
 export * from './synteny-block.js';
 export * from './strain.js';
 export * from './trait.js';
+export * from './transcript.js';
