@@ -21,7 +21,8 @@ Promise<ApiResponse<GraphQLExon>> {
         intermineJoin('Exon.chromosome', 'OUTER'),
         intermineJoin('Exon.supercontig', 'OUTER'),
         intermineJoin('Exon.chromosomeLocation', 'OUTER'),
-        intermineJoin('Exon.supercontigLocation', 'OUTER')
+        intermineJoin('Exon.supercontigLocation', 'OUTER'),
+        intermineJoin('Exon.sequenceOntologyTerm', 'OUTER'),
     ];
     const query = interminePathQuery(
         intermineExonAttributes,

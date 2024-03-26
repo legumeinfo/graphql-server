@@ -3,6 +3,7 @@ import { GraphQLAuthor, IntermineAuthor } from './author.js';
 import { GraphQLCDS, IntermineCDS } from './cds.js';
 import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
 import { GraphQLDataSet, IntermineDataSet } from './data-set.js';
+import { GraphQLExon, IntermineExon } from './exon.js';
 import { GraphQLExpressionSample, IntermineExpressionSample } from './expression-sample.js';
 import { GraphQLExpressionSource, IntermineExpressionSource } from './expression-source.js';
 import { GraphQLExpressionValue, IntermineExpressionValue } from './expression-value.js';
@@ -47,6 +48,7 @@ export type GraphQLModel =
     GraphQLCDS |
     GraphQLChromosome |
     GraphQLDataSet |
+    GraphQLExon |
     GraphQLExpressionSample |
     GraphQLExpressionSource |
     GraphQLExpressionValue |
@@ -91,6 +93,7 @@ export type IntermineModel =
     IntermineCDS |
     IntermineChromosome |
     IntermineDataSet |
+    IntermineExon |
     IntermineExpressionSample |
     IntermineExpressionSource |
     IntermineExpressionValue |
@@ -136,6 +139,7 @@ export * from './bio-entity.js';
 export * from './cds.js';
 export * from './chromosome.js';
 export * from './data-set.js';
+export * from './exon.js';
 export * from './expression-sample.js';
 export * from './expression-source.js';
 export * from './expression-value.js';

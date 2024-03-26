@@ -23,6 +23,9 @@ import {
     getDataSetsForPhylotree,
     getDataSetsForSyntenyBlock,
 } from './get-data-sets.js';
+// exon
+import { getExon } from './get-exon.js';
+import { getExonsForTranscript } from './get-exons.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
 import { getExpressionSamples } from './get-expression-samples.js';
@@ -178,6 +181,9 @@ export declare class ApiMixinInterface {
     getDataSetsForPanGeneSet: Function;
     getDataSetsForPhylotree: Function;
     getDataSetsForSyntenyBlock: Function;
+    // exon
+    getExon: Function;
+    getExonsForTranscript: Function;
     // expression sample
     getExpressionSample: Function;
     getExpressionSamples: Function;
@@ -344,6 +350,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPhylotree = getDataSetsForPhylotree;
         getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+        // exon
+        getExon = getExon;
+        getExonsForTranscript = getExonsForTranscript;
         // expression sample
         getExpressionSample = getExpressionSample;
         getExpressionSamples = getExpressionSamples;
