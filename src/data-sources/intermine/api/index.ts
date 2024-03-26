@@ -147,6 +147,8 @@ import { searchQTLs } from './search-qtls.js';
 import { getQTLStudy } from './get-qtl-study.js';
 import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
+// sequence
+import { getSequence } from './get-sequence.js';
 // supercontig
 import { getSupercontig } from './get-supercontig.js';
 // syntenic region
@@ -320,6 +322,8 @@ export declare class ApiMixinInterface {
     getQTLStudy: Function;
     getQTLStudyForTrait: Function;
     searchQTLStudies: Function;
+    // sequence
+    getSequence: Function;
     // supercontig
     getSupercontig: Function;
     // syntenic region
@@ -506,6 +510,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getQTLStudy = getQTLStudy;
         getQTLStudyForTrait = getQTLStudyForTrait;
         searchQTLStudies = searchQTLStudies;
+        // sequence
+        getSequence = getSequence;
         // supercontig
         getSupercontig = getSupercontig;
         // syntenic region

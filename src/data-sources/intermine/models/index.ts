@@ -38,6 +38,7 @@ import { GraphQLProteinMatch, IntermineProteinMatch } from './protein-match.js';
 import { GraphQLPublication, InterminePublication } from './publication.js';
 import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
+import { GraphQLSequence, IntermineSequence } from './sequence.js';
 import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
 import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
@@ -87,6 +88,7 @@ export type GraphQLModel =
     GraphQLPublication |
     GraphQLQTL |
     GraphQLQTLStudy |
+    GraphQLSequence |
     GraphQLSupercontig |
     GraphQLSyntenicRegion |
     GraphQLSyntenyBlock |
@@ -136,6 +138,7 @@ export type IntermineModel =
     InterminePublication |
     IntermineQTL |
     IntermineQTLStudy |
+    IntermineSequence |
     IntermineSupercontig |
     IntermineSyntenicRegion |
     IntermineSyntenyBlock |
@@ -186,6 +189,7 @@ export * from './protein-match.js';
 export * from './publication.js';
 export * from './qtl.js';
 export * from './qtl-study.js';
+export * from './sequence.js';
 export * from './sequence-feature.js';
 export * from './supercontig.js';
 export * from './syntenic-region.js';
