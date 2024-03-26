@@ -17,6 +17,7 @@ import { GraphQLGeneticMarker, IntermineGeneticMarker } from './genetic-marker.j
 import { GraphQLGenotypingPlatform, IntermineGenotypingPlatform } from './genotyping-platform.js';
 import { GraphQLGWAS, IntermineGWAS } from './gwas.js';
 import { GraphQLGWASResult, IntermineGWASResult } from './gwas-result.js';
+import { GraphQLIntron, IntermineIntron } from './intron.js';
 import { GraphQLLinkageGroup, IntermineLinkageGroup } from './linkage-group.js';
 import { GraphQLLinkageGroupPosition, IntermineLinkageGroupPosition } from './linkage-group-position.js';
 import { GraphQLLocation, IntermineLocation } from './location.js';
@@ -62,6 +63,7 @@ export type GraphQLModel =
     GraphQLGenotypingPlatform |
     GraphQLGWAS |
     GraphQLGWASResult |
+    GraphQLIntron |
     GraphQLLinkageGroup |
     GraphQLLinkageGroupPosition |
     GraphQLLocation |
@@ -107,6 +109,7 @@ export type IntermineModel =
     IntermineGenotypingPlatform |
     IntermineGWAS |
     IntermineGWASResult |
+    IntermineIntron |
     IntermineLinkageGroup |
     IntermineLinkageGroupPosition |
     IntermineLocation |
@@ -153,6 +156,7 @@ export * from './genetic-marker.js';
 export * from './genotyping-platform.js';
 export * from './gwas.js';
 export * from './gwas-result.js';
+export * from './intron.js';
 export * from './linkage-group.js';
 export * from './linkage-group-position.js';
 export * from './location.js';

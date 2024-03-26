@@ -69,6 +69,9 @@ import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
 import { getGWASResults } from './get-gwas-results.js';
+// intron
+import { getIntron } from './get-intron.js';
+import { getIntronsForGene, getIntronsForTranscript } from './get-introns.js';
 // linkage group
 import { getLinkageGroup } from './get-linkage-group.js';
 import { getLinkageGroups } from './get-linkage-groups.js';
@@ -227,6 +230,10 @@ export declare class ApiMixinInterface {
     // gwas result
     getGWASResult: Function;
     getGWASResults: Function;
+    // intron
+    getIntron: Function;
+    getIntronsForGene: Function;
+    getIntronsForTranscript: Function;
     // linkage group
     getLinkageGroup: Function;
     getLinkageGroups: Function;
@@ -396,6 +403,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // gwas result
         getGWASResult = getGWASResult;
         getGWASResults = getGWASResults;
+        // intron
+        getIntron = getIntron;
+        getIntronsForGene = getIntronsForGene;
+        getIntronsForTranscript = getIntronsForTranscript;
         // linkage group
         getLinkageGroup = getLinkageGroup;
         getLinkageGroups = getLinkageGroups;
