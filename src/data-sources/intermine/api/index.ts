@@ -5,6 +5,7 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // cds
 import { getCDS } from './get-cds.js';
+import { getCDSsForTranscript } from './get-cdss.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 // data set
@@ -161,6 +162,7 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // cds
     getCDS: Function;
+    getCDSsForTranscript: Function;
     // chromosome
     getChromosome: Function;
     // data set
@@ -326,6 +328,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // cds
         getCDS = getCDS;
+        getCDSsForTranscript = getCDSsForTranscript;
         // chromosome
         getChromosome = getChromosome;
         // data set
