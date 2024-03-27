@@ -26,6 +26,7 @@ import { locationFactory } from './location.js';
 import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
+import { ontologyRelationFactory } from './ontology-relation.js';
 import { ontologyTermFactory } from './ontology-term.js';
 import { ontologyTermSynonymFactory } from './ontology-term-synonym.js';
 import { organismFactory } from './organism.js';
@@ -69,6 +70,7 @@ const factories = [
     mRNAFactory,
     ontologyFactory,
     ontologyAnnotationFactory,
+    ontologyRelationFactory,
     ontologyTermFactory,
     ontologyTermSynonymFactory,
     organismFactory,

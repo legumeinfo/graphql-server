@@ -166,6 +166,10 @@ type OntologyAnnotationResults {
   results: OntologyAnnotation
 }
 
+type OntologyRelationResults {
+  results: OntologyRelation
+}
+
 type PhylonodeResults {
   results: Phylonode
 }
@@ -323,6 +327,7 @@ type Query {
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults
   location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
+  ontologyRelation(id: ID!): OntologyRelationResults
   phylonode(id: ID!): PhylonodeResults
   syntenyBlock(id: ID!): SyntenyBlockResults
 

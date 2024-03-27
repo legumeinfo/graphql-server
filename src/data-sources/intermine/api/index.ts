@@ -101,6 +101,9 @@ import { getOntology } from './get-ontology.js';
 // ontology annotation
 import { getOntologyAnnotation } from './get-ontology-annotation.js';
 import { getOntologyAnnotations } from './get-ontology-annotations.js';
+// ontology relation
+import { getOntologyRelation } from './get-ontology-relation.js';
+import { getOntologyRelationsForOntologyTerm } from './get-ontology-relations.js';
 // ontology term
 import { getOntologyTerm } from './get-ontology-term.js';
 import {
@@ -287,6 +290,9 @@ export declare class ApiMixinInterface {
     // ontology annotation
     getOntologyAnnotation: Function;
     getOntologyAnnotations: Function;
+    // ontology relation
+    getOntologyRelation: Function;
+    getOntologyRelationsForOntologyTerm: Function;
     // ontology term
     getOntologyTerm: Function;
     getOntologyTermsForTrait: Function;
@@ -482,6 +488,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // ontology annotation
         getOntologyAnnotation = getOntologyAnnotation;
         getOntologyAnnotations = getOntologyAnnotations;
+        // ontology relation
+        getOntologyRelation = getOntologyRelation;
+        getOntologyRelationsForOntologyTerm = getOntologyRelationsForOntologyTerm;
         // ontology term
         getOntologyTerm = getOntologyTerm;
         getOntologyTermsForTrait = getOntologyTermsForTrait;

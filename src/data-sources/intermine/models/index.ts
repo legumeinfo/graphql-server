@@ -24,6 +24,7 @@ import { GraphQLLinkageGroupPosition, IntermineLinkageGroupPosition } from './li
 import { GraphQLLocation, IntermineLocation } from './location.js';
 import { GraphQLOntology, IntermineOntology } from './ontology.js';
 import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
+import { GraphQLOntologyRelation, IntermineOntologyRelation } from './ontology-relation.js';
 import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
 import { GraphQLOntologyTermSynonym, IntermineOntologyTermSynonym } from './ontology-term-synonym.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
@@ -75,6 +76,7 @@ export type GraphQLModel =
     GraphQLLocation |
     GraphQLOntology |
     GraphQLOntologyAnnotation |
+    GraphQLOntologyRelation |
     GraphQLOntologyTerm |
     GraphQLOntologyTermSynonym |
     GraphQLOrganism |
@@ -126,6 +128,7 @@ export type IntermineModel =
     IntermineLocation |
     IntermineOntology |
     IntermineOntologyAnnotation |
+    IntermineOntologyRelation |
     IntermineOntologyTerm |
     IntermineOntologyTermSynonym |
     IntermineOrganism |
@@ -178,6 +181,7 @@ export * from './linkage-group-position.js';
 export * from './location.js';
 export * from './ontology.js';
 export * from './ontology-annotation.js';
+export * from './ontology-relation.js';
 export * from './ontology-term.js';
 export * from './ontology-term-synonym.js';
 export * from './organism.js';
