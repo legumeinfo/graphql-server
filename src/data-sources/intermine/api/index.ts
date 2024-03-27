@@ -11,18 +11,14 @@ import { getChromosome } from './get-chromosome.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import {
-    getDataSetsForBioEntity,
+    getDataSetsForAnnotatable,
     getDataSetsForDataSource,
-    getDataSetsForGeneticMap,
-    getDataSetsForLinkageGroup,
     getDataSetsForLocation,
-    getDataSetsForOntologyAnnotation,
     getDataSetsForOntology,
+    getDataSetsForOntologyAnnotation,
     getDataSetsForOntologyTerm,
-    getDataSetsForPanGeneSet,
-    getDataSetsForPathway,
-    getDataSetsForPhylotree,
-    getDataSetsForSyntenyBlock,
+    getDataSetsForOrganism,
+    getDataSetsForStrain,
 } from './get-data-sets.js';
 // data source
 import { getDataSource } from './get-data-source.js';
@@ -205,18 +201,14 @@ export declare class ApiMixinInterface {
     getChromosome: Function;
     // data set
     getDataSet: Function;
-    getDataSetsForBioEntity: Function;
+    getDataSetsForAnnotatable: Function;
     getDataSetsForDataSource: Function;
-    getDataSetsForGeneticMap: Function;
-    getDataSetsForLinkageGroup: Function;
     getDataSetsForLocation: Function;
-    getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntology: Function;
+    getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntologyTerm: Function;
-    getDataSetsForPathway: Function;
-    getDataSetsForPanGeneSet: Function;
-    getDataSetsForPhylotree: Function;
-    getDataSetsForSyntenyBlock: Function;
+    getDataSetsForOrganism: Function;
+    getDataSetsForStrain: Function;
     // data source
     getDataSource: Function;
     // exon
@@ -406,18 +398,14 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getChromosome = getChromosome;
         // data set
         getDataSet = getDataSet;
-        getDataSetsForBioEntity = getDataSetsForBioEntity;
+        getDataSetsForAnnotatable = getDataSetsForAnnotatable;
         getDataSetsForDataSource = getDataSetsForDataSource;
-        getDataSetsForGeneticMap = getDataSetsForGeneticMap;
-        getDataSetsForLinkageGroup = getDataSetsForLinkageGroup;
         getDataSetsForLocation = getDataSetsForLocation;
-        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntology = getDataSetsForOntology;
+        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
-        getDataSetsForPathway = getDataSetsForPathway;
-        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
-        getDataSetsForPhylotree = getDataSetsForPhylotree;
-        getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+        getDataSetsForOrganism = getDataSetsForOrganism;
+        getDataSetsForStrain = getDataSetsForStrain;
         // data source
         getDataSource = getDataSource;
         // exon
