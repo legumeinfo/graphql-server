@@ -191,6 +191,7 @@ export * from './qtl.js';
 export * from './qtl-study.js';
 export * from './sequence.js';
 export * from './sequence-feature.js';
+export * from './so-term.js';
 export * from './supercontig.js';
 export * from './syntenic-region.js';
 export * from './synteny-block.js';

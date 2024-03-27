@@ -24,7 +24,7 @@ ResolverMap => ({
     OntologyTerm: {
         // Note: ontology is sometimes null so we have to do a secondary query here
         ontology: async (ontologyTerm, _, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm)
+            return dataSources[sourceName].getOntology(ontologyTerm.ontologyName)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

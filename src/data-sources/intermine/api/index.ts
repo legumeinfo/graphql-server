@@ -103,8 +103,13 @@ import { getOntologyAnnotation } from './get-ontology-annotation.js';
 import { getOntologyAnnotations } from './get-ontology-annotations.js';
 // ontology term
 import { getOntologyTerm } from './get-ontology-term.js';
-import { getOntologyTerms } from './get-ontology-terms.js';
-import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
+import {
+  getOntologyTermsForTrait,
+  getParentsForOntologyTerm,
+  getParentsForSOTerm,
+  getCrossReferencesForOntologyTerm,
+} from './get-ontology-terms.js';
+//import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
@@ -149,6 +154,8 @@ import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
 // sequence
 import { getSequence } from './get-sequence.js';
+// SO term
+import { getSOTerm } from './get-so-term.js';
 // supercontig
 import { getSupercontig } from './get-supercontig.js';
 // syntenic region
@@ -280,8 +287,11 @@ export declare class ApiMixinInterface {
     getOntologyAnnotations: Function;
     // ontology term
     getOntologyTerm: Function;
-    getOntologyTerms: Function;
-    getOntologyTermOntology: Function;
+    getOntologyTermsForTrait: Function;
+    getParentsForOntologyTerm: Function;
+    getParentsForSOTerm: Function;
+    getCrossReferencesForOntologyTerm: Function;
+    //getOntologyTermOntology: Function;
     searchOntologyTerms: Function;
     // organism
     getOrganism: Function;
@@ -324,6 +334,8 @@ export declare class ApiMixinInterface {
     searchQTLStudies: Function;
     // sequence
     getSequence: Function;
+    // SO term
+    getSOTerm: Function;
     // supercontig
     getSupercontig: Function;
     // syntenic region
@@ -468,8 +480,11 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntologyAnnotations = getOntologyAnnotations;
         // ontology term
         getOntologyTerm = getOntologyTerm;
-        getOntologyTerms = getOntologyTerms;
-        getOntologyTermOntology = getOntologyTermOntology;
+        getOntologyTermsForTrait = getOntologyTermsForTrait;
+        getParentsForOntologyTerm = getParentsForOntologyTerm;
+        getParentsForSOTerm = getParentsForSOTerm;
+        getCrossReferencesForOntologyTerm = getCrossReferencesForOntologyTerm;
+        //getOntologyTermOntology = getOntologyTermOntology;
         searchOntologyTerms = searchOntologyTerms;
         // organism
         getOrganism = getOrganism;
@@ -512,6 +527,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchQTLStudies = searchQTLStudies;
         // sequence
         getSequence = getSequence;
+        // SO term
+        getSOTerm = getSOTerm;
         // supercontig
         getSupercontig = getSupercontig;
         // syntenic region
