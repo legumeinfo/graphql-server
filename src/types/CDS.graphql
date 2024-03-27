@@ -2,7 +2,7 @@
 # 	<attribute name="isPrimary" type="java.lang.Boolean"/>
 # 	<reference name="transcript" referenced-type="Transcript" reverse-reference="CDSs"/>
 # </class>
-type CDS implements SequenceFeature & BioEntity & Annotatable {
+type CDS implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
   id: ID!
   ## Annotatable
   identifier: ID!

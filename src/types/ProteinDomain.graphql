@@ -10,7 +10,7 @@
 # 	<collection name="parentFeatures" referenced-type="ProteinDomain"/>
 # 	<collection name="contains" referenced-type="ProteinDomain"/>
 # </class>
-type ProteinDomain implements Annotatable {
+type ProteinDomain implements Annotatable & HasDataSets {
   # Annotatable
   id: ID!
   identifier: ID!

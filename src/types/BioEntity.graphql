@@ -15,7 +15,7 @@
 # 	<collection name="crossReferences" referenced-type="CrossReference" reverse-reference="subject" term="http://www.geneontology.org/formats/oboInOwl#hasDbXref"/>
 # 	<collection name="locatedFeatures" referenced-type="Location" reverse-reference="locatedOn"/>
 # </class>
-interface BioEntity implements Annotatable {
+interface BioEntity implements Annotatable & HasDataSets {
   id: ID!
   ## Annotatable
   identifier: ID!

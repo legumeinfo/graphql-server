@@ -8,7 +8,7 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="trait"/>
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
-type Trait implements Annotatable {
+type Trait implements Annotatable & HasDataSets {
   # Annotatable
   id: ID!
   identifier: ID!

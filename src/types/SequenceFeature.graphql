@@ -14,7 +14,7 @@
 # 	<collection name="overlappingFeatures" referenced-type="SequenceFeature"/>
 # 	<collection name="childFeatures" referenced-type="SequenceFeature"/>
 # </class>
-interface SequenceFeature implements BioEntity & Annotatable {
+interface SequenceFeature implements BioEntity & Annotatable & HasDataSets {
   id: ID!
   ## Annotatable
   identifier: ID!
