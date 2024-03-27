@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const ontologyAnnotationFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,14 +17,9 @@ ResolverMap => ({
         },
     },
     OntologyAnnotation: {
+        ...hasDataSetsFactory(sourceName),
         ontologyTerm: async(ontologyAnnotation, _, { dataSources }) => {
             return dataSources[sourceName].getOntologyTerm(ontologyAnnotation.ontologyTermId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (ontologyAnnotation, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForOntologyAnnotation(ontologyAnnotation, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

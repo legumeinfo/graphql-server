@@ -23,10 +23,4 @@ export const bioEntityFactory =
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    dataSets: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {page, pageSize};
-        return dataSources[sourceName].getDataSetsForBioEntity(bioEntity, args)
-            // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
 });

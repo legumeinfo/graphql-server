@@ -29,11 +29,6 @@ ResolverMap => ({
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async (trait, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(trait.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         qtlStudy: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudyForTrait(trait)
                 // @ts-ignore: implicit type any error

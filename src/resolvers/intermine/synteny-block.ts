@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { annotatableFactory } from './annotatable.js';
 
 
 export const syntenyBlockFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,15 +17,10 @@ ResolverMap => ({
         },
     },
     SyntenyBlock: {
+        ...annotatableFactory(sourceName),
         syntenicRegions: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
             const args = {syntenyBlock, page, pageSize};
             return dataSources[sourceName].getSyntenicRegions(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForSyntenyBlock(syntenyBlock, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

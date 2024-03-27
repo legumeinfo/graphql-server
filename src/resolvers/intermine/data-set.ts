@@ -31,54 +31,44 @@ SubfieldResolverMap => ({
         let request: Promise<any>|null = null;
 
         const interfaces = info.parentType.getInterfaces().map(({name}) => name);
-        if (interfaces.includes('BioEntity')) {
+        if (interfaces.includes('Annotatable')) {
+            const {id} = parent;
             const args = {page, pageSize};
-            request = dataSources[sourceName].getDataSetsForBioEntity(parent, args);
+            request = dataSources[sourceName].getDataSetsForAnnotatable(id, args);
+        } else if (interfaces.includes('OntologyTerm')) {
+            const {id} = parent;
+            const args = {page, pageSize};
+            request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
         }
 
         const typeName = info.parentType.name;
         switch (typeName) {
-            case 'GeneticMap':
-            case 'LinkageGroup':
+            case 'DataSource':
             case 'Location':
             case 'Ontology':
             case 'OntologyAnnotation':
-            case 'OntologyTerm':
-            case 'PanGeneSet':
-            case 'Pathway':
-            case 'Phylotree':
+            case 'Organism':
             // @ts-ignore: fallthrough case error
-            case 'SyntenyBlock':
+            case 'Strain':
+                const {id} = parent;
                 const args = {page, pageSize};
-            case 'GeneticMap':
-                request = dataSources[sourceName].getDataSetsForGeneticMap(parent, args);
-                break;
-            case 'LinkageGroup':
-                request = dataSources[sourceName].getDataSetsForLinkageGroup(parent, args);
+            case 'DataSource':
+                request = dataSources[sourceName].getDataSetsForDataSource(id, args);
                 break;
             case 'Location':
-                request = dataSources[sourceName].getDataSetsForLocation(parent, args);
+                request = dataSources[sourceName].getDataSetsForLocation(id, args);
                 break;
             case 'Ontology':
-                request = dataSources[sourceName].getDataSetsForOntology(parent, args);
-                break;
-            case 'OntologyTerm':
-                request = dataSources[sourceName].getDataSetsForOntologyTerm(parent, args);
+                request = dataSources[sourceName].getDataSetsForOntology(id, args);
                 break;
             case 'OntologyAnnotation':
-                request = dataSources[sourceName].getDataSetsForOntologyAnnotation(parent, args);
+                request = dataSources[sourceName].getDataSetsForOntologyAnnotation(id, args);
                 break;
-            case 'PanGeneSet':
-                request = dataSources[sourceName].getDataSetsForPanGeneSet(parent, args);
+            case 'Organism':
+                request = dataSources[sourceName].getDataSetsForOrganism(id, args);
                 break;
-            case 'Pathway':
-                request = dataSources[sourceName].getDataSetsForPathway(parent, args);
-                break;
-            case 'Phylotree':
-                request = dataSources[sourceName].getDataSetsForPhylotree(parent, args)
-                break;
-            case 'SyntenyBlock':
-                request = dataSources[sourceName].getDataSetsForSyntenyBlock(parent, args);
+            case 'Strain':
+                request = dataSources[sourceName].getDataSetsForStrain(id, args);
                 break;
         }
 

@@ -18,12 +18,6 @@ ResolverMap => ({
     },
     Pathway: {
         ...annotatableFactory(sourceName),
-        dataSets: async (pathway, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPathway(pathway, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         genes: async (pathway, { page, pageSize }, { dataSources }) => {
             const {id} = pathway;
             const args = {page, pageSize};

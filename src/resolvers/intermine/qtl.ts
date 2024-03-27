@@ -39,11 +39,6 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtl.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         markers: async (qtl, { page, pageSize }, { dataSources }) => {
             const args = {qtl, page, pageSize};
             return dataSources[sourceName].getGeneticMarkers(args)

@@ -34,11 +34,6 @@ ResolverMap => ({
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        dataSet: async(gwas, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(gwas.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
         results: async (gwas, { page, pageSize }, { dataSources }) => {
             const args = {gwas, page, pageSize};
             return dataSources[sourceName].getGWASResults(args)
