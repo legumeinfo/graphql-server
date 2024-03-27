@@ -12,6 +12,7 @@ import { getChromosome } from './get-chromosome.js';
 import { getDataSet } from './get-data-set.js';
 import {
     getDataSetsForBioEntity,
+    getDataSetsForDataSource,
     getDataSetsForGeneticMap,
     getDataSetsForLinkageGroup,
     getDataSetsForLocation,
@@ -23,6 +24,8 @@ import {
     getDataSetsForPhylotree,
     getDataSetsForSyntenyBlock,
 } from './get-data-sets.js';
+// data source
+import { getDataSource } from './get-data-source.js';
 // exon
 import { getExon } from './get-exon.js';
 import { getExonsForTranscript } from './get-exons.js';
@@ -203,6 +206,7 @@ export declare class ApiMixinInterface {
     // data set
     getDataSet: Function;
     getDataSetsForBioEntity: Function;
+    getDataSetsForDataSource: Function;
     getDataSetsForGeneticMap: Function;
     getDataSetsForLinkageGroup: Function;
     getDataSetsForLocation: Function;
@@ -213,6 +217,8 @@ export declare class ApiMixinInterface {
     getDataSetsForPanGeneSet: Function;
     getDataSetsForPhylotree: Function;
     getDataSetsForSyntenyBlock: Function;
+    // data source
+    getDataSource: Function;
     // exon
     getExon: Function;
     getExonsForTranscript: Function;
@@ -401,6 +407,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // data set
         getDataSet = getDataSet;
         getDataSetsForBioEntity = getDataSetsForBioEntity;
+        getDataSetsForDataSource = getDataSetsForDataSource;
         getDataSetsForGeneticMap = getDataSetsForGeneticMap;
         getDataSetsForLinkageGroup = getDataSetsForLinkageGroup;
         getDataSetsForLocation = getDataSetsForLocation;
@@ -411,6 +418,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
         getDataSetsForPhylotree = getDataSetsForPhylotree;
         getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+        // data source
+        getDataSource = getDataSource;
         // exon
         getExon = getExon;
         getExonsForTranscript = getExonsForTranscript;

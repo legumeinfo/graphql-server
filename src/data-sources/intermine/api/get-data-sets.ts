@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -114,6 +115,28 @@ export async function getDataSetsForLinkageGroup(
         .then((response: IntermineDataSetResponse) => response2dataSets(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'LinkageGroup.dataSets.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get DataSets for a DataSource by id
+export async function getDataSetsForDataSource(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLDataSet>> {
+    const constraints = [intermineConstraint('DataSet.dataSource.id', '=', id)];
+    // publication may be null
+    const joins = [intermineJoin('DataSet.publication', 'OUTER')];
+    const query = interminePathQuery(
+        intermineDataSetAttributes,
+        intermineDataSetSort,
+        constraints,
+        joins
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineDataSetResponse) => response2dataSets(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'DataSet.id'})
         .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])

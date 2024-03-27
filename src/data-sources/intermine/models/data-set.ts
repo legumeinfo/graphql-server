@@ -1,6 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
 // <class name="DataSet" is-interface="true" term="http://semanticscience.org/resource/SIO_000089">
 // 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
 // 	<attribute name="licence" type="java.lang.String" term="http://purl.org/dc/terms/license"/>
@@ -20,49 +19,41 @@ export const intermineDataSetAttributes = [
     'DataSet.name',
     'DataSet.version',
     'DataSet.synopsis',
-    'DataSet.publication.doi',  // internal resolution of publication
+    'DataSet.dataSource.name',  // resolve reference
+    'DataSet.publication.doi',  // resolve reference
 ];
-export const intermineDataSetSort = 'DataSet.name'; // guaranteed not null
+export const intermineDataSetSort = 'DataSet.name';
+
 export type IntermineDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    number, // id
+    string, // description
+    string, // licence
+    string, // url
+    string, // name
+    string, // version
+    string, // synopsis
+    string, // dataSource.name
+    string, // publication.doi
 ];
 
-
-// type DataSet {
-//   id: ID!
-//   description: String
-//   licence: String
-//   url: String
-//   name: String
-//   version: String
-//   synopsis: String
-//   # dataSource
-//   publication: Publication
-//   # bioEntities
-// }
 export const graphqlDataSetAttributes = [
-    'id',
-    'description',
-    'licence',
-    'url',
-    'name',
-    'version',
-    'synopsis',
-    'publicationDOI',
+    'id',             // id
+    'description',    // description
+    'licence',        // licence
+    'url',            // url
+    'name',           // name
+    'version',        // version
+    'synopsis',       // synopsis
+    'dataSourceName', // dataSource.name
+    'publicationDOI', // publication.doi
 ];
+
 export type GraphQLDataSet = {
-  [prop in typeof graphqlDataSetAttributes[number]]: string;
+    [prop in typeof graphqlDataSetAttributes[number]]: string;
 }
 
-
 export type IntermineDataSetResponse = IntermineDataResponse<IntermineDataSet>;
+
 // converts an Intermine response into an array of GraphQL DataSet objects
 export function response2dataSets(response: IntermineDataSetResponse): Array<GraphQLDataSet> {
     return response2graphqlObjects(response, graphqlDataSetAttributes);

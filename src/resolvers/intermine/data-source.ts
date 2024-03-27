@@ -17,8 +17,9 @@ ResolverMap => ({
     DataSource: {
         // publications:
         dataSets: async (dataSource, { page, pageSize }, { dataSources }) => {
-            const args = {dataSource: dataSource, page, pageSize};
-            return dataSources[sourceName].getDataSets(args)
+            const {id} = dataSource;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getDataSetsForDataSource(id, args)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
