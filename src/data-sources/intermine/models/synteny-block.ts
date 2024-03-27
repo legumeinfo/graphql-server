@@ -44,27 +44,3 @@ export type IntermineSyntenyBlockResponse = IntermineDataResponse<IntermineSynte
 export function response2syntenyBlocks(response: IntermineSyntenyBlockResponse): Array<GraphQLSyntenyBlock> {
     return response2graphqlObjects(response, graphqlSyntenyBlockAttributes);
 }
-
-
-// SyntenyBlock.dataSets has no reverse reference
-export const intermineSyntenyBlockDataSetAttributes = [
-    'SyntenyBlock.dataSets.id',
-    'SyntenyBlock.dataSets.description',
-    'SyntenyBlock.dataSets.licence',
-    'SyntenyBlock.dataSets.url',
-    'SyntenyBlock.dataSets.name',
-    'SyntenyBlock.dataSets.version',
-    'SyntenyBlock.dataSets.synopsis',
-    'SyntenyBlock.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineSyntenyBlockDataSetSort = 'SyntenyBlock.dataSets.name'; // guaranteed not null
-export type IntermineSyntenyBlockDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

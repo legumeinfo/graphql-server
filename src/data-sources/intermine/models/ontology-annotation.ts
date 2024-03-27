@@ -1,4 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  intermineDataSetAttributesFactory,
+  intermineDataSetSortFactory,
+} from './data-set.js';
 
 
 // <class name="OntologyAnnotation" is-interface="true" term="http://semanticscience.org/resource/SIO_001166">
@@ -46,24 +50,5 @@ export function response2ontologyAnnotations(response: IntermineOntologyAnnotati
 
 
 // OntologyAnnotation.dataSets has no reverse reference
-export const intermineOntologyAnnotationDataSetAttributes = [
-    'OntologyAnnotation.dataSets.id',
-    'OntologyAnnotation.dataSets.description',
-    'OntologyAnnotation.dataSets.licence',
-    'OntologyAnnotation.dataSets.url',
-    'OntologyAnnotation.dataSets.name',
-    'OntologyAnnotation.dataSets.version',
-    'OntologyAnnotation.dataSets.synopsis',
-    'OntologyAnnotation.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineOntologyAnnotationDataSetSort = 'OntologyAnnotation.dataSets.name'; // guaranteed not null
-export type IntermineOntologyAnnotationDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
+export const intermineOntologyAnnotationDataSetAttributes = intermineDataSetAttributesFactory('OntologyAnnotation.dataSets.id');
+export const intermineOntologyAnnotationDataSetSort = intermineDataSetSortFactory('OntologyAnnotation.dataSets');

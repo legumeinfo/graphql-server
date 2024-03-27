@@ -69,26 +69,3 @@ export type IntermineGeneticMapResponse = IntermineDataResponse<IntermineGenetic
 export function response2geneticMaps(response: IntermineGeneticMapResponse): Array<GraphQLGeneticMap> {
     return response2graphqlObjects(response, graphqlGeneticMapAttributes);
 }
-
-// GeneticMap.dataSets has no reverse reference
-export const intermineGeneticMapDataSetAttributes = [
-    'GeneticMap.dataSets.id',
-    'GeneticMap.dataSets.description',
-    'GeneticMap.dataSets.licence',
-    'GeneticMap.dataSets.url',
-    'GeneticMap.dataSets.name',
-    'GeneticMap.dataSets.version',
-    'GeneticMap.dataSets.synopsis',
-    'GeneticMap.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineGeneticMapDataSetSort = 'GeneticMap.dataSets.name'; // guaranteed not null
-export type IntermineGeneticMapDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

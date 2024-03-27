@@ -51,20 +51,6 @@ export const intermineSOTermParentAttributes = [
 export const intermineSOTermParentSort = 'SOTerm.parents.identifier';
 // use IntermineOntologyTerm
 
-// SOTerm.dataSets has no reverse reference
-export const intermineSOTermDataSetAttributes = [
-    'SOTerm.dataSets.id',
-    'SOTerm.dataSets.description',
-    'SOTerm.dataSets.licence',
-    'SOTerm.dataSets.url',
-    'SOTerm.dataSets.name',
-    'SOTerm.dataSets.version',
-    'SOTerm.dataSets.synopsis',
-    'SOTerm.dataSets.publication.doi',  // resolve Publication
-];
-export const intermineSOTermDataSetSort = 'SOTerm.dataSets.name';
-// use IntermineDataSet
-
 // SOTerm.crossReferences has no reverse reference
 export const intermineSOTermCrossReferenceAttributes = [
     'SOTerm.crossReferences.id',

@@ -1,4 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  intermineDataSetAttributesFactory,
+  intermineDataSetSortFactory,
+} from './data-set.js';
 
 // <class name="OntologyTerm" is-interface="true" term="http://semanticscience.org/resource/SIO_000275">
 // 	<attribute name="identifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000675"/>
@@ -97,18 +101,8 @@ export const intermineOntologyTermParentSort = 'OntologyTerm.parents.identifier'
 // use IntermineOntologyTerm
 
 // OntologyTerm.dataSets has no reverse reference
-export const intermineOntologyTermDataSetAttributes = [
-    'OntologyTerm.dataSets.id',
-    'OntologyTerm.dataSets.description',
-    'OntologyTerm.dataSets.licence',
-    'OntologyTerm.dataSets.url',
-    'OntologyTerm.dataSets.name',
-    'OntologyTerm.dataSets.version',
-    'OntologyTerm.dataSets.synopsis',
-    'OntologyTerm.dataSets.dataSource.name',  // resolve reference
-    'OntologyTerm.dataSets.publication.doi',  // resolve reference
-];
-export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name';
+export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets.id');
+export const intermineOntologyTermDataSetSort = intermineDataSetSortFactory('OntologyTerm.dataSets');
 // use IntermineDataSet
 
 // OntologyTerm.crossReferences has no reverse reference

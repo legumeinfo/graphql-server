@@ -39,26 +39,3 @@ export type IntermineGenotypingPlatformResponse = IntermineDataResponse<Intermin
 export function response2genotypingPlatforms(response: IntermineGenotypingPlatformResponse): Array<GraphQLGenotypingPlatform> {
     return response2graphqlObjects(response, graphqlGenotypingPlatformAttributes);
 }
-
-// // GenotypingPlatform.dataSets has no reverse reference
-// export const intermineGenotypingPlatformDataSetAttributes = [
-//     'GenotypingPlatform.dataSets.id',
-//     'GenotypingPlatform.dataSets.description',
-//     'GenotypingPlatform.dataSets.licence',
-//     'GenotypingPlatform.dataSets.url',
-//     'GenotypingPlatform.dataSets.name',
-//     'GenotypingPlatform.dataSets.version',
-//     'GenotypingPlatform.dataSets.synopsis',
-//     'GenotypingPlatform.dataSets.publication.doi',  // internal resolution of publication
-// ];
-// export const intermineGenotypingPlatformDataSetSort = 'GenotypingPlatform.dataSets.name'; // guaranteed not null
-// export type IntermineGenotypingPlatformDataSet = [
-//   number,
-//   string,
-//   string,
-//   string,
-//   string,
-//   string,
-//   string,
-//   string,
-// ];

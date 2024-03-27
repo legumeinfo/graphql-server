@@ -45,27 +45,3 @@ export type InterminePathwayResponse = IntermineDataResponse<InterminePathway>;
 export function response2pathways(response: InterminePathwayResponse): Array<GraphQLPathway> {
     return response2graphqlObjects(response, graphqlPathwayAttributes);
 }
-
-
-// Pathway.dataSets has no reverse reference
-export const interminePathwayDataSetAttributes = [
-    'Pathway.dataSets.id',
-    'Pathway.dataSets.description',
-    'Pathway.dataSets.licence',
-    'Pathway.dataSets.url',
-    'Pathway.dataSets.name',
-    'Pathway.dataSets.version',
-    'Pathway.dataSets.synopsis',
-    'Pathway.dataSets.publication.doi',  // internal resolution of publication
-];
-export const interminePathwayDataSetSort = 'Pathway.dataSets.name'; // guaranteed not null
-export type InterminePathwayDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

@@ -40,27 +40,3 @@ export type InterminePhylotreeResponse = IntermineDataResponse<InterminePhylotre
 export function response2phylotrees(response: InterminePhylotreeResponse): Array<GraphQLPhylotree> {
     return response2graphqlObjects(response, graphqlPhylotreeAttributes);
 }
-
-
-// Phylotree.dataSets has no reverse reference
-export const interminePhylotreeDataSetAttributes = [
-    'Phylotree.dataSets.id',
-    'Phylotree.dataSets.description',
-    'Phylotree.dataSets.licence',
-    'Phylotree.dataSets.url',
-    'Phylotree.dataSets.name',
-    'Phylotree.dataSets.version',
-    'Phylotree.dataSets.synopsis',
-    'Phylotree.dataSets.publication.doi',  // internal resolution of publication
-];
-export const interminePhylotreeDataSetSort = 'Phylotree.dataSets.name'; // guaranteed not null
-export type InterminePhylotreeDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

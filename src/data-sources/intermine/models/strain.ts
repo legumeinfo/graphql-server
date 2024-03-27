@@ -1,4 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  intermineDataSetAttributesFactory,
+  intermineDataSetSortFactory,
+} from './data-set.js';
 
 
 // <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
@@ -58,3 +62,7 @@ export type IntermineStrainResponse = IntermineDataResponse<IntermineStrain>;
 export function response2strains(response: IntermineStrainResponse): Array<GraphQLStrain> {
     return response2graphqlObjects(response, graphqlStrainAttributes);
 }
+
+// Strain.dataSets has no reverse reference
+export const intermineStrainDataSetAttributes = intermineDataSetAttributesFactory('Strain.dataSets.id');
+export const intermineStrainDataSetSort = intermineDataSetSortFactory('Strain.dataSets');

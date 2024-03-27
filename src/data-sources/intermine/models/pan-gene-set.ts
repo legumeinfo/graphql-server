@@ -43,24 +43,3 @@ export type InterminePanGeneSetResponse = IntermineDataResponse<InterminePanGene
 export function response2panGeneSets(response: InterminePanGeneSetResponse): Array<GraphQLPanGeneSet> {
     return response2graphqlObjects(response, graphqlPanGeneSetAttributes);
 }
-
-// PanGeneSet.dataSets has no reverse reference
-export const interminePanGeneSetDataSetAttributes = [
-    'PanGeneSet.dataSets.id',
-    'PanGeneSet.dataSets.description',
-    'PanGeneSet.dataSets.licence',
-    'PanGeneSet.dataSets.url',
-    'PanGeneSet.dataSets.name',
-    'PanGeneSet.dataSets.version',
-    'PanGeneSet.dataSets.synopsis',
-];
-export const interminePanGeneSetDataSetSort = 'PanGeneSet.dataSets.name'; // guaranteed not null
-export type InterminePanGeneSetDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];

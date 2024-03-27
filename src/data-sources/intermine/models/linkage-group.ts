@@ -58,27 +58,3 @@ export type IntermineLinkageGroupResponse = IntermineDataResponse<IntermineLinka
 export function response2linkageGroups(response: IntermineLinkageGroupResponse): Array<GraphQLLinkageGroup> {
     return response2graphqlObjects(response, graphqlLinkageGroupAttributes);
 }
-
-
-// LinkageGroup.dataSets has no reverse reference
-export const intermineLinkageGroupDataSetAttributes = [
-    'LinkageGroup.dataSets.id',
-    'LinkageGroup.dataSets.description',
-    'LinkageGroup.dataSets.licence',
-    'LinkageGroup.dataSets.url',
-    'LinkageGroup.dataSets.name',
-    'LinkageGroup.dataSets.version',
-    'LinkageGroup.dataSets.synopsis',
-    'LinkageGroup.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineLinkageGroupDataSetSort = 'LinkageGroup.dataSets.name'; // guaranteed not null
-export type IntermineLinkageGroupDataSet = [
-    number,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-];

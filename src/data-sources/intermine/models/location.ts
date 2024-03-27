@@ -1,5 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
-
+import {
+  intermineDataSetAttributesFactory,
+  intermineDataSetSortFactory,
+} from './data-set.js';
 
 // <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
 // 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
@@ -55,24 +58,5 @@ export function response2locations(response: IntermineLocationResponse): Array<G
 
 
 // Location.dataSets has no reverse reference
-export const intermineLocationDataSetAttributes = [
-    'Location.dataSets.id',
-    'Location.dataSets.description',
-    'Location.dataSets.licence',
-    'Location.dataSets.url',
-    'Location.dataSets.name',
-    'Location.dataSets.version',
-    'Location.dataSets.synopsis',
-    'Location.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
-export type IntermineLocationDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
+export const intermineLocationDataSetAttributes = intermineDataSetAttributesFactory('Location.dataSets');
+export const intermineLocationDataSetSort = intermineDataSetSortFactory('Location.dataSets');
