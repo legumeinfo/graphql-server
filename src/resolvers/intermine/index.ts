@@ -27,6 +27,7 @@ import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
 import { ontologyAnnotationFactory } from './ontology-annotation.js';
 import { ontologyTermFactory } from './ontology-term.js';
+import { ontologyTermSynonymFactory } from './ontology-term-synonym.js';
 import { organismFactory } from './organism.js';
 import { panGeneSetFactory } from './pan-gene-set.js';
 import { pathwayFactory } from './pathway.js';
@@ -38,6 +39,7 @@ import { proteinMatchFactory } from './protein-match.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
+import { soTermFactory } from './so-term.js';
 import { supercontigFactory } from './supercontig.js';
 import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
@@ -68,6 +70,7 @@ const factories = [
     ontologyFactory,
     ontologyAnnotationFactory,
     ontologyTermFactory,
+    ontologyTermSynonymFactory,
     organismFactory,
     panGeneSetFactory,
     pathwayFactory,
@@ -79,6 +82,7 @@ const factories = [
     publicationFactory,
     qtlFactory,
     qtlStudyFactory,
+    soTermFactory,
     strainFactory,
     supercontigFactory,
     syntenicRegionFactory,

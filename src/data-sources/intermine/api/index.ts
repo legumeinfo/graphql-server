@@ -109,8 +109,10 @@ import {
   getParentsForSOTerm,
   getCrossReferencesForOntologyTerm,
 } from './get-ontology-terms.js';
-//import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
+// ontology term synonym
+import { getOntologyTermSynonym } from './get-ontology-term-synonym.js';
+import { getOntologyTermSynonymsForOntologyTerm } from './get-ontology-term-synonyms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
@@ -291,8 +293,10 @@ export declare class ApiMixinInterface {
     getParentsForOntologyTerm: Function;
     getParentsForSOTerm: Function;
     getCrossReferencesForOntologyTerm: Function;
-    //getOntologyTermOntology: Function;
     searchOntologyTerms: Function;
+    // ontology term synonym
+    getOntologyTermSynonym: Function;
+    getOntologyTermSynonymsForOntologyTerm: Function;
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
@@ -484,8 +488,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getParentsForOntologyTerm = getParentsForOntologyTerm;
         getParentsForSOTerm = getParentsForSOTerm;
         getCrossReferencesForOntologyTerm = getCrossReferencesForOntologyTerm;
-        //getOntologyTermOntology = getOntologyTermOntology;
         searchOntologyTerms = searchOntologyTerms;
+        // ontology term synonym
+        getOntologyTermSynonym = getOntologyTermSynonym;
+        getOntologyTermSynonymsForOntologyTerm = getOntologyTermSynonymsForOntologyTerm;
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;

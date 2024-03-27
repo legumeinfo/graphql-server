@@ -1,0 +1,9 @@
+# <class name="OntologyTermSynonym" is-interface="true" term="http://semanticscience.org/resource/SIO_000122">
+# 	<attribute name="type" type="java.lang.String" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25284"/>
+# 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_2099"/>
+# </class>
+type OntologyTermSynonym {
+  id: ID!
+  type: String!
+  name: String!
+}

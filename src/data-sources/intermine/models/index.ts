@@ -25,6 +25,7 @@ import { GraphQLLocation, IntermineLocation } from './location.js';
 import { GraphQLOntology, IntermineOntology } from './ontology.js';
 import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
 import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
+import { GraphQLOntologyTermSynonym, IntermineOntologyTermSynonym } from './ontology-term-synonym.js';
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
 import { GraphQLNewick, IntermineNewick } from './newick.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
@@ -75,6 +76,7 @@ export type GraphQLModel =
     GraphQLOntology |
     GraphQLOntologyAnnotation |
     GraphQLOntologyTerm |
+    GraphQLOntologyTermSynonym |
     GraphQLOrganism |
     GraphQLNewick |
     GraphQLMRNA |
@@ -125,6 +127,7 @@ export type IntermineModel =
     IntermineOntology |
     IntermineOntologyAnnotation |
     IntermineOntologyTerm |
+    IntermineOntologyTermSynonym |
     IntermineOrganism |
     IntermineNewick |
     IntermineMRNA |
@@ -176,6 +179,7 @@ export * from './location.js';
 export * from './ontology.js';
 export * from './ontology-annotation.js';
 export * from './ontology-term.js';
+export * from './ontology-term-synonym.js';
 export * from './organism.js';
 export * from './newick.js';
 export * from './mrna.js';

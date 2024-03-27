@@ -113,12 +113,20 @@ type OntologyTermResults {
   results: OntologyTerm
 }
 
+type OntologyTermSynonymResults {
+  results: OntologyTermSynonym
+}
+
 type OrganismResults {
   results: Organism
 }
 
 type PublicationResults {
   results: Publication
+}
+
+type SOTermResults {
+  results: SOTerm
 }
 
 type StrainResults {
@@ -302,8 +310,10 @@ type Query {
   dataSet(name: ID!): DataSetResults
   ontology(name: ID!): OntologyResults
   ontologyTerm(identifier: ID!): OntologyTermResults
+  ontologyTermSynonym(name: ID!): OntologyTermSynonymResults
   organism(taxonId: ID!): OrganismResults
   publication(doi: ID!): PublicationResults
+  soTerm(identifier: ID!): SOTermResults
   strain(identifier: ID!): StrainResults
 
   ### types identified by numerical id
