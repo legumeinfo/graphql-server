@@ -20,6 +20,7 @@ interface SequenceFeature implements BioEntity & Annotatable & HasDataSets {
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -30,7 +31,6 @@ interface SequenceFeature implements BioEntity & Annotatable & HasDataSets {
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

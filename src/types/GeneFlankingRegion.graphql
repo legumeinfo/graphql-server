@@ -10,6 +10,7 @@ type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & H
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -20,7 +21,6 @@ type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & H
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

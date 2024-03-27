@@ -5,7 +5,7 @@
 # 	<collection name="publications" referenced-type="Publication" term="http://purl.org/dc/terms/bibliographicCitation"/>
 # 	<collection name="dataSets" referenced-type="DataSet" reverse-reference="dataSource"/>
 # </class>
-type DataSource {
+type DataSource implements HasDataSets {
   id: ID!
   description: String!
   url: String

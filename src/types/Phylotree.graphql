@@ -11,15 +11,15 @@
 #         <reference name="geneFamily" referenced-type="GeneFamily"/>
 # </class> 
 type Phylotree implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # Phylotree
   numLeaves: Int
   geneFamily: GeneFamily
   newick: String
   nodes: [Phylonode!]!
-  dataSets: [DataSet!]!
 }

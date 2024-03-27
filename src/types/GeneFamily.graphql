@@ -10,8 +10,8 @@
 # 	<collection name="tallies" referenced-type="GeneFamilyTally" reverse-reference="geneFamily"/>
 # </class>
 type GeneFamily implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

@@ -7,8 +7,8 @@
 # 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
 # </class>
 type QTLStudy implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

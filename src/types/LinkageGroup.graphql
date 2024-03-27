@@ -7,16 +7,16 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type LinkageGroup implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # LinkageGroup
   name: String
   length: Float
   number: Int
   geneticMap: GeneticMap
   qtls: [QTL!]!
-  dataSets: [DataSet!]!
 }

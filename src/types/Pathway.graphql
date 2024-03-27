@@ -4,13 +4,13 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type Pathway implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # Pathway
   name: String
   genes: [Gene!]!
-  dataSets: [DataSet!]!
 }

@@ -9,8 +9,8 @@
 # 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
 # </class>
 type Trait implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

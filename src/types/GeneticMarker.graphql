@@ -14,6 +14,7 @@ type GeneticMarker implements SequenceFeature & BioEntity & Annotatable & HasDat
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -24,7 +25,6 @@ type GeneticMarker implements SequenceFeature & BioEntity & Annotatable & HasDat
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

@@ -16,6 +16,7 @@ interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasD
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -26,7 +27,6 @@ interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasD
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

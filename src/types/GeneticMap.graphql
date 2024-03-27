@@ -9,11 +9,12 @@
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
 type GeneticMap implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   # GeneticMap
   description: String
   genotypes: String
@@ -22,5 +23,4 @@ type GeneticMap implements Annotatable & HasDataSets {
   genotypingPlatform: GenotypingPlatform
   organism: Organism
   linkageGroups: [LinkageGroup!]!
-  dataSets: [DataSet!]!
 }

@@ -1,6 +1,6 @@
 # <class name="SOTerm" extends="OntologyTerm" is-interface="true" term="http://edamontology.org/data_0966"></class>
 # OntologyTerm is a type, not interface, so we just copy it here
-type SOTerm {
+type SOTerm implements OntologyTerm & HasDataSets {
   id: ID!
   ## OntologyTerm
   identifier: ID!

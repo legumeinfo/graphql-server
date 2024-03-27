@@ -5,6 +5,7 @@ type Chromosome implements SequenceFeature & BioEntity & Annotatable & HasDataSe
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -15,7 +16,6 @@ type Chromosome implements SequenceFeature & BioEntity & Annotatable & HasDataSe
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

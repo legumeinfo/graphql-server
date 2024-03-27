@@ -7,6 +7,7 @@ type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable & HasDa
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -17,7 +18,6 @@ type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable & HasDa
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float

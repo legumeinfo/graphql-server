@@ -6,12 +6,17 @@
 #   <collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
 #   <reference name="dataSet" referenced-type="DataSet"/>
 # </class>
-type GWASResult {
+type GWASResult implements Annotatable & HasDataSets {
   id: ID!
-  markerName: String!
+  ## Annotatable
+  identifier: ID!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  dataSets: [DataSet!]!
+  ## GWASResult
   pValue: Float!
+  markerName: String!
   gwas: GWAS!
   trait: Trait!
   markers: [GeneticMarker!]!
-  dataSet: DataSet!
 }

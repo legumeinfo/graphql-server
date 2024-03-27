@@ -11,8 +11,8 @@
 # 	<collection name="contains" referenced-type="ProteinDomain"/>
 # </class>
 type ProteinDomain implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

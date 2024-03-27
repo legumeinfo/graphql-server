@@ -11,8 +11,8 @@
 # 	<collection name="samples" referenced-type="ExpressionSample" reverse-reference="source"/>
 # </class>
 type ExpressionSource implements Annotatable & HasDataSets {
-  # Annotatable
   id: ID!
+  # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

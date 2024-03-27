@@ -7,7 +7,7 @@
 # 	<reference name="organism" referenced-type="Organism" reverse-reference="strains" term="http://purl.org/net/orth#organism"/>
 # 	<collection name="dataSets" referenced-type="DataSet"/>
 # </class>
-type Strain {
+type Strain implements HasDataSets {
   id: ID!
   identifier: ID!
   name: String
@@ -15,4 +15,5 @@ type Strain {
   origin: String
   accession: String
   organism: Organism
+  dataSets: [DataSet!]!
 }

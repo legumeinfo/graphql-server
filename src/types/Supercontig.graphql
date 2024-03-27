@@ -5,6 +5,7 @@ type Supercontig implements SequenceFeature & BioEntity & Annotatable & HasDataS
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  dataSets: [DataSet!]!
   ## BioEntity
   description: String
   symbol: String
@@ -15,7 +16,6 @@ type Supercontig implements SequenceFeature & BioEntity & Annotatable & HasDataS
   organism: Organism
   strain: Strain
   locations: [Location!]!
-  dataSets: [DataSet!]!
   locatedFeatures: [Location!]!
   ## SequenceFeature
   score: Float
