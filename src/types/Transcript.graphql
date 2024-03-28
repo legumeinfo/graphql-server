@@ -1,22 +1,10 @@
-# -------------------------------------------------------------------
-# This is an interface for InterMine objects which extend Transcript.
-# -------------------------------------------------------------------
-# <class name="Transcript" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000673,http://purl.obolibrary.org/obo/SO:0000673">
-# 	<reference name="gene" referenced-type="Gene" reverse-reference="transcripts"/>
-# 	<reference name="protein" referenced-type="Protein" reverse-reference="transcript" term="http://purl.uniprot.org/core/Protein,http://semanticscience.org/resource/SIO_010043"/>
-# 	<collection name="introns" referenced-type="Intron" reverse-reference="transcripts" term="http://purl.obolibrary.org/obo/SO_0000188"/>
-# 	<collection name="exons" referenced-type="Exon" reverse-reference="transcripts"/>
-# 	<collection name="CDSs" referenced-type="CDS" reverse-reference="transcript"/>
-# 	<collection name="UTRs" referenced-type="UTR" reverse-reference="transcripts"/>
-# 	<collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="transcripts"/>
-# </class>
-interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
+interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## BioEntity
   description: String
   symbol: String

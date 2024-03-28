@@ -7,8 +7,8 @@ type DataSet {
   version: String
   synopsis: String
   dataSource: DataSource!
-  publication: Publication
   bioEntities: [BioEntity!]!
+  publication: Publication
 }
 
 interface HasDataSets {

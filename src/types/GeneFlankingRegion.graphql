@@ -1,16 +1,10 @@
-# <class name="GeneFlankingRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000239">
-# 	<attribute name="direction" type="java.lang.String" term="http://purl.obolibrary.org/obo/PATO_0000039"/>
-# 	<attribute name="distance" type="java.lang.String" term="http://purl.obolibrary.org/obo/PATO_0000040"/>
-# 	<attribute name="includeGene" type="java.lang.Boolean"/>
-# 	<reference name="gene" referenced-type="Gene" reverse-reference="flankingRegions" term="http://purl.obolibrary.org/obo/SO:0000704"/>
-# </class>
-type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
+type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## BioEntity
   description: String
   symbol: String

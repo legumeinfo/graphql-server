@@ -1,20 +1,10 @@
-# <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
-# 	<attribute name="motif" type="java.lang.String"/>
-# 	<attribute name="alias" type="java.lang.String"/>
-# 	<attribute name="type" type="java.lang.String"/>
-# 	<attribute name="alleles" type="java.lang.String"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
-# 	<collection name="genotypingPlatforms" referenced-type="GenotypingPlatform" reverse-reference="markers"/>
-# 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
-# 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
-# </class>
-type GeneticMarker implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
+type GeneticMarker implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## BioEntity
   description: String
   symbol: String

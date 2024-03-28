@@ -1,13 +1,10 @@
-# <class name="IntergenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000605,http://purl.obolibrary.org/obo/SO:0000605">
-# 	<collection name="adjacentGenes" referenced-type="Gene"/>
-# </class>
-type IntergenicRegion implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
+type IntergenicRegion implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## BioEntity
   description: String
   symbol: String

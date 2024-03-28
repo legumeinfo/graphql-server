@@ -1,14 +1,10 @@
-# <class name="SyntenyBlock" extends="Annotatable" is-interface="true" term="">
-# 	<attribute name="medianKs" type="java.lang.Double"/>
-# 	<collection name="syntenicRegions" referenced-type="SyntenicRegion" reverse-reference="syntenyBlock" term="http://purl.obolibrary.org/obo/SO_0005858"/>
-# </class>
-type SyntenyBlock implements Annotatable & HasDataSets {
+type SyntenyBlock implements Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## SyntenyBlock
   medianKs: Float
   syntenicRegions: [SyntenicRegion!]!

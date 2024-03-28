@@ -1,20 +1,10 @@
-# <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="genotypes" type="java.lang.String"/>
-# 	<attribute name="genotypingMethod" type="java.lang.String"/>
-# 	<attribute name="synopsis" type="java.lang.String"/>
-# 	<reference name="genotypingPlatform" referenced-type="GenotypingPlatform"/>
-# 	<reference name="organism" referenced-type="Organism"/>
-# 	<collection name="linkageGroups" referenced-type="LinkageGroup" reverse-reference="geneticMap"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# </class>
-type GeneticMap implements Annotatable & HasDataSets {
+type GeneticMap implements Annotatable & HasDataSets & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   # GeneticMap
   description: String
   genotypes: String

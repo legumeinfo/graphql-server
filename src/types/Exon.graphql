@@ -1,13 +1,10 @@
-# <class name="Exon" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000147,http://purl.obolibrary.org/obo/SO_0000147">
-# 	<collection name="transcripts" referenced-type="Transcript" reverse-reference="exons"/>
-# </class>
-type Exon implements SequenceFeature & BioEntity & Annotatable & HasDataSets {
+type Exon implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## BioEntity
   description: String
   symbol: String

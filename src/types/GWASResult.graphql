@@ -1,18 +1,10 @@
-# <class name="GWASResult" is-interface="true">
-#   <attribute name="markerName" type="java.lang.String"/>
-#   <attribute name="pValue" type="java.lang.Double"/>
-#   <reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
-#   <reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
-#   <collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
-#   <reference name="dataSet" referenced-type="DataSet"/>
-# </class>
-type GWASResult implements Annotatable & HasDataSets {
+type GWASResult implements Annotatable & HasDataSets & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   ontologyAnnotations: [OntologyAnnotation!]!
-  publications: [Publication!]!
   dataSets: [DataSet!]!
+  publications: [Publication!]!
   ## GWASResult
   pValue: Float!
   markerName: String!
