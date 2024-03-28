@@ -2,7 +2,7 @@ import { IntermineServer } from '../intermine.server.js';
 
 // author
 import { getAuthor } from './get-author.js';
-import { getAuthors } from './get-authors.js';
+import { getAuthorsForPublication } from './get-authors.js';
 // cds
 import { getCDS } from './get-cds.js';
 import { getCDSsForTranscript } from './get-cdss.js';
@@ -146,7 +146,11 @@ import { searchProteinDomains } from './search-protein-domains.js';
 import { getProteinMatch } from './get-protein-match.js';
 // publication
 import { getPublication } from './get-publication.js';
-import { getPublications } from './get-publications.js';
+import {
+  getPublicationsForAnnotatable,
+  getPublicationsForAuthor,
+  getPublicationsForDataSource,
+} from './get-publications.js';
 import { searchPublications } from './search-publications.js';
 // qtl
 import { getQTL } from './get-qtl.js';
@@ -193,7 +197,7 @@ export declare class ApiMixinInterface {
     verifyIntermineVersion: Function;
     // author
     getAuthor: Function;
-    getAuthors: Function;
+    getAuthorsForPublication: Function;
     // cds
     getCDS: Function;
     getCDSsForTranscript: Function;
@@ -330,7 +334,9 @@ export declare class ApiMixinInterface {
     getProteinMatch: Function;
     // publication
     getPublication: Function;
-    getPublications: Function;
+    getPublicationsForAnnotatable: Function;
+    getPublicationsForAuthor: Function;
+    getPublicationsForDataSource: Function;
     searchPublications: Function;
     // qtl
     getQTL: Function;
@@ -390,7 +396,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
         // author
         getAuthor = getAuthor;
-        getAuthors = getAuthors;
+        getAuthorsForPublication = getAuthorsForPublication;
         // cds
         getCDS = getCDS;
         getCDSsForTranscript = getCDSsForTranscript;
@@ -527,7 +533,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getProteinMatch = getProteinMatch;
         // publication
         getPublication = getPublication;
-        getPublications = getPublications;
+        getPublicationsForAnnotatable = getPublicationsForAnnotatable;
+        getPublicationsForAuthor = getPublicationsForAuthor;
+        getPublicationsForDataSource = getPublicationsForDataSource;
         searchPublications = searchPublications;
         // qtl
         getQTL = getQTL;
