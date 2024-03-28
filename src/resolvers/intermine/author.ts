@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasPublicationsFactory } from './publication.js';
 
 
 export const authorFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,11 +17,6 @@ ResolverMap => ({
         },
     },
     Author: {
-        publications: async (author, { page, pageSize }, { dataSources }) => {
-            const args = {author, page, pageSize};
-            return dataSources[sourceName].getPublications(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasPublicationsFactory(sourceName),
     },
 });

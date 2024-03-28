@@ -30,14 +30,14 @@ SubfieldResolverMap => ({
     dataSets: async (parent, { page, pageSize }, { dataSources }, info) => {
         let request: Promise<any>|null = null;
 
+        const args = {page, pageSize};
+
         const interfaces = info.parentType.getInterfaces().map(({name}) => name);
         if (interfaces.includes('Annotatable')) {
             const {id} = parent;
-            const args = {page, pageSize};
             request = dataSources[sourceName].getDataSetsForAnnotatable(id, args);
         } else if (interfaces.includes('OntologyTerm')) {
             const {id} = parent;
-            const args = {page, pageSize};
             request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
         }
 
@@ -51,7 +51,6 @@ SubfieldResolverMap => ({
             // @ts-ignore: fallthrough case error
             case 'Strain':
                 const {id} = parent;
-                const args = {page, pageSize};
             case 'DataSource':
                 request = dataSources[sourceName].getDataSetsForDataSource(id, args);
                 break;
@@ -77,6 +76,6 @@ SubfieldResolverMap => ({
         }
 
         // @ts-ignore: implicit type any error
-        return rquest.then(({data: results}) => results);
+        return request.then(({data: results}) => results);
     },
 });
