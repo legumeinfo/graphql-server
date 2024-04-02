@@ -4,14 +4,6 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 
-
-// <class name="OntologyAnnotation" is-interface="true" term="http://semanticscience.org/resource/SIO_001166">
-// 	<attribute name="qualifier" type="java.lang.String" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl//C41009"/>
-// 	<reference name="subject" referenced-type="Annotatable" reverse-reference="ontologyAnnotations" term=""/>
-// 	<reference name="ontologyTerm" referenced-type="OntologyTerm" reverse-reference="ontologyAnnotations"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// 	<collection name="evidence" referenced-type="OntologyEvidence"/>
-// </class>
 export const intermineOntologyAnnotationAttributes = [
     'OntologyAnnotation.id',
     'OntologyAnnotation.qualifier',
@@ -24,15 +16,6 @@ export type IntermineOntologyAnnotation = [
   number,
 ];
 
-
-// type OntologyAnnotation {
-//   id: ID!
-//   qualifier: String
-//   # subject: Annotatable
-//   ontologyTerm: OntologyTerm
-//   # dataSets: [DataSet]
-//   # evidence: [OntologyEvidence]
-// }
 export const graphqlOntologyAnnotationAttributes = [
     'id',
     'qualifier',
@@ -41,7 +24,6 @@ export const graphqlOntologyAnnotationAttributes = [
 export type GraphQLOntologyAnnotation = {
   [prop in typeof graphqlOntologyAnnotationAttributes[number]]: string;
 }
-
 
 export type IntermineOntologyAnnotationResponse = IntermineDataResponse<IntermineOntologyAnnotation>;
 export function response2ontologyAnnotations(response: IntermineOntologyAnnotationResponse): Array<GraphQLOntologyAnnotation> {

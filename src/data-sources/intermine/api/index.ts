@@ -99,7 +99,10 @@ import { getNewick } from './get-newick.js';
 import { getOntology } from './get-ontology.js';
 // ontology annotation
 import { getOntologyAnnotation } from './get-ontology-annotation.js';
-import { getOntologyAnnotations } from './get-ontology-annotations.js';
+import {
+  getOntologyAnnotationsForAnnotatable,
+  getOntologyAnnotationsForOntologyTerm,
+} from './get-ontology-annotations.js';
 // ontology relation
 import { getOntologyRelation } from './get-ontology-relation.js';
 import { getOntologyRelationsForOntologyTerm } from './get-ontology-relations.js';
@@ -291,7 +294,8 @@ export declare class ApiMixinInterface {
     getOntology: Function;
     // ontology annotation
     getOntologyAnnotation: Function;
-    getOntologyAnnotations: Function;
+    getOntologyAnnotationsForAnnotatable: Function;
+    getOntologyAnnotationsForOntologyTerm: Function;
     // ontology relation
     getOntologyRelation: Function;
     getOntologyRelationsForOntologyTerm: Function;
@@ -490,7 +494,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntology = getOntology;
         // ontology annotation
         getOntologyAnnotation = getOntologyAnnotation;
-        getOntologyAnnotations = getOntologyAnnotations;
+        getOntologyAnnotationsForAnnotatable = getOntologyAnnotationsForAnnotatable;
+        getOntologyAnnotationsForOntologyTerm = getOntologyAnnotationsForOntologyTerm;
         // ontology relation
         getOntologyRelation = getOntologyRelation;
         getOntologyRelationsForOntologyTerm = getOntologyRelationsForOntologyTerm;
