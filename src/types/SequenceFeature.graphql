@@ -1,9 +1,9 @@
-interface SequenceFeature implements BioEntity & Annotatable & HasDataSets & HasPublications {
+interface SequenceFeature implements BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
   dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   ## BioEntity
   description: String

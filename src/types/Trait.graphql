@@ -1,9 +1,9 @@
-type Trait implements Annotatable & HasDataSets & HasPublications {
+type Trait implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
-  ontologyAnnotations: [OntologyAnnotation!]!
   dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   # Trait
   name: String!

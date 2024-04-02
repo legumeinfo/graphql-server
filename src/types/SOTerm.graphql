@@ -1,6 +1,5 @@
-# <class name="SOTerm" extends="OntologyTerm" is-interface="true" term="http://edamontology.org/data_0966"></class>
 # OntologyTerm is a type, not interface, so we just copy it here
-type SOTerm implements OntologyTerm & HasDataSets {
+type SOTerm implements OntologyTerm & HasDataSets & HasOntologyAnnotations {
   id: ID!
   ## OntologyTerm
   identifier: ID!
@@ -11,10 +10,12 @@ type SOTerm implements OntologyTerm & HasDataSets {
   ontology: Ontology
   # relations
   # synonyms
-  ontologyAnnotations: [OntologyAnnotation!]!
   parents: [OntologyTerm!]!
-  dataSets: [DataSet!]!
   crossReferences: [OntologyTerm!]!
+  ## HasDataSets
+  dataSets: [DataSet!]!
+  ## HasOntologyAnnotations
+  ontologyAnnotations: [OntologyAnnotation!]!
 }
 
 
