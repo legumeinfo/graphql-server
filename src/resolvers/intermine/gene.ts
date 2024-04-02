@@ -27,10 +27,6 @@ export const geneFactory =
         Gene: {
             ...sequenceFeatureFactory(sourceName),
 
-            // ontologyAnnotations: [OntologyAnnotation!]!
-            
-            // publications: [Publication!]!
-            
             // locations: [Location!]!
             
             // locatedFeatures: [Location!]!
