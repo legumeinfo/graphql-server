@@ -1,12 +1,3 @@
-# <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
-# 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
-# 	<attribute name="start" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002231"/>
-# 	<attribute name="end" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002232"/>
-# 	<reference name="locatedOn" referenced-type="BioEntity" reverse-reference="locatedFeatures"/>
-# 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# </class>
-## NOTE: Restrict locatedOn to be a chromosome or supercontig.
 type Location implements HasDataSets {
   id: ID!
   strand: String
@@ -14,7 +5,8 @@ type Location implements HasDataSets {
   end: Int
   chromosome: Chromosome
   supercontig: Supercontig
-  # feature
-  dataSets: [DataSet!]!
+  # feature: BioEntity
   linkouts: [Linkout!]!
+  ## HasDataSets
+  dataSets: [DataSet!]!
 }

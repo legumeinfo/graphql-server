@@ -4,14 +4,6 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 
-// <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
-// 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
-// 	<attribute name="start" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002231"/>
-// 	<attribute name="end" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002232"/>
-// 	<reference name="locatedOn" referenced-type="BioEntity" reverse-reference="locatedFeatures"/>
-// 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>
 export const intermineLocationAttributes = [
     'Location.id',
     'Location.strand',
@@ -19,7 +11,7 @@ export const intermineLocationAttributes = [
     'Location.end',
     'Location.locatedOn.primaryIdentifier',
 ];
-export const intermineLocationSort = 'Location.start'; // guaranteed not null
+export const intermineLocationSort = 'Location.start';
 export type IntermineLocation = [
   number,
   string,
@@ -28,16 +20,6 @@ export type IntermineLocation = [
   string,
 ];
 
-
-// type Location {
-//   id: ID!
-//   strand: String
-//   start: Int
-//   end: Int
-//   # locatedOn
-//   # feature
-//   # dataSets
-// }
 export const graphqlLocationAttributes = [
     'id',
     'strand',
@@ -55,7 +37,6 @@ export type IntermineLocationResponse = IntermineDataResponse<IntermineLocation>
 export function response2locations(response: IntermineLocationResponse): Array<GraphQLLocation> {
     return response2graphqlObjects(response, graphqlLocationAttributes);
 }
-
 
 // Location.dataSets has no reverse reference
 export const intermineLocationDataSetAttributes = intermineDataSetAttributesFactory('Location.dataSets');

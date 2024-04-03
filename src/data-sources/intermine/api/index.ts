@@ -89,7 +89,10 @@ import { getLinkageGroupPosition } from './get-linkage-group-position.js';
 import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
 // location
 import { getLocation } from './get-location.js';
-import { getLocations } from './get-locations.js';
+import {
+  getLocationsForBioEntity,
+  getLocatedFeaturesForBioEntity,
+} from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
 import { getMRNAs } from './get-mrnas.js';
@@ -284,7 +287,8 @@ export declare class ApiMixinInterface {
     getLinkageGroupPositions: Function;
     // location
     getLocation: Function;
-    getLocations: Function;
+    getLocationsForBioEntity: Function;
+    getLocatedFeaturesForBioEntity: Function;
     // mRNA
     getMRNA: Function;
     getMRNAs: Function;
@@ -484,7 +488,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLinkageGroupPositions = getLinkageGroupPositions;
         // location
         getLocation = getLocation;
-        getLocations = getLocations;
+        getLocationsForBioEntity = getLocationsForBioEntity;
+        getLocatedFeaturesForBioEntity = getLocatedFeaturesForBioEntity;
         // mRNA
         getMRNA = getMRNA;
         getMRNAs = getMRNAs;

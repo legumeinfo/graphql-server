@@ -18,9 +18,16 @@ export const bioEntityFactory =
             .then(({data: results}) => results);
     },
     locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {sequenceFeature: bioEntity, page, pageSize};
-        return dataSources[sourceName].getLocations(args)
+        const {id} = bioEntity;
+        const args = {page, pageSize};
+        return dataSources[sourceName].getLocationsForBioEntity(id, args)
             // @ts-ignore: implicit type any error
+            .then(({data: results}) => results);
+    },
+    locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
+        const {id} = bioEntity;
+        return dataSources[sourceName].getLocatedFeaturesForBioEntity(id, {page, pageSize})
+        // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
 });
