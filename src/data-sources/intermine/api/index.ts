@@ -192,7 +192,13 @@ import { getTrait } from './get-trait.js';
 import { searchTraits } from './search-traits.js';
 // transcripts
 import { getTranscript } from './get-transcript.js';
-import { getTranscriptsForExon, getTranscriptsForGene, getTranscriptsForPanGeneSet, getTranscriptsForUTR } from './get-transcripts.js';
+import {
+  getTranscriptsForExon,
+  getTranscriptsForGene,
+  getTranscriptsForIntron,
+  getTranscriptsForPanGeneSet,
+  getTranscriptsForUTR,
+} from './get-transcripts.js';
 // utr
 import { getUTR } from './get-utr.js';
 import { getUTRsForTranscript } from './get-utrs.js';
@@ -386,6 +392,7 @@ export declare class ApiMixinInterface {
     getTranscript: Function;
     getTranscriptsForExon: Function;
     getTranscriptsForGene: Function;
+    getTranscriptsForIntron: Function;
     getTranscriptsForPanGeneSet: Function;
     getTranscriptsForUTR: Function;
     // UTR
@@ -591,6 +598,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getTranscript = getTranscript;
         getTranscriptsForExon = getTranscriptsForExon;
         getTranscriptsForGene = getTranscriptsForGene;
+        getTranscriptsForIntron = getTranscriptsForIntron;
         getTranscriptsForPanGeneSet = getTranscriptsForPanGeneSet;
         getTranscriptsForUTR = getTranscriptsForUTR;
         // UTR
