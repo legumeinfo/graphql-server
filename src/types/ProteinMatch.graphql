@@ -6,16 +6,16 @@ type ProteinMatch implements BioEntity & Annotatable & HasDataSets & HasOntology
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   ## BioEntity
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
   annotationVersion: String
-  secondaryIdentifier: String
-  organism: Organism
-  strain: Strain
-  locations: [Location!]!
+  assemblyVersion: String
+  description: String
   locatedFeatures: [Location!]!
+  locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
   ## ProteinMatch
   source: String
   signatureDesc: String

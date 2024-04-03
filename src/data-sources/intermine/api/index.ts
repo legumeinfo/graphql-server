@@ -168,6 +168,12 @@ import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
 // sequence
 import { getSequence } from './get-sequence.js';
+// sequence feature
+import { getSequenceFeature } from './get-sequence-feature.js';
+import {
+  getChildFeaturesForSequenceFeature,
+  getOverlappingFeaturesForSequenceFeature,
+} from './get-sequence-features.js';
 // SO term
 import { getSOTerm } from './get-so-term.js';
 // supercontig
@@ -356,6 +362,10 @@ export declare class ApiMixinInterface {
     searchQTLStudies: Function;
     // sequence
     getSequence: Function;
+    // sequence feature
+    getSequenceFeature: Function;
+    getChildFeaturesForSequenceFeature: Function;
+    getOverlappingFeaturesForSequenceFeature: Function;
     // SO term
     getSOTerm: Function;
     // supercontig
@@ -557,6 +567,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchQTLStudies = searchQTLStudies;
         // sequence
         getSequence = getSequence;
+        // sequence feature
+        getSequenceFeature = getSequenceFeature;
+        getChildFeaturesForSequenceFeature = getChildFeaturesForSequenceFeature;
+        getOverlappingFeaturesForSequenceFeature = getOverlappingFeaturesForSequenceFeature;
         // SO term
         getSOTerm = getSOTerm;
         // supercontig

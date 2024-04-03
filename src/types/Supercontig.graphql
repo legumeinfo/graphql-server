@@ -6,25 +6,26 @@ type Supercontig implements SequenceFeature & BioEntity & Annotatable & HasDataS
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   ## BioEntity
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
   annotationVersion: String
-  secondaryIdentifier: String
-  organism: Organism
-  strain: Strain
-  locations: [Location!]!
+  assemblyVersion: String
+  description: String
   locatedFeatures: [Location!]!
+  locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
   ## SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  length: Int
+  overlappingFeatures: [SequenceFeature!]!
   score: Float
   scoreType: String
-  length: Int
+  sequence: Sequence
   sequenceOntologyTerm: SOTerm
-  supercontigLocation: Location
-  chromosomeLocation: Location
   supercontig: Supercontig
-  chromosome: Chromosome
-  overlappingFeatures: [SequenceFeature!]!
-  childFeatures: [SequenceFeature!]!
+  supercontigLocation: Location
 }
