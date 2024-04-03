@@ -1,4 +1,4 @@
-type Exon implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Exon implements HasTranscripts & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -28,6 +28,6 @@ type Exon implements SequenceFeature & BioEntity & Annotatable & HasDataSets & H
   sequenceOntologyTerm: SOTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  ## Exon
+  ## HasTranscripts
   transcripts: [Transcript!]!
 }

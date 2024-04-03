@@ -1,4 +1,4 @@
-type UTR implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type UTR implements HasTranscripts & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -28,7 +28,7 @@ type UTR implements SequenceFeature & BioEntity & Annotatable & HasDataSets & Ha
   sequenceOntologyTerm: SOTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  ## UTR
+  ## HasTranscripts
   transcripts: [Transcript!]!
 }
 

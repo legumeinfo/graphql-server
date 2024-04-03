@@ -29,13 +29,13 @@ type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable & Ha
   supercontig: Supercontig
   supercontigLocation: Location
   ## Transcript
-  gene: Gene!
-  protein: Protein!
-  introns: [Intron!]!
-  exons: [Exon!]!
   CDSs: [CDS!]!
-  UTRs: [UTR!]!
+  exons: [Exon!]!
+  gene: Gene!
+  introns: [Intron!]!
   panGeneSets: [PanGeneSet!]!
+  protein: Protein!
+  UTRs: [UTR!]!
   ## MRNA
   isPrimary: Boolean
 }

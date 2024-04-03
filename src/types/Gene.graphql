@@ -1,4 +1,4 @@
-type Gene implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Gene implements HasTranscripts & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -28,13 +28,14 @@ type Gene implements SequenceFeature & BioEntity & Annotatable & HasDataSets & H
   sequenceOntologyTerm: SOTerm
   supercontig: Supercontig
   supercontigLocation: Location
+  ## HasTranscripts
+  transcripts: [Transcript!]!
   ## Gene
   briefDescription: String
   ensemblName: String
   upstreamIntergenicRegion: IntergenicRegion
   downstreamIntergenicRegion: IntergenicRegion
   flankingRegions: [GeneFlankingRegion!]!
-  transcripts: [Transcript!]!
   introns: [Intron!]!
   proteins: [Protein!]!
   pathways: [Pathway!]!

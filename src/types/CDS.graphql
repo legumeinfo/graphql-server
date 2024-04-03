@@ -1,4 +1,4 @@
-type CDS implements SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type CDS implements HasTranscript & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -28,7 +28,8 @@ type CDS implements SequenceFeature & BioEntity & Annotatable & HasDataSets & Ha
   sequenceOntologyTerm: SOTerm
   supercontig: Supercontig
   supercontigLocation: Location
+  ## HasTranscript
+  transcript: Transcript!
   ## CDS
   isPrimary: Boolean!
-  transcript: Transcript!
 }

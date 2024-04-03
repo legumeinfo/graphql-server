@@ -29,11 +29,19 @@ interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasD
   supercontig: Supercontig
   supercontigLocation: Location
   ## Transcript
-  gene: Gene!
-  protein: Protein!
-  introns: [Intron!]!
-  exons: [Exon!]!
   CDSs: [CDS!]!
-  UTRs: [UTR!]!
+  exons: [Exon!]!
+  gene: Gene!
+  introns: [Intron!]!
   panGeneSets: [PanGeneSet!]!
+  protein: Protein!
+  UTRs: [UTR!]!
+}
+
+interface HasTranscript {
+  transcript: Transcript
+}
+
+interface HasTranscripts {
+  transcripts: [Transcript!]!
 }

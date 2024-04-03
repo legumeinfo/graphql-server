@@ -1,4 +1,4 @@
-type Protein implements BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Protein implements HasTranscript & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -16,6 +16,8 @@ type Protein implements BioEntity & Annotatable & HasDataSets & HasOntologyAnnot
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  ## HasTranscript
+  transcript: Transcript
   ## Protein
   md5checksum: String
   primaryAccession: String
@@ -23,7 +25,6 @@ type Protein implements BioEntity & Annotatable & HasDataSets & HasOntologyAnnot
   length: Int
   isPrimary: Boolean
   phylonode: Phylonode
-  transcript: Transcript
   sequence: Sequence
   genes: [Gene!]!
   proteinMatches: [ProteinMatch!]!
