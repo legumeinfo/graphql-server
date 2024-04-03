@@ -47,3 +47,69 @@ export const transcriptFactory =
                 .then(({data: results}) => results);
         },
     });
+
+
+export const hasTranscriptFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    transcript: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'CDS':
+            case 'Protein':
+                const {transcriptIdentifier} = parent;
+                request = dataSources[sourceName].getTranscript(transcriptIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
+    },
+});
+
+
+export const hasTranscriptsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    transcripts: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'Exon':
+            case 'Gene':
+            case 'Intron':
+            case 'PanGeneSet':
+            // @ts-ignore: fallthrough case error
+            case 'UTR':
+                const {id} = parent;
+            case 'Exon':
+                request = dataSources[sourceName].getTranscriptsForExon(id, args);
+                break;
+            case 'Gene':
+                request = dataSources[sourceName].getTranscriptsForGene(id, args);
+                break;
+            case 'Intron':
+                request = dataSources[sourceName].getTranscriptsForIntron(id, args);
+                break;
+            case 'PanGeneSet':
+                request = dataSources[sourceName].getTranscriptsForPanGeneSet(id, args);
+                break;
+            case 'UTR':
+                request = dataSources[sourceName].getTranscriptsForUTR(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
+    },
+});

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
+import { hasTranscriptFactory } from './transcript.js';
 
 export const cdsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -17,10 +18,6 @@ ResolverMap => ({
     },
     CDS: {
         ...sequenceFeatureFactory(sourceName),
-        transcript: async(cds, _, { dataSources }) => {
-            return dataSources[sourceName].getTranscript(cds.transcriptIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasTranscriptFactory(sourceName),
     },
 });

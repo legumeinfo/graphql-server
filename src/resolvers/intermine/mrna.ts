@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { transcriptFactory } from './transcript.js';
 
 
 export const mRNAFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     MRNA: {
-        ...sequenceFeatureFactory(sourceName),
+        ...transcriptFactory(sourceName),
         gene: async (mRNA, _, { dataSources }) => {
             return dataSources[sourceName].getGene(mRNA.geneIdentifier)
                 // @ts-ignore: implicit type any error

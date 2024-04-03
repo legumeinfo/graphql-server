@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
+import { hasTranscriptsFactory } from './transcript.js';
 
 export const geneFactory =
     (
@@ -26,6 +27,7 @@ export const geneFactory =
         },
         Gene: {
             ...sequenceFeatureFactory(sourceName),
+            ...hasTranscriptsFactory(sourceName),
 
             // locations: [Location!]!
             
@@ -36,8 +38,6 @@ export const geneFactory =
             // childFeatures: [SequenceFeature!]!
             
             // flankingRegions: [GeneFlankingRegion!]!
-            
-            // transcripts: [Transcript!]!
             
             // introns: [Intron!]!
             
