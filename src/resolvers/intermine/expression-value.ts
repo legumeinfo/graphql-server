@@ -27,8 +27,8 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        gene: async (expressionValue, _, { dataSources }) => {
-            return dataSources[sourceName].getGene(expressionValue.geneIdentifier)
+        feature: async (expressionValue, _, { dataSources }) => {
+            return dataSources[sourceName].getSequenceFeature(expressionValue.featureId)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
