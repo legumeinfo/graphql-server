@@ -7,7 +7,6 @@ import {
 } from '../intermine.server.js';
 import {
     GraphQLSyntenicRegion,
-    GraphQLSyntenyBlock,
     IntermineSyntenicRegionResponse,
     intermineSyntenicRegionAttributes,
     intermineSyntenicRegionSort,
@@ -15,25 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetSyntenicRegionsOptions = {
-    syntenyBlock?: GraphQLSyntenyBlock;
-} & PaginationOptions;
-
-
 // get SyntenicRegions associated with a SyntenyBlock
-export async function getSyntenicRegions(
-    {
-        syntenyBlock,
-        page,
-        pageSize,
-    }: GetSyntenicRegionsOptions,
-): Promise<ApiResponse<GraphQLSyntenicRegion[]>> {
-    const constraints = [];
-    if (syntenyBlock) {
-        const constraint = intermineConstraint('SyntenicRegion.syntenyBlock.id', '=', syntenyBlock.id);
-        constraints.push(constraint);
-    }
+export async function getSyntenicRegionsForSyntenyBlock(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLSyntenicRegion>> {
+    const constraints = [intermineConstraint('SyntenicRegion.syntenyBlock.id', '=', id)];
     const query = interminePathQuery(
         intermineSyntenicRegionAttributes,
         intermineSyntenicRegionSort,

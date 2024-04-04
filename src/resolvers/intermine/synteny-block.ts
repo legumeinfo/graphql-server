@@ -19,8 +19,9 @@ ResolverMap => ({
     SyntenyBlock: {
         ...annotatableFactory(sourceName),
         syntenicRegions: async (syntenyBlock, { page, pageSize }, { dataSources }) => {
-            const args = {syntenyBlock, page, pageSize};
-            return dataSources[sourceName].getSyntenicRegions(args)
+            const {id} = syntenyBlock;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getSyntenicRegionsForSyntenyBlock(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
