@@ -10,16 +10,19 @@ import {
   intermineGeneSort,
   response2genes,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 // get a Gene by ID
 export async function getGene(identifier: string):
 Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.primaryIdentifier', '=', identifier)];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
         .then((response: IntermineGeneResponse) => response2genes(response))

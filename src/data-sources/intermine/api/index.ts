@@ -179,7 +179,7 @@ import { getSOTerm } from './get-so-term.js';
 import { getSupercontig } from './get-supercontig.js';
 // syntenic region
 import { getSyntenicRegion } from './get-syntenic-region.js';
-import { getSyntenicRegions } from './get-syntenic-regions.js';
+import { getSyntenicRegionsForSyntenyBlock } from './get-syntenic-regions.js';
 // synteny block
 import { getSyntenyBlock } from './get-synteny-block.js';
 // strain
@@ -376,7 +376,7 @@ export declare class ApiMixinInterface {
     getSupercontig: Function;
     // syntenic region
     getSyntenicRegion: Function;
-    getSyntenicRegions: Function;
+    getSyntenicRegionsForSyntenyBlock: Function;
     // synteny block
     getSyntenyBlock: Function;
     // strain
@@ -581,7 +581,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getSupercontig = getSupercontig;
         // syntenic region
         getSyntenicRegion = getSyntenicRegion;
-        getSyntenicRegions = getSyntenicRegions;
+        getSyntenicRegionsForSyntenyBlock = getSyntenicRegionsForSyntenyBlock;
         // synteny block
         getSyntenyBlock = getSyntenyBlock;
         // strain

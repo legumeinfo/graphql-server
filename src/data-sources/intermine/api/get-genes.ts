@@ -2,7 +2,6 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -18,18 +17,12 @@ import {
     response2genes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get Genes associated with a GeneFamily
 export async function getGenesForGeneFamily(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Gene.chromosome', 'OUTER'),
-        intermineJoin('Gene.supercontig', 'OUTER'),
-        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER'),
-        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
@@ -50,14 +43,7 @@ export async function getGenesForGeneFamily(id: number, { page, pageSize }: Pagi
 // get Genes associated with a PanGeneSet
 export async function getGenesForPanGeneSet(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.panGeneSets.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Gene.chromosome', 'OUTER'),
-        intermineJoin('Gene.supercontig', 'OUTER'),
-        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER'),
-        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
@@ -78,14 +64,7 @@ export async function getGenesForPanGeneSet(id: number, { page, pageSize }: Pagi
 // get Genes associated with a Pathway
 export async function getGenesForPathway(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.pathways.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Gene.chromosome', 'OUTER'),
-        intermineJoin('Gene.supercontig', 'OUTER'),
-        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER'),
-        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
@@ -106,14 +85,7 @@ export async function getGenesForPathway(id: number, { page, pageSize }: Paginat
 // get Genes associated with a Protein
 export async function getGenesForProtein(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.proteins.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Gene.chromosome', 'OUTER'),
-        intermineJoin('Gene.supercontig', 'OUTER'),
-        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER'),
-        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
@@ -134,14 +106,7 @@ export async function getGenesForProtein(id: number, { page, pageSize }: Paginat
 // get Genes associated with a ProteinDomain
 export async function getGenesForProteinDomain(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.proteinDomains.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Gene.chromosome', 'OUTER'),
-        intermineJoin('Gene.supercontig', 'OUTER'),
-        intermineJoin('Gene.chromosomeLocation', 'OUTER'),
-        intermineJoin('Gene.supercontigLocation', 'OUTER'),
-        intermineJoin('Gene.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
@@ -162,14 +127,7 @@ export async function getGenesForProteinDomain(id: number, { page, pageSize }: P
 // get adjacent Genes for an IntergenicRegion by id
 export async function getAdjacentGenesForIntergenicRegion(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('IntergenicRegion.id', '=', id)];
-    // all SequenceFeature object queries must include these joins
-    const joins = [
-        intermineJoin('IntergenicRegion.adjacentGenes.chromosome', 'OUTER'),
-        intermineJoin('IntergenicRegion.adjacentGenes.supercontig', 'OUTER'),
-        intermineJoin('IntergenicRegion.adjacentGenes.chromosomeLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.adjacentGenes.supercontigLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.adjacentGenes.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('IntergenicRegion.adjacentGenes');
     const query = interminePathQuery(
         intermineIntergenicRegionAdjacentGeneAttributes,
         intermineIntergenicRegionAdjacentGeneSort,
@@ -190,14 +148,7 @@ export async function getAdjacentGenesForIntergenicRegion(id: number, { page, pa
 // get Genes associated with a QTL, for which there is no reverse reference from Gene
 export async function getGenesForQTL(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('QTL.id', '=', id)];
-    // all SequenceFeature object queries must include these joins
-    const joins = [
-        intermineJoin('QTL.genes.chromosome', 'OUTER'),
-        intermineJoin('QTL.genes.supercontig', 'OUTER'),
-        intermineJoin('QTL.genes.chromosomeLocation', 'OUTER'),
-        intermineJoin('QTL.genes.supercontigLocation', 'OUTER'),
-        intermineJoin('QTL.genes.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('QTL.genes');
     const query = interminePathQuery(
         intermineQTLGenesAttributes,
         intermineQTLGenesSort,

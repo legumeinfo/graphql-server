@@ -1,7 +1,6 @@
 import {
     ApiResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,19 +10,13 @@ import {
     intermineUTRSort,
     response2utrs,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get a UTR by identifier
 export async function getUTR(identifier: string):
 Promise<ApiResponse<GraphQLUTR>> {
     const constraints = [intermineConstraint('UTR.primaryIdentifier', '=', identifier)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('UTR.chromosome', 'OUTER'),
-        intermineJoin('UTR.supercontig', 'OUTER'),
-        intermineJoin('UTR.chromosomeLocation', 'OUTER'),
-        intermineJoin('UTR.supercontigLocation', 'OUTER'),
-        intermineJoin('UTR.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('UTR');
     const query = interminePathQuery(
         intermineUTRAttributes,
         intermineUTRSort,

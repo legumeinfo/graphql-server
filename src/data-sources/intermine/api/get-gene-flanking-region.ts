@@ -1,7 +1,6 @@
 import {
     ApiResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,18 +10,13 @@ import {
     intermineGeneFlankingRegionSort,
     response2geneFlankingRegions,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get a GeneFlankingRegion by identifier
 export async function getGeneFlankingRegion(identifier: string):
 Promise<ApiResponse<GraphQLGeneFlankingRegion>> {
     const constraints = [intermineConstraint('GeneFlankingRegion.primaryIdentifier', '=', identifier)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('GeneFlankingRegion.chromosome', 'OUTER'),
-        intermineJoin('GeneFlankingRegion.supercontig', 'OUTER'),
-        intermineJoin('GeneFlankingRegion.chromosomeLocation', 'OUTER'),
-        intermineJoin('GeneFlankingRegion.supercontigLocation', 'OUTER')
-    ];
+    const joins = sequenceFeatureJoinFactory('GeneFlankingRegion');
     const query = interminePathQuery(
         intermineGeneFlankingRegionAttributes,
         intermineGeneFlankingRegionSort,

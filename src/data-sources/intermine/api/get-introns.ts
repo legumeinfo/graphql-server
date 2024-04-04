@@ -2,7 +2,6 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -14,18 +13,12 @@ import {
     response2introns,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // Get Introns associated with a Gene
 export async function getIntronsForGene(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLIntron>> {
     const constraints = [intermineConstraint('Intron.genes.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Intron.chromosome', 'OUTER'),
-        intermineJoin('Intron.supercontig', 'OUTER'),
-        intermineJoin('Intron.chromosomeLocation', 'OUTER'),
-        intermineJoin('Intron.supercontigLocation', 'OUTER'),
-        intermineJoin('Intron.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Intron');
     const query = interminePathQuery(
         intermineIntronAttributes,
         intermineIntronSort,
@@ -46,14 +39,7 @@ export async function getIntronsForGene(id: number, { page, pageSize }: Paginati
 // Get Introns associated with a Transcript
 export async function getIntronsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLIntron>> {
     const constraints = [intermineConstraint('Intron.transcripts.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Intron.chromosome', 'OUTER'),
-        intermineJoin('Intron.supercontig', 'OUTER'),
-        intermineJoin('Intron.chromosomeLocation', 'OUTER'),
-        intermineJoin('Intron.supercontigLocation', 'OUTER'),
-        intermineJoin('Intron.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Intron');
     const query = interminePathQuery(
         intermineIntronAttributes,
         intermineIntronSort,

@@ -2,7 +2,6 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -16,6 +15,7 @@ import {
     response2sequenceFeatures,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get SequenceFeatures using the given query and returns the expected GraphQL types
 export async function getSequenceFeatures(pathQuery: string, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLSequenceFeature>> {
@@ -33,14 +33,7 @@ export async function getSequenceFeatures(pathQuery: string, { page, pageSize }:
 // get childFeatures (SequenceFeature) of a SequenceFeature
 export async function getChildFeaturesForSequenceFeature(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLSequenceFeature>> {
     const constraints = [intermineConstraint('SequenceFeature.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('SequenceFeature.childFeatures.chromosome', 'OUTER'),
-        intermineJoin('SequenceFeature.childFeatures.supercontig', 'OUTER'),
-        intermineJoin('SequenceFeature.childFeatures.chromosomeLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.childFeatures.supercontigLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.childFeatures.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('SequenceFeature.childFeatures');
     const query = interminePathQuery(
         intermineSequenceFeatureChildFeatureAttributes,
         intermineSequenceFeatureChildFeatureSort,
@@ -54,14 +47,7 @@ export async function getChildFeaturesForSequenceFeature(id: number, { page, pag
 // get overlappingFeatures (SequenceFeatures) for a SequenceFeature
 export async function getOverlappingFeaturesForSequenceFeature(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLSequenceFeature>> {
     const constraints = [intermineConstraint('SequenceFeature.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('SequenceFeature.overlappingFeatures.chromosome', 'OUTER'),
-        intermineJoin('SequenceFeature.overlappingFeatures.supercontig', 'OUTER'),
-        intermineJoin('SequenceFeature.overlappingFeatures.chromosomeLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.overlappingFeatures.supercontigLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.overlappingFeatures.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('SequenceFeature.overlappingFeatures');
     const query = interminePathQuery(
         intermineOverlappingFeatureAttributes,
         intermineOverlappingFeatureSort,

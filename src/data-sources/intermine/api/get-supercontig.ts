@@ -10,6 +10,7 @@ import {
   intermineSupercontigSort,
   response2supercontigs,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 // get a Supercontig by identifier
@@ -17,10 +18,12 @@ import {
 export async function getSupercontig(identifier: string):
 Promise<ApiResponse<GraphQLSupercontig>> {
     const constraints = [intermineConstraint('Supercontig.primaryIdentifier', '=', identifier)];
+    const joins = sequenceFeatureJoinFactory('Supercontig');
     const query = interminePathQuery(
         intermineSupercontigAttributes,
         intermineSupercontigSort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
         .then((response: IntermineSupercontigResponse) => response2supercontigs(response))

@@ -13,14 +13,17 @@ import {
     response2syntenicRegions,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get SyntenicRegions associated with a SyntenyBlock
 export async function getSyntenicRegionsForSyntenyBlock(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLSyntenicRegion>> {
     const constraints = [intermineConstraint('SyntenicRegion.syntenyBlock.id', '=', id)];
+    const joins = sequenceFeatureJoinFactory('SyntenicRegion');
     const query = interminePathQuery(
         intermineSyntenicRegionAttributes,
         intermineSyntenicRegionSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})

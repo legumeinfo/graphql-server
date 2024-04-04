@@ -2,7 +2,6 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -14,18 +13,12 @@ import {
     response2exons,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // Get Exons associated with a Transcript
 export async function getExonsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLExon>> {
     const constraints = [intermineConstraint('Exon.transcripts.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Exon.chromosome', 'OUTER'),
-        intermineJoin('Exon.supercontig', 'OUTER'),
-        intermineJoin('Exon.chromosomeLocation', 'OUTER'),
-        intermineJoin('Exon.supercontigLocation', 'OUTER'),
-        intermineJoin('Exon.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Exon');
     const query = interminePathQuery(
         intermineExonAttributes,
         intermineExonSort,

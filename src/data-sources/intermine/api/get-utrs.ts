@@ -2,7 +2,6 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -14,18 +13,12 @@ import {
     response2utrs,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // Get UTRs associated with a Transcript
 export async function getUTRsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLUTR>> {
     const constraints = [intermineConstraint('UTR.transcripts.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('UTR.chromosome', 'OUTER'),
-        intermineJoin('UTR.supercontig', 'OUTER'),
-        intermineJoin('UTR.chromosomeLocation', 'OUTER'),
-        intermineJoin('UTR.supercontigLocation', 'OUTER'),
-        intermineJoin('UTR.sequenceOntologyTerm', 'OUTER')
-    ];
+    const joins = sequenceFeatureJoinFactory('UTR');
     const query = interminePathQuery(
         intermineUTRAttributes,
         intermineUTRSort,

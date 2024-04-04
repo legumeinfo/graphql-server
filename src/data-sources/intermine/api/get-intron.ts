@@ -1,7 +1,6 @@
 import {
     ApiResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,19 +10,13 @@ import {
     intermineIntronSort,
     response2introns,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get an Intron by identifier
 export async function getIntron(identifier: string):
 Promise<ApiResponse<GraphQLIntron>> {
     const constraints = [intermineConstraint('Intron.primaryIdentifier', '=', identifier)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('Intron.chromosome', 'OUTER'),
-        intermineJoin('Intron.supercontig', 'OUTER'),
-        intermineJoin('Intron.chromosomeLocation', 'OUTER'),
-        intermineJoin('Intron.supercontigLocation', 'OUTER'),
-        intermineJoin('Intron.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('Intron');
     const query = interminePathQuery(
         intermineIntronAttributes,
         intermineIntronSort,

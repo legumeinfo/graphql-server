@@ -1,7 +1,6 @@
 import {
     ApiResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,19 +10,13 @@ import {
     intermineSequenceFeatureSort,
     response2sequenceFeatures,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get an SequenceFeature by id (for internal resolution of collections and references)
 export async function getSequenceFeature(id: number):
 Promise<ApiResponse<GraphQLSequenceFeature>> {
     const constraints = [intermineConstraint('SequenceFeature.id', '=', id)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('SequenceFeature.chromosome', 'OUTER'),
-        intermineJoin('SequenceFeature.supercontig', 'OUTER'),
-        intermineJoin('SequenceFeature.chromosomeLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.supercontigLocation', 'OUTER'),
-        intermineJoin('SequenceFeature.sequenceOntologyTerm', 'OUTER')
-    ];
+    const joins = sequenceFeatureJoinFactory();
     const query = interminePathQuery(
         intermineSequenceFeatureAttributes,
         intermineSequenceFeatureSort,

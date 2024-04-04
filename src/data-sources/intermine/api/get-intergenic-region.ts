@@ -1,7 +1,6 @@
 import {
     ApiResponse,
     intermineConstraint,
-    intermineJoin,
     interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,19 +10,13 @@ import {
     intermineIntergenicRegionSort,
     response2intergenicRegions,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 // get an IntergenicRegion by identifier
 export async function getIntergenicRegion(identifier: string):
 Promise<ApiResponse<GraphQLIntergenicRegion>> {
     const constraints = [intermineConstraint('IntergenicRegion.primaryIdentifier', '=', identifier)];
-    // all SequenceFeature-extending object queries must include these joins
-    const joins = [
-        intermineJoin('IntergenicRegion.chromosome', 'OUTER'),
-        intermineJoin('IntergenicRegion.supercontig', 'OUTER'),
-        intermineJoin('IntergenicRegion.chromosomeLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.supercontigLocation', 'OUTER'),
-        intermineJoin('IntergenicRegion.sequenceOntologyTerm', 'OUTER'),
-    ];
+    const joins = sequenceFeatureJoinFactory('IntergenicRegion');
     const query = interminePathQuery(
         intermineIntergenicRegionAttributes,
         intermineIntergenicRegionSort,

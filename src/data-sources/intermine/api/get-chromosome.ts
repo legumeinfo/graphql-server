@@ -10,16 +10,19 @@ import {
   intermineChromosomeSort,
   response2chromosomes,
 } from '../models/index.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 // get a Chromosome by ID
 export async function getChromosome(identifier: string):
 Promise<ApiResponse<GraphQLChromosome>> {
     const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];
+    const joins = sequenceFeatureJoinFactory('Exon');
     const query = interminePathQuery(
         intermineChromosomeAttributes,
         intermineChromosomeSort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
         .then((response: IntermineChromosomeResponse) => response2chromosomes(response))
