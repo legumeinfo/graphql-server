@@ -53,8 +53,10 @@ import { getGeneFamilies } from './get-gene-families.js';
 import { searchGeneFamilies } from './search-gene-families.js';
 // gene family assignment
 import { getGeneFamilyAssignment } from './get-gene-family-assignment.js';
-import { getGeneFamilyAssignments} from './get-gene-family-assignments.js';
-import { getGeneFamilyAssignmentsForProtein } from './get-gene-family-assignments-for-protein.js';
+import {
+  getGeneFamilyAssignmentsForGene,
+  getGeneFamilyAssignmentsForProtein,
+} from './get-gene-family-assignments.js';
 // gene family tally
 import { getGeneFamilyTally } from './get-gene-family-tally.js';
 import { getGeneFamilyTallies } from './get-gene-family-tallies.js';
@@ -265,7 +267,7 @@ export declare class ApiMixinInterface {
     searchGeneFamilies: Function;
     // gene family assignment
     getGeneFamilyAssignment: Function;
-    getGeneFamilyAssignments: Function;
+    getGeneFamilyAssignmentsForGene: Function;
     getGeneFamilyAssignmentsForProtein: Function;
     // gene family tally
     getGeneFamilyTally: Function;
@@ -472,7 +474,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchGeneFamilies = searchGeneFamilies;
         // gene family assignment
         getGeneFamilyAssignment = getGeneFamilyAssignment;
-        getGeneFamilyAssignments = getGeneFamilyAssignments;
+        getGeneFamilyAssignmentsForGene = getGeneFamilyAssignmentsForGene;
         getGeneFamilyAssignmentsForProtein = getGeneFamilyAssignmentsForProtein;
         // gene family tally
         getGeneFamilyTally = getGeneFamilyTally;

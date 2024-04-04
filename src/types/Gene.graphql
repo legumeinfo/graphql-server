@@ -1,4 +1,4 @@
-type Gene implements HasTranscripts & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Gene implements HasGeneFamilyAssignments & HasTranscripts & SequenceFeature & BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -28,6 +28,8 @@ type Gene implements HasTranscripts & SequenceFeature & BioEntity & Annotatable 
   sequenceOntologyTerm: SOTerm
   supercontig: Supercontig
   supercontigLocation: Location
+  ## HasGeneFamilyAssignments
+  geneFamilyAssignments: [GeneFamilyAssignment!]!
   ## HasTranscripts
   transcripts: [Transcript!]!
   ## Gene
@@ -41,7 +43,6 @@ type Gene implements HasTranscripts & SequenceFeature & BioEntity & Annotatable 
   pathways: [Pathway!]!
   # alleles
   panGeneSets: [PanGeneSet!]!
-  geneFamilyAssignments: [GeneFamilyAssignment!]!
   proteinDomains: [ProteinDomain!]!
   # regulatoryRegions
   ## microservices
