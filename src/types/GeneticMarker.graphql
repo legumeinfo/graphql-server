@@ -29,12 +29,16 @@ type GeneticMarker implements SequenceFeature & BioEntity & Annotatable & HasDat
   supercontig: Supercontig
   supercontigLocation: Location
   # GeneticMarker
-  motif: String
   alias: String
-  type: String
   alleles: String
-  qtls: [QTL!]!
   genotypingPlatforms: [GenotypingPlatform!]!
   gwasResults: [GWASResult!]!
   linkageGroupPositions: [LinkageGroupPosition!]!
+  motif: String
+  type: String
+  qtls: [QTL!]!
+}
+
+interface HasGeneticMarkers {
+  markers: [GeneticMarker!]!
 }

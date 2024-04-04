@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 
 
@@ -43,5 +43,40 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+    },
+});
+
+
+export const hasGeneticMarkerFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    markers: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GenotypingPlatform':
+            case 'GWASResult':
+            // @ts-ignore: fallthrough case error
+            case 'QTL':
+                const {id} = parent;
+            case 'GenotypingPlatform':
+                request = dataSources[sourceName].getGeneticMarkersForGenotypingPlatform(id, args);
+                break;
+            case 'GWASResult':
+                request = dataSources[sourceName].getGeneticMarkersForGWASResult(id, args);
+                break;
+            case 'QTL':
+                request = dataSources[sourceName].getGeneticMarkersForQTL(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

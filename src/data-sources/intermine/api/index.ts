@@ -65,7 +65,11 @@ import { getGeneticMap } from './get-genetic-map.js';
 import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
 import { getGeneticMarker } from './get-genetic-marker.js';
-import { getGeneticMarkers } from './get-genetic-markers.js';
+import {
+  getGeneticMarkersForGenotypingPlatform,
+  getGeneticMarkersForQTL,
+  getGeneticMarkersForGWASResult,
+} from './get-genetic-markers.js';
 // genotyping platform
 import { getGenotypingPlatform } from './get-genotyping-platform.js';
 import { getGenotypingPlatformsForGeneticMarker } from './get-genotyping-platforms.js';
@@ -273,7 +277,9 @@ export declare class ApiMixinInterface {
     searchGeneticMaps: Function;
     // genetic marker
     getGeneticMarker: Function;
-    getGeneticMarkers: Function;
+    getGeneticMarkersForGenotypingPlatform: Function;
+    getGeneticMarkersForQTL: Function;
+    getGeneticMarkersForGWASResult: Function;
     // genotyping platform
     getGenotypingPlatform: Function;
     getGenotypingPlatformsForGeneticMarker: Function;
@@ -478,7 +484,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchGeneticMaps = searchGeneticMaps;
         // genetic marker
         getGeneticMarker = getGeneticMarker;
-        getGeneticMarkers = getGeneticMarkers;
+        getGeneticMarkersForGenotypingPlatform = getGeneticMarkersForGenotypingPlatform;
+        getGeneticMarkersForQTL = getGeneticMarkersForQTL;
+        getGeneticMarkersForGWASResult = getGeneticMarkersForGWASResult;
         // genotyping platform
         getGenotypingPlatform = getGenotypingPlatform;
         getGenotypingPlatformsForGeneticMarker = getGenotypingPlatformsForGeneticMarker;
