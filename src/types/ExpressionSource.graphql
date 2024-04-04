@@ -6,14 +6,13 @@ type ExpressionSource implements Annotatable & HasDataSets & HasOntologyAnnotati
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   # ExpressionSource
-  sra: String
-  description: String
   bioProject: String
-  unit: String
+  description: String
   geoSeries: String
-  synopsis: String
   organism: Organism
-  strain: Strain
-  dataSet: DataSet
   samples: [ExpressionSample!]!
+  sra: String
+  strain: Strain
+  synopsis: String
+  unit: String
 }
