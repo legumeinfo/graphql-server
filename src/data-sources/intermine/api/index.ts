@@ -95,7 +95,6 @@ import {
 } from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
-import { getMRNAs } from './get-mrnas.js';
 // newick
 import { getNewick } from './get-newick.js';
 // ontology
@@ -303,7 +302,6 @@ export declare class ApiMixinInterface {
     getLocatedFeaturesForBioEntity: Function;
     // mRNA
     getMRNA: Function;
-    getMRNAs: Function;
     // newick
     getNewick: Function;
     // ontology
