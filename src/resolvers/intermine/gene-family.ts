@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 
 
@@ -56,5 +56,31 @@ export const geneFamilyFactory =
             const {identifier} = geneFamily;
             return dataSources[microservicesSource].getLinkoutsForGeneFamily(identifier);
         },
+    },
+});
+
+
+export const hasGeneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    geneFamily: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneFamilyAssignment':
+            case 'GeneFamilyTally':
+            // @ts-ignore: fallthrough case error
+            case 'Phylotree':
+                const {geneFamilyIdentifier} = parent;
+                request = dataSources[sourceName].getGeneFamily(geneFamilyIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

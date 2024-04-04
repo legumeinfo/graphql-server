@@ -1,13 +1,14 @@
-type Phylotree implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Phylotree implements HasGeneFamily & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasGeneFamily
+  geneFamily: GeneFamily
   # Phylotree
   numLeaves: Int
-  geneFamily: GeneFamily
   newick: String
   nodes: [Phylonode!]!
 }

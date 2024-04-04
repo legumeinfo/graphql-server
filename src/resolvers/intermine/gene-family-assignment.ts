@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { hasGeneFamilyFactory } from './gene-family.js';
 
 
 export const geneFamilyAssignmentFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -16,11 +17,7 @@ ResolverMap => ({
         },
     },
     GeneFamilyAssignment: {
-        geneFamily: async(geneFamilyAssignment, _, { dataSources }) => {
-            return dataSources[sourceName].getGeneFamily(geneFamilyAssignment.geneFamilyIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasGeneFamilyFactory(sourceName),
     },
 });
 

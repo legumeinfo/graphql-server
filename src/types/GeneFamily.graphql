@@ -7,12 +7,16 @@ type GeneFamily implements Annotatable & HasDataSets & HasOntologyAnnotations & 
   publications: [Publication!]!
   # GeneFamily
   description: String
-  version: String
-  size: Int
-  phylotree: Phylotree
   genes: [Gene!]!
+  phylotree: Phylotree
   proteinDomains: [ProteinDomain!]!
+  size: Int
   tallies: [GeneFamilyTally!]!
+  version: String
   ## microservices
   linkouts: [Linkout!]!
+}
+
+interface HasGeneFamily {
+  geneFamily: GeneFamily
 }

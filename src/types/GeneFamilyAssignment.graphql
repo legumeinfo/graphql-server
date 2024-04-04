@@ -1,9 +1,10 @@
-type GeneFamilyAssignment {
+type GeneFamilyAssignment implements HasGeneFamily {
   id: ID!
   bestDomainScore: Float
   evalue: Float
-  geneFamily: GeneFamily!
   score:  Float
+  # HasGeneFamily: TODO: make non-null
+  geneFamily: GeneFamily
 }
 
 interface HasGeneFamilyAssignments {
