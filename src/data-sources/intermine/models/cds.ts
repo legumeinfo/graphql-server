@@ -5,24 +5,23 @@ import {
   intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
-// <class name="CDS" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000316,http://purl.obolibrary.org/obo/SO:0000316">
-// 	<attribute name="isPrimary" type="java.lang.Boolean"/>
-// 	<reference name="transcript" referenced-type="Transcript" reverse-reference="CDSs"/>
-// </class>
 export const intermineCDSAttributes = [
     ...intermineSequenceFeatureAttributesFactory('CDS'),
-    'CDS.transcript.primaryIdentifier',    // reference resolution
+    'CDS.transcript.primaryIdentifier',
+    'CDS.isPrimary',
 ];
 export const intermineCDSSort = 'CDS.primaryIdentifier';
 
 export type IntermineCDS = [
     ...IntermineSequenceFeature,
-    string, // transcript.primaryIdentifier
+    string,
+    boolean,
 ];
 
 export const graphqlCDSAttributes = [
     ...graphqlSequenceFeatureAttributes,
-    'transcriptIdentifier', // transcript.primaryIdentifier
+    'transcriptIdentifier',
+    'isPrimary',
 ];
 
 export type GraphQLCDS = {
