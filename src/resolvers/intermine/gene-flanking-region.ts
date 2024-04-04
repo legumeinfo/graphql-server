@@ -18,7 +18,8 @@ ResolverMap => ({
     GeneFlankingRegion: {
         ...sequenceFeatureFactory(sourceName),
         gene: async (geneFlankingRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getGene(geneFlankingRegion.geneIdentifier)
+            const {geneIdentifier} = geneFlankingRegion;
+            return dataSources[sourceName].getGene(geneIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

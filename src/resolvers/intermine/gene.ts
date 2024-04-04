@@ -39,10 +39,15 @@ export const geneFactory =
             
             // childFeatures: [SequenceFeature!]!
             
-            // flankingRegions: [GeneFlankingRegion!]!
-            
             // introns: [Intron!]!
             
+            flankingRegions: async (gene, { page, pageSize }, { dataSources }) => {
+                const {id} = gene;
+                const args = {page, pageSize};
+                return dataSources[sourceName].getGeneFlankingRegionsForGene(id, args)
+                // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            },
             proteins: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {gene, page, pageSize};
                 return dataSources[sourceName].getProteins(args)

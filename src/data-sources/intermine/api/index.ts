@@ -62,6 +62,7 @@ import { getGeneFamilyTally } from './get-gene-family-tally.js';
 import { getGeneFamilyTalliesForGeneFamily } from './get-gene-family-tallies.js';
 // gene flanking regino
 import { getGeneFlankingRegion } from './get-gene-flanking-region.js';
+import { getGeneFlankingRegionsForGene } from './get-gene-flanking-regions.js';
 // genetic map
 import { getGeneticMap } from './get-genetic-map.js';
 import { searchGeneticMaps } from './search-genetic-maps.js';
@@ -274,6 +275,7 @@ export declare class ApiMixinInterface {
     getGeneFamilyTalliesForGeneFamily: Function;
     // gene flanking region
     getGeneFlankingRegion: Function;
+    getGeneFlankingRegionsForGene: Function;
     // genetic map
     getGeneticMap: Function;
     searchGeneticMaps: Function;
@@ -481,6 +483,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getGeneFamilyTalliesForGeneFamily = getGeneFamilyTalliesForGeneFamily;
         // gene flanking region
         getGeneFlankingRegion = getGeneFlankingRegion;
+        getGeneFlankingRegionsForGene = getGeneFlankingRegionsForGene;
         // genetic map
         getGeneticMap = getGeneticMap;
         searchGeneticMaps = searchGeneticMaps;

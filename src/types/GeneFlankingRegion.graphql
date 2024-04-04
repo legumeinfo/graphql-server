@@ -31,6 +31,6 @@ type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & H
   ## GeneFlankingRegion
   direction: String!
   distance: String!
-  includeGene: Boolean!
   gene: Gene!
+  includeGene: Boolean!
 }
