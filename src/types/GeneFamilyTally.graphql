@@ -1,6 +1,8 @@
 type GeneFamilyTally implements HasGeneFamily {
   id: ID!
-  tally: Int
+  averageCount: Float!
+  numAnnotations: Int!
+  totalCount: Int!
   organism: Organism
   ## HasGeneFamily
   geneFamily: GeneFamily

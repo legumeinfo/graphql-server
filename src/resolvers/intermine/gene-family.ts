@@ -47,8 +47,9 @@ export const geneFamilyFactory =
                 .then(({data: results}) => results);
         },
         tallies: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
-            return dataSources[sourceName].getGeneFamilyTallies(args)
+            const {id} = geneFamily;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGeneFamilyTalliesForGeneFamily(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
