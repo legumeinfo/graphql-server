@@ -35,8 +35,9 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         samples: async (expressionSource, { page, pageSize }, { dataSources }) => {
-            const args = {expressionSource, page, pageSize};
-            return dataSources[sourceName].getExpressionSamples(args)
+            const {id} = expressionSource;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getExpressionSamplesForExpressionSource(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

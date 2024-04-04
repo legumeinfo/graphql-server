@@ -1,21 +1,21 @@
 type ExpressionSample implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  # Annotatable
+  ## Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # ExpressionSample
-  tissue: String
-  num: Int
-  description: String
-  replicateGroup: String
-  treatment: String
+  ## ExpressionSample
   bioSample: String
-  sraExperiment: String
-  species: String
+  description: String
+  developmentStage: String
   genotype: String
   name: String
-  developmentStage: String
+  num: Int
+  replicateGroup: String
   source: ExpressionSource
+  species: String
+  sraExperiment: String
+  tissue: String
+  treatment: String
 }

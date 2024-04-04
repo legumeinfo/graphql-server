@@ -27,7 +27,7 @@ import { getExon } from './get-exon.js';
 import { getExonsForTranscript } from './get-exons.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
-import { getExpressionSamples } from './get-expression-samples.js';
+import { getExpressionSamplesForExpressionSource } from './get-expression-samples.js';
 import { searchExpressionSamples } from './search-expression-samples.js';
 // expression source
 import { getExpressionSource } from './get-expression-source.js';
@@ -241,7 +241,7 @@ export declare class ApiMixinInterface {
     getExonsForTranscript: Function;
     // expression sample
     getExpressionSample: Function;
-    getExpressionSamples: Function;
+    getExpressionSamplesForExpressionSource: Function;
     searchExpressionSamples: Function;
     // expression source
     getExpressionSource: Function;
@@ -448,7 +448,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getExonsForTranscript = getExonsForTranscript;
         // expression sample
         getExpressionSample = getExpressionSample;
-        getExpressionSamples = getExpressionSamples;
+        getExpressionSamplesForExpressionSource = getExpressionSamplesForExpressionSource;
         searchExpressionSamples = searchExpressionSamples;
         // expression source
         getExpressionSource = getExpressionSource;
