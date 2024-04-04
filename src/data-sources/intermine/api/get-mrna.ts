@@ -10,16 +10,19 @@ import {
   intermineMRNASort,
   response2mRNAs,
 } from '../models/index.js';
+import { transcriptJoinFactory } from './transcript.js';
 
 
 // get an MRNA by identifier
 export async function getMRNA(identifier: string):
 Promise<ApiResponse<GraphQLMRNA>> {
     const constraints = [intermineConstraint('MRNA.primaryIdentifier', '=', identifier)];
+    const joins = transcriptJoinFactory('MRNA');
     const query = interminePathQuery(
         intermineMRNAAttributes,
         intermineMRNASort,
         constraints,
+        joins,
     );
     return this.pathQuery(query)
         .then((response: IntermineMRNAResponse) => response2mRNAs(response))
