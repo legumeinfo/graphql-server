@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasGenotypingPlatformFactory } from './genotyping-platform.js';
 
 
 export const geneticMapFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -24,14 +25,10 @@ ResolverMap => ({
     },
     GeneticMap: {
         ...annotatableFactory(sourceName),
+        ...hasGenotypingPlatformFactory(sourceName),
         organism: async (geneticMap, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        genotypingPlatform: async (geneticMap, _, { dataSources }) => {
-            return dataSources[sourceName].getGenotypingPlatform(geneticMap.genotypingPlatformIdentifier)
-            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         linkageGroups: async (geneticMap, { page, pageSize }, { dataSources }) => {

@@ -5,12 +5,6 @@ import {
   intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
-// <class name="GenotypingPlatform" extends="Annotatable" is-interface="true" term="">
-// 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
-// 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
-// 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
-//      <collection name="markers" referenced-type="GeneticMarker" reverse-reference="genotypingPlatforms"/>
-// </class>
 export const intermineGenotypingPlatformAttributes = [
     ...intermineAnnotatableAttributesFactory('GenotypingPlatform'),
 ];
@@ -19,15 +13,6 @@ export type IntermineGenotypingPlatform = [
   ...IntermineAnnotatable,
 ];
 
-// type GenotypingPlatform implements Annotatable {
-//   ## Annotatable
-//   id: ID!
-//   identifier: ID!
-//   ontologyAnnotations: [OntologyAnnotation!]!
-//   publications: [Publication!]!
-//   ## GenotypingPlatform
-//   markers: [GeneticMarker]
-// }
 export const graphqlGenotypingPlatformAttributes = [
     ...graphqlAnnotatableAttributes,
 ];

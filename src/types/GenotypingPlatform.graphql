@@ -8,3 +8,7 @@ type GenotypingPlatform implements Annotatable & HasDataSets & HasOntologyAnnota
   ## GenotypingPlatform
   markers: [GeneticMarker!]!
 }
+
+interface HasGenotypingPlatform {
+  genotypingPlatform: GenotypingPlatform
+}
