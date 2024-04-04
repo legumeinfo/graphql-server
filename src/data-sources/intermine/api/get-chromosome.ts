@@ -13,7 +13,6 @@ import {
 
 
 // get a Chromosome by ID
-// does NOT throw an error if the chromosome is not found, since this happens when the identifier belongs to a supercontig
 export async function getChromosome(identifier: string):
 Promise<ApiResponse<GraphQLChromosome>> {
     const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];

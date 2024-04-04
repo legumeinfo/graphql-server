@@ -5,8 +5,6 @@ import {
   intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
-
-// <class name="Chromosome" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000340,http://purl.obolibrary.org/obo/SO_0000340"></class>
 export const intermineChromosomeAttributes = [
     ...intermineSequenceFeatureAttributesFactory('Chromosome'),
 ];
@@ -15,19 +13,6 @@ export type IntermineChromosome = [
     ...IntermineSequenceFeature,
 ];
 
-
-// type Chromosome implements SequenceFeature {
-//   id: ID!
-//   identifier: String!
-//   description: String
-//   symbol: String
-//   name: String
-//   assemblyVersion: String
-//   annotationVersion: String
-//   organism: Organism
-//   strain: Strain
-//   length: Int
-// }
 export const graphqlChromosomeAttributes = [
     ...graphqlSequenceFeatureAttributes,
 ];
