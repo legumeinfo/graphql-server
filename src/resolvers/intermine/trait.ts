@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGWASFactory } from './gwas.js';
+import { hasGWASResultsFactory } from './gwas-result.js';
 
 
 export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -26,6 +27,7 @@ ResolverMap => ({
     Trait: {
         ...annotatableFactory(sourceName),
         ...hasGWASFactory(sourceName),
+        ...hasGWASResultsFactory(sourceName),
         organism: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getOrganism(trait.organismTaxonId)
             // @ts-ignore: implicit type any error
@@ -39,12 +41,6 @@ ResolverMap => ({
         qtls: async (trait, { page, pageSize }, { dataSources }) => {
             const args = {trait, page, pageSize};
             return dataSources[sourceName].getQTLs(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        gwasResults: async (trait, { page, pageSize }, { dataSources }) => {
-            const args = {trait, page, pageSize};
-            return dataSources[sourceName].getGWASResults(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -1,15 +1,12 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
+} from './annotatable.js';
 
-// <class name="GWASResult" is-interface="true">
-//   <attribute name="markerName" type="java.lang.String"/>
-//   <attribute name="pValue" type="java.lang.Double"/>
-//   <reference name="gwas" referenced-type="GWAS" reverse-reference="results"/>
-//   <reference name="trait" referenced-type="Trait" reverse-reference="gwasResults"/>
-//   <collection name="markers" referenced-type="GeneticMarker" reverse-reference="gwasResults"/>
-//   <reference name="dataSet" referenced-type="DataSet"/>
-// </class>
 export const intermineGWASResultAttributes = [
-    'GWASResult.id',
+    ...intermineAnnotatableAttributesFactory('GWASResult'),
     'GWASResult.markerName',
     'GWASResult.pValue',
     'GWASResult.gwas.primaryIdentifier',
@@ -18,7 +15,7 @@ export const intermineGWASResultAttributes = [
 ];
 export const intermineGWASResultSort = 'GWASResult.markerName';
 export type IntermineGWASResult = [
-    number,
+    ...IntermineAnnotatable,
     string,
     number,
     string,
@@ -26,17 +23,8 @@ export type IntermineGWASResult = [
     string,
 ];
 
-// type GWASResult {
-//   id: ID!
-//   markerName: String!
-//   pValue: Float!
-//   gwas: GWAS!
-//   trait: Trait!
-//   markers: [GeneticMarker]
-//   dataSet: DataSet!
-// }
 export const graphqlGWASResultAttributes = [
-    'id',
+    ...graphqlAnnotatableAttributes,
     'markerName',
     'pValue',
     'gwasIdentifier',

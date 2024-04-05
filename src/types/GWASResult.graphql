@@ -14,3 +14,7 @@ type GWASResult implements HasGeneticMarkers & HasGWAS & Annotatable & HasDataSe
   markerName: String!
   trait: Trait!
 }
+
+interface HasGWASResults {
+  gwasResults: [GWASResult!]!
+}

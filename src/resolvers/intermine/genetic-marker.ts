@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { hasGWASResultsFactory } from './gwas-result.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 
 
@@ -18,16 +19,11 @@ ResolverMap => ({
     },
     GeneticMarker: {
         ...sequenceFeatureFactory(sourceName),
+        ...hasGWASResultsFactory(sourceName),
         genotypingPlatforms: async (geneticMarker, { page, pageSize }, { dataSources }) => {
             const {id} = geneticMarker;
             const args = {page, pageSize};
             return dataSources[sourceName].getGenotypingPlatformsForGeneticMarker(id, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        gwasResults: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getGWASResults(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

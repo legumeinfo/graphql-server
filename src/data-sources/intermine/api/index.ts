@@ -81,7 +81,11 @@ import { getGWAS } from './get-gwas.js';
 import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
-import { getGWASResults } from './get-gwas-results.js';
+import {
+  getGWASResultsForGeneticMarker,
+  getGWASResultsForGWAS,
+  getGWASResultsForTrait,
+} from './get-gwas-results.js';
 // intergenic region
 import { getIntergenicRegion } from './get-intergenic-region.js';
 // intron
@@ -291,7 +295,9 @@ export declare class ApiMixinInterface {
     searchGWASes: Function;
     // gwas result
     getGWASResult: Function;
-    getGWASResults: Function;
+    getGWASResultsForGeneticMarker: Function;
+    getGWASResultsForGWAS: Function;
+    getGWASResultsForTrait: Function;
     // intergenic region
     getIntergenicRegion: Function;
     // intron
@@ -498,7 +504,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchGWASes = searchGWASes;
         // gwas result
         getGWASResult = getGWASResult;
-        getGWASResults = getGWASResults;
+        getGWASResultsForGeneticMarker = getGWASResultsForGeneticMarker;
+        getGWASResultsForGWAS = getGWASResultsForGWAS;
+        getGWASResultsForTrait = getGWASResultsForTrait;
         // intergenic region
         getIntergenicRegion = getIntergenicRegion;
         // intron
