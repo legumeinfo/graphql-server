@@ -7,12 +7,14 @@ export const transcriptFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...sequenceFeatureFactory(sourceName),
         gene: async (transcript, _, { dataSources }) => {
-            return dataSources[sourceName].getGene(transcript.geneIdentifier)
+            const {geneIdentifier} = transcript;
+            return dataSources[sourceName].getGene(geneIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         protein: async (transcript, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(transcript.proteinIdentifier)
+            const {proteinIdentifier} = transcript;
+            return dataSources[sourceName].getProtein(proteinIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

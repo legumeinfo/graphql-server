@@ -18,22 +18,5 @@ ResolverMap => ({
     },
     MRNA: {
         ...transcriptFactory(sourceName),
-        gene: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getGene(mRNA.geneIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        protein: async (mRNA, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(mRNA.proteinIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        panGeneSets: async (mRNA, { page, pageSize }, { dataSources }) => {
-            const {id} = mRNA;
-            const args = {page, pageSize};
-            return dataSources[sourceName].getPanGeneSetsForTranscript(id, args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
     },
 });
