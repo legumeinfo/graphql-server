@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
+import { hasLinkageGroupFactory } from './linkage-group.js';
 
 
 export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -26,6 +27,7 @@ ResolverMap => ({
     QTL: {
         ...annotatableFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
+        ...hasLinkageGroupFactory(sourceName),
         trait: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getTrait(qtl.traitIdentifier)
                 // @ts-ignore: implicit type any error
@@ -33,11 +35,6 @@ ResolverMap => ({
         },
         qtlStudy: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudy(qtl.qtlStudyIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        linkageGroup: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

@@ -1,11 +1,7 @@
-# <class name="LinkageGroupPosition" is-interface="true" term="">
-# 	<attribute name="position" type="java.lang.Double"/>
-# 	<attribute name="markerName" type="java.lang.String"/>
-# 	<reference name="linkageGroup" referenced-type="LinkageGroup"/>
-# </class>
-type LinkageGroupPosition {
+type LinkageGroupPosition implements HasLinkageGroup {
   id: ID!
   position: Float
   markerName: String
+  ## HasLinkageGroup
   linkageGroup: LinkageGroup
 }

@@ -94,7 +94,7 @@ import { getIntron } from './get-intron.js';
 import { getIntronsForGene, getIntronsForTranscript } from './get-introns.js';
 // linkage group
 import { getLinkageGroup } from './get-linkage-group.js';
-import { getLinkageGroups } from './get-linkage-groups.js';
+import { getLinkageGroupsForGeneticMap } from './get-linkage-groups.js';
 // linkage group position
 import { getLinkageGroupPosition } from './get-linkage-group-position.js';
 import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
@@ -308,7 +308,7 @@ export declare class ApiMixinInterface {
     getIntronsForTranscript: Function;
     // linkage group
     getLinkageGroup: Function;
-    getLinkageGroups: Function;
+    getLinkageGroupsForGeneticMap: Function;
     // linkage group position
     getLinkageGroupPosition: Function;
     getLinkageGroupPositions: Function;
@@ -518,7 +518,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getIntronsForTranscript = getIntronsForTranscript;
         // linkage group
         getLinkageGroup = getLinkageGroup;
-        getLinkageGroups = getLinkageGroups;
+        getLinkageGroupsForGeneticMap = getLinkageGroupsForGeneticMap;
         // linkage group position
         getLinkageGroupPosition = getLinkageGroupPosition;
         getLinkageGroupPositions = getLinkageGroupPositions;

@@ -6,9 +6,13 @@ type LinkageGroup implements Annotatable & HasDataSets & HasOntologyAnnotations 
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   # LinkageGroup
-  name: String
-  length: Float
-  number: Int
   geneticMap: GeneticMap
+  length: Float
+  name: String
+  number: Int
   qtls: [QTL!]!
+}
+
+interface HasLinkageGroup {
+  linkageGroup: LinkageGroup
 }
