@@ -1,79 +1,20 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineTranscript,
+  intermineTranscriptAttributesFactory,
+  intermineTranscriptSortFactory,
+} from './transcript.js';
 
-
-// <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234,http://purl.obolibrary.org/obo/SO_0000234">
-// 	<attribute name="isPrimary" type="java.lang.Boolean"/>
-// 	<reference name="threePrimeUTR" referenced-type="ThreePrimeUTR"/>
-// 	<reference name="fivePrimeUTR" referenced-type="FivePrimeUTR"/>
-// </class>
 export const intermineMRNAAttributes = [
-    'MRNA.id',
-    'MRNA.primaryIdentifier',
-    'MRNA.description',
-    'MRNA.symbol',
-    'MRNA.name',
-    'MRNA.assemblyVersion',
-    'MRNA.annotationVersion',
-    'MRNA.length',
-    'MRNA.organism.taxonId',
-    'MRNA.strain.identifier',
-    'MRNA.gene.primaryIdentifier',
-    'MRNA.protein.primaryIdentifier',
+    ...intermineTranscriptAttributesFactory('MRNA'),
     'MRNA.isPrimary',
 ];
-export const intermineMRNASort = 'MRNA.primaryIdentifier';
+export const intermineMRNASort = intermineTranscriptSortFactory('MRNA');
 export type IntermineMRNA = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
-  string,
-  string,
-  string,
+  ...IntermineTranscript,
   boolean,
 ];
 
-
-// type MRNA extends Transcript {
-//   id: ID!
-//   identifier: String!
-//   ontologyAnnotations: [OntologyAnnotation]
-//   publications: [Publication]
-//   description: String
-//   symbol: String
-//   name: String
-//   assemblyVersion: String
-//   annotationVersion: String
-//   organism: Organism
-//   strain: Strain
-//   locations: [Location]
-//   # synonyms
-//   # crossReferences
-//   # dataSets
-//   # locatedFeatures
-//   # score
-//   # scoreType
-//   length: Int
-//   # sequenceOntologyTerm
-//   # supercontigLocation
-//   # chromosomeLocation
-//   # supercontig
-//   # sequence
-//   # chromosome
-//   # overlappingFeatures
-//   # childFeatures
-//   gene: Gene
-//   protein: Protein
-//   # introns
-//   # exons
-//   # CDSs
-//   # UTRs
-// }
 export const graphqlMRNAAttributes = [
     'id',
     'identifier',
@@ -92,7 +33,6 @@ export const graphqlMRNAAttributes = [
 export type GraphQLMRNA = {
   [prop in typeof graphqlMRNAAttributes[number]]: string;
 }
-
 
 export type IntermineMRNAResponse = IntermineDataResponse<IntermineMRNA>;
 // converts an Intermine response into an array of GraphQL MRNA objects
