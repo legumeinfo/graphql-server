@@ -2,7 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
-import { hasGeneticMarkerFactory } from './genetic-marker.js';
+import { hasGeneticMarkersFactory } from './genetic-marker.js';
 
 
 export const genotypingPlatformFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -19,7 +19,7 @@ ResolverMap => ({
     },
     GenotypingPlatform: {
         ...annotatableFactory(sourceName),
-        ...hasGeneticMarkerFactory(sourceName),
+        ...hasGeneticMarkersFactory(sourceName),
     },
 });
 

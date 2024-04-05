@@ -2,7 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
-import { hasGeneticMarkerFactory } from './genetic-marker.js';
+import { hasGeneticMarkersFactory } from './genetic-marker.js';
 
 
 export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -25,7 +25,7 @@ ResolverMap => ({
     },
     QTL: {
         ...annotatableFactory(sourceName),
-        ...hasGeneticMarkerFactory(sourceName),
+        ...hasGeneticMarkersFactory(sourceName),
         trait: async (qtl, _, { dataSources }) => {
             return dataSources[sourceName].getTrait(qtl.traitIdentifier)
                 // @ts-ignore: implicit type any error

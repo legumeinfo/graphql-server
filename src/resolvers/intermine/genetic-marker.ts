@@ -47,7 +47,7 @@ ResolverMap => ({
 });
 
 
-export const hasGeneticMarkerFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+export const hasGeneticMarkersFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 SubfieldResolverMap => ({
     markers: async (parent, { page, pageSize }, { dataSources }, info) => {
         let request: Promise<any>|null = null;
