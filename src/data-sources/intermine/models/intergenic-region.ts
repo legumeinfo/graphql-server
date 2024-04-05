@@ -34,5 +34,5 @@ export function response2intergenicRegions(response: IntermineIntergenicRegionRe
 }
 
 // IntergenicRegion.adjacentGenes are Genes
-export const intermineIntergenicRegionAdjacentGeneAttributes = intermineGeneAttributesFactory('IntergenicRegion');
+export const intermineIntergenicRegionAdjacentGeneAttributes = intermineGeneAttributesFactory('IntergenicRegion.adjacentGenes');
 export const intermineIntergenicRegionAdjacentGeneSort = intermineGeneSortFactory('IntergenicRegion.adjacentGenes');

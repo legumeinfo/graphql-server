@@ -19,5 +19,12 @@ ResolverMap => ({
     Intron: {
         ...sequenceFeatureFactory(sourceName),
         ...hasTranscriptsFactory(sourceName),
+        genes: async (intron, { page, pageSize }, { dataSources }) => {
+            const {id} = intron;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getGenesForIntron(id, args)
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        }
     },
 });

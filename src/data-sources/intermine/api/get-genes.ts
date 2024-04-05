@@ -12,6 +12,8 @@ import {
     intermineGeneSort,
     intermineIntergenicRegionAdjacentGeneAttributes,
     intermineIntergenicRegionAdjacentGeneSort,
+    intermineIntronGeneAttributes,
+    intermineIntronGeneSort,
     intermineQTLGenesAttributes,
     intermineQTLGenesSort,
     response2genes,
@@ -139,6 +141,27 @@ export async function getAdjacentGenesForIntergenicRegion(id: number, { page, pa
         .then((response: IntermineGeneResponse) => response2genes(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQuery(query, {summaryPath: 'IntergenicRegion.adjacentGenes.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get Genes for an Intron by id
+export async function getGenesForIntron(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
+    const constraints = [intermineConstraint('Intron.id', '=', id)];
+    const joins = sequenceFeatureJoinFactory('Intron.genes');
+    const query = interminePathQuery(
+        intermineIntronGeneAttributes,
+        intermineIntronGeneSort,
+        constraints,
+        joins,
+    );
+    // get the data
+    const dataPromise = this.pathQuery(query, {page, pageSize})
+        .then((response: IntermineGeneResponse) => response2genes(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Intron.genes.id'})
         .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
