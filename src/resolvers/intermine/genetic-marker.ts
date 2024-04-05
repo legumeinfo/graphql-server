@@ -34,8 +34,9 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         linkageGroupPositions: async (geneticMarker, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMarker, page, pageSize};
-            return dataSources[sourceName].getLinkageGroupPositions(geneticMarker, args)
+            const {id} = geneticMarker;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getLinkageGroupPositionsForGeneticMarker(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

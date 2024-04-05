@@ -97,7 +97,7 @@ import { getLinkageGroup } from './get-linkage-group.js';
 import { getLinkageGroupsForGeneticMap } from './get-linkage-groups.js';
 // linkage group position
 import { getLinkageGroupPosition } from './get-linkage-group-position.js';
-import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
+import { getLinkageGroupPositionsForGeneticMarker } from './get-linkage-group-positions.js';
 // location
 import { getLocation } from './get-location.js';
 import {
@@ -311,7 +311,7 @@ export declare class ApiMixinInterface {
     getLinkageGroupsForGeneticMap: Function;
     // linkage group position
     getLinkageGroupPosition: Function;
-    getLinkageGroupPositions: Function;
+    getLinkageGroupPositionsForGeneticMarker: Function;
     // location
     getLocation: Function;
     getLocationsForBioEntity: Function;
@@ -521,7 +521,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getLinkageGroupsForGeneticMap = getLinkageGroupsForGeneticMap;
         // linkage group position
         getLinkageGroupPosition = getLinkageGroupPosition;
-        getLinkageGroupPositions = getLinkageGroupPositions;
+        getLinkageGroupPositionsForGeneticMarker = getLinkageGroupPositionsForGeneticMarker;
         // location
         getLocation = getLocation;
         getLocationsForBioEntity = getLocationsForBioEntity;

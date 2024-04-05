@@ -1,5 +1,9 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
+  intermineLinkageGroupPositionAttributesFactory,
+  intermineLinkageGroupPositionSortFactory,
+} from './linkage-group-position.js';
+import {
   IntermineSequenceFeature,
   graphqlSequenceFeatureAttributes,
   intermineSequenceFeatureAttributesFactory,
@@ -36,3 +40,7 @@ export type IntermineGeneticMarkerResponse = IntermineDataResponse<IntermineGene
 export function response2geneticMarkers(response: IntermineGeneticMarkerResponse): Array<GraphQLGeneticMarker> {
     return response2graphqlObjects(response, graphqlGeneticMarkerAttributes);
 }
+
+// Handle lack of reverse reference to GeneticMarker in LinkageGroupPosition
+export const intermineGeneticMarkerLinkageGroupPositionsAttributes = intermineLinkageGroupPositionAttributesFactory('GeneticMarker.linkageGroupPositions');
+export const intermineGeneticMarkerLinkageGroupPositionsSort = intermineLinkageGroupPositionSortFactory('GeneticMarker.linkageGroupPositions');
