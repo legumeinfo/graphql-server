@@ -78,7 +78,6 @@ import { getGenotypingPlatform } from './get-genotyping-platform.js';
 import { getGenotypingPlatformsForGeneticMarker } from './get-genotyping-platforms.js';
 // gwas
 import { getGWAS } from './get-gwas.js';
-import { getGWASForTrait } from './get-gwas-for-trait.js';
 import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
@@ -289,7 +288,6 @@ export declare class ApiMixinInterface {
     getGenotypingPlatformsForGeneticMarker: Function;
     // gwas
     getGWAS: Function;
-    getGWASForTrait: Function;
     searchGWASes: Function;
     // gwas result
     getGWASResult: Function;
@@ -497,7 +495,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getGenotypingPlatformsForGeneticMarker = getGenotypingPlatformsForGeneticMarker;
         // gwas
         getGWAS = getGWAS;
-        getGWASForTrait = getGWASForTrait;
         searchGWASes = searchGWASes;
         // gwas result
         getGWASResult = getGWASResult;

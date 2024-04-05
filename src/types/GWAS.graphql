@@ -8,11 +8,15 @@ type GWAS implements HasGenotypingPlatform & Annotatable & HasDataSets & HasOnto
   ## HasGenotypingPlatform
   genotypingPlatform: GenotypingPlatform
   ## GWAS
+  dataSet: DataSet
   description: String
   genotypes: String
   genotypingMethod: String
-  synopsis: String
   organism: Organism
-  dataSet: DataSet
   results: [GWASResult!]!
+  synopsis: String
+}
+
+interface HasGWAS {
+  gwas: GWAS
 }

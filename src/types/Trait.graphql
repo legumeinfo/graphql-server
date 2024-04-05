@@ -1,17 +1,18 @@
-type Trait implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Trait implements HasGWAS & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasGWAS
+  gwas: GWAS
   # Trait
   name: String!
   description: String
   organism: Organism!
   dataSet: DataSet!
   qtlStudy: QTLStudy
-  gwas: GWAS
   qtls: [QTL!]!
   gwasResults: [GWASResult!]!
 }

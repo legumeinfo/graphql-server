@@ -1,4 +1,4 @@
-type GWASResult implements HasGeneticMarkers & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GWASResult implements HasGeneticMarkers & HasGWAS & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -7,9 +7,10 @@ type GWASResult implements HasGeneticMarkers & Annotatable & HasDataSets & HasOn
   publications: [Publication!]!
   ## HasGeneticMarkers
   markers: [GeneticMarker!]!
+  ## HasGWAS: TODO: make non-null
+  gwas: GWAS
   ## GWASResult
   pValue: Float!
   markerName: String!
-  gwas: GWAS!
   trait: Trait!
 }

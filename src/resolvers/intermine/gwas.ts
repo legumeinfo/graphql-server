@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGenotypingPlatformFactory } from './genotyping-platform.js';
 
@@ -27,7 +27,8 @@ ResolverMap => ({
         ...annotatableFactory(sourceName),
         ...hasGenotypingPlatformFactory(sourceName),
         organism: async(gwas, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(gwas.organismTaxonId)
+            const {organismTaxonId} = gwas;
+            return dataSources[sourceName].getOrganism(organismTaxonId)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
@@ -37,5 +38,30 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+    },
+});
+
+
+export const hasGWASFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    gwas: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GWASResult':
+            // @ts-ignore: fallthrough case error
+            case 'Trait':
+                const {gwasIdentifier} = parent;
+                request = dataSources[sourceName].getGWAS(gwasIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });
