@@ -11,7 +11,7 @@ type GeneticMap implements HasGenotypingPlatform & Annotatable & HasDataSets & H
   description: String
   genotypes: String
   genotypingMethod: String
-  synopsis: String
-  organism: Organism
   linkageGroups: [LinkageGroup!]!
+  organism: Organism
+  synopsis: String
 }

@@ -5,17 +5,6 @@ import {
   intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
-
-// <class name="GeneticMap" extends="Annotatable" is-interface="true" term="http://purl.bioontology.org/ontology/EDAM?conceptid=http%3A%2F%2Fedamontology.org%2Fdata_1278">
-// 	<attribute name="description" type="java.lang.String"/>
-// 	<attribute name="genotypes" type="java.lang.String"/>
-// 	<attribute name="genotypingMethod" type="java.lang.String"/>
-// 	<attribute name="synopsis" type="java.lang.String"/>
-//      <reference name="genotypingPlatform" referenced-type="GenotypingPlatform"/>
-// 	<reference name="organism" referenced-type="Organism"/>
-// 	<collection name="linkageGroups" referenced-type="LinkageGroup" reverse-reference="geneticMap"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>
 export const intermineGeneticMapAttributes = [
     ...intermineAnnotatableAttributesFactory('GeneticMap'),
     'GeneticMap.description',
@@ -36,21 +25,6 @@ export type IntermineGeneticMap = [
   number,
 ];
 
-
-// type GeneticMap {
-//   id: ID!
-//   identifier: String!
-//   # ontologyAnnotations
-//   # publications
-//   description: String
-//   genotypes: String
-//   genotypingMethod: String
-//   synopsis: String
-//   genotypingPlatform: GenotypingPlatform
-//   organism: Organism
-//   linkageGroups: [LinkageGroup]
-//   # dataSets
-// }
 export const graphqlGeneticMapAttributes = [
     ...graphqlAnnotatableAttributes,
     'description',
@@ -63,7 +37,6 @@ export const graphqlGeneticMapAttributes = [
 export type GraphQLGeneticMap = {
   [prop in typeof graphqlGeneticMapAttributes[number]]: string;
 }
-
 
 export type IntermineGeneticMapResponse = IntermineDataResponse<IntermineGeneticMap>;
 export function response2geneticMaps(response: IntermineGeneticMapResponse): Array<GraphQLGeneticMap> {
