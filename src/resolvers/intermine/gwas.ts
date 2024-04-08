@@ -1,11 +1,14 @@
-import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 
 
-export const gwasFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
-ResolverMap => ({
+export const gwasFactory = 
+    (
+        sourceName: KeyOfType<DataSources, IntermineAPI>,
+        microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+    ): ResolverMap => ({
     Query: {
         gwas: async (_, { identifier }, { dataSources }) => {
             const {data: gwas} = await dataSources[sourceName].getGWAS(identifier);
@@ -44,6 +47,10 @@ ResolverMap => ({
             return dataSources[sourceName].getGWASResults(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
+        },
+        linkouts: async (gwas, _, { dataSources }) => {
+            const {identifier} = gwas;
+            return dataSources[microservicesSource].getLinkoutsForGWAS(identifier);
         },
     },
 });

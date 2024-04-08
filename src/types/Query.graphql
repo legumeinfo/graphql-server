@@ -264,6 +264,14 @@ type PanGeneSetLinkoutsResults {
   results: [Linkout!]!
 }
 
+type GWASLinkoutsResults {
+  results: [Linkout!]!
+}
+
+type QTLStudyLinkoutsResults {
+  results: [Linkout!]!
+}
+
 
 # Top-level queries
 
@@ -338,5 +346,7 @@ type Query {
   locationLinkouts(identifier: ID!, start: Int!, end: Int!): LocationLinkoutsResults
   geneFamilyLinkouts(identifier: ID!): GeneFamilyLinkoutsResults
   panGeneSetLinkouts(identifier: ID!): PanGeneSetLinkoutsResults
+  gwasLinkouts(identifier: ID!): GWASLinkoutsResults
+  qtlStudyLinkouts(identifier: ID!): QTLStudyLinkoutsResults
 
 }
