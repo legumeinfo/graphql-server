@@ -23,4 +23,6 @@ type GWAS implements Annotatable {
   organism: Organism
   dataSet: DataSet
   results: [GWASResult!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }

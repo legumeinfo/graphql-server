@@ -1,11 +1,14 @@
-import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 
 
-export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
-ResolverMap => ({
+export const qtlStudyFactory = 
+    (
+        sourceName: KeyOfType<DataSources, IntermineAPI>,
+        microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+    ): ResolverMap => ({
     Query: {
         qtlStudy: async (_, { identifier }, { dataSources }) => {
             const {data: study} = await dataSources[sourceName].getQTLStudy(identifier);
@@ -39,6 +42,10 @@ ResolverMap => ({
             return dataSources[sourceName].getQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
+        },
+        linkouts: async (qtlStudy, _, { dataSources }) => {
+            const {identifier} = qtlStudy;
+            return dataSources[microservicesSource].getLinkoutsForQTLStudy(identifier);
         },
     },
 });

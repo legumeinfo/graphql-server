@@ -19,4 +19,6 @@ type QTLStudy implements Annotatable {
   organism: Organism
   dataSet: DataSet
   qtls: [QTL!]!
+  ## microservices
+  linkouts: [Linkout!]!
 }

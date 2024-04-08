@@ -22,5 +22,13 @@ ResolverMap => ({
             return dataSources[sourceName].getLinkoutsForPanGeneSet(identifier)
               .then((results) => ({results}));
         },
+        gwasLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForGWAS(identifier)
+              .then((results) => ({results}));
+        },
+        qtlStudyLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForQTLStudy(identifier)
+              .then((results) => ({results}));
+        },
     },
 });
