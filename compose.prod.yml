@@ -1,5 +1,5 @@
 services:
   graphql-server:
-    image: ghcr.io/legumeinfo/graphql-server:1.3.1
+    image: ghcr.io/legumeinfo/graphql-server:1.4.0
     command: serve:prod
     restart: always
