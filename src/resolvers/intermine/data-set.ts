@@ -36,7 +36,7 @@ SubfieldResolverMap => ({
         if (interfaces.includes('Annotatable')) {
             const {id} = parent;
             request = dataSources[sourceName].getDataSetsForAnnotatable(id, args);
-        } else if (interfaces.includes('OntologyTerm')) {
+        } else if (interfaces.includes('OntologyTermInterface')) {
             const {id} = parent;
             request = dataSources[sourceName].getDataSetsForOntologyTerm(id, args);
         }
