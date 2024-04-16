@@ -8,9 +8,9 @@ type OntologyTerm implements OntologyTermInterface & HasDataSets & HasOntologyAn
   ontology: Ontology
   name: String
   namespace: String
-  # synonyms
   parents: [OntologyTerm!]!
   relations: [OntologyRelation!]!
+  synonyms: [OntologyTermSynonym!]!
   ## HasDataSets
   dataSets: [DataSet!]!
   ## HasOntologyAnnotations

@@ -62,32 +62,13 @@ export const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
 // use IntermineOntologyTerm
 
 // OntologyTerm.parents has no reverse reference
-export const intermineOntologyTermParentAttributes = [
-    'OntologyTerm.parents.id',
-    'OntologyTerm.parents.identifier',
-    'OntologyTerm.parents.description',
-    'OntologyTerm.parents.obsolete',
-    'OntologyTerm.parents.name',
-    'OntologyTerm.parents.namespace',
-    'OntologyTerm.parents.ontology.id', // reference resolution
-];
-export const intermineOntologyTermParentSort = 'OntologyTerm.parents.identifier';
-// use IntermineOntologyTerm
+export const intermineOntologyTermParentAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.paranets');
+export const intermineOntologyTermParentSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.parents');
 
 // OntologyTerm.dataSets has no reverse reference
 export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets.id');
 export const intermineOntologyTermDataSetSort = intermineDataSetSortFactory('OntologyTerm.dataSets');
-// use IntermineDataSet
 
 // OntologyTerm.crossReferences has no reverse reference
-export const intermineOntologyTermCrossReferenceAttributes = [
-    'OntologyTerm.crossReferences.id',
-    'OntologyTerm.crossReferences.identifier',
-    'OntologyTerm.crossReferences.description',
-    'OntologyTerm.crossReferences.obsolete',
-    'OntologyTerm.crossReferences.name',
-    'OntologyTerm.crossReferences.namespace',
-    'OntologyTerm.crossReferences.ontology.id', // reference resolution
-];
-export const intermineOntologyTermCrossReferenceSort = 'OntologyTerm.crossReferences.identifier';
-// use IntermineOntologyTerm
+export const intermineOntologyTermCrossReferenceAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.crossReferences');
+export const intermineOntologyTermCrossReferenceSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.crossReferences');

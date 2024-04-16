@@ -20,6 +20,19 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
+// get OntologyTerms using the given query and returns the expected GraphQL types
+async function getOntologyTerms(pathQuery: string, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
+    // get the data
+    const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
+        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'OntologyTerm.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
 // get OntologyTerms for a Trait by id
 export async function getOntologyTermsForTrait(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
     const constraints = [intermineConstraint('Trait.id', '=', id)];
@@ -29,14 +42,7 @@ export async function getOntologyTermsForTrait(id: number, { page, pageSize }: P
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyTerms(query, { page, pageSize });
 }
 
 // get (OntologyTerm) parents of an Ontology Term by id, which have no reverse reference from OntologyTerm
@@ -48,14 +54,7 @@ export async function getParentsForOntologyTerm(id: number, { page, pageSize }: 
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.parents.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyTerms(query, { page, pageSize });
 }
 
 // get (OntologyTerm) parents of an SOTerm by id, which have no reverse reference from SOTerm
@@ -67,14 +66,7 @@ export async function getParentsForSOTerm(id: number, { page, pageSize }: Pagina
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'SOTerm.parents.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyTerms(query, { page, pageSize });
 }
 
 // get crossReferences of an OntologyTerm, which have no reverse reference from OntologyTerm
@@ -86,12 +78,5 @@ export async function getCrossReferencesForOntologyTerm(id: number, { page, page
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyTermResponse) => response2ontologyTerms(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyTerm.crossReferences.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyTerms(query, { page, pageSize });
 }

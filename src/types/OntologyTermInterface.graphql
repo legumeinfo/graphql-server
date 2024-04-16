@@ -6,9 +6,9 @@ interface OntologyTermInterface implements HasDataSets & HasOntologyAnnotations 
   ontology: Ontology
   name: String
   namespace: String
-  # synonyms
   parents: [OntologyTerm!]!
   relations: [OntologyRelation!]!
+  synonyms: [OntologyTermSynonym!]!
   ## HasDataSets
   dataSets: [DataSet!]!
   ## HasOntologyAnnotations
