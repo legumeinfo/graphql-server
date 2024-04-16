@@ -124,7 +124,7 @@ import { getOntologyTerm } from './get-ontology-term.js';
 import {
   getOntologyTermsForTrait,
   getParentsForOntologyTerm,
-  getParentsForSOTerm,
+  getParentsForSequenceOntologyTerm,
   getCrossReferencesForOntologyTerm,
 } from './get-ontology-terms.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
@@ -185,7 +185,7 @@ import {
   getOverlappingFeaturesForSequenceFeature,
 } from './get-sequence-features.js';
 // SO term
-import { getSOTerm } from './get-so-term.js';
+import { getSequenceOntologyTerm } from './get-sequence-ontology-term.js';
 // supercontig
 import { getSupercontig } from './get-supercontig.js';
 // syntenic region
@@ -333,7 +333,7 @@ export declare class ApiMixinInterface {
     getOntologyTerm: Function;
     getOntologyTermsForTrait: Function;
     getParentsForOntologyTerm: Function;
-    getParentsForSOTerm: Function;
+    getParentsForSequenceOntologyTerm: Function;
     getCrossReferencesForOntologyTerm: Function;
     searchOntologyTerms: Function;
     // ontology term synonym
@@ -387,7 +387,7 @@ export declare class ApiMixinInterface {
     getChildFeaturesForSequenceFeature: Function;
     getOverlappingFeaturesForSequenceFeature: Function;
     // SO term
-    getSOTerm: Function;
+    getSequenceOntologyTerm: Function;
     // supercontig
     getSupercontig: Function;
     // syntenic region
@@ -543,7 +543,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntologyTerm = getOntologyTerm;
         getOntologyTermsForTrait = getOntologyTermsForTrait;
         getParentsForOntologyTerm = getParentsForOntologyTerm;
-        getParentsForSOTerm = getParentsForSOTerm;
+        getParentsForSequenceOntologyTerm = getParentsForSequenceOntologyTerm;
         getCrossReferencesForOntologyTerm = getCrossReferencesForOntologyTerm;
         searchOntologyTerms = searchOntologyTerms;
         // ontology term synonym
@@ -597,7 +597,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getChildFeaturesForSequenceFeature = getChildFeaturesForSequenceFeature;
         getOverlappingFeaturesForSequenceFeature = getOverlappingFeaturesForSequenceFeature;
         // SO term
-        getSOTerm = getSOTerm;
+        getSequenceOntologyTerm = getSequenceOntologyTerm;
         // supercontig
         getSupercontig = getSupercontig;
         // syntenic region

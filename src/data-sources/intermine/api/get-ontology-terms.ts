@@ -14,8 +14,8 @@ import {
     intermineOntologyTermCrossReferenceSort,
     intermineOntologyTermParentAttributes,
     intermineOntologyTermParentSort,
-    intermineSOTermParentAttributes,
-    intermineSOTermParentSort,
+    intermineSequenceOntologyTermParentAttributes,
+    intermineSequenceOntologyTermParentSort,
     response2ontologyTerms,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
@@ -58,11 +58,11 @@ export async function getParentsForOntologyTerm(id: number, { page, pageSize }: 
 }
 
 // get (OntologyTerm) parents of an SOTerm by id, which have no reverse reference from SOTerm
-export async function getParentsForSOTerm(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
+export async function getParentsForSequenceOntologyTerm(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyTerm>> {
     const constraints = [intermineConstraint('SOTerm.id', '=', id)];
     const query = interminePathQuery(
-        intermineSOTermParentAttributes,
-        intermineSOTermParentSort,
+        intermineSequenceOntologyTermParentAttributes,
+        intermineSequenceOntologyTermParentSort,
         constraints,
     );
     // get the data

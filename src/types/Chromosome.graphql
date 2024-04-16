@@ -25,7 +25,7 @@ type Chromosome implements SequenceFeature & BioEntity & Annotatable & HasDataSe
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
 }

@@ -25,7 +25,7 @@ interface SequenceFeature implements BioEntity & Annotatable & HasDataSets & Has
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
 }

@@ -6,17 +6,17 @@ import {
 import {
   GraphQLOntologyTerm,
   IntermineOntologyTermResponse,
-  intermineSOTermAttributes,
-  intermineSOTermSort,
+  intermineSequenceOntologyTermAttributes,
+  intermineSequenceOntologyTermSort,
   response2ontologyTerms,
 } from '../models/index.js';
 
 // get an SOTerm (an OntologyTerm stored separately) by identifier
-export async function getSOTerm(identifier: string): Promise<ApiResponse<GraphQLOntologyTerm>> {
+export async function getSequenceOntologyTerm(identifier: string): Promise<ApiResponse<GraphQLOntologyTerm>> {
     const constraints = [intermineConstraint('SOTerm.identifier', '=', (identifier === null) ? '' : identifier)];
     const query = interminePathQuery(
-        intermineSOTermAttributes,
-        intermineSOTermSort,
+        intermineSequenceOntologyTermAttributes,
+        intermineSequenceOntologyTermSort,
         constraints,
     );
     return this.pathQuery(query)

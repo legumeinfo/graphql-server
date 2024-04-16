@@ -7,8 +7,7 @@ export const sequenceFeatureFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...bioEntityFactory(sourceName),
         sequenceOntologyTerm: async (sequenceFeature, _, { dataSources }) => {
-            console.log(sequenceFeature.soTermIdentifier);
-            return dataSources[sourceName].getSOTerm(sequenceFeature.soTermIdentifier)
+            return dataSources[sourceName].getSequenceOntologyTerm(sequenceFeature.soTermIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

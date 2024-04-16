@@ -25,7 +25,7 @@ interface Transcript implements SequenceFeature & BioEntity & Annotatable & HasD
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   ## Transcript

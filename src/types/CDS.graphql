@@ -25,7 +25,7 @@ type CDS implements HasTranscript & SequenceFeature & BioEntity & Annotatable & 
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   ## HasTranscript

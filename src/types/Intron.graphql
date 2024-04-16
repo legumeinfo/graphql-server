@@ -25,7 +25,7 @@ type Intron implements HasTranscripts & SequenceFeature & BioEntity & Annotatabl
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   ## HasTranscripts

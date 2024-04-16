@@ -40,7 +40,7 @@ import { proteinMatchFactory } from './protein-match.js';
 import { publicationFactory } from './publication.js';
 import { qtlFactory } from './qtl.js';
 import { qtlStudyFactory } from './qtl-study.js';
-import { soTermFactory } from './so-term.js';
+import { sequenceOntologyTermFactory } from './sequence-ontology-term.js';
 import { supercontigFactory } from './supercontig.js';
 import { syntenicRegionFactory } from './syntenic-region.js';
 import { syntenyBlockFactory } from './synteny-block.js';
@@ -84,7 +84,7 @@ const factories = [
     publicationFactory,
     qtlFactory,
     qtlStudyFactory,
-    soTermFactory,
+    sequenceOntologyTermFactory,
     strainFactory,
     supercontigFactory,
     syntenicRegionFactory,

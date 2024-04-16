@@ -25,7 +25,7 @@ type GeneFlankingRegion implements SequenceFeature & BioEntity & Annotatable & H
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   ## GeneFlankingRegion

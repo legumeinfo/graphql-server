@@ -25,7 +25,7 @@ type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable & HasDa
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   # SyntenicRegion

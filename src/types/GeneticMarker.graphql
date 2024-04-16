@@ -25,7 +25,7 @@ type GeneticMarker implements HasGWASResults & SequenceFeature & BioEntity & Ann
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   # HasGWASResults

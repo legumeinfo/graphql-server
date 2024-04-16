@@ -66,7 +66,7 @@ export const intermineOntologyTermParentAttributes = intermineOntologyTermInterf
 export const intermineOntologyTermParentSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.parents');
 
 // OntologyTerm.dataSets has no reverse reference
-export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets.id');
+export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets');
 export const intermineOntologyTermDataSetSort = intermineDataSetSortFactory('OntologyTerm.dataSets');
 
 // OntologyTerm.crossReferences has no reverse reference

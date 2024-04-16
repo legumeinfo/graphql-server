@@ -25,7 +25,7 @@ type Gene implements HasGeneFamilyAssignments & HasTranscripts & SequenceFeature
   score: Float
   scoreType: String
   sequence: Sequence
-  sequenceOntologyTerm: SOTerm
+  sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
   ## HasGeneFamilyAssignments
