@@ -6,7 +6,3 @@ type OntologyRelation {
   parentTerm: OntologyTerm!
   childTerm: OntologyTerm!
 }
-
-interface HasOntologyRelations {
-  relations: [OntologyRelation!]!
-}

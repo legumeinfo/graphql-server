@@ -1,7 +1,8 @@
-type SOTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotations & HasOntologyRelations {
+type SOTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotations {
   id: ID!
   ## OntologyTermInterface
   identifier: ID!
+  crossReferences: [OntologyTerm!]!
   description: String
   obsolete: Boolean
   ontology: Ontology
@@ -9,13 +10,11 @@ type SOTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotati
   namespace: String
   # synonyms
   parents: [OntologyTerm!]!
-  crossReferences: [OntologyTerm!]!
+  relations: [OntologyRelation!]!
   ## HasDataSets
   dataSets: [DataSet!]!
   ## HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
-  ## HasOntologyRelations
-  relations: [OntologyRelation!]!
 }
 
 
