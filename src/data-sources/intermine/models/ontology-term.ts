@@ -4,6 +4,10 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 import {
+  intermineOntologyAttributesFactory,
+  intermineOntologySortFactory,
+} from './ontology.js';
+import {
   intermineOntologyRelationAttributesFactory,
   intermineOntologyRelationSortFactory,
 } from './ontology-relation.js';
@@ -41,31 +45,26 @@ export function response2ontologyTerms(response: IntermineOntologyTermResponse):
     return response2graphqlObjects(response, graphqlOntologyTermAttributes);
 }
 
-// OntologyTerm.synonyms has no reverse reference from OntologyTermSynonym
-export const intermineOntologyTermOntologyTermSynonymAttributes = intermineOntologyTermSynonymAttributesFactory('OntologyTerm.synonyms');
-export const intermineOntologyTermOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory('OntologyTerm.synonym');
-
-// OntologyTerm.relations has no reverse reference from OntologyRelation
-export const intermineOntologyTermRelationAttributes = intermineOntologyRelationAttributesFactory('OntologyTerm.relations');
-export const intermineOntologyTermRelationSort = intermineOntologyRelationSortFactory('OntologyTerm.relations');
-
-// OntologyTerm.ontology does not have an Ontology reverse reference
-export const intermineOntologyTermOntologyAttributes = [
-    'OntologyTerm.ontology.id',
-    'OntologyTerm.ontology.url',
-    'OntologyTerm.ontology.name',
-];
-export const intermineOntologyTermOntologySort = 'OntologyTerm.ontology.name';
-// use IntermineOntologyTerm
-
-// OntologyTerm.parents has no reverse reference
-export const intermineOntologyTermParentAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.paranets');
-export const intermineOntologyTermParentSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.parents');
+// OntologyTerm.crossReferences has no reverse reference
+export const intermineOntologyTermCrossReferenceAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.crossReferences');
+export const intermineOntologyTermCrossReferenceSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.crossReferences');
 
 // OntologyTerm.dataSets has no reverse reference
 export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets');
 export const intermineOntologyTermDataSetSort = intermineDataSetSortFactory('OntologyTerm.dataSets');
 
-// OntologyTerm.crossReferences has no reverse reference
-export const intermineOntologyTermCrossReferenceAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.crossReferences');
-export const intermineOntologyTermCrossReferenceSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.crossReferences');
+// OntologyTerm.ontology does not have an Ontology reverse reference
+export const intermineOntologyTermOntologyAttributes = intermineOntologyAttributesFactory('OntologyTerm.ontology');
+export const intermineOntologyTermOntologySort = intermineOntologySortFactory('OntologyTerm.ontology');
+
+// OntologyTerm.parents has no reverse reference
+export const intermineOntologyTermParentAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.paranets');
+export const intermineOntologyTermParentSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.parents');
+
+// OntologyTerm.relations has no reverse reference from OntologyRelation
+export const intermineOntologyTermRelationAttributes = intermineOntologyRelationAttributesFactory('OntologyTerm.relations');
+export const intermineOntologyTermRelationSort = intermineOntologyRelationSortFactory('OntologyTerm.relations');
+
+// OntologyTerm.synonyms has no reverse reference from OntologyTermSynonym
+export const intermineOntologyTermOntologyTermSynonymAttributes = intermineOntologyTermSynonymAttributesFactory('OntologyTerm.synonyms');
+export const intermineOntologyTermOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory('OntologyTerm.synonym');

@@ -4,12 +4,17 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 
-export const intermineOntologyAttributes = [
-    'Ontology.id',
-    'Ontology.url',
-    'Ontology.name',
-]
-export const intermineOntologySort = 'Ontology.name';
+export const intermineOntologyAttributesFactory = (type = 'Ontology') => [
+    `${type}.id`,
+    `${type}.url`,
+    `${type}.name`,
+];
+
+export const intermineOntologyAttributes = intermineOntologyAttributesFactory();
+
+export const intermineOntologySortFactory = (type = 'Ontology') => `${type}.name`;
+
+export const intermineOntologySort = intermineOntologySortFactory();
 
 export type IntermineOntology = [
   number,
