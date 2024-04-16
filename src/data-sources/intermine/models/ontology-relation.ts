@@ -1,14 +1,19 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-export const intermineOntologyRelationAttributes = [
-    'OntologyTermRelation.id',
-    'OntologyTermRelation.redundant',
-    'OntologyTermRelation.direct',   
-    'OntologyTermRelation.relationship',
-    'OntologyTermRelation.parentTerm.id', // resolve reference
-    'OntologyTermRelation.childTerm.id',  // resolve reference
+export const intermineOntologyRelationAttributesFactory = (type = 'OntologyTermRelation') => [
+    `${type}.id`,
+    `${type}.redundant`,
+    `${type}.direct`,
+    `${type}.relationship`,
+    `${type}.parentTerm.id`, // resolve reference
+    `${type}.childTerm.id`,  // resolve reference
 ];
-export const intermineOntologyRelationSort = 'OntologyTermRelation.id';
+
+export const intermineOntologyRelationAttributes = intermineOntologyRelationAttributesFactory();
+
+export const intermineOntologyRelationSortFactory = (type = 'OntologyTermRelation') => `${type}.id`;
+
+export const intermineOntologyRelationSort = intermineOntologyRelationSortFactory();
 
 export type IntermineOntologyRelation = [
     number,

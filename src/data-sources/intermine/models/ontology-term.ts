@@ -4,6 +4,10 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 import {
+  intermineOntologyRelationAttributesFactory,
+  intermineOntologyRelationSortFactory,
+} from './ontology-relation.js';
+import {
   intermineOntologyTermInterfaceAttributesFactory,
   intermineOntologyTermInterfaceSortFactory,
   graphqlOntologyTermInterfaceAttributes,
@@ -42,15 +46,8 @@ export const intermineOntologyTermOntologyTermSynonymAttributes = intermineOntol
 export const intermineOntologyTermOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory('OntologyTerm.synonym');
 
 // OntologyTerm.relations has no reverse reference from OntologyRelation
-export const intermineOntologyTermRelationAttributes = [
-    'OntologyTerm.relations.id',
-    'OntologyTerm.relations.redundant',
-    'OntologyTerm.relations.direct',
-    'OntologyTerm.relations.relationship',
-    'OntologyTerm.relations.parentTerm.id', // resolve reference
-    'OntologyTerm.relations.childTerm.id',  // resolve reference
-];
-export const intermineOntologyTermRelationSort = 'OntologyTerm.relations.id';
+export const intermineOntologyTermRelationAttributes = intermineOntologyRelationAttributesFactory('OntologyTerm.relations');
+export const intermineOntologyTermRelationSort = intermineOntologyRelationSortFactory('OntologyTerm.relations');
 
 // OntologyTerm.ontology does not have an Ontology reverse reference
 export const intermineOntologyTermOntologyAttributes = [
