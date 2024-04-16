@@ -1,26 +1,27 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-// <class name="OntologyTermSynonym" is-interface="true" term="http://semanticscience.org/resource/SIO_000122">
-// 	<attribute name="type" type="java.lang.String" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25284"/>
-// 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_2099"/>
-// </class>
-export const intermineOntologyTermSynonymAttributes = [
-    'OntologyTermSynonym.id',
-    'OntologyTermSynonym.type', 
-    'OntologyTermSynonym.name',
+export const intermineOntologyTermSynonymAttributesFactory = (type = 'OntologyTermSynonym') => [
+    `${type}.id`,
+    `${type}.type`,
+    `${type}.name`,
 ];
-export const intermineOntologyTermSynonymSort = 'OntologyTermSynonym.name';
+
+export const intermineOntologyTermSynonymAttributes = intermineOntologyTermSynonymAttributesFactory();
+
+export const intermineOntologyTermSynonymSortFactory = (type = 'OntologyTermSynonym') => `${type}.name`;
+
+export const intermineOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory();
 
 export type IntermineOntologyTermSynonym = [
-    number,  // id
-    string,  // type
-    string,  // name
+    number,
+    string,
+    string,
 ];
 
 export const graphqlOntologyTermSynonymAttributes = [
-    'id',    // id
-    'type',  // type
-    'name',  // name
+    'id',
+    'type',
+    'name',
 ];
 
 export type GraphQLOntologyTermSynonym = {

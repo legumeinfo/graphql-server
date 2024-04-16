@@ -9,6 +9,10 @@ import {
   graphqlOntologyTermInterfaceAttributes,
   IntermineOntologyTermInterface,
 } from './ontology-term-interface.js';
+import {
+  intermineOntologyTermSynonymAttributesFactory,
+  intermineOntologyTermSynonymSortFactory,
+} from './ontology-term-synonym.js';
 
 export const intermineOntologyTermAttributes = [
     ...intermineOntologyTermInterfaceAttributesFactory('OntologyTerm'),
@@ -34,12 +38,8 @@ export function response2ontologyTerms(response: IntermineOntologyTermResponse):
 }
 
 // OntologyTerm.synonyms has no reverse reference from OntologyTermSynonym
-export const intermineOntologyTermOntologyTermSynonymAttributes = [
-    'OntologyTerm.synonyms.id',
-    'OntologyTerm.synonyms.type',
-    'OntologyTerm.synonyms.name',
-];
-export const intermineOntologyTermOntologyTermSynonymSort = 'OntologyTerm.synonym.name';
+export const intermineOntologyTermOntologyTermSynonymAttributes = intermineOntologyTermSynonymAttributesFactory('OntologyTerm.synonyms');
+export const intermineOntologyTermOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory('OntologyTerm.synonym');
 
 // OntologyTerm.relations has no reverse reference from OntologyRelation
 export const intermineOntologyTermRelationAttributes = [
