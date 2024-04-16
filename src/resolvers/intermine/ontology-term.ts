@@ -4,6 +4,7 @@ import { ResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
 import { hasOntologyFactory } from './ontology.js';
 import { hasOntologyAnnotationsFactory } from './ontology-annotation.js';
+import { hasOntologyRelationsFactory } from './ontology-relation.js';
 
 
 export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -28,5 +29,6 @@ ResolverMap => ({
         ...hasDataSetsFactory(sourceName),
         ...hasOntologyFactory(sourceName),
         ...hasOntologyAnnotationsFactory(sourceName),
+        ...hasOntologyRelationsFactory(sourceName),
     },
 });

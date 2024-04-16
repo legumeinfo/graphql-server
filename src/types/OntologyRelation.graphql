@@ -1,10 +1,3 @@
-# <class name="OntologyRelation" is-interface="true">
-# 	<attribute name="redundant" type="java.lang.Boolean"/>
-# 	<attribute name="direct" type="java.lang.Boolean"/>
-# 	<attribute name="relationship" type="java.lang.String"/>
-# 	<reference name="parentTerm" referenced-type="OntologyTerm"/>
-# 	<reference name="childTerm" referenced-type="OntologyTerm"/>
-# </class>
 type OntologyRelation {
   id: ID!
   redundant: Boolean
@@ -12,4 +5,8 @@ type OntologyRelation {
   relationship: String!
   parentTerm: OntologyTerm!
   childTerm: OntologyTerm!
+}
+
+interface HasOntologyRelations {
+  relations: [OntologyRelation!]!
 }

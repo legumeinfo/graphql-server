@@ -1,5 +1,5 @@
 # OntologyTerm is a type, not interface, so we just copy it here
-type SOTerm implements OntologyTerm & HasDataSets & HasOntology & HasOntologyAnnotations {
+type SOTerm implements OntologyTerm & HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
   id: ID!
   ## OntologyTerm
   identifier: ID!
@@ -17,6 +17,8 @@ type SOTerm implements OntologyTerm & HasDataSets & HasOntology & HasOntologyAnn
   ontology: Ontology
   ## HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
+  ## HasOntologyRelations
+  relations: [OntologyRelation!]!
 }
 
 

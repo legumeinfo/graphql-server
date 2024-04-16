@@ -1,4 +1,4 @@
-interface OntologyTerm implements HasDataSets & HasOntology & HasOntologyAnnotations {
+interface OntologyTerm implements HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
   id: ID!
   ## OntologyTerm
   identifier: ID!
@@ -6,14 +6,15 @@ interface OntologyTerm implements HasDataSets & HasOntology & HasOntologyAnnotat
   obsolete: Boolean
   name: String
   namespace: String
-  # relations
   # synonyms
   parents: [OntologyTerm!]!
   crossReferences: [OntologyTerm!]!
-  # HasOntology
+  ## HasOntology
   ontology: Ontology
   ## HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
+  ## HasOntologyRelations
+  relations: [OntologyRelation!]!
   ## HasDataSets
   dataSets: [DataSet!]!
 }

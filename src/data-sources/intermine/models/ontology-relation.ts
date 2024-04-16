@@ -1,12 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-// <class name="OntologyRelation" is-interface="true">
-// 	<attribute name="redundant" type="java.lang.Boolean"/>
-// 	<attribute name="direct" type="java.lang.Boolean"/>
-// 	<attribute name="relationship" type="java.lang.String"/>
-// 	<reference name="parentTerm" referenced-type="OntologyTerm"/>
-// 	<reference name="childTerm" referenced-type="OntologyTerm"/>
-// </class>
 export const intermineOntologyRelationAttributes = [
     'OntologyTermRelation.id',
     'OntologyTermRelation.redundant',
@@ -18,21 +11,21 @@ export const intermineOntologyRelationAttributes = [
 export const intermineOntologyRelationSort = 'OntologyTermRelation.id';
 
 export type IntermineOntologyRelation = [
-    number,  // id
-    boolean, // redundant
-    boolean, // direct
-    string,  // relationship
-    number,  // parentTerm.id
-    number,  // childTerm.id
+    number,
+    boolean,
+    boolean,
+    string,
+    number,
+    number,
 ];
 
 export const graphqlOntologyRelationAttributes = [
-    'id',           // id
-    'redundant',    // redundant
-    'direct',       // direct
-    'relationship', // relationship
-    'parentTermId', // resolve parentTerm
-    'childTermId',  // resolve childTerm
+    'id',
+    'redundant',
+    'direct',
+    'relationship',
+    'parentTermId',
+    'childTermId',
 ];
 
 export type GraphQLOntologyRelation = {
