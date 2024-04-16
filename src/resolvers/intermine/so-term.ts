@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { hasOntologyFactory } from './ontology.js';
 
 export const soTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -16,11 +17,7 @@ ResolverMap => ({
         },
     },
     SOTerm: {
-        // ontology: async (soTerm, _, { dataSources }) => {
-        //     return dataSources[sourceName].getSOTermOntology(soTerm)
-        //     // @ts-ignore: implicit type any error
-        //         .then(({data: results}) => results);
-        // },
+        ...hasOntologyFactory(sourceName),
         // relations: async (soTerm, { page, pageSize }, { dataSources }) => {
         //     const args = {soTerm: soTerm, page, pageSize};
         //     return dataSources[sourceName].getSOTermRelations(args)

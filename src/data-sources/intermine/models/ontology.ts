@@ -4,11 +4,6 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 
-// <class name="Ontology" is-interface="true" term="http://semanticscience.org/resource/SIO_001391">
-// 	<attribute name="url" type="java.lang.String" term="http://edamontology.org/data_1052"/>
-// 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>
 export const intermineOntologyAttributes = [
     'Ontology.id',
     'Ontology.url',
@@ -17,15 +12,15 @@ export const intermineOntologyAttributes = [
 export const intermineOntologySort = 'Ontology.name';
 
 export type IntermineOntology = [
-  number, // id
-  string, // url
-  string, // name
+  number,
+  string,
+  string,
 ];
 
 export const graphqlOntologyAttributes = [
-    'id',   // id
-    'url',  // url
-    'name', // name
+    'id',
+    'url',
+    'name',
 ]
 
 export type GraphQLOntology = {

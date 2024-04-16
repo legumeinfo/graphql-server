@@ -6,7 +6,7 @@ export const intermineSOTermAttributes = [
     'SOTerm.obsolete',
     'SOTerm.name',
     'SOTerm.namespace',
-    'SOTerm.ontology.id', // reference resolution
+    'SOTerm.ontology.name', // reference resolution
 ]
 export const intermineSOTermSort = 'SOTerm.identifier';
 
