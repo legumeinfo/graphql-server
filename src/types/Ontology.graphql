@@ -4,7 +4,3 @@ type Ontology implements HasDataSets {
   url: String
   dataSets: [DataSet!]!
 }
-
-interface HasOntology {
-  ontology: Ontology
-}
