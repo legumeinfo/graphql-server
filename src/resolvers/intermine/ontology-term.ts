@@ -1,10 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { hasDataSetsFactory } from './data-set.js';
-import { hasOntologyFactory } from './ontology.js';
-import { hasOntologyAnnotationsFactory } from './ontology-annotation.js';
-import { hasOntologyRelationsFactory } from './ontology-relation.js';
+import { isOntologyTermFactory } from './ontology-term-interface.js';
 
 
 export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -26,9 +23,6 @@ ResolverMap => ({
         },
     },
     OntologyTerm: {
-        ...hasDataSetsFactory(sourceName),
-        ...hasOntologyFactory(sourceName),
-        ...hasOntologyAnnotationsFactory(sourceName),
-        ...hasOntologyRelationsFactory(sourceName),
+        ...isOntologyTermFactory(sourceName),
     },
 });

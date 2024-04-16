@@ -1,13 +1,11 @@
-# OntologyTerm is a type, not interface, so we just copy it here
-type SOTerm implements OntologyTerm & HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
+type SOTerm implements OntologyTermInterface & HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
   id: ID!
-  ## OntologyTerm
+  ## OntologyTermInterface
   identifier: ID!
   description: String
   obsolete: Boolean
   name: String
   namespace: String
-  # relations
   # synonyms
   parents: [OntologyTerm!]!
   crossReferences: [OntologyTerm!]!

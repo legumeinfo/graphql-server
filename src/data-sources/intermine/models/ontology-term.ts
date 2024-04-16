@@ -3,50 +3,24 @@ import {
   intermineDataSetAttributesFactory,
   intermineDataSetSortFactory,
 } from './data-set.js';
+import {
+  intermineOntologyTermInterfaceAttributesFactory,
+  intermineOntologyTermInterfaceSortFactory,
+  graphqlOntologyTermInterfaceAttributes,
+  IntermineOntologyTermInterface,
+} from './ontology-term-interface.js';
 
-// <class name="OntologyTerm" is-interface="true" term="http://semanticscience.org/resource/SIO_000275">
-// 	<attribute name="identifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000675"/>
-// 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
-// 	<attribute name="obsolete" type="java.lang.Boolean" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63553"/>
-// 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
-// 	<attribute name="namespace" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000067"/>
-// 	<reference name="ontology" referenced-type="Ontology"/>
-// 	<collection name="relations" referenced-type="OntologyRelation"/>
-// 	<collection name="synonyms" referenced-type="OntologyTermSynonym"/>
-// 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="ontologyTerm"/>
-// 	<collection name="parents" referenced-type="OntologyTerm"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
-// </class>
 export const intermineOntologyTermAttributes = [
-    'OntologyTerm.id',
-    'OntologyTerm.identifier',
-    'OntologyTerm.description',
-    'OntologyTerm.obsolete',
-    'OntologyTerm.name',
-    'OntologyTerm.namespace',
-    'OntologyTerm.ontology.name', // reference resolution
+    ...intermineOntologyTermInterfaceAttributesFactory('OntologyTerm'),
 ]
-export const intermineOntologyTermSort = 'OntologyTerm.identifier';
+export const intermineOntologyTermSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm');
 
 export type IntermineOntologyTerm = [
-    number,  // id
-    string,  // identifier
-    string,  // description
-    boolean, // obsolete
-    string,  // name
-    string,  // namespace
-    string,  // ontology.name
+    ...IntermineOntologyTermInterface,
 ];
 
 export const graphqlOntologyTermAttributes = [
-    'id',           // id
-    'identifier',   // identifier
-    'description',  // description
-    'obsolete',     // obsolete
-    'name',         // name
-    'namespace',    // namespace
-    'ontologyName', // Ontology.name
+    ...graphqlOntologyTermInterfaceAttributes,
 ];
 
 export type GraphQLOntologyTerm = {

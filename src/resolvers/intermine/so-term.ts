@@ -1,8 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { hasOntologyFactory } from './ontology.js';
-import { hasOntologyRelationsFactory } from './ontology-relation.js';
+import { isOntologyTermFactory } from './ontology-term-interface.js';
 
 export const soTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -18,8 +17,7 @@ ResolverMap => ({
         },
     },
     SOTerm: {
-        ...hasOntologyFactory(sourceName),
-        ...hasOntologyRelationsFactory(sourceName),
+        ...isOntologyTermFactory(sourceName),
         // synonyms: async (soTerm, { page, pageSize }, { dataSources }) => {
         //     const args = {soTerm: soTerm, page, pageSize};
         //     return dataSources[sourceName].getSOTermSynonyms(args)

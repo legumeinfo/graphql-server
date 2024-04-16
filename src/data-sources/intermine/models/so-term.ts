@@ -1,19 +1,33 @@
-// SOTerm extends OntologyTerm with no additional attributes or references
-export const intermineSOTermAttributes = [
-    'SOTerm.id',
-    'SOTerm.identifier',
-    'SOTerm.description',   
-    'SOTerm.obsolete',
-    'SOTerm.name',
-    'SOTerm.namespace',
-    'SOTerm.ontology.name', // reference resolution
-]
-export const intermineSOTermSort = 'SOTerm.identifier';
+import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  intermineOntologyTermInterfaceAttributesFactory,
+  intermineOntologyTermInterfaceSortFactory,
+  graphqlOntologyTermInterfaceAttributes,
+  IntermineOntologyTermInterface,
+} from './ontology-term-interface.js';
 
-// use IntermineOntologyTerm
-// use graphqlOntologyTermAttributes
-// use GraphQLOntologyTerm
-// use IntermineOntologyTermResponse
+export const intermineSOTermAttributes = [
+    ...intermineOntologyTermInterfaceAttributesFactory('SOTerm'),
+]
+export const intermineSOTermSort = intermineOntologyTermInterfaceSortFactory('SOTerm');
+
+export type IntermineSOTerm = [
+    ...IntermineOntologyTermInterface,
+];
+
+export const graphqlSOTermAttributes = [
+    ...graphqlOntologyTermInterfaceAttributes,
+];
+
+export type GraphQLSOTerm = {
+    [prop in typeof graphqlSOTermAttributes[number]]: string;
+}
+
+export type IntermineSOTermResponse = IntermineDataResponse<IntermineSOTerm>;
+
+export function response2SOTerms(response: IntermineSOTermResponse): Array<GraphQLSOTerm> {
+    return response2graphqlObjects(response, graphqlSOTermAttributes);
+}
 
 // SOTerm.relations has no reverse reference
 export const intermineSOTermRelationAttributes = [

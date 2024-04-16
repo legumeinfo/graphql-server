@@ -1,6 +1,4 @@
-type OntologyTerm implements OntologyTermInterface & HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
-  id: ID!
-  ## OntologyTermInterface
+interface OntologyTermInterface implements HasDataSets & HasOntology & HasOntologyAnnotations & HasOntologyRelations {
   identifier: ID!
   description: String
   obsolete: Boolean
