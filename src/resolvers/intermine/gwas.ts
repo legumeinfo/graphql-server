@@ -4,6 +4,7 @@ import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGenotypingPlatformFactory } from './genotyping-platform.js';
 import { hasGWASResultsFactory } from './gwas-result.js';
+import { hasOrganismFactory } from './organism.js';
 
 
 export const gwasFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -28,12 +29,7 @@ ResolverMap => ({
         ...annotatableFactory(sourceName),
         ...hasGenotypingPlatformFactory(sourceName),
         ...hasGWASResultsFactory(sourceName),
-        organism: async(gwas, _, { dataSources }) => {
-            const {organismTaxonId} = gwas;
-            return dataSources[sourceName].getOrganism(organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasOrganismFactory(sourceName),
     },
 });
 

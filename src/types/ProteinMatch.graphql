@@ -1,4 +1,4 @@
-type ProteinMatch implements BioEntity & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ProteinMatch implements BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!

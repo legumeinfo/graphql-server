@@ -1,4 +1,4 @@
-type QTLStudy implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type QTLStudy implements HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -9,7 +9,8 @@ type QTLStudy implements Annotatable & HasDataSets & HasOntologyAnnotations & Ha
   description: String
   genotypes: String
   synopsis: String
-  organism: Organism
   dataSet: DataSet
   qtls: [QTL!]!
+  # HasOrganism: TODO: make non-null
+  organism: Organism
 }

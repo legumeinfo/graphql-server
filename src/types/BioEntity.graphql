@@ -1,10 +1,12 @@
-interface BioEntity implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+interface BioEntity implements HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  ## HasOrganism
+  organism: Organism
   ## BioEntity
   annotationVersion: String
   assemblyVersion: String
@@ -12,7 +14,6 @@ interface BioEntity implements Annotatable & HasDataSets & HasOntologyAnnotation
   locatedFeatures: [Location!]!
   locations: [Location!]!
   name: String
-  organism: Organism
   secondaryIdentifier: String
   strain: Strain
   symbol: String

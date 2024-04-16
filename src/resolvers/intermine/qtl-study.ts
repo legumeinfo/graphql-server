@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasOrganismFactory } from './organism.js';
 
 
 export const qtlStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -24,11 +25,7 @@ ResolverMap => ({
     },
     QTLStudy: {
         ...annotatableFactory(sourceName),
-        organism: async (qtlStudy, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(qtlStudy.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasOrganismFactory(sourceName),
         qtls: async (qtlStudy, { page, pageSize }, { dataSources }) => {
             const args = {qtlStudy, page, pageSize};
             return dataSources[sourceName].getQTLs(args)

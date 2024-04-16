@@ -4,19 +4,6 @@ import {
   intermineDataSetSortFactory,
 } from './data-set.js';
 
-
-// <class name="Organism" is-interface="true" term="http://semanticscience.org/resource/SIO_010000">
-// 	<attribute name="taxonId" type="java.lang.String" term="http://edamontology.org/data_1179"/>
-// 	<attribute name="abbreviation" type="java.lang.String"/>
-// 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema//label"/>
-// 	<attribute name="commonName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
-// 	<attribute name="description" type="java.lang.String"/>
-// 	<attribute name="genus" type="java.lang.String" term="http://edamontology.org/data_1870"/>
-// 	<attribute name="species" type="java.lang.String" term="http://edamontology.org/data_1045"/>
-// 	<attribute name="shortName" type="java.lang.String" term="http://edamontology.org/data_2909"/>
-// 	<collection name="strains" referenced-type="Strain" reverse-reference="organism"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>    
 export const intermineOrganismAttributes = [
     'Organism.id',
     'Organism.taxonId',
@@ -27,7 +14,7 @@ export const intermineOrganismAttributes = [
     'Organism.genus',
     'Organism.species',
 ];
-export const intermineOrganismSort = 'Organism.genus'; // guaranteed not null
+export const intermineOrganismSort = 'Organism.genus';
 export type IntermineOrganism = [
   number,
   string,
@@ -39,18 +26,6 @@ export type IntermineOrganism = [
   string,
 ];
 
-
-// type Organism {
-//   id: ID!
-//   taxonId: Int!
-//   abbreviation: String
-//   name: String
-//   commonName: String
-//   description: String
-//   genus: String
-//   species: String
-//   strains: [Strain!]
-// }
 export const graphqlOrganismAttributes = [
     'id',
     'taxonId',
@@ -61,6 +36,7 @@ export const graphqlOrganismAttributes = [
     'genus',
     'species',
 ];
+
 export type GraphQLOrganism = {
   [prop in typeof graphqlOrganismAttributes[number]]: string;
 }

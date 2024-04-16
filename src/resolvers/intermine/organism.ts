@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
 
 
@@ -38,5 +38,39 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+    },
+});
+
+
+export const hasOrganismFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    organism: async (parent, _, { dataSources }, info) => {
+        let taxonId: number|null = null;
+
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+        if (interfaces.includes('BioEntity')) {
+            taxonId = parent.organismTaxonId;
+        }
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'ExpressionSource':
+            case 'GeneFamilyTally':
+            case 'GeneticMap':
+            case 'GWAS':
+            case 'QTLStudy':
+            case 'Strain':
+            case 'Trait':
+                taxonId = parent.orgniamsTaxonId;
+                break;
+        }
+
+        if (taxonId == null) {
+            return null;
+        }
+
+        return dataSources[sourceName].getOrganism(taxonId)
+            // @ts-ignore: implicit type any error
+            .then(({data: results}) => results);
     },
 });

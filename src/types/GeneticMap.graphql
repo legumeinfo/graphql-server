@@ -1,4 +1,4 @@
-type GeneticMap implements HasGenotypingPlatform & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GeneticMap implements HasGenotypingPlatform & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -7,11 +7,12 @@ type GeneticMap implements HasGenotypingPlatform & Annotatable & HasDataSets & H
   publications: [Publication!]!
   ## HasGenotypingPlatform
   genotypingPlatform: GenotypingPlatform
+  ## HasOrganism
+  organism: Organism
   ## GeneticMap
   description: String
   genotypes: String
   genotypingMethod: String
   linkageGroups: [LinkageGroup!]!
-  organism: Organism
   synopsis: String
 }

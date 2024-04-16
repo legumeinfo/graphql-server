@@ -1,4 +1,4 @@
-type Trait implements HasGWAS & HasGWASResults & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Trait implements HasGWAS & HasGWASResults & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -9,10 +9,11 @@ type Trait implements HasGWAS & HasGWASResults & Annotatable & HasDataSets & Has
   gwas: GWAS
   # HasGWASResults
   gwasResults: [GWASResult!]!
+  # HasOrganism: TODO: make non-null
+  organism: Organism
   # Trait
   name: String!
   description: String
-  organism: Organism!
   dataSet: DataSet!
   qtlStudy: QTLStudy
   qtls: [QTL!]!
