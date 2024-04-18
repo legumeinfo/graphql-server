@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
+import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 import { hasTranscriptsFactory } from './transcript.js';
 
@@ -29,6 +30,7 @@ export const geneFactory =
         Gene: {
             ...sequenceFeatureFactory(sourceName),
             ...hasGeneFamilyAssignmentsFactory(sourceName),
+            ...hasPanGeneSetsFactory(sourceName),
             ...hasTranscriptsFactory(sourceName),
 
             // locations: [Location!]!
@@ -57,13 +59,6 @@ export const geneFactory =
             pathways: async (gene, { page, pageSize }, { dataSources }) => {
                 const args = {annotatable: gene, page, pageSize};
                 return dataSources[sourceName].getPathways(args)
-                // @ts-ignore: implicit type any error
-                    .then(({data: results}) => results);
-            },
-            panGeneSets: async (gene, { page, pageSize }, { dataSources }) => {
-                const {id} = gene;
-                const args = {page, pageSize};
-                return dataSources[sourceName].getPanGeneSetsForGene(id, args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

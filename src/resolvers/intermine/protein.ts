@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { bioEntityFactory } from './bio-entity.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
+import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 
 
 export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -26,6 +27,7 @@ ResolverMap => ({
     Protein: {
         ...bioEntityFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
+        ...hasPanGeneSetsFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
             return dataSources[sourceName].getPhylonodeForProtein(protein)
                 // @ts-ignore: implicit type any error
@@ -35,13 +37,6 @@ ResolverMap => ({
             const {id} = protein;
             const args = {page, pageSize};
             return dataSources[sourceName].getGenesForProtein(id, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        panGeneSets: async (protein, { page, pageSize }, { dataSources }) => {
-            const {id} = protein;
-            const args = {page, pageSize};
-            return dataSources[sourceName].getPanGeneSetsForProtein(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

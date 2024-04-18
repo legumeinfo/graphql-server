@@ -1,10 +1,12 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
+import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const transcriptFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
+        ...hasPanGeneSetsFactory(sourceName),
         ...sequenceFeatureFactory(sourceName),
         gene: async (transcript, _, { dataSources }) => {
             const {geneIdentifier} = transcript;
@@ -39,12 +41,6 @@ export const transcriptFactory =
         UTRs: async (transcript, { page, pageSize }, { dataSources }) => {
             const { id } = transcript;
             return dataSources[sourceName].getUTRsForTranscript(id, {page, pageSize})
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        panGeneSets: async (transcript, { page, pageSize }, { dataSources }) => {
-            const { id } = transcript;
-            return dataSources[sourceName].getPanGeneSetsForTranscript(id, {page, pageSize})
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

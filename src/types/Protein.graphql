@@ -1,4 +1,4 @@
-type Protein implements HasGeneFamilyAssignments & HasTranscript & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscript & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -18,6 +18,8 @@ type Protein implements HasGeneFamilyAssignments & HasTranscript & BioEntity & H
   symbol: String
   ## HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
+  ## HasPanGeneSets
+  panGeneSets: [PanGeneSet!]!
   ## HasTranscript
   transcript: Transcript
   ## Protein
@@ -30,5 +32,4 @@ type Protein implements HasGeneFamilyAssignments & HasTranscript & BioEntity & H
   sequence: Sequence
   genes: [Gene!]!
   proteinMatches: [ProteinMatch!]!
-  panGeneSets: [PanGeneSet!]!
 }
