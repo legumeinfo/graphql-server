@@ -29,9 +29,13 @@ ResolverMap => ({
         ...hasGeneFamilyAssignmentsFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylonodeForProtein(protein)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const {phylonodeIdentifier} = protein;
+            if (phylonodeIdentifier != null) {
+                return dataSources[sourceName].getPhylonode(phylonodeIdentifier)
+                    // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
+            return null;
         },
         genes: async (protein, { page, pageSize }, { dataSources }) => {
             const {id} = protein;

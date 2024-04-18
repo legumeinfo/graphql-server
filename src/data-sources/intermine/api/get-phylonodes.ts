@@ -2,12 +2,12 @@ import {
     ApiResponse,
     IntermineSummaryResponse,
     intermineConstraint,
+    intermineJoin,
     interminePathQuery,
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
     GraphQLPhylonode,
-    GraphQLPhylotree,
     InterminePhylonodeResponse,
     interminePhylonodeAttributes,
     interminePhylonodeSort,
@@ -15,42 +15,48 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetPhylonodesOptions = {
-    phylotree?: GraphQLPhylotree;
-    parent?: GraphQLPhylonode;
-} & PaginationOptions;
-
-
-// get Phylonodes for a Phylotree or parent Phylonode
-export async function getPhylonodes(
-    {
-        phylotree,
-        parent,
-        page,
-        pageSize,
-    }: GetPhylonodesOptions,
-): Promise<ApiResponse<GraphQLPhylonode[]>> {
-    const constraints = [];
-    if (phylotree) {
-        const phylotreeConstraint = intermineConstraint('Phylonode.tree.id', '=', phylotree.id);
-        constraints.push(phylotreeConstraint);
-    } else if (parent) {
-        const parentConstraint = intermineConstraint('Phylonode.parent.id', '=', parent.id);
-        constraints.push(parentConstraint);
-    }
-    const query = interminePathQuery(
-        interminePhylonodeAttributes,
-        interminePhylonodeSort,
-        constraints,
-    );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
+// get Phylonodes using the given query and returns the expected GraphQL types
+async function getPhylonodes(pathQuery: string, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPhylonode>> {
+    const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
         .then((response: InterminePhylonodeResponse) => response2phylonodes(response));
     // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Phylonode.id'})
+    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'Phylonode.id'})
         .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
+// get Phylonodes for a Phylotree
+export async function getPhylonodesForPhylotree(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPhylonode>> {
+    const constraints = [intermineConstraint('Phylonode.tree.id', '=', id)];
+    const joins = [];
+    // parent could be null
+    joins.push(intermineJoin('Phylonode.parent', 'OUTER'));
+    // protein could be null
+    joins.push(intermineJoin('Phylonode.protein', 'OUTER'));
+    const query = interminePathQuery(
+        interminePhylonodeAttributes,
+        interminePhylonodeSort,
+        constraints,
+        joins,
+    );
+    // get the data
+    return getPhylonodes(query, { page, pageSize });
+}
+
+// get Phylonode children of a Phylonode
+export async function getChildrenForPhylonode(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPhylonode>> {
+    const constraints = [intermineConstraint('Phylonode.parent.id', '=', id)];
+    const joins = [];
+    // protein could be null
+    joins.push(intermineJoin('Phylonode.protein', 'OUTER'));
+    const query = interminePathQuery(
+        interminePhylonodeAttributes,
+        interminePhylonodeSort,
+        constraints,
+        joins,
+    );
+    // get the data
+    return getPhylonodes(query, { page, pageSize });
 }

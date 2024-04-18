@@ -27,13 +27,17 @@ ResolverMap => ({
                 .then(({data: results}) => results);
         },
         parent: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getPhylonode(phylonode.parentId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+            const {parentIdentifier} = phylonode;
+            if (parentIdentifier != null) {
+                return dataSources[sourceName].getPhylonode(parentIdentifier)
+                    // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+            }
+            return null;
         },
         children: async (phylonode, { page, pageSize }, { dataSources }) => {
-            const args = {parent: phylonode, page, pageSize};
-            return dataSources[sourceName].getPhylonodes(args)
+            const {id} = phylonode;
+            return dataSources[sourceName].getChildrenForPhylonode(id, {page, pageSize})
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
