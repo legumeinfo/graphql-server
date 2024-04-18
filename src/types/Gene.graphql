@@ -1,4 +1,4 @@
-type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscripts & SequenceFeature & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteinDomains & HasTranscripts & SequenceFeature & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -32,6 +32,8 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscripts 
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   ## HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
+  ## HasProteinDomains
+  proteinDomains: [ProteinDomain!]!
   ## HasTranscripts
   transcripts: [Transcript!]!
   ## Gene
@@ -44,7 +46,6 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscripts 
   proteins: [Protein!]!
   pathways: [Pathway!]!
   # alleles
-  proteinDomains: [ProteinDomain!]!
   # regulatoryRegions
   ## microservices
   linkouts: [Linkout!]!

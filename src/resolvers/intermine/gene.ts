@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
+import { hasProteinDomainsFactory } from './protein-domain.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 import { hasTranscriptsFactory } from './transcript.js';
 
@@ -31,6 +32,7 @@ export const geneFactory =
             ...sequenceFeatureFactory(sourceName),
             ...hasGeneFamilyAssignmentsFactory(sourceName),
             ...hasPanGeneSetsFactory(sourceName),
+            ...hasProteinDomainsFactory(sourceName),
             ...hasTranscriptsFactory(sourceName),
 
             // locations: [Location!]!
@@ -60,12 +62,6 @@ export const geneFactory =
                 const {id} = gene;
                 const args = {page, pageSize};
                 return dataSources[sourceName].getPathwaysForGene(id, args)
-                // @ts-ignore: implicit type any error
-                    .then(({data: results}) => results);
-            },
-            proteinDomains: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getProteinDomains(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

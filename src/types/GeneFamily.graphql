@@ -1,4 +1,4 @@
-type GeneFamily implements HasPhylotree & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GeneFamily implements HasPhylotree & HasProteinDomains & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -7,10 +7,11 @@ type GeneFamily implements HasPhylotree & Annotatable & HasDataSets & HasOntolog
   publications: [Publication!]!
   # HasPhylotree
   phylotree: Phylotree
+  # HasProteinDomains
+  proteinDomains: [ProteinDomain!]!
   # GeneFamily
   description: String
   genes: [Gene!]!
-  proteinDomains: [ProteinDomain!]!
   size: Int
   tallies: [GeneFamilyTally!]!
   version: String

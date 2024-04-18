@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasPhylotreeFactory } from './phylotree.js';
+import { hasProteinDomainsFactory } from './protein-domain.js';
 
 
 export const geneFamilyFactory = 
@@ -29,16 +30,11 @@ export const geneFamilyFactory =
     GeneFamily: {
         ...annotatableFactory(sourceName),
         ...hasPhylotreeFactory(sourceName),
+        ...hasProteinDomainsFactory(sourceName),
         genes: async (geneFamily, { page, pageSize }, { dataSources }) => {
             const {id} = geneFamily;
             const args = {page, pageSize};
             return dataSources[sourceName].getGenesForGeneFamily(id, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        proteinDomains: async (geneFamily, { page, pageSize }, { dataSources }) => {
-            const args = {geneFamily, page, pageSize};
-            return dataSources[sourceName].getProteinDomains(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

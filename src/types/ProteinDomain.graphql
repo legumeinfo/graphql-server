@@ -6,10 +6,16 @@ type ProteinDomain implements Annotatable & HasDataSets & HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
   # ProteinDomain
+  childFeatures: [ProteinDomain!]!
   description: String
-  type: String
-  name: String
-  shortName: String
   genes: [Gene!]!
   geneFamilies: [GeneFamily!]!
+  name: String
+  parentFeatures: [ProteinDomain!]!
+  shortName: String
+  type: String
+}
+
+interface HasProteinDomains {
+  proteinDomains: [ProteinDomain!]!
 }

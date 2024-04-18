@@ -159,7 +159,12 @@ import { getProteins } from './get-proteins.js';
 import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
-import { getProteinDomains } from './get-protein-domains.js';
+import {
+  getProteinDomainsForGene,
+  getProteinDomainsForGeneFamily,
+  getChildFeaturesForProteinDomain,
+  getParentFeaturesForProteinDomain,
+} from './get-protein-domains.js';
 import { searchProteinDomains } from './search-protein-domains.js';
 // protein match
 import { getProteinMatch } from './get-protein-match.js';
@@ -366,7 +371,10 @@ export declare class ApiMixinInterface {
     searchProteins: Function;
     // protein domain
     getProteinDomain: Function;
-    getProteinDomains: Function;
+    getProteinDomainsForGene: Function;
+    getProteinDomainsForGeneFamily: Function;
+    getChildFeaturesForProteinDomain: Function;
+    getParentFeaturesForProteinDomain: Function;
     searchProteinDomains: Function;
     // protein match
     getProteinMatch: Function;
@@ -577,7 +585,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchProteins = searchProteins;
         // protein domain
         getProteinDomain = getProteinDomain;
-        getProteinDomains = getProteinDomains;
+        getProteinDomainsForGene = getProteinDomainsForGene;
+        getProteinDomainsForGeneFamily = getProteinDomainsForGeneFamily;
+        getChildFeaturesForProteinDomain = getChildFeaturesForProteinDomain;
+        getParentFeaturesForProteinDomain = getParentFeaturesForProteinDomain;
         searchProteinDomains = searchProteinDomains;
         // protein match
         getProteinMatch = getProteinMatch;
