@@ -1,5 +1,8 @@
-type Phylonode {
+type Phylonode implements HasPhylotree {
   id: ID!
+  # HasPhylotree
+  phylotree: Phylotree
+  # Phylonode
   children: [Phylonode!]!
   identifier: String!
   isLeaf: Boolean
@@ -8,5 +11,4 @@ type Phylonode {
   numChildren: Int
   parent: Phylonode
   protein: Protein
-  tree: Phylotree
 }

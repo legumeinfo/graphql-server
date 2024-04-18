@@ -11,7 +11,6 @@ import {
   response2phylotrees,
 } from '../models/index.js';
 
-
 // get a Phylotree by identifier
 export async function getPhylotree(identifier: string):
 Promise<ApiResponse<GraphQLPhylotree>> {

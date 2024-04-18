@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasPhylotreeFactory } from './phylotree.js';
 
 
 export const geneFamilyFactory = 
@@ -27,12 +28,7 @@ export const geneFamilyFactory =
     },
     GeneFamily: {
         ...annotatableFactory(sourceName),
-        phylotree: async(geneFamily, _, { dataSources }) => {
-            // phylotrees have the same identifier as their corresponding gene family
-            return dataSources[sourceName].getPhylotree(geneFamily.identifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasPhylotreeFactory(sourceName),
         genes: async (geneFamily, { page, pageSize }, { dataSources }) => {
             const {id} = geneFamily;
             const args = {page, pageSize};

@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGeneFamilyFactory } from './gene-family.js';
 
@@ -34,5 +34,23 @@ ResolverMap => ({
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+    },
+});
+
+
+export const hasPhylotreeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    phylotree: async (parent, _, { dataSources }, info) => {
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneFamily':
+            case 'Phylonode':
+                const {phylotreeIdentifier} = parent;
+                return dataSources[sourceName].getPhylotree(phylotreeIdentifier)
+                    // @ts-ignore: implicit type any error
+                    .then(({data: results}) => results);
+        }
+
+        return null;
     },
 });

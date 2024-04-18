@@ -33,7 +33,7 @@ export const graphqlPhylonodeAttributes = [
     'numChildren',
     'isLeaf',
     'proteinIdentifier',
-    'treeIdentifier',
+    'phylotreeIdentifier',
     'parentId',
 ];
 export type GraphQLPhylonode = {
