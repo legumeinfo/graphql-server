@@ -57,8 +57,9 @@ export const geneFactory =
                     .then(({data: results}) => results);
             },
             pathways: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {annotatable: gene, page, pageSize};
-                return dataSources[sourceName].getPathways(args)
+                const {id} = gene;
+                const args = {page, pageSize};
+                return dataSources[sourceName].getPathwaysForGene(id, args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
