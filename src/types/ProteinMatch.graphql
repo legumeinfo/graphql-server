@@ -1,4 +1,4 @@
-type ProteinMatch implements BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ProteinMatch implements HasProtein & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   ## Annotatable
   identifier: ID!
@@ -16,6 +16,8 @@ type ProteinMatch implements BioEntity & HasOrganism & Annotatable & HasDataSets
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  ## HasProtein
+  protein: Protein!
   ## ProteinMatch
   source: String
   signatureDesc: String
@@ -24,5 +26,4 @@ type ProteinMatch implements BioEntity & HasOrganism & Annotatable & HasDataSets
   target: String
   date: String
   accession: String
-  protein: Protein!
 }

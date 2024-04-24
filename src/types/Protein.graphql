@@ -23,13 +23,21 @@ type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscrip
   ## HasTranscript
   transcript: Transcript
   ## Protein
-  md5checksum: String
-  primaryAccession: String
-  molecularWeight: Float
-  length: Int
-  isPrimary: Boolean
-  phylonode: Phylonode
-  sequence: Sequence
   genes: [Gene!]!
+  isPrimary: Boolean
+  length: Int
+  md5checksum: String
+  molecularWeight: Float
+  phylonode: Phylonode
+  primaryAccession: String
   proteinMatches: [ProteinMatch!]!
+  sequence: Sequence
+}
+
+interface HasProtein {
+  protein: Protein!
+}
+
+interface HasProteins {
+  proteins: [Protein!]!
 }

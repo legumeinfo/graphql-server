@@ -2,21 +2,17 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
+import { hasProteinFactory } from './protein.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 
 export const transcriptFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...hasPanGeneSetsFactory(sourceName),
+        ...hasProteinFactory(sourceName),
         ...sequenceFeatureFactory(sourceName),
         gene: async (transcript, _, { dataSources }) => {
             const {geneIdentifier} = transcript;
             return dataSources[sourceName].getGene(geneIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        protein: async (transcript, _, { dataSources }) => {
-            const {proteinIdentifier} = transcript;
-            return dataSources[sourceName].getProtein(proteinIdentifier)
             // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

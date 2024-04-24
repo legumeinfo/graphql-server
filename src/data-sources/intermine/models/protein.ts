@@ -16,7 +16,9 @@ export const intermineProteinAttributes = [
     'Protein.molecularWeight',
     'Protein.length',
     'Protein.isPrimary',
+    'Protein.phylonode.identifier',
     'Protein.transcript.primaryIdentifier',
+    'Protein.sequence.id',
 ];
 export const intermineProteinSort = 'Protein.primaryIdentifier';
 export type IntermineProtein = [
@@ -27,6 +29,8 @@ export type IntermineProtein = [
   number,
   boolean,
   string,
+  string,
+  number,
 ];
 
 export const graphqlProteinAttributes = [
@@ -36,7 +40,9 @@ export const graphqlProteinAttributes = [
     'molecularWeight',
     'length',
     'isPrimary',
+    'phylonodeIdentifier',
     'transcriptIdentifier',
+    'sequenceId',
 ];
 export type GraphQLProtein = {
   [prop in typeof graphqlProteinAttributes[number]]: string;

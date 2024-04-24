@@ -155,7 +155,11 @@ import {
 import { getPhylotree } from './get-phylotree.js';
 // protein
 import { getProtein } from './get-protein.js';
-import { getProteins } from './get-proteins.js';
+import {
+  getProteinsForGene,
+  getProteinsForGeneFamily,
+  getProteinsForPanGeneSet,
+} from './get-proteins.js';
 import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
@@ -367,7 +371,9 @@ export declare class ApiMixinInterface {
     getPhylotree: Function;
     // protein
     getProtein: Function;
-    getProteins: Function;
+    getProteinsForGene: Function;
+    getProteinsForGeneFamily: Function;
+    getProteinsForPanGeneSet: Function;
     searchProteins: Function;
     // protein domain
     getProteinDomain: Function;
@@ -581,7 +587,9 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPhylotree = getPhylotree;
         // protein
         getProtein = getProtein;
-        getProteins = getProteins;
+        getProteinsForGene = getProteinsForGene;
+        getProteinsForGeneFamily = getProteinsForGeneFamily;
+        getProteinsForPanGeneSet = getProteinsForPanGeneSet;
         searchProteins = searchProteins;
         // protein domain
         getProteinDomain = getProteinDomain;

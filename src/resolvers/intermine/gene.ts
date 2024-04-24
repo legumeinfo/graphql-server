@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
+import { hasProteinsFactory } from './protein.js';
 import { hasProteinDomainsFactory } from './protein-domain.js';
 import { sequenceFeatureFactory } from './sequence-feature.js';
 import { hasTranscriptsFactory } from './transcript.js';
@@ -32,6 +33,7 @@ export const geneFactory =
             ...sequenceFeatureFactory(sourceName),
             ...hasGeneFamilyAssignmentsFactory(sourceName),
             ...hasPanGeneSetsFactory(sourceName),
+            ...hasProteinsFactory(sourceName),
             ...hasProteinDomainsFactory(sourceName),
             ...hasTranscriptsFactory(sourceName),
 
@@ -49,12 +51,6 @@ export const geneFactory =
                 const {id} = gene;
                 const args = {page, pageSize};
                 return dataSources[sourceName].getGeneFlankingRegionsForGene(id, args)
-                // @ts-ignore: implicit type any error
-                    .then(({data: results}) => results);
-            },
-            proteins: async (gene, { page, pageSize }, { dataSources }) => {
-                const args = {gene, page, pageSize};
-                return dataSources[sourceName].getProteins(args)
                 // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasPhylotreeFactory } from './phylotree.js';
+import { hasProteinFactory } from './protein.js';
 
 
 export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -18,11 +19,7 @@ ResolverMap => ({
     },
     Phylonode: {
         ...hasPhylotreeFactory(sourceName),
-        protein: async(phylonode, _, { dataSources }) => {
-            return dataSources[sourceName].getProtein(phylonode.proteinId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasProteinFactory(sourceName),
         parent: async(phylonode, _, { dataSources }) => {
             const {parentIdentifier} = phylonode;
             if (parentIdentifier != null) {
