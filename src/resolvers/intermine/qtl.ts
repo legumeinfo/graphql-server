@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetFactory } from './data-set.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasLinkageGroupFactory } from './linkage-group.js';
 
@@ -26,6 +27,7 @@ ResolverMap => ({
     },
     QTL: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
         ...hasLinkageGroupFactory(sourceName),
         trait: async (qtl, _, { dataSources }) => {

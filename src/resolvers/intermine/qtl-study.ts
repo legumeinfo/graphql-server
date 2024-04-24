@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetFactory } from './data-set.js';
 import { hasOrganismFactory } from './organism.js';
 
 
@@ -25,6 +26,7 @@ ResolverMap => ({
     },
     QTLStudy: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetFactory(sourceName),
         ...hasOrganismFactory(sourceName),
         qtls: async (qtlStudy, { page, pageSize }, { dataSources }) => {
             const args = {qtlStudy, page, pageSize};

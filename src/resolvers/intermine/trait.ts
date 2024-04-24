@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasDataSetFactory } from './data-set.js';
 import { hasGWASFactory } from './gwas.js';
 import { hasGWASResultsFactory } from './gwas-result.js';
 import { hasOrganismFactory } from './organism.js';
@@ -27,6 +28,7 @@ ResolverMap => ({
     },
     Trait: {
         ...annotatableFactory(sourceName),
+        ...hasDataSetFactory(sourceName),
         ...hasGWASFactory(sourceName),
         ...hasGWASResultsFactory(sourceName),
         ...hasOrganismFactory(sourceName),
