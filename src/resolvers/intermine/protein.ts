@@ -4,6 +4,7 @@ import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { bioEntityFactory } from './bio-entity.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
+import { hasTranscriptFactory } from './transcript.js';
 
 
 export const proteinFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -28,6 +29,7 @@ ResolverMap => ({
         ...bioEntityFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),
+        ...hasTranscriptFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
             const {phylonodeIdentifier} = protein;
             if (phylonodeIdentifier != null) {
@@ -37,11 +39,22 @@ ResolverMap => ({
             }
             return null;
         },
+        proteinMatches: async (protein, { page, pageSize }, { dataSources }) => {
+            const { id } = protein;
+            return dataSources[sourceName].getProteinMatchesForProtein(id, {page, pageSize})
+                // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
         genes: async (protein, { page, pageSize }, { dataSources }) => {
             const {id} = protein;
             const args = {page, pageSize};
             return dataSources[sourceName].getGenesForProtein(id, args)
                 // @ts-ignore: implicit type any error
+                .then(({data: results}) => results);
+        },
+        sequence: async(protein, _, { dataSources }) => {
+            return dataSources[sourceName].getSequence(protein.sequenceId)
+            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },

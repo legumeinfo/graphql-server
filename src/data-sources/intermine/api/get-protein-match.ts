@@ -1,7 +1,6 @@
 import {
   ApiResponse,
   intermineConstraint,
-  intermineJoin,
   interminePathQuery,
 } from '../intermine.server.js';
 import {
@@ -11,17 +10,14 @@ import {
   intermineProteinMatchSort,
   response2proteinMatches,
 } from '../models/index.js';
+import { bioEntityJoinFactory } from './bio-entity.js';
 
 
 // get a ProteinMatch by identifier
 export async function getProteinMatch(identifier: string):
 Promise<ApiResponse<GraphQLProteinMatch>> {
     const constraints = [intermineConstraint('ProteinMatch.primaryIdentifier', '=', identifier)];
-    // all BioEntity-extending object queries must include these joins
-    const joins = [
-        intermineJoin('ProteinMatch.organism', 'OUTER'),
-        intermineJoin('ProteinMatch.strain', 'OUTER')
-    ];
+    const joins = bioEntityJoinFactory('ProteinMatch');
     const query = interminePathQuery(
         intermineProteinMatchAttributes,
         intermineProteinMatchSort,
