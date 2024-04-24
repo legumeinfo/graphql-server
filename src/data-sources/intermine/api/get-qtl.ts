@@ -11,7 +11,6 @@ import {
   response2qtls,
 } from '../models/index.js';
 
-
 // get a QTL by primaryIdentifier
 export async function getQTL(identifier: string):
 Promise<ApiResponse<GraphQLQTL>> {

@@ -6,6 +6,7 @@ import { hasDataSetFactory } from './data-set.js';
 import { hasGWASFactory } from './gwas.js';
 import { hasGWASResultsFactory } from './gwas-result.js';
 import { hasOrganismFactory } from './organism.js';
+import { hasQTLsFactory } from './qtl.js';
 
 
 export const traitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -32,14 +33,9 @@ ResolverMap => ({
         ...hasGWASFactory(sourceName),
         ...hasGWASResultsFactory(sourceName),
         ...hasOrganismFactory(sourceName),
+        ...hasQTLsFactory(sourceName),
         qtlStudy: async (trait, _, { dataSources }) => {
             return dataSources[sourceName].getQTLStudyForTrait(trait)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        qtls: async (trait, { page, pageSize }, { dataSources }) => {
-            const args = {trait, page, pageSize};
-            return dataSources[sourceName].getQTLs(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

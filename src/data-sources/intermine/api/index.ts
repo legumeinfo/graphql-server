@@ -183,7 +183,12 @@ import {
 import { searchPublications } from './search-publications.js';
 // qtl
 import { getQTL } from './get-qtl.js';
-import { getQTLs } from './get-qtls.js';
+import {
+  getQTLsForGeneticMarker,
+  getQTLsForLinkageGroup,
+  getQTLsForTrait,
+  getQTLsForQTLStudy,
+} from './get-qtls.js';
 import { searchQTLs } from './search-qtls.js';
 // qtl study
 import { getQTLStudy } from './get-qtl-study.js';
@@ -394,7 +399,10 @@ export declare class ApiMixinInterface {
     searchPublications: Function;
     // qtl
     getQTL: Function;
-    getQTLs: Function;
+    getQTLsForGeneticMarker: Function;
+    getQTLsForLinkageGroup: Function;
+    getQTLsForTrait: Function;
+    getQTLsForQTLStudy: Function;
     searchQTLs: Function;
     // qtl study
     getQTLStudy: Function;
@@ -611,7 +619,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchPublications = searchPublications;
         // qtl
         getQTL = getQTL;
-        getQTLs = getQTLs;
+        getQTLsForGeneticMarker = getQTLsForGeneticMarker;
+        getQTLsForLinkageGroup = getQTLsForLinkageGroup;
+        getQTLsForTrait = getQTLsForTrait;
+        getQTLsForQTLStudy = getQTLsForQTLStudy;
         searchQTLs = searchQTLs;
         // qtl study
         getQTLStudy = getQTLStudy;
