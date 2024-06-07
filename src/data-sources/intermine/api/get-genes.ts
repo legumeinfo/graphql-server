@@ -20,6 +20,11 @@ import { PaginationOptions } from './pagination.js';
 
 
 export type GetGenesOptions = {
+    genus?: string;
+    species?: string;
+    strain?: string;
+    assembly?: string;
+    annotation?: string;
     protein?: GraphQLProtein;
     geneFamily?: GraphQLGeneFamily;
     panGeneSet?: GraphQLPanGeneSet;
@@ -30,6 +35,11 @@ export type GetGenesOptions = {
 // get Genes associated with a Protein, GeneFamily, PanGeneSet, ProteinDomain
 export async function getGenes(
     {
+        genus,
+        species,
+        strain,
+        assembly,
+        annotation,
         protein,
         geneFamily,
         panGeneSet,
@@ -39,6 +49,21 @@ export async function getGenes(
     }: GetGenesOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
+    if (genus) {
+        constraints.push(intermineConstraint('Gene.organism.genus', '=', genus));
+    }
+    if (species) {
+        constraints.push(intermineConstraint('Gene.organism.species', '=', species));
+    }
+    if (strain) {
+        constraints.push(intermineConstraint('Gene.strain.identifier', '=', strain));
+    }
+    if (assembly) {
+        constraints.push(intermineConstraint('Gene.assemblyVersion', '=', assembly));
+    }
+    if (annotation) {
+        constraints.push(intermineConstraint('Gene.annotationVersion', '=', annotation));
+    }
     if (protein) {
         const proteinConstraint = intermineConstraint('Gene.proteins.id', '=', protein.id);
         constraints.push(proteinConstraint);
