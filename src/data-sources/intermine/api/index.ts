@@ -5,6 +5,7 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
+import { getChromosomes } from './get-chromosomes.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import {
@@ -149,6 +150,7 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // chromosome
     getChromosome: Function;
+    getChromosomes: Function;
     // data set
     getDataSet: Function;
     getDataSetsForBioEntity: Function;
@@ -301,6 +303,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // chromosome
         getChromosome = getChromosome;
+        getChromosomes = getChromosomes;
         // data set
         getDataSet = getDataSet;
         getDataSetsForBioEntity = getDataSetsForBioEntity;
