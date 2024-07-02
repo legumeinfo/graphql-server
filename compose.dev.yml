@@ -1,7 +1,6 @@
 services:
   graphql-server:
     build: .
-    command: start
     healthcheck:
       disable: true
     volumes:
