@@ -88,6 +88,8 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pan genes
+import { getPanGenes } from './get-pan-genes.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import { getPanGeneSets } from './get-pan-gene-sets.js';
@@ -231,6 +233,8 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pan genes
+    getPanGenes: Function;
     // pan-gene set
     getPanGeneSet: Function;
     getPanGeneSets: Function;
@@ -384,6 +388,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pan-genes
+        getPanGenes = getPanGenes;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
         getPanGeneSets = getPanGeneSets;

@@ -221,6 +221,11 @@ type OrganismsResults {
   pageInfo: PageInfo
 }
 
+type PanGenesResults {
+  results: [Gene!]!
+  pageInfo: PageInfo
+}
+
 type ProteinsResults {
   results: [Protein!]!
   pageInfo: PageInfo
@@ -344,6 +349,7 @@ type Query {
   gwases(description: String, page: Int, pageSize: Int): GwasesResults
   ontologyTerms(description: String, page: Int, pageSize: Int): OntologyTermsResults
   organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, page: Int, pageSize: Int): OrganismsResults
+  panGenes(identifiers: [ID!]!, genus: String, species: String, strain: String, assembly: String, annotation: String, page: Int, pageSize: Int): PanGenesResults
   proteins(description: String, page: Int, pageSize: Int): ProteinsResults
   proteinDomains(description: String, page: Int, pageSize: Int): ProteinDomainsResults
   publications(title: String, page: Int, pageSize: Int): PublicationsResults
