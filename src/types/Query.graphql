@@ -36,6 +36,10 @@ type GeneResults {
   results: Gene
 }
 
+type GetGenesResults {
+  results: [Gene!]!
+}
+
 type GeneFamilyResults {
   results: GeneFamily
 }
@@ -332,6 +336,7 @@ type Query {
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
   expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
+  getGenes(identifiers: [ID!]!): GetGenesResults
   genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String,
     geneFamilyIdentifier: String, panGeneSetIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults

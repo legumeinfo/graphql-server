@@ -18,10 +18,15 @@ export const geneFactory =
                 }
                 return {results: gene};
             },
+            getGenes: async (_, { identifiers }, { dataSources }) => {
+                return dataSources[sourceName].getGenes({identifiers})
+                    // @ts-ignore: implicit type any error
+                    .then(({data: results}) => ({results}));
+            },
             genes: async (_, { description, genus, species, strain, identifier, name, geneFamilyIdentifier, panGeneSetIdentifier, page, pageSize }, { dataSources }) => {
                 const args = {description, genus, species, strain, identifier, name, geneFamilyIdentifier, panGeneSetIdentifier, page, pageSize};
                 return dataSources[sourceName].searchGenes(args)
-                // @ts-ignore: implicit type any error
+                    // @ts-ignore: implicit type any error
                     .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
             },
         },
