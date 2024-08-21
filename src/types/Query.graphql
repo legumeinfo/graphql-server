@@ -167,6 +167,11 @@ type SyntenyBlockResults {
 }
 
 ### multiple-result queries (typically searches)
+type ChromosomesResults {
+  results: [Chromosome!]!
+  pageInfo: PageInfo
+}
+
 type ExpressionSamplesResults {
   results: [ExpressionSample!]!
   pageInfo: PageInfo
@@ -323,7 +328,7 @@ type Query {
   expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
   
   ### multiple-result queries (typically searches)
-  chromosomes(genus: String, species: String, strain: String, assembly: String, annotation: String, page: Int, pageSize: Int): GenesResults
+  chromosomes(genus: String, species: String, strain: String, assembly: String, annotation: String, page: Int, pageSize: Int): ChromosomesResults
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
   expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
