@@ -110,6 +110,29 @@ export const intermineNotNullConstraint =
     };
 
 
+// creates a Path Query multi-value constraint XML string
+export const intermineMultiValueConstraint =
+    (path: string, op: string, values: Array<string|number>, code: string=''): string => {
+        const valueTags = values.map((value) => `<value>${value}</value>`).join('');
+        const codeAttr = code ? `code='${code}'` : '';
+        return `<constraint path='${path}' ${codeAttr} op='${op}'>${valueTags}</constraint>`;
+    };
+
+
+// creates a Path Query ONE OF constraint XML string
+export const intermineOneOfConstraint =
+    (path: string, values: Array<string|number>, code: string=''): string => {
+        return intermineMultiValueConstraint(path, 'ONE OF', values, code);
+    };
+
+
+// creates a Path Query NONE OF constraint XML string
+export const intermineNoneOfConstraint =
+    (path: string, values: Array<string|number>, code: string=''): string => {
+        return intermineMultiValueConstraint(path, 'NONE OF', values, code);
+    };
+
+
 // creates a Path Query join XML string; all Path Queries use INNER join by default so OUTER
 // is the default here, although INNER is supported for more complex queries
 export const intermineJoin =
