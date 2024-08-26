@@ -2,22 +2,21 @@ import {
     ApiResponse,
     IntermineCountResponse,
     intermineConstraint,
-    intermineNoneOfConstraint,
     intermineOneOfConstraint,
     interminePathQuery,
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGene,
-    IntermineGeneResponse,
-    intermineGeneAttributes,
-    intermineGeneSort,
-    response2genes,
+    GraphQLPanGenePair,
+    InterminePanGenePairResponse,
+    interminePanGenePairAttributes,
+    interminePanGenePairSort,
+    response2panGenePairs,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
-export type GetPanGenesOptions = {
+export type GetPanGenePairsOptions = {
     genus?: string;
     species?: string;
     strain?: string;
@@ -27,7 +26,7 @@ export type GetPanGenesOptions = {
 
 
 // gets Pan Genes for the given gene identifiers that meet the given constraints
-export async function getPanGenes(
+export async function getPanGenePairs(
     identifiers: string[],
     {
         genus,
@@ -37,10 +36,10 @@ export async function getPanGenes(
         annotation,
         page,
         pageSize,
-    }: GetPanGenesOptions,
-): Promise<ApiResponse<GraphQLGene[]>> {
+    }: GetPanGenePairsOptions,
+): Promise<ApiResponse<GraphQLPanGenePair[]>> {
     const constraints = [
-        intermineNoneOfConstraint('Gene.primaryIdentifier', identifiers),
+        intermineConstraint('Gene', '!=', 'Gene.panGeneSets.genes'),
         intermineOneOfConstraint('Gene.panGeneSets.genes.primaryIdentifier', identifiers),
     ];
     if (genus) {
@@ -59,13 +58,13 @@ export async function getPanGenes(
         constraints.push(intermineConstraint('Gene.annotationVersion', '=', annotation));
     }
     const query = interminePathQuery(
-        intermineGeneAttributes,
-        intermineGeneSort,
+        interminePanGenePairAttributes,
+        interminePanGenePairSort,
         constraints,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
+        .then((response: InterminePanGenePairResponse) => response2panGenePairs(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQueryCount(query)
         .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
