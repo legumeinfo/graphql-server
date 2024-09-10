@@ -1,16 +1,19 @@
 import {
     ApiResponse,
     IntermineCountResponse,
+    IntermineSummaryResponse,
     intermineConstraint,
     intermineOneOfConstraint,
     interminePathQuery,
     countResponse2graphqlPageInfo,
+    summmaryResponse2graphqlResultsInfo,
 } from '../intermine.server.js';
 import {
     GraphQLPanGenePair,
     InterminePanGenePairResponse,
     interminePanGenePairAttributes,
     interminePanGenePairSort,
+    interminePanGenePairSummaryPath,
     response2panGenePairs,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
@@ -65,10 +68,13 @@ export async function getPanGenePairs(
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: InterminePanGenePairResponse) => response2panGenePairs(response));
-    // get a summary of the data and convert it to page info
+    // get a count of the data and convert it to page info
     const pageInfoPromise = this.pathQueryCount(query)
         .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
+    // get a summary of the data and convert it to summary info
+    const resultsInfoPromise = this.pathQuerySummary(query, interminePanGenePairSummaryPath)
+        .then((response: IntermineSummaryResponse) => summmaryResponse2graphqlResultsInfo(response));
     // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return Promise.all([dataPromise, pageInfoPromise, resultsInfoPromise])
+        .then(([data, pageInfo, resultsInfo]) => ({data, metadata: {pageInfo, resultsInfo}}));
 }

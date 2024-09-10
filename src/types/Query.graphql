@@ -4,6 +4,15 @@
 
 # Metadata types
 
+type IdentifierCount {
+  identifier: ID
+  count: Int
+}
+
+type ResultsInfo {
+  identifierCounts: [IdentifierCount!]!
+}
+
 type PageInfo {
   currentPage: Int
   pageSize: Int
@@ -223,6 +232,7 @@ type OrganismsResults {
 
 type PanGenePairsResults {
   results: [PanGenePair!]!
+  resultsInfo: ResultsInfo
   pageInfo: PageInfo
 }
 

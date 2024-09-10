@@ -6,6 +6,7 @@ export const interminePanGenePairAttributes = [
     'Gene.panGeneSets.genes.primaryIdentifier',
 ];
 export const interminePanGenePairSort = 'Gene.panGeneSets.genes.primaryIdentifier';
+export const interminePanGenePairSummaryPath = 'Gene.panGeneSets.genes.primaryIdentifier';
 export type InterminePanGenePair = [
     string,
     string,
