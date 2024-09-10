@@ -4,7 +4,12 @@
 import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
 
 import { GraphQLModel, IntermineModel } from './models/index.js';
-import { GraphQLPageInfo, pageInfoFactory } from '../../models/index.js';
+import {
+    GraphQLPageInfo,
+    GraphQLResultsInfo,
+    pageInfoFactory,
+    resultsInfoFactory,
+} from '../../models/index.js';
 
 
 export class IntermineServer extends RESTDataSource {
@@ -39,17 +44,22 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}, format='json') {
+    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
         const params = {
             query,
             ...this.convertPaginationOptions(options),
             format,
+            summaryPath,
         };
         return await this.get('query/results', {params});
     }
 
     async pathQueryCount(query: string, options={}) {
         return this.pathQuery(query, options, 'jsoncount');
+    }
+
+    async pathQuerySummary(query: string, summaryPath: string, options={}) {
+        return this.pathQuery(query, options, 'json', summaryPath);
     }
 
     async keywordSearch(q: string, options={}) {
@@ -72,12 +82,16 @@ export class IntermineServer extends RESTDataSource {
 
 
 export interface IntermineDataResponse<I> {
-    results: Array<I>;
+    results: I[];
 }
+
+
+export type IntermineItemSummary = [string, number];
 
 
 export interface IntermineSummaryResponse {
     uniqueValues: number;
+    results: IntermineItemSummary[];
 }
 
 
@@ -172,19 +186,24 @@ export const response2graphqlObjects =
     };
 
 
-// converts an Intermine response into a GraphQL PageInfo type
-export const summmaryResponse2graphqlPageInfo =
-    (response: IntermineSummaryResponse, page: number|null, pageSize: number|null):
-    GraphQLPageInfo => {
-        const numResults = response.uniqueValues;
-        return pageInfoFactory(numResults, page, pageSize);
-    };
-
-
-// converts an Intermine response into a GraphQL PageInfo type
+// converts an Intermine count response into a GraphQL PageInfo type
 export const countResponse2graphqlPageInfo =
     (response: IntermineCountResponse, page: number|null, pageSize: number|null):
     GraphQLPageInfo => {
         const numResults = response.count;
         return pageInfoFactory(numResults, page, pageSize);
+    };
+
+
+// converts an Intermine response into a GraphQL ResultsInfo type
+export const summmaryResponse2graphqlResultsInfo =
+    (response: IntermineSummaryResponse):
+    GraphQLResultsInfo => {
+        const {uniqueValues, results} = response;
+        const reducer = (map: Record<string, number>, [item, count]: IntermineItemSummary) => {
+                map[item] = count;
+                return map;
+            };
+        const idCountMap = results.reduce(reducer, {});
+        return resultsInfoFactory(uniqueValues, idCountMap);
     };
