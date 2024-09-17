@@ -93,12 +93,14 @@ export async function getPanGenePairs(
         .then((response: InterminePanGenePairResponse) => {
           const reducer = (
             map: Record<string, number>,
-            [query, ..._]: [string, string, string],
+            [query, set, result]: [string, string, string],
           ) => {
-              if (!map.hasOwnProperty(query)) {
-                map[query] = 0;
+              if (set != null && result != null) {
+                if (!map.hasOwnProperty(query)) {
+                  map[query] = 0;
+                }
+                map[query] += 1;
               }
-              map[query] += 1;
               return map;
             };
           const idCountMap = response.results.reduce(reducer, {});
