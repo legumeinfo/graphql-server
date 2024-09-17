@@ -1,7 +1,7 @@
 # A pseudo-type that describes a pair of genes from the same pangene set
 # The relationship between the genes is defined by the context the type is used in
 type PanGenePair {
-  panGeneSet: PanGeneSet!
   query: Gene!
-  result: Gene!
+  panGeneSet: PanGeneSet
+  result: Gene
 }

@@ -196,7 +196,7 @@ export const countResponse2graphqlPageInfo =
 
 
 // converts an Intermine response into a GraphQL ResultsInfo type
-export const summmaryResponse2graphqlResultsInfo =
+export const summaryResponse2graphqlResultsInfo =
     (response: IntermineSummaryResponse):
     GraphQLResultsInfo => {
         const {uniqueValues, results} = response;

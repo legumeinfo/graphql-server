@@ -5,8 +5,8 @@ export const interminePanGenePairAttributes = [
     'Gene.panGeneSets.primaryIdentifier',
     'Gene.panGeneSets.genes.primaryIdentifier',
 ];
-export const interminePanGenePairSort = 'Gene.panGeneSets.genes.primaryIdentifier';
-export const interminePanGenePairSummaryPath = 'Gene.panGeneSets.genes.primaryIdentifier';
+export const interminePanGenePairSort = 'Gene.primaryIdentifier';
+export const interminePanGenePairSummaryPath = 'Gene.primaryIdentifier';
 export type InterminePanGenePair = [
     string,
     string,
@@ -14,9 +14,9 @@ export type InterminePanGenePair = [
 ];
 
 export const graphqlPanGenePairAttributes = [
-    'resultGeneIdentifier',
-    'panGeneSetIdentifier',
     'queryGeneIdentifier',
+    'panGeneSetIdentifier',
+    'resultGeneIdentifier',
 ];
 export type GraphQLPanGenePair = {
     [prop in typeof graphqlPanGenePairAttributes[number]]: string;
