@@ -5,6 +5,7 @@ import { getAuthor } from './get-author.js';
 import { getAuthors } from './get-authors.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
+import { getChromosomes } from './get-chromosomes.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import {
@@ -87,6 +88,8 @@ import { searchOntologyTerms } from './search-ontology-terms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pan genes
+import { getPanGenePairs } from './get-pan-gene-pairs.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import { getPanGeneSets } from './get-pan-gene-sets.js';
@@ -149,6 +152,7 @@ export declare class ApiMixinInterface {
     getAuthors: Function;
     // chromosome
     getChromosome: Function;
+    getChromosomes: Function;
     // data set
     getDataSet: Function;
     getDataSetsForBioEntity: Function;
@@ -229,6 +233,8 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pan genes
+    getPanGenePairs: Function;
     // pan-gene set
     getPanGeneSet: Function;
     getPanGeneSets: Function;
@@ -301,6 +307,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getAuthors = getAuthors;
         // chromosome
         getChromosome = getChromosome;
+        getChromosomes = getChromosomes;
         // data set
         getDataSet = getDataSet;
         getDataSetsForBioEntity = getDataSetsForBioEntity;
@@ -381,6 +388,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pan-genes
+        getPanGenePairs = getPanGenePairs;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
         getPanGeneSets = getPanGeneSets;

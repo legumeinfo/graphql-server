@@ -27,8 +27,8 @@ export const panGeneSetFactory =
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
-        genes: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
+        genes: async (panGeneSet, { genus, species, strain, assembly, annotation, page, pageSize }, { dataSources }) => {
+            const args = {panGeneSet, genus, species, strain, assembly, annotation, page, pageSize};
             return dataSources[sourceName].getGenes(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);

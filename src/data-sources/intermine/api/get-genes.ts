@@ -2,6 +2,7 @@ import {
     ApiResponse,
     IntermineCountResponse,
     intermineConstraint,
+    intermineOneOfConstraint,
     interminePathQuery,
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -20,6 +21,12 @@ import { PaginationOptions } from './pagination.js';
 
 
 export type GetGenesOptions = {
+    identifiers?: string[];
+    genus?: string;
+    species?: string;
+    strain?: string;
+    assembly?: string;
+    annotation?: string;
     protein?: GraphQLProtein;
     geneFamily?: GraphQLGeneFamily;
     panGeneSet?: GraphQLPanGeneSet;
@@ -30,6 +37,12 @@ export type GetGenesOptions = {
 // get Genes associated with a Protein, GeneFamily, PanGeneSet, ProteinDomain
 export async function getGenes(
     {
+        identifiers,
+        genus,
+        species,
+        strain,
+        assembly,
+        annotation,
         protein,
         geneFamily,
         panGeneSet,
@@ -39,6 +52,24 @@ export async function getGenes(
     }: GetGenesOptions,
 ): Promise<ApiResponse<GraphQLGene[]>> {
     const constraints = [];
+    if (identifiers) {
+        constraints.push(intermineOneOfConstraint('Gene.primaryIdentifier', identifiers));
+    }
+    if (genus) {
+        constraints.push(intermineConstraint('Gene.organism.genus', '=', genus));
+    }
+    if (species) {
+        constraints.push(intermineConstraint('Gene.organism.species', '=', species));
+    }
+    if (strain) {
+        constraints.push(intermineConstraint('Gene.strain.identifier', '=', strain));
+    }
+    if (assembly) {
+        constraints.push(intermineConstraint('Gene.assemblyVersion', '=', assembly));
+    }
+    if (annotation) {
+        constraints.push(intermineConstraint('Gene.annotationVersion', '=', annotation));
+    }
     if (protein) {
         const proteinConstraint = intermineConstraint('Gene.proteins.id', '=', protein.id);
         constraints.push(proteinConstraint);
