@@ -17,8 +17,8 @@
   "author": "Legume Information System",
   "license": "Apache-2.0",
   "dependencies": {
-    "@apollo/datasource-rest": "^6.2.2",
-    "@apollo/server": "^4.10.2",
+    "@apollo/datasource-rest": "^6.3.0",
+    "@apollo/server": "^4.11.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.3",
     "dotenv": "^16.4.5",
