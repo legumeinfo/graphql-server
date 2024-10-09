@@ -9,9 +9,9 @@
     "build:watch": "tsc-watch",
     "clean": "rm -rf ./dist",
     "serve": "node ./dist/index.js",
-    "serve:dev": "NODE_ENV=development npm run build:watch -- --onSuccess \"npm run serve\"",
-    "serve:prod": "NODE_ENV=production npm run serve",
-    "start": "npm run clean && npm run build && npm run serve:dev"
+    "serve:dev": "NODE_ENV=development bun run build:watch -- --onSuccess \"bun run serve\"",
+    "serve:prod": "NODE_ENV=production bun run serve",
+    "start": "bun run clean && bun run build && bun run serve"
   },
   "keywords": [],
   "author": "Legume Information System",
