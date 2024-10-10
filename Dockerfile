@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Prepare to install dependencies
 COPY package.json .
-COPY package-lock.json .
+COPY bun.lockb .
 
 # Install dependencies
 RUN bun install --frozen-lockfile # equivalent to npm ci
