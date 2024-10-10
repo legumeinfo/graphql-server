@@ -1,4 +1,4 @@
-FROM oven/bun:latest
+FROM oven/bun:1.1-alpine
 
 # Create app directory
 WORKDIR /app
@@ -8,7 +8,7 @@ COPY package.json .
 COPY package-lock.json .
 
 # Install dependencies
-RUN bun install
+RUN bun install --frozen-lockfile # equivalent to npm ci
 
 # Prepare to build the project
 COPY . .
@@ -25,4 +25,4 @@ HEALTHCHECK CMD curl -f --request POST \
 # Run the server
 EXPOSE 4000
 ENTRYPOINT ["bun", "run"]
-CMD ["serve"]
+CMD ["serve:prod"]
