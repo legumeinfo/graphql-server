@@ -8,12 +8,19 @@
     "build": "tsc && cp ./src/types/*.graphql ./dist/types",
     "build:watch": "tsc-watch",
     "clean": "rm -rf ./dist",
-    "serve": "node ./dist/index.js",
-    "serve:dev": "NODE_ENV=development npm run build:watch -- --onSuccess \"npm run serve\"",
-    "serve:prod": "NODE_ENV=production npm run serve",
-    "start": "npm run clean && npm run build && npm run serve:dev"
+    "serve": "bun run ./dist/index.js",
+    "serve:dev": "NODE_ENV=development bun run tsc-watch --onSuccess \"bun run serve\"",
+    "serve:prod": "NODE_ENV=production bun run serve",
+    "start": "bun run clean && bun run build && bun run serve"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "graphql",
+    "apollo",
+    "legumes",
+    "agbio",
+    "biology"
+  ],
   "author": "Legume Information System",
   "license": "Apache-2.0",
   "dependencies": {
