@@ -1,7 +1,7 @@
 services:
   graphql-server:
     build: .
-    command: start
+    command: serve:dev
     healthcheck:
       disable: true
     volumes:
