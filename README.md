@@ -23,7 +23,7 @@ You can use the Apollo Explorer by navigating your browser to [http://localhost:
 
 ### Docker
 A Docker image can be built that contains the environment necessary to build and run the server.
-The `entrypoint` for this image is the `npm run` command.
+The `entrypoint` for this image is the `bun run` command.
 The default `command` for this `entrypoint` is the `start` script defined in `package.json`, which simply compiles and runs the code in neither development or production mode.
 **The default `command` should not be used for production.**
 Override the `command` to compile and run the code in a specific environment or to run another command from `package.json`; see the Local instructions below for details on commands for development and production.
@@ -75,28 +75,29 @@ docker compose -f compose.yml -f compose.prod.yml up -d
 ### Local
 The following instructions describe how to setup your local environment for running the server in both development and production mode.
 See the `package.json` file for other commands.
+**NOTE: This project uses [Bun](https://bun.sh/), NOT npm.**
 
 #### Setup
-The server's dependencies can be installed via [npm](https://www.npmjs.com/):
+The server's dependencies can be installed as follows:
 ```console
-npm install
+bun install
 ```
 
 #### Development mode
 Once the dependencies are installed, use the following command to start the server in development mode:
 ```console
-npm run serve:dev
+bun run serve:dev
 ```
 This will automatically rebuild the code and restart the server whenever a change is made.
 
 #### Production mode
 To run the server in production mode, you must first build the code:
 ```console
-npm run build
+bun run build
 ```
 Once the code is built, the server can be run in production mode as follows:
 ```console
-npm run serve:prod
+bun run serve:prod
 ```
 As with development mode, this will start the server on port `4000` (or whatever the `PORT` environment variable is set to).
 However, for security purposes [introspection](https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/) will be disabled, meaning the Apollo Explorer will not be available.
@@ -105,7 +106,7 @@ However, for security purposes [introspection](https://www.apollographql.com/blo
 ### `.env` file
 This project support the use of a `.env` file.
 This file is used to set environment variables that control the server AND Docker Compose.
-For instance, when running the server directly with `npm` in your local environment the server will load environment variables from the `.env` file, such as the `PORT` variable.
+For instance, when running the server directly with `bun` in your local environment the server will load environment variables from the `.env` file, such as the `PORT` variable.
 However, the `.env` file is not included in the Docker image when it's built and it is explicitly excluded from the mounted volumes in the `compose.dev.yml` file.
 This is to ensure that the environment inside the Docker <u>image</u> is always the same and that environment variables inside a <u>container</u> are set in a canonical way, i.e. via Docker (Compose).
 Continuing the `PORT` example, this means when using Docker Compose the server inside the container will run on the default port - `4000` - but the `compose.yml` file will use the `PORT` environment variable to determine which port on the host to map the container's port to.
