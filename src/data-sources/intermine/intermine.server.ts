@@ -46,7 +46,7 @@ export class IntermineServer extends RESTDataSource {
 
     async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
         const body = {
-            query: query,
+            query,
             ...this.convertPaginationOptions(options),
             format,
         };
