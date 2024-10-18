@@ -54,6 +54,25 @@ export class IntermineServer extends RESTDataSource {
         return await this.get('query/results', {params});
     }
 
+    async pathQueryPost(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const body = {
+            query,
+            ...this.convertPaginationOptions(options),
+            format,
+        };
+        if (summaryPath !== undefined) {
+            body['summaryPath'] = summaryPath;
+        }
+        const request = {
+          body: new URLSearchParams(body).toString(),
+          headers: {
+            'Accept': `application/json;type=${format}`,
+            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
+        };
+        return await this.post('query/results', request);
+    }
+
     async pathQueryCount(query: string, options={}) {
         return this.pathQuery(query, options, 'jsoncount');
     }
