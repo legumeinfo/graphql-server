@@ -3,6 +3,7 @@
 
 import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
 
+import { intermineFetcher } from './intermine.fetcher.js';
 import { GraphQLModel, IntermineModel } from './models/index.js';
 import {
     GraphQLPageInfo,
@@ -15,7 +16,8 @@ import {
 export class IntermineServer extends RESTDataSource {
 
     constructor(baseURL: string, config: DataSourceConfig={}) {
-        super(config);
+        // use intermine-specific fetcher as default if none provided
+        super({fetch: intermineFetcher, ...config});
         // set the URL all requests will be sent to
         this.baseURL = baseURL;
         // NOTE: RESTDataSource uses the Web API URL interface to add paths to
