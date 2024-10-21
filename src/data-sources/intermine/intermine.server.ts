@@ -44,31 +44,40 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
-        const params = {
-            query,
-            ...this.convertPaginationOptions(options),
-            format,
-            summaryPath,
-        };
-        return await this.get('query/results', {params});
-    }
-
-    async pathQueryPost(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
-        const body = {
+    // request type agnostic payload
+    pathQueryPayload(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const payload = {
             query,
             ...this.convertPaginationOptions(options),
             format,
         };
         if (summaryPath !== undefined) {
-            body['summaryPath'] = summaryPath;
+            payload['summaryPath'] = summaryPath;
         }
+        return payload;
+    }
+
+    // sends a PathQuery to InterMine as a GET request
+    async pathQueryGet(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const params = this.pathQueryPayload(query, options, format, summaryPath);
+        return await this.get('query/results', {params});
+    }
+
+    // sends a PathQuery to InterMine as a POST request
+    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const body = this.pathQueryPayload(query, options, format, summaryPath);
+        const encodedBody = new URLSearchParams(body).toString();
         const request = {
-          body: new URLSearchParams(body).toString(),
+          body: encodedBody,
           headers: {
             'Accept': `application/json;type=${format}`,
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
           },
+          // add TTL and cacheKey so POSTs are cached
+          cacheOptions: () => ({
+            ttl: Infinity,
+          }),
+          cacheKey: encodedBody,
         };
         return await this.post('query/results', request);
     }
