@@ -75,10 +75,7 @@ export class IntermineServer extends RESTDataSource {
             'Accept': `application/json;type=${format}`,
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
           },
-          // add TTL and cacheKey so POSTs are cached
-          cacheOptions: () => ({
-            ttl: 222,  // seconds; this value was randomly selected
-          }),
+          // add cacheKey so POSTs are cached
           cacheKey: encodedBody,
         };
         return await this.post('query/results', request);

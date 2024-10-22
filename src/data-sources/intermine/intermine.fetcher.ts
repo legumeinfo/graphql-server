@@ -7,10 +7,8 @@ import { RequestOptions } from '@apollo/datasource-rest';
 export async function intermineFetcher(url: string, options: RequestOptions) {
     return nodeFetch(url, options)
         .then((response) => {
-            if (options.method === 'POST') {
-                response.headers.delete('cache-control');
-                response.headers.delete('pragma');
-            }
+            response.headers.delete('pragma');
+            response.headers.set('cache-control', 'public, max-age=222');
             return response;
         });
 }
