@@ -77,7 +77,7 @@ export class IntermineServer extends RESTDataSource {
           },
           // add TTL and cacheKey so POSTs are cached
           cacheOptions: () => ({
-            ttl: Infinity,
+            ttl: 222,  // seconds; this value was randomly selected
           }),
           cacheKey: encodedBody,
         };
