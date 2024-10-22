@@ -60,13 +60,13 @@ export class IntermineServer extends RESTDataSource {
     }
 
     // sends a PathQuery to InterMine as a GET request
-    async pathQueryGet(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
         const params = this.pathQueryPayload(query, options, format, summaryPath);
         return await this.get('query/results', {params});
     }
 
     // sends a PathQuery to InterMine as a POST request
-    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+    async pathQueryPost(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
         const body = this.pathQueryPayload(query, options, format, summaryPath);
         const encodedBody = new URLSearchParams(body).toString();
         const request = {
