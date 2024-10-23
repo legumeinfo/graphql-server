@@ -156,7 +156,7 @@ export interface IntermineCountResponse {
 
 export interface ApiResponse<G> {
   data: G;
-  metadata: {
+  metadata?: {
     pageInfo?: GraphQLPageInfo;
   };
 }
