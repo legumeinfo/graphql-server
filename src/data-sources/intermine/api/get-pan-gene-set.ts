@@ -12,8 +12,11 @@ import {
 } from '../models/index.js';
 
 // get a PanGeneSet by primaryIdentifier
-export async function getPanGeneSet(identifier: string):
+export async function getPanGeneSet(identifier: string, fields: string[]=[]):
 Promise<ApiResponse<GraphQLPanGeneSet>> {
+    if (fields.indexOf('identifier') !== -1 && fields.length == 1) {
+      return Promise.resolve({data: {identifier}});
+    }
     const constraints = [intermineConstraint('PanGeneSet.primaryIdentifier', '=', identifier)];
     const query = interminePathQuery(
         interminePanGeneSetAttributes,
