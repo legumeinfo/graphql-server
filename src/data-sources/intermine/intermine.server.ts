@@ -1,7 +1,12 @@
 // This file contains functions to help work with Intermine's PathQuery API,
 // including functions for building queries and parsing their results.
 
-import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
+import {
+  DataSourceConfig,
+  RequestDeduplicationPolicy,
+  RequestOptions,
+  RESTDataSource,
+} from '@apollo/datasource-rest';
 
 import { intermineFetcher } from './intermine.fetcher.js';
 import { GraphQLModel, IntermineModel } from './models/index.js';
@@ -31,6 +36,28 @@ export class IntermineServer extends RESTDataSource {
         if (!this.baseURL.endsWith('/')) {
             this.baseURL += '/';
         }
+    }
+
+    protected override requestDeduplicationPolicyFor(
+      url: URL,
+      request: RequestOptions,
+    ): RequestDeduplicationPolicy {
+      const method = request.method ?? 'GET';
+      if (['GET', 'POST', 'HEAD'].includes(method)) {
+        const deduplicationKey = this.cacheKeyFor(url, request);
+        return {
+          policy: 'deduplicate-during-request-lifetime',
+          deduplicationKey,
+        };
+      }
+      return {
+        policy: 'do-not-deduplicate',
+        invalidateDeduplicationKeys: [
+          this.cacheKeyFor(url, { ...request, method: 'GET' }),
+          this.cacheKeyFor(url, { ...request, method: 'POST' }),
+          this.cacheKeyFor(url, { ...request, method: 'HEAD' }),
+        ],
+      };
     }
 
     // InterMine uses offset pagination but we want to support page-based pagination;
