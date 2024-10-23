@@ -73,7 +73,7 @@ export async function getPanGenePairs(
         joins,
     );
     // get the data
-    const dataPromise = this.pathQueryPost(query, {page, pageSize})
+    const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: InterminePanGenePairResponse) => response2panGenePairs(response));
     // get a count of the data and convert it to page info
     // TODO: this count query isn't correct because it's counting the number of genes before the outer join
@@ -83,7 +83,7 @@ export async function getPanGenePairs(
     // TODO: these counts are incorrect because it's counting nested tables from the outer join
     //const resultsInfoPromise = this.pathQuerySummary(query, interminePanGenePairSummaryPath)
     //    .then((response: IntermineSummaryResponse) => summaryResponse2graphqlResultsInfo(response));
-    const allDataPromise = this.pathQueryPost(query);
+    const allDataPromise = this.pathQuery(query);
     const pageInfoPromise = allDataPromise
         .then((response: InterminePanGenePairResponse) => {
           const fakeCountResponse: IntermineCountResponse = {count: response.results.length};
