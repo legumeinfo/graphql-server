@@ -1,6 +1,6 @@
 {
   "name": "@legumeinfo/graphql-server",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A GraphQL server that supports the Legume Information System and related biodata websites",
   "main": "dist/index.js",
   "type": "module",
@@ -27,7 +27,7 @@
     "@apollo/datasource-rest": "^6.3.0",
     "@apollo/server": "^4.11.0",
     "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/merge": "^9.0.7",
+    "@graphql-tools/merge": "^9.0.8",
     "dotenv": "^16.4.5",
     "graphql": "^16.9.0"
   },
