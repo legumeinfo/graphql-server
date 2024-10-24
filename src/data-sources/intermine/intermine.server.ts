@@ -1,8 +1,14 @@
 // This file contains functions to help work with Intermine's PathQuery API,
 // including functions for building queries and parsing their results.
 
-import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
+import {
+  DataSourceConfig,
+  RequestDeduplicationPolicy,
+  RequestOptions,
+  RESTDataSource,
+} from '@apollo/datasource-rest';
 
+import { intermineFetcher } from './intermine.fetcher.js';
 import { GraphQLModel, IntermineModel } from './models/index.js';
 import {
     GraphQLPageInfo,
@@ -15,7 +21,8 @@ import {
 export class IntermineServer extends RESTDataSource {
 
     constructor(baseURL: string, config: DataSourceConfig={}) {
-        super(config);
+        // use intermine-specific fetcher as default if none provided
+        super({fetch: intermineFetcher, ...config});
         // set the URL all requests will be sent to
         this.baseURL = baseURL;
         // NOTE: RESTDataSource uses the Web API URL interface to add paths to
@@ -31,6 +38,36 @@ export class IntermineServer extends RESTDataSource {
         }
     }
 
+    // a copy of the default deduplication policy but with support for POST requests
+    protected override requestDeduplicationPolicyFor(
+      url: URL,
+      request: RequestOptions,
+    ): RequestDeduplicationPolicy {
+      const method = request.method ?? 'GET';
+      if (['GET', 'POST', 'HEAD'].includes(method)) {
+        const deduplicationKey = this.cacheKeyFor(url, request);
+        return {
+          policy: 'deduplicate-during-request-lifetime',
+          deduplicationKey,
+        };
+      }
+      return {
+        policy: 'do-not-deduplicate',
+        invalidateDeduplicationKeys: [
+          this.cacheKeyFor(url, { ...request, method: 'GET' }),
+          this.cacheKeyFor(url, { ...request, method: 'POST' }),
+          this.cacheKeyFor(url, { ...request, method: 'HEAD' }),
+        ],
+      };
+    }
+
+    // sets the time-to-live for every response; this forces caching of POST requests
+    override cacheOptionsFor() {
+      return {
+        ttl: 222
+      }
+    }
+
     // InterMine uses offset pagination but we want to support page-based pagination;
     // this function converts page-based options to offset options
     private convertPaginationOptions({page, pageSize, ...rest}: any={}) {
@@ -44,14 +81,39 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
-        const params = {
+    // request type agnostic payload
+    pathQueryPayload(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const payload = {
             query,
             ...this.convertPaginationOptions(options),
             format,
-            summaryPath,
         };
+        if (summaryPath !== undefined) {
+            payload['summaryPath'] = summaryPath;
+        }
+        return payload;
+    }
+
+    // sends a PathQuery to InterMine as a GET request
+    async pathQueryGet(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const params = this.pathQueryPayload(query, options, format, summaryPath);
         return await this.get('query/results', {params});
+    }
+
+    // sends a PathQuery to InterMine as a POST request
+    async pathQuery(query: string, options={}, format='json', summaryPath:string|undefined=undefined) {
+        const body = this.pathQueryPayload(query, options, format, summaryPath);
+        const encodedBody = new URLSearchParams(body).toString();
+        const request = {
+          body: encodedBody,
+          headers: {
+            'Accept': `application/json;type=${format}`,
+            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
+          // add cacheKey so POSTs are cached
+          cacheKey: encodedBody,
+        };
+        return await this.post('query/results', request);
     }
 
     async pathQueryCount(query: string, options={}) {
@@ -102,7 +164,7 @@ export interface IntermineCountResponse {
 
 export interface ApiResponse<G> {
   data: G;
-  metadata: {
+  metadata?: {
     pageInfo?: GraphQLPageInfo;
   };
 }

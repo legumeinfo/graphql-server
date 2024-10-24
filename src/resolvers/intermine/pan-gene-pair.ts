@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { getQueryFields } from '../utils/query-fields.js';
 
 
 export const panGenePairFactory =
@@ -18,21 +19,24 @@ export const panGenePairFactory =
             },
         },
         PanGenePair: {
-            panGeneSet: async (panGenePair, _, { dataSources }) => {
+            panGeneSet: async (panGenePair, _, { dataSources }, info) => {
+                const fields = getQueryFields(info);
                 const {panGeneSetIdentifier} = panGenePair;
-                return dataSources[sourceName].getPanGeneSet(panGeneSetIdentifier)
+                return dataSources[sourceName].getPanGeneSet(panGeneSetIdentifier, fields)
                     // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-            query: async (panGenePair, _, { dataSources }) => {
+            query: async (panGenePair, _, { dataSources }, info) => {
+                const fields = getQueryFields(info);
                 const {queryGeneIdentifier} = panGenePair;
-                return dataSources[sourceName].getGene(queryGeneIdentifier)
+                return dataSources[sourceName].getGene(queryGeneIdentifier, fields)
                     // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
-            result: async (panGenePair, _, { dataSources }) => {
+            result: async (panGenePair, _, { dataSources }, info) => {
+                const fields = getQueryFields(info);
                 const {resultGeneIdentifier} = panGenePair;
-                return dataSources[sourceName].getGene(resultGeneIdentifier)
+                return dataSources[sourceName].getGene(resultGeneIdentifier, fields)
                     // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
             },
