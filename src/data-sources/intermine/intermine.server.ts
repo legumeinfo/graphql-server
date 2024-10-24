@@ -38,6 +38,7 @@ export class IntermineServer extends RESTDataSource {
         }
     }
 
+    // a copy of the default deduplication policy but with support for POST requests
     protected override requestDeduplicationPolicyFor(
       url: URL,
       request: RequestOptions,
@@ -58,6 +59,13 @@ export class IntermineServer extends RESTDataSource {
           this.cacheKeyFor(url, { ...request, method: 'HEAD' }),
         ],
       };
+    }
+
+    // sets the time-to-live for every response; this forces caching of POST requests
+    override cacheOptionsFor() {
+      return {
+        ttl: 222
+      }
     }
 
     // InterMine uses offset pagination but we want to support page-based pagination;

@@ -2,8 +2,8 @@ import nodeFetch from 'node-fetch';
 import { RequestOptions } from '@apollo/datasource-rest';
 
 
-// wraps the default RESTDataSource fetcher (i.e. nodeFetch) to remove cache
-// busting headers from POST responses
+// wraps the default RESTDataSource fetcher (i.e. nodeFetch) to force caching
+// of every response
 export async function intermineFetcher(url: string, options: RequestOptions) {
     return nodeFetch(url, options)
         .then((response) => {
