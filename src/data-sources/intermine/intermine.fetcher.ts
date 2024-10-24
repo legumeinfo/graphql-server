@@ -8,7 +8,7 @@ export async function intermineFetcher(url: string, options: RequestOptions) {
     return nodeFetch(url, options)
         .then((response) => {
             response.headers.delete('pragma');
-            response.headers.set('cache-control', 'public, max-age=222');
+            response.headers.set('cache-control', 'public');
             return response;
         });
 }
