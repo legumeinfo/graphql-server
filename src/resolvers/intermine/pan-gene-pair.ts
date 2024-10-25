@@ -20,8 +20,11 @@ export const panGenePairFactory =
         },
         PanGenePair: {
             panGeneSet: async (panGenePair, _, { dataSources }, info) => {
-                const fields = getQueryFields(info);
                 const {panGeneSetIdentifier} = panGenePair;
+                if (panGeneSetIdentifier === null) {
+                    return null;
+                }
+                const fields = getQueryFields(info);
                 return dataSources[sourceName].getPanGeneSet(panGeneSetIdentifier, fields)
                     // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
@@ -34,8 +37,11 @@ export const panGenePairFactory =
                     .then(({data: results}) => results);
             },
             result: async (panGenePair, _, { dataSources }, info) => {
-                const fields = getQueryFields(info);
                 const {resultGeneIdentifier} = panGenePair;
+                if (resultGeneIdentifier === null) {
+                    return null;
+                }
+                const fields = getQueryFields(info);
                 return dataSources[sourceName].getGene(resultGeneIdentifier, fields)
                     // @ts-ignore: implicit type any error
                     .then(({data: results}) => results);
