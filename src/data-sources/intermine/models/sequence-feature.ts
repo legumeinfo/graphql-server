@@ -36,15 +36,15 @@ import {
 
 export const intermineSequenceFeatureAttributesFactory = (type = 'SequenceFeature') => [
     ...intermineBioEntityAttributesFactory(type),
-    'SequenceFeature.score',
-    'SequenceFeature.scoreType',
-    'SequenceFeature.length',
-    'SequenceFeature.sequenceOntologyTerm.identifier',
-    'SequenceFeature.chromosomeLocation.id',
-    'SequenceFeature.supercontigLocation.id',
-    'SequenceFeature.sequence.id',
-    'SequenceFeature.chromosome.primaryIdentifier',
-    'SequenceFeature.supercontig.primaryIdentifier',
+    `${type}.score`,
+    `${type}.scoreType`,
+    `${type}.length`,
+    `${type}.sequenceOntologyTerm.identifier`,
+    `${type}.chromosomeLocation.id`,
+    `${type}.supercontigLocation.id`,
+    `${type}.sequence.id`,
+    `${type}.chromosome.primaryIdentifier`,
+    `${type}.supercontig.primaryIdentifier`,
 ];
 
 export const intermineSequenceFeatureSortFactory = (type = 'SequenceFeature') => `${type}.primaryIdentifier`;
