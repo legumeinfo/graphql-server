@@ -1,8 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
-import { hasDataSetFactory } from './data-set.js';
 import { hasOrganismFactory } from './organism.js';
 import { hasQTLsFactory } from './qtl.js';
 
@@ -27,8 +26,35 @@ ResolverMap => ({
     },
     QTLStudy: {
         ...annotatableFactory(sourceName),
-        ...hasDataSetFactory(sourceName),
         ...hasOrganismFactory(sourceName),
         ...hasQTLsFactory(sourceName),
+    },
+});
+
+
+export const hasQTLStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    qtlStudy: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'QTL':
+                const {qtlStudyIdentifier} = parent;
+                request = dataSources[sourceName].getQTLStudy(qtlStudyIdentifier, args);
+                break;
+            case 'Trait':
+                const {identifier} = parent;
+                request = dataSources[sourceName].getQTLStudyForTrait(identifier, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

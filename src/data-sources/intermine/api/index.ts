@@ -191,8 +191,7 @@ import {
 } from './get-qtls.js';
 import { searchQTLs } from './search-qtls.js';
 // qtl study
-import { getQTLStudy } from './get-qtl-study.js';
-import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
+import { getQTLStudy, getQTLStudyForTrait } from './get-qtl-study.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
 // sequence
 import { getSequence } from './get-sequence.js';

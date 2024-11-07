@@ -29,3 +29,25 @@ Promise<ApiResponse<GraphQLQTLStudy>> {
         })
         .then((qtlStudy: GraphQLQTLStudy) => ({data: qtlStudy}));
 }
+
+
+// get the QTLStudy for a Trait
+export async function getQTLStudyForTrait(traitIdentifier: string):
+Promise<ApiResponse<GraphQLQTLStudy|null>> {
+    const constraints = [intermineConstraint('QTLStudy.qtls.trait.id', '=', traitIdentifier)];
+    const query = interminePathQuery(
+        intermineQTLStudyAttributes,
+        intermineQTLStudySort,
+        constraints,
+    );
+    return this.pathQuery(query)
+        .then((response: IntermineQTLStudyResponse) => response2qtlStudies(response))
+        .then((qtlStudies: Array<GraphQLQTLStudy>) => {
+            if (qtlStudies.length) {
+                return qtlStudies[0];
+            } else {
+                return null;
+            }
+        })
+        .then((qtlStudy: GraphQLQTLStudy) => ({data: qtlStudy}));
+}

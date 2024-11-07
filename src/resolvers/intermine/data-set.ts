@@ -32,7 +32,6 @@ SubfieldResolverMap => ({
         switch (typeName) {
             case 'GWAS':
             case 'QTL':
-            case 'QTLStudy':
             // @ts-ignore: fallthrough case error
             case 'Trait':
                 const {dataSetName} = parent;
