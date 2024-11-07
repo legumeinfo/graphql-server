@@ -12,6 +12,7 @@ import {
     intermineProteinSort,
     response2proteins,
 } from '../models/index.js';
+import { bioEntityJoinFactory } from './bio-entity.js';
 import { PaginationOptions } from './pagination.js';
 
 
@@ -33,10 +34,12 @@ export async function searchProteins(
         const descriptionConstraint = intermineConstraint('Protein.description', 'CONTAINS', description);
         constraints.push(descriptionConstraint);
     }
+    const joins = bioEntityJoinFactory('Protein');
     const query = interminePathQuery(
         intermineProteinAttributes,
         intermineProteinSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
