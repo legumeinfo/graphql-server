@@ -3,17 +3,14 @@ import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasOrganismFactory } from './organism.js';
+import { hasStrainFactory } from './strain.js';
 
 
 export const bioEntityFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
     ...annotatableFactory(sourceName),
     ...hasOrganismFactory(sourceName),
-    strain: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
-            // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
+    ...hasStrainFactory(sourceName),
     locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
         const {id} = bioEntity;
         const args = {page, pageSize};

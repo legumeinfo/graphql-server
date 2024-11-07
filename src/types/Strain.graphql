@@ -1,12 +1,3 @@
-# <class name="Strain" is-interface="true" term="http://semanticscience.org/resource/SIO_010055">
-# 	<attribute name="identifier" type="java.lang.String" term="http://edamontology.org/data_2379"/>
-# 	<attribute name="name" type="java.lang.String" term="http://edamontology.org/data_1046"/>
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="origin" type="java.lang.String"/>
-# 	<attribute name="accession" type="java.lang.String" term="http://edamontology.org/data_2912"/>
-# 	<reference name="organism" referenced-type="Organism" reverse-reference="strains" term="http://purl.org/net/orth#organism"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# </class>
 type Strain implements HasDataSets & HasOrganism {
   id: ID!
   identifier: ID!
@@ -18,4 +9,8 @@ type Strain implements HasDataSets & HasOrganism {
   dataSets: [DataSet!]!
   # HasOrganism
   organism: Organism
+}
+
+interface HasStrain {
+  strain: Strain
 }

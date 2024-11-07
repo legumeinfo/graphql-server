@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
 import { hasOrganismFactory } from './organism.js';
 
@@ -26,5 +26,34 @@ ResolverMap => ({
     Strain: {
         ...hasDataSetsFactory(sourceName),
         ...hasOrganismFactory(sourceName),
+    },
+});
+
+
+export const hasStrainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    strain: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+        if (interfaces.includes('BioEntity')) {
+            const { strainIdentifier } = parent;
+            request = dataSources[sourceName].getStrain(strainIdentifier);
+        }
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'ExpressionSource':
+                const { strainIdentifier } = parent;
+                request = dataSources[sourceName].getStrain(strainIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

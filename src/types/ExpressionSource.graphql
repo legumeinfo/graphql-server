@@ -1,4 +1,4 @@
-type ExpressionSource implements HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ExpressionSource implements HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -11,9 +11,10 @@ type ExpressionSource implements HasOrganism & Annotatable & HasDataSets & HasOn
   geoSeries: String
   samples: [ExpressionSample!]!
   sra: String
-  strain: Strain
   synopsis: String
   unit: String
   # HasOrganism
   organism: Organism
+  # HasStrain
+  strain: Strain
 }

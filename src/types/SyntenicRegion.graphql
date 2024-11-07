@@ -1,4 +1,4 @@
-type SyntenicRegion implements SequenceFeature & HasSequence & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type SyntenicRegion implements SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!

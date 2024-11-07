@@ -1,4 +1,4 @@
-type IntergenicRegion implements SequenceFeature & HasSequence & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type IntergenicRegion implements SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
