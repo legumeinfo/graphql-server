@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 
 export const sequenceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -13,5 +13,34 @@ ResolverMap => ({
             }
             return {results: sequence};
         },
+    },
+});
+
+
+export const hasSequenceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    sequence: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+        if (interfaces.includes('SequenceFeature')) {
+            const { sequenceId } = parent;
+            request = dataSources[sourceName].getSequence(sequenceId);
+        }
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'Protein':
+                const { sequenceId } = parent;
+                request = dataSources[sourceName].getSequence(sequenceId);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

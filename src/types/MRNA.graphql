@@ -1,11 +1,11 @@
-type MRNA implements Transcript & HasPanGeneSets & HasProtein & SequenceFeature & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type MRNA implements Transcript & HasPanGeneSets & HasProtein & SequenceFeature & HasSequence & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## BioEntity
+  # BioEntity
   annotationVersion: String
   assemblyVersion: String
   description: String
@@ -16,7 +16,7 @@ type MRNA implements Transcript & HasPanGeneSets & HasProtein & SequenceFeature 
   secondaryIdentifier: String
   strain: Strain
   symbol: String
-  ## SequenceFeature
+  # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
@@ -28,7 +28,7 @@ type MRNA implements Transcript & HasPanGeneSets & HasProtein & SequenceFeature 
   sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  ## Transcript
+  # Transcript
   CDSs: [CDS!]!
   exons: [Exon!]!
   gene: Gene!
@@ -36,6 +36,6 @@ type MRNA implements Transcript & HasPanGeneSets & HasProtein & SequenceFeature 
   panGeneSets: [PanGeneSet!]!
   protein: Protein!
   UTRs: [UTR!]!
-  ## MRNA
+  # MRNA
   isPrimary: Boolean
 }

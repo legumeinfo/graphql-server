@@ -1,11 +1,11 @@
-type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & HasProteinDomains & HasTranscripts & SequenceFeature & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & HasProteinDomains & HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## BioEntity
+  # BioEntity
   annotationVersion: String
   assemblyVersion: String
   description: String
@@ -28,17 +28,17 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & H
   sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  ## HasGeneFamilyAssignments
+  # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
-  ## HasPanGeneSets
+  # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
-  ## HasProteins
+  # HasProteins
   proteins: [Protein!]!
-  ## HasProteinDomains
+  # HasProteinDomains
   proteinDomains: [ProteinDomain!]!
-  ## HasTranscripts
+  # HasTranscripts
   transcripts: [Transcript!]!
-  ## Gene
+  # Gene
   briefDescription: String
   ensemblName: String
   upstreamIntergenicRegion: IntergenicRegion
@@ -48,6 +48,6 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & H
   pathways: [Pathway!]!
   # alleles
   # regulatoryRegions
-  ## microservices
+  # microservices
   linkouts: [Linkout!]!
 }

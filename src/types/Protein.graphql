@@ -1,11 +1,11 @@
-type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscript & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasSequence & HasTranscript & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## BioEntity
+  # BioEntity
   annotationVersion: String
   assemblyVersion: String
   description: String
@@ -16,13 +16,15 @@ type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscrip
   secondaryIdentifier: String
   strain: Strain
   symbol: String
-  ## HasGeneFamilyAssignments
+  # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
-  ## HasPanGeneSets
+  # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
-  ## HasTranscript
+  # HasSequence
+  sequence: Sequence
+  # HasTranscript
   transcript: Transcript
-  ## Protein
+  # Protein
   genes: [Gene!]!
   isPrimary: Boolean
   length: Int
@@ -31,7 +33,6 @@ type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasTranscrip
   phylonode: Phylonode
   primaryAccession: String
   proteinMatches: [ProteinMatch!]!
-  sequence: Sequence
 }
 
 interface HasProtein {

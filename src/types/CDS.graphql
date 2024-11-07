@@ -1,11 +1,11 @@
-type CDS implements HasTranscript & SequenceFeature & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type CDS implements HasTranscript & SequenceFeature & HasSequence & BioEntity & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## BioEntity
+  # BioEntity
   annotationVersion: String
   assemblyVersion: String
   description: String
@@ -16,7 +16,7 @@ type CDS implements HasTranscript & SequenceFeature & BioEntity & HasOrganism & 
   secondaryIdentifier: String
   strain: Strain
   symbol: String
-  ## SequenceFeature
+  # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
@@ -28,8 +28,8 @@ type CDS implements HasTranscript & SequenceFeature & BioEntity & HasOrganism & 
   sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  ## HasTranscript
+  # HasTranscript
   transcript: Transcript!
-  ## CDS
+  # CDS
   isPrimary: Boolean!
 }

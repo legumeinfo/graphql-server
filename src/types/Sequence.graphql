@@ -4,4 +4,7 @@ type Sequence {
   md5checksum: String
   residues: String
 }
-  
+
+interface HasSequence {
+  sequence: Sequence
+}

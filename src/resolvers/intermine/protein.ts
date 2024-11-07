@@ -4,6 +4,7 @@ import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { bioEntityFactory } from './bio-entity.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
+import { hasSequenceFactory } from './sequence.js';
 import { hasTranscriptFactory } from './transcript.js';
 
 
@@ -29,6 +30,7 @@ ResolverMap => ({
         ...bioEntityFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),
+        ...hasSequenceFactory(sourceName),
         ...hasTranscriptFactory(sourceName),
         phylonode: async(protein, _, { dataSources }) => {
             const {phylonodeIdentifier} = protein;
@@ -50,11 +52,6 @@ ResolverMap => ({
             const args = {page, pageSize};
             return dataSources[sourceName].getGenesForProtein(id, args)
                 // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        sequence: async(protein, _, { dataSources }) => {
-            return dataSources[sourceName].getSequence(protein.sequenceId)
-            // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },
