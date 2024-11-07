@@ -16,7 +16,7 @@ export const intermineGeneAttributesFactory = (type = 'Gene') => [
     `${type}.upstreamIntergenicRegion.primaryIdentifier`,   // reference resolution
     `${type}.downstreamIntergenicRegion.primaryIdentifier`, // reference resolution
 ];
-export const intermineGeneAttributes = intermineSequenceFeatureAttributesFactory('Gene');
+export const intermineGeneAttributes = intermineGeneAttributesFactory('Gene');
 
 export const intermineGeneSortFactory = (type = 'Gene') => `${type}.primaryIdentifier`;
 export const intermineGeneSort = intermineGeneSortFactory();
