@@ -17,7 +17,7 @@ import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 export async function getChromosome(identifier: string):
 Promise<ApiResponse<GraphQLChromosome>> {
     const constraints = [intermineConstraint('Chromosome.primaryIdentifier', '=', identifier)];
-    const joins = sequenceFeatureJoinFactory('Exon');
+    const joins = sequenceFeatureJoinFactory('Chromosome');
     const query = interminePathQuery(
         intermineChromosomeAttributes,
         intermineChromosomeSort,
