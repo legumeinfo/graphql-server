@@ -22,7 +22,7 @@ import { GraphQLIntergenicRegion, IntermineIntergenicRegion } from './intergenic
 import { GraphQLIntron, IntermineIntron } from './intron.js';
 import { GraphQLLinkageGroup, IntermineLinkageGroup } from './linkage-group.js';
 import { GraphQLLinkageGroupPosition, IntermineLinkageGroupPosition } from './linkage-group-position.js';
-import { GraphQLLocation, IntermineLocation } from './location.js';
+import { GraphQLLocation, IntermineLocation, IntermineLocationObject } from './location.js';
 import { GraphQLOntology, IntermineOntology } from './ontology.js';
 import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
 import { GraphQLOntologyRelation, IntermineOntologyRelation } from './ontology-relation.js';
@@ -155,6 +155,10 @@ export type IntermineModel =
     IntermineTrait |
     IntermineTranscript |
     IntermineUTR;
+
+
+export type IntermineObject =
+    IntermineLocationObject;
 
 
 export * from './annotatable.js';

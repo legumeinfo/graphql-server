@@ -21,15 +21,23 @@ export const locationFactory =
     },
     Location: {
         ...hasDataSetsFactory(sourceName),
-        chromosome: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(location.locatedOnIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        supercontig: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+        locatedOn: async (location, _, { dataSources }) => {
+            const {locatedOnClass, locatedOnIdentifier} = location;
+            switch (locatedOnClass) {
+                case "Chromosome":
+                    return dataSources[sourceName].getChromosome(locatedOnIdentifier)
+                        // @ts-ignore: implicit type any error
+                        .then(({data: results}) => {
+                            return {__typename: locatedOnClass, ...results};
+                        });
+                case "Supercontig":
+                    return dataSources[sourceName].getSupercontig(locatedOnIdentifier)
+                        // @ts-ignore: implicit type any error
+                        .then(({data: results}) => {
+                            return {__typename: locatedOnClass, ...results};
+                        });
+            }
+            return null;
         },
         linkouts: async (location, _, { dataSources }) => {
           const {locatedOnIdentifier, start, end} = location;

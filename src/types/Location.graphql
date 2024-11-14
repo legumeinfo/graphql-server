@@ -3,9 +3,8 @@ type Location implements HasDataSets {
   strand: String
   start: Int
   end: Int
-  chromosome: Chromosome
-  supercontig: Supercontig
-  # feature: BioEntity
+  locatedOn: BioEntity
+  #feature: BioEntity
   linkouts: [Linkout!]!
   ## HasDataSets
   dataSets: [DataSet!]!
