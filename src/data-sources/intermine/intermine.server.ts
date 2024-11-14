@@ -3,8 +3,9 @@
 
 import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
 
-import { GraphQLModel, IntermineModel } from './models/index.js';
-import { GraphQLPageInfo, pageInfoFactory } from '../../models/index.js';
+import { GraphQLModel, IntermineModel, IntermineObject } from './models/index.js';
+import { GraphQLPageInfo, StringKeyObject, pageInfoFactory } from '../../models/index.js';
+import { hasOwnProperty, isObject } from '../../utils/index.js';
 
 
 export class IntermineServer extends RESTDataSource {
@@ -39,11 +40,11 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}) {
+    async pathQuery(query: string, options={}, format='json') {
         const params = {
             query,
             ...this.convertPaginationOptions(options),
-            format: 'json',
+            format,
         };
         return await this.get('query/results', {params});
     }
@@ -117,6 +118,39 @@ export const interminePathQuery =
         const joinTags = joins.join('');
         const constraintTags = constraints.join('');
         return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
+    };
+
+
+// converts an InterMine jsonobjects result object into an Intermine json result array
+export const object2result =
+    <M extends IntermineModel>
+    (resultObject: IntermineObject, intermineAttributes: Array<string>): M => {
+        return intermineAttributes.map((attr) => {
+            const [_, ...parts] = attr.split('.');
+            const key = parts.pop();
+            let partObject: StringKeyObject = resultObject;
+            parts.forEach((part) => {
+                if (!hasOwnProperty(partObject, part)) return null;
+                if (!isObject(partObject[part])) return null;
+                partObject = partObject[part] as StringKeyObject;
+            });
+            if (!hasOwnProperty(partObject, key) || isObject(partObject[key])) return null;
+            return partObject[key];
+        }) as M;
+    };
+
+
+// converts an Intermine jsonobjects response into an Intermine json response
+export const objectsResponse2response =
+    <O extends IntermineObject, M extends IntermineModel>
+    (response: IntermineDataResponse<O>, intermineAttributes: Array<string>):
+    IntermineDataResponse<M> => {
+        return {
+            ...response,
+            results: response.results.map(
+                (resultObject: O): M => object2result(resultObject, intermineAttributes)
+            ),
+        };
     };
 
 
