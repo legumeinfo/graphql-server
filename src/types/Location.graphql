@@ -1,10 +1,30 @@
+interface LocatedOn implements BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+  id: ID!
+  # Annotatable
+  identifier: ID!
+  dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # BioEntity
+  annotationVersion: String
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
+  locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+}
+
 type Location implements HasDataSets {
   id: ID!
   strand: String
   start: Int
   end: Int
-  locatedOn: BioEntity
-  #feature: BioEntity
+  locatedOn: LocatedOn
+  #feature: SequenceFeature
   linkouts: [Linkout!]!
   ## HasDataSets
   dataSets: [DataSet!]!
