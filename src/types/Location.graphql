@@ -24,7 +24,7 @@ type Location implements HasDataSets {
   start: Int
   end: Int
   locatedOn: LocatedOn
-  #feature: SequenceFeature
+  feature: SequenceFeature
   linkouts: [Linkout!]!
   ## HasDataSets
   dataSets: [DataSet!]!
