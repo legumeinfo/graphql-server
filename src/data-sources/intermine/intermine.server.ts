@@ -8,6 +8,12 @@ import { GraphQLPageInfo, StringKeyObject, pageInfoFactory } from '../../models/
 import { hasOwnProperty, isObject } from '../../utils/index.js';
 
 
+export enum IntermineQueryFormat {
+  JSON = 'json',
+  JSON_OBJECTS = 'jsonobjects',
+}
+
+
 export class IntermineServer extends RESTDataSource {
 
     constructor(baseURL: string, config: DataSourceConfig={}) {
@@ -40,7 +46,7 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}, format='json') {
+    async pathQuery(query: string, options={}, format: IntermineQueryFormat=IntermineQueryFormat.JSON) {
         const params = {
             query,
             ...this.convertPaginationOptions(options),
