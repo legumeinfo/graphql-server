@@ -11,17 +11,16 @@ export const bioEntityFactory =
     ...annotatableFactory(sourceName),
     ...hasOrganismFactory(sourceName),
     ...hasStrainFactory(sourceName),
-    locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const {id} = bioEntity;
-        const args = {page, pageSize};
-        return dataSources[sourceName].getLocationsForBioEntity(id, args)
+    locations: async (bioEntity, { }, { dataSources }) => {
+        const {identifier} = bioEntity;
+        return dataSources[sourceName].getLocationsForBioEntity(identifier)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    locatedFeatures: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const {id} = bioEntity;
-        return dataSources[sourceName].getLocatedFeaturesForBioEntity(id, {page, pageSize})
-        // @ts-ignore: implicit type any error
+    locatedFeatures: async (bioEntity, { }, { dataSources }) => {
+        const {identifier} = bioEntity;
+        return dataSources[sourceName].getLocatedFeaturesForBioEntity(identifier)
+            // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
 });
