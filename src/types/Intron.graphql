@@ -1,4 +1,4 @@
-type Intron implements HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Intron implements HasGenes & HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -30,6 +30,10 @@ type Intron implements HasTranscripts & SequenceFeature & HasSequence & BioEntit
   supercontigLocation: Location
   # HasTranscripts
   transcripts: [Transcript!]!
-  # Intron
+  # HasGenes
   genes: [Gene!]!
+}
+  
+interface HasIntrons {
+  introns: [Intron!]!
 }

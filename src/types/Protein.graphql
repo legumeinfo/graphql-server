@@ -1,4 +1,4 @@
-type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasSequence & HasTranscript & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Protein implements HasGeneFamilyAssignments & HasGenes & HasPanGeneSets & HasSequence & HasTranscript & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -18,6 +18,8 @@ type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasSequence 
   symbol: String
   # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
+  # HasGenes
+  genes: [Gene!]!
   # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
   # HasSequence
@@ -25,7 +27,6 @@ type Protein implements HasGeneFamilyAssignments & HasPanGeneSets & HasSequence 
   # HasTranscript
   transcript: Transcript
   # Protein
-  genes: [Gene!]!
   isPrimary: Boolean
   length: Int
   md5checksum: String

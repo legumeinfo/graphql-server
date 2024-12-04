@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
+import { hasGenesFactory } from './gene.js';
 
 
 export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -24,13 +25,7 @@ ResolverMap => ({
     },
     ProteinDomain: {
         ...annotatableFactory(sourceName),
-        genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const {id} = proteinDomain;
-            const args = {page, pageSize};
-            return dataSources[sourceName].getGenesForProteinDomain(id, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasGenesFactory(sourceName),
         geneFamilies: async (proteinDomain, { page, pageSize }, { dataSources }) => {
             const args = {proteinDomain, page, pageSize};
             return dataSources[sourceName].getGeneFamilies(args)

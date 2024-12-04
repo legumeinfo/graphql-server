@@ -1,20 +1,20 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineGeneFamilyAssignmentAttributesFactory,
-  intermineGeneFamilyAssignmentSortFactory,
+    intermineGeneFamilyAssignmentAttributesFactory,
+    intermineGeneFamilyAssignmentSortFactory,
 } from './gene-family-assignment.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineGeneAttributesFactory = (type = 'Gene') => [
     ...intermineSequenceFeatureAttributesFactory(type),
     `${type}.briefDescription`,
     `${type}.ensemblName`,
-    `${type}.upstreamIntergenicRegion.primaryIdentifier`,   // reference resolution
-    `${type}.downstreamIntergenicRegion.primaryIdentifier`, // reference resolution
+    `${type}.upstreamIntergenicRegion.primaryIdentifier`,
+    `${type}.downstreamIntergenicRegion.primaryIdentifier`,
 ];
 export const intermineGeneAttributes = intermineGeneAttributesFactory('Gene');
 

@@ -3,6 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasDataSetFactory } from './data-set.js';
+import { hasGenesFactory } from './gene.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasLinkageGroupFactory } from './linkage-group.js';
 import { hasQTLStudyFactory } from './qtl-study.js';
@@ -30,6 +31,7 @@ ResolverMap => ({
     QTL: {
         ...annotatableFactory(sourceName),
         ...hasDataSetFactory(sourceName),
+        ...hasGenesFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
         ...hasLinkageGroupFactory(sourceName),
         ...hasQTLStudyFactory(sourceName),

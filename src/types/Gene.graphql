@@ -1,4 +1,4 @@
-type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & HasProteinDomains & HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Gene implements HasGeneFamilyAssignments & HasIntrons & HasPanGeneSets & HasProteins & HasProteinDomains & HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -30,6 +30,8 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & H
   supercontigLocation: Location
   # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
+  # HasIntrons
+  introns: [Intron!]!
   # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
   # HasProteins
@@ -44,10 +46,17 @@ type Gene implements HasGeneFamilyAssignments & HasPanGeneSets & HasProteins & H
   upstreamIntergenicRegion: IntergenicRegion
   downstreamIntergenicRegion: IntergenicRegion
   flankingRegions: [GeneFlankingRegion!]!
-  introns: [Intron!]!
   pathways: [Pathway!]!
   # alleles
   # regulatoryRegions
   # microservices
   linkouts: [Linkout!]!
+}
+
+interface HasGene {
+  gene: Gene!
+}
+
+interface HasGenes {
+  genes: [Gene!]!
 }

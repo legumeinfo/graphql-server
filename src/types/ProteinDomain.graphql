@@ -1,14 +1,15 @@
-type ProteinDomain implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ProteinDomain implements HasGenes & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasGenes
+  genes: [Gene!]!
   # ProteinDomain
   childFeatures: [ProteinDomain!]!
   description: String
-  genes: [Gene!]!
   geneFamilies: [GeneFamily!]!
   name: String
   parentFeatures: [ProteinDomain!]!

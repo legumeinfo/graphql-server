@@ -1,4 +1,4 @@
-interface Transcript implements HasPanGeneSets & HasProtein & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+interface Transcript implements HasGene & HasIntrons & HasPanGeneSets & HasProtein & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -28,6 +28,10 @@ interface Transcript implements HasPanGeneSets & HasProtein & SequenceFeature & 
   sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
+  # HasGene
+  gene: Gene!
+  # HasIntrons
+  introns: [Intron!]!
   # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
   # HasProtein
@@ -35,8 +39,6 @@ interface Transcript implements HasPanGeneSets & HasProtein & SequenceFeature & 
   # Transcript
   CDSs: [CDS!]!
   exons: [Exon!]!
-  gene: Gene!
-  introns: [Intron!]!
   UTRs: [UTR!]!
 }
 

@@ -2,6 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { bioEntityFactory } from './bio-entity.js';
+import { hasGenesFactory } from './gene.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { hasSequenceFactory } from './sequence.js';
@@ -29,6 +30,7 @@ ResolverMap => ({
     Protein: {
         ...bioEntityFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
+        ...hasGenesFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),
         ...hasSequenceFactory(sourceName),
         ...hasTranscriptFactory(sourceName),
@@ -44,13 +46,6 @@ ResolverMap => ({
         proteinMatches: async (protein, { page, pageSize }, { dataSources }) => {
             const { id } = protein;
             return dataSources[sourceName].getProteinMatchesForProtein(id, {page, pageSize})
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        genes: async (protein, { page, pageSize }, { dataSources }) => {
-            const {id} = protein;
-            const args = {page, pageSize};
-            return dataSources[sourceName].getGenesForProtein(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
