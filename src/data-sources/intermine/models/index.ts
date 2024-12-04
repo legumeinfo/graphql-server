@@ -1,4 +1,5 @@
-
+import { IntermineAnnotatableObject } from './annotatable.js';
+import { IntermineBioEntityObject } from './bio-entity.js';
 import { GraphQLAuthor, IntermineAuthor } from './author.js';
 import { GraphQLCDS, IntermineCDS } from './cds.js';
 import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
@@ -42,12 +43,13 @@ import { GraphQLPublication, InterminePublication } from './publication.js';
 import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
 import { GraphQLSequence, IntermineSequence } from './sequence.js';
+import { IntermineSequenceFeatureObject } from './sequence-feature.js';
 import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
 import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
 import { GraphQLStrain, IntermineStrain } from './strain.js';
 import { GraphQLTrait, IntermineTrait } from './trait.js';
-import { GraphQLTranscript, IntermineTranscript } from './transcript.js';
+import { GraphQLTranscript, IntermineTranscript, IntermineTranscriptObject } from './transcript.js';
 import { GraphQLUTR, IntermineUTR } from './utr.js';
 
 
@@ -158,6 +160,10 @@ export type IntermineModel =
 
 
 export type IntermineObject =
+    IntermineAnnotatableObject |
+    IntermineBioEntityObject |
+    IntermineSequenceFeatureObject |
+    IntermineTranscriptObject |
     IntermineLocationObject;
 
 
