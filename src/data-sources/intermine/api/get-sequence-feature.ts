@@ -7,6 +7,7 @@ import {
     GraphQLSequenceFeature,
     IntermineSequenceFeatureResponse,
     intermineSequenceFeatureAttributes,
+    intermineSequenceFeatureQueryFormat,
     intermineSequenceFeatureSort,
     response2sequenceFeatures,
 } from '../models/index.js';
@@ -23,7 +24,7 @@ Promise<ApiResponse<GraphQLSequenceFeature>> {
         constraints,
         joins,
     );
-    return this.pathQuery(query)
+    return this.pathQuery(query, {}, intermineSequenceFeatureQueryFormat)
         .then((response: IntermineSequenceFeatureResponse) => response2sequenceFeatures(response))
         .then((sequenceFeatures: Array<GraphQLSequenceFeature>) => {
             if (!sequenceFeatures.length) return null;
