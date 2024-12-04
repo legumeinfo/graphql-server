@@ -21,3 +21,7 @@ type Trait implements HasDataSet & HasGWAS & HasGWASResults & HasOrganism & HasQ
   name: String!
   description: String
 }
+
+interface HasTrait {
+  trait: Trait
+}

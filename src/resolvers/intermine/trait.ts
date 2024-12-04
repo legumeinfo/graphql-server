@@ -1,6 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasDataSetFactory } from './data-set.js';
 import { hasGWASFactory } from './gwas.js';
@@ -36,5 +36,30 @@ ResolverMap => ({
         ...hasOrganismFactory(sourceName),
         ...hasQTLsFactory(sourceName),
         ...hasQTLStudyFactory(sourceName),
+    },
+});
+
+
+export const hasTraitFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    trait: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GWASResult':
+            // @ts-ignore: fallthrough case error
+            case 'QTL':
+                const {traitIdentifier} = parent;
+                request = dataSources[sourceName].getTrait(traitIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

@@ -6,6 +6,7 @@ import { hasDataSetFactory } from './data-set.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasLinkageGroupFactory } from './linkage-group.js';
 import { hasQTLStudyFactory } from './qtl-study.js';
+import { hasTraitFactory } from './trait.js';
 
 
 export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -32,11 +33,7 @@ ResolverMap => ({
         ...hasGeneticMarkersFactory(sourceName),
         ...hasLinkageGroupFactory(sourceName),
         ...hasQTLStudyFactory(sourceName),
-        trait: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getTrait(qtl.traitIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasTraitFactory(sourceName),
     },
 });
 

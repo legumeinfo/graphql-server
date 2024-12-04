@@ -1,18 +1,20 @@
-type GWASResult implements HasGeneticMarkers & HasGWAS & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GWASResult implements HasGeneticMarkers & HasGWAS & HasTrait & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## HasGeneticMarkers
+  # HasGeneticMarkers
   markers: [GeneticMarker!]!
-  ## HasGWAS: TODO: make non-null
+  # HasGWAS: TODO: make non-null
   gwas: GWAS
-  ## GWASResult
+  # HasTrait
+  # TODO: make non-nullable
+  trait: Trait
+  # GWASResult
   pValue: Float!
   markerName: String!
-  trait: Trait!
 }
 
 interface HasGWASResults {

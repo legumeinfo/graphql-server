@@ -4,6 +4,7 @@ import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasGWASFactory } from './gwas.js';
+import { hasTraitFactory } from './trait.js';
 
 
 export const gwasResultFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -22,11 +23,7 @@ ResolverMap => ({
         ...annotatableFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
         ...hasGWASFactory(sourceName),
-        trait: async(gwasResult, _, { dataSources }) => {
-            return dataSources[sourceName].getTrait(gwasResult.traitIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...hasTraitFactory(sourceName),
     },
 });
 
