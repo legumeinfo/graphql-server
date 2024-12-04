@@ -34,19 +34,18 @@ ResolverMap => ({
 
 export const hasQTLStudyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 SubfieldResolverMap => ({
-    qtlStudy: async (parent, { page, pageSize }, { dataSources }, info) => {
+    qtlStudy: async (parent, _, { dataSources }, info) => {
         let request: Promise<any>|null = null;
 
-        const args = {page, pageSize};
         const typeName = info.parentType.name;
         switch (typeName) {
             case 'QTL':
                 const {qtlStudyIdentifier} = parent;
-                request = dataSources[sourceName].getQTLStudy(qtlStudyIdentifier, args);
+                request = dataSources[sourceName].getQTLStudy(qtlStudyIdentifier);
                 break;
             case 'Trait':
                 const {identifier} = parent;
-                request = dataSources[sourceName].getQTLStudyForTrait(identifier, args);
+                request = dataSources[sourceName].getQTLStudyForTrait(identifier);
                 break;
         }
 
