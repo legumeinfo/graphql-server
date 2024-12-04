@@ -1,5 +1,6 @@
 import {
     IntermineDataResponse,
+    IntermineQueryFormat,
     objectsResponse2response,
     response2graphqlObjects,
 } from '../intermine.server.js';
@@ -8,7 +9,7 @@ import {
     intermineDataSetSortFactory,
 } from './data-set.js';
 
-export const intermineLocationQueryFormat = 'jsonobjects';
+export const intermineLocationQueryFormat = IntermineQueryFormat.JSON_OBJECTS;
 
 export const intermineLocationAttributes = [
     'Location.id',

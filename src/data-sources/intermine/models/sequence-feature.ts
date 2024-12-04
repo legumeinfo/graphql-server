@@ -1,38 +1,44 @@
 import {
-  IntermineDataResponse,
-  response2graphqlObjects,
+    IntermineDataResponse,
+    IntermineQueryFormat,
+    objectsResponse2response,
+    response2graphqlObjects,
 } from '../intermine.server.js';
 import {
-  IntermineBioEntity,
-  graphqlBioEntityAttributes,
-  intermineBioEntityAttributesFactory,
+    IntermineBioEntity,
+    IntermineBioEntityObject,
+    graphqlBioEntityAttributes,
+    intermineBioEntityAttributesFactory,
+    intermineBioEntityObjectAttributesFactory,
 } from './bio-entity.js';
-//import { GraphQLChromosome } from './chromosome.js';
-//import { GraphQLExon } from './exon.js';
-//import { GraphQLGene } from './gene.js';
-//import { GraphQLGeneFlankingRegion } from './gene-flanking-region.js';
-//import { GraphQLGeneticMarker } from './genetic-marker.js';
-//import { GraphQLIntergenicRegion } from './intergenic-region.js';
-//import { GraphQLIntron } from './intron.js';
-//import { GraphQLSupercontig } from './supercontig.js';
-//import { GraphQLSyntenicRegion } from './syntenic-region.js';
-//import { GraphQLTranscript } from './transcript.js';
-//import { GraphQLUTR } from './utr.js';
+import { GraphQLChromosome } from './chromosome.js';
+import { GraphQLExon } from './exon.js';
+import { GraphQLGene } from './gene.js';
+import { GraphQLGeneFlankingRegion } from './gene-flanking-region.js';
+import { GraphQLGeneticMarker } from './genetic-marker.js';
+import { GraphQLIntergenicRegion } from './intergenic-region.js';
+import { GraphQLIntron } from './intron.js';
+import { GraphQLSupercontig } from './supercontig.js';
+import { GraphQLSyntenicRegion } from './syntenic-region.js';
+import { GraphQLTranscript } from './transcript.js';
+import { GraphQLUTR } from './utr.js';
 
 
-//export type GraphQLSequenceFeature =
-//  GraphQLTranscript |
-//  GraphQLChromosome |
-//  GraphQLExon |
-//  GraphQLGene |
-//  GraphQLGeneFlankingRegion |
-//  GraphQLGeneticMarker |
-//  GraphQLIntergenicRegion |
-//  GraphQLIntron |
-//  GraphQLSupercontig |
-//  GraphQLSyntenicRegion |
-//  GraphQLUTR;
+export type GraphQLSequenceFeature =
+    GraphQLTranscript |
+    GraphQLChromosome |
+    GraphQLExon |
+    GraphQLGene |
+    GraphQLGeneFlankingRegion |
+    GraphQLGeneticMarker |
+    GraphQLIntergenicRegion |
+    GraphQLIntron |
+    GraphQLSupercontig |
+    GraphQLSyntenicRegion |
+    GraphQLUTR;
 
+
+export const intermineSequenceFeatureQueryFormat = IntermineQueryFormat.JSON_OBJECTS;
 
 export const intermineSequenceFeatureAttributesFactory = (type = 'SequenceFeature') => [
     ...intermineBioEntityAttributesFactory(type),
@@ -61,8 +67,33 @@ export const intermineSequenceFeatureChildFeatureAttributes = intermineSequenceF
 
 export const intermineSequenceFeatureChildFeatureSort = intermineSequenceFeatureSortFactory('SequenceFeature.childFeatures');
 
+export type IntermineSequenceFeatureObject = {
+    score: number,
+    scoreType: string,
+    length: number,
+    sequenceOntologyTerm: {class: string, primaryIdentifier: string},
+    chromosomeLocation: {class: string, objectId: number},
+    supercontigLocation: {class: string, objectId: number},
+    sequence: {class: string, objectId: number},
+    chromosome: {class: string, primaryIdentifier: string},
+    supercontig: {class: string, primaryIdentifier: string},
+} & IntermineBioEntityObject;
 
-// this may be used for any type that extends SequenceFeature without additional attributes or references
+export const intermineSequenceFeatureObjectAttributesFactory = (type = 'SequenceFeature') => [
+    ...intermineBioEntityObjectAttributesFactory(type),
+    `${type}.score`,
+    `${type}.scoreType`,
+    `${type}.length`,
+    `${type}.sequenceOntologyTerm.primaryIdentifier`,
+    `${type}.chromosomeLocation.objectId`,
+    `${type}.supercontigLocation.objectId`,
+    `${type}.sequence.objectId`,
+    `${type}.chromosome.primaryIdentifier`,
+    `${type}.supercontig.primaryIdentifier`,
+];
+
+export const intermineSequenceFeatureObjectAttributes = intermineSequenceFeatureObjectAttributesFactory();
+
 export type IntermineSequenceFeature = [
     ...IntermineBioEntity,
     number,
@@ -76,7 +107,6 @@ export type IntermineSequenceFeature = [
     string,
 ];
 
-// this may be used for any type that extends SequenceFeature without additional attributes or references
 export const graphqlSequenceFeatureAttributes = [
     ...graphqlBioEntityAttributes,
     'score',
@@ -90,16 +120,9 @@ export const graphqlSequenceFeatureAttributes = [
     'supercontigIdentifier',
 ];
 
-// this may be used for any type that extends SequenceFeature without additional attributes or references
-export type GraphQLSequenceFeature = {
-    [prop in typeof graphqlSequenceFeatureAttributes[number]]: string;
-}
-
-// this may be used for any type that extends SequenceFeature without additional attributes or references
-export type IntermineSequenceFeatureResponse = IntermineDataResponse<IntermineSequenceFeature>;
-
-// converts an Intermine response into an array of GraphQL SequenceFeature objects
-// this may be used for any type that extends SequenceFeature without additional attributes or references
+export type IntermineSequenceFeatureResponse = IntermineDataResponse<IntermineSequenceFeatureObject>;
+// converts an Intermine jsonobjects response into an array of GraphQL SequenceFeature objects
 export function response2sequenceFeatures(response: IntermineSequenceFeatureResponse): Array<GraphQLSequenceFeature> {
-    return response2graphqlObjects(response, graphqlSequenceFeatureAttributes);
+    const jsonResponse = objectsResponse2response(response, intermineSequenceFeatureObjectAttributes);
+    return response2graphqlObjects(jsonResponse, graphqlSequenceFeatureAttributes);
 }

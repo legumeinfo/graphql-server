@@ -1,3 +1,9 @@
+import {
+    IntermineDataResponse,
+    IntermineQueryFormat,
+    objectsResponse2response,
+    response2graphqlObjects,
+} from '../intermine.server.js';
 import { GraphQLBioEntity } from './bio-entity.js';
 import { GraphQLExpressionSample } from './expression-sample.js';
 import { GraphQLExpressionSource } from './expression-source.js';
@@ -34,10 +40,24 @@ export type GraphQLAnnotatable =
     GraphQLQTLStudy |
     GraphQLTrait;
 
+export const intermineAnnotatableQueryFormat = IntermineQueryFormat.JSON_OBJECTS;
+
 export const intermineAnnotatableAttributesFactory = (type = 'Annotatable') => [
     `${type}.id`,
     `${type}.primaryIdentifier`,
 ];
+
+export type IntermineAnnotatableObject = {
+    objectId: number,
+    primaryIdentifier: string,
+}
+
+export const intermineAnnotatableObjectAttributesFactory = (type = 'Annotatable') => [
+    `${type}.objectId`,
+    `${type}.primaryIdentifier`,
+];
+
+export const intermineAnnotatableObjectAttributes = intermineAnnotatableObjectAttributesFactory();
 
 export type IntermineAnnotatable = [
     number,
@@ -48,3 +68,10 @@ export const graphqlAnnotatableAttributes = [
     'id',
     'identifier',
 ];
+
+export type IntermineAnnotatableResponse = IntermineDataResponse<IntermineAnnotatableObject>;
+// converts an Intermine jsonobjects response into an array of GraphQL Annotation objects
+export function response2annotations(response: IntermineAnnotatableResponse): Array<GraphQLAnnotatable> {
+    const jsonResponse = objectsResponse2response(response, intermineAnnotatableObjectAttributes);
+    return response2graphqlObjects(jsonResponse, graphqlAnnotatableAttributes);
+}
