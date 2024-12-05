@@ -3,8 +3,8 @@ type DataSource implements HasDataSets & HasPublications {
   description: String!
   url: String
   name: String!
-  ## HasDataSets
+  # HasDataSets
   dataSets: [DataSet!]!
-  ## HasPublications
+  # HasPublications
   publications: [Publication!]!
 }
