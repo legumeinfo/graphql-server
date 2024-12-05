@@ -1,5 +1,6 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
+import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { annotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
@@ -31,6 +32,7 @@ export const geneFamilyFactory =
     GeneFamily: {
         ...annotatableFactory(sourceName),
         ...hasGenesFactory(sourceName),
+        ...hasLinkoutsFactory(microservicesSource),
         ...hasPhylotreeFactory(sourceName),
         ...hasProteinDomainsFactory(sourceName),
         tallies: async (geneFamily, { page, pageSize }, { dataSources }) => {
@@ -39,10 +41,6 @@ export const geneFamilyFactory =
             return dataSources[sourceName].getGeneFamilyTalliesForGeneFamily(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
-        },
-        linkouts: async (geneFamily, _, { dataSources }) => {
-            const {identifier} = geneFamily;
-            return dataSources[microservicesSource].getLinkoutsForGeneFamily(identifier);
         },
     },
 });

@@ -1,18 +1,18 @@
-type PanGeneSet implements HasProteins & HasTranscripts & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type PanGeneSet implements HasGenes & HasLinkouts & HasProteins & HasTranscripts & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasGenes
+  genes: [Gene!]!
+  # HasLinkouts
+  linkouts: [Linkout!]!
   # HasProteins
   proteins: [Protein!]!
   # HasTranscripts
   transcripts: [Transcript!]!
-  # HasGenes
-  genes: [Gene!]!
-  # microservices
-  linkouts: [Linkout!]!
 }
 
 interface HasPanGeneSets {

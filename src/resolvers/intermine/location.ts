@@ -1,5 +1,6 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
+import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { ResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
 
@@ -21,6 +22,7 @@ export const locationFactory =
     },
     Location: {
         ...hasDataSetsFactory(sourceName),
+        ...hasLinkoutsFactory(microservicesSource),
         feature: async (location, _, { dataSources }) => {
             let request: Promise<any>|null = null;
             const {featureClass, featureIdentifier} = location;
@@ -83,10 +85,6 @@ export const locationFactory =
             if (request == null) return null;
             // @ts-ignore: implicit type any error
             return request.then(({data: results}) => ({__typename: locatedOnClass, ...results}));
-        },
-        linkouts: async (location, _, { dataSources }) => {
-          const {locatedOnIdentifier, start, end} = location;
-          return dataSources[microservicesSource].getLinkoutsForLocation(locatedOnIdentifier, start, end);
         },
     },
 });

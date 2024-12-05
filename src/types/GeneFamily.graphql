@@ -1,4 +1,4 @@
-type GeneFamily implements HasGenes & HasPhylotree & HasProteinDomains & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GeneFamily implements HasGenes & HasLinkouts & HasPhylotree & HasProteinDomains & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
@@ -7,6 +7,8 @@ type GeneFamily implements HasGenes & HasPhylotree & HasProteinDomains & Annotat
   publications: [Publication!]!
   # HasGenes
   genes: [Gene!]!
+  # HasLinkouts
+  linkouts: [Linkout!]!
   # HasPhylotree
   phylotree: Phylotree
   # HasProteinDomains
@@ -16,8 +18,6 @@ type GeneFamily implements HasGenes & HasPhylotree & HasProteinDomains & Annotat
   size: Int
   tallies: [GeneFamilyTally!]!
   version: String
-  ## microservices
-  linkouts: [Linkout!]!
 }
 
 interface HasGeneFamily {

@@ -18,14 +18,15 @@ interface LocatedOn implements BioEntity & HasOrganism & HasStrain & Annotatable
   symbol: String
 }
 
-type Location implements HasDataSets {
+type Location implements HasDataSets & HasLinkouts {
   id: ID!
   strand: String
   start: Int
   end: Int
   locatedOn: LocatedOn
   feature: SequenceFeature
-  linkouts: [Linkout!]!
-  ## HasDataSets
+  # HasDataSets
   dataSets: [DataSet!]!
+  # HasLinkouts
+  linkouts: [Linkout!]!
 }
