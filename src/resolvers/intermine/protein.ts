@@ -93,14 +93,19 @@ SubfieldResolverMap => ({
         const typeName = info.parentType.name;
         switch (typeName) {
             case 'Gene':
+            case 'GeneFamily':
             // @ts-ignore: fallthrough case error
             case 'PanGeneSet':
                 const { id } = parent;
             case 'Gene':
                 request = dataSources[sourceName].getProteinsForGene(id, args);
                 break;
+            case 'GeneFamily':
+                request = dataSources[sourceName].getProteinsForGeneFamily(id, args);
+                break;
             case 'PanGeneSet':
                 request = dataSources[sourceName].getProteinsForPanGeneSet(id, args);
+                break;
         }
 
         if (request == null) {

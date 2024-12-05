@@ -6,13 +6,14 @@ import { annotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
 import { hasPhylotreeFactory } from './phylotree.js';
 import { hasProteinDomainsFactory } from './protein-domain.js';
+import { hasProteinsFactory } from './protein.js';
 
 
 export const geneFamilyFactory = 
-    (
-        sourceName: KeyOfType<DataSources, IntermineAPI>,
-        microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
-    ): ResolverMap => ({
+(
+    sourceName: KeyOfType<DataSources, IntermineAPI>,
+    microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+): ResolverMap => ({
     Query: {
         geneFamily: async (_, { identifier }, { dataSources }) => {
             const {data: family} = await dataSources[sourceName].getGeneFamily(identifier);
@@ -35,6 +36,7 @@ export const geneFamilyFactory =
         ...hasLinkoutsFactory(microservicesSource),
         ...hasPhylotreeFactory(sourceName),
         ...hasProteinDomainsFactory(sourceName),
+        ...hasProteinsFactory(sourceName),
         tallies: async (geneFamily, { page, pageSize }, { dataSources }) => {
             const {id} = geneFamily;
             const args = {page, pageSize};
