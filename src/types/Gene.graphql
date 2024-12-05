@@ -16,10 +16,12 @@ type Gene implements HasGeneFamilyAssignments & HasIntrons & HasLinkouts & HasPa
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReference
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
@@ -43,14 +45,14 @@ type Gene implements HasGeneFamilyAssignments & HasIntrons & HasLinkouts & HasPa
   # HasTranscripts
   transcripts: [Transcript!]!
   # Gene
+  #alleles
   briefDescription: String
   ensemblName: String
   upstreamIntergenicRegion: IntergenicRegion
   downstreamIntergenicRegion: IntergenicRegion
   flankingRegions: [GeneFlankingRegion!]!
   pathways: [Pathway!]!
-  # alleles
-  # regulatoryRegions
+  #regulatoryRegions
 }
 
 interface HasGene {
