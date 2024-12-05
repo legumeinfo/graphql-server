@@ -1,10 +1,10 @@
 type GeneFamilyAssignment implements HasGeneFamily & HasProtein {
-  id: ID!#
-  bestDomainScore: Float#
-  evalue: Float#
-  score:  Float#
+  id: ID!
+  bestDomainScore: Float
+  evalue: Float
+  score:  Float
   # HasGeneFamily: TODO: make non-null
-  geneFamily: GeneFamily#
+  geneFamily: GeneFamily
   # HasProtein
   protein: Protein!
 }
