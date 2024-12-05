@@ -66,6 +66,7 @@ SubfieldResolverMap => ({
 
         const typeName = info.parentType.name;
         switch (typeName) {
+            case 'GeneFamilyAssignment':
             case 'Phylonode':
             case 'ProteinMatch':
                 const {proteinIdentifier} = parent;
