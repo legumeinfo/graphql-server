@@ -16,10 +16,12 @@ type Chromosome implements SequenceFeature & HasSequence & LocatedOn & BioEntity
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReferences
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
