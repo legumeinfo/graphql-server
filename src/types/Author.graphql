@@ -4,6 +4,6 @@ type Author implements HasPublications {
   initials: String
   lastName: String
   name: String
-  ## HasPublications
+  # HasPublications
   publications: [Publication!]!
 }
