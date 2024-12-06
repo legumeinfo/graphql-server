@@ -1,11 +1,11 @@
 type SyntenyBlock implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## SyntenyBlock
+  # SyntenyBlock
   medianKs: Float
   syntenicRegions: [SyntenicRegion!]!
 }
