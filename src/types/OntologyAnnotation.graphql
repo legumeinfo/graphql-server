@@ -4,6 +4,7 @@ type OntologyAnnotation implements HasDataSets {
   #subject: Annotatable
   ontologyTerm: OntologyTerm
   dataSets: [DataSet!]!
+  #evidence: OntologyEvidence
 }
   
 interface HasOntologyAnnotations {
