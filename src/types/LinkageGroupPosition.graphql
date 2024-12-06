@@ -2,6 +2,6 @@ type LinkageGroupPosition implements HasLinkageGroup {
   id: ID!
   position: Float
   markerName: String
-  ## HasLinkageGroup
+  # HasLinkageGroup
   linkageGroup: LinkageGroup
 }
