@@ -52,7 +52,7 @@ export async function getDataSetsForAnnotatable(id: number, { page, pageSize }: 
         joins
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for a DataSource by id
@@ -67,7 +67,7 @@ export async function getDataSetsForDataSource(id: number, { page, pageSize }: P
         joins
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for a Location by id; Location.dataSets has no reverse reference
@@ -82,7 +82,7 @@ export async function getDataSetsForLocation(id: number, { page, pageSize }: Pag
         joins
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for an Ontology by id; Ontology.dataSets has no reverse reference from DataSet
@@ -97,7 +97,7 @@ export async function getDataSetsForOntology(id: number, { page, pageSize }: Pag
         joins,
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for an OntologyAnnotation by id; OntologyAnnotation.dataSets has no reverse reference from DataSet
@@ -112,7 +112,7 @@ export async function getDataSetsForOntologyAnnotation(id: number, { page, pageS
         joins,
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for an OntologyTerm by id; OntologyTerm.dataSets has no reverse reference from DataSet
@@ -127,7 +127,7 @@ export async function getDataSetsForOntologyTerm(id: number, { page, pageSize }:
         joins,
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for an Organism by id; Organism.dataSets has no reverse reference from DataSet
@@ -142,7 +142,7 @@ export async function getDataSetsForOrganism(id: number, { page, pageSize }: Pag
         joins,
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
 
 // get DataSets for an Strain by id; Strain.dataSets has no reverse reference from DataSet
@@ -157,5 +157,5 @@ export async function getDataSetsForStrain(id: number, { page, pageSize }: Pagin
         joins,
     );
     // get the data
-    return getDataSets(query, {page, pageSize});
+    return getDataSets.call(this, query, {page, pageSize});
 }
