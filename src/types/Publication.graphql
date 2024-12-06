@@ -13,7 +13,7 @@ type Publication {
   pubMedId: String
   authors: [Author!]!
   entities: [Annotatable!]!
-  # meshTerms: []
+  #meshTerms
 }
 
 interface HasPublications {
