@@ -16,9 +16,11 @@ type ProteinMatch implements HasProtein & BioEntity & HasOrganism & HasStrain & 
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # HasProtein
   protein: Protein!
   # ProteinMatch
+  #crossReferences
   source: String
   signatureDesc: String
   status: String
