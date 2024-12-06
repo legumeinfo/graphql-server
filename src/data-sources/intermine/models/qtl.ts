@@ -1,12 +1,12 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 import {
-  intermineGeneAttributesFactory,
-  intermineGeneSortFactory,
+    intermineGeneAttributesFactory,
+    intermineGeneSortFactory,
 } from './gene.js';
 
 export const intermineQTLAttributes = [
@@ -15,7 +15,6 @@ export const intermineQTLAttributes = [
     'QTL.lod',
     'QTL.likelihoodRatio',
     'QTL.end',
-    'QTL.markerNames',
     'QTL.markerR2',
     'QTL.start',
     'QTL.peak',
@@ -31,7 +30,6 @@ export type IntermineQTL = [
     number,
     number,
     number,
-    string,
     number,
     number,
     number,
@@ -47,7 +45,6 @@ export const graphqlQTLAttributes = [
     'lod',
     'likelihoodRatio',
     'end',
-    'markerNames',
     'markerR2',
     'start',
     'peak',

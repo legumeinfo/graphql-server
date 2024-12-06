@@ -1,12 +1,10 @@
-type QTL implements HasDataSet & HasGenes & HasGeneticMarkers & HasLinkageGroup & HasQTLStudy & HasTrait & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type QTL implements HasGenes & HasGeneticMarkers & HasLinkageGroup & HasQTLStudy & HasTrait & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
   # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # HasDataSet
-  dataSet: DataSet
   # HasGenes
   genes: [Gene!]!
   # HasGeneticMarkers
@@ -21,7 +19,6 @@ type QTL implements HasDataSet & HasGenes & HasGeneticMarkers & HasLinkageGroup 
   end: Float
   likelihoodRatio: Float
   lod: Float
-  markerNames: String
   markerR2: Float
   name: String
   peak: Float
