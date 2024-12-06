@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLChromosome,
-  IntermineChromosomeResponse,
-  intermineChromosomeAttributes,
-  intermineChromosomeSort,
-  response2chromosomes,
+    GraphQLChromosome,
+    IntermineChromosomeResponse,
+    intermineChromosomeAttributes,
+    intermineChromosomeSort,
+    response2chromosomes,
 } from '../models/index.js';
 import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
