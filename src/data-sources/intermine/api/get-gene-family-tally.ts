@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneFamilyTally,
-  IntermineGeneFamilyTallyResponse,
-  intermineGeneFamilyTallyAttributes,
-  intermineGeneFamilyTallySort,
-  response2geneFamilyTallies,
+    GraphQLGeneFamilyTally,
+    IntermineGeneFamilyTallyResponse,
+    intermineGeneFamilyTallyAttributes,
+    intermineGeneFamilyTallySort,
+    response2geneFamilyTallies,
 } from '../models/index.js';
 
 
