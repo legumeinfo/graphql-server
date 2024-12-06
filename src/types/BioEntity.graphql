@@ -18,4 +18,5 @@ interface BioEntity implements HasOrganism & HasStrain & Annotatable & HasDataSe
   name: String
   secondaryIdentifier: String
   symbol: String
+  #synonyms
 }
