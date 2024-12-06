@@ -16,10 +16,14 @@ interface SequenceFeature implements HasSequence & BioEntity & HasOrganism & Has
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
+  # HasSequence
+  sequence: Sequence
   # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReferences
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
@@ -27,6 +31,4 @@ interface SequenceFeature implements HasSequence & BioEntity & HasOrganism & Has
   sequenceOntologyTerm: SequenceOntologyTerm
   supercontig: Supercontig
   supercontigLocation: Location
-  # HasSequence
-  sequence: Sequence
 }
