@@ -1,6 +1,6 @@
 type OntologyTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotations {
   id: ID!
-  ## OntologyTermInterface
+  # OntologyTermInterface
   identifier: ID!
   crossReferences: [OntologyTerm!]!
   description: String
@@ -11,8 +11,8 @@ type OntologyTerm implements OntologyTermInterface & HasDataSets & HasOntologyAn
   parents: [OntologyTerm!]!
   relations: [OntologyRelation!]!
   synonyms: [OntologyTermSynonym!]!
-  ## HasDataSets
+  # HasDataSets
   dataSets: [DataSet!]!
-  ## HasOntologyAnnotations
+  # HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
 }
