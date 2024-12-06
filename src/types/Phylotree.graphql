@@ -8,7 +8,6 @@ type Phylotree implements HasGeneFamily & Annotatable & HasDataSets & HasOntolog
   # HasGeneFamily
   geneFamily: GeneFamily
   # Phylotree
-  newick: String
   nodes: [Phylonode!]!
   numLeaves: Int
 }

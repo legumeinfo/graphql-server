@@ -1,18 +1,11 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 
-// Phylotree InterMine path query attributes
-// <class name="Phylotree" extends="Annotatable" is-interface="true" term="">
-// 	<attribute name="numLeaves" type="java.lang.Integer"/>
-// 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="phylotree"/>
-// 	<collection name="nodes" referenced-type="Phylonode" reverse-reference="tree"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>
 export const interminePhylotreeAttributes = [
     ...intermineAnnotatableAttributesFactory('Phylotree'),
     'Phylotree.numLeaves',
@@ -20,9 +13,9 @@ export const interminePhylotreeAttributes = [
 ];
 export const interminePhylotreeSort = 'Phylotree.primaryIdentifier';
 export type InterminePhylotree = [
-  ...IntermineAnnotatable,
-  number,
-  string,
+    ...IntermineAnnotatable,
+    number,
+    string,
 ];
 
 
@@ -32,7 +25,7 @@ export const graphqlPhylotreeAttributes = [
     'geneFamilyIdentifier',
 ];
 export type GraphQLPhylotree = {
-  [prop in typeof graphqlPhylotreeAttributes[number]]: string;
+    [prop in typeof graphqlPhylotreeAttributes[number]]: string;
 }
 
 
