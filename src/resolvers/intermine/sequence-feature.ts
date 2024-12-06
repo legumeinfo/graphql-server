@@ -4,7 +4,7 @@ import { SubfieldResolverMap } from '../resolver.js';
 import { isBioEntityFactory } from './bio-entity.js';
 import { hasSequenceFactory } from './sequence.js';
 
-export const sequenceFeatureFactory =
+export const isSequenceFeatureFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...isBioEntityFactory(sourceName),
         ...hasSequenceFactory(sourceName),

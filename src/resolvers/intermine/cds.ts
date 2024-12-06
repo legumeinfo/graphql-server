@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 import { hasTranscriptFactory } from './transcript.js';
 
 export const cdsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     CDS: {
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         ...hasTranscriptFactory(sourceName),
     },
 });

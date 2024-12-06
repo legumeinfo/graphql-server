@@ -3,7 +3,7 @@ import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { hasGWASResultsFactory } from './gwas-result.js';
 import { hasQTLsFactory } from './qtl.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 
 
 export const geneticMarkerFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -19,7 +19,7 @@ ResolverMap => ({
         },
     },
     GeneticMarker: {
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         ...hasGWASResultsFactory(sourceName),
         ...hasQTLsFactory(sourceName),
         genotypingPlatforms: async (geneticMarker, { page, pageSize }, { dataSources }) => {

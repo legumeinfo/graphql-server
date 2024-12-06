@@ -2,7 +2,7 @@ import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { hasGeneFactory } from './gene.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 
 export const geneFlankingRegionFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     GeneFlankingRegion: {
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         ...hasGeneFactory(sourceName),
     },
 });

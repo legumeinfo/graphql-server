@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 
 
 export const syntenicRegionFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     SyntenicRegion: {
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         syntenyBlock: async (syntenicRegion, _, { dataSources }) => {
             return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId)
                 // @ts-ignore: implicit type any error

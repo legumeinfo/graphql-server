@@ -5,7 +5,7 @@ import { hasGeneFactory } from './gene.js';
 import { hasIntronsFactory } from './intron.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { hasProteinFactory } from './protein.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 
 export const transcriptFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
@@ -13,7 +13,7 @@ export const transcriptFactory =
         ...hasIntronsFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),
         ...hasProteinFactory(sourceName),
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         exons: async (transcript, { page, pageSize }, { dataSources }) => {
             const { id } = transcript;
             return dataSources[sourceName].getExonsForTranscript(id, {page, pageSize})

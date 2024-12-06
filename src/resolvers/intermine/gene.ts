@@ -7,7 +7,7 @@ import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { hasProteinsFactory } from './protein.js';
 import { hasProteinDomainsFactory } from './protein-domain.js';
-import { sequenceFeatureFactory } from './sequence-feature.js';
+import { isSequenceFeatureFactory } from './sequence-feature.js';
 import { hasTranscriptsFactory } from './transcript.js';
 
 export const geneFactory =
@@ -32,7 +32,7 @@ export const geneFactory =
         },
     },
     Gene: {
-        ...sequenceFeatureFactory(sourceName),
+        ...isSequenceFeatureFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
         ...hasIntronsFactory(sourceName),
         ...hasLinkoutsFactory(microservicesSource),
