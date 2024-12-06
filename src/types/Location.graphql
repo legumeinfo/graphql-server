@@ -16,6 +16,7 @@ interface LocatedOn implements BioEntity & HasOrganism & HasStrain & Annotatable
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
 }
 
 type Location implements HasDataSets & HasLinkouts {
