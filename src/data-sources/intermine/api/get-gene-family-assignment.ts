@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneFamilyAssignment,
-  IntermineGeneFamilyAssignmentResponse,
-  intermineGeneFamilyAssignmentAttributes,
-  intermineGeneFamilyAssignmentSort,
-  response2geneFamilyAssignments,
+    GraphQLGeneFamilyAssignment,
+    IntermineGeneFamilyAssignmentResponse,
+    intermineGeneFamilyAssignmentAttributes,
+    intermineGeneFamilyAssignmentSort,
+    response2geneFamilyAssignments,
 } from '../models/index.js';
 
 
