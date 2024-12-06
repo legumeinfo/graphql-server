@@ -7,7 +7,7 @@ import { hasPanGeneSetsFactory } from './pan-gene-set.js';
 import { hasProteinFactory } from './protein.js';
 import { isSequenceFeatureFactory } from './sequence-feature.js';
 
-export const transcriptFactory =
+export const isTranscriptFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
         ...hasGeneFactory(sourceName),
         ...hasIntronsFactory(sourceName),
