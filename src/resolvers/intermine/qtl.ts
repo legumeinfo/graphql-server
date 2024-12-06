@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasLinkageGroupFactory } from './linkage-group.js';
@@ -28,7 +28,7 @@ ResolverMap => ({
         },
     },
     QTL: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGenesFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
         ...hasLinkageGroupFactory(sourceName),

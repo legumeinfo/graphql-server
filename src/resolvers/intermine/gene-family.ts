@@ -2,7 +2,7 @@ import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
 import { hasPhylotreeFactory } from './phylotree.js';
 import { hasProteinDomainsFactory } from './protein-domain.js';
@@ -31,7 +31,7 @@ export const geneFamilyFactory =
         },
     },
     GeneFamily: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGenesFactory(sourceName),
         ...hasLinkoutsFactory(microservicesSource),
         ...hasPhylotreeFactory(sourceName),

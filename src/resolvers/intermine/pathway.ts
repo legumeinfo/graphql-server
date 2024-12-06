@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
 
 
@@ -18,7 +18,7 @@ ResolverMap => ({
         },
     },
     Pathway: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGenesFactory(sourceName),
     },
 });

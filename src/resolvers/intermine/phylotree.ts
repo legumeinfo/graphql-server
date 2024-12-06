@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGeneFamilyFactory } from './gene-family.js';
 
 
@@ -18,7 +18,7 @@ ResolverMap => ({
         },
     },
     Phylotree: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGeneFamilyFactory(sourceName),
         //newick: async(phylotree, _, { dataSources }) => {
         //    return dataSources[sourceName].getNewick(phylotree.identifier)

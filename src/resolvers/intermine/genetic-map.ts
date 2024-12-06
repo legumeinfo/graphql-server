@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenotypingPlatformFactory } from './genotyping-platform.js';
 import { hasOrganismFactory } from './organism.js';
 
@@ -25,7 +25,7 @@ ResolverMap => ({
         },
     },
     GeneticMap: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGenotypingPlatformFactory(sourceName),
         ...hasOrganismFactory(sourceName),
         linkageGroups: async (geneticMap, { page, pageSize }, { dataSources }) => {

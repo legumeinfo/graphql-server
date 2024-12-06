@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasOrganismFactory } from './organism.js';
 import { hasStrainFactory } from './strain.js';
 
@@ -25,7 +25,7 @@ ResolverMap => ({
         },
     },
     ExpressionSource: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasOrganismFactory(sourceName),
         ...hasStrainFactory(sourceName),
         samples: async (expressionSource, { page, pageSize }, { dataSources }) => {

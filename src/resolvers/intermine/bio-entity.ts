@@ -1,14 +1,14 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasOrganismFactory } from './organism.js';
 import { hasStrainFactory } from './strain.js';
 
 
 export const bioEntityFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-    ...annotatableFactory(sourceName),
+    ...isAnnotatableFactory(sourceName),
     ...hasOrganismFactory(sourceName),
     ...hasStrainFactory(sourceName),
     locations: async (bioEntity, { }, { dataSources }) => {

@@ -6,7 +6,7 @@ import { hasOntologyAnnotationsFactory } from './ontology-annotation.js';
 import { hasPublicationsFactory } from './publication.js';
 
 
-export const annotatableFactory =
+export const isAnnotatableFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
     ...hasDataSetsFactory(sourceName),
     ...hasOntologyAnnotationsFactory(sourceName),

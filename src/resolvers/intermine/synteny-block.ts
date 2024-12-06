@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 
 
 export const syntenyBlockFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     SyntenyBlock: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         syntenicRegions: async (syntenyBlock, _, { dataSources }) => {
             const {id} = syntenyBlock;
             return dataSources[sourceName].getSyntenicRegionsForSyntenyBlock(id)

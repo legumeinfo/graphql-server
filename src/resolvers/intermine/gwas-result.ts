@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 import { hasGeneticMarkersFactory } from './genetic-marker.js';
 import { hasGWASFactory } from './gwas.js';
 import { hasTraitFactory } from './trait.js';
@@ -20,7 +20,7 @@ ResolverMap => ({
         },
     },
     GWASResult: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         ...hasGeneticMarkersFactory(sourceName),
         ...hasGWASFactory(sourceName),
         ...hasTraitFactory(sourceName),
