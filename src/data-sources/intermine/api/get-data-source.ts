@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLDataSource,
-  IntermineDataSourceResponse,
-  intermineDataSourceAttributes,
-  intermineDataSourceSort,
-  response2dataSources,
+    GraphQLDataSource,
+    IntermineDataSourceResponse,
+    intermineDataSourceAttributes,
+    intermineDataSourceSort,
+    response2dataSources,
 } from '../models/index.js';
 
 // get a DataSource by name
