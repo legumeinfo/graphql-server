@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
-import { bioEntityFactory } from './bio-entity.js';
+import { isBioEntityFactory } from './bio-entity.js';
 import { hasGenesFactory } from './gene.js';
 import { hasGeneFamilyAssignmentsFactory } from './gene-family-assignment.js';
 import { hasPanGeneSetsFactory } from './pan-gene-set.js';
@@ -28,7 +28,7 @@ ResolverMap => ({
         },
     },
     Protein: {
-        ...bioEntityFactory(sourceName),
+        ...isBioEntityFactory(sourceName),
         ...hasGeneFamilyAssignmentsFactory(sourceName),
         ...hasGenesFactory(sourceName),
         ...hasPanGeneSetsFactory(sourceName),

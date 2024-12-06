@@ -1,12 +1,12 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
-import { bioEntityFactory } from './bio-entity.js';
+import { isBioEntityFactory } from './bio-entity.js';
 import { hasSequenceFactory } from './sequence.js';
 
 export const sequenceFeatureFactory =
     (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-        ...bioEntityFactory(sourceName),
+        ...isBioEntityFactory(sourceName),
         ...hasSequenceFactory(sourceName),
         sequenceOntologyTerm: async (sequenceFeature, _, { dataSources }) => {
             return dataSources[sourceName].getSequenceOntologyTerm(sequenceFeature.soTermIdentifier)

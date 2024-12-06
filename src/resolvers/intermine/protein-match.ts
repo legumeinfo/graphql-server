@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { bioEntityFactory } from './bio-entity.js';
+import { isBioEntityFactory } from './bio-entity.js';
 import { hasProteinFactory } from './protein.js';
 
 export const proteinMatchFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -17,7 +17,7 @@ ResolverMap => ({
         },
     },
     ProteinMatch: {
-        ...bioEntityFactory(sourceName),
+        ...isBioEntityFactory(sourceName),
         ...hasProteinFactory(sourceName),
     },
 });

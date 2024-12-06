@@ -6,7 +6,7 @@ import { hasOrganismFactory } from './organism.js';
 import { hasStrainFactory } from './strain.js';
 
 
-export const bioEntityFactory =
+export const isBioEntityFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
     ...isAnnotatableFactory(sourceName),
     ...hasOrganismFactory(sourceName),
