@@ -38,7 +38,7 @@ export async function getGeneFamilyAssignmentsForGene(id: number, { page, pageSi
         constraints,
     );
     // get the data
-    return getGeneFamilyAssignments(query, { page, pageSize });
+    return getGeneFamilyAssignments.call(this, query, { page, pageSize });
 }
 
 // get GeneFamilyAssignments for a Protein
@@ -50,5 +50,5 @@ export async function getGeneFamilyAssignmentsForProtein(id: number, { page, pag
         constraints,
     );
     // get the data
-    return getGeneFamilyAssignments(query, { page, pageSize });
+    return getGeneFamilyAssignments.call(this, query, { page, pageSize });
 }
