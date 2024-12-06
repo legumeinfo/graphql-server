@@ -21,6 +21,7 @@ type CDS implements HasTranscript & SequenceFeature & HasSequence & BioEntity & 
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReferences
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
@@ -33,5 +34,4 @@ type CDS implements HasTranscript & SequenceFeature & HasSequence & BioEntity & 
   transcript: Transcript!
   # CDS
   isPrimary: Boolean!
-  #crossReferences
 }
