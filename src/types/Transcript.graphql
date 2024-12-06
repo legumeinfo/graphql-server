@@ -16,10 +16,12 @@ interface Transcript implements HasGene & HasIntrons & HasPanGeneSets & HasProte
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReferences
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
