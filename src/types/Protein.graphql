@@ -16,6 +16,7 @@ type Protein implements HasGeneFamilyAssignments & HasGenes & HasPanGeneSets & H
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
   # HasGenes
@@ -27,6 +28,7 @@ type Protein implements HasGeneFamilyAssignments & HasGenes & HasPanGeneSets & H
   # HasTranscript
   transcript: Transcript
   # Protein
+  #crossReferences
   isPrimary: Boolean
   length: Int
   md5checksum: String
