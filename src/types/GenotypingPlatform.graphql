@@ -1,11 +1,11 @@
 type GenotypingPlatform implements HasGeneticMarkers & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## HasGeneticMarkers
+  # HasGeneticMarkers
   markers: [GeneticMarker!]!
 }
 
