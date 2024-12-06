@@ -9,7 +9,9 @@ type ProteinDomain implements HasGenes & Annotatable & HasDataSets & HasOntology
   genes: [Gene!]!
   # ProteinDomain
   childFeatures: [ProteinDomain!]!
+  #contains
   description: String
+  #foundIn
   geneFamilies: [GeneFamily!]!
   name: String
   parentFeatures: [ProteinDomain!]!
