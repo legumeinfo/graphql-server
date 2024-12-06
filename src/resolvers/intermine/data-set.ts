@@ -30,7 +30,6 @@ SubfieldResolverMap => ({
     dataSet: async (parent, _, { dataSources }, info) => {
         const typeName = info.parentType.name;
         switch (typeName) {
-            case 'GWAS':
             case 'QTL':
             // @ts-ignore: fallthrough case error
             case 'Trait':

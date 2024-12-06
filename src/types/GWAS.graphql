@@ -1,22 +1,20 @@
-type GWAS implements HasDataSet & HasGenotypingPlatform & HasGWASResults & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GWAS implements HasGenotypingPlatform & HasGWASResults & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
   id: ID!
-  ## Annotatable
+  # Annotatable
   identifier: ID!
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## HasDataSet
-  dataSet: DataSet
-  ## HasGenotypingPlatform
+  # HasGenotypingPlatform
   genotypingPlatform: GenotypingPlatform
-  ## HasGWASResults
+  # HasGWASResults
   gwasResults: [GWASResult!]!
-  ## GWAS
+  # GWAS
   description: String
   genotypes: String
   genotypingMethod: String
   synopsis: String
-  ## HasOrganism
+  # HasOrganism
   organism: Organism
 }
 

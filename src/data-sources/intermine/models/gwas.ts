@@ -13,7 +13,6 @@ export const intermineGWASAttributes = [
     'GWAS.synopsis',
     'GWAS.genotypingPlatform.primaryIdentifier',
     'GWAS.organism.taxonId',
-    'GWAS.dataSet.name',
 ];
 export const intermineGWASSort = 'GWAS.primaryIdentifier';
 export type IntermineGWAS = [
@@ -24,7 +23,6 @@ export type IntermineGWAS = [
   string,
   string,
   number,
-  string,
 ];
 
 export const graphqlGWASAttributes = [
@@ -35,7 +33,6 @@ export const graphqlGWASAttributes = [
     'synopsis',
     'genotypingPlatformIdentifier',
     'organismTaxonId',
-    'dataSetName',
 ];
 export type GraphQLGWAS = {
   [prop in typeof graphqlGWASAttributes[number]]: string;
