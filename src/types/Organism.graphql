@@ -5,6 +5,7 @@ type Organism implements HasDataSets {
   description: String
   genus: String
   name: String
+  shortName: String
   species: String
   strains: [Strain!]!
   taxonId: ID!

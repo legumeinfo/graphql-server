@@ -10,20 +10,22 @@ export const intermineOrganismAttributes = [
     'Organism.abbreviation',
     'Organism.name',
     'Organism.commonName',
+    'Organism.shortName',
     'Organism.description',
     'Organism.genus',
     'Organism.species',
 ];
 export const intermineOrganismSort = 'Organism.genus';
 export type IntermineOrganism = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
 ];
 
 export const graphqlOrganismAttributes = [
@@ -32,6 +34,7 @@ export const graphqlOrganismAttributes = [
     'abbreviation',
     'name',
     'commonName',
+    'shortName',
     'description',
     'genus',
     'species',
