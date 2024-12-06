@@ -20,14 +20,14 @@ ResolverMap => ({
     Phylotree: {
         ...annotatableFactory(sourceName),
         ...hasGeneFamilyFactory(sourceName),
-        newick: async(phylotree, _, { dataSources }) => {
-            return dataSources[sourceName].getNewick(phylotree.identifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: newick}) => {
-                    if (newick != null) return newick.contents;
-                    return null;
-                });
-        },
+        //newick: async(phylotree, _, { dataSources }) => {
+        //    return dataSources[sourceName].getNewick(phylotree.identifier)
+        //        // @ts-ignore: implicit type any error
+        //        .then(({data: newick}) => {
+        //            if (newick != null) return newick.contents;
+        //            return null;
+        //        });
+        //},
         nodes: async (phylotree, { page, pageSize }, { dataSources }) => {
             const {id} = phylotree;
             return dataSources[sourceName].getPhylonodesForPhylotree(id, {page, pageSize})
