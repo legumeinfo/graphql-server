@@ -25,23 +25,6 @@ ResolverMap => ({
 });
 
 
-export const hasDataSetFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
-SubfieldResolverMap => ({
-    dataSet: async (parent, _, { dataSources }, info) => {
-        const typeName = info.parentType.name;
-        switch (typeName) {
-            case 'Trait':
-                const {dataSetName} = parent;
-                return dataSources[sourceName].getDataSet(dataSetName)
-                    // @ts-ignore: implicit type any error
-                    .then(({data: results}) => results);
-        }
-
-        return null;
-    },
-});
-
-
 export const hasDataSetsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 SubfieldResolverMap => ({
     dataSets: async (parent, { page, pageSize }, { dataSources }, info) => {
