@@ -16,10 +16,12 @@ type SyntenicRegion implements SequenceFeature & HasSequence & BioEntity & HasOr
   secondaryIdentifier: String
   strain: Strain
   symbol: String
+  #synonyms
   # SequenceFeature
   childFeatures: [SequenceFeature!]!
   chromosome: Chromosome
   chromosomeLocation: Location
+  #crossReferences
   length: Int
   overlappingFeatures: [SequenceFeature!]!
   score: Float
