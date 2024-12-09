@@ -40,7 +40,7 @@ export async function getProteinDomainsForGene(id: number, { page, pageSize }: P
         constraints,
     );
     // get the data
-    return getProteinDomains(query, { page, pageSize });
+    return getProteinDomains.call(this, query, { page, pageSize });
 }
 
 // get ProteinDomains for a GeneFamily given its id
@@ -52,7 +52,7 @@ export async function getProteinDomainsForGeneFamily(id: number, { page, pageSiz
         constraints,
     );
     // get the data
-    return getProteinDomains(query, { page, pageSize });
+    return getProteinDomains.call(this, query, { page, pageSize });
 }
 
 // get child features (ProteinDomain) for a ProteinDomain given its id
@@ -64,7 +64,7 @@ export async function getChildFeaturesForProteinDomain(id: number, { page, pageS
         constraints,
     );
     // get the data
-    return getProteinDomains(query, { page, pageSize });
+    return getProteinDomains.call(this, query, { page, pageSize });
 }
 
 // get parentFeatures (ProteinDomain) for a ProteinDomain given its id
@@ -76,5 +76,5 @@ export async function getParentFeaturesForProteinDomain(id: number, { page, page
         constraints,
     );
     // get the data
-    return getProteinDomains(query, { page, pageSize });
+    return getProteinDomains.call(this, query, { page, pageSize });
 }
