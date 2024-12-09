@@ -14,6 +14,19 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
+// get PanGeneSets using the given query and returns the expected GraphQL types
+async function getPanGeneSets(pathQuery: string, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPanGeneSet>> {
+    // get the data
+    const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
+        .then((response: InterminePanGeneSetResponse) => response2panGeneSets(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'PanGeneSet.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
 // get PanGeneSets for a Gene
 export async function getPanGeneSetsForGene(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPanGeneSet>> {
     const constraints = [intermineConstraint('PanGeneSet.genes.id', '=', id)];
@@ -22,15 +35,7 @@ export async function getPanGeneSetsForGene(id: number, { page, pageSize }: Pagi
         interminePanGeneSetSort,
         constraints,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: InterminePanGeneSetResponse) => response2panGeneSets(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'PanGeneSet.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getPanGeneSets.call(this, query, {page, pageSize});
 }
 
 // get PanGeneSets for a Transcript
@@ -41,15 +46,7 @@ export async function getPanGeneSetsForTranscript(id: number, { page, pageSize }
         interminePanGeneSetSort,
         constraints,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: InterminePanGeneSetResponse) => response2panGeneSets(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'PanGeneSet.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getPanGeneSets.call(this, query, {page, pageSize});
 }
 
 // get PanGeneSets for a Protein
@@ -60,13 +57,5 @@ export async function getPanGeneSetsForProtein(id: number, { page, pageSize }: P
         interminePanGeneSetSort,
         constraints,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: InterminePanGeneSetResponse) => response2panGeneSets(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'PanGeneSet.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getPanGeneSets.call(this, query, {page, pageSize});
 }
