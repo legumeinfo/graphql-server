@@ -361,7 +361,7 @@ type Query {
   strain(identifier: ID!): StrainResults
 
   # types identified by numerical id
-  author(id: ID!): AuthorResults
+  author(firstName: String!, lastName: String): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   geneFamilyTally(id: ID!): GeneFamilyTallyResults
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults

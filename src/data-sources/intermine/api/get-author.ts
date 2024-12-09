@@ -13,8 +13,11 @@ import {
 
 
 // get a author by ID
-export async function getAuthor(id: number): Promise<ApiResponse<GraphQLAuthor>> {
-    const constraints = [intermineConstraint('Author.id', '=', id)];
+export async function getAuthor(firstName: string, lastName: string): Promise<ApiResponse<GraphQLAuthor>> {
+    const constraints = [
+        intermineConstraint('Author.firstName', '=', firstName),
+        intermineConstraint('Author.lastName', '=', lastName),
+    ];
     const query = interminePathQuery(
         intermineAuthorAttributes,
         intermineAuthorSort,
