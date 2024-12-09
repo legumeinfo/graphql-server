@@ -10,10 +10,10 @@ import { hasTraitFactory } from './trait.js';
 export const gwasResultFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        gwasResult: async (_, { id }, { dataSources }) => {
-            const {data: result} = await dataSources[sourceName].getGWASResult(id);
+        gwasResult: async (_, { identifier }, { dataSources }) => {
+            const {data: result} = await dataSources[sourceName].getGWASResult(identifier);
             if (result == null) {
-                const msg = `GWASResult with ID '${id}' not found`;
+                const msg = `GWASResult with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: result};
