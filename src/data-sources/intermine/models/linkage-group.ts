@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineLinkageGroupAttributes = [
