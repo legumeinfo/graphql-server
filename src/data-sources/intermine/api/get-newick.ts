@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLNewick,
-  IntermineNewickResponse,
-  intermineNewickAttributes,
-  intermineNewickSort,
-  response2newicks,
+    GraphQLNewick,
+    IntermineNewickResponse,
+    intermineNewickAttributes,
+    intermineNewickSort,
+    response2newicks,
 } from '../models/index.js';
 
 
