@@ -19,7 +19,8 @@ ResolverMap => ({
     SyntenicRegion: {
         ...isSequenceFeatureFactory(sourceName),
         syntenyBlock: async (syntenicRegion, _, { dataSources }) => {
-            return dataSources[sourceName].getSyntenyBlock(syntenicRegion.syntenyBlockId)
+            const {syntenyBlockIdentifier} = syntenicRegion;
+            return dataSources[sourceName].getSyntenyBlock(syntenyBlockIdentifier)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

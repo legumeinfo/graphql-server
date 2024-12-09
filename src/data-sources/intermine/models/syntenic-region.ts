@@ -7,7 +7,7 @@ import {
 
 export const intermineSyntenicRegionAttributes = [
     ...intermineSequenceFeatureAttributesFactory('SyntenicRegion'),
-    'SyntenicRegion.syntenyBlock.id',
+    'SyntenicRegion.syntenyBlock.primaryIdentifier',
 ];
 export const intermineSyntenicRegionSort = 'SyntenicRegion.primaryIdentifier';
 export type IntermineSyntenicRegion = [
@@ -17,7 +17,7 @@ export type IntermineSyntenicRegion = [
 
 export const graphqlSyntenicRegionAttributes = [
     ...graphqlSequenceFeatureAttributes,
-    'syntenyBlockId',
+    'syntenyBlockIdentifier',
 ];
 export type GraphQLSyntenicRegion = {
     [prop in typeof graphqlSyntenicRegionAttributes[number]]: string;

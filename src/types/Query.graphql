@@ -339,7 +339,7 @@ type Query {
   author(firstName: String!, lastName: String): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   phylonode(identifier: ID!): PhylonodeResults
-  syntenyBlock(id: ID!): SyntenyBlockResults
+  syntenyBlock(identifier: ID!): SyntenyBlockResults
 
   # types without any sort of id
   expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
