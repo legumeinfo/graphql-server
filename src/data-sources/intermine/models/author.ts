@@ -9,11 +9,11 @@ export const intermineAuthorAttributes = [
 ];
 export const intermineAuthorSort = 'Author.lastName'; // guaranteed not null
 export type IntermineAuthor = [
-  number,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
 ];
 
 export const graphqlAuthorAttributes = [
@@ -24,7 +24,7 @@ export const graphqlAuthorAttributes = [
     'name',
 ];
 export type GraphQLAuthor = {
-  [prop in typeof graphqlAuthorAttributes[number]]: string;
+    [prop in typeof graphqlAuthorAttributes[number]]: string;
 }
 
 
