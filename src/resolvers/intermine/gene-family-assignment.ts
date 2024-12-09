@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 import { hasGeneFamilyFactory } from './gene-family.js';
 import { hasProteinFactory } from './protein.js';
@@ -8,14 +8,14 @@ import { hasProteinFactory } from './protein.js';
 export const geneFamilyAssignmentFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        geneFamilyAssignment: async (_, { id }, { dataSources }) => {
-            const {data: family} = await dataSources[sourceName].getGeneFamilyAssignment(id);
-            if (family == null) {
-                const msg = `GeneFamilyAssignment with ID '${id}' not found`;
-                inputError(msg);
-            }
-            return {results: family};
-        },
+        //geneFamilyAssignment: async (_, { id }, { dataSources }) => {
+        //    const {data: family} = await dataSources[sourceName].getGeneFamilyAssignment(id);
+        //    if (family == null) {
+        //        const msg = `GeneFamilyAssignment with ID '${id}' not found`;
+        //        inputError(msg);
+        //    }
+        //    return {results: family};
+        //},
     },
     GeneFamilyAssignment: {
         ...hasGeneFamilyFactory(sourceName),

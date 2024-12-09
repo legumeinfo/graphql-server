@@ -158,10 +158,6 @@ type AuthorResults {
   results: Author
 }
 
-type GeneFamilyAssignmentResults {
-  results: GeneFamilyAssignment
-}
-
 type GwasResultResults {
   results: GWASResult
 }
@@ -337,7 +333,6 @@ type Query {
 
   # types identified by numerical id
   author(firstName: String!, lastName: String): AuthorResults
-  geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   phylonode(identifier: ID!): PhylonodeResults
   syntenyBlock(identifier: ID!): SyntenyBlockResults
 
