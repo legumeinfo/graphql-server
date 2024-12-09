@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLOntologyRelation,
-  IntermineOntologyRelationResponse,
-  intermineOntologyRelationAttributes,
-  intermineOntologyRelationSort,
-  response2ontologyRelations,
+    GraphQLOntologyRelation,
+    IntermineOntologyRelationResponse,
+    intermineOntologyRelationAttributes,
+    intermineOntologyRelationSort,
+    response2ontologyRelations,
 } from '../models/index.js';
 
 // get an OntologyRelation by name
