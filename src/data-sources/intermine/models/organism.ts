@@ -1,7 +1,7 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineDataSetAttributesFactory,
-  intermineDataSetSortFactory,
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
 } from './data-set.js';
 
 export const intermineOrganismAttributes = [
@@ -41,7 +41,7 @@ export const graphqlOrganismAttributes = [
 ];
 
 export type GraphQLOrganism = {
-  [prop in typeof graphqlOrganismAttributes[number]]: string;
+    [prop in typeof graphqlOrganismAttributes[number]]: string;
 }
 
 
