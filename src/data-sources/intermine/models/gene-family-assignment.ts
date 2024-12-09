@@ -14,12 +14,12 @@ export const intermineGeneFamilyAssignmentAttributes = intermineGeneFamilyAssign
 export const intermineGeneFamilyAssignmentSortFactory = (type = 'GeneFamilyAssignment') => `${type}.geneFamily.primaryIdentifier`;
 export const intermineGeneFamilyAssignmentSort = intermineGeneFamilyAssignmentSortFactory();
 export type IntermineGeneFamilyAssignment = [
-  number,
-  number,
-  number,
-  number,
-  string,
-  string,
+    number,
+    number,
+    number,
+    number,
+    string,
+    string,
 ];
 
 export const graphqlGeneFamilyAssignmentAttributes = [
@@ -31,7 +31,7 @@ export const graphqlGeneFamilyAssignmentAttributes = [
     'proteinIdentifier',
 ];
 export type GraphQLGeneFamilyAssignment = {
-  [prop in typeof graphqlGeneFamilyAssignmentAttributes[number]]: string;
+    [prop in typeof graphqlGeneFamilyAssignmentAttributes[number]]: string;
 }
 
 
