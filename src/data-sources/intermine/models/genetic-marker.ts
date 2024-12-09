@@ -1,12 +1,12 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineLinkageGroupPositionAttributesFactory,
-  intermineLinkageGroupPositionSortFactory,
+    intermineLinkageGroupPositionAttributesFactory,
+    intermineLinkageGroupPositionSortFactory,
 } from './linkage-group-position.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineGeneticMarkerAttributes = [
@@ -18,11 +18,11 @@ export const intermineGeneticMarkerAttributes = [
 ];
 export const intermineGeneticMarkerSort = 'GeneticMarker.primaryIdentifier';
 export type IntermineGeneticMarker = [
-  ...IntermineSequenceFeature,
-  string,
-  string,
-  string,
-  string,
+    ...IntermineSequenceFeature,
+    string,
+    string,
+    string,
+    string,
 ];
 
 export const graphqlGeneticMarkerAttributes = [
@@ -33,7 +33,7 @@ export const graphqlGeneticMarkerAttributes = [
     'alleles',
 ];
 export type GraphQLGeneticMarker = {
-  [prop in typeof graphqlGeneticMarkerAttributes[number]]: string;
+    [prop in typeof graphqlGeneticMarkerAttributes[number]]: string;
 }
 
 export type IntermineGeneticMarkerResponse = IntermineDataResponse<IntermineGeneticMarker>;
