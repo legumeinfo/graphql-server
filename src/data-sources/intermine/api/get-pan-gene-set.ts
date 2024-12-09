@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLPanGeneSet,
-  InterminePanGeneSetResponse,
-  interminePanGeneSetAttributes,
-  interminePanGeneSetSort,
-  response2panGeneSets,
+    GraphQLPanGeneSet,
+    InterminePanGeneSetResponse,
+    interminePanGeneSetAttributes,
+    interminePanGeneSetSort,
+    response2panGeneSets,
 } from '../models/index.js';
 
 // get a PanGeneSet by primaryIdentifier
