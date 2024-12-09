@@ -21,7 +21,7 @@ ResolverMap => ({
             const {id} = intergenicRegion;
             const args = {page, pageSize};
             return dataSources[sourceName].getAdjacentGenesForIntergenicRegion(id, args)
-            // @ts-ignore: implicit type any error
+                // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     },
