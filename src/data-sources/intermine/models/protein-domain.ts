@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineProteinDomainAttributesFactory = (type = 'ProteinDomain') => [
@@ -20,11 +20,11 @@ export const intermineProteinDomainSortFactory = (type = 'ProteinDomain') => `${
 export const intermineProteinDomainSort = intermineProteinDomainSortFactory();
 
 export type IntermineProteinDomain = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  string,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    string,
+    string,
 ];
 
 export const graphqlProteinDomainAttributes = [
@@ -35,7 +35,7 @@ export const graphqlProteinDomainAttributes = [
     'shortName',
 ];
 export type GraphQLProteinDomain = {
-  [prop in typeof graphqlProteinDomainAttributes[number]]: string;
+    [prop in typeof graphqlProteinDomainAttributes[number]]: string;
 }
 
 

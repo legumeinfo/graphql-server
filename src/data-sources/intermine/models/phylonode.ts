@@ -14,15 +14,15 @@ export const interminePhylonodeAttributes = [
 export const interminePhylonodeSort = 'Phylonode.identifier';
 
 export type InterminePhylonode = [
-  number,
-  string,
-  boolean,
-  number,
-  number,
-  boolean,
-  string,
-  string,
-  number,
+    number,
+    string,
+    boolean,
+    number,
+    number,
+    boolean,
+    string,
+    string,
+    number,
 ];
 
 export const graphqlPhylonodeAttributes = [
@@ -37,7 +37,7 @@ export const graphqlPhylonodeAttributes = [
     'parentId',
 ];
 export type GraphQLPhylonode = {
-  [prop in typeof graphqlPhylonodeAttributes[number]]: string;
+    [prop in typeof graphqlPhylonodeAttributes[number]]: string;
 }
 
 export type InterminePhylonodeResponse = IntermineDataResponse<InterminePhylonode>;
