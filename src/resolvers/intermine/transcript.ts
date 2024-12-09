@@ -17,19 +17,19 @@ export const isTranscriptFactory =
         exons: async (transcript, { page, pageSize }, { dataSources }) => {
             const { id } = transcript;
             return dataSources[sourceName].getExonsForTranscript(id, {page, pageSize})
-            // @ts-ignore: implicit type any error
+                // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         CDSs: async (transcript, { page, pageSize }, { dataSources }) => {
             const { id } = transcript;
             return dataSources[sourceName].getCDSsForTranscript(id, {page, pageSize})
-            // @ts-ignore: implicit type any error
+                // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
         UTRs: async (transcript, { page, pageSize }, { dataSources }) => {
             const { id } = transcript;
             return dataSources[sourceName].getUTRsForTranscript(id, {page, pageSize})
-            // @ts-ignore: implicit type any error
+                // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
     });
