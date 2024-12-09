@@ -166,10 +166,6 @@ type GeneFamilyAssignmentResults {
   results: GeneFamilyAssignment
 }
 
-type GeneFamilyTallyResults {
-  results: GeneFamilyTally
-}
-
 type GwasResultResults {
   results: GWASResult
 }
@@ -363,7 +359,6 @@ type Query {
   # types identified by numerical id
   author(firstName: String!, lastName: String): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
-  geneFamilyTally(id: ID!): GeneFamilyTallyResults
   linkageGroupPosition(id: ID!): LinkageGroupPositionResults
   location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults

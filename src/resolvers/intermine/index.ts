@@ -17,7 +17,6 @@ import { expressionValueFactory } from './expression-value.js';
 import { geneFactory } from './gene.js';
 import { geneFamilyFactory } from './gene-family.js';
 import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
-import { geneFamilyTallyFactory } from './gene-family-tally.js';
 import { geneFlankingRegionFactory } from './gene-flanking-region.js';
 import { geneticMapFactory } from './genetic-map.js';
 import { geneticMarkerFactory } from './genetic-marker.js';
@@ -69,7 +68,6 @@ const factories = [
     geneFactory,
     geneFamilyFactory,
     geneFamilyAssignmentFactory,
-    geneFamilyTallyFactory,
     geneFlankingRegionFactory,
     geneticMapFactory,
     geneticMarkerFactory,
