@@ -46,7 +46,7 @@ export async function getTranscriptsForExon(id: number, { page, pageSize }: Pagi
         joins,
     );
     // get the data
-    return getTranscripts(query, { page, pageSize })
+    return getTranscripts.call(this, query, { page, pageSize })
 }
 
 // Get Transcripts associated with a Gene
@@ -67,7 +67,7 @@ export async function getTranscriptsForGene(id: number, { page, pageSize }: Pagi
         joins,
     );
     // get the data
-    return getTranscripts(query, { page, pageSize })
+    return getTranscripts.call(this, query, { page, pageSize })
 }
 
 // Get Transcripts associated with an Intron
@@ -88,7 +88,7 @@ export async function getTranscriptsForIntron(id: number, { page, pageSize }: Pa
         joins,
     );
     // get the data
-    return getTranscripts(query, { page, pageSize })
+    return getTranscripts.call(this, query, { page, pageSize })
 }
 
 // Get Transcripts associated with a PanGeneSet
@@ -109,7 +109,7 @@ export async function getTranscriptsForPanGeneSet(id: number, { page, pageSize }
         joins,
     );
     // get the data
-    return getTranscripts(query, { page, pageSize })
+    return getTranscripts.call(this, query, { page, pageSize })
 }
 
 // Get Transcripts associated with a UTR
@@ -130,5 +130,5 @@ export async function getTranscriptsForUTR(id: number, { page, pageSize }: Pagin
         joins,
     );
     // get the data
-    return getTranscripts(query, { page, pageSize })
+    return getTranscripts.call(this, query, { page, pageSize })
 }
