@@ -10,7 +10,7 @@ ResolverMap => ({
         expressionSample: async (_, { identifier }, { dataSources }) => {
             const {data: sample} = await dataSources[sourceName].getExpressionSample(identifier);
             if (sample == null) {
-                const msg = `ExpressionSample with primaryIdentifier '${identifier}' not found`;
+                const msg = `ExpressionSample with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: sample};

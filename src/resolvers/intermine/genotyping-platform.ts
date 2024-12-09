@@ -11,7 +11,7 @@ ResolverMap => ({
         genotypingPlatform: async (_, { identifier }, { dataSources }) => {
             const {data: genotypingPlatform} = await dataSources[sourceName].getGenotypingPlatform(identifier);
             if (genotypingPlatform == null) {
-                const msg = `GenotypingPlatform with primaryIdentifier '${identifier}' not found`;
+                const msg = `GenotypingPlatform with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: genotypingPlatform};

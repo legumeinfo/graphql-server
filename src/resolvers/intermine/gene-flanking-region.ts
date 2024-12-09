@@ -10,7 +10,7 @@ ResolverMap => ({
         geneFlankingRegion: async (_, { identifier }, { dataSources }) => {
             const {data: geneFlankingRegion} = await dataSources[sourceName].getGeneFlankingRegion(identifier);
             if (geneFlankingRegion == null) {
-                const msg = `GeneFlankingRegion with primaryIdentifier '${identifier}' not found`;
+                const msg = `GeneFlankingRegion with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: geneFlankingRegion};

@@ -19,7 +19,7 @@ export const geneFactory =
         gene: async (_, { identifier }, { dataSources }) => {
             const {data: gene} = await dataSources[sourceName].getGene(identifier);
             if (gene == null) {
-                const msg = `Gene with primaryIdentifier '${identifier}' not found`;
+                const msg = `Gene with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: gene};

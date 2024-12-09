@@ -10,7 +10,7 @@ ResolverMap => ({
         chromosome: async (_, { identifier }, { dataSources }) => {
             const {data: chromosome} = await dataSources[sourceName].getChromosome(identifier);
             if (chromosome == null) {
-                const msg = `Chromosome with primaryIdentifier '${identifier}' not found`;
+                const msg = `Chromosome with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: chromosome};

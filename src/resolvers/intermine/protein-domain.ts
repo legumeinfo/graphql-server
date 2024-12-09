@@ -11,7 +11,7 @@ ResolverMap => ({
         proteinDomain: async (_, { identifier }, { dataSources }) => {
             const {data: domain} = await dataSources[sourceName].getProteinDomain(identifier);
             if (domain == null) {
-                const msg = `ProteinDomain with primaryIdentifier '${identifier}' not found`;
+                const msg = `ProteinDomain with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: domain};

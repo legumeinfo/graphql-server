@@ -10,7 +10,7 @@ ResolverMap => ({
         supercontig: async (_, { identifier }, { dataSources }) => {
             const {data: supercontig} = await dataSources[sourceName].getSupercontig(identifier);
             if (supercontig == null) {
-                const msg = `Supercontig with primaryIdentifier '${identifier}' not found`;
+                const msg = `Supercontig with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: supercontig};

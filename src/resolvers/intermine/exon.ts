@@ -10,7 +10,7 @@ ResolverMap => ({
         exon: async (_, { identifier }, { dataSources }) => {
             const {data: exon} = await dataSources[sourceName].getExon(identifier);
             if (exon == null) {
-                const msg = `Exon with primaryIdentifier '${identifier}' not found`;
+                const msg = `Exon with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: exon};

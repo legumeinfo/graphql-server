@@ -13,7 +13,7 @@ ResolverMap => ({
         gwas: async (_, { identifier }, { dataSources }) => {
             const {data: gwas} = await dataSources[sourceName].getGWAS(identifier);
             if (gwas == null) {
-                const msg = `GWAS with primaryIdentifier '${identifier}' not found`;
+                const msg = `GWAS with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: gwas};

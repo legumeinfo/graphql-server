@@ -10,7 +10,7 @@ ResolverMap => ({
         utr: async (_, { identifier }, { dataSources }) => {
             const {data: utr} = await dataSources[sourceName].getUTR(identifier);
             if (utr == null) {
-                const msg = `UTR with primaryIdentifier '${identifier}' not found`;
+                const msg = `UTR with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: utr};

@@ -15,7 +15,7 @@ ResolverMap => ({
         qtl: async (_, { identifier }, { dataSources }) => {
             const {data: qtl} = await dataSources[sourceName].getQTL(identifier);
             if (qtl == null) {
-                const msg = `QTL with primaryIdentifier '${identifier}' not found`;
+                const msg = `QTL with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: qtl};

@@ -10,7 +10,7 @@ ResolverMap => ({
         cds: async (_, { identifier }, { dataSources }) => {
             const {data: cds} = await dataSources[sourceName].getCDS(identifier);
             if (cds == null) {
-                const msg = `CDS with primaryIdentifier '${identifier}' not found`;
+                const msg = `CDS with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: cds};

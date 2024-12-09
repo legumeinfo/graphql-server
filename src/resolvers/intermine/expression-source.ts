@@ -12,7 +12,7 @@ ResolverMap => ({
         expressionSource: async (_, { identifier }, { dataSources }) => {
             const {data: source} = await dataSources[sourceName].getExpressionSource(identifier);
             if (source == null) {
-                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
+                const msg = `ExpressionSource with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: source};

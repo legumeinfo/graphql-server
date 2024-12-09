@@ -18,7 +18,7 @@ export const geneFamilyFactory =
         geneFamily: async (_, { identifier }, { dataSources }) => {
             const {data: family} = await dataSources[sourceName].getGeneFamily(identifier);
             if (family == null) {
-                const msg = `GeneFamily with primaryIdentifier '${identifier}' not found`;
+                const msg = `GeneFamily with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: family};

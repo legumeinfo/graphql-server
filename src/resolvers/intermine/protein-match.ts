@@ -10,7 +10,7 @@ ResolverMap => ({
         proteinMatch: async (_, { identifier }, { dataSources }) => {
             const {data: proteinMatch} = await dataSources[sourceName].getProteinMatch(identifier);
             if (proteinMatch == null) {
-                const msg = `ProteinMatch with primaryIdentifier '${identifier}' not found`;
+                const msg = `ProteinMatch with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: proteinMatch};

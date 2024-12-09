@@ -17,7 +17,7 @@ export const panGeneSetFactory =
         panGeneSet: async (_, { identifier }, { dataSources }) => {
             const {data: panGeneSet} = await dataSources[sourceName].getPanGeneSet(identifier);
             if (panGeneSet == null) {
-                const msg = `PanGeneSet with primaryIdentifier '${identifier}' not found`;
+                const msg = `PanGeneSet with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: panGeneSet};

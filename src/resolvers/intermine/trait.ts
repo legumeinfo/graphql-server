@@ -15,7 +15,7 @@ ResolverMap => ({
         trait: async (_, { identifier }, { dataSources }) => {
             const {data: trait} = await dataSources[sourceName].getTrait(identifier);
             if (trait == null) {
-                const msg = `Trait with primaryIdentifier '${identifier}' not found`;
+                const msg = `Trait with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: trait};

@@ -12,7 +12,7 @@ ResolverMap => ({
         geneticMap: async (_, { identifier }, { dataSources }) => {
             const {data: map} = await dataSources[sourceName].getGeneticMap(identifier);
             if (map == null) {
-                const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
+                const msg = `GeneticMap with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: map};

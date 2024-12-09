@@ -10,7 +10,7 @@ ResolverMap => ({
         syntenyBlock: async (_, { identifier }, { dataSources }) => {
             const {data: block} = await dataSources[sourceName].getSyntenyBlock(identifier);
             if (block == null) {
-                const msg = `SyntenyBlock with primaryIdentifier '${identifier}' not found`;
+                const msg = `SyntenyBlock with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: block};

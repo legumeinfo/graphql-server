@@ -9,7 +9,7 @@ ResolverMap => ({
         intergenicRegion: async (_, { identifier }, { dataSources }) => {
             const {data: intergenicRegion} = await dataSources[sourceName].getIntergenicRegion(identifier);
             if (intergenicRegion == null) {
-                const msg = `IntergenicRegion with primaryIdentifier '${identifier}' not found`;
+                const msg = `IntergenicRegion with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: intergenicRegion};

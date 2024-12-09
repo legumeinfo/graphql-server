@@ -12,7 +12,7 @@ ResolverMap => ({
         geneticMarker: async (_, { identifier }, { dataSources }) => {
             const {data: marker} = await dataSources[sourceName].getGeneticMarker(identifier);
             if (marker == null) {
-                const msg = `GeneticMarker with primaryIdentifier '${identifier}' not found`;
+                const msg = `GeneticMarker with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: marker};

@@ -10,7 +10,7 @@ ResolverMap => ({
         mRNA: async (_, { identifier }, { dataSources }) => {
             const {data: mrna} = await dataSources[sourceName].getMRNA(identifier);
             if (mrna == null) {
-                const msg = `mRNA with primaryIdentifier '${identifier}' not found`;
+                const msg = `mRNA with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: mrna};

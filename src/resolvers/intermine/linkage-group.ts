@@ -11,7 +11,7 @@ ResolverMap => ({
         linkageGroup: async (_, { identifier }, { dataSources }) => {
             const {data: group} = await dataSources[sourceName].getLinkageGroup(identifier);
             if (group == null) {
-                const msg = `LinkageGroup with primaryIdentifier '${identifier}' not found`;
+                const msg = `LinkageGroup with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: group};

@@ -11,7 +11,7 @@ ResolverMap => ({
         phylotree: async (_, { identifier }, { dataSources }) => {
             const {data: tree} = await dataSources[sourceName].getPhylotree(identifier);
             if (tree == null) {
-                const msg = `Phylotree with primaryIdentifier '${identifier}' not found`;
+                const msg = `Phylotree with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: tree};

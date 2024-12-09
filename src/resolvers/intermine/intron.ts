@@ -11,7 +11,7 @@ ResolverMap => ({
         intron: async (_, { identifier }, { dataSources }) => {
             const {data: intron} = await dataSources[sourceName].getIntron(identifier);
             if (intron == null) {
-                const msg = `Intron with primaryIdentifier '${identifier}' not found`;
+                const msg = `Intron with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: intron};

@@ -11,7 +11,7 @@ ResolverMap => ({
         pathway: async (_, { identifier }, { dataSources }) => {
             const {data: pathway} = await dataSources[sourceName].getPathway(identifier);
             if (pathway == null) {
-                const msg = `Pathway with primaryIdentifier '${identifier}' not found`;
+                const msg = `Pathway with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: pathway};

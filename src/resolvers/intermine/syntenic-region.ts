@@ -10,7 +10,7 @@ ResolverMap => ({
         syntenicRegion: async (_, { identifier }, { dataSources }) => {
             const {data: region} = await dataSources[sourceName].getSyntenicRegion(identifier);
             if (region == null) {
-                const msg = `SyntenicRegion with primaryIdentifier '${identifier}' not found`;
+                const msg = `SyntenicRegion with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: region};

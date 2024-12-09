@@ -15,7 +15,7 @@ ResolverMap => ({
         protein: async (_, { identifier }, { dataSources }) => {
             const {data: protein} = await dataSources[sourceName].getProtein(identifier);
             if (protein == null) {
-                const msg = `Protein with primaryIdentifier '${identifier}' not found`;
+                const msg = `Protein with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: protein};

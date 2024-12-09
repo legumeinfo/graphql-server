@@ -12,7 +12,7 @@ ResolverMap => ({
         qtlStudy: async (_, { identifier }, { dataSources }) => {
             const {data: study} = await dataSources[sourceName].getQTLStudy(identifier);
             if (study == null) {
-                const msg = `QTLStudy with primaryIdentifier '${identifier}' not found`;
+                const msg = `QTLStudy with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: study};
