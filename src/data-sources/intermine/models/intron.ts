@@ -1,12 +1,12 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineGeneAttributesFactory,
-  intermineGeneSortFactory,
+    intermineGeneAttributesFactory,
+    intermineGeneSortFactory,
 } from './gene.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineIntronAttributes = [
