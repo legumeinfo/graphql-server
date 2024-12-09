@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineGeneticMapAttributes = [
@@ -16,13 +16,13 @@ export const intermineGeneticMapAttributes = [
 ];
 export const intermineGeneticMapSort = 'GeneticMap.primaryIdentifier';
 export type IntermineGeneticMap = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    string,
+    string,
+    string,
+    number,
 ];
 
 export const graphqlGeneticMapAttributes = [
@@ -35,7 +35,7 @@ export const graphqlGeneticMapAttributes = [
     'organismTaxonId',
 ];
 export type GraphQLGeneticMap = {
-  [prop in typeof graphqlGeneticMapAttributes[number]]: string;
+    [prop in typeof graphqlGeneticMapAttributes[number]]: string;
 }
 
 export type IntermineGeneticMapResponse = IntermineDataResponse<IntermineGeneticMap>;
