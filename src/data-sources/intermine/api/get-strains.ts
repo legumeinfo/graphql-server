@@ -6,18 +6,18 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLOrganism,
-  GraphQLStrain,
-  IntermineStrainResponse,
-  intermineStrainAttributes,
-  intermineStrainSort,
-  response2strains,
+    GraphQLOrganism,
+    GraphQLStrain,
+    IntermineStrainResponse,
+    intermineStrainAttributes,
+    intermineStrainSort,
+    response2strains,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
 export type GetStrainsOptions = {
-  organism?: GraphQLOrganism;
+    organism?: GraphQLOrganism;
 } & PaginationOptions;
 
 
