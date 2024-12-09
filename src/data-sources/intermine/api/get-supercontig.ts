@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLSupercontig,
-  IntermineSupercontigResponse,
-  intermineSupercontigAttributes,
-  intermineSupercontigSort,
-  response2supercontigs,
+    GraphQLSupercontig,
+    IntermineSupercontigResponse,
+    intermineSupercontigAttributes,
+    intermineSupercontigSort,
+    response2supercontigs,
 } from '../models/index.js';
 import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
