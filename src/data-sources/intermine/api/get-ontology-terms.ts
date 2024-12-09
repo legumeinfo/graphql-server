@@ -42,7 +42,7 @@ export async function getOntologyTermsForTrait(id: number, { page, pageSize }: P
         constraints,
     );
     // get the data
-    return getOntologyTerms(query, { page, pageSize });
+    return getOntologyTerms.call(this, query, { page, pageSize });
 }
 
 // get (OntologyTerm) parents of an Ontology Term by id, which have no reverse reference from OntologyTerm
@@ -54,7 +54,7 @@ export async function getParentsForOntologyTerm(id: number, { page, pageSize }: 
         constraints,
     );
     // get the data
-    return getOntologyTerms(query, { page, pageSize });
+    return getOntologyTerms.call(this, query, { page, pageSize });
 }
 
 // get (OntologyTerm) parents of an SOTerm by id, which have no reverse reference from SOTerm
@@ -66,7 +66,7 @@ export async function getParentsForSequenceOntologyTerm(id: number, { page, page
         constraints,
     );
     // get the data
-    return getOntologyTerms(query, { page, pageSize });
+    return getOntologyTerms.call(this, query, { page, pageSize });
 }
 
 // get crossReferences of an OntologyTerm, which have no reverse reference from OntologyTerm
@@ -78,5 +78,5 @@ export async function getCrossReferencesForOntologyTerm(id: number, { page, page
         constraints,
     );
     // get the data
-    return getOntologyTerms(query, { page, pageSize });
+    return getOntologyTerms.call(this, query, { page, pageSize });
 }
