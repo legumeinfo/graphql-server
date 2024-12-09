@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLGenotypingPlatform,
-  IntermineGenotypingPlatformResponse,
-  intermineGenotypingPlatformAttributes,
-  intermineGenotypingPlatformSort,
-  response2genotypingPlatforms,
+    GraphQLGenotypingPlatform,
+    IntermineGenotypingPlatformResponse,
+    intermineGenotypingPlatformAttributes,
+    intermineGenotypingPlatformSort,
+    response2genotypingPlatforms,
 } from '../models/index.js';
 
 // get a GenotypingPlatform by primaryIdentifier
