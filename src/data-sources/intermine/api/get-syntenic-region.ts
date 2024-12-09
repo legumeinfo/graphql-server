@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLSyntenicRegion,
-  IntermineSyntenicRegionResponse,
-  intermineSyntenicRegionAttributes,
-  intermineSyntenicRegionSort,
-  response2syntenicRegions,
+    GraphQLSyntenicRegion,
+    IntermineSyntenicRegionResponse,
+    intermineSyntenicRegionAttributes,
+    intermineSyntenicRegionSort,
+    response2syntenicRegions,
 } from '../models/index.js';
 import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
