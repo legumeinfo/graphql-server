@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineGeneFamilyAttributes = [
@@ -13,10 +13,10 @@ export const intermineGeneFamilyAttributes = [
 ];
 export const intermineGeneFamilySort = 'GeneFamily.primaryIdentifier';
 export type IntermineGeneFamily = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  number,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    number,
 ];
 
 export const graphqlGeneFamilyAttributes = [
@@ -26,7 +26,7 @@ export const graphqlGeneFamilyAttributes = [
     'size',
 ];
 export type GraphQLGeneFamily = {
-  [prop in typeof graphqlGeneFamilyAttributes[number]]: string;
+    [prop in typeof graphqlGeneFamilyAttributes[number]]: string;
 }
 
 export type IntermineGeneFamilyResponse = IntermineDataResponse<IntermineGeneFamily>;
