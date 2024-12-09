@@ -6,11 +6,11 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLGWASResult,
-  IntermineGWASResultResponse,
-  intermineGWASResultAttributes,
-  intermineGWASResultSort,
-  response2gwasResults,
+    GraphQLGWASResult,
+    IntermineGWASResultResponse,
+    intermineGWASResultAttributes,
+    intermineGWASResultSort,
+    response2gwasResults,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
@@ -35,17 +35,17 @@ async function getGWASResults(constraints: string[], { page, pageSize }: Paginat
 // get GWASResults for a GWAS
 export async function getGWASResultsForGWAS(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGWASResult>> {
     const constraints = [intermineConstraint('GWASResult.gwas.id', '=', id)];
-    return getGWASResults(constraints, { page, pageSize });
+    return getGWASResults.call(this, constraints, { page, pageSize });
 }
 
 // get GWASResults for a GeneticMarker
 export async function getGWASResultsForGeneticMarker(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGWASResult>> {
     const constraints = [intermineConstraint('GWASResult.markers.id', '=', id)];
-    return getGWASResults(constraints, { page, pageSize });
+    return getGWASResults.call(this, constraints, { page, pageSize });
 }
 
 // get GWASResults for a Trait
 export async function getGWASResultsForTrait(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGWASResult>> {
     const constraints = [intermineConstraint('GWASResult.trait.id', '=', id)];
-    return getGWASResults(constraints, { page, pageSize });
+    return getGWASResults.call(this, constraints, { page, pageSize });
 }
