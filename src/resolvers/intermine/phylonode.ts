@@ -8,10 +8,10 @@ import { hasProteinFactory } from './protein.js';
 export const phylonodeFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        phylonode: async (_, { id }, { dataSources }) => {
-            const {data: node} = await dataSources[sourceName].getPhylonode(id);
+        phylonode: async (_, { identifier }, { dataSources }) => {
+            const {data: node} = await dataSources[sourceName].getPhylonode(identifier);
             if (node == null) {
-                const msg = `Phylonode with ID '${id}' not found`;
+                const msg = `Phylonode with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: node};

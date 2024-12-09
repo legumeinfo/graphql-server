@@ -343,7 +343,7 @@ type Query {
   # types identified by numerical id
   author(firstName: String!, lastName: String): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
-  phylonode(id: ID!): PhylonodeResults
+  phylonode(identifier: ID!): PhylonodeResults
   syntenyBlock(id: ID!): SyntenyBlockResults
 
   # types without any sort of id
