@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineGWASAttributes = [
@@ -16,13 +16,13 @@ export const intermineGWASAttributes = [
 ];
 export const intermineGWASSort = 'GWAS.primaryIdentifier';
 export type IntermineGWAS = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    string,
+    string,
+    string,
+    number,
 ];
 
 export const graphqlGWASAttributes = [
@@ -35,7 +35,7 @@ export const graphqlGWASAttributes = [
     'organismTaxonId',
 ];
 export type GraphQLGWAS = {
-  [prop in typeof graphqlGWASAttributes[number]]: string;
+    [prop in typeof graphqlGWASAttributes[number]]: string;
 }
 
 export type IntermineGWASResponse = IntermineDataResponse<IntermineGWAS>;
