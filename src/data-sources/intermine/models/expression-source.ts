@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineExpressionSourceAttributes = [
@@ -18,15 +18,15 @@ export const intermineExpressionSourceAttributes = [
 ];
 export const intermineExpressionSourceSort = 'ExpressionSource.primaryIdentifier';
 export type IntermineExpressionSource = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
-  string,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    number,
+    string,
 ];
 
 export const graphqlExpressionSourceAttributes = [
@@ -41,7 +41,7 @@ export const graphqlExpressionSourceAttributes = [
     'strainIdentifier',
 ];
 export type GraphQLExpressionSource = {
-  [prop in typeof graphqlExpressionSourceAttributes[number]]: string;
+    [prop in typeof graphqlExpressionSourceAttributes[number]]: string;
 }
 
 export type IntermineExpressionSourceResponse = IntermineDataResponse<IntermineExpressionSource>;
