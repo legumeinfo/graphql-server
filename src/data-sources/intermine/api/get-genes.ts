@@ -21,6 +21,19 @@ import {
 import { PaginationOptions } from './pagination.js';
 import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
+// get Genes using the given query and returns the expected GraphQL types
+async function getGenes(pathQuery: string, {page, pageSize}: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
+    // get the data
+    const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
+        .then((response: IntermineGeneResponse) => response2genes(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'Gene.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
 // get Genes associated with a GeneFamily
 export async function getGenesForGeneFamily(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
     const constraints = [intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', id)];
@@ -31,15 +44,7 @@ export async function getGenesForGeneFamily(id: number, { page, pageSize }: Pagi
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes associated with a PanGeneSet
@@ -52,15 +57,7 @@ export async function getGenesForPanGeneSet(id: number, { page, pageSize }: Pagi
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes associated with a Pathway
@@ -73,15 +70,7 @@ export async function getGenesForPathway(id: number, { page, pageSize }: Paginat
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes associated with a Protein
@@ -94,15 +83,7 @@ export async function getGenesForProtein(id: number, { page, pageSize }: Paginat
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes associated with a ProteinDomain
@@ -115,15 +96,7 @@ export async function getGenesForProteinDomain(id: number, { page, pageSize }: P
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Gene.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get adjacent Genes for an IntergenicRegion by id
@@ -136,15 +109,7 @@ export async function getAdjacentGenesForIntergenicRegion(id: number, { page, pa
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'IntergenicRegion.adjacentGenes.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes for an Intron by id
@@ -157,15 +122,7 @@ export async function getGenesForIntron(id: number, { page, pageSize }: Paginati
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'Intron.genes.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
 
 // get Genes associated with a QTL, for which there is no reverse reference from Gene
@@ -178,13 +135,5 @@ export async function getGenesForQTL(id: number, { page, pageSize }: PaginationO
         constraints,
         joins,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneResponse) => response2genes(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'QTL.genes.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getGenes.call(this, query, {page, pageSize});
 }
