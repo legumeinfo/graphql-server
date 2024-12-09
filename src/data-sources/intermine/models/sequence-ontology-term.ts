@@ -1,25 +1,25 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineDataSetAttributesFactory,
-  intermineDataSetSortFactory,
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
 } from './data-set.js';
 import {
-  intermineOntologyAttributesFactory,
-  intermineOntologySortFactory,
+    intermineOntologyAttributesFactory,
+    intermineOntologySortFactory,
 } from './ontology.js';
 import {
-  intermineOntologyRelationAttributesFactory,
-  intermineOntologyRelationSortFactory,
+    intermineOntologyRelationAttributesFactory,
+    intermineOntologyRelationSortFactory,
 } from './ontology-relation.js';
 import {
-  intermineOntologyTermInterfaceAttributesFactory,
-  intermineOntologyTermInterfaceSortFactory,
-  graphqlOntologyTermInterfaceAttributes,
-  IntermineOntologyTermInterface,
+    intermineOntologyTermInterfaceAttributesFactory,
+    intermineOntologyTermInterfaceSortFactory,
+    graphqlOntologyTermInterfaceAttributes,
+    IntermineOntologyTermInterface,
 } from './ontology-term-interface.js';
 import {
-  intermineOntologyTermSynonymAttributesFactory,
-  intermineOntologyTermSynonymSortFactory,
+    intermineOntologyTermSynonymAttributesFactory,
+    intermineOntologyTermSynonymSortFactory,
 } from './ontology-term-synonym.js';
 
 export const intermineSequenceOntologyTermAttributes = [
