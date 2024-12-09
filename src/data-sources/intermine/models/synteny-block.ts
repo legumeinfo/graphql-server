@@ -12,8 +12,8 @@ export const intermineSyntenyBlockAttributes = [
 ];
 export const intermineSyntenyBlockSort = 'SyntenyBlock.medianKs';
 export type IntermineSyntenyBlock = [
-  ...IntermineAnnotatable,
-  number,
+    ...IntermineAnnotatable,
+    number,
 ];
 
 
