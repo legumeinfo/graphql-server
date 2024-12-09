@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const interminePanGeneSetAttributes = [
@@ -17,7 +17,7 @@ export const graphqlPanGeneSetAttributes = [
     ...graphqlAnnotatableAttributes,
 ];
 export type GraphQLPanGeneSet = {
-  [prop in typeof graphqlPanGeneSetAttributes[number]]: string;
+    [prop in typeof graphqlPanGeneSetAttributes[number]]: string;
 }
 
 export type InterminePanGeneSetResponse = IntermineDataResponse<InterminePanGeneSet>;
