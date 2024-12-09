@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLMRNA,
-  IntermineMRNAResponse,
-  intermineMRNAAttributes,
-  intermineMRNASort,
-  response2mRNAs,
+    GraphQLMRNA,
+    IntermineMRNAResponse,
+    intermineMRNAAttributes,
+    intermineMRNASort,
+    response2mRNAs,
 } from '../models/index.js';
 import { transcriptJoinFactory } from './transcript.js';
 
