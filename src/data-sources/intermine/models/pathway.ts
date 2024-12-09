@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const interminePathwayAttributes = [
@@ -11,8 +11,8 @@ export const interminePathwayAttributes = [
 ];
 export const interminePathwaySort = 'Pathway.primaryIdentifier';
 export type InterminePathway = [
-  ...IntermineAnnotatable,
-  string,
+    ...IntermineAnnotatable,
+    string,
 ];
 
 export const graphqlPathwayAttributes = [
@@ -20,7 +20,7 @@ export const graphqlPathwayAttributes = [
     'name',
 ];
 export type GraphQLPathway = {
-  [prop in typeof graphqlPathwayAttributes[number]]: string;
+    [prop in typeof graphqlPathwayAttributes[number]]: string;
 }
 
 export type InterminePathwayResponse = IntermineDataResponse<InterminePathway>;
