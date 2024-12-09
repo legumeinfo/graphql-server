@@ -146,7 +146,6 @@ import { getPathway } from './get-pathway.js';
 import { getPathwaysForGene } from './get-pathways.js';
 // phylonode
 import { getPhylonode } from './get-phylonode.js';
-import { getPhylonodeForProtein } from './get-phylonode-for-protein.js';
 import {
   getChildrenForPhylonode,
   getPhylonodesForPhylotree,
@@ -369,7 +368,6 @@ export declare class ApiMixinInterface {
     getPathwaysForGene: Function;
     // phylonode
     getPhylonode: Function;
-    getPhylonodeForProtein: Function;
     getChildrenForPhylonode: Function;
     getPhylonodesForPhylotree: Function;
     // phylotree
@@ -589,7 +587,6 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPathwaysForGene = getPathwaysForGene;
         // phylonode
         getPhylonode = getPhylonode;
-        getPhylonodeForProtein = getPhylonodeForProtein;
         getChildrenForPhylonode = getChildrenForPhylonode;
         getPhylonodesForPhylotree = getPhylonodesForPhylotree;
         // phylotree
