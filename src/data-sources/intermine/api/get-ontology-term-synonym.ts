@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLOntologyTermSynonym,
-  IntermineOntologyTermSynonymResponse,
-  intermineOntologyTermSynonymAttributes,
-  intermineOntologyTermSynonymSort,
-  response2ontologyTermSynonyms,
+    GraphQLOntologyTermSynonym,
+    IntermineOntologyTermSynonymResponse,
+    intermineOntologyTermSynonymAttributes,
+    intermineOntologyTermSynonymSort,
+    response2ontologyTermSynonyms,
 } from '../models/index.js';
 
 // get an OntologyTermSynonym by name
