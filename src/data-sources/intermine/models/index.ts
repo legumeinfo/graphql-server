@@ -44,12 +44,13 @@ import { GraphQLQTL, IntermineQTL } from './qtl.js';
 import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
 import { GraphQLSequence, IntermineSequence } from './sequence.js';
 import { IntermineSequenceFeatureObject } from './sequence-feature.js';
+import { GraphQLSequenceOntologyTerm, IntermineSequenceOntologyTerm } from './sequence-ontology-term.js';
 import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
 import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
 import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
 import { GraphQLStrain, IntermineStrain } from './strain.js';
 import { GraphQLTrait, IntermineTrait } from './trait.js';
-import { GraphQLTranscript, IntermineTranscript, IntermineTranscriptObject } from './transcript.js';
+import { IntermineTranscriptObject } from './transcript.js';
 import { GraphQLUTR, IntermineUTR } from './utr.js';
 
 
@@ -97,12 +98,12 @@ export type GraphQLModel =
     GraphQLQTL |
     GraphQLQTLStudy |
     GraphQLSequence |
+    GraphQLSequenceOntologyTerm |
     GraphQLSupercontig |
     GraphQLSyntenicRegion |
     GraphQLSyntenyBlock |
     GraphQLStrain |
     GraphQLTrait |
-    GraphQLTranscript |
     GraphQLUTR;
 
 
@@ -150,12 +151,12 @@ export type IntermineModel =
     IntermineQTL |
     IntermineQTLStudy |
     IntermineSequence |
+    IntermineSequenceOntologyTerm |
     IntermineSupercontig |
     IntermineSyntenicRegion |
     IntermineSyntenyBlock |
     IntermineStrain |
     IntermineTrait |
-    IntermineTranscript |
     IntermineUTR;
 
 
@@ -197,6 +198,7 @@ export * from './ontology.js';
 export * from './ontology-annotation.js';
 export * from './ontology-relation.js';
 export * from './ontology-term.js';
+export * from './ontology-term-interface.js';
 export * from './ontology-term-synonym.js';
 export * from './organism.js';
 export * from './newick.js';
@@ -214,10 +216,10 @@ export * from './qtl-study.js';
 export * from './sequence.js';
 export * from './sequence-feature.js';
 export * from './sequence-ontology-term.js';
+export * from './strain.js';
 export * from './supercontig.js';
 export * from './syntenic-region.js';
 export * from './synteny-block.js';
-export * from './strain.js';
 export * from './trait.js';
 export * from './transcript.js';
 export * from './utr.js';
