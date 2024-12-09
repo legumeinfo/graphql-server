@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineTranscript,
-  intermineTranscriptAttributesFactory,
-  intermineTranscriptSortFactory,
+    IntermineTranscript,
+    intermineTranscriptAttributesFactory,
+    intermineTranscriptSortFactory,
 } from './transcript.js';
 
 export const intermineMRNAAttributes = [
@@ -11,8 +11,8 @@ export const intermineMRNAAttributes = [
 ];
 export const intermineMRNASort = intermineTranscriptSortFactory('MRNA');
 export type IntermineMRNA = [
-  ...IntermineTranscript,
-  boolean,
+    ...IntermineTranscript,
+    boolean,
 ];
 
 export const graphqlMRNAAttributes = [
@@ -31,7 +31,7 @@ export const graphqlMRNAAttributes = [
     'isPrimary',
 ];
 export type GraphQLMRNA = {
-  [prop in typeof graphqlMRNAAttributes[number]]: string;
+    [prop in typeof graphqlMRNAAttributes[number]]: string;
 }
 
 export type IntermineMRNAResponse = IntermineDataResponse<IntermineMRNA>;
