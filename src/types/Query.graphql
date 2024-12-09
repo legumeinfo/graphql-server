@@ -15,9 +15,17 @@ type PageInfo {
 
 # Wrapper types that allow inclusion of metadata with results
 
-### Annotatables
+# Annotatables
+type CDSResults {
+  results: CDS
+}
+
 type ChromosomeResults {
   results: Chromosome
+}
+
+type ExonResults {
+  results: Exon
 }
 
 type ExpressionSampleResults {
@@ -38,6 +46,10 @@ type GeneResults {
 
 type GeneFamilyResults {
   results: GeneFamily
+}
+
+type GeneFlankingRegionResults {
+  results: GeneFlankingRegion
 }
 
 type GeneticMapResults {
@@ -100,9 +112,17 @@ type TraitResults {
   results: Trait
 }
 
-### other types with unique non-id keys
+type UTRResults {
+  results: UTR
+}
+
+# other types with unique non-id keys
 type DataSetResults {
   results: DataSet
+}
+
+type DataSourceResults {
+  results: DataSource
 }
 
 type OntologyResults {
@@ -125,6 +145,10 @@ type PublicationResults {
   results: Publication
 }
 
+type SequenceResults {
+  results: Sequence
+}
+
 type SequenceOntologyTermResults {
   results: SequenceOntologyTerm
 }
@@ -133,7 +157,7 @@ type StrainResults {
   results: Strain
 }
 
-### types identified by numerical id
+# types identified by numerical id
 type AuthorResults {
   results: Author
 }
@@ -148,6 +172,14 @@ type GeneFamilyTallyResults {
 
 type GwasResultResults {
   results: GWASResult
+}
+
+type IntergenicRegionResults {
+  results: IntergenicRegion
+}
+
+type IntronResults {
+  results: Intron
 }
 
 type LinkageGroupResults {
@@ -182,7 +214,7 @@ type SyntenyBlockResults {
   results: SyntenyBlock
 }
 
-### multiple-result queries (typically searches)
+# multiple-result queries (typically searches)
 type ExpressionSamplesResults {
   results: [ExpressionSample!]!
   pageInfo: PageInfo
@@ -263,7 +295,7 @@ type TraitsResults {
   pageInfo: PageInfo
 }
 
-### microservices queries
+# microservices queries
 type GeneLinkoutsResults {
   results: [Linkout!]!
 }
@@ -285,17 +317,22 @@ type PanGeneSetLinkoutsResults {
 
 type Query {
 
-  ### Annotatables
+  # Annotatables
+  cds(identifier:  ID!): CDSResults
   chromosome(identifier: ID!): ChromosomeResults
+  exon(identifier: ID!): ExonResults
   expressionSample(identifier: ID!): ExpressionSampleResults
   expressionSource(identifier: ID!): ExpressionSourceResults
   gene(identifier: ID!): GeneResults
   geneFamily(identifier: ID!): GeneFamilyResults
+  geneFlankingRegion(identifier: ID!): GeneFlankingRegionResults
   geneticMap(identifier: ID!): GeneticMapResults
   geneticMarker(identifier: ID!): GeneticMarkerResults
   genotypingPlatform(identifier: ID!): GenotypingPlatformResults
   gwas(identifier: ID!): GwasResults
   gwasResult(identifier: ID!): GwasResultResults
+  intergenicRegion(identifier: ID!): IntergenicRegionResults
+  intron(identified: ID!): IntronResults
   linkageGroup(identifier: ID!): LinkageGroupResults
   mRNA(identifier: ID!): MRNAResults
   panGeneSet(identifier: ID!): PanGeneSetResults
@@ -309,18 +346,21 @@ type Query {
   supercontig(identifier: ID!): SupercontigResults
   syntenicRegion(identifier: ID!): SyntenicRegionResults
   trait(identifier: ID!): TraitResults
+  utr(identifier: ID!): UTRResults
 
-  ### other types with unique non-id keys
+  # other types with unique non-id keys
   dataSet(name: ID!): DataSetResults
+  dataSource(name: ID!): DataSourceResults
   ontology(name: ID!): OntologyResults
   ontologyTerm(identifier: ID!): OntologyTermResults
   ontologyTermSynonym(name: ID!): OntologyTermSynonymResults
   organism(taxonId: ID!): OrganismResults
   publication(doi: ID!): PublicationResults
+  sequence(id: ID!): SequenceResults
   sequenceOntologyTerm(identifier: ID!): SequenceOntologyTermResults
   strain(identifier: ID!): StrainResults
 
-  ### types identified by numerical id
+  # types identified by numerical id
   author(id: ID!): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
   geneFamilyTally(id: ID!): GeneFamilyTallyResults
@@ -331,10 +371,10 @@ type Query {
   phylonode(id: ID!): PhylonodeResults
   syntenyBlock(id: ID!): SyntenyBlockResults
 
-  ### types without any sort of id
+  # types without any sort of id
   expressionValue(sampleIdentifier: ID!, geneIdentifier: ID!): ExpressionValueResults
   
-  ### multiple-result queries (typically searches)
+  # multiple-result queries (typically searches)
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
   expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
@@ -353,7 +393,7 @@ type Query {
   strains(description: String, origin: String, species: String, page: Int, pageSize: Int): StrainsResults
   traits(name: String, studyType: String, publicationId: String, author: String, page: Int, pageSize: Int): TraitsResults
 
-  ### microservices queries
+  # microservices queries
   geneLinkouts(identifier: ID!): GeneLinkoutsResults
   locationLinkouts(identifier: ID!, start: Int!, end: Int!): LocationLinkoutsResults
   geneFamilyLinkouts(identifier: ID!): GeneFamilyLinkoutsResults
