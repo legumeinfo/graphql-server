@@ -145,10 +145,6 @@ type PublicationResults {
   results: Publication
 }
 
-type SequenceResults {
-  results: Sequence
-}
-
 type SequenceOntologyTermResults {
   results: SequenceOntologyTerm
 }
@@ -336,7 +332,6 @@ type Query {
   ontologyTermSynonym(name: ID!): OntologyTermSynonymResults
   organism(taxonId: ID!): OrganismResults
   publication(doi: ID!): PublicationResults
-  sequence(id: ID!): SequenceResults
   sequenceOntologyTerm(identifier: ID!): SequenceOntologyTermResults
   strain(identifier: ID!): StrainResults
 

@@ -5,14 +5,14 @@ import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 export const sequenceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
-        sequence: async (_, { id }, { dataSources }) => {
-            const {data: sequence} = await dataSources[sourceName].getSequence(id);
-            if (sequence == null) {
-                const msg = `Sequence with ID '${id}' not found`;
-                inputError(msg);
-            }
-            return {results: sequence};
-        },
+        //sequence: async (_, { id }, { dataSources }) => {
+        //    const {data: sequence} = await dataSources[sourceName].getSequence(id);
+        //    if (sequence == null) {
+        //        const msg = `Sequence with ID '${id}' not found`;
+        //        inputError(msg);
+        //    }
+        //    return {results: sequence};
+        //},
     },
 });
 
