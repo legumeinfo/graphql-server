@@ -39,7 +39,7 @@ export async function getProteinsForGene(id: number, { page, pageSize }: Paginat
         joins,
     );
     // get the data
-    return getProteins(query, { page, pageSize });
+    return getProteins.call(this, query, { page, pageSize });
 }
 
 // get Proteins associated with a GeneFamily
@@ -53,7 +53,7 @@ export async function getProteinsForGeneFamily(id: number, { page, pageSize }: P
         joins,
     );
     // get the data
-    return getProteins(query, { page, pageSize });
+    return getProteins.call(this, query, { page, pageSize });
 }
 
 // get Proteins associated with a PanGeneSet
@@ -67,5 +67,5 @@ export async function getProteinsForPanGeneSet(id: number, { page, pageSize }: P
         joins,
     );
     // get the data
-    return getProteins(query, { page, pageSize });
+    return getProteins.call(this, query, { page, pageSize });
 }
