@@ -7,9 +7,9 @@ export const intermineExpressionValueAttributes = [
 ];
 export const intermineExpressionValueSort = 'ExpressionValue.sample.primaryIdentifier';
 export type IntermineExpressionValue = [
-  number,
-  string,
-  string,
+    number,
+    string,
+    string,
 ];
 
 export const graphqlExpressionValueAttributes = [
@@ -18,7 +18,7 @@ export const graphqlExpressionValueAttributes = [
     'featureId',
 ];
 export type GraphQLExpressionValue = {
-  [prop in typeof graphqlExpressionValueAttributes[number]]: string;
+    [prop in typeof graphqlExpressionValueAttributes[number]]: string;
 }
 
 
