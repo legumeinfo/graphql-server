@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 
@@ -19,7 +19,7 @@ export const graphqlSupercontigAttributes = [
     ...graphqlSequenceFeatureAttributes,
 ];
 export type GraphQLSupercontig = {
-  [prop in typeof graphqlSupercontigAttributes[number]]: string;
+    [prop in typeof graphqlSupercontigAttributes[number]]: string;
 }
 
 
