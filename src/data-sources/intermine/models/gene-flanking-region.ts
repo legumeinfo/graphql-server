@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineGeneFlankingRegionAttributes = [
