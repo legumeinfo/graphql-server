@@ -1,8 +1,8 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
 
-export const sequenceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+export const sequenceFactory = (_: KeyOfType<DataSources, IntermineAPI>):
 ResolverMap => ({
     Query: {
         //sequence: async (_, { id }, { dataSources }) => {
