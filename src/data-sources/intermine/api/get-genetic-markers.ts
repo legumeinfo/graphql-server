@@ -39,7 +39,7 @@ export async function getGeneticMarkersForGenotypingPlatform(id: number, { page,
         joins,
     );
     // get the data
-    return getGeneticMarkers(query, { page, pageSize });
+    return getGeneticMarkers.call(this, query, { page, pageSize });
 }
 
 // get GeneticMarkers for a QTL
@@ -53,7 +53,7 @@ export async function getGeneticMarkersForQTL(id: number, { page, pageSize }: Pa
         joins,
     );
     // get the data
-    return getGeneticMarkers(query, { page, pageSize });
+    return getGeneticMarkers.call(this, query, { page, pageSize });
 }
 
 // get GeneticMarkers for a GWASResult
@@ -67,5 +67,5 @@ export async function getGeneticMarkersForGWASResult(id: number, { page, pageSiz
         joins,
     );
     // get the data
-    return getGeneticMarkers(query, { page, pageSize });
+    return getGeneticMarkers.call(this, query, { page, pageSize });
 }
