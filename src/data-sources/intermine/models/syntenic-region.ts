@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
+    IntermineSequenceFeature,
+    graphqlSequenceFeatureAttributes,
+    intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineSyntenicRegionAttributes = [
@@ -11,8 +11,8 @@ export const intermineSyntenicRegionAttributes = [
 ];
 export const intermineSyntenicRegionSort = 'SyntenicRegion.primaryIdentifier';
 export type IntermineSyntenicRegion = [
-  ...IntermineSequenceFeature,
-  number,
+    ...IntermineSequenceFeature,
+    number,
 ];
 
 export const graphqlSyntenicRegionAttributes = [
@@ -20,7 +20,7 @@ export const graphqlSyntenicRegionAttributes = [
     'syntenyBlockId',
 ];
 export type GraphQLSyntenicRegion = {
-  [prop in typeof graphqlSyntenicRegionAttributes[number]]: string;
+    [prop in typeof graphqlSyntenicRegionAttributes[number]]: string;
 }
 
 export type IntermineSyntenicRegionResponse = IntermineDataResponse<IntermineSyntenicRegion>;
