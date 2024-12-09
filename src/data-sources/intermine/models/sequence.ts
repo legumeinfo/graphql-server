@@ -23,7 +23,7 @@ export const graphqlSequenceAttributes = [
 ];
 
 export type GraphQLSequence = {
-  [prop in typeof graphqlSequenceAttributes[number]]: string;
+    [prop in typeof graphqlSequenceAttributes[number]]: string;
 }
 
 export type IntermineSequenceResponse = IntermineDataResponse<IntermineSequence>;
