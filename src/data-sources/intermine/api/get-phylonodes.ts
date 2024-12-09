@@ -42,7 +42,7 @@ export async function getPhylonodesForPhylotree(id: number, { page, pageSize }: 
         joins,
     );
     // get the data
-    return getPhylonodes(query, { page, pageSize });
+    return getPhylonodes.call(this, query, { page, pageSize });
 }
 
 // get Phylonode children of a Phylonode
@@ -58,5 +58,5 @@ export async function getChildrenForPhylonode(id: number, { page, pageSize }: Pa
         joins,
     );
     // get the data
-    return getPhylonodes(query, { page, pageSize });
+    return getPhylonodes.call(this, query, { page, pageSize });
 }
