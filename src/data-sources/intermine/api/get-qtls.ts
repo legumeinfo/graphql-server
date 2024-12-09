@@ -36,7 +36,7 @@ export async function getQTLsForLinkageGroup(id: number, { page, pageSize }: Pag
         constraints,
     );
     // get the data
-    return getQTLs(query, { page, pageSize });
+    return getQTLs.call(this, query, { page, pageSize });
 }
 
 // get QTLs associated with a GeneticMarker
@@ -48,7 +48,7 @@ export async function getQTLsForGeneticMarker(id: number, { page, pageSize }: Pa
         constraints,
     );
     // get the data
-    return getQTLs(query, { page, pageSize });
+    return getQTLs.call(this, query, { page, pageSize });
 }
 
 // get QTLs associated with a QTLStudy
@@ -60,7 +60,7 @@ export async function getQTLsForQTLStudy(id: number, { page, pageSize }: Paginat
         constraints,
     );
     // get the data
-    return getQTLs(query, { page, pageSize });
+    return getQTLs.call(this, query, { page, pageSize });
 }
 
 // get QTLs associated with a Trait
@@ -72,5 +72,5 @@ export async function getQTLsForTrait(id: number, { page, pageSize }: Pagination
         constraints,
     );
     // get the data
-    return getQTLs(query, { page, pageSize });
+    return getQTLs.call(this, query, { page, pageSize });
 }
