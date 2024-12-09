@@ -63,7 +63,7 @@ export const graphqlLocationAttributes = [
     'locatedOnIdentifier',
 ];
 export type GraphQLLocation = {
-  [prop in typeof graphqlLocationAttributes[number]]: string;
+    [prop in typeof graphqlLocationAttributes[number]]: string;
 }
 
 
