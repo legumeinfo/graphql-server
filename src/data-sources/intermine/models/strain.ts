@@ -1,7 +1,7 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineDataSetAttributesFactory,
-  intermineDataSetSortFactory,
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
 } from './data-set.js';
 
 
@@ -16,13 +16,13 @@ export const intermineStrainAttributes = [
 ];
 export const intermineStrainSort = 'Strain.identifier';
 export type IntermineStrain = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  number,
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    number,
 ];
 
 
@@ -36,7 +36,7 @@ export const graphqlStrainAttributes = [
     'organismTaxonId',
 ];
 export type GraphQLStrain = {
-  [prop in typeof graphqlStrainAttributes[number]]: string;
+    [prop in typeof graphqlStrainAttributes[number]]: string;
 }
 
 
