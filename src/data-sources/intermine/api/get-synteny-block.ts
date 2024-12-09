@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLSyntenyBlock,
-  IntermineSyntenyBlockResponse,
-  intermineSyntenyBlockAttributes,
-  intermineSyntenyBlockSort,
-  response2syntenyBlocks,
+    GraphQLSyntenyBlock,
+    IntermineSyntenyBlockResponse,
+    intermineSyntenyBlockAttributes,
+    intermineSyntenyBlockSort,
+    response2syntenyBlocks,
 } from '../models/index.js';
 
 
