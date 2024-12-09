@@ -1,15 +1,15 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLLocation,
-  IntermineLocationResponse,
-  intermineLocationAttributes,
-  intermineLocationQueryFormat,
-  intermineLocationSort,
-  response2locations,
+    GraphQLLocation,
+    IntermineLocationResponse,
+    intermineLocationAttributes,
+    intermineLocationQueryFormat,
+    intermineLocationSort,
+    response2locations,
 } from '../models/index.js';
 
 
