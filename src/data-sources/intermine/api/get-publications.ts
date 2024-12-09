@@ -37,7 +37,7 @@ export async function getPublicationsForAnnotatable(id: number, { page, pageSize
         constraints,
     );
     // get the data
-    return getPublications(query, {page, pageSize});
+    return getPublications.call(this, query, {page, pageSize});
 }
 
 // get Publications associated with an Author
@@ -49,7 +49,7 @@ export async function getPublicationsForAuthor(id: number, { page, pageSize }: P
         constraints,
     );
     // get the data
-    return getPublications(query, {page, pageSize});
+    return getPublications.call(this, query, {page, pageSize});
 }
 
 // get Publications associated with a DataSource
@@ -63,5 +63,5 @@ export async function getPublicationsForDataSource(id: number, { page, pageSize 
         joins,
     );
     // get the data
-    return getPublications(query, {page, pageSize});
+    return getPublications.call(this, query, {page, pageSize});
 }
