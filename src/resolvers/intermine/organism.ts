@@ -33,8 +33,9 @@ ResolverMap => ({
     Organism: {
         ...hasDataSetsFactory(sourceName),
         strains: async (organism, { page, pageSize }, { dataSources }) => {
-            const args = {organism, page, pageSize};
-            return dataSources[sourceName].getStrains(args)
+            const {id} = organism;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getStrains(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

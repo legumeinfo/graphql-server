@@ -211,7 +211,7 @@ import { getSyntenicRegionsForSyntenyBlock } from './get-syntenic-regions.js';
 import { getSyntenyBlock } from './get-synteny-block.js';
 // strain
 import { getStrain } from './get-strain.js';
-import { getStrains } from './get-strains.js';
+import { getStrainsForOrganism } from './get-strains.js';
 import { searchStrains } from './search-strains.js';
 // trait
 import { getTrait } from './get-trait.js';
@@ -422,7 +422,7 @@ export declare class ApiMixinInterface {
     getSyntenyBlock: Function;
     // strain
     getStrain: Function;
-    getStrains: Function;
+    getStrainsForOrganism: Function;
     searchStrains: Function;
     // trait
     getTrait: Function;
@@ -641,7 +641,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getSyntenyBlock = getSyntenyBlock;
         // strain
         getStrain = getStrain;
-        getStrains = getStrains;
+        getStrainsForOrganism = getStrainsForOrganism;
         searchStrains = searchStrains;
         // trait
         getTrait = getTrait;
