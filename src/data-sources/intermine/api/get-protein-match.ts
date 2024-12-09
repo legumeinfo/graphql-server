@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLProteinMatch,
-  IntermineProteinMatchResponse,
-  intermineProteinMatchAttributes,
-  intermineProteinMatchSort,
-  response2proteinMatches,
+    GraphQLProteinMatch,
+    IntermineProteinMatchResponse,
+    intermineProteinMatchAttributes,
+    intermineProteinMatchSort,
+    response2proteinMatches,
 } from '../models/index.js';
 import { bioEntityJoinFactory } from './bio-entity.js';
 
