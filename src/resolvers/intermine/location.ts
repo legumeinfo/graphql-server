@@ -1,5 +1,5 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { ResolverMap } from '../resolver.js';
 import { hasDataSetsFactory } from './data-set.js';
@@ -11,14 +11,14 @@ export const locationFactory =
     microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
 ): ResolverMap => ({
     Query: {
-        location: async (_, { id }, { dataSources }) => {
-            const {data: location} = await dataSources[sourceName].getLocation(id);
-            if (location == null) {
-                const msg = `Location with ID '${id}' not found`;
-                inputError(msg);
-            }
-            return {results: location};
-        },
+        //location: async (_, { id }, { dataSources }) => {
+        //    const {data: location} = await dataSources[sourceName].getLocation(id);
+        //    if (location == null) {
+        //        const msg = `Location with ID '${id}' not found`;
+        //        inputError(msg);
+        //    }
+        //    return {results: location};
+        //},
     },
     Location: {
         ...hasDataSetsFactory(sourceName),

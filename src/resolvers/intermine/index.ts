@@ -17,6 +17,7 @@ import { expressionValueFactory } from './expression-value.js';
 import { geneFactory } from './gene.js';
 import { geneFamilyFactory } from './gene-family.js';
 import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
+import { geneFamilyTallyFactory } from './gene-family-tally.js';
 import { geneFlankingRegionFactory } from './gene-flanking-region.js';
 import { geneticMapFactory } from './genetic-map.js';
 import { geneticMarkerFactory } from './genetic-marker.js';
@@ -26,6 +27,7 @@ import { gwasResultFactory } from './gwas-result.js';
 import { intergenicRegionFactory } from './intergenic-region.js';
 import { intronFactory } from './intron.js';
 import { linkageGroupFactory } from './linkage-group.js';
+import { linkageGroupPositionFactory } from './linkage-group-position.js';
 import { locationFactory } from './location.js';
 import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
@@ -67,6 +69,7 @@ const factories = [
     geneFactory,
     geneFamilyFactory,
     geneFamilyAssignmentFactory,
+    geneFamilyTallyFactory,
     geneFlankingRegionFactory,
     geneticMapFactory,
     geneticMarkerFactory,
@@ -76,6 +79,7 @@ const factories = [
     intergenicRegionFactory,
     intronFactory,
     linkageGroupFactory,
+    linkageGroupPositionFactory,
     locationFactory,
     mRNAFactory,
     ontologyFactory,

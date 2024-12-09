@@ -182,10 +182,6 @@ type LinkageGroupResults {
   results: LinkageGroup
 }
 
-type LocationResults {
-  results: Location
-}
-
 type OntologyAnnotationResults {
   results: OntologyAnnotation
 }
@@ -355,7 +351,6 @@ type Query {
   # types identified by numerical id
   author(firstName: String!, lastName: String): AuthorResults
   geneFamilyAssignment(id: ID!): GeneFamilyAssignmentResults
-  location(id: ID!): LocationResults
   ontologyAnnotation(id: ID!): OntologyAnnotationResults
   ontologyRelation(id: ID!): OntologyRelationResults
   phylonode(id: ID!): PhylonodeResults
