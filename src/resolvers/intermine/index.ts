@@ -26,7 +26,6 @@ import { gwasResultFactory } from './gwas-result.js';
 import { intergenicRegionFactory } from './intergenic-region.js';
 import { intronFactory } from './intron.js';
 import { linkageGroupFactory } from './linkage-group.js';
-import { linkageGroupPositionFactory } from './linkage-group-position.js';
 import { locationFactory } from './location.js';
 import { mRNAFactory } from './mrna.js';
 import { ontologyFactory } from './ontology.js';
@@ -77,7 +76,6 @@ const factories = [
     intergenicRegionFactory,
     intronFactory,
     linkageGroupFactory,
-    linkageGroupPositionFactory,
     locationFactory,
     mRNAFactory,
     ontologyFactory,
