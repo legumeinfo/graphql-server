@@ -6,11 +6,11 @@ import {
     response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLLinkageGroupPosition,
-  IntermineLinkageGroupPositionResponse,
-  intermineGeneticMarkerLinkageGroupPositionsAttributes,
-  intermineGeneticMarkerLinkageGroupPositionsSort,
-  response2linkageGroupPositions,
+    GraphQLLinkageGroupPosition,
+    IntermineLinkageGroupPositionResponse,
+    intermineGeneticMarkerLinkageGroupPositionsAttributes,
+    intermineGeneticMarkerLinkageGroupPositionsSort,
+    response2linkageGroupPositions,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
