@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const intermineGenotypingPlatformAttributes = [
@@ -10,14 +10,14 @@ export const intermineGenotypingPlatformAttributes = [
 ];
 export const intermineGenotypingPlatformSort = 'GenotypingPlatform.primaryIdentifier';
 export type IntermineGenotypingPlatform = [
-  ...IntermineAnnotatable,
+    ...IntermineAnnotatable,
 ];
 
 export const graphqlGenotypingPlatformAttributes = [
     ...graphqlAnnotatableAttributes,
 ];
 export type GraphQLGenotypingPlatform = {
-  [prop in typeof graphqlGenotypingPlatformAttributes[number]]: string;
+    [prop in typeof graphqlGenotypingPlatformAttributes[number]]: string;
 }
 
 export type IntermineGenotypingPlatformResponse = IntermineDataResponse<IntermineGenotypingPlatform>;
