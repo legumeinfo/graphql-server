@@ -1,12 +1,12 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineBioEntity,
-  graphqlBioEntityAttributes,
-  intermineBioEntityAttributesFactory,
+    IntermineBioEntity,
+    graphqlBioEntityAttributes,
+    intermineBioEntityAttributesFactory,
 } from './bio-entity.js';
 import {
-  intermineGeneFamilyAssignmentAttributesFactory,
-  intermineGeneFamilyAssignmentSortFactory,
+    intermineGeneFamilyAssignmentAttributesFactory,
+    intermineGeneFamilyAssignmentSortFactory,
 } from './gene-family-assignment.js';
 
 export const intermineProteinAttributes = [
@@ -22,15 +22,15 @@ export const intermineProteinAttributes = [
 ];
 export const intermineProteinSort = 'Protein.primaryIdentifier';
 export type IntermineProtein = [
-  ...IntermineBioEntity,
-  string,
-  string,
-  number,
-  number,
-  boolean,
-  string,
-  string,
-  number,
+    ...IntermineBioEntity,
+    string,
+    string,
+    number,
+    number,
+    boolean,
+    string,
+    string,
+    number,
 ];
 
 export const graphqlProteinAttributes = [
@@ -45,7 +45,7 @@ export const graphqlProteinAttributes = [
     'sequenceId',
 ];
 export type GraphQLProtein = {
-  [prop in typeof graphqlProteinAttributes[number]]: string;
+    [prop in typeof graphqlProteinAttributes[number]]: string;
 }
 
 
