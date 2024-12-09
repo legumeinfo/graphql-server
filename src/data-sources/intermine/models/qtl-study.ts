@@ -1,8 +1,8 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  IntermineAnnotatable,
-  graphqlAnnotatableAttributes,
-  intermineAnnotatableAttributesFactory,
+    IntermineAnnotatable,
+    graphqlAnnotatableAttributes,
+    intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 
@@ -15,11 +15,11 @@ export const intermineQTLStudyAttributes = [
 ];
 export const intermineQTLStudySort = 'QTLStudy.primaryIdentifier';
 export type IntermineQTLStudy = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  number,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    string,
+    number,
 ];
 
 
@@ -31,7 +31,7 @@ export const graphqlQTLStudyAttributes = [
     'organismTaxonId',
 ];
 export type GraphQLQTLStudy = {
-  [prop in typeof graphqlQTLStudyAttributes[number]]: string;
+    [prop in typeof graphqlQTLStudyAttributes[number]]: string;
 }
 
 
