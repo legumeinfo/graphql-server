@@ -14,6 +14,19 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
+// get OntologyAnnotatoins using the given query and returns the expected GraphQL types
+async function getOntologyAnnotations(pathQuery: string, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyAnnotation>> {
+    // get the data
+    const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
+        .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response));
+    // get a summary of the data and convert it to page info
+    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'OntologyAnnotation.id'})
+        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    // return the expected GraphQL type
+    return Promise.all([dataPromise, pageInfoPromise])
+        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+}
+
 // get OntologyAnnotations for an Annotatable, given its id
 export async function getOntologyAnnotationsForAnnotatable(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLOntologyAnnotation>> {
     const constraints = [intermineConstraint('OntologyAnnotation.subject.id', '=', id)];
@@ -22,15 +35,7 @@ export async function getOntologyAnnotationsForAnnotatable(id: number, { page, p
         intermineOntologyAnnotationSort,
         constraints,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyAnnotation.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyAnnotations.call(this, query, {page, pageSize});
 }
 
 // get OntologyAnnotations for an OntologyTerm, given its id
@@ -41,13 +46,5 @@ export async function getOntologyAnnotationsForOntologyTerm(id: number, { page, 
         intermineOntologyAnnotationSort,
         constraints,
     );
-    // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineOntologyAnnotationResponse) => response2ontologyAnnotations(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'OntologyAnnotation.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getOntologyAnnotations.call(this, query, {page, pageSize});
 }
