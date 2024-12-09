@@ -1,7 +1,7 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-  intermineDataSetAttributesFactory,
-  intermineDataSetSortFactory,
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
 } from './data-set.js';
 
 export const intermineOntologyAttributesFactory = (type = 'Ontology') => [
@@ -17,9 +17,9 @@ export const intermineOntologySortFactory = (type = 'Ontology') => `${type}.name
 export const intermineOntologySort = intermineOntologySortFactory();
 
 export type IntermineOntology = [
-  number,
-  string,
-  string,
+    number,
+    string,
+    string,
 ];
 
 export const graphqlOntologyAttributes = [
@@ -29,7 +29,7 @@ export const graphqlOntologyAttributes = [
 ]
 
 export type GraphQLOntology = {
-  [prop in typeof graphqlOntologyAttributes[number]]: string;
+    [prop in typeof graphqlOntologyAttributes[number]]: string;
 }
 
 export type IntermineOntologyResponse = IntermineDataResponse<IntermineOntology>;
