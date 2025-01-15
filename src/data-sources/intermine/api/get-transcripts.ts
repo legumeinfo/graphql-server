@@ -1,10 +1,10 @@
 import {
     ApiResponse,
-    IntermineSummaryResponse,
+    IntermineCountResponse,
+    countResponse2graphqlPageInfo,
     intermineConstraint,
     intermineJoin,
     interminePathQuery,
-    response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
     GraphQLTranscript,
@@ -21,8 +21,8 @@ async function getTranscripts(pathQuery: string, { page, pageSize }: PaginationO
     const dataPromise = this.pathQuery(pathQuery, {page, pageSize})
         .then((response: IntermineTranscriptResponse) => response2transcripts(response));
     // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(pathQuery, {summaryPath: 'Transcript.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    const pageInfoPromise = this.pathQueryCount(pathQuery)
+        .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

@@ -3,3 +3,4 @@
 // redundant and error prone
 export * from './page-info.js';
 export * from './string-key-object.js';
+export * from './results-info.js';

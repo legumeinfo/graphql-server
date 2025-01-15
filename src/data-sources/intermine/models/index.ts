@@ -32,6 +32,7 @@ import { GraphQLOntologyTermSynonym, IntermineOntologyTermSynonym } from './onto
 import { GraphQLOrganism, IntermineOrganism } from './organism.js';
 import { GraphQLNewick, IntermineNewick } from './newick.js';
 import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
+import { GraphQLPanGenePair, InterminePanGenePair } from './pan-gene-pair.js';
 import { GraphQLPanGeneSet, InterminePanGeneSet } from './pan-gene-set.js';
 import { GraphQLPathway, InterminePathway } from './pathway.js';
 import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
@@ -87,6 +88,7 @@ export type GraphQLModel =
     GraphQLOrganism |
     GraphQLNewick |
     GraphQLMRNA |
+    GraphQLPanGenePair |
     GraphQLPanGeneSet |
     GraphQLPathway |
     GraphQLPhylonode |
@@ -140,6 +142,7 @@ export type IntermineModel =
     IntermineOrganism |
     IntermineNewick |
     IntermineMRNA |
+    InterminePanGenePair |
     InterminePanGeneSet |
     InterminePathway |
     InterminePhylonode |
@@ -203,6 +206,7 @@ export * from './ontology-term-synonym.js';
 export * from './organism.js';
 export * from './newick.js';
 export * from './mrna.js';
+export * from './pan-gene-pair.js';
 export * from './pan-gene-set.js';
 export * from './pathway.js';
 export * from './phylonode.js';

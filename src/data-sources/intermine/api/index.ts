@@ -8,6 +8,7 @@ import { getCDS } from './get-cds.js';
 import { getCDSsForTranscript } from './get-cdss.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
+import { getChromosomes } from './get-chromosomes.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import {
@@ -134,6 +135,8 @@ import { getOntologyTermSynonymsForOntologyTerm } from './get-ontology-term-syno
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
+// pan genes
+import { getPanGenePairs } from './get-pan-gene-pairs.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
 import {
@@ -247,6 +250,7 @@ export declare class ApiMixinInterface {
     getCDSsForTranscript: Function;
     // chromosome
     getChromosome: Function;
+    getChromosomes: Function;
     // data set
     getDataSet: Function;
     getDataSetsForAnnotatable: Function;
@@ -358,6 +362,8 @@ export declare class ApiMixinInterface {
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
+    // pan genes
+    getPanGenePairs: Function;
     // pan-gene set
     getPanGeneSet: Function;
     getPanGeneSetsForGene: Function;
@@ -466,6 +472,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getCDSsForTranscript = getCDSsForTranscript;
         // chromosome
         getChromosome = getChromosome;
+        getChromosomes = getChromosomes;
         // data set
         getDataSet = getDataSet;
         getDataSetsForAnnotatable = getDataSetsForAnnotatable;
@@ -577,6 +584,8 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
+        // pan-genes
+        getPanGenePairs = getPanGenePairs;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
         getPanGeneSetsForGene = getPanGeneSetsForGene;

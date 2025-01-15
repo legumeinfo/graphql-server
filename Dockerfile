@@ -1,23 +1,20 @@
-FROM node:20.11-alpine3.19
-
-# Install curl for healthcheck
-RUN apk --no-cache add curl
+FROM oven/bun:1.1-alpine
 
 # Create app directory
 WORKDIR /app
 
 # Prepare to install dependencies
 COPY package.json .
-COPY package-lock.json .
+COPY bun.lockb .
 
 # Install dependencies
-RUN npm ci
+RUN bun install --frozen-lockfile # equivalent to npm ci
 
 # Prepare to build the project
 COPY . .
 
 # Build
-RUN npm run build
+RUN bun run build
 
 # Check if the server is healthy
 HEALTHCHECK CMD curl -f --request POST \
@@ -27,5 +24,5 @@ HEALTHCHECK CMD curl -f --request POST \
 
 # Run the server
 EXPOSE 4000
-ENTRYPOINT ["npm", "run"]
+ENTRYPOINT ["bun", "run"]
 CMD ["serve:prod"]

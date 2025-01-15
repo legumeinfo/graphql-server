@@ -1,15 +1,28 @@
 // This file contains functions to help work with Intermine's PathQuery API,
 // including functions for building queries and parsing their results.
 
-import { DataSourceConfig, RESTDataSource } from '@apollo/datasource-rest';
+import {
+  DataSourceConfig,
+  RequestDeduplicationPolicy,
+  RequestOptions,
+  RESTDataSource,
+} from '@apollo/datasource-rest';
 
+import { intermineFetcher } from './intermine.fetcher.js';
 import { GraphQLModel, IntermineModel, IntermineObject } from './models/index.js';
-import { GraphQLPageInfo, StringKeyObject, pageInfoFactory } from '../../models/index.js';
+import {
+    GraphQLPageInfo,
+    GraphQLResultsInfo,
+    StringKeyObject,
+    pageInfoFactory,
+    resultsInfoFactory,
+} from '../../models/index.js';
 import { hasOwnProperty, isObject } from '../../utils/index.js';
 
 
 export enum IntermineQueryFormat {
   JSON = 'json',
+  JSON_COUNT = 'jsoncount',
   JSON_OBJECTS = 'jsonobjects',
 }
 
@@ -17,7 +30,8 @@ export enum IntermineQueryFormat {
 export class IntermineServer extends RESTDataSource {
 
     constructor(baseURL: string, config: DataSourceConfig={}) {
-        super(config);
+        // use intermine-specific fetcher as default if none provided
+        super({fetch: intermineFetcher, ...config});
         // set the URL all requests will be sent to
         this.baseURL = baseURL;
         // NOTE: RESTDataSource uses the Web API URL interface to add paths to
@@ -33,6 +47,36 @@ export class IntermineServer extends RESTDataSource {
         }
     }
 
+    // a copy of the default deduplication policy but with support for POST requests
+    protected override requestDeduplicationPolicyFor(
+      url: URL,
+      request: RequestOptions,
+    ): RequestDeduplicationPolicy {
+      const method = request.method ?? 'GET';
+      if (['GET', 'POST', 'HEAD'].includes(method)) {
+        const deduplicationKey = this.cacheKeyFor(url, request);
+        return {
+          policy: 'deduplicate-during-request-lifetime',
+          deduplicationKey,
+        };
+      }
+      return {
+        policy: 'do-not-deduplicate',
+        invalidateDeduplicationKeys: [
+          this.cacheKeyFor(url, { ...request, method: 'GET' }),
+          this.cacheKeyFor(url, { ...request, method: 'POST' }),
+          this.cacheKeyFor(url, { ...request, method: 'HEAD' }),
+        ],
+      };
+    }
+
+    // sets the time-to-live for every response; this forces caching of POST requests
+    override cacheOptionsFor() {
+      return {
+        ttl: 222
+      }
+    }
+
     // InterMine uses offset pagination but we want to support page-based pagination;
     // this function converts page-based options to offset options
     private convertPaginationOptions({page, pageSize, ...rest}: any={}) {
@@ -46,27 +90,61 @@ export class IntermineServer extends RESTDataSource {
         return rest;
     }
 
-    async pathQuery(query: string, options={}, format: IntermineQueryFormat=IntermineQueryFormat.JSON) {
-        const params = {
+    // request type agnostic payload
+    pathQueryPayload(query: string, options={}, format: IntermineQueryFormat=IntermineQueryFormat.JSON, summaryPath:string|undefined=undefined) {
+        const payload = {
             query,
             ...this.convertPaginationOptions(options),
             format,
         };
+        if (summaryPath !== undefined) {
+            payload['summaryPath'] = summaryPath;
+        }
+        return payload;
+    }
+
+    // sends a PathQuery to InterMine as a GET request
+    async pathQueryGet(query: string, options={}, format=IntermineQueryFormat.JSON, summaryPath:string|undefined=undefined) {
+        const params = this.pathQueryPayload(query, options, format, summaryPath);
         return await this.get('query/results', {params});
+    }
+
+    // sends a PathQuery to InterMine as a POST request
+    async pathQuery(query: string, options={}, format=IntermineQueryFormat.JSON, summaryPath:string|undefined=undefined) {
+        const body = this.pathQueryPayload(query, options, format, summaryPath);
+        const encodedBody = new URLSearchParams(body).toString();
+        const request = {
+          body: encodedBody,
+          headers: {
+            'Accept': `application/json;type=${format}`,
+            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          },
+          // add cacheKey so POSTs are cached
+          cacheKey: encodedBody,
+        };
+        return await this.post('query/results', request);
+    }
+
+    async pathQueryCount(query: string, options={}) {
+        return this.pathQuery(query, options, IntermineQueryFormat.JSON_COUNT);
+    }
+
+    async pathQuerySummary(query: string, summaryPath: string, options={}) {
+        return this.pathQuery(query, options, IntermineQueryFormat.JSON, summaryPath);
     }
 
     async keywordSearch(q: string, options={}) {
         const params = {
             q,
             ...this.convertPaginationOptions(options),
-            format: 'json',
+            format: IntermineQueryFormat.JSON,
         };
         return await this.get('search', {params});
     }
 
     async webProperties() {
         const params = {
-            format: 'json',
+            format: IntermineQueryFormat.JSON,
         };
         return await this.get('web-properties', {params});
     }
@@ -75,18 +153,27 @@ export class IntermineServer extends RESTDataSource {
 
 
 export interface IntermineDataResponse<I> {
-    results: Array<I>;
+    results: I[];
 }
+
+
+export type IntermineItemSummary = [string, number];
 
 
 export interface IntermineSummaryResponse {
     uniqueValues: number;
+    results: IntermineItemSummary[];
+}
+
+
+export interface IntermineCountResponse {
+    count: number;
 }
 
 
 export interface ApiResponse<G> {
   data: G;
-  metadata: {
+  metadata?: {
     pageInfo?: GraphQLPageInfo;
   };
 }
@@ -105,6 +192,29 @@ export const intermineNotNullConstraint =
     (path: string, code: string=''): string => {
         const codeAttr = code ? `code='${code}'` : '';
         return `<constraint path='${path}' ${codeAttr} op='IS NOT NULL'/>`;
+    };
+
+
+// creates a Path Query multi-value constraint XML string
+export const intermineMultiValueConstraint =
+    (path: string, op: string, values: Array<string|number>, code: string=''): string => {
+        const valueTags = values.map((value) => `<value>${value}</value>`).join('');
+        const codeAttr = code ? `code='${code}'` : '';
+        return `<constraint path='${path}' ${codeAttr} op='${op}'>${valueTags}</constraint>`;
+    };
+
+
+// creates a Path Query ONE OF constraint XML string
+export const intermineOneOfConstraint =
+    (path: string, values: Array<string|number>, code: string=''): string => {
+        return intermineMultiValueConstraint(path, 'ONE OF', values, code);
+    };
+
+
+// creates a Path Query NONE OF constraint XML string
+export const intermineNoneOfConstraint =
+    (path: string, values: Array<string|number>, code: string=''): string => {
+        return intermineMultiValueConstraint(path, 'NONE OF', values, code);
     };
 
 
@@ -169,6 +279,7 @@ export const result2graphqlObject =
 
 
 // converts an Intermine response into an array of GraphQL types
+// TODO: rename dataResponse2graphqlObjects
 export const response2graphqlObjects =
     <I extends IntermineModel>
     (response: IntermineDataResponse<I>, graphqlAttributes: Array<string>):
@@ -179,10 +290,24 @@ export const response2graphqlObjects =
     };
 
 
-// converts an Intermine response into a GraphQL PageInfo type
-export const response2graphqlPageInfo =
-    (response: IntermineSummaryResponse, page: number|null, pageSize: number|null):
+// converts an Intermine count response into a GraphQL PageInfo type
+export const countResponse2graphqlPageInfo =
+    (response: IntermineCountResponse, page: number|null, pageSize: number|null):
     GraphQLPageInfo => {
-        const numResults = response.uniqueValues;
+        const numResults = response.count;
         return pageInfoFactory(numResults, page, pageSize);
+    };
+
+
+// converts an Intermine response into a GraphQL ResultsInfo type
+export const summaryResponse2graphqlResultsInfo =
+    (response: IntermineSummaryResponse):
+    GraphQLResultsInfo => {
+        const {uniqueValues, results} = response;
+        const reducer = (map: Record<string, number>, [item, count]: IntermineItemSummary) => {
+                map[item] = count;
+                return map;
+            };
+        const idCountMap = results.reduce(reducer, {});
+        return resultsInfoFactory(uniqueValues, idCountMap);
     };

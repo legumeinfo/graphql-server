@@ -26,6 +26,16 @@ ResolverMap => ({
               // @ts-ignore: implicit type any error
               .then((results) => ({results}));
         },
+        gwasLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForGWAS(identifier)
+              // @ts-ignore: implicit type any error
+              .then((results) => ({results}));
+        },
+        qtlStudyLinkouts: async (_, { identifier }, { dataSources }) => {
+            return dataSources[sourceName].getLinkoutsForQTLStudy(identifier)
+              // @ts-ignore: implicit type any error
+              .then((results) => ({results}));
+        },
     },
 });
 

@@ -14,8 +14,11 @@ import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 // get a Gene by ID
-export async function getGene(identifier: string):
+export async function getGene(identifier: string, fields: string[]=[]):
 Promise<ApiResponse<GraphQLGene>> {
+    if (fields.indexOf('identifier') !== -1 && fields.length == 1) {
+      return Promise.resolve({data: {identifier}});
+    }
     const constraints = [intermineConstraint('Gene.primaryIdentifier', '=', identifier)];
     const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(

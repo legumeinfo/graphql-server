@@ -1,9 +1,9 @@
 import {
     ApiResponse,
-    IntermineSummaryResponse,
+    IntermineCountResponse,
+    countResponse2graphqlPageInfo,
     intermineConstraint,
     interminePathQuery,
-    response2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
     GraphQLUTR,
@@ -29,8 +29,8 @@ export async function getUTRsForTranscript(id: number, { page, pageSize }: Pagin
     const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineUTRResponse) => response2utrs(response));
     // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQuery(query, {summaryPath: 'UTR.id'})
-        .then((response: IntermineSummaryResponse) => response2graphqlPageInfo(response, page, pageSize));
+    const pageInfoPromise = this.pathQueryCount(query)
+        .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
     // return the expected GraphQL type
     return Promise.all([dataPromise, pageInfoPromise])
         .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));

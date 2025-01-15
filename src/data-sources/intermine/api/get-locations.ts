@@ -45,3 +45,4 @@ export async function getLocatedFeaturesForBioEntity(identifier: string): Promis
     // get the data
     return getLocations.call(this, query);
 }
+

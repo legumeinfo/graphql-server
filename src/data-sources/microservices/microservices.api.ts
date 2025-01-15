@@ -68,4 +68,26 @@ export class MicroservicesAPI extends RESTDataSource {
         return await this.post('pan_gene_set_linkouts', options);
     }
 
+    async getLinkoutsForGWAS(identifier: string): Promise<GraphQLLinkout[]> {
+        const options = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({gwas: [identifier]}),
+        };
+        return await this.post('gwas_linkouts', options);
+    }
+
+    async getLinkoutsForQTLStudy(identifier: string): Promise<GraphQLLinkout[]> {
+        const options = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({qtl_studies: [identifier]}),
+        };
+        return await this.post('qtl_study_linkouts', options);
+    }
+
 }

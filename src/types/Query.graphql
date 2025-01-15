@@ -4,6 +4,15 @@
 
 # Metadata types
 
+type IdentifierCount {
+  identifier: ID
+  count: Int
+}
+
+type ResultsInfo {
+  identifierCounts: [IdentifierCount!]!
+}
+
 type PageInfo {
   currentPage: Int
   pageSize: Int
@@ -42,6 +51,10 @@ type ExpressionValueResults {
 
 type GeneResults {
   results: Gene
+}
+
+type GetGenesResults {
+  results: [Gene!]!
 }
 
 type GeneFamilyResults {
@@ -232,6 +245,12 @@ type OrganismsResults {
   pageInfo: PageInfo
 }
 
+type PanGenePairsResults {
+  results: [PanGenePair!]!
+  resultsInfo: ResultsInfo
+  pageInfo: PageInfo
+}
+
 type ProteinsResults {
   results: [Protein!]!
   pageInfo: PageInfo
@@ -281,6 +300,14 @@ type GeneFamilyLinkoutsResults {
 }
 
 type PanGeneSetLinkoutsResults {
+  results: [Linkout!]!
+}
+
+type GWASLinkoutsResults {
+  results: [Linkout!]!
+}
+
+type QTLStudyLinkoutsResults {
   results: [Linkout!]!
 }
 
@@ -343,6 +370,7 @@ type Query {
   expressionSamples(description: String, page: Int, pageSize: Int): ExpressionSamplesResults
   expressionSources(description: String, page: Int, pageSize: Int): ExpressionSourcesResults
   expressionValues(minValue: Float, geneIdentifier: String, sampleIdentifier: String, page: Int, pageSize: Int): ExpressionValuesResults
+  getGenes(identifiers: [ID!]!): GetGenesResults
   genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String,
     geneFamilyIdentifier: String, panGeneSetIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
@@ -350,6 +378,7 @@ type Query {
   gwases(description: String, page: Int, pageSize: Int): GwasesResults
   ontologyTerms(description: String, page: Int, pageSize: Int): OntologyTermsResults
   organisms(taxonId: Int, abbreviation: String, name: String, genus: String, species: String, page: Int, pageSize: Int): OrganismsResults
+  panGenePairs(identifiers: [ID!]!, genus: String, species: String, strain: String, assembly: String, annotation: String, page: Int, pageSize: Int): PanGenePairsResults
   proteins(description: String, page: Int, pageSize: Int): ProteinsResults
   proteinDomains(description: String, page: Int, pageSize: Int): ProteinDomainsResults
   publications(title: String, page: Int, pageSize: Int): PublicationsResults
@@ -363,5 +392,7 @@ type Query {
   locationLinkouts(identifier: ID!, start: Int!, end: Int!): LocationLinkoutsResults
   geneFamilyLinkouts(identifier: ID!): GeneFamilyLinkoutsResults
   panGeneSetLinkouts(identifier: ID!): PanGeneSetLinkoutsResults
+  gwasLinkouts(identifier: ID!): GWASLinkoutsResults
+  qtlStudyLinkouts(identifier: ID!): QTLStudyLinkoutsResults
 
 }
