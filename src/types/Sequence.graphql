@@ -5,6 +5,6 @@ type Sequence {
   residues: String
 }
 
-interface HasSequence {
-  sequence: Sequence
-}
+#interface HasSequence {
+#  sequence: Sequence
+#}

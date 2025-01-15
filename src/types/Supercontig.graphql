@@ -1,4 +1,6 @@
-type Supercontig implements SequenceFeature & HasSequence & LocatedOn & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Supercontig implements SequenceFeature & BioEntity & Annotatable
+#& HasSequence & LocatedOn & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

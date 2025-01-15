@@ -1,4 +1,6 @@
-interface LocatedOn implements BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+interface LocatedOn implements BioEntity & Annotatable
+#& HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -19,7 +21,9 @@ interface LocatedOn implements BioEntity & HasOrganism & HasStrain & Annotatable
   #synonyms
 }
 
-type Location implements HasDataSets & HasLinkouts {
+type Location
+#implements HasDataSets & HasLinkouts
+{
   id: ID!
   strand: String
   start: Int

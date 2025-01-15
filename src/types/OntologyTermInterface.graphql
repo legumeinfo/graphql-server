@@ -1,4 +1,6 @@
-interface OntologyTermInterface implements HasDataSets & HasOntologyAnnotations {
+interface OntologyTermInterface
+#implements HasDataSets & HasOntologyAnnotations
+{
   identifier: ID!
   crossReferences: [OntologyTerm!]!
   description: String

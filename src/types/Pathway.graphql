@@ -1,4 +1,6 @@
-type Pathway implements HasGenes & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Pathway implements Annotatable
+#& HasGenes & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

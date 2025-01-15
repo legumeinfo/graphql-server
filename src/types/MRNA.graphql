@@ -1,4 +1,6 @@
-type MRNA implements Transcript & HasGene & HasIntrons & HasPanGeneSets & HasProtein & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable
+#& HasGene & HasIntrons & HasPanGeneSets & HasProtein & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

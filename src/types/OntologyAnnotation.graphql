@@ -1,4 +1,6 @@
-type OntologyAnnotation implements HasDataSets {
+type OntologyAnnotation
+#implements HasDataSets
+{
   id: ID!
   qualifier: String
   #subject: Annotatable
@@ -7,6 +9,6 @@ type OntologyAnnotation implements HasDataSets {
   #evidence: OntologyEvidence
 }
   
-interface HasOntologyAnnotations {
-  ontologyAnnotations: [OntologyAnnotation!]!
-} 
+#interface HasOntologyAnnotations {
+#  ontologyAnnotations: [OntologyAnnotation!]!
+#} 

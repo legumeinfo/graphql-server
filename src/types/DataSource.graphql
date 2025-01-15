@@ -1,4 +1,6 @@
-type DataSource implements HasDataSets & HasPublications {
+type DataSource
+#implements HasDataSets & HasPublications
+{
   id: ID!
   description: String!
   url: String

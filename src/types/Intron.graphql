@@ -1,4 +1,6 @@
-type Intron implements HasGenes & HasTranscripts & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Intron implements SequenceFeature & BioEntity & Annotatable
+#& HasGenes & HasTranscripts & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -34,6 +36,6 @@ type Intron implements HasGenes & HasTranscripts & SequenceFeature & HasSequence
   genes: [Gene!]!
 }
   
-interface HasIntrons {
-  introns: [Intron!]!
-}
+#interface HasIntrons {
+#  introns: [Intron!]!
+#}

@@ -1,4 +1,6 @@
-type Trait implements HasGWAS & HasGWASResults & HasOrganism & HasQTLs & HasQTLStudy & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Trait implements Annotatable
+#& HasGWAS & HasGWASResults & HasOrganism & HasQTLs & HasQTLStudy & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -20,6 +22,6 @@ type Trait implements HasGWAS & HasGWASResults & HasOrganism & HasQTLs & HasQTLS
   description: String
 }
 
-interface HasTrait {
-  trait: Trait
-}
+#interface HasTrait {
+#  trait: Trait
+#}

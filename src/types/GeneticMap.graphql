@@ -1,4 +1,6 @@
-type GeneticMap implements HasGenotypingPlatform & HasOrganism & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GeneticMap implements Annotatable
+#& HasGenotypingPlatform & HasOrganism & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

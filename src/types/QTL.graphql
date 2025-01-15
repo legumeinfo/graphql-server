@@ -1,4 +1,6 @@
-type QTL implements HasGenes & HasGeneticMarkers & HasLinkageGroup & HasQTLStudy & HasTrait & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type QTL implements Annotatable
+#& HasGenes & HasGeneticMarkers & HasLinkageGroup & HasQTLStudy & HasTrait & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -25,6 +27,6 @@ type QTL implements HasGenes & HasGeneticMarkers & HasLinkageGroup & HasQTLStudy
   start: Float
 }
 
-interface HasQTLs {
-  qtls: [QTL!]!
-}
+#interface HasQTLs {
+#  qtls: [QTL!]!
+#}

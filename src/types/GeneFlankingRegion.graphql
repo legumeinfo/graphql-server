@@ -1,4 +1,6 @@
-type GeneFlankingRegion implements HasGene & SequenceFeature & HasSequence & BioEntity & HasOrganism & HasStrain & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GeneFlankingRegion implements SequenceFeature & Annotatable & BioEntity
+#& HasGene & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

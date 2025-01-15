@@ -1,4 +1,6 @@
-type OntologyTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotations {
+type OntologyTerm implements OntologyTermInterface
+#& HasDataSets & HasOntologyAnnotations
+{
   id: ID!
   # OntologyTermInterface
   identifier: ID!

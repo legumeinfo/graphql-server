@@ -1,4 +1,6 @@
-type GWASResult implements HasGeneticMarkers & HasGWAS & HasTrait & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type GWASResult implements Annotatable
+#& HasGeneticMarkers & HasGWAS & HasTrait & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -17,6 +19,6 @@ type GWASResult implements HasGeneticMarkers & HasGWAS & HasTrait & Annotatable 
   markerName: String!
 }
 
-interface HasGWASResults {
-  gwasResults: [GWASResult!]!
-}
+#interface HasGWASResults {
+#  gwasResults: [GWASResult!]!
+#}

@@ -1,4 +1,6 @@
-type Author implements HasPublications {
+type Author
+#implements HasPublications
+{
   id: ID!
   firstName: String
   initials: String

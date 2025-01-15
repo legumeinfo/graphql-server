@@ -1,4 +1,6 @@
-type Phylonode implements HasPhylotree & HasProtein {
+type Phylonode
+#implements HasPhylotree & HasProtein
+{
   id: ID!
   # HasPhylotree
   phylotree: Phylotree

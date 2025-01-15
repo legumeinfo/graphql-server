@@ -1,4 +1,6 @@
-type SequenceOntologyTerm implements OntologyTermInterface & HasDataSets & HasOntologyAnnotations {
+type SequenceOntologyTerm implements OntologyTermInterface
+#& HasDataSets & HasOntologyAnnotations
+{
   id: ID!
   # OntologyTermInterface
   identifier: ID!

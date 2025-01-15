@@ -1,4 +1,6 @@
-type Phylotree implements HasGeneFamily & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type Phylotree implements Annotatable
+#& HasGeneFamily & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -12,6 +14,6 @@ type Phylotree implements HasGeneFamily & Annotatable & HasDataSets & HasOntolog
   numLeaves: Int
 }
 
-interface HasPhylotree {
-  phylotree: Phylotree
-}
+#interface HasPhylotree {
+#  phylotree: Phylotree
+#}

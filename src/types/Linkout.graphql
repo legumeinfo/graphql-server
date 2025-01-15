@@ -3,6 +3,6 @@ type Linkout {
   text: String!
 }
 
-interface HasLinkouts {
-  linkouts: [Linkout!]!
-}
+#interface HasLinkouts {
+#  linkouts: [Linkout!]!
+#}

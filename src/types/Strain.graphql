@@ -1,4 +1,6 @@
-type Strain implements HasDataSets & HasOrganism {
+type Strain
+#implements HasDataSets & HasOrganism
+{
   id: ID!
   identifier: ID!
   name: String
@@ -11,6 +13,6 @@ type Strain implements HasDataSets & HasOrganism {
   organism: Organism
 }
 
-interface HasStrain {
-  strain: Strain
-}
+#interface HasStrain {
+#  strain: Strain
+#}

@@ -11,6 +11,6 @@ type DataSet {
   publication: Publication
 }
 
-interface HasDataSets {
-  dataSets: [DataSet!]!
-}
+#interface HasDataSets {
+#  dataSets: [DataSet!]!
+#}

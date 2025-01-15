@@ -1,4 +1,6 @@
-type ProteinDomain implements HasGenes & Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ProteinDomain implements Annotatable
+#& HasGenes & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!
@@ -19,6 +21,6 @@ type ProteinDomain implements HasGenes & Annotatable & HasDataSets & HasOntology
   type: String
 }
 
-interface HasProteinDomains {
-  proteinDomains: [ProteinDomain!]!
-}
+#interface HasProteinDomains {
+#  proteinDomains: [ProteinDomain!]!
+#}

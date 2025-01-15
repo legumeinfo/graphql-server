@@ -1,4 +1,6 @@
-type SyntenyBlock implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type SyntenyBlock implements Annotatable
+#& HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

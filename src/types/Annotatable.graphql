@@ -1,4 +1,6 @@
-interface Annotatable implements HasDataSets & HasOntologyAnnotations & HasPublications {
+interface Annotatable
+#implements HasDataSets & HasOntologyAnnotations & HasPublications
+{
   identifier: ID!
   # HasDataSets
   dataSets: [DataSet!]!

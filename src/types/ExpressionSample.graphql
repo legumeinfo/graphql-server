@@ -1,4 +1,6 @@
-type ExpressionSample implements Annotatable & HasDataSets & HasOntologyAnnotations & HasPublications {
+type ExpressionSample implements Annotatable
+#& HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
   # Annotatable
   identifier: ID!

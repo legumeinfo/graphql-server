@@ -13,6 +13,6 @@ type Organism implements HasDataSets {
   dataSets: [DataSet!]!
 }
 
-interface HasOrganism {
-  organism: Organism
-}
+#interface HasOrganism {
+#  organism: Organism
+#}

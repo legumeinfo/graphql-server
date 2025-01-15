@@ -16,6 +16,6 @@ type Publication {
   #meshTerms
 }
 
-interface HasPublications {
-  publications: [Publication!]!
-}
+#interface HasPublications {
+#  publications: [Publication!]!
+#}

@@ -1,4 +1,6 @@
-type Ontology implements HasDataSets {
+type Ontology
+#implements HasDataSets
+{
   id: ID!
   name: ID!
   url: String
