@@ -1,5 +1,6 @@
 type GeneFamilyTally
-#implements HasGeneFamily & HasOrganism {
+#implements HasGeneFamily & HasOrganism 
+{
   id: ID!
   averageCount: Float!
   numAnnotations: Int!

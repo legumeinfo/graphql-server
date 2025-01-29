@@ -1,5 +1,5 @@
-type CDS implements HasTranscript & SequenceFeature & BioEntity & Annotatable
-#& HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+type CDS implements SequenceFeature & BioEntity & Annotatable
+#& HasTranscript & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
 {
   id: ID!
   # Annotatable

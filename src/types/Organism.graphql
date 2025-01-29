@@ -1,4 +1,5 @@
-type Organism implements HasDataSets {
+type Organism #implements HasDataSets 
+{
   id: ID!
   abbreviation: String
   commonName: String
