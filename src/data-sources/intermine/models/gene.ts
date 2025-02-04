@@ -49,5 +49,5 @@ export function response2genes(response: IntermineGeneResponse): Array<GraphQLGe
 }
 
 // GeneFamilyAssignment does not have reverse reference - have to query Gene to get its assignments
-export const intermineGeneGeneFamilyAssignmentsAttributes = intermineGeneFamilyAssignmentAttributesFactory('Gene.geneFamilyAssignments.id');
+export const intermineGeneGeneFamilyAssignmentsAttributes = intermineGeneFamilyAssignmentAttributesFactory('Gene.geneFamilyAssignments');
 export const intermineGeneGeneFamilyAssignmentsSort = intermineGeneFamilyAssignmentSortFactory('Gene.geneFamilyAssignments');
