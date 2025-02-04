@@ -35,7 +35,7 @@ ResolverMap => ({
         strains: async (organism, { page, pageSize }, { dataSources }) => {
             const {id} = organism;
             const args = {page, pageSize};
-            return dataSources[sourceName].getStrains(id, args)
+            return dataSources[sourceName].getStrainsForOrganism(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
