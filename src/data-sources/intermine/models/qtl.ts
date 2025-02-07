@@ -21,7 +21,7 @@ export const intermineQTLAttributes = [
     'QTL.trait.primaryIdentifier',
     'QTL.qtlStudy.primaryIdentifier',
     'QTL.linkageGroup.primaryIdentifier',
-    'QTL.dataSet.name',
+    'QTL.dataSets.name',
 ];
 export const intermineQTLSort = 'QTL.trait.name ASC QTL.primaryIdentifier ASC';
 export type IntermineQTL = [

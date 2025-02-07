@@ -9,7 +9,7 @@ export const intermineTraitAttributes = [
     ...intermineAnnotatableAttributesFactory('Trait'),
     'Trait.description',
     'Trait.name',
-    'Trait.dataSet.name',
+    'Trait.dataSets.name',
     'Trait.organism.taxonId',
     'Trait.gwas.primaryIdentifier',
 ];
@@ -27,7 +27,7 @@ export const graphqlTraitAttributes = [
     ...graphqlAnnotatableAttributes,
     'description',
     'name',
-    'dataSetName',
+    'dataSetsName',
     'organismTaxonId',
     'gwasIdentifier',
 ];
