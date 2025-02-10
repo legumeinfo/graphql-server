@@ -34,7 +34,7 @@ Promise<ApiResponse<GraphQLQTLStudy>> {
 // get the QTLStudy for a Trait
 export async function getQTLStudyForTrait(traitIdentifier: string):
 Promise<ApiResponse<GraphQLQTLStudy|null>> {
-    const constraints = [intermineConstraint('QTLStudy.qtls.trait.id', '=', traitIdentifier)];
+    const constraints = [intermineConstraint('QTLStudy.qtls.trait.primaryIdentifier', '=', traitIdentifier)];
     const query = interminePathQuery(
         intermineQTLStudyAttributes,
         intermineQTLStudySort,
