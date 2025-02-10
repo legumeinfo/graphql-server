@@ -14,32 +14,32 @@ export const intermineDataSetAttributesFactory = (type = 'DataSet') => [
 
 export const intermineDataSetAttributes = intermineDataSetAttributesFactory();
 
-export const intermineDataSetSortFactory = (type = 'DataSet') => `${type}.name`;  // guaranteed not null
+export const intermineDataSetSortFactory = (type = 'DataSet') => `${type}.name`;
 
-export const intermineDataSetSort = intermineDataSetSortFactory('DataSet.name');
+export const intermineDataSetSort = intermineDataSetSortFactory('DataSet');
 
 export type IntermineDataSet = [
-    number, // id
-    string, // description
-    string, // licence
-    string, // url
-    string, // name
-    string, // version
-    string, // synopsis
-    string, // dataSource.name
-    string, // publication.doi
+    number,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
 ];
 
 export const graphqlDataSetAttributes = [
-    'id',             // id
-    'description',    // description
-    'licence',        // licence
-    'url',            // url
-    'name',           // name
-    'version',        // version
-    'synopsis',       // synopsis
-    'dataSourceName', // dataSource.name
-    'publicationDOI', // publication.doi
+    'id',
+    'description',
+    'licence',
+    'url',
+    'name',
+    'version',
+    'synopsis',
+    'dataSourceName',
+    'publicationDOI',
 ];
 
 export type GraphQLDataSet = {
