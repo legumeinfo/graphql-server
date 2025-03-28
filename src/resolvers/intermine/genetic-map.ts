@@ -1,7 +1,9 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasGenotypingPlatformFactory } from './genotyping-platform.js';
+import { hasOrganismFactory } from './organism.js';
 
 
 export const geneticMapFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,7 +12,7 @@ ResolverMap => ({
         geneticMap: async (_, { identifier }, { dataSources }) => {
             const {data: map} = await dataSources[sourceName].getGeneticMap(identifier);
             if (map == null) {
-                const msg = `GeneticMap with primaryIdentifier '${identifier}' not found`;
+                const msg = `GeneticMap with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: map};
@@ -23,26 +25,13 @@ ResolverMap => ({
         },
     },
     GeneticMap: {
-        ...annotatableFactory(sourceName),
-        organism: async (geneticMap, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(geneticMap.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        genotypingPlatform: async (geneticMap, _, { dataSources }) => {
-            return dataSources[sourceName].getGenotypingPlatform(geneticMap.genotypingPlatformIdentifier)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (geneticMap, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForGeneticMap(geneticMap, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasGenotypingPlatformFactory(sourceName),
+        ...hasOrganismFactory(sourceName),
         linkageGroups: async (geneticMap, { page, pageSize }, { dataSources }) => {
-            const args = {geneticMap, page, pageSize};
-            return dataSources[sourceName].getLinkageGroups(args)
+            const {id} = geneticMap;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getLinkageGroupsForGeneticMap(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

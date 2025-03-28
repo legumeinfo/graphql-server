@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLLinkageGroup,
-  IntermineLinkageGroupResponse,
-  intermineLinkageGroupAttributes,
-  intermineLinkageGroupSort,
-  response2linkageGroups,
+    GraphQLLinkageGroup,
+    IntermineLinkageGroupResponse,
+    intermineLinkageGroupAttributes,
+    intermineLinkageGroupSort,
+    response2linkageGroups,
 } from '../models/index.js';
 
 

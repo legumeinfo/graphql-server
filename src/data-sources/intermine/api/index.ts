@@ -2,28 +2,33 @@ import { IntermineServer } from '../intermine.server.js';
 
 // author
 import { getAuthor } from './get-author.js';
-import { getAuthors } from './get-authors.js';
+import { getAuthorsForPublication } from './get-authors.js';
+// cds
+import { getCDS } from './get-cds.js';
+import { getCDSsForTranscript } from './get-cdss.js';
 // chromosome
 import { getChromosome } from './get-chromosome.js';
 import { getChromosomes } from './get-chromosomes.js';
 // data set
 import { getDataSet } from './get-data-set.js';
 import {
-    getDataSetsForBioEntity,
-    getDataSetsForGeneticMap,
-    getDataSetsForLinkageGroup,
+    getDataSetsForAnnotatable,
+    getDataSetsForDataSource,
     getDataSetsForLocation,
-    getDataSetsForOntologyAnnotation,
     getDataSetsForOntology,
+    getDataSetsForOntologyAnnotation,
     getDataSetsForOntologyTerm,
-    getDataSetsForPanGeneSet,
-    getDataSetsForPathway,
-    getDataSetsForPhylotree,
-    getDataSetsForSyntenyBlock,
+    getDataSetsForOrganism,
+    getDataSetsForStrain,
 } from './get-data-sets.js';
+// data source
+import { getDataSource } from './get-data-source.js';
+// exon
+import { getExon } from './get-exon.js';
+import { getExonsForTranscript } from './get-exons.js';
 // expression sample
 import { getExpressionSample } from './get-expression-sample.js';
-import { getExpressionSamples } from './get-expression-samples.js';
+import { getExpressionSamplesForExpressionSource } from './get-expression-samples.js';
 import { searchExpressionSamples } from './search-expression-samples.js';
 // expression source
 import { getExpressionSource } from './get-expression-source.js';
@@ -32,8 +37,17 @@ import { searchExpressionSources } from './search-expression-sources.js';
 import { getExpressionValue } from './get-expression-value.js';
 import { searchExpressionValues } from './search-expression-values.js';
 // genes
-import { getGene } from './get-gene.js';
-import { getGenes } from './get-genes.js';
+import { getGene, getGenes } from './get-gene.js';
+import {
+  getGenesForGeneFamily,
+  getGenesForIntron,
+  getGenesForPanGeneSet,
+  getGenesForPathway,
+  getGenesForProtein,
+  getGenesForProteinDomain,
+  getAdjacentGenesForIntergenicRegion,
+  getGenesForQTL,
+} from './get-genes.js';
 import { searchGenes } from './search-genes.js';
 // gene family
 import { getGeneFamily } from './get-gene-family.js';
@@ -41,36 +55,56 @@ import { getGeneFamilies } from './get-gene-families.js';
 import { searchGeneFamilies } from './search-gene-families.js';
 // gene family assignment
 import { getGeneFamilyAssignment } from './get-gene-family-assignment.js';
-import { getGeneFamilyAssignments} from './get-gene-family-assignments.js';
-import { getGeneFamilyAssignmentsForProtein } from './get-gene-family-assignments-for-protein.js';
+import {
+  getGeneFamilyAssignmentsForGene,
+  getGeneFamilyAssignmentsForProtein,
+} from './get-gene-family-assignments.js';
 // gene family tally
 import { getGeneFamilyTally } from './get-gene-family-tally.js';
-import { getGeneFamilyTallies } from './get-gene-family-tallies.js';
+import { getGeneFamilyTalliesForGeneFamily } from './get-gene-family-tallies.js';
+// gene flanking regino
+import { getGeneFlankingRegion } from './get-gene-flanking-region.js';
+import { getGeneFlankingRegionsForGene } from './get-gene-flanking-regions.js';
 // genetic map
 import { getGeneticMap } from './get-genetic-map.js';
 import { searchGeneticMaps } from './search-genetic-maps.js';
 // genetic marker
 import { getGeneticMarker } from './get-genetic-marker.js';
-import { getGeneticMarkers } from './get-genetic-markers.js';
+import {
+  getGeneticMarkersForGenotypingPlatform,
+  getGeneticMarkersForQTL,
+  getGeneticMarkersForGWASResult,
+} from './get-genetic-markers.js';
 // genotyping platform
 import { getGenotypingPlatform } from './get-genotyping-platform.js';
-import { getGenotypingPlatforms } from './get-genotyping-platforms.js';
+import { getGenotypingPlatformsForGeneticMarker } from './get-genotyping-platforms.js';
 // gwas
 import { getGWAS } from './get-gwas.js';
-import { getGWASForTrait } from './get-gwas-for-trait.js';
 import { searchGWASes } from './search-gwases.js';
 // gwas result
 import { getGWASResult } from './get-gwas-result.js';
-import { getGWASResults } from './get-gwas-results.js';
+import {
+  getGWASResultsForGeneticMarker,
+  getGWASResultsForGWAS,
+  getGWASResultsForTrait,
+} from './get-gwas-results.js';
+// intergenic region
+import { getIntergenicRegion } from './get-intergenic-region.js';
+// intron
+import { getIntron } from './get-intron.js';
+import { getIntronsForGene, getIntronsForTranscript } from './get-introns.js';
 // linkage group
 import { getLinkageGroup } from './get-linkage-group.js';
-import { getLinkageGroups } from './get-linkage-groups.js';
+import { getLinkageGroupsForGeneticMap } from './get-linkage-groups.js';
 // linkage group position
 import { getLinkageGroupPosition } from './get-linkage-group-position.js';
-import { getLinkageGroupPositions } from './get-linkage-group-positions.js';
+import { getLinkageGroupPositionsForGeneticMarker } from './get-linkage-group-positions.js';
 // location
 import { getLocation } from './get-location.js';
-import { getLocations } from './get-locations.js';
+import {
+  getLocationsForBioEntity,
+  getLocatedFeaturesForBioEntity,
+} from './get-locations.js';
 // mRNA
 import { getMRNA } from './get-mrna.js';
 // newick
@@ -79,12 +113,25 @@ import { getNewick } from './get-newick.js';
 import { getOntology } from './get-ontology.js';
 // ontology annotation
 import { getOntologyAnnotation } from './get-ontology-annotation.js';
-import { getOntologyAnnotations } from './get-ontology-annotations.js';
+import {
+  getOntologyAnnotationsForAnnotatable,
+  getOntologyAnnotationsForOntologyTerm,
+} from './get-ontology-annotations.js';
+// ontology relation
+import { getOntologyRelation } from './get-ontology-relation.js';
+import { getOntologyRelationsForOntologyTerm } from './get-ontology-relations.js';
 // ontology term
 import { getOntologyTerm } from './get-ontology-term.js';
-import { getOntologyTerms } from './get-ontology-terms.js';
-import { getOntologyTermOntology } from './get-ontology-term-ontology.js';
+import {
+  getOntologyTermsForTrait,
+  getParentsForOntologyTerm,
+  getParentsForSequenceOntologyTerm,
+  getCrossReferencesForOntologyTerm,
+} from './get-ontology-terms.js';
 import { searchOntologyTerms } from './search-ontology-terms.js';
+// ontology term synonym
+import { getOntologyTermSynonym } from './get-ontology-term-synonym.js';
+import { getOntologyTermSynonymsForOntologyTerm } from './get-ontology-term-synonyms.js';
 // organism
 import { getOrganism } from './get-organism.js';
 import { searchOrganisms } from './search-organisms.js';
@@ -92,50 +139,98 @@ import { searchOrganisms } from './search-organisms.js';
 import { getPanGenePairs } from './get-pan-gene-pairs.js';
 // pan gene set
 import { getPanGeneSet } from './get-pan-gene-set.js';
-import { getPanGeneSets } from './get-pan-gene-sets.js';
+import {
+  getPanGeneSetsForGene,
+  getPanGeneSetsForTranscript,
+  getPanGeneSetsForProtein,
+} from './get-pan-gene-sets.js';
 // pathway
 import { getPathway } from './get-pathway.js';
-import { getPathways } from './get-pathways.js';
+import { getPathwaysForGene } from './get-pathways.js';
 // phylonode
 import { getPhylonode } from './get-phylonode.js';
-import { getPhylonodeForProtein } from './get-phylonode-for-protein.js';
-import { getPhylonodes } from './get-phylonodes.js';
+import {
+  getChildrenForPhylonode,
+  getPhylonodesForPhylotree,
+} from './get-phylonodes.js';
 // phylotree
 import { getPhylotree } from './get-phylotree.js';
 // protein
 import { getProtein } from './get-protein.js';
-import { getProteins } from './get-proteins.js';
+import {
+  getProteinsForGene,
+  getProteinsForGeneFamily,
+  getProteinsForPanGeneSet,
+} from './get-proteins.js';
 import { searchProteins } from './search-proteins.js';
 // protein domain
 import { getProteinDomain } from './get-protein-domain.js';
-import { getProteinDomains } from './get-protein-domains.js';
+import {
+  getProteinDomainsForGene,
+  getProteinDomainsForGeneFamily,
+  getChildFeaturesForProteinDomain,
+  getParentFeaturesForProteinDomain,
+} from './get-protein-domains.js';
 import { searchProteinDomains } from './search-protein-domains.js';
+// protein match
+import { getProteinMatch } from './get-protein-match.js';
+import { getProteinMatchesForProtein } from './get-protein-matches.js';
 // publication
 import { getPublication } from './get-publication.js';
-import { getPublications } from './get-publications.js';
+import {
+  getPublicationsForAnnotatable,
+  getPublicationsForAuthor,
+  getPublicationsForDataSource,
+} from './get-publications.js';
 import { searchPublications } from './search-publications.js';
 // qtl
 import { getQTL } from './get-qtl.js';
-import { getQTLs } from './get-qtls.js';
+import {
+  getQTLsForGeneticMarker,
+  getQTLsForLinkageGroup,
+  getQTLsForTrait,
+  getQTLsForQTLStudy,
+} from './get-qtls.js';
 import { searchQTLs } from './search-qtls.js';
 // qtl study
-import { getQTLStudy } from './get-qtl-study.js';
-import { getQTLStudyForTrait } from './get-qtl-study-for-trait.js';
+import { getQTLStudy, getQTLStudyForTrait } from './get-qtl-study.js';
 import { searchQTLStudies } from './search-qtl-studies.js';
+// sequence
+import { getSequence } from './get-sequence.js';
+// sequence feature
+import { getSequenceFeature } from './get-sequence-feature.js';
+import {
+  getChildFeaturesForSequenceFeature,
+  getOverlappingFeaturesForSequenceFeature,
+} from './get-sequence-features.js';
+// SO term
+import { getSequenceOntologyTerm } from './get-sequence-ontology-term.js';
 // supercontig
 import { getSupercontig } from './get-supercontig.js';
 // syntenic region
 import { getSyntenicRegion } from './get-syntenic-region.js';
-import { getSyntenicRegions } from './get-syntenic-regions.js';
+import { getSyntenicRegionsForSyntenyBlock } from './get-syntenic-regions.js';
 // synteny block
 import { getSyntenyBlock } from './get-synteny-block.js';
 // strain
 import { getStrain } from './get-strain.js';
-import { getStrains } from './get-strains.js';
+import { getStrainsForOrganism } from './get-strains.js';
 import { searchStrains } from './search-strains.js';
 // trait
 import { getTrait } from './get-trait.js';
 import { searchTraits } from './search-traits.js';
+// transcripts
+import { getTranscript } from './get-transcript.js';
+import {
+  getTranscriptsForExon,
+  getTranscriptsForGene,
+  getTranscriptsForIntron,
+  getTranscriptsForPanGeneSet,
+  getTranscriptsForUTR,
+} from './get-transcripts.js';
+// utr
+import { getUTR } from './get-utr.js';
+import { getUTRsForTranscript } from './get-utrs.js';
 // mine web properties
 import { getMineWebProperties } from './get-mine-web-properties.js';
 
@@ -149,26 +244,31 @@ export declare class ApiMixinInterface {
     verifyIntermineVersion: Function;
     // author
     getAuthor: Function;
-    getAuthors: Function;
+    getAuthorsForPublication: Function;
+    // cds
+    getCDS: Function;
+    getCDSsForTranscript: Function;
     // chromosome
     getChromosome: Function;
     getChromosomes: Function;
     // data set
     getDataSet: Function;
-    getDataSetsForBioEntity: Function;
-    getDataSetsForGeneticMap: Function;
-    getDataSetsForLinkageGroup: Function;
+    getDataSetsForAnnotatable: Function;
+    getDataSetsForDataSource: Function;
     getDataSetsForLocation: Function;
-    getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntology: Function;
+    getDataSetsForOntologyAnnotation: Function;
     getDataSetsForOntologyTerm: Function;
-    getDataSetsForPathway: Function;
-    getDataSetsForPanGeneSet: Function;
-    getDataSetsForPhylotree: Function;
-    getDataSetsForSyntenyBlock: Function;
+    getDataSetsForOrganism: Function;
+    getDataSetsForStrain: Function;
+    // data source
+    getDataSource: Function;
+    // exon
+    getExon: Function;
+    getExonsForTranscript: Function;
     // expression sample
     getExpressionSample: Function;
-    getExpressionSamples: Function;
+    getExpressionSamplesForExpressionSource: Function;
     searchExpressionSamples: Function;
     // expression source
     getExpressionSource: Function;
@@ -179,6 +279,14 @@ export declare class ApiMixinInterface {
     // genes
     getGene: Function;
     getGenes: Function;
+    getGenesForGeneFamily: Function;
+    getGenesForIntron: Function;
+    getGenesForPanGeneSet: Function;
+    getGenesForPathway: Function;
+    getGenesForProtein: Function;
+    getGenesForProteinDomain: Function;
+    getAdjacentGenesForIntergenicRegion: Function;
+    getGenesForQTL: Function;
     searchGenes: Function;
     // gene family
     getGeneFamily: Function;
@@ -186,36 +294,49 @@ export declare class ApiMixinInterface {
     searchGeneFamilies: Function;
     // gene family assignment
     getGeneFamilyAssignment: Function;
-    getGeneFamilyAssignments: Function;
+    getGeneFamilyAssignmentsForGene: Function;
     getGeneFamilyAssignmentsForProtein: Function;
     // gene family tally
     getGeneFamilyTally: Function;
-    getGeneFamilyTallies: Function;
+    getGeneFamilyTalliesForGeneFamily: Function;
+    // gene flanking region
+    getGeneFlankingRegion: Function;
+    getGeneFlankingRegionsForGene: Function;
     // genetic map
     getGeneticMap: Function;
     searchGeneticMaps: Function;
     // genetic marker
     getGeneticMarker: Function;
-    getGeneticMarkers: Function;
+    getGeneticMarkersForGenotypingPlatform: Function;
+    getGeneticMarkersForQTL: Function;
+    getGeneticMarkersForGWASResult: Function;
     // genotyping platform
     getGenotypingPlatform: Function;
-    getGenotypingPlatforms: Function;
+    getGenotypingPlatformsForGeneticMarker: Function;
     // gwas
     getGWAS: Function;
-    getGWASForTrait: Function;
     searchGWASes: Function;
     // gwas result
     getGWASResult: Function;
-    getGWASResults: Function;
+    getGWASResultsForGeneticMarker: Function;
+    getGWASResultsForGWAS: Function;
+    getGWASResultsForTrait: Function;
+    // intergenic region
+    getIntergenicRegion: Function;
+    // intron
+    getIntron: Function;
+    getIntronsForGene: Function;
+    getIntronsForTranscript: Function;
     // linkage group
     getLinkageGroup: Function;
-    getLinkageGroups: Function;
+    getLinkageGroupsForGeneticMap: Function;
     // linkage group position
     getLinkageGroupPosition: Function;
-    getLinkageGroupPositions: Function;
+    getLinkageGroupPositionsForGeneticMarker: Function;
     // location
     getLocation: Function;
-    getLocations: Function;
+    getLocationsForBioEntity: Function;
+    getLocatedFeaturesForBioEntity: Function;
     // mRNA
     getMRNA: Function;
     // newick
@@ -224,12 +345,21 @@ export declare class ApiMixinInterface {
     getOntology: Function;
     // ontology annotation
     getOntologyAnnotation: Function;
-    getOntologyAnnotations: Function;
+    getOntologyAnnotationsForAnnotatable: Function;
+    getOntologyAnnotationsForOntologyTerm: Function;
+    // ontology relation
+    getOntologyRelation: Function;
+    getOntologyRelationsForOntologyTerm: Function;
     // ontology term
     getOntologyTerm: Function;
-    getOntologyTerms: Function;
-    getOntologyTermOntology: Function;
+    getOntologyTermsForTrait: Function;
+    getParentsForOntologyTerm: Function;
+    getParentsForSequenceOntologyTerm: Function;
+    getCrossReferencesForOntologyTerm: Function;
     searchOntologyTerms: Function;
+    // ontology term synonym
+    getOntologyTermSynonym: Function;
+    getOntologyTermSynonymsForOntologyTerm: Function;
     // organism
     getOrganism: Function;
     searchOrganisms: Function;
@@ -237,50 +367,83 @@ export declare class ApiMixinInterface {
     getPanGenePairs: Function;
     // pan-gene set
     getPanGeneSet: Function;
-    getPanGeneSets: Function;
+    getPanGeneSetsForGene: Function;
+    getPanGeneSetsForTranscript: Function;
+    getPanGeneSetsForProtein: Function;
     // pathway
     getPathway: Function;
-    getPathways: Function;
+    getPathwaysForGene: Function;
     // phylonode
     getPhylonode: Function;
-    getPhylonodeForProtein: Function;
-    getPhylonodes: Function;
+    getChildrenForPhylonode: Function;
+    getPhylonodesForPhylotree: Function;
     // phylotree
     getPhylotree: Function;
     // protein
     getProtein: Function;
-    getProteins: Function;
+    getProteinsForGene: Function;
+    getProteinsForGeneFamily: Function;
+    getProteinsForPanGeneSet: Function;
     searchProteins: Function;
     // protein domain
     getProteinDomain: Function;
-    getProteinDomains: Function;
+    getProteinDomainsForGene: Function;
+    getProteinDomainsForGeneFamily: Function;
+    getChildFeaturesForProteinDomain: Function;
+    getParentFeaturesForProteinDomain: Function;
     searchProteinDomains: Function;
+    // protein match
+    getProteinMatch: Function;
+    getProteinMatchesForProtein: Function;
     // publication
     getPublication: Function;
-    getPublications: Function;
+    getPublicationsForAnnotatable: Function;
+    getPublicationsForAuthor: Function;
+    getPublicationsForDataSource: Function;
     searchPublications: Function;
     // qtl
     getQTL: Function;
-    getQTLs: Function;
+    getQTLsForGeneticMarker: Function;
+    getQTLsForLinkageGroup: Function;
+    getQTLsForTrait: Function;
+    getQTLsForQTLStudy: Function;
     searchQTLs: Function;
     // qtl study
     getQTLStudy: Function;
     getQTLStudyForTrait: Function;
     searchQTLStudies: Function;
+    // sequence
+    getSequence: Function;
+    // sequence feature
+    getSequenceFeature: Function;
+    getChildFeaturesForSequenceFeature: Function;
+    getOverlappingFeaturesForSequenceFeature: Function;
+    // SO term
+    getSequenceOntologyTerm: Function;
     // supercontig
     getSupercontig: Function;
     // syntenic region
     getSyntenicRegion: Function;
-    getSyntenicRegions: Function;
+    getSyntenicRegionsForSyntenyBlock: Function;
     // synteny block
     getSyntenyBlock: Function;
     // strain
     getStrain: Function;
-    getStrains: Function;
+    getStrainsForOrganism: Function;
     searchStrains: Function;
     // trait
     getTrait: Function;
     searchTraits: Function;
+    // transcript
+    getTranscript: Function;
+    getTranscriptsForExon: Function;
+    getTranscriptsForGene: Function;
+    getTranscriptsForIntron: Function;
+    getTranscriptsForPanGeneSet: Function;
+    getTranscriptsForUTR: Function;
+    // UTR
+    getUTR: Function;
+    getUTRsForTranscript: Function;
     // mine web properties
     getMineWebProperties: Function;
 }
@@ -291,7 +454,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
     class ApiMixinClass extends superClass {
 
-        static intermineVersion = '5.1.0.3';
+        static intermineVersion = '5.1.0.4';
 
         // Verifies that the version of the IntermineServer is the version the API is expecting
         async verifyIntermineVersion() {
@@ -304,26 +467,31 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
 
         // author
         getAuthor = getAuthor;
-        getAuthors = getAuthors;
+        getAuthorsForPublication = getAuthorsForPublication;
+        // cds
+        getCDS = getCDS;
+        getCDSsForTranscript = getCDSsForTranscript;
         // chromosome
         getChromosome = getChromosome;
         getChromosomes = getChromosomes;
         // data set
         getDataSet = getDataSet;
-        getDataSetsForBioEntity = getDataSetsForBioEntity;
-        getDataSetsForGeneticMap = getDataSetsForGeneticMap;
-        getDataSetsForLinkageGroup = getDataSetsForLinkageGroup;
+        getDataSetsForAnnotatable = getDataSetsForAnnotatable;
+        getDataSetsForDataSource = getDataSetsForDataSource;
         getDataSetsForLocation = getDataSetsForLocation;
-        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntology = getDataSetsForOntology;
+        getDataSetsForOntologyAnnotation = getDataSetsForOntologyAnnotation;
         getDataSetsForOntologyTerm = getDataSetsForOntologyTerm;
-        getDataSetsForPathway = getDataSetsForPathway;
-        getDataSetsForPanGeneSet = getDataSetsForPanGeneSet;
-        getDataSetsForPhylotree = getDataSetsForPhylotree;
-        getDataSetsForSyntenyBlock = getDataSetsForSyntenyBlock;
+        getDataSetsForOrganism = getDataSetsForOrganism;
+        getDataSetsForStrain = getDataSetsForStrain;
+        // data source
+        getDataSource = getDataSource;
+        // exon
+        getExon = getExon;
+        getExonsForTranscript = getExonsForTranscript;
         // expression sample
         getExpressionSample = getExpressionSample;
-        getExpressionSamples = getExpressionSamples;
+        getExpressionSamplesForExpressionSource = getExpressionSamplesForExpressionSource;
         searchExpressionSamples = searchExpressionSamples;
         // expression source
         getExpressionSource = getExpressionSource;
@@ -334,6 +502,14 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         // genes
         getGene = getGene;
         getGenes = getGenes;
+        getGenesForGeneFamily = getGenesForGeneFamily;
+        getGenesForIntron = getGenesForIntron;
+        getGenesForPanGeneSet = getGenesForPanGeneSet;
+        getGenesForPathway = getGenesForPathway;
+        getGenesForProtein = getGenesForProtein;
+        getGenesForProteinDomain = getGenesForProteinDomain;
+        getAdjacentGenesForIntergenicRegion = getAdjacentGenesForIntergenicRegion;
+        getGenesForQTL = getGenesForQTL;
         searchGenes = searchGenes;
         // gene family
         getGeneFamily = getGeneFamily;
@@ -341,36 +517,49 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchGeneFamilies = searchGeneFamilies;
         // gene family assignment
         getGeneFamilyAssignment = getGeneFamilyAssignment;
-        getGeneFamilyAssignments = getGeneFamilyAssignments;
+        getGeneFamilyAssignmentsForGene = getGeneFamilyAssignmentsForGene;
         getGeneFamilyAssignmentsForProtein = getGeneFamilyAssignmentsForProtein;
         // gene family tally
         getGeneFamilyTally = getGeneFamilyTally;
-        getGeneFamilyTallies = getGeneFamilyTallies;
+        getGeneFamilyTalliesForGeneFamily = getGeneFamilyTalliesForGeneFamily;
+        // gene flanking region
+        getGeneFlankingRegion = getGeneFlankingRegion;
+        getGeneFlankingRegionsForGene = getGeneFlankingRegionsForGene;
         // genetic map
         getGeneticMap = getGeneticMap;
         searchGeneticMaps = searchGeneticMaps;
         // genetic marker
         getGeneticMarker = getGeneticMarker;
-        getGeneticMarkers = getGeneticMarkers;
+        getGeneticMarkersForGenotypingPlatform = getGeneticMarkersForGenotypingPlatform;
+        getGeneticMarkersForQTL = getGeneticMarkersForQTL;
+        getGeneticMarkersForGWASResult = getGeneticMarkersForGWASResult;
         // genotyping platform
         getGenotypingPlatform = getGenotypingPlatform;
-        getGenotypingPlatforms = getGenotypingPlatforms;
+        getGenotypingPlatformsForGeneticMarker = getGenotypingPlatformsForGeneticMarker;
         // gwas
         getGWAS = getGWAS;
-        getGWASForTrait = getGWASForTrait;
         searchGWASes = searchGWASes;
         // gwas result
         getGWASResult = getGWASResult;
-        getGWASResults = getGWASResults;
+        getGWASResultsForGeneticMarker = getGWASResultsForGeneticMarker;
+        getGWASResultsForGWAS = getGWASResultsForGWAS;
+        getGWASResultsForTrait = getGWASResultsForTrait;
+        // intergenic region
+        getIntergenicRegion = getIntergenicRegion;
+        // intron
+        getIntron = getIntron;
+        getIntronsForGene = getIntronsForGene;
+        getIntronsForTranscript = getIntronsForTranscript;
         // linkage group
         getLinkageGroup = getLinkageGroup;
-        getLinkageGroups = getLinkageGroups;
+        getLinkageGroupsForGeneticMap = getLinkageGroupsForGeneticMap;
         // linkage group position
         getLinkageGroupPosition = getLinkageGroupPosition;
-        getLinkageGroupPositions = getLinkageGroupPositions;
+        getLinkageGroupPositionsForGeneticMarker = getLinkageGroupPositionsForGeneticMarker;
         // location
         getLocation = getLocation;
-        getLocations = getLocations;
+        getLocationsForBioEntity = getLocationsForBioEntity;
+        getLocatedFeaturesForBioEntity = getLocatedFeaturesForBioEntity;
         // mRNA
         getMRNA = getMRNA;
         // newick
@@ -379,12 +568,21 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getOntology = getOntology;
         // ontology annotation
         getOntologyAnnotation = getOntologyAnnotation;
-        getOntologyAnnotations = getOntologyAnnotations;
+        getOntologyAnnotationsForAnnotatable = getOntologyAnnotationsForAnnotatable;
+        getOntologyAnnotationsForOntologyTerm = getOntologyAnnotationsForOntologyTerm;
+        // ontology relation
+        getOntologyRelation = getOntologyRelation;
+        getOntologyRelationsForOntologyTerm = getOntologyRelationsForOntologyTerm;
         // ontology term
         getOntologyTerm = getOntologyTerm;
-        getOntologyTerms = getOntologyTerms;
-        getOntologyTermOntology = getOntologyTermOntology;
+        getOntologyTermsForTrait = getOntologyTermsForTrait;
+        getParentsForOntologyTerm = getParentsForOntologyTerm;
+        getParentsForSequenceOntologyTerm = getParentsForSequenceOntologyTerm;
+        getCrossReferencesForOntologyTerm = getCrossReferencesForOntologyTerm;
         searchOntologyTerms = searchOntologyTerms;
+        // ontology term synonym
+        getOntologyTermSynonym = getOntologyTermSynonym;
+        getOntologyTermSynonymsForOntologyTerm = getOntologyTermSynonymsForOntologyTerm;
         // organism
         getOrganism = getOrganism;
         searchOrganisms = searchOrganisms;
@@ -392,50 +590,83 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         getPanGenePairs = getPanGenePairs;
         // pan-gene set
         getPanGeneSet = getPanGeneSet;
-        getPanGeneSets = getPanGeneSets;
+        getPanGeneSetsForGene = getPanGeneSetsForGene;
+        getPanGeneSetsForTranscript = getPanGeneSetsForTranscript;
+        getPanGeneSetsForProtein = getPanGeneSetsForProtein;
         // pathway
         getPathway = getPathway;
-        getPathways = getPathways;
+        getPathwaysForGene = getPathwaysForGene;
         // phylonode
         getPhylonode = getPhylonode;
-        getPhylonodeForProtein = getPhylonodeForProtein;
-        getPhylonodes = getPhylonodes;
+        getChildrenForPhylonode = getChildrenForPhylonode;
+        getPhylonodesForPhylotree = getPhylonodesForPhylotree;
         // phylotree
         getPhylotree = getPhylotree;
         // protein
         getProtein = getProtein;
-        getProteins = getProteins;
+        getProteinsForGene = getProteinsForGene;
+        getProteinsForGeneFamily = getProteinsForGeneFamily;
+        getProteinsForPanGeneSet = getProteinsForPanGeneSet;
         searchProteins = searchProteins;
         // protein domain
         getProteinDomain = getProteinDomain;
-        getProteinDomains = getProteinDomains;
+        getProteinDomainsForGene = getProteinDomainsForGene;
+        getProteinDomainsForGeneFamily = getProteinDomainsForGeneFamily;
+        getChildFeaturesForProteinDomain = getChildFeaturesForProteinDomain;
+        getParentFeaturesForProteinDomain = getParentFeaturesForProteinDomain;
         searchProteinDomains = searchProteinDomains;
+        // protein match
+        getProteinMatch = getProteinMatch;
+        getProteinMatchesForProtein = getProteinMatchesForProtein;
         // publication
         getPublication = getPublication;
-        getPublications = getPublications;
+        getPublicationsForAnnotatable = getPublicationsForAnnotatable;
+        getPublicationsForAuthor = getPublicationsForAuthor;
+        getPublicationsForDataSource = getPublicationsForDataSource;
         searchPublications = searchPublications;
         // qtl
         getQTL = getQTL;
-        getQTLs = getQTLs;
+        getQTLsForGeneticMarker = getQTLsForGeneticMarker;
+        getQTLsForLinkageGroup = getQTLsForLinkageGroup;
+        getQTLsForTrait = getQTLsForTrait;
+        getQTLsForQTLStudy = getQTLsForQTLStudy;
         searchQTLs = searchQTLs;
         // qtl study
         getQTLStudy = getQTLStudy;
         getQTLStudyForTrait = getQTLStudyForTrait;
         searchQTLStudies = searchQTLStudies;
+        // sequence
+        getSequence = getSequence;
+        // sequence feature
+        getSequenceFeature = getSequenceFeature;
+        getChildFeaturesForSequenceFeature = getChildFeaturesForSequenceFeature;
+        getOverlappingFeaturesForSequenceFeature = getOverlappingFeaturesForSequenceFeature;
+        // SO term
+        getSequenceOntologyTerm = getSequenceOntologyTerm;
         // supercontig
         getSupercontig = getSupercontig;
         // syntenic region
         getSyntenicRegion = getSyntenicRegion;
-        getSyntenicRegions = getSyntenicRegions;
+        getSyntenicRegionsForSyntenyBlock = getSyntenicRegionsForSyntenyBlock;
         // synteny block
         getSyntenyBlock = getSyntenyBlock;
         // strain
         getStrain = getStrain;
-        getStrains = getStrains;
+        getStrainsForOrganism = getStrainsForOrganism;
         searchStrains = searchStrains;
         // trait
         getTrait = getTrait;
         searchTraits = searchTraits;
+        // transcript
+        getTranscript = getTranscript;
+        getTranscriptsForExon = getTranscriptsForExon;
+        getTranscriptsForGene = getTranscriptsForGene;
+        getTranscriptsForIntron = getTranscriptsForIntron;
+        getTranscriptsForPanGeneSet = getTranscriptsForPanGeneSet;
+        getTranscriptsForUTR = getTranscriptsForUTR;
+        // UTR
+        getUTR = getUTR;
+        getUTRsForTranscript = getUTRsForTranscript;
         // mine web properties
         getMineWebProperties = getMineWebProperties;
     }

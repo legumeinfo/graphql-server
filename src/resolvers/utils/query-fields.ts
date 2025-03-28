@@ -1,5 +1,4 @@
-import { GraphQLResolveInfoWithCacheControl } from '@apollo/cache-control-types';
-import { FieldNode } from 'graphql';
+import { FieldNode, GraphQLResolveInfo } from 'graphql';
 
 function getSelections(node: FieldNode) {
     if (node &&
@@ -12,7 +11,7 @@ function getSelections(node: FieldNode) {
 }
 
 // gets the list of subfields specified in the query from the client
-export function getQueryFields(info: GraphQLResolveInfoWithCacheControl) {
+export function getQueryFields(info: GraphQLResolveInfo) {
     const {fieldName} = info;
     const [modelNode] = info.fieldNodes.filter(({kind, name}) => kind === "Field" && name.value === fieldName);
     const selections = getSelections(modelNode).filter(({kind}) => kind === "Field") as FieldNode[];

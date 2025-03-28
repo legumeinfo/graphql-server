@@ -6,30 +6,17 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneticMap,
-  GraphQLLinkageGroup,
-  IntermineLinkageGroupResponse,
-  intermineLinkageGroupAttributes,
-  intermineLinkageGroupSort,
-  response2linkageGroups,
+    GraphQLLinkageGroup,
+    IntermineLinkageGroupResponse,
+    intermineLinkageGroupAttributes,
+    intermineLinkageGroupSort,
+    response2linkageGroups,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetLinkageGroupsOptions = {
-  geneticMap?: GraphQLGeneticMap;
-} & PaginationOptions;
-
-
 // get LinkageGroups for a GeneticMap
-export async function getLinkageGroups(
-    {geneticMap, page, pageSize}: GetLinkageGroupsOptions,
-): Promise<ApiResponse<GraphQLLinkageGroup[]>> {
-    const constraints = [];
-    if (geneticMap) {
-        const geneticMapConstraint = intermineConstraint('LinkageGroup.geneticMap.id', '=', geneticMap.id);
-        constraints.push(geneticMapConstraint);
-    }
+export async function getLinkageGroupsForGeneticMap(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLinkageGroup>> {
+    const constraints = [intermineConstraint('LinkageGroup.geneticMap.id', '=', id)];
     const query = interminePathQuery(
         intermineLinkageGroupAttributes,
         intermineLinkageGroupSort,

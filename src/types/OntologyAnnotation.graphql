@@ -1,16 +1,14 @@
-# <class name="OntologyAnnotation" is-interface="true" term="http://semanticscience.org/resource/SIO_001166">
-# 	<attribute name="qualifier" type="java.lang.String" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41009"/>
-# 	<reference name="subject" referenced-type="Annotatable" reverse-reference="ontologyAnnotations" term=""/>
-# 	<reference name="ontologyTerm" referenced-type="OntologyTerm" reverse-reference="ontologyAnnotations"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# 	<collection name="evidence" referenced-type="OntologyEvidence"/>
-# </class>
-type OntologyAnnotation {
+type OntologyAnnotation
+#implements HasDataSets
+{
   id: ID!
   qualifier: String
-  # subject: Annotatable
+  #subject: Annotatable
   ontologyTerm: OntologyTerm
   dataSets: [DataSet!]!
-  # evidence
+  #evidence: OntologyEvidence
 }
   
+#interface HasOntologyAnnotations {
+#  ontologyAnnotations: [OntologyAnnotation!]!
+#} 

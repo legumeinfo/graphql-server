@@ -1,0 +1,5 @@
+type OntologyTermSynonym {
+  id: ID!
+  name: String!
+  type: String!
+}

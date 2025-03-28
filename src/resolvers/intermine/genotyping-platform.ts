@@ -1,7 +1,8 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasGeneticMarkersFactory } from './genetic-marker.js';
 
 
 export const genotypingPlatformFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,26 +11,38 @@ ResolverMap => ({
         genotypingPlatform: async (_, { identifier }, { dataSources }) => {
             const {data: genotypingPlatform} = await dataSources[sourceName].getGenotypingPlatform(identifier);
             if (genotypingPlatform == null) {
-                const msg = `GenotypingPlatform with primaryIdentifier '${identifier}' not found`;
+                const msg = `GenotypingPlatform with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: genotypingPlatform};
         },
     },
     GenotypingPlatform: {
-        ...annotatableFactory(sourceName),
-        //     Doesn't have dataSets, maybe add in future mine model.
-        //     dataSets: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
-        //         const args = {page, pageSize};
-        //         return dataSources[sourceName].getDataSetsForGenotypingPlatform(genotypingPlatform, args)
-        //         // @ts-ignore: implicit type any error
-        //             .then(({data: results}) => results);
-        //     },
-        markers: async (genotypingPlatform, { page, pageSize }, { dataSources }) => {
-            const args = {genotypingPlatform, page, pageSize};
-            return dataSources[sourceName].getGeneticMarkers(args)
-            // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasGeneticMarkersFactory(sourceName),
+    },
+});
+
+
+export const hasGenotypingPlatformFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    genotypingPlatform: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneticMap':
+            case 'GWAS':
+                const {genotypingPlatformIdentifier} = parent;
+                request = dataSources[sourceName].getGenotypingPlatform(genotypingPlatformIdentifier);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

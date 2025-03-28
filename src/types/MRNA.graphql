@@ -1,26 +1,45 @@
-# <class name="MRNA" extends="Transcript" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000234,http://purl.obolibrary.org/obo/SO_0000234">
-# 	<attribute name="isPrimary" type="java.lang.Boolean"/>
-# 	<reference name="threePrimeUTR" referenced-type="ThreePrimeUTR"/>
-# 	<reference name="fivePrimeUTR" referenced-type="FivePrimeUTR"/>
-# </class>
-type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable {
-  # Transcript
+type MRNA implements Transcript & SequenceFeature & BioEntity & Annotatable
+#& HasGene & HasIntrons & HasPanGeneSets & HasProtein & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
+  # BioEntity
   annotationVersion: String
-  organism: Organism
-  strain: Strain
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
   locations: [Location!]!
-  dataSets: [DataSet!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+  # SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  #crossReferences
   length: Int
-  gene: Gene
-  protein: Protein
-  # Gene
+  overlappingFeatures: [SequenceFeature!]!
+  score: Float
+  scoreType: String
+  sequence: Sequence
+  sequenceOntologyTerm: SequenceOntologyTerm
+  supercontig: Supercontig
+  supercontigLocation: Location
+  # Transcript
+  CDSs: [CDS!]!
+  exons: [Exon!]!
+  gene: Gene!
+  introns: [Intron!]!
+  panGeneSets: [PanGeneSet!]!
+  protein: Protein!
+  UTRs: [UTR!]!
+  # MRNA
   isPrimary: Boolean
 }

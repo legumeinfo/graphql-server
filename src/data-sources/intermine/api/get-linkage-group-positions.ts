@@ -6,23 +6,18 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneticMarker,
-  GraphQLLinkageGroupPosition,
-  IntermineLinkageGroupPositionResponse,
-  intermineGeneticMarkerLinkageGroupPositionsAttributes,
-  intermineGeneticMarkerLinkageGroupPositionsSort,
-  response2linkageGroupPositions,
+    GraphQLLinkageGroupPosition,
+    IntermineLinkageGroupPositionResponse,
+    intermineGeneticMarkerLinkageGroupPositionsAttributes,
+    intermineGeneticMarkerLinkageGroupPositionsSort,
+    response2linkageGroupPositions,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
 // get LinkageGroupPositions for a GeneticMarker
-export async function getLinkageGroupPositions(
-    geneticMarker: GraphQLGeneticMarker,
-    {page, pageSize}: PaginationOptions,
-): Promise<ApiResponse<GraphQLLinkageGroupPosition[]>> {
+export async function getLinkageGroupPositionsForGeneticMarker(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLLinkageGroupPosition>> {
     // no reverse reference in LinkageGroupPosition so query GeneticMarker
-    const constraints = [intermineConstraint('GeneticMarker.id', '=', geneticMarker.id)];
+    const constraints = [intermineConstraint('GeneticMarker.id', '=', id)];
     const query = interminePathQuery(
         intermineGeneticMarkerLinkageGroupPositionsAttributes,
         intermineGeneticMarkerLinkageGroupPositionsSort,
@@ -30,7 +25,7 @@ export async function getLinkageGroupPositions(
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
-      .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response));
+        .then((response: IntermineLinkageGroupPositionResponse) => response2linkageGroupPositions(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQueryCount(query)
         .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));

@@ -1,7 +1,8 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasGenesFactory } from './gene.js';
 
 
 export const proteinDomainFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,7 +11,7 @@ ResolverMap => ({
         proteinDomain: async (_, { identifier }, { dataSources }) => {
             const {data: domain} = await dataSources[sourceName].getProteinDomain(identifier);
             if (domain == null) {
-                const msg = `ProteinDomain with primaryIdentifier '${identifier}' not found`;
+                const msg = `ProteinDomain with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: domain};
@@ -23,18 +24,44 @@ ResolverMap => ({
         },
     },
     ProteinDomain: {
-        ...annotatableFactory(sourceName),
-        genes: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasGenesFactory(sourceName),
         geneFamilies: async (proteinDomain, { page, pageSize }, { dataSources }) => {
-            const args = {proteinDomain, page, pageSize};
+            const args = {proteinDomain: proteinDomain.id, page, pageSize};
             return dataSources[sourceName].getGeneFamilies(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },
+    },
+});
+
+
+export const hasProteinDomainsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    proteinDomains: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'Gene':
+            // @ts-ignore: fallthrough case error
+            case 'GeneFamily':
+                const {id} = parent;
+            case 'Gene':
+                request = dataSources[sourceName].getProteinDomainsForGene(id, args);
+                break;
+            case 'GeneFamily':
+                request = dataSources[sourceName].getProteinDomainsForGeneFamily(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

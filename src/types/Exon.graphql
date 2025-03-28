@@ -1,0 +1,37 @@
+type Exon implements BioEntity & Annotatable
+#& HasTranscripts & SequenceFeature & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
+  id: ID!
+  # Annotatable
+  identifier: ID!
+  dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # BioEntity
+  annotationVersion: String
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
+  locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+  # SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  #crossReferences
+  length: Int
+  overlappingFeatures: [SequenceFeature!]!
+  score: Float
+  scoreType: String
+  sequence: Sequence
+  sequenceOntologyTerm: SequenceOntologyTerm
+  supercontig: Supercontig
+  supercontigLocation: Location
+  # HasTranscripts
+  transcripts: [Transcript!]!
+}

@@ -6,7 +6,6 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGene,
     GraphQLPathway,
     InterminePathwayResponse,
     interminePathwayAttributes,
@@ -15,25 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type GetPathwaysOptions = {
-    gene?: GraphQLGene;
-} & PaginationOptions;
-
-
 // get Pathways associated with a Gene
-export async function getPathways(
-    {
-        gene,
-        page,
-        pageSize,
-    }: GetPathwaysOptions,
-): Promise<ApiResponse<GraphQLPathway[]>> {
-    const constraints = [];
-    if (gene) {
-        const constraint = intermineConstraint('Pathway.genes.id', '=', gene.id);
-        constraints.push(constraint);
-    }
+export async function getPathwaysForGene(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLPathway>> {
+    const constraints = [intermineConstraint('Pathway.genes.id', '=', id)];
     const query = interminePathQuery(
         interminePathwayAttributes,
         interminePathwaySort,

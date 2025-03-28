@@ -1,18 +1,35 @@
-# <class name="Supercontig" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000148"></class>
-type Supercontig implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
+type Supercontig implements LocatedOn & SequenceFeature & BioEntity & Annotatable
+#& HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
+  # BioEntity
   annotationVersion: String
-  organism: Organism
-  strain: Strain
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
   locations: [Location!]!
-  dataSets: [DataSet!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+  # SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  #crossReferences
   length: Int
+  overlappingFeatures: [SequenceFeature!]!
+  score: Float
+  scoreType: String
+  sequence: Sequence
+  sequenceOntologyTerm: SequenceOntologyTerm
+  supercontig: Supercontig
+  supercontigLocation: Location
 }

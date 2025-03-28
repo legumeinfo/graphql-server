@@ -1,16 +1,11 @@
-# --------------------------------------------------------------------
-# This is an interface for InterMine objects which extend Annotatable.
-# Note: We're allowing null publications now in mine 5.1.0.3.
-# --------------------------------------------------------------------
-
-# <class name="Annotatable" is-interface="true">
-# 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
-# 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
-# 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
-# </class>
-interface Annotatable {
-  id: ID!
+interface Annotatable
+#implements HasDataSets & HasOntologyAnnotations & HasPublications
+{
   identifier: ID!
+  # HasDataSets
+  dataSets: [DataSet!]!
+  # HasOntologyAnnotations
   ontologyAnnotations: [OntologyAnnotation!]!
+  # HasPublications
   publications: [Publication!]!
 }

@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLExpressionValue,
-  IntermineExpressionValueResponse,
-  intermineExpressionValueAttributes,
-  intermineExpressionValueSort,
-  response2expressionValues,
+    GraphQLExpressionValue,
+    IntermineExpressionValueResponse,
+    intermineExpressionValueAttributes,
+    intermineExpressionValueSort,
+    response2expressionValues,
 } from '../models/index.js';
 
 

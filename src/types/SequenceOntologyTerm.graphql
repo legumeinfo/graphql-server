@@ -1,0 +1,20 @@
+type SequenceOntologyTerm implements OntologyTermInterface
+#& HasDataSets & HasOntologyAnnotations
+{
+  id: ID!
+  # OntologyTermInterface
+  identifier: ID!
+  crossReferences: [OntologyTerm!]!
+  description: String
+  obsolete: Boolean
+  ontology: Ontology
+  name: String
+  namespace: String
+  parents: [OntologyTerm!]!
+  relations: [OntologyRelation!]!
+  synonyms: [OntologyTermSynonym!]!
+  # HasDataSets
+  dataSets: [DataSet!]!
+  # HasOntologyAnnotations
+  ontologyAnnotations: [OntologyAnnotation!]!
+}

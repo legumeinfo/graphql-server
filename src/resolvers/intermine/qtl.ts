@@ -1,7 +1,12 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasGenesFactory } from './gene.js';
+import { hasGeneticMarkersFactory } from './genetic-marker.js';
+import { hasLinkageGroupFactory } from './linkage-group.js';
+import { hasQTLStudyFactory } from './qtl-study.js';
+import { hasTraitFactory } from './trait.js';
 
 
 export const qtlFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,7 +15,7 @@ ResolverMap => ({
         qtl: async (_, { identifier }, { dataSources }) => {
             const {data: qtl} = await dataSources[sourceName].getQTL(identifier);
             if (qtl == null) {
-                const msg = `QTL with primaryIdentifier '${identifier}' not found`;
+                const msg = `QTL with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: qtl};
@@ -23,32 +28,49 @@ ResolverMap => ({
         },
     },
     QTL: {
-        ...annotatableFactory(sourceName),
-        trait: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getTrait(qtl.traitIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        qtlStudy: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getQTLStudy(qtl.qtlStudyIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        linkageGroup: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getLinkageGroup(qtl.linkageGroupIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSet: async (qtl, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(qtl.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        markers: async (qtl, { page, pageSize }, { dataSources }) => {
-            const args = {qtl, page, pageSize};
-            return dataSources[sourceName].getGeneticMarkers(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasGenesFactory(sourceName),
+        ...hasGeneticMarkersFactory(sourceName),
+        ...hasLinkageGroupFactory(sourceName),
+        ...hasQTLStudyFactory(sourceName),
+        ...hasTraitFactory(sourceName),
+    },
+});
+
+
+export const hasQTLsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    qtls: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneticMarker':
+            case 'LinkageGroup':
+            case 'QTLStudy':
+            // @ts-ignore: fallthrough case error
+            case 'Trait':
+                const {id} = parent;
+            case 'GeneticMarker':
+                request = dataSources[sourceName].getQTLsForGeneticMarker(id, args);
+                break;
+            case 'LinkageGroup':
+                request = dataSources[sourceName].getQTLsForLinkageGroup(id, args);
+                break;
+            case 'QTLStudy':
+                request = dataSources[sourceName].getQTLsForQTLStudy(id, args);
+                break;
+            case 'Trait':
+                request = dataSources[sourceName].getQTLsForTrait(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

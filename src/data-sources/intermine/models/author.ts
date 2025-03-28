@@ -1,13 +1,5 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 
-
-// <class name="Author" is-interface="true" term="http://purl.obolibrary.org/obo/NCIT_C42781">
-// 	<attribute name="firstName" type="java.lang.String" term="http://xmlns.com/foaf/0.1/givenname"/>
-// 	<attribute name="initials" type="java.lang.String"/>
-// 	<attribute name="lastName" type="java.lang.String" term="http://xmlns.com/foaf/0.1/family_name"/>
-// 	<attribute name="name" type="java.lang.String" term="http://xmlns.com/foaf/0.1/name"/>
-// 	<collection name="publications" referenced-type="Publication" reverse-reference="authors"/>
-// </class>
 export const intermineAuthorAttributes = [
     'Author.id',
     'Author.firstName',
@@ -17,22 +9,13 @@ export const intermineAuthorAttributes = [
 ];
 export const intermineAuthorSort = 'Author.lastName'; // guaranteed not null
 export type IntermineAuthor = [
-  number,
-  string,
-  string,
-  string,
-  string,
+    number,
+    string,
+    string,
+    string,
+    string,
 ];
 
-
-// type Author {
-//   id: ID!
-//   firstName: String
-//   initials: String
-//   lastName: String
-//   name: String
-//   publications: [Publication]
-// }
 export const graphqlAuthorAttributes = [
     'id',
     'firstName',
@@ -41,7 +24,7 @@ export const graphqlAuthorAttributes = [
     'name',
 ];
 export type GraphQLAuthor = {
-  [prop in typeof graphqlAuthorAttributes[number]]: string;
+    [prop in typeof graphqlAuthorAttributes[number]]: string;
 }
 
 

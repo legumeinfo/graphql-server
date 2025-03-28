@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLOntologyTerm,
-  IntermineOntologyTermResponse,
-  intermineOntologyTermAttributes,
-  intermineOntologyTermSort,
-  response2ontologyTerms,
+    GraphQLOntologyTerm,
+    IntermineOntologyTermResponse,
+    intermineOntologyTermAttributes,
+    intermineOntologyTermSort,
+    response2ontologyTerms,
 } from '../models/index.js';
 
 

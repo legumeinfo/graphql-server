@@ -1,22 +1,37 @@
-# <class name="SyntenicRegion" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0005858">
-# 	<reference name="syntenyBlock" referenced-type="SyntenyBlock" reverse-reference="syntenicRegions"/>
-# </class>
-type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
+type SyntenicRegion implements SequenceFeature & BioEntity & Annotatable
+#& HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
+  # BioEntity
   annotationVersion: String
-  organism: Organism
-  strain: Strain
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
   locations: [Location!]!
-  dataSets: [DataSet!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+  # SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  #crossReferences
   length: Int
+  overlappingFeatures: [SequenceFeature!]!
+  score: Float
+  scoreType: String
+  sequence: Sequence
+  sequenceOntologyTerm: SequenceOntologyTerm
+  supercontig: Supercontig
+  supercontigLocation: Location
   # SyntenicRegion
   syntenyBlock: SyntenyBlock
 }

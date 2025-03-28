@@ -1,15 +1,16 @@
-# <class name="GenotypingPlatform" extends="Annotatable" is-interface="true" term="">
-# 	<attribute name="primaryIdentifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000673"/>
-# 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="subject" term="http://semanticscience.org/resource/SIO_000255"/>
-# 	<collection name="publications" referenced-type="Publication" reverse-reference="entities" term="http://purl.org/dc/terms/bibliographicCitation"/>
-#       <collection name="markers" referenced-type="GeneticMarker" reverse-reference="genotypingPlatforms"/>
-# </class>
-type GenotypingPlatform implements Annotatable {
-  ## Annotatable
+type GenotypingPlatform implements Annotatable
+#& HasGeneticMarkers & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  ## GenotypingPlatform
+  # HasGeneticMarkers
   markers: [GeneticMarker!]!
 }
+
+#interface HasGenotypingPlatform {
+#  genotypingPlatform: GenotypingPlatform
+#}

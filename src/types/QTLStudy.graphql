@@ -1,24 +1,22 @@
-# <class name="QTLStudy" extends="Annotatable" is-interface="true" term="">
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="genotypes" type="java.lang.String"/>
-# 	<attribute name="synopsis" type="java.lang.String"/>
-# 	<reference name="organism" referenced-type="Organism"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="qtlStudy"/>
-# </class>
-type QTLStudy implements Annotatable {
-  # Annotatable
+type QTLStudy implements Annotatable
+#& HasOrganism & HasQTLs & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasOrganism: TODO: make non-null
+  organism: Organism
+  # HasQTLs
+  qtls: [QTL!]!
   # QTLStudy
   description: String
   genotypes: String
   synopsis: String
-  organism: Organism
-  dataSet: DataSet
-  qtls: [QTL!]!
-  ## microservices
-  linkouts: [Linkout!]!
 }
+
+#interface HasQTLStudy {
+#  qtlStudy: QTLStudy
+#}

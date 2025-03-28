@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLGWAS,
-  IntermineGWASResponse,
-  intermineGWASAttributes,
-  intermineGWASSort,
-  response2gwas,
+    GraphQLGWAS,
+    IntermineGWASResponse,
+    intermineGWASAttributes,
+    intermineGWASSort,
+    response2gwas,
 } from '../models/index.js';
 
 

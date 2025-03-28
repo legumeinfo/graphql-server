@@ -1,0 +1,18 @@
+interface OntologyTermInterface
+#implements HasDataSets & HasOntologyAnnotations
+{
+  identifier: ID!
+  crossReferences: [OntologyTerm!]!
+  description: String
+  obsolete: Boolean
+  ontology: Ontology
+  name: String
+  namespace: String
+  parents: [OntologyTerm!]!
+  relations: [OntologyRelation!]!
+  synonyms: [OntologyTermSynonym!]!
+  ## HasDataSets
+  dataSets: [DataSet!]!
+  ## HasOntologyAnnotations
+  ontologyAnnotations: [OntologyAnnotation!]!
+}

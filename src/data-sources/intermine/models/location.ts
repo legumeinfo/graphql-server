@@ -1,78 +1,79 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+    IntermineDataResponse,
+    IntermineQueryFormat,
+    objectsResponse2response,
+    response2graphqlObjects,
+} from '../intermine.server.js';
+import {
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
+} from './data-set.js';
 
+export const intermineLocationQueryFormat = IntermineQueryFormat.JSON_OBJECTS;
 
-// <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
-// 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
-// 	<attribute name="start" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002231"/>
-// 	<attribute name="end" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002232"/>
-// 	<reference name="locatedOn" referenced-type="BioEntity" reverse-reference="locatedFeatures"/>
-// 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// </class>
 export const intermineLocationAttributes = [
     'Location.id',
     'Location.strand',
     'Location.start',
     'Location.end',
+    'Location.feature.primaryIdentifier',
     'Location.locatedOn.primaryIdentifier',
 ];
-export const intermineLocationSort = 'Location.start'; // guaranteed not null
-export type IntermineLocation = [
-  number,
-  string,
-  number,
-  number,
-  string,
+export const intermineLocationSort = 'Location.start';
+
+export type IntermineLocationObject = {
+    objectId: number,
+    strand: string,
+    start: number,
+    end: number,
+    feature: {class: string, primaryIdentifier: string},
+    locatedOn: {class: string, objectId: string},
+};
+
+export const intermineLocationObjectAttributes = [
+    'Location.objectId',
+    'Location.strand',
+    'Location.start',
+    'Location.end',
+    'Location.feature.class',
+    'Location.feature.primaryIdentifier',
+    'Location.locatedOn.class',
+    'Location.locatedOn.primaryIdentifier',
 ];
 
+export type IntermineLocation = [
+    number,
+    string,
+    number,
+    number,
+    string,
+    string,
+    string,
+    number,
+];
 
-// type Location {
-//   id: ID!
-//   strand: String
-//   start: Int
-//   end: Int
-//   # locatedOn
-//   # feature
-//   # dataSets
-// }
 export const graphqlLocationAttributes = [
     'id',
     'strand',
     'start',
     'end',
+    'featureClass',
+    'featureIdentifier',
+    'locatedOnClass',
     'locatedOnIdentifier',
 ];
 export type GraphQLLocation = {
-  [prop in typeof graphqlLocationAttributes[number]]: string;
+    [prop in typeof graphqlLocationAttributes[number]]: string;
 }
 
 
-export type IntermineLocationResponse = IntermineDataResponse<IntermineLocation>;
-// converts an Intermine response into an array of GraphQL Location objects
+export type IntermineLocationResponse = IntermineDataResponse<IntermineLocationObject>;
+// converts an Intermine jsonobjects response into an array of GraphQL Location objects
 export function response2locations(response: IntermineLocationResponse): Array<GraphQLLocation> {
-    return response2graphqlObjects(response, graphqlLocationAttributes);
+    const jsonResponse = objectsResponse2response(response, intermineLocationObjectAttributes);
+    return response2graphqlObjects(jsonResponse, graphqlLocationAttributes);
 }
-
 
 // Location.dataSets has no reverse reference
-export const intermineLocationDataSetAttributes = [
-    'Location.dataSets.id',
-    'Location.dataSets.description',
-    'Location.dataSets.licence',
-    'Location.dataSets.url',
-    'Location.dataSets.name',
-    'Location.dataSets.version',
-    'Location.dataSets.synopsis',
-    'Location.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineLocationDataSetSort = 'Location.dataSets.name'; // guaranteed not null
-export type IntermineLocationDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
+export const intermineLocationDataSetAttributes = intermineDataSetAttributesFactory('Location.dataSets');
+export const intermineLocationDataSetSort = intermineDataSetSortFactory('Location.dataSets');

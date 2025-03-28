@@ -1,20 +1,37 @@
-# <class name="Location" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0000735">
-# 	<attribute name="strand" type="java.lang.String" term="http://purl.obolibrary.org/obo/GENO_0000906"/>
-# 	<attribute name="start" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002231"/>
-# 	<attribute name="end" type="java.lang.Integer" term="http://purl.obolibrary.org/obo/RO_0002232"/>
-# 	<reference name="locatedOn" referenced-type="BioEntity" reverse-reference="locatedFeatures"/>
-# 	<reference name="feature" referenced-type="BioEntity" reverse-reference="locations"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# </class>
-## NOTE: Restrict locatedOn to be a chromosome or supercontig.
-type Location {
+interface LocatedOn implements BioEntity & Annotatable
+#& HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
+  id: ID!
+  # Annotatable
+  identifier: ID!
+  dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # BioEntity
+  annotationVersion: String
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
+  locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+}
+
+type Location
+#implements HasDataSets & HasLinkouts
+{
   id: ID!
   strand: String
   start: Int
   end: Int
-  chromosome: Chromosome
-  supercontig: Supercontig
-  # feature
+  locatedOn: LocatedOn
+  feature: SequenceFeature
+  # HasDataSets
   dataSets: [DataSet!]!
+  # HasLinkouts
   linkouts: [Linkout!]!
 }

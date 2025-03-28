@@ -1,0 +1,12 @@
+type DataSource
+#implements HasDataSets & HasPublications
+{
+  id: ID!
+  description: String!
+  url: String
+  name: String!
+  # HasDataSets
+  dataSets: [DataSet!]!
+  # HasPublications
+  publications: [Publication!]!
+}

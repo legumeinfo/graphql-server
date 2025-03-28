@@ -1,29 +1,20 @@
-# <class name="OntologyTerm" is-interface="true" term="http://semanticscience.org/resource/SIO_000275">
-# 	<attribute name="identifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000675"/>
-# 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
-# 	<attribute name="obsolete" type="java.lang.Boolean" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63553"/>
-# 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
-# 	<attribute name="namespace" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000067"/>
-# 	<reference name="ontology" referenced-type="Ontology"/>
-# 	<collection name="relations" referenced-type="OntologyRelation"/>
-# 	<collection name="synonyms" referenced-type="OntologyTermSynonym"/>
-# 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="ontologyTerm"/>
-# 	<collection name="parents" referenced-type="OntologyTerm"/>
-# 	<collection name="dataSets" referenced-type="DataSet"/>
-# 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
-# </class>
-type OntologyTerm {
+type OntologyTerm implements OntologyTermInterface
+#& HasDataSets & HasOntologyAnnotations
+{
   id: ID!
+  # OntologyTermInterface
   identifier: ID!
+  crossReferences: [OntologyTerm!]!
   description: String
   obsolete: Boolean
+  ontology: Ontology
   name: String
   namespace: String
-  ontology: Ontology
-  # relations
-  # synonyms
-  # ontologyAnnotations
-  # parents
+  parents: [OntologyTerm!]!
+  relations: [OntologyRelation!]!
+  synonyms: [OntologyTermSynonym!]!
+  # HasDataSets
   dataSets: [DataSet!]!
-  # crossReferences
+  # HasOntologyAnnotations
+  ontologyAnnotations: [OntologyAnnotation!]!
 }

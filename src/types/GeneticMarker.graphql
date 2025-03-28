@@ -1,37 +1,50 @@
-# <class name="GeneticMarker" extends="SequenceFeature" is-interface="true" term="http://purl.obolibrary.org/obo/SO_0001645">
-# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
-# 	<attribute name="motif" type="java.lang.String"/>
-# 	<attribute name="alias" type="java.lang.String"/>
-# 	<attribute name="type" type="java.lang.String"/>
-# 	<attribute name="alleles" type="java.lang.String"/>
-# 	<collection name="genotypingPlatforms" referenced-type="GenotypingPlatform" reverse-reference="markers"/>
-# 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="markers"/>
-# 	<collection name="linkageGroupPositions" referenced-type="LinkageGroupPosition"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="markers"/>
-# </class>
-type GeneticMarker implements SequenceFeature & BioEntity & Annotatable {
-  # SequenceFeature
+type GeneticMarker implements SequenceFeature & Annotatable & BioEntity
+#& HasGWASResults & HasQTLs & HasSequence & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
+  # BioEntity
   annotationVersion: String
-  organism: Organism
-  strain: Strain
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
   locations: [Location!]!
-  dataSets: [DataSet!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
+  strain: Strain
+  symbol: String
+  #synonyms
+  # SequenceFeature
+  childFeatures: [SequenceFeature!]!
+  chromosome: Chromosome
+  chromosomeLocation: Location
+  #crossReferences
   length: Int
+  overlappingFeatures: [SequenceFeature!]!
+  score: Float
+  scoreType: String
+  sequence: Sequence
+  sequenceOntologyTerm: SequenceOntologyTerm
+  supercontig: Supercontig
+  supercontigLocation: Location
+  # HasGWASResults
+  gwasResults: [GWASResult!]!
+  # HasQTLs
+  qtls: [QTL!]!
   # GeneticMarker
-  motif: String
   alias: String
-  type: String
   alleles: String
   genotypingPlatforms: [GenotypingPlatform!]!
-  gwasResults: [GWASResult!]!
   linkageGroupPositions: [LinkageGroupPosition!]!
-  qtls: [QTL!]!
+  motif: String
+  type: String
 }
+
+#interface HasGeneticMarkers {
+#  markers: [GeneticMarker!]!
+#}

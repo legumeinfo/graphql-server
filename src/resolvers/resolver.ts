@@ -1,24 +1,26 @@
-import { ContextValue } from '../context.js';
-import { GraphQLResolveInfoWithCacheControl } from '@apollo/cache-control-types';
+import type {
+  GraphQLScalarType,
+  GraphQLFieldResolver,
+  GraphQLTypeResolver,
+  GraphQLIsTypeOfFn,
+} from 'graphql';
 
 
-export interface Args {
-  [name: string]: any;
-};
-
-
-// NOTE: source should actually be the server's rootValue or a GraphQL type, but
-// we're not currently set up to specify either of those types
-// NOTE: the return type should be a GraphQL type, but we're not currently set
-// up to specify that
-export type Resolver = (source: any|Function, args: Args, context: ContextValue, info?: GraphQLResolveInfoWithCacheControl) => Promise<any>;
-
-
-export interface SubfieldResolverMap {
-  [field: string]: Resolver;
+export interface GraphQLResolvers {
+  [fieldName: string]: (() => any) | GraphQLResolverObject | GraphQLScalarType;
 }
+// TODO: remove legacy type
+export interface ResolverMap extends GraphQLResolvers { };
 
+export type GraphQLResolverObject = {
+  [fieldName: string]: GraphQLFieldResolver<any, any> | GraphQLResolverOptions;
+};
+// TODO: remove legacy type
+export type SubfieldResolverMap = GraphQLResolverObject;
 
-export interface ResolverMap {
-  [type: string]: SubfieldResolverMap;
+export interface GraphQLResolverOptions {
+  resolve?: GraphQLFieldResolver<any, any>;
+  subscribe?: GraphQLFieldResolver<any, any>;
+  __resolveType?: GraphQLTypeResolver<any, any>;
+  __isTypeOf?: GraphQLIsTypeOfFn<any, any>;
 }

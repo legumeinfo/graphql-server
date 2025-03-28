@@ -1,20 +1,23 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLAuthor,
-  IntermineAuthorResponse,
-  intermineAuthorAttributes,
-  intermineAuthorSort,
-  response2authors,
+    GraphQLAuthor,
+    IntermineAuthorResponse,
+    intermineAuthorAttributes,
+    intermineAuthorSort,
+    response2authors,
 } from '../models/index.js';
 
 
 // get a author by ID
-export async function getAuthor(id: number): Promise<ApiResponse<GraphQLAuthor>> {
-    const constraints = [intermineConstraint('Author.id', '=', id)];
+export async function getAuthor(firstName: string, lastName: string): Promise<ApiResponse<GraphQLAuthor>> {
+    const constraints = [
+        intermineConstraint('Author.firstName', '=', firstName),
+        intermineConstraint('Author.lastName', '=', lastName),
+    ];
     const query = interminePathQuery(
         intermineAuthorAttributes,
         intermineAuthorSort,

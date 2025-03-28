@@ -1,47 +1,70 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { hasLinkoutsFactory } from '../microservices/linkouts.js';
+import { ResolverMap, SubfieldResolverMap } from '../resolver.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasGenesFactory } from './gene.js';
+import { hasProteinsFactory } from './protein.js';
+import { hasTranscriptsFactory } from './transcript.js';
 
 
 export const panGeneSetFactory = 
-    (
-        sourceName: KeyOfType<DataSources, IntermineAPI>,
-        microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
-    ): ResolverMap => ({
+(
+    sourceName: KeyOfType<DataSources, IntermineAPI>,
+    microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
+): ResolverMap => ({
     Query: {
         panGeneSet: async (_, { identifier }, { dataSources }) => {
             const {data: panGeneSet} = await dataSources[sourceName].getPanGeneSet(identifier);
             if (panGeneSet == null) {
-                const msg = `PanGeneSet with primaryIdentifier '${identifier}' not found`;
+                const msg = `PanGeneSet with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: panGeneSet};
         },
     },
     PanGeneSet: {
-        ...annotatableFactory(sourceName),
-        dataSets: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForPanGeneSet(panGeneSet, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        genes: async (panGeneSet, { genus, species, strain, assembly, annotation, page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, genus, species, strain, assembly, annotation, page, pageSize};
-            return dataSources[sourceName].getGenes(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        proteins: async (panGeneSet, { page, pageSize }, { dataSources }) => {
-            const args = {panGeneSet, page, pageSize};
-            return dataSources[sourceName].getProteins(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        linkouts: async (panGeneSet, _, { dataSources }) => {
-            const {identifier} = panGeneSet;
-            return dataSources[microservicesSource].getLinkoutsForPanGeneSet(identifier);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasGenesFactory(sourceName),
+        ...hasLinkoutsFactory(microservicesSource),
+        ...hasProteinsFactory(sourceName),
+        ...hasTranscriptsFactory(sourceName),
+    },
+});
+
+
+export const hasPanGeneSetsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    panGeneSets: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+
+        const interfaces = info.parentType.getInterfaces().map(({name}) => name);
+        if (interfaces.includes('Transcript')) {
+            const {id} = parent;
+            request = dataSources[sourceName].getPanGeneSetsForTranscript(id, args);
+        }
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'Gene':
+            // @ts-ignore: fallthrough case error
+            case 'Protein':
+                const {id} = parent;
+            case 'Gene':
+                request = dataSources[sourceName].getPanGeneSetsForGene(id, args);
+                break;
+            case 'Protein':
+                request = dataSources[sourceName].getPanGeneSetsForProtein(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
     },
 });

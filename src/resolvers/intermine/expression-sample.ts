@@ -1,7 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
 
 
 export const expressionSampleFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,7 +10,7 @@ ResolverMap => ({
         expressionSample: async (_, { identifier }, { dataSources }) => {
             const {data: sample} = await dataSources[sourceName].getExpressionSample(identifier);
             if (sample == null) {
-                const msg = `ExpressionSample with primaryIdentifier '${identifier}' not found`;
+                const msg = `ExpressionSample with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: sample};
@@ -23,7 +23,7 @@ ResolverMap => ({
         },
     },
     ExpressionSample: {
-        ...annotatableFactory(sourceName),
+        ...isAnnotatableFactory(sourceName),
         source: async (expressionSample, _, { dataSources }) => {
             return dataSources[sourceName].getExpressionSource(expressionSample.sourceIdentifier)
                 // @ts-ignore: implicit type any error

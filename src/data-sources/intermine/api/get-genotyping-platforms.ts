@@ -6,7 +6,6 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-    GraphQLGeneticMarker,
     GraphQLGenotypingPlatform,
     IntermineGenotypingPlatformResponse,
     intermineGenotypingPlatformAttributes,
@@ -15,21 +14,9 @@ import {
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
-
-export type SearchGenotypingPlatformsOptions = {
-    geneticMarker?: GraphQLGeneticMarker;
-} & PaginationOptions;
-
-
 // get GenotypingPlatforms for a GeneticMarker
-export async function getGenotypingPlatforms(
-    {geneticMarker, page, pageSize}: SearchGenotypingPlatformsOptions,
-): Promise<ApiResponse<GraphQLGenotypingPlatform[]>> {
-    const constraints = [];
-    if (geneticMarker) {
-        const constraint = intermineConstraint('GenotypingPlatform.markers.id', '=', geneticMarker.id);
-        constraints.push(constraint);
-    }
+export async function getGenotypingPlatformsForGeneticMarker(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGenotypingPlatform>> {
+    const constraints = [intermineConstraint('GenotypingPlatform.markers.id', '=', id)];
     const query = interminePathQuery(
         intermineGenotypingPlatformAttributes,
         intermineGenotypingPlatformSort,

@@ -1,28 +1,25 @@
-# <class name="GWAS" extends="Annotatable" is-interface="true" term="">
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="genotypes" type="java.lang.String"/>
-# 	<attribute name="genotypingMethod" type="java.lang.String"/>
-# 	<attribute name="synopsis" type="java.lang.String"/>
-# 	<attribute name="genotypingPlatform" type="java.lang.String"/>
-# 	<reference name="organism" referenced-type="Organism"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
-# 	<collection name="results" referenced-type="GWASResult" reverse-reference="gwas"/>
-# </class>
-type GWAS implements Annotatable {
-  # Annotatable
+type GWAS implements Annotatable
+#& HasGenotypingPlatform & HasGWASResults & HasOrganism & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
+  # HasGenotypingPlatform
+  genotypingPlatform: GenotypingPlatform
+  # HasGWASResults
+  gwasResults: [GWASResult!]!
   # GWAS
   description: String
   genotypes: String
   genotypingMethod: String
   synopsis: String
-  genotypingPlatform: GenotypingPlatform
+  # HasOrganism
   organism: Organism
-  dataSet: DataSet
-  results: [GWASResult!]!
-  ## microservices
-  linkouts: [Linkout!]!
 }
+
+#interface HasGWAS {
+#  gwas: GWAS
+#}

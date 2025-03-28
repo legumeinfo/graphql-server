@@ -1,6 +1,8 @@
 import { DataSources, IntermineAPI, MicroservicesAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
+import { KeyOfType } from '../../utils/index.js';
+import { hasLinkoutsFactory } from '../microservices/linkouts.js';
 import { ResolverMap } from '../resolver.js';
+import { hasDataSetsFactory } from './data-set.js';
 
 
 export const locationFactory =
@@ -9,35 +11,80 @@ export const locationFactory =
     microservicesSource: KeyOfType<DataSources, MicroservicesAPI>,
 ): ResolverMap => ({
     Query: {
-        location: async (_, { id }, { dataSources }) => {
-            const {data: location} = await dataSources[sourceName].getLocation(id);
-            if (location == null) {
-                const msg = `Location with ID '${id}' not found`;
-                inputError(msg);
-            }
-            return {results: location};
-        },
+        //location: async (_, { id }, { dataSources }) => {
+        //    const {data: location} = await dataSources[sourceName].getLocation(id);
+        //    if (location == null) {
+        //        const msg = `Location with ID '${id}' not found`;
+        //        inputError(msg);
+        //    }
+        //    return {results: location};
+        //},
     },
     Location: {
-        chromosome: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getChromosome(location.locatedOnIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
+        ...hasDataSetsFactory(sourceName),
+        ...hasLinkoutsFactory(microservicesSource),
+        feature: async (location, _, { dataSources }) => {
+            let request: Promise<any>|null = null;
+            const {featureClass, featureIdentifier} = location;
+            switch (featureClass) {
+                case "CDS":
+                    request = dataSources[sourceName].getCDS(featureIdentifier);
+                    break;
+                case "Chromosome":
+                    request = dataSources[sourceName].getChromosome(featureIdentifier);
+                    break;
+                case "Exon":
+                    request = dataSources[sourceName].getExcon(featureIdentifier);
+                    break;
+                case "Gene":
+                    request = dataSources[sourceName].getGene(featureIdentifier);
+                    break;
+                case "GeneFlankingRegion":
+                    request = dataSources[sourceName].getGeneFlankingRegion(featureIdentifier);
+                    break;
+                case "GeneticMarker":
+                    request = dataSources[sourceName].getGeneticMarker(featureIdentifier);
+                    break;
+                case "IntergenicRegion":
+                    request = dataSources[sourceName].getIntergenicRegion(featureIdentifier);
+                    break;
+                case "Intron":
+                    request = dataSources[sourceName].getIntron(featureIdentifier);
+                    break;
+                case "MRNA":
+                    request = dataSources[sourceName].getMRNA(featureIdentifier);
+                    break;
+                case "Supercontig":
+                    request = dataSources[sourceName].getSupercontig(featureIdentifier);
+                    break;
+                case "SyntenicRegion":
+                    request = dataSources[sourceName].getSyntenicRegion(featureIdentifier);
+                    break;
+                case "Transcript":
+                    request = dataSources[sourceName].getTranscript(featureIdentifier);
+                    break;
+                case "UTR":
+                    request = dataSources[sourceName].getUTR(featureIdentifier);
+                    break;
+            }
+            if (request == null) return null;
+            // @ts-ignore: implicit type any error
+            return request.then(({data: results}) => ({__typename: featureClass, ...results}));
         },
-        supercontig: async (location, _, { dataSources }) => {
-            return dataSources[sourceName].getSupercontig(location.locatedOnIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (location, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForLocation(location, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        linkouts: async (location, _, { dataSources }) => {
-          const {locatedOnIdentifier, start, end} = location;
-          return dataSources[microservicesSource].getLinkoutsForLocation(locatedOnIdentifier, start, end);
+        locatedOn: async (location, _, { dataSources }) => {
+            let request: Promise<any>|null = null;
+            const {locatedOnClass, locatedOnIdentifier} = location;
+            switch (locatedOnClass) {
+                case "Chromosome":
+                    request = dataSources[sourceName].getChromosome(locatedOnIdentifier);
+                    break;
+                case "Supercontig":
+                    request = dataSources[sourceName].getSupercontig(locatedOnIdentifier);
+                    break;
+            }
+            if (request == null) return null;
+            // @ts-ignore: implicit type any error
+            return request.then(({data: results}) => ({__typename: locatedOnClass, ...results}));
         },
     },
 });

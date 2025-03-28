@@ -1,93 +1,70 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+    intermineDataSetAttributesFactory,
+    intermineDataSetSortFactory,
+} from './data-set.js';
+import {
+    intermineOntologyAttributesFactory,
+    intermineOntologySortFactory,
+} from './ontology.js';
+import {
+    intermineOntologyRelationAttributesFactory,
+    intermineOntologyRelationSortFactory,
+} from './ontology-relation.js';
+import {
+    intermineOntologyTermInterfaceAttributesFactory,
+    intermineOntologyTermInterfaceSortFactory,
+    graphqlOntologyTermInterfaceAttributes,
+    IntermineOntologyTermInterface,
+} from './ontology-term-interface.js';
+import {
+    intermineOntologyTermSynonymAttributesFactory,
+    intermineOntologyTermSynonymSortFactory,
+} from './ontology-term-synonym.js';
 
-
-// <class name="OntologyTerm" is-interface="true" term="http://semanticscience.org/resource/SIO_000275">
-// 	<attribute name="identifier" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000675"/>
-// 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
-// 	<attribute name="obsolete" type="java.lang.Boolean" term="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63553"/>
-// 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
-// 	<attribute name="namespace" type="java.lang.String" term="http://semanticscience.org/resource/SIO_000067"/>
-// 	<reference name="ontology" referenced-type="Ontology"/>
-// 	<collection name="relations" referenced-type="OntologyRelation"/>
-// 	<collection name="synonyms" referenced-type="OntologyTermSynonym"/>
-// 	<collection name="ontologyAnnotations" referenced-type="OntologyAnnotation" reverse-reference="ontologyTerm"/>
-// 	<collection name="parents" referenced-type="OntologyTerm"/>
-// 	<collection name="dataSets" referenced-type="DataSet"/>
-// 	<collection name="crossReferences" referenced-type="OntologyTerm"/>
-// </class>
-// NOTE: we can't query OntologyTerm.ontology.id here because ontology is sometimes null.
 export const intermineOntologyTermAttributes = [
-    'OntologyTerm.id',
-    'OntologyTerm.identifier',
-    'OntologyTerm.description',   
-    'OntologyTerm.obsolete',
-    'OntologyTerm.name',
-    'OntologyTerm.namespace',
+    ...intermineOntologyTermInterfaceAttributesFactory('OntologyTerm'),
 ]
-export const intermineOntologyTermSort = 'OntologyTerm.identifier';
+export const intermineOntologyTermSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm');
+
 export type IntermineOntologyTerm = [
-  number,
-  string,
-  string,
-  boolean,
-  string,
-  string,
+    ...IntermineOntologyTermInterface,
 ];
 
-
-// type OntologyTerm {
-//   id: ID!
-//   identifier: String!
-//   description: String
-//   obsolete: Boolean
-//   name: String
-//   namespace: String
-//   # ontology
-//   # relations
-//   # synonyms
-//   # ontologyAnnotations
-//   # parents
-//   # dataSets
-//   # crossReferences
-// }
 export const graphqlOntologyTermAttributes = [
-    'id',
-    'identifier',
-    'description',
-    'obsolete',
-    'name',
-    'namespace',
+    ...graphqlOntologyTermInterfaceAttributes,
 ];
+
 export type GraphQLOntologyTerm = {
-  [prop in typeof graphqlOntologyTermAttributes[number]]: string;
+    [prop in typeof graphqlOntologyTermAttributes[number]]: string;
 }
 
-
 export type IntermineOntologyTermResponse = IntermineDataResponse<IntermineOntologyTerm>;
+
 export function response2ontologyTerms(response: IntermineOntologyTermResponse): Array<GraphQLOntologyTerm> {
     return response2graphqlObjects(response, graphqlOntologyTermAttributes);
 }
 
+// OntologyTerm.crossReferences has no reverse reference
+export const intermineOntologyTermCrossReferenceAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.crossReferences');
+export const intermineOntologyTermCrossReferenceSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.crossReferences');
 
 // OntologyTerm.dataSets has no reverse reference
-export const intermineOntologyTermDataSetAttributes = [
-    'OntologyTerm.dataSets.id',
-    'OntologyTerm.dataSets.description',
-    'OntologyTerm.dataSets.licence',
-    'OntologyTerm.dataSets.url',
-    'OntologyTerm.dataSets.name',
-    'OntologyTerm.dataSets.version',
-    'OntologyTerm.dataSets.synopsis',
-    'OntologyTerm.dataSets.publication.doi',  // internal resolution of publication
-];
-export const intermineOntologyTermDataSetSort = 'OntologyTerm.dataSets.name'; // guaranteed not null
-export type IntermineOntologyTermDataSet = [
-  number,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-];
+export const intermineOntologyTermDataSetAttributes = intermineDataSetAttributesFactory('OntologyTerm.dataSets');
+export const intermineOntologyTermDataSetSort = intermineDataSetSortFactory('OntologyTerm.dataSets');
+
+// OntologyTerm.ontology does not have an Ontology reverse reference
+export const intermineOntologyTermOntologyAttributes = intermineOntologyAttributesFactory('OntologyTerm.ontology');
+export const intermineOntologyTermOntologySort = intermineOntologySortFactory('OntologyTerm.ontology');
+
+// OntologyTerm.parents has no reverse reference
+export const intermineOntologyTermParentAttributes = intermineOntologyTermInterfaceAttributesFactory('OntologyTerm.paranets');
+export const intermineOntologyTermParentSort = intermineOntologyTermInterfaceSortFactory('OntologyTerm.parents');
+
+// OntologyTerm.relations has no reverse reference from OntologyRelation
+export const intermineOntologyTermRelationAttributes = intermineOntologyRelationAttributesFactory('OntologyTerm.relations');
+export const intermineOntologyTermRelationSort = intermineOntologyRelationSortFactory('OntologyTerm.relations');
+
+// OntologyTerm.synonyms has no reverse reference from OntologyTermSynonym
+export const intermineOntologyTermOntologyTermSynonymAttributes = intermineOntologyTermSynonymAttributesFactory('OntologyTerm.synonyms');
+export const intermineOntologyTermOntologyTermSynonymSort = intermineOntologyTermSynonymSortFactory('OntologyTerm.synonym');

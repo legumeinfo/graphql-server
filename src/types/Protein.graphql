@@ -1,45 +1,49 @@
-# <class name="Protein" extends="BioEntity" is-interface="true" term="http://semanticscience.org/resource/SIO_010043,http://purl.uniprot.org/core/Protein">
-#         <attribute name="md5checksum" type="java.lang.String" term="http://purl.uniprot.org/core/md5Checksum"/>
-#         <attribute name="primaryAccession" type="java.lang.String" term="http://purl.obolibrary.org/obo/ERO_0000405"/>
-#         <attribute name="molecularWeight" type="java.lang.Double" term="http://purl.uniprot.org/core/mass"/>
-#         <attribute name="length" type="java.lang.Integer" term="http://purl.org/dc/terms/SizeOrDuration"/>
-#         <attribute name="isPrimary" type="java.lang.Boolean"/>
-#         <reference name="phylonode" referenced-type="Phylonode" reverse-reference="protein"/>
-#         <reference name="transcript" referenced-type="Transcript" reverse-reference="protein"/>
-#         <reference name="CDS" referenced-type="CDS" reverse-reference="protein"/>
-#         <reference name="sequence" referenced-type="Sequence" term="http://purl.uniprot.org/core/sequence"/>
-#         <collection name="geneFamilyAssignments" referenced-type="GeneFamilyAssignment" reverse-reference="protein"/>
-#         <collection name="genes" referenced-type="Gene" reverse-reference="proteins" term="http://semanticscience.org/resource/SIO_010079"/>
-#         <collection name="panGeneSets" referenced-type="PanGeneSet" reverse-reference="proteins"/>
-#         <collection name="proteinMatches" referenced-type="ProteinMatch" reverse-reference="protein"/>
-# </class>
-type Protein implements BioEntity & Annotatable {
-  # BioEntity
+type Protein implements BioEntity & Annotatable
+#& HasGeneFamilyAssignments & HasGenes & HasPanGeneSets & HasSequence & HasTranscript & HasOrganism & HasStrain & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  description: String
-  symbol: String
-  name: String
-  assemblyVersion: String
+  # BioEntity
   annotationVersion: String
-  organism: Organism
+  assemblyVersion: String
+  description: String
+  locatedFeatures: [Location!]!
   locations: [Location!]!
+  name: String
+  organism: Organism
+  secondaryIdentifier: String
   strain: Strain
-  dataSets: [DataSet!]!
-  # Protein
-  md5checksum: String
-  primaryAccession: String
-  molecularWeight: Float
-  length: Int
-  isPrimary: Boolean
-  phylonode: Phylonode
-  # transcript: Transcript
-  # CDS
-  # sequence
+  symbol: String
+  #synonyms
+  # HasGeneFamilyAssignments
   geneFamilyAssignments: [GeneFamilyAssignment!]!
+  # HasGenes
   genes: [Gene!]!
+  # HasPanGeneSets
   panGeneSets: [PanGeneSet!]!
-  # proteinMatches
+  # HasSequence
+  sequence: Sequence
+  # HasTranscript
+  transcript: Transcript
+  # Protein
+  #crossReferences
+  isPrimary: Boolean
+  length: Int
+  md5checksum: String
+  molecularWeight: Float
+  phylonode: Phylonode
+  primaryAccession: String
+  proteinMatches: [ProteinMatch!]!
 }
+
+#interface HasProtein {
+#  protein: Protein!
+#}
+
+#interface HasProteins {
+#  proteins: [Protein!]!
+#}

@@ -1,30 +1,19 @@
 import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
-// <class name="Newick" extends="java.lang.Object" is-interface="false" term="">
-//     <attribute name="contents" type="java.lang.String"/>
-//     <attribute name="identifier" type="java.lang.String"/>
-//     <reference name="phylotree" referenced-type="Phylotree"/>
-//     <reference name="geneFamily" referenced-type="GeneFamily"/>
-// </class>
+
 export const intermineNewickAttributes = [
     'Newick.identifier',
     'Newick.contents',
     'Newick.phylotree.primaryIdentifier',
     'Newick.geneFamily.primaryIdentifier',
 ];
-export const intermineNewickSort = 'Newick.identifier'; // guaranteed not null
+export const intermineNewickSort = 'Newick.identifier';
 export type IntermineNewick = [
-  string,
-  string,
-  number,
-  number,
+    string,
+    string,
+    number,
+    number,
 ];
 
-// type Newick {
-//   identifier: ID!
-//   contents: String!
-//   phylotree: Phylotree,
-//   geneFamily: GeneFamily,
-// }
 export const graphqlNewickAttributes = [
     'identifier',
     'contents',
@@ -32,7 +21,7 @@ export const graphqlNewickAttributes = [
     'geneFamilyIdentifier',
 ];
 export type GraphQLNewick = {
-  [prop in typeof graphqlNewickAttributes[number]]: string;
+    [prop in typeof graphqlNewickAttributes[number]]: string;
 }
 
 

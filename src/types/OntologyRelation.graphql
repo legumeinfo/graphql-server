@@ -1,0 +1,8 @@
+type OntologyRelation {
+  id: ID!
+  childTerm: OntologyTerm!
+  direct: Boolean
+  parentTerm: OntologyTerm!
+  redundant: Boolean
+  relationship: String!
+}

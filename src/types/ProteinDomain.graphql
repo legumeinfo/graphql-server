@@ -1,26 +1,26 @@
-# <class name="ProteinDomain" extends="Annotatable" is-interface="true" term="http://purl.obolibrary.org/obo/SO:0000417">
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="type" type="java.lang.String"/>
-# 	<attribute name="name" type="java.lang.String"/>
-# 	<attribute name="shortName" type="java.lang.String"/>
-# 	<collection name="genes" referenced-type="Gene" reverse-reference="proteinDomains"/>
-# 	<collection name="geneFamilies" referenced-type="GeneFamily" reverse-reference="proteinDomains"/>
-# 	<collection name="childFeatures" referenced-type="ProteinDomain"/>
-# 	<collection name="foundIn" referenced-type="ProteinDomain"/>
-# 	<collection name="parentFeatures" referenced-type="ProteinDomain"/>
-# 	<collection name="contains" referenced-type="ProteinDomain"/>
-# </class>
-type ProteinDomain implements Annotatable {
-  # Annotatable
+type ProteinDomain implements Annotatable
+#& HasGenes & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # ProteinDomain
-  description: String
-  type: String
-  name: String
-  shortName: String
+  # HasGenes
   genes: [Gene!]!
+  # ProteinDomain
+  childFeatures: [ProteinDomain!]!
+  #contains
+  description: String
+  #foundIn
   geneFamilies: [GeneFamily!]!
+  name: String
+  parentFeatures: [ProteinDomain!]!
+  shortName: String
+  type: String
 }
+
+#interface HasProteinDomains {
+#  proteinDomains: [ProteinDomain!]!
+#}

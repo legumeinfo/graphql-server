@@ -1,13 +1,16 @@
-# <class name="GeneFamilyAssignment" is-interface="true" term="">
-# 	<attribute name="bestDomainScore" type="java.lang.Double"/>
-# 	<attribute name="score" type="java.lang.Double"/>
-# 	<attribute name="evalue" type="java.lang.Double"/>
-# 	<reference name="geneFamily" referenced-type="GeneFamily"/>
-# </class>
-type GeneFamilyAssignment {
+type GeneFamilyAssignment
+#implements HasGeneFamily & HasProtein
+{
   id: ID!
   bestDomainScore: Float
-  score:  Float
   evalue: Float
-  geneFamily: GeneFamily!
+  score:  Float
+  # HasGeneFamily: TODO: make non-null
+  geneFamily: GeneFamily
+  # HasProtein
+  protein: Protein!
 }
+
+#interface HasGeneFamilyAssignments {
+#  geneFamilyAssignments: [GeneFamilyAssignment!]!
+#}

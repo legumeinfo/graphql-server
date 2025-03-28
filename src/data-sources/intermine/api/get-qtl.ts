@@ -1,16 +1,15 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLQTL,
-  IntermineQTLResponse,
-  intermineQTLAttributes,
-  intermineQTLSort,
-  response2qtls,
+    GraphQLQTL,
+    IntermineQTLResponse,
+    intermineQTLAttributes,
+    intermineQTLSort,
+    response2qtls,
 } from '../models/index.js';
-
 
 // get a QTL by primaryIdentifier
 export async function getQTL(identifier: string):

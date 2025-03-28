@@ -1,6 +1,7 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
+import { isOntologyTermFactory } from './ontology-term-interface.js';
 
 
 export const ontologyTermFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -22,17 +23,6 @@ ResolverMap => ({
         },
     },
     OntologyTerm: {
-        // Note: ontology is sometimes null so we have to do a secondary query here
-        ontology: async (ontologyTerm, _, { dataSources }) => {
-            return dataSources[sourceName].getOntologyTermOntology(ontologyTerm)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSets: async (ontologyTerm, { page, pageSize }, { dataSources }) => {
-            const args = {page, pageSize};
-            return dataSources[sourceName].getDataSetsForOntologyTerm(ontologyTerm, args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isOntologyTermFactory(sourceName),
     },
 });

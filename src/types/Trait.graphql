@@ -1,24 +1,27 @@
-# <class name="Trait" extends="Annotatable" is-interface="true" term="https://browser.planteome.org/amigo/term/TO:0000387">
-# 	<attribute name="description" type="java.lang.String"/>
-# 	<attribute name="name" type="java.lang.String"/>
-# 	<reference name="qtlStudy" referenced-type="QTLStudy"/>
-# 	<reference name="gwas" referenced-type="GWAS"/>
-# 	<reference name="dataSet" referenced-type="DataSet"/>
-# 	<collection name="qtls" referenced-type="QTL" reverse-reference="trait"/>
-# 	<collection name="gwasResults" referenced-type="GWASResult" reverse-reference="trait"/>
-# </class>
-type Trait implements Annotatable {
-  # Annotatable
+type Trait implements Annotatable
+#& HasGWAS & HasGWASResults & HasOrganism & HasQTLs & HasQTLStudy & HasDataSets & HasOntologyAnnotations & HasPublications
+{
   id: ID!
+  # Annotatable
   identifier: ID!
+  dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!
-  # Trait
-  description: String
-  name: String
-  qtlStudy: QTLStudy
+  # HasGWAS
   gwas: GWAS
-  dataSet: DataSet
-  qtls: [QTL!]!
+  # HasGWASResults
   gwasResults: [GWASResult!]!
+  # HasOrganism: TODO: make non-null
+  organism: Organism
+  # HasQTLs
+  qtls: [QTL!]!
+  # HasQTLStudy
+  qtlStudy: QTLStudy
+  # Trait
+  name: String!
+  description: String
 }
+
+#interface HasTrait {
+#  trait: Trait
+#}

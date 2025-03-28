@@ -2,3 +2,7 @@ type Linkout {
   href: String!
   text: String!
 }
+
+#interface HasLinkouts {
+#  linkouts: [Linkout!]!
+#}

@@ -13,6 +13,7 @@ import {
     response2genes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 export type SearchGenesOptions = {
@@ -68,10 +69,12 @@ export async function searchGenes(
     if (panGeneSetIdentifier) {
         constraints.push(intermineConstraint('Gene.panGeneSets.primaryIdentifier', 'CONTAINS', panGeneSetIdentifier));
     }
+    const joins = sequenceFeatureJoinFactory('Gene');
     const query = interminePathQuery(
         intermineGeneAttributes,
         intermineGeneSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})

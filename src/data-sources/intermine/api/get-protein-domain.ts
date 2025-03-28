@@ -1,16 +1,15 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLProteinDomain,
-  IntermineProteinDomainResponse,
-  intermineProteinDomainAttributes,
-  intermineProteinDomainSort,
-  response2proteinDomains,
+    GraphQLProteinDomain,
+    IntermineProteinDomainResponse,
+    intermineProteinDomainAttributes,
+    intermineProteinDomainSort,
+    response2proteinDomains,
 } from '../models/index.js';
-
 
 // get a ProteinDomain by identifier
 export async function getProteinDomain(identifier: string):

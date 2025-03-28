@@ -13,6 +13,7 @@ import {
     response2chromosomes,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
 
 export type GetChromosomesOptions = {
@@ -51,10 +52,12 @@ export async function getChromosomes(
     if (annotation) {
         constraints.push(intermineConstraint('Gene.annotationVersion', '=', annotation));
     }
+    const joins = sequenceFeatureJoinFactory('Chromosome');
     const query = interminePathQuery(
         intermineChromosomeAttributes,
         intermineChromosomeSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})

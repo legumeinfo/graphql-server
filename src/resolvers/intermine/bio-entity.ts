@@ -1,31 +1,25 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { KeyOfType } from '../../utils/index.js';
 import { SubfieldResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasOrganismFactory } from './organism.js';
+import { hasStrainFactory } from './strain.js';
 
 
-export const bioEntityFactory =
+export const isBioEntityFactory =
 (sourceName: KeyOfType<DataSources, IntermineAPI>): SubfieldResolverMap => ({
-    ...annotatableFactory(sourceName),
-    organism: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getOrganism(bioEntity.organismTaxonId)
+    ...isAnnotatableFactory(sourceName),
+    ...hasOrganismFactory(sourceName),
+    ...hasStrainFactory(sourceName),
+    locations: async (bioEntity, { }, { dataSources }) => {
+        const {identifier} = bioEntity;
+        return dataSources[sourceName].getLocationsForBioEntity(identifier)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },
-    strain: async (bioEntity, _, { dataSources }) => {
-        return dataSources[sourceName].getStrain(bioEntity.strainIdentifier)
-            // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-    locations: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {sequenceFeature: bioEntity, page, pageSize};
-        return dataSources[sourceName].getLocations(args)
-            // @ts-ignore: implicit type any error
-            .then(({data: results}) => results);
-    },
-    dataSets: async (bioEntity, { page, pageSize }, { dataSources }) => {
-        const args = {page, pageSize};
-        return dataSources[sourceName].getDataSetsForBioEntity(bioEntity, args)
+    locatedFeatures: async (bioEntity, { }, { dataSources }) => {
+        const {identifier} = bioEntity;
+        return dataSources[sourceName].getLocatedFeaturesForBioEntity(identifier)
             // @ts-ignore: implicit type any error
             .then(({data: results}) => results);
     },

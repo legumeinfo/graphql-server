@@ -6,30 +6,28 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLGeneFamilyAssignment,
-  GraphQLProtein,
-  IntermineGeneFamilyAssignmentResponse,
-  intermineProteinGeneFamilyAssignmentsAttributes,
-  intermineProteinGeneFamilyAssignmentsSort,
-  response2geneFamilyAssignments,
+    GraphQLCDS,
+    IntermineCDSResponse,
+    intermineCDSAttributes,
+    intermineCDSSort,
+    response2cdss,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
+import { sequenceFeatureJoinFactory } from './sequence-feature.js';
 
-
-// get GeneFamilyAssignments for a Protein
-export async function getGeneFamilyAssignmentsForProtein(
-    protein: GraphQLProtein,
-    {page, pageSize}: PaginationOptions,
-): Promise<ApiResponse<GraphQLGeneFamilyAssignment>> {
-    const constraints = [intermineConstraint('Protein.id', '=', protein.id)];
+// Get CDSs associated with a Transcript
+export async function getCDSsForTranscript(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLCDS>> {
+    const constraints = [intermineConstraint('CDS.transcript.id', '=', id)];
+    const joins = sequenceFeatureJoinFactory('CDS');
     const query = interminePathQuery(
-        intermineProteinGeneFamilyAssignmentsAttributes,
-        intermineProteinGeneFamilyAssignmentsSort,
+        intermineCDSAttributes,
+        intermineCDSSort,
         constraints,
+        joins,
     );
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
-        .then((response: IntermineGeneFamilyAssignmentResponse) => response2geneFamilyAssignments(response));
+        .then((response: IntermineCDSResponse) => response2cdss(response));
     // get a summary of the data and convert it to page info
     const pageInfoPromise = this.pathQueryCount(query)
         .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));

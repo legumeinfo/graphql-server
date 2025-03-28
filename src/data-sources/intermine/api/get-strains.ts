@@ -6,29 +6,19 @@ import {
     countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLOrganism,
-  GraphQLStrain,
-  IntermineStrainResponse,
-  intermineStrainAttributes,
-  intermineStrainSort,
-  response2strains,
+    GraphQLStrain,
+    IntermineStrainResponse,
+    intermineStrainAttributes,
+    intermineStrainSort,
+    response2strains,
 } from '../models/index.js';
 import { PaginationOptions } from './pagination.js';
 
 
-export type GetStrainsOptions = {
-  organism?: GraphQLOrganism;
-} & PaginationOptions;
-
-
 // get Strains associated with an Organism
-export async function getStrains({organism, page, pageSize}: GetStrainsOptions):
+export async function getStrainsForOrganism(id: string, {page, pageSize}: PaginationOptions):
 Promise<ApiResponse<GraphQLStrain[]>> {
-    const constraints = [];
-    if (organism) {
-        const organismConstraint = intermineConstraint('Strain.organism.id', '=', organism.id);
-        constraints.push(organismConstraint);
-    }
+    const constraints = [intermineConstraint('Strain.organism.id', '=', id)];
     const query = interminePathQuery(
         intermineStrainAttributes,
         intermineStrainSort,

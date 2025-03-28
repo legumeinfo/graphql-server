@@ -1,47 +1,48 @@
 import {
     ApiResponse,
-    IntermineCountResponse,
     intermineConstraint,
     interminePathQuery,
-    countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
 import {
-  GraphQLLocation,
-  GraphQLSequenceFeature,
-  IntermineLocationResponse,
-  intermineLocationAttributes,
-  intermineLocationSort,
-  response2locations,
+    GraphQLLocation,
+    IntermineLocationResponse,
+    intermineLocationAttributes,
+    intermineLocationQueryFormat,
+    intermineLocationSort,
+    response2locations,
 } from '../models/index.js';
-import { PaginationOptions } from './pagination.js';
 
+// get Locations using the given query and returns the expected GraphQL types
+async function getLocations(pathQuery: string): Promise<ApiResponse<GraphQLLocation>> {
+    // get the data
+    return this.pathQuery(pathQuery, {}, intermineLocationQueryFormat)
+        .then((response: IntermineLocationResponse) => {
+            const data = response2locations(response);
+            return {data, metadata: {}};
+        });
+}
 
-export type GetLocationsOptions = {
-  sequenceFeature?: GraphQLSequenceFeature;
-} & PaginationOptions;
-
-
-// get Locations for any type that extends SequenceFeature
-export async function getLocations(
-    {sequenceFeature, page, pageSize}: GetLocationsOptions,
-): Promise<ApiResponse<GraphQLLocation>> {
-    const constraints = [];
-    if (sequenceFeature) {
-        const constraint = intermineConstraint('Location.feature.id', '=', sequenceFeature.id);
-        constraints.push(constraint);
-    }
+// get Locations for a BioEntity given its id
+export async function getLocationsForBioEntity(identifier: string): Promise<ApiResponse<GraphQLLocation>> {
+    const constraints = [ intermineConstraint('Location.feature.primaryIdentifier', '=', identifier) ];
     const query = interminePathQuery(
         intermineLocationAttributes,
         intermineLocationSort,
         constraints,
     );
     // get the data
-    const dataPromise = this.pathQuery(query, {page, pageSize})
-      .then((response: IntermineLocationResponse) => response2locations(response));
-    // get a summary of the data and convert it to page info
-    const pageInfoPromise = this.pathQueryCount(query)
-        .then((response: IntermineCountResponse) => countResponse2graphqlPageInfo(response, page, pageSize));
-    // return the expected GraphQL type
-    return Promise.all([dataPromise, pageInfoPromise])
-        .then(([data, pageInfo]) => ({data, metadata: {pageInfo}}));
+    return getLocations.call(this, query);
 }
+
+// get locatedFeatures (Location) for a BioEntity using the Location.locatedOn reverse reference
+export async function getLocatedFeaturesForBioEntity(identifier: string): Promise<ApiResponse<GraphQLLocation>> {
+    const constraints = [intermineConstraint('Location.locatedOn.primaryIdentifier', '=', identifier)];
+    const query = interminePathQuery(
+        intermineLocationAttributes,
+        intermineLocationSort,
+        constraints,
+    );
+    // get the data
+    return getLocations.call(this, query);
+}
+

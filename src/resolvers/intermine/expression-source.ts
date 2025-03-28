@@ -1,7 +1,9 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
 import { inputError, KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
-import { annotatableFactory } from './annotatable.js';
+import { isAnnotatableFactory } from './annotatable.js';
+import { hasOrganismFactory } from './organism.js';
+import { hasStrainFactory } from './strain.js';
 
 
 export const expressionSourceFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
@@ -10,7 +12,7 @@ ResolverMap => ({
         expressionSource: async (_, { identifier }, { dataSources }) => {
             const {data: source} = await dataSources[sourceName].getExpressionSource(identifier);
             if (source == null) {
-                const msg = `ExpressionSource with primaryIdentifier '${identifier}' not found`;
+                const msg = `ExpressionSource with identifier '${identifier}' not found`;
                 inputError(msg);
             }
             return {results: source};
@@ -23,25 +25,13 @@ ResolverMap => ({
         },
     },
     ExpressionSource: {
-        ...annotatableFactory(sourceName),
-        organism: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getOrganism(expressionSource.organismTaxonId)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        strain: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getStrain(expressionSource.strainIdentifier)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
-        dataSet: async (expressionSource, _, { dataSources }) => {
-            return dataSources[sourceName].getDataSet(expressionSource.dataSetName)
-                // @ts-ignore: implicit type any error
-                .then(({data: results}) => results);
-        },
+        ...isAnnotatableFactory(sourceName),
+        ...hasOrganismFactory(sourceName),
+        ...hasStrainFactory(sourceName),
         samples: async (expressionSource, { page, pageSize }, { dataSources }) => {
-            const args = {expressionSource, page, pageSize};
-            return dataSources[sourceName].getExpressionSamples(args)
+            const {id} = expressionSource;
+            const args = {page, pageSize};
+            return dataSources[sourceName].getExpressionSamplesForExpressionSource(id, args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results}) => results);
         },

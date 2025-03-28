@@ -1,14 +1,14 @@
 import {
-  ApiResponse,
-  intermineConstraint,
-  interminePathQuery,
+    ApiResponse,
+    intermineConstraint,
+    interminePathQuery,
 } from '../intermine.server.js';
 import {
-  GraphQLOrganism,
-  IntermineOrganismResponse,
-  intermineOrganismAttributes,
-  intermineOrganismSort,
-  response2organisms,
+    GraphQLOrganism,
+    IntermineOrganismResponse,
+    intermineOrganismAttributes,
+    intermineOrganismSort,
+    response2organisms,
 } from '../models/index.js';
 
 

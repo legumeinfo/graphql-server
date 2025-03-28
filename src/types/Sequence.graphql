@@ -1,0 +1,10 @@
+type Sequence {
+  id: ID!
+  length: Int
+  md5checksum: String
+  residues: String
+}
+
+#interface HasSequence {
+#  sequence: Sequence
+#}

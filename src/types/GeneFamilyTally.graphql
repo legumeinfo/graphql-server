@@ -1,12 +1,13 @@
-# <class name="GeneFamilyTally" is-interface="true" term="">
-# 	<attribute name="tally" type="java.lang.Integer"/>
-# 	<reference name="organism" referenced-type="Organism"/>
-# 	<reference name="geneFamily" referenced-type="GeneFamily" reverse-reference="tallies"/>
-# </class>
-type GeneFamilyTally {
+type GeneFamilyTally
+#implements HasGeneFamily & HasOrganism 
+{
   id: ID!
-  tally: Int
-  organism: Organism
+  averageCount: Float!
+  numAnnotations: Int!
+  totalCount: Int!
+  # HasGeneFamily
   geneFamily: GeneFamily
+  # HasOrganism: TODO: make non-null
+  organism: Organism
 }
   

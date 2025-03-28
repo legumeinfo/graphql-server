@@ -1,23 +1,16 @@
-# <class name="DataSet" is-interface="true" term="http://semanticscience.org/resource/SIO_000089">
-# 	<attribute name="description" type="java.lang.String" term="http://purl.org/dc/terms/description"/>
-# 	<attribute name="licence" type="java.lang.String" term="http://purl.org/dc/terms/license"/>
-# 	<attribute name="url" type="java.lang.String" term="https://schema.org/url"/>
-# 	<attribute name="name" type="java.lang.String" term="http://www.w3.org/2000/01/rdf-schema#label"/>
-# 	<attribute name="version" type="java.lang.String" term="http://purl.org/dc/terms/hasVersion"/>
-# 	<attribute name="synopsis" type="java.lang.String"/>
-# 	<reference name="dataSource" referenced-type="DataSource" reverse-reference="dataSets" term="http://purl.org/dc/terms/source"/>
-# 	<reference name="publication" referenced-type="Publication" term="http://purl.org/dc/terms/bibliographicCitation"/>
-# 	<collection name="bioEntities" referenced-type="BioEntity" reverse-reference="dataSets" term="http://semanticscience.org/resource/SIO_001277"/>
-# </class>
 type DataSet {
   id: ID!
   name: ID!
-  description: String
-  licence: String
-  url: String
+  description: String!
+  licence: String!
+  url: String!
   version: String
   synopsis: String
-  # dataSource
+  dataSource: DataSource!
+  bioEntities: [BioEntity!]!
   publication: Publication
-  # bioEntities
 }
+
+#interface HasDataSets {
+#  dataSets: [DataSet!]!
+#}
