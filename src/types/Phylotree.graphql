@@ -10,6 +10,7 @@ type Phylotree implements Annotatable
   # HasGeneFamily
   geneFamily: GeneFamily
   # Phylotree
+  newick: String
   nodes: [Phylonode!]!
   numLeaves: Int
 }
