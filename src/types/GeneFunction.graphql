@@ -1,0 +1,20 @@
+type GeneFunction implements Annotatable
+#& HasGenes & HasPublications & HasTraits
+{
+  id: ID!
+  # Annotatable
+  identifier: ID!
+  dataSets: [DataSet!]!
+  ontologyAnnotations: [OntologyAnnotation!]!
+  publications: [Publication!]!
+  # HasGenes
+  genes: [Gene!]!
+  # HasTraits
+  traits: [Trait!]!
+  # GeneFunction
+  classicalLocus: String
+  symbol: String
+  symbolLong: String
+  synopsis: String
+  confidence: Integer
+}
