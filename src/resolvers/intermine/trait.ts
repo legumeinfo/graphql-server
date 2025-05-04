@@ -61,3 +61,25 @@ SubfieldResolverMap => ({
         return request.then(({data: results}) => results);
     },
 });
+
+export const hasTraitsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    traits: async (parent, _, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneFunction':
+                const {id} = parent;
+                request = dataSources[sourceName].getTraitsForGeneFunction(id);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
+    },
+});
