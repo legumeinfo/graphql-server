@@ -5,15 +5,19 @@ import {
     intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
-export const intermineTraitAttributes = [
-    ...intermineAnnotatableAttributesFactory('Trait'),
-    'Trait.description',
-    'Trait.name',
-    'Trait.dataSets.name',
-    'Trait.organism.taxonId',
-    'Trait.gwas.primaryIdentifier',
+export const intermineTraitAttributesFactory = (type = 'Trait') => [
+    ...intermineAnnotatableAttributesFactory(type),
+    `${type}.description`,
+    `${type}.name`,
+    `${type}.dataSets.name`,
+    `${type}.organism.taxonId`,
+    `${type}.gwas.primaryIdentifier`,
 ];
-export const intermineTraitSort = 'Trait.name';
+export const intermineTraitAttributes = intermineTraitAttributesFactory('Trait');
+
+export const intermineTraitSortFactory = (type = 'Trait') => `${type}.name`;
+export const intermineTraitSort = intermineTraitSortFactory();
+//export const intermineTraitSort = 'Trait.name';
 export type IntermineTrait = [
     ...IntermineAnnotatable,
     string,
