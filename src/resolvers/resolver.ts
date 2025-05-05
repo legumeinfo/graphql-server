@@ -5,12 +5,11 @@ import type {
   GraphQLIsTypeOfFn,
 } from 'graphql';
 
-
 export interface GraphQLResolvers {
   [fieldName: string]: (() => any) | GraphQLResolverObject | GraphQLScalarType;
 }
 // TODO: remove legacy type
-export interface ResolverMap extends GraphQLResolvers { };
+export interface ResolverMap extends GraphQLResolvers {}
 
 export type GraphQLResolverObject = {
   [fieldName: string]: GraphQLFieldResolver<any, any> | GraphQLResolverOptions;

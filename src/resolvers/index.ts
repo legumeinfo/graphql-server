@@ -1,7 +1,6 @@
-import { mergeResolvers } from '@graphql-tools/merge';
-import { intermineResolverFactory } from './intermine/index.js';
-import { microservicesResolverFactory } from './microservices/index.js';
-
+import {mergeResolvers} from '@graphql-tools/merge';
+import {intermineResolverFactory} from './intermine/index.js';
+import {microservicesResolverFactory} from './microservices/index.js';
 
 export const resolvers = mergeResolvers([
   intermineResolverFactory('lisIntermineAPI', 'lisMicroservicesAPI'),
