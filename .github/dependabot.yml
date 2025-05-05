@@ -1,8 +1,8 @@
 version: 2
 updates:
 
-  # NPM app
-  - package-ecosystem: 'npm'
+  # Bun app
+  - package-ecosystem: 'bun'
     directory: '/'
     schedule:
       interval: 'daily'

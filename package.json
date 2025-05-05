@@ -1,9 +1,36 @@
 {
   "name": "@legumeinfo/graphql-server",
-  "version": "1.7.1",
-  "description": "A GraphQL server that supports the Legume Information System and related biodata websites",
+  "version": "1.8.0",
+  "author": "Legume Information System",
   "main": "dist/index.js",
-  "type": "module",
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.4.1",
+    "@apollo/server": "^4.12.0",
+    "@eslint/js": "^9.26.0",
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/merge": "^9.0.24",
+    "@types/eslint__js": "^9.14.0",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.2",
+    "graphql": "^16.11.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.0"
+  },
+  "description": "A GraphQL server that supports the Legume Information System and related biodata websites",
+  "keywords": [
+    "typescript",
+    "graphql",
+    "apollo",
+    "legumes",
+    "agbio",
+    "biology"
+  ],
+  "license": "Apache-2.0",
   "scripts": {
     "build": "tsc && cp ./src/types/*.graphql ./dist/types",
     "build:watch": "tsc-watch",
@@ -18,34 +45,5 @@
     "start": "bun run clean && bun run build && bun run serve",
     "postinstall": "husky"
   },
-  "keywords": [
-    "typescript",
-    "graphql",
-    "apollo",
-    "legumes",
-    "agbio",
-    "biology"
-  ],
-  "author": "Legume Information System",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@apollo/datasource-rest": "^6.3.0",
-    "@apollo/server": "^4.11.0",
-    "@eslint/js": "^9.26.0",
-    "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/merge": "^9.0.8",
-    "@types/eslint__js": "^9.14.0",
-    "dotenv": "^16.4.5",
-    "eslint": "^9.26.0",
-    "eslint-config-prettier": "^10.1.2",
-    "graphql": "^16.9.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.1",
-    "prettier": "^3.5.3",
-    "typescript-eslint": "^8.32.0"
-  },
-  "devDependencies": {
-    "tsc-watch": "^6.2.0",
-    "typescript": "^5.6.3"
-  }
+  "type": "module"
 }
