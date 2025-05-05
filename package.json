@@ -8,6 +8,10 @@
     "build": "tsc && cp ./src/types/*.graphql ./dist/types",
     "build:watch": "tsc-watch",
     "clean": "rm -rf ./dist",
+    "lint": "npm run lint:eslint",
+    "lint:eslint": "eslint src/*.ts src/**/*.ts",
+    "lint:eslint-config-prettier": "eslint-config-prettier src/*.ts src/**/*.ts",
+    "format": "prettier src/*.ts src/**/*.ts --write",
     "serve": "bun run ./dist/index.js",
     "serve:dev": "NODE_ENV=development bun run tsc-watch --onSuccess \"bun run serve\"",
     "serve:prod": "NODE_ENV=production bun run serve",
@@ -26,10 +30,16 @@
   "dependencies": {
     "@apollo/datasource-rest": "^6.3.0",
     "@apollo/server": "^4.11.0",
+    "@eslint/js": "^9.26.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.8",
+    "@types/eslint__js": "^9.14.0",
     "dotenv": "^16.4.5",
-    "graphql": "^16.9.0"
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.2",
+    "graphql": "^16.9.0",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.32.0"
   },
   "devDependencies": {
     "tsc-watch": "^6.2.0",
