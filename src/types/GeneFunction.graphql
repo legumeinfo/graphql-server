@@ -16,5 +16,5 @@ type GeneFunction implements Annotatable
   symbol: String
   symbolLong: String
   synopsis: String
-  confidence: Integer
+  confidence: Int
 }
