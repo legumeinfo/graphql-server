@@ -61,6 +61,10 @@ type GeneFamilyResults {
   results: GeneFamily
 }
 
+type GeneFunctionResults {
+  results: GeneFunction
+}
+
 type GeneFlankingRegionResults {
   results: GeneFlankingRegion
 }
@@ -230,6 +234,11 @@ type GeneFamiliesResults {
   pageInfo: PageInfo
 }
 
+type GeneFunctionsResults {
+  results: [GeneFunction!]!
+  pageInfo: PageInfo
+}
+
 type GeneticMapsResults {
   results: [GeneticMap!]!
   pageInfo: PageInfo
@@ -380,6 +389,7 @@ type Query {
   genes(description: String, genus: String, species: String, strain: String, identifier: String, name: String,
     geneFamilyIdentifier: String, panGeneSetIdentifier: String, page: Int, pageSize: Int): GenesResults
   geneFamilies(description: String, page: Int, pageSize: Int): GeneFamiliesResults
+  geneFunctions(symbol: String, page: Int, pageSize: Int): GeneFunctionsResults
   geneticMaps(description: String, page: Int, pageSize: Int): GeneticMapsResults
   gwases(description: String, page: Int, pageSize: Int): GwasesResults
   ontologyTerms(description: String, page: Int, pageSize: Int): OntologyTermsResults
