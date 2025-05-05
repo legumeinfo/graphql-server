@@ -95,40 +95,36 @@ SubfieldResolverMap => ({
 
 export const hasGenesFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 SubfieldResolverMap => ({
-    genes: async (parent, _, { dataSources }, info) => {
+    genes: async (parent, { page, pageSize }, { dataSources }, info) => {
         let request: Promise<any>|null = null;
 
+        const args = {page, pageSize};
         const typeName = info.parentType.name;
+        const {id} = parent;
         switch (typeName) {
             case 'GeneFamily':
-            case 'Intron':
-            case 'PanGeneSet':
-            case 'Pathway':
-            case 'Protein':
-            case 'ProteinDomain':
-            // @ts-ignore: fallthrough case error
-            case 'QTL':
-                const {id} = parent;
-            case 'GeneFamily':
-                request = dataSources[sourceName].getGenesForGeneFamily(id);
+                request = dataSources[sourceName].getGenesForGeneFamily(id, args);
+                break;
+            case 'GeneFunction':
+                request = dataSources[sourceName].getGenesForGeneFunction(id, args);
                 break;
             case 'Intron':
-                request = dataSources[sourceName].getGenesForIntron(id);
+                request = dataSources[sourceName].getGenesForIntron(id, args);
                 break;
             case 'PanGeneSet':
-                request = dataSources[sourceName].getGenesForPanGeneSet(id);
+                request = dataSources[sourceName].getGenesForPanGeneSet(id, args);
                 break;
             case 'Pathway':
-                request = dataSources[sourceName].getGenesForPathway(id);
+                request = dataSources[sourceName].getGenesForPathway(id, args);
                 break;
             case 'Protein':
-                request = dataSources[sourceName].getGenesForProtein(id);
+                request = dataSources[sourceName].getGenesForProtein(id, args);
                 break;
             case 'ProteinDomain':
-                request = dataSources[sourceName].getGenesForProteinDomain(id);
+                request = dataSources[sourceName].getGenesForProteinDomain(id, args);
                 break;
             case 'QTL':
-                request = dataSources[sourceName].getGeneForQTL(id);
+                request = dataSources[sourceName].getGeneForQTL(id, args);
                 break;
         }
 
