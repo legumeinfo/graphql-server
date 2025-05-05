@@ -19,6 +19,7 @@ import { geneFamilyFactory } from './gene-family.js';
 import { geneFamilyAssignmentFactory } from './gene-family-assignment.js';
 import { geneFamilyTallyFactory } from './gene-family-tally.js';
 import { geneFlankingRegionFactory } from './gene-flanking-region.js';
+import { geneFunctionFactory } from './gene-function.js';
 import { geneticMapFactory } from './genetic-map.js';
 import { geneticMarkerFactory } from './genetic-marker.js';
 import { genotypingPlatformFactory } from './genotyping-platform.js';
@@ -72,6 +73,7 @@ const factories = [
     geneFamilyAssignmentFactory,
     geneFamilyTallyFactory,
     geneFlankingRegionFactory,
+    geneFunctionFactory,
     geneticMapFactory,
     geneticMarkerFactory,
     genotypingPlatformFactory,

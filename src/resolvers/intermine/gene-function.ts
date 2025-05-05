@@ -1,5 +1,6 @@
 import { DataSources, IntermineAPI } from '../../data-sources/index.js';
-import { inputError, KeyOfType } from '../../utils/index.js';
+//import { inputError, KeyOfType } from '../../utils/index.js';
+import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
@@ -11,6 +12,7 @@ export const geneFunctionFactory =
     sourceName: KeyOfType<DataSources, IntermineAPI>,
 ): ResolverMap => ({
     Query: {
+        /*
         geneFunction: async (_, { identifier }, { dataSources }) => {
             const {data: family} = await dataSources[sourceName].getGeneFunction(identifier);
             if (family == null) {
@@ -19,8 +21,9 @@ export const geneFunctionFactory =
             }
             return {results: family};
         },
-        geneFunctions: async (_, { description, page, pageSize }, { dataSources }) => {
-            const args = {description, page, pageSize};
+        */
+        geneFunctions: async (_, { synopsis, page, pageSize }, { dataSources }) => {
+            const args = {synopsis, page, pageSize};
             return dataSources[sourceName].searchGeneFunctions(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));

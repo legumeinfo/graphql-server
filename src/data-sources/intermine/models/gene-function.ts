@@ -20,9 +20,11 @@ export const intermineGeneFunctionAttributes = [
     'GeneFunction.symbolLong',
     'GeneFunction.synopsis',
     'GeneFunction.confidence',
-    'GeneFunction.dataSets.name',
+    //'GeneFunction.dataSets.name',
 ];
-export const intermineGeneFunctionSort = 'GeneFunction.trait.name ASC GeneFunction.symbol ASC';
+//export const intermineGeneFunctionSort = 'GeneFunction.trait.name ASC GeneFunction.symbol ASC';
+export const intermineGeneFunctionSort = 'GeneFunction.symbol ASC';
+
 export type IntermineGeneFunction = [
     ...IntermineAnnotatable,
     string,
@@ -43,12 +45,12 @@ export const graphqlGeneFunctionAttributes = [
 ];
 export type GraphQLGeneFunction = {
     [prop in typeof graphqlGeneFunctionAttributes[number]]: string;
-}
+};
 
 export type IntermineGeneFunctionResponse = IntermineDataResponse<IntermineGeneFunction>;
 export function response2genefunctions(response: IntermineGeneFunctionResponse): Array<GraphQLGeneFunction> {
     return response2graphqlObjects(response, graphqlGeneFunctionAttributes);
-}
+};
 
 export const intermineGeneFunctionGenesAttributes = intermineGeneAttributesFactory('GeneFunction.genes');
 export const intermineGeneFunctionGenesSort = intermineGeneSortFactory('GeneFunction.genes');
