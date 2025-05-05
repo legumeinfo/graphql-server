@@ -15,7 +15,8 @@
     "serve": "bun run ./dist/index.js",
     "serve:dev": "NODE_ENV=development bun run tsc-watch --onSuccess \"bun run serve\"",
     "serve:prod": "NODE_ENV=production bun run serve",
-    "start": "bun run clean && bun run build && bun run serve"
+    "start": "bun run clean && bun run build && bun run serve",
+    "postinstall": "husky"
   },
   "keywords": [
     "typescript",
@@ -38,6 +39,8 @@
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.2",
     "graphql": "^16.9.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "typescript-eslint": "^8.32.0"
   },
