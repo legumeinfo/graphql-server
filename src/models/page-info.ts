@@ -7,18 +7,20 @@ export interface GraphQLPageInfo {
   hasNextPage: boolean;
 }
 
-
-export const pageInfoFactory =
-  (numResults: number, currentPage: number|null, pageSize: number|null) => {
-    if (currentPage == null) currentPage = 1;
-    if (pageSize == null) pageSize = numResults;
-    const pageCount = (numResults == 0 ? 1 : Math.ceil(numResults/pageSize));
-    return {
-      currentPage,
-      pageSize,
-      numResults,
-      pageCount,
-      hasPreviousPage: currentPage > 1,
-      hasNextPage: currentPage < pageCount,
-    };
+export const pageInfoFactory = (
+  numResults: number,
+  currentPage: number | null,
+  pageSize: number | null,
+) => {
+  if (currentPage == null) currentPage = 1;
+  if (pageSize == null) pageSize = numResults;
+  const pageCount = numResults == 0 ? 1 : Math.ceil(numResults / pageSize);
+  return {
+    currentPage,
+    pageSize,
+    numResults,
+    pageCount,
+    hasPreviousPage: currentPage > 1,
+    hasNextPage: currentPage < pageCount,
   };
+};

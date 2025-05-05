@@ -1,15 +1,16 @@
-import type { KeyValueCache } from '@apollo/utils.keyvaluecache';
+import type {KeyValueCache} from '@apollo/utils.keyvaluecache';
 
-import { DataSources, dataSources } from './data-sources/index.js';
-
+import {DataSources, dataSources} from './data-sources/index.js';
 
 export interface ContextValue {
   dataSources: DataSources;
 }
 
-
-export const contextFactory =
-(intermineURI: string, microservicesURI: string, cache: KeyValueCache) => {
+export const contextFactory = (
+  intermineURI: string,
+  microservicesURI: string,
+  cache: KeyValueCache,
+) => {
   return async () => {
     return {
       // We create new instances of our data sources with each request.

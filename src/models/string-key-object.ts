@@ -3,5 +3,5 @@
  * accessing properties using index syntax.
  */
 export interface StringKeyObject {
-    [key: string]: string|number|boolean|StringKeyObject
+  [key: string]: string | number | boolean | StringKeyObject;
 }

@@ -1,6 +1,5 @@
-import { ApolloServerErrorCode } from '@apollo/server/errors';
-import { GraphQLError } from 'graphql';
-
+import {ApolloServerErrorCode} from '@apollo/server/errors';
+import {GraphQLError} from 'graphql';
 
 export function inputError(msg: string) {
   throw new GraphQLError(msg, {
