@@ -32,7 +32,7 @@ async function getTraits(pathQuery: string, {page, pageSize}: PaginationOptions)
 export async function getTraitsForGeneFunction(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLTrait>> {
     const constraints = [intermineConstraint('Trait.geneFunctions.id', '=', id)];
     //const joins = traitJoinFactory();
-    const joins = [intermineJoin('Trait.geneFunctions')];
+    const joins = [intermineJoin('Trait.geneFunctions', 'INNER')];
     const query = interminePathQuery(
         intermineTraitAttributes,
         intermineTraitSort,
