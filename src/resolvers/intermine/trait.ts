@@ -64,14 +64,16 @@ SubfieldResolverMap => ({
 
 export const hasTraitsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
 SubfieldResolverMap => ({
-    traits: async (parent, _, { dataSources }, info) => {
+    traits: async (parent, { page, pageSize }, { dataSources }, info) => {
         let request: Promise<any>|null = null;
 
+        const args = {page, pageSize};
         const typeName = info.parentType.name;
         switch (typeName) {
             case 'GeneFunction':
                 const {id} = parent;
-                request = dataSources[sourceName].getTraitsForGeneFunction(id);
+                console.log("in hasTraitsFactory id is: " + id);
+                request = dataSources[sourceName].getTraitsForGeneFunction(id, args);
                 break;
         }
 

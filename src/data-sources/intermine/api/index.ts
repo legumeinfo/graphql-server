@@ -222,6 +222,7 @@ import { getStrainsForOrganism } from './get-strains.js';
 import { searchStrains } from './search-strains.js';
 // trait
 import { getTrait } from './get-trait.js';
+import { getTraitsForGeneFunction } from './get-traits.js';
 import { searchTraits } from './search-traits.js';
 // transcripts
 import { getTranscript } from './get-transcript.js';
@@ -441,6 +442,7 @@ export declare class ApiMixinInterface {
     searchStrains: Function;
     // trait
     getTrait: Function;
+    getTraitsForGeneFunction: Function;
     searchTraits: Function;
     // transcript
     getTranscript: Function;
@@ -668,6 +670,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(superCla
         searchStrains = searchStrains;
         // trait
         getTrait = getTrait;
+        getTraitsForGeneFunction = getTraitsForGeneFunction;
         searchTraits = searchTraits;
         // transcript
         getTranscript = getTranscript;
