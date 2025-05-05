@@ -9,9 +9,10 @@ export const intermineTraitAttributesFactory = (type = 'Trait') => [
     ...intermineAnnotatableAttributesFactory(type),
     `${type}.description`,
     `${type}.name`,
-    `${type}.dataSets.name`,
-    `${type}.organism.taxonId`,
-    `${type}.gwas.primaryIdentifier`,
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //`${type}.dataSets.name`,
+    //`${type}.organism.taxonId`,
+    //`${type}.gwas.primaryIdentifier`,
 ];
 export const intermineTraitAttributes = intermineTraitAttributesFactory('Trait');
 
@@ -22,18 +23,20 @@ export type IntermineTrait = [
     ...IntermineAnnotatable,
     string,
     string,
-    string,
-    string,
-    string,
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //string,
+    //string,
+    //string,
 ];
 
 export const graphqlTraitAttributes = [
     ...graphqlAnnotatableAttributes,
     'description',
     'name',
-    'dataSetsName',
-    'organismTaxonId',
-    'gwasIdentifier',
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //'dataSetsName',
+    //'organismTaxonId',
+    //'gwasIdentifier',
 ];
 export type GraphQLTrait = {
     [prop in typeof graphqlTraitAttributes[number]]: string;
