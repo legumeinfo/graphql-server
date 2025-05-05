@@ -72,7 +72,6 @@ SubfieldResolverMap => ({
         switch (typeName) {
             case 'GeneFunction':
                 const {id} = parent;
-                console.log("in hasTraitsFactory id is: " + id);
                 request = dataSources[sourceName].getTraitsForGeneFunction(id, args);
                 break;
         }

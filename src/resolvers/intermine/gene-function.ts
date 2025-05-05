@@ -14,12 +14,12 @@ export const geneFunctionFactory =
     Query: {
         /*
         geneFunction: async (_, { identifier }, { dataSources }) => {
-            const {data: family} = await dataSources[sourceName].getGeneFunction(identifier);
-            if (family == null) {
-                const msg = `GeneFamily with identifier '${identifier}' not found`;
+            const {data: genefunction} = await dataSources[sourceName].getGeneFunction(identifier);
+            if (genefunction == null) {
+                const msg = `GeneFunction with identifier '${identifier}' not found`;
                 inputError(msg);
             }
-            return {results: family};
+            return {results: genefunction};
         },
         */
         geneFunctions: async (_, { synopsis, page, pageSize }, { dataSources }) => {
