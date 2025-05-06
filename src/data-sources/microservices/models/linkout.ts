@@ -1,4 +1,4 @@
 export type GraphQLLinkout = {
-  'href': string,
-  'text': string,
+  href: string;
+  text: string;
 };

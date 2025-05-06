@@ -1,175 +1,223 @@
-import { IntermineAnnotatableObject } from './annotatable.js';
-import { IntermineBioEntityObject } from './bio-entity.js';
-import { GraphQLAuthor, IntermineAuthor } from './author.js';
-import { GraphQLCDS, IntermineCDS } from './cds.js';
-import { GraphQLChromosome, IntermineChromosome } from './chromosome.js';
-import { GraphQLDataSet, IntermineDataSet } from './data-set.js';
-import { GraphQLDataSource, IntermineDataSource } from './data-source.js';
-import { GraphQLExon, IntermineExon } from './exon.js';
-import { GraphQLExpressionSample, IntermineExpressionSample } from './expression-sample.js';
-import { GraphQLExpressionSource, IntermineExpressionSource } from './expression-source.js';
-import { GraphQLExpressionValue, IntermineExpressionValue } from './expression-value.js';
-import { GraphQLGene, IntermineGene } from './gene.js';
-import { GraphQLGeneFamily, IntermineGeneFamily } from './gene-family.js';
-import { GraphQLGeneFamilyAssignment, IntermineGeneFamilyAssignment } from './gene-family-assignment.js';
-import { GraphQLGeneFamilyTally, IntermineGeneFamilyTally } from './gene-family-tally.js';
-import { GraphQLGeneFlankingRegion, IntermineGeneFlankingRegion } from './gene-flanking-region.js';
-import { GraphQLGeneticMap, IntermineGeneticMap } from './genetic-map.js';
-import { GraphQLGeneticMarker, IntermineGeneticMarker } from './genetic-marker.js';
-import { GraphQLGenotypingPlatform, IntermineGenotypingPlatform } from './genotyping-platform.js';
-import { GraphQLGWAS, IntermineGWAS } from './gwas.js';
-import { GraphQLGWASResult, IntermineGWASResult } from './gwas-result.js';
-import { GraphQLIntergenicRegion, IntermineIntergenicRegion } from './intergenic-region.js';
-import { GraphQLIntron, IntermineIntron } from './intron.js';
-import { GraphQLLinkageGroup, IntermineLinkageGroup } from './linkage-group.js';
-import { GraphQLLinkageGroupPosition, IntermineLinkageGroupPosition } from './linkage-group-position.js';
-import { GraphQLLocation, IntermineLocation, IntermineLocationObject } from './location.js';
-import { GraphQLOntology, IntermineOntology } from './ontology.js';
-import { GraphQLOntologyAnnotation, IntermineOntologyAnnotation } from './ontology-annotation.js';
-import { GraphQLOntologyRelation, IntermineOntologyRelation } from './ontology-relation.js';
-import { GraphQLOntologyTerm, IntermineOntologyTerm } from './ontology-term.js';
-import { GraphQLOntologyTermSynonym, IntermineOntologyTermSynonym } from './ontology-term-synonym.js';
-import { GraphQLOrganism, IntermineOrganism } from './organism.js';
-import { GraphQLNewick, IntermineNewick } from './newick.js';
-import { GraphQLMRNA, IntermineMRNA } from './mrna.js';
-import { GraphQLPanGenePair, InterminePanGenePair } from './pan-gene-pair.js';
-import { GraphQLPanGeneSet, InterminePanGeneSet } from './pan-gene-set.js';
-import { GraphQLPathway, InterminePathway } from './pathway.js';
-import { GraphQLPhylonode, InterminePhylonode } from './phylonode.js';
-import { GraphQLPhylotree, InterminePhylotree } from './phylotree.js';
-import { GraphQLProtein, IntermineProtein } from './protein.js';
-import { GraphQLProteinDomain, IntermineProteinDomain } from './protein-domain.js';
-import { GraphQLProteinMatch, IntermineProteinMatch } from './protein-match.js';
-import { GraphQLPublication, InterminePublication } from './publication.js';
-import { GraphQLQTL, IntermineQTL } from './qtl.js';
-import { GraphQLQTLStudy, IntermineQTLStudy } from './qtl-study.js';
-import { GraphQLSequence, IntermineSequence } from './sequence.js';
-import { IntermineSequenceFeatureObject } from './sequence-feature.js';
-import { GraphQLSequenceOntologyTerm, IntermineSequenceOntologyTerm } from './sequence-ontology-term.js';
-import { GraphQLSupercontig, IntermineSupercontig } from './supercontig.js';
-import { GraphQLSyntenicRegion, IntermineSyntenicRegion } from './syntenic-region.js';
-import { GraphQLSyntenyBlock, IntermineSyntenyBlock } from './synteny-block.js';
-import { GraphQLStrain, IntermineStrain } from './strain.js';
-import { GraphQLTrait, IntermineTrait } from './trait.js';
-import { IntermineTranscriptObject } from './transcript.js';
-import { GraphQLUTR, IntermineUTR } from './utr.js';
-
+import {IntermineAnnotatableObject} from './annotatable.js';
+import {IntermineBioEntityObject} from './bio-entity.js';
+import {GraphQLAuthor, IntermineAuthor} from './author.js';
+import {GraphQLCDS, IntermineCDS} from './cds.js';
+import {GraphQLChromosome, IntermineChromosome} from './chromosome.js';
+import {GraphQLDataSet, IntermineDataSet} from './data-set.js';
+import {GraphQLDataSource, IntermineDataSource} from './data-source.js';
+import {GraphQLExon, IntermineExon} from './exon.js';
+import {
+  GraphQLExpressionSample,
+  IntermineExpressionSample,
+} from './expression-sample.js';
+import {
+  GraphQLExpressionSource,
+  IntermineExpressionSource,
+} from './expression-source.js';
+import {
+  GraphQLExpressionValue,
+  IntermineExpressionValue,
+} from './expression-value.js';
+import {GraphQLGene, IntermineGene} from './gene.js';
+import {GraphQLGeneFamily, IntermineGeneFamily} from './gene-family.js';
+import {
+  GraphQLGeneFamilyAssignment,
+  IntermineGeneFamilyAssignment,
+} from './gene-family-assignment.js';
+import {
+  GraphQLGeneFamilyTally,
+  IntermineGeneFamilyTally,
+} from './gene-family-tally.js';
+import {
+  GraphQLGeneFlankingRegion,
+  IntermineGeneFlankingRegion,
+} from './gene-flanking-region.js';
+import {GraphQLGeneticMap, IntermineGeneticMap} from './genetic-map.js';
+import {
+  GraphQLGeneticMarker,
+  IntermineGeneticMarker,
+} from './genetic-marker.js';
+import {
+  GraphQLGenotypingPlatform,
+  IntermineGenotypingPlatform,
+} from './genotyping-platform.js';
+import {GraphQLGWAS, IntermineGWAS} from './gwas.js';
+import {GraphQLGWASResult, IntermineGWASResult} from './gwas-result.js';
+import {
+  GraphQLIntergenicRegion,
+  IntermineIntergenicRegion,
+} from './intergenic-region.js';
+import {GraphQLIntron, IntermineIntron} from './intron.js';
+import {GraphQLLinkageGroup, IntermineLinkageGroup} from './linkage-group.js';
+import {
+  GraphQLLinkageGroupPosition,
+  IntermineLinkageGroupPosition,
+} from './linkage-group-position.js';
+import {
+  GraphQLLocation,
+  IntermineLocation,
+  IntermineLocationObject,
+} from './location.js';
+import {GraphQLOntology, IntermineOntology} from './ontology.js';
+import {
+  GraphQLOntologyAnnotation,
+  IntermineOntologyAnnotation,
+} from './ontology-annotation.js';
+import {
+  GraphQLOntologyRelation,
+  IntermineOntologyRelation,
+} from './ontology-relation.js';
+import {GraphQLOntologyTerm, IntermineOntologyTerm} from './ontology-term.js';
+import {
+  GraphQLOntologyTermSynonym,
+  IntermineOntologyTermSynonym,
+} from './ontology-term-synonym.js';
+import {GraphQLOrganism, IntermineOrganism} from './organism.js';
+import {GraphQLNewick, IntermineNewick} from './newick.js';
+import {GraphQLMRNA, IntermineMRNA} from './mrna.js';
+import {GraphQLPanGenePair, InterminePanGenePair} from './pan-gene-pair.js';
+import {GraphQLPanGeneSet, InterminePanGeneSet} from './pan-gene-set.js';
+import {GraphQLPathway, InterminePathway} from './pathway.js';
+import {GraphQLPhylonode, InterminePhylonode} from './phylonode.js';
+import {GraphQLPhylotree, InterminePhylotree} from './phylotree.js';
+import {GraphQLProtein, IntermineProtein} from './protein.js';
+import {
+  GraphQLProteinDomain,
+  IntermineProteinDomain,
+} from './protein-domain.js';
+import {GraphQLProteinMatch, IntermineProteinMatch} from './protein-match.js';
+import {GraphQLPublication, InterminePublication} from './publication.js';
+import {GraphQLQTL, IntermineQTL} from './qtl.js';
+import {GraphQLQTLStudy, IntermineQTLStudy} from './qtl-study.js';
+import {GraphQLSequence, IntermineSequence} from './sequence.js';
+import {IntermineSequenceFeatureObject} from './sequence-feature.js';
+import {
+  GraphQLSequenceOntologyTerm,
+  IntermineSequenceOntologyTerm,
+} from './sequence-ontology-term.js';
+import {GraphQLSupercontig, IntermineSupercontig} from './supercontig.js';
+import {
+  GraphQLSyntenicRegion,
+  IntermineSyntenicRegion,
+} from './syntenic-region.js';
+import {GraphQLSyntenyBlock, IntermineSyntenyBlock} from './synteny-block.js';
+import {GraphQLStrain, IntermineStrain} from './strain.js';
+import {GraphQLTrait, IntermineTrait} from './trait.js';
+import {IntermineTranscriptObject} from './transcript.js';
+import {GraphQLUTR, IntermineUTR} from './utr.js';
 
 export type GraphQLModel =
-    GraphQLAuthor |
-    GraphQLCDS |
-    GraphQLChromosome |
-    GraphQLDataSet |
-    GraphQLDataSource |
-    GraphQLExon |
-    GraphQLExpressionSample |
-    GraphQLExpressionSource |
-    GraphQLExpressionValue |
-    GraphQLGene |
-    GraphQLGeneFamily |
-    GraphQLGeneFamilyAssignment |
-    GraphQLGeneFamilyTally |
-    GraphQLGeneFlankingRegion |
-    GraphQLGeneticMap |
-    GraphQLGeneticMarker |
-    GraphQLGenotypingPlatform |
-    GraphQLGWAS |
-    GraphQLGWASResult |
-    GraphQLIntergenicRegion |
-    GraphQLIntron |
-    GraphQLLinkageGroup |
-    GraphQLLinkageGroupPosition |
-    GraphQLLocation |
-    GraphQLOntology |
-    GraphQLOntologyAnnotation |
-    GraphQLOntologyRelation |
-    GraphQLOntologyTerm |
-    GraphQLOntologyTermSynonym |
-    GraphQLOrganism |
-    GraphQLNewick |
-    GraphQLMRNA |
-    GraphQLPanGenePair |
-    GraphQLPanGeneSet |
-    GraphQLPathway |
-    GraphQLPhylonode |
-    GraphQLPhylotree |
-    GraphQLProtein |
-    GraphQLProteinDomain |
-    GraphQLProteinMatch |
-    GraphQLPublication |
-    GraphQLQTL |
-    GraphQLQTLStudy |
-    GraphQLSequence |
-    GraphQLSequenceOntologyTerm |
-    GraphQLSupercontig |
-    GraphQLSyntenicRegion |
-    GraphQLSyntenyBlock |
-    GraphQLStrain |
-    GraphQLTrait |
-    GraphQLUTR;
-
+  | GraphQLAuthor
+  | GraphQLCDS
+  | GraphQLChromosome
+  | GraphQLDataSet
+  | GraphQLDataSource
+  | GraphQLExon
+  | GraphQLExpressionSample
+  | GraphQLExpressionSource
+  | GraphQLExpressionValue
+  | GraphQLGene
+  | GraphQLGeneFamily
+  | GraphQLGeneFamilyAssignment
+  | GraphQLGeneFamilyTally
+  | GraphQLGeneFlankingRegion
+  | GraphQLGeneticMap
+  | GraphQLGeneticMarker
+  | GraphQLGenotypingPlatform
+  | GraphQLGWAS
+  | GraphQLGWASResult
+  | GraphQLIntergenicRegion
+  | GraphQLIntron
+  | GraphQLLinkageGroup
+  | GraphQLLinkageGroupPosition
+  | GraphQLLocation
+  | GraphQLOntology
+  | GraphQLOntologyAnnotation
+  | GraphQLOntologyRelation
+  | GraphQLOntologyTerm
+  | GraphQLOntologyTermSynonym
+  | GraphQLOrganism
+  | GraphQLNewick
+  | GraphQLMRNA
+  | GraphQLPanGenePair
+  | GraphQLPanGeneSet
+  | GraphQLPathway
+  | GraphQLPhylonode
+  | GraphQLPhylotree
+  | GraphQLProtein
+  | GraphQLProteinDomain
+  | GraphQLProteinMatch
+  | GraphQLPublication
+  | GraphQLQTL
+  | GraphQLQTLStudy
+  | GraphQLSequence
+  | GraphQLSequenceOntologyTerm
+  | GraphQLSupercontig
+  | GraphQLSyntenicRegion
+  | GraphQLSyntenyBlock
+  | GraphQLStrain
+  | GraphQLTrait
+  | GraphQLUTR;
 
 export type IntermineModel =
-    IntermineAuthor |
-    IntermineCDS |
-    IntermineChromosome |
-    IntermineDataSet |
-    IntermineDataSource |
-    IntermineExon |
-    IntermineExpressionSample |
-    IntermineExpressionSource |
-    IntermineExpressionValue |
-    IntermineGene |
-    IntermineGeneFamily |
-    IntermineGeneFamilyAssignment |
-    IntermineGeneFamilyTally |
-    IntermineGeneFlankingRegion |
-    IntermineGeneticMap |
-    IntermineGeneticMarker |
-    IntermineGenotypingPlatform |
-    IntermineGWAS |
-    IntermineGWASResult |
-    IntermineIntergenicRegion |
-    IntermineIntron |
-    IntermineLinkageGroup |
-    IntermineLinkageGroupPosition |
-    IntermineLocation |
-    IntermineOntology |
-    IntermineOntologyAnnotation |
-    IntermineOntologyRelation |
-    IntermineOntologyTerm |
-    IntermineOntologyTermSynonym |
-    IntermineOrganism |
-    IntermineNewick |
-    IntermineMRNA |
-    InterminePanGenePair |
-    InterminePanGeneSet |
-    InterminePathway |
-    InterminePhylonode |
-    InterminePhylotree |
-    IntermineProtein |
-    IntermineProteinDomain |
-    IntermineProteinMatch |
-    InterminePublication |
-    IntermineQTL |
-    IntermineQTLStudy |
-    IntermineSequence |
-    IntermineSequenceOntologyTerm |
-    IntermineSupercontig |
-    IntermineSyntenicRegion |
-    IntermineSyntenyBlock |
-    IntermineStrain |
-    IntermineTrait |
-    IntermineUTR;
-
+  | IntermineAuthor
+  | IntermineCDS
+  | IntermineChromosome
+  | IntermineDataSet
+  | IntermineDataSource
+  | IntermineExon
+  | IntermineExpressionSample
+  | IntermineExpressionSource
+  | IntermineExpressionValue
+  | IntermineGene
+  | IntermineGeneFamily
+  | IntermineGeneFamilyAssignment
+  | IntermineGeneFamilyTally
+  | IntermineGeneFlankingRegion
+  | IntermineGeneticMap
+  | IntermineGeneticMarker
+  | IntermineGenotypingPlatform
+  | IntermineGWAS
+  | IntermineGWASResult
+  | IntermineIntergenicRegion
+  | IntermineIntron
+  | IntermineLinkageGroup
+  | IntermineLinkageGroupPosition
+  | IntermineLocation
+  | IntermineOntology
+  | IntermineOntologyAnnotation
+  | IntermineOntologyRelation
+  | IntermineOntologyTerm
+  | IntermineOntologyTermSynonym
+  | IntermineOrganism
+  | IntermineNewick
+  | IntermineMRNA
+  | InterminePanGenePair
+  | InterminePanGeneSet
+  | InterminePathway
+  | InterminePhylonode
+  | InterminePhylotree
+  | IntermineProtein
+  | IntermineProteinDomain
+  | IntermineProteinMatch
+  | InterminePublication
+  | IntermineQTL
+  | IntermineQTLStudy
+  | IntermineSequence
+  | IntermineSequenceOntologyTerm
+  | IntermineSupercontig
+  | IntermineSyntenicRegion
+  | IntermineSyntenyBlock
+  | IntermineStrain
+  | IntermineTrait
+  | IntermineUTR;
 
 export type IntermineObject =
-    IntermineAnnotatableObject |
-    IntermineBioEntityObject |
-    IntermineSequenceFeatureObject |
-    IntermineTranscriptObject |
-    IntermineLocationObject;
-
+  | IntermineAnnotatableObject
+  | IntermineBioEntityObject
+  | IntermineSequenceFeatureObject
+  | IntermineTranscriptObject
+  | IntermineLocationObject;
 
 export * from './annotatable.js';
 export * from './author.js';

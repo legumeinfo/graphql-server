@@ -1,21 +1,27 @@
-import { FieldNode, GraphQLResolveInfo } from 'graphql';
+import {FieldNode, GraphQLResolveInfo} from 'graphql';
 
 function getSelections(node: FieldNode) {
-    if (node &&
-        node.selectionSet &&
-        node.selectionSet.selections &&
-        node.selectionSet.selections.length) {
-        return node.selectionSet.selections;
-    }
-    return [];
+  if (
+    node &&
+    node.selectionSet &&
+    node.selectionSet.selections &&
+    node.selectionSet.selections.length
+  ) {
+    return node.selectionSet.selections;
+  }
+  return [];
 }
 
 // gets the list of subfields specified in the query from the client
 export function getQueryFields(info: GraphQLResolveInfo) {
-    const {fieldName} = info;
-    const [modelNode] = info.fieldNodes.filter(({kind, name}) => kind === "Field" && name.value === fieldName);
-    const selections = getSelections(modelNode).filter(({kind}) => kind === "Field") as FieldNode[];
-    const nameNodes = selections.map(({name}) => name);
-    const fieldNames = nameNodes.map(({value}) => value);
-    return fieldNames;
-};
+  const {fieldName} = info;
+  const [modelNode] = info.fieldNodes.filter(
+    ({kind, name}) => kind === 'Field' && name.value === fieldName,
+  );
+  const selections = getSelections(modelNode).filter(
+    ({kind}) => kind === 'Field',
+  ) as FieldNode[];
+  const nameNodes = selections.map(({name}) => name);
+  const fieldNames = nameNodes.map(({value}) => value);
+  return fieldNames;
+}

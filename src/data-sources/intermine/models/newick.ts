@@ -1,4 +1,7 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
+import {
+  IntermineDataResponse,
+  response2graphqlObjects,
+} from '../intermine.server.js';
 
 export const intermineNewickAttributes = [
   'Newick.identifier',
@@ -7,12 +10,7 @@ export const intermineNewickAttributes = [
   'Newick.geneFamily.primaryIdentifier',
 ];
 export const intermineNewickSort = 'Newick.identifier';
-export type IntermineNewick = [
-  string,
-  string,
-  number,
-  number,
-];
+export type IntermineNewick = [string, string, number, number];
 
 export const graphqlNewickAttributes = [
   'identifier',
@@ -21,11 +19,12 @@ export const graphqlNewickAttributes = [
   'geneFamilyIdentifier',
 ];
 export type GraphQLNewick = {
-  [prop in typeof graphqlNewickAttributes[number]]: string;
-}
-
+  [prop in (typeof graphqlNewickAttributes)[number]]: string;
+};
 
 export type IntermineNewickResponse = IntermineDataResponse<IntermineNewick>;
-export function response2newicks(response: IntermineNewickResponse): Array<GraphQLNewick> {
+export function response2newicks(
+  response: IntermineNewickResponse,
+): Array<GraphQLNewick> {
   return response2graphqlObjects(response, graphqlNewickAttributes);
 }
