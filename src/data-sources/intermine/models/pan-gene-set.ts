@@ -1,26 +1,28 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-    IntermineAnnotatable,
-    graphqlAnnotatableAttributes,
-    intermineAnnotatableAttributesFactory,
+  IntermineDataResponse,
+  response2graphqlObjects,
+} from '../intermine.server.js';
+import {
+  IntermineAnnotatable,
+  graphqlAnnotatableAttributes,
+  intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
 export const interminePanGeneSetAttributes = [
-    ...intermineAnnotatableAttributesFactory('PanGeneSet'),
+  ...intermineAnnotatableAttributesFactory('PanGeneSet'),
 ];
 export const interminePanGeneSetSort = 'PanGeneSet.primaryIdentifier';
-export type InterminePanGeneSet = [
-    ...IntermineAnnotatable,
-];
+export type InterminePanGeneSet = [...IntermineAnnotatable];
 
-export const graphqlPanGeneSetAttributes = [
-    ...graphqlAnnotatableAttributes,
-];
+export const graphqlPanGeneSetAttributes = [...graphqlAnnotatableAttributes];
 export type GraphQLPanGeneSet = {
-    [prop in typeof graphqlPanGeneSetAttributes[number]]: string;
-}
+  [prop in (typeof graphqlPanGeneSetAttributes)[number]]: string;
+};
 
-export type InterminePanGeneSetResponse = IntermineDataResponse<InterminePanGeneSet>;
-export function response2panGeneSets(response: InterminePanGeneSetResponse): Array<GraphQLPanGeneSet> {
-    return response2graphqlObjects(response, graphqlPanGeneSetAttributes);
+export type InterminePanGeneSetResponse =
+  IntermineDataResponse<InterminePanGeneSet>;
+export function response2panGeneSets(
+  response: InterminePanGeneSetResponse,
+): Array<GraphQLPanGeneSet> {
+  return response2graphqlObjects(response, graphqlPanGeneSetAttributes);
 }

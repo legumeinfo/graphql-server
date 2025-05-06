@@ -1,55 +1,62 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-    intermineDataSetAttributesFactory,
-    intermineDataSetSortFactory,
+  IntermineDataResponse,
+  response2graphqlObjects,
+} from '../intermine.server.js';
+import {
+  intermineDataSetAttributesFactory,
+  intermineDataSetSortFactory,
 } from './data-set.js';
 
 export const intermineOrganismAttributes = [
-    'Organism.id',
-    'Organism.taxonId',
-    'Organism.abbreviation',
-    'Organism.name',
-    'Organism.commonName',
-    'Organism.shortName',
-    'Organism.description',
-    'Organism.genus',
-    'Organism.species',
+  'Organism.id',
+  'Organism.taxonId',
+  'Organism.abbreviation',
+  'Organism.name',
+  'Organism.commonName',
+  'Organism.shortName',
+  'Organism.description',
+  'Organism.genus',
+  'Organism.species',
 ];
 export const intermineOrganismSort = 'Organism.genus';
 export type IntermineOrganism = [
-    number,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
 ];
 
 export const graphqlOrganismAttributes = [
-    'id',
-    'taxonId',
-    'abbreviation',
-    'name',
-    'commonName',
-    'shortName',
-    'description',
-    'genus',
-    'species',
+  'id',
+  'taxonId',
+  'abbreviation',
+  'name',
+  'commonName',
+  'shortName',
+  'description',
+  'genus',
+  'species',
 ];
 
 export type GraphQLOrganism = {
-    [prop in typeof graphqlOrganismAttributes[number]]: string;
-}
+  [prop in (typeof graphqlOrganismAttributes)[number]]: string;
+};
 
-
-export type IntermineOrganismResponse = IntermineDataResponse<IntermineOrganism>;
-export function response2organisms(response: IntermineOrganismResponse): Array<GraphQLOrganism> {
-    return response2graphqlObjects(response, graphqlOrganismAttributes);
+export type IntermineOrganismResponse =
+  IntermineDataResponse<IntermineOrganism>;
+export function response2organisms(
+  response: IntermineOrganismResponse,
+): Array<GraphQLOrganism> {
+  return response2graphqlObjects(response, graphqlOrganismAttributes);
 }
 
 // Organism.dataSets has no reverse reference
-export const intermineOrganismDataSetAttributes = intermineDataSetAttributesFactory('Organism.dataSets.id');
-export const intermineOrganismDataSetSort = intermineDataSetSortFactory('Organism.dataSets');
+export const intermineOrganismDataSetAttributes =
+  intermineDataSetAttributesFactory('Organism.dataSets.id');
+export const intermineOrganismDataSetSort =
+  intermineDataSetSortFactory('Organism.dataSets');

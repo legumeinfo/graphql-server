@@ -1,30 +1,33 @@
-import { IntermineDataResponse, response2graphqlObjects } from '../intermine.server.js';
 import {
-    IntermineSequenceFeature,
-    graphqlSequenceFeatureAttributes,
-    intermineSequenceFeatureAttributesFactory,
+  IntermineDataResponse,
+  response2graphqlObjects,
+} from '../intermine.server.js';
+import {
+  IntermineSequenceFeature,
+  graphqlSequenceFeatureAttributes,
+  intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
 export const intermineSyntenicRegionAttributes = [
-    ...intermineSequenceFeatureAttributesFactory('SyntenicRegion'),
-    'SyntenicRegion.syntenyBlock.primaryIdentifier',
+  ...intermineSequenceFeatureAttributesFactory('SyntenicRegion'),
+  'SyntenicRegion.syntenyBlock.primaryIdentifier',
 ];
 export const intermineSyntenicRegionSort = 'SyntenicRegion.primaryIdentifier';
-export type IntermineSyntenicRegion = [
-    ...IntermineSequenceFeature,
-    number,
-];
+export type IntermineSyntenicRegion = [...IntermineSequenceFeature, number];
 
 export const graphqlSyntenicRegionAttributes = [
-    ...graphqlSequenceFeatureAttributes,
-    'syntenyBlockIdentifier',
+  ...graphqlSequenceFeatureAttributes,
+  'syntenyBlockIdentifier',
 ];
 export type GraphQLSyntenicRegion = {
-    [prop in typeof graphqlSyntenicRegionAttributes[number]]: string;
-}
+  [prop in (typeof graphqlSyntenicRegionAttributes)[number]]: string;
+};
 
-export type IntermineSyntenicRegionResponse = IntermineDataResponse<IntermineSyntenicRegion>;
+export type IntermineSyntenicRegionResponse =
+  IntermineDataResponse<IntermineSyntenicRegion>;
 // converts an Intermine response into an array of GraphQL SyntenicRegion objects
-export function response2syntenicRegions(response: IntermineSyntenicRegionResponse): Array<GraphQLSyntenicRegion> {
-    return response2graphqlObjects(response, graphqlSyntenicRegionAttributes);
+export function response2syntenicRegions(
+  response: IntermineSyntenicRegionResponse,
+): Array<GraphQLSyntenicRegion> {
+  return response2graphqlObjects(response, graphqlSyntenicRegionAttributes);
 }
