@@ -19,10 +19,10 @@ RUN bun run build
 # Check if the server is healthy
 HEALTHCHECK CMD curl -f --request POST \
   --header 'content-type: application/json' \
-  --url http://localhost:8000/ \
+  --url http://localhost:4000/ \
   --data '{"query":"query { __typename }"}' || exit 1
 
 # Run the server
-EXPOSE 8000
+EXPOSE 4000
 ENTRYPOINT ["bun", "run"]
 CMD ["serve:prod"]
