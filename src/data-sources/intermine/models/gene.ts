@@ -2,10 +2,10 @@ import {
   IntermineDataResponse,
   response2graphqlObjects,
 } from '../intermine.server.js';
-//import {
-//  intermineGeneFamilyAssignmentAttributesFactory,
-//  intermineGeneFamilyAssignmentSortFactory,
-//} from './gene-family-assignment.js';
+import {
+  intermineGeneFamilyAssignmentAttributesFactory,
+  intermineGeneFamilyAssignmentSortFactory,
+} from './gene-family-assignment.js';
 import {
   IntermineSequenceFeature,
   graphqlSequenceFeatureAttributes,
@@ -55,19 +55,19 @@ export function response2genes(
 }
 
 // GeneFamilyAssignment does not have reverse reference - have to query Gene to get its assignments
-//export const intermineGeneGeneFamilyAssignmentsAttributes =
-//  intermineGeneFamilyAssignmentAttributesFactory('Gene.geneFamilyAssignments');
-//export const intermineGeneGeneFamilyAssignmentsSort =
-//  intermineGeneFamilyAssignmentSortFactory('Gene.geneFamilyAssignments');
-//
-export const intermineGeneGeneFamilyAssignmentsAttributes = [
-  'Gene.geneFamilyAssignments.id',
-  'Gene.geneFamilyAssignments.bestDomainScore',
-  'Gene.geneFamilyAssignments.score',
-  'Gene.geneFamilyAssignments.evalue',
-  'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier',
-  'Gene.geneFamilyAssignments.protein.primaryIdentifier',
-];
-
+export const intermineGeneGeneFamilyAssignmentsAttributes =
+  intermineGeneFamilyAssignmentAttributesFactory('Gene.geneFamilyAssignments');
 export const intermineGeneGeneFamilyAssignmentsSort =
-  'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier';
+  intermineGeneFamilyAssignmentSortFactory('Gene.geneFamilyAssignments');
+
+//export const intermineGeneGeneFamilyAssignmentsAttributes = [
+//  'Gene.geneFamilyAssignments.id',
+//  'Gene.geneFamilyAssignments.bestDomainScore',
+//  'Gene.geneFamilyAssignments.score',
+//  'Gene.geneFamilyAssignments.evalue',
+//  'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier',
+//  'Gene.geneFamilyAssignments.protein.primaryIdentifier',
+//];
+//
+//export const intermineGeneGeneFamilyAssignmentsSort =
+//  'Gene.geneFamilyAssignments.geneFamily.primaryIdentifier';
