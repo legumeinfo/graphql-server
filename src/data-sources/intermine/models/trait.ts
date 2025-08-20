@@ -14,7 +14,7 @@ export const intermineTraitAttributes = [
   'Trait.name',
   'Trait.dataSets.name',
   'Trait.organism.taxonId',
-  'Trait.gwas.primaryIdentifier',
+  //'Trait.gwas.primaryIdentifier',
 ];
 export const intermineTraitSort = 'Trait.name';
 export type IntermineTrait = [
