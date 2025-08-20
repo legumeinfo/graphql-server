@@ -16,8 +16,8 @@ export const intermineGeneAttributesFactory = (type = 'Gene') => [
   ...intermineSequenceFeatureAttributesFactory(type),
   `${type}.briefDescription`,
   `${type}.ensemblName`,
-  `${type}.upstreamIntergenicRegion.primaryIdentifier`,
-  `${type}.downstreamIntergenicRegion.primaryIdentifier`,
+  //`${type}.upstreamIntergenicRegion.primaryIdentifier`,
+  //`${type}.downstreamIntergenicRegion.primaryIdentifier`,
 ];
 export const intermineGeneAttributes = intermineGeneAttributesFactory('Gene');
 
@@ -29,16 +29,16 @@ export type IntermineGene = [
   ...IntermineSequenceFeature,
   string,
   string,
-  string,
-  string,
+  //string,
+  //string,
 ];
 
 export const graphqlGeneAttributes = [
   ...graphqlSequenceFeatureAttributes,
   'briefDescription',
   'ensemblName',
-  'upstreamIntergenicRegionIdentifier',
-  'downstreamIntergenicRegionIdentifier',
+  //'upstreamIntergenicRegionIdentifier',
+  //'downstreamIntergenicRegionIdentifier',
 ];
 
 export type GraphQLGene = {

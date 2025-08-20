@@ -19,7 +19,7 @@ import {
   response2genes,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
-import {sequenceFeatureJoinFactory} from './sequence-feature.js';
+import {geneJoinFactory} from './gene.js';
 
 // get Genes using the given query and returns the expected GraphQL types
 async function getGenes(
@@ -49,7 +49,7 @@ export async function getGenesForGeneFamily(
   const constraints = [
     intermineConstraint('Gene.geneFamilyAssignments.geneFamily.id', '=', id),
   ];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -65,7 +65,7 @@ export async function getGenesForPanGeneSet(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('Gene.panGeneSets.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -81,7 +81,7 @@ export async function getGenesForPathway(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('Gene.pathways.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -97,7 +97,7 @@ export async function getGenesForProtein(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('Gene.proteins.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -113,7 +113,7 @@ export async function getGenesForProteinDomain(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('Gene.proteinDomains.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -129,7 +129,7 @@ export async function getAdjacentGenesForIntergenicRegion(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('IntergenicRegion.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('IntergenicRegion.adjacentGenes');
+  const joins = geneJoinFactory('IntergenicRegion.adjacentGenes');
   const query = interminePathQuery(
     intermineIntergenicRegionAdjacentGeneAttributes,
     intermineIntergenicRegionAdjacentGeneSort,
@@ -145,7 +145,7 @@ export async function getGenesForIntron(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('Intron.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('Intron.genes');
+  const joins = geneJoinFactory('Intron.genes');
   const query = interminePathQuery(
     intermineIntronGeneAttributes,
     intermineIntronGeneSort,
@@ -161,7 +161,7 @@ export async function getGenesForQTL(
   {page, pageSize}: PaginationOptions,
 ): Promise<ApiResponse<GraphQLGene>> {
   const constraints = [intermineConstraint('QTL.id', '=', id)];
-  const joins = sequenceFeatureJoinFactory('QTL.genes');
+  const joins = geneJoinFactory('QTL.genes');
   const query = interminePathQuery(
     intermineQTLGenesAttributes,
     intermineQTLGenesSort,

@@ -11,7 +11,7 @@ import {
   intermineGeneSort,
   response2genes,
 } from '../models/index.js';
-import {sequenceFeatureJoinFactory} from './sequence-feature.js';
+import {geneJoinFactory} from './gene.js';
 
 // get a Gene by ID
 export async function getGene(
@@ -24,7 +24,7 @@ export async function getGene(
   const constraints = [
     intermineConstraint('Gene.primaryIdentifier', '=', identifier),
   ];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
@@ -53,7 +53,7 @@ export async function getGenes(
   const constraints = [
     intermineOneOfConstraint('Gene.primaryIdentifier', identifiers),
   ];
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory('Gene');
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
