@@ -13,6 +13,7 @@ import {
   response2geneFamilies,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
+import { geneFamilyJoinFactory } from './gene-family.js';
 
 export type SearchGeneFamiliesOptions = {
   description?: string;
@@ -33,10 +34,12 @@ export async function searchGeneFamilies({
     );
     constraints.push(descriptionConstraint);
   }
+  const joins = geneFamilyJoinFactory();
   const query = interminePathQuery(
     intermineGeneFamilyAttributes,
     intermineGeneFamilySort,
     constraints,
+    joins,
   );
   // get the data
   const dataPromise = this.pathQuery(query, {page, pageSize}).then(

@@ -10,6 +10,7 @@ import {
   intermineGeneFamilySort,
   response2geneFamilies,
 } from '../models/index.js';
+import { geneFamilyJoinFactory } from './gene-family.js';
 
 // get a GeneFamily by ID
 export async function getGeneFamily(
@@ -18,10 +19,12 @@ export async function getGeneFamily(
   const constraints = [
     intermineConstraint('GeneFamily.primaryIdentifier', '=', identifier),
   ];
+  const joins = geneFamilyJoinFactory();
   const query = interminePathQuery(
     intermineGeneFamilyAttributes,
     intermineGeneFamilySort,
     constraints,
+    joins,
   );
   return this.pathQuery(query)
     .then((response: IntermineGeneFamilyResponse) =>
