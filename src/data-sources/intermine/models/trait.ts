@@ -23,7 +23,7 @@ export type IntermineTrait = [
   string,
   string,
   string,
-  string,
+  //string,
 ];
 
 export const graphqlTraitAttributes = [
@@ -32,7 +32,7 @@ export const graphqlTraitAttributes = [
   'name',
   'dataSetsName',
   'organismTaxonId',
-  'gwasIdentifier',
+  //'gwasIdentifier',
 ];
 export type GraphQLTrait = {
   [prop in (typeof graphqlTraitAttributes)[number]]: string;
