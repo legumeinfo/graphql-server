@@ -2,18 +2,28 @@ import {
   IntermineDataResponse,
   response2graphqlObjects,
 } from '../intermine.server.js';
+import { graphqlBioEntityAttributes, IntermineBioEntity, intermineBioEntityAttributesFactory } from './bio-entity.js';
 import {
   intermineLinkageGroupPositionAttributesFactory,
   intermineLinkageGroupPositionSortFactory,
 } from './linkage-group-position.js';
-import {
-  IntermineSequenceFeature,
-  graphqlSequenceFeatureAttributes,
-  intermineSequenceFeatureAttributesFactory,
-} from './sequence-feature.js';
+//import {
+//  IntermineSequenceFeature,
+//  graphqlSequenceFeatureAttributes,
+//  intermineSequenceFeatureAttributesFactory,
+//} from './sequence-feature.js';
 
 export const intermineGeneticMarkerAttributes = [
-  ...intermineSequenceFeatureAttributesFactory('GeneticMarker'),
+  //...intermineSequenceFeatureAttributesFactory('GeneticMarker'),
+  ...intermineBioEntityAttributesFactory('GeneticMarker'),
+  `GeneticMarker.score`,
+  `GeneticMarker.scoreType`,
+  `GeneticMarker.length`,
+  `GeneticMarker.sequenceOntologyTerm.identifier`,
+  `GeneticMarker.chromosomeLocation.id`,
+  `GeneticMarker.supercontigLocation.id`,
+  `GeneticMarker.chromosome.primaryIdentifier`,
+  `GeneticMarker.supercontig.primaryIdentifier`,
   'GeneticMarker.motif',
   'GeneticMarker.alias',
   'GeneticMarker.type',
@@ -21,7 +31,16 @@ export const intermineGeneticMarkerAttributes = [
 ];
 export const intermineGeneticMarkerSort = 'GeneticMarker.primaryIdentifier';
 export type IntermineGeneticMarker = [
-  ...IntermineSequenceFeature,
+  //...IntermineSequenceFeature,
+  ...IntermineBioEntity,
+  number,
+  string,
+  number,
+  string,
+  number,
+  number,
+  string,
+  string,
   string,
   string,
   string,
@@ -29,7 +48,16 @@ export type IntermineGeneticMarker = [
 ];
 
 export const graphqlGeneticMarkerAttributes = [
-  ...graphqlSequenceFeatureAttributes,
+  //...graphqlSequenceFeatureAttributes,
+  ...graphqlBioEntityAttributes,
+  'score',
+  'scoreType',
+  'length',
+  'soTermIdentifier',
+  'chromosomeLocationId',
+  'supercontigLocationId',
+  'chromosomeIdentifier',
+  'supercontigIdentifier',
   'motif',
   'alias',
   'type',

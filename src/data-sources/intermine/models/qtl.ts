@@ -25,6 +25,8 @@ export const intermineQTLAttributes = [
   'QTL.qtlStudy.primaryIdentifier',
   'QTL.linkageGroup.primaryIdentifier',
   'QTL.dataSets.name',
+  'QTL.trait.name',
+  'QTL.markerNames',
 ];
 export const intermineQTLSort = 'QTL.trait.name ASC QTL.primaryIdentifier ASC';
 export type IntermineQTL = [
@@ -36,6 +38,8 @@ export type IntermineQTL = [
   number,
   number,
   number,
+  string,
+  string,
   string,
   string,
   string,
@@ -55,6 +59,8 @@ export const graphqlQTLAttributes = [
   'qtlStudyIdentifier',
   'linkageGroupIdentifier',
   'dataSetName',
+  'traitName',
+  'markerNames',
 ];
 export type GraphQLQTL = {
   [prop in (typeof graphqlQTLAttributes)[number]]: string;
