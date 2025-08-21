@@ -10,6 +10,7 @@ import {
   intermineTraitSort,
   response2traits,
 } from '../models/index.js';
+import { intermineJoin } from '../intermine.server.js';
 
 // get a Trait by identifier
 export async function getTrait(
@@ -18,10 +19,16 @@ export async function getTrait(
   const constraints = [
     intermineConstraint('Trait.primaryIdentifier', '=', identifier),
   ];
+
+  const joins = [];
+  // gwas could be null
+  joins.push(intermineJoin('Trait.gwas', 'OUTER'));
+
   const query = interminePathQuery(
     intermineTraitAttributes,
     intermineTraitSort,
     constraints,
+    joins,
   );
   return this.pathQuery(query)
     .then((response: IntermineTraitResponse) => response2traits(response))

@@ -9,5 +9,6 @@ export function sequenceFeatureJoinFactory(model = 'SequenceFeature') {
     intermineJoin(`${model}.chromosomeLocation`, 'OUTER'),
     intermineJoin(`${model}.supercontigLocation`, 'OUTER'),
     intermineJoin(`${model}.sequenceOntologyTerm`, 'OUTER'),
+    intermineJoin(`${model}.sequence`, 'OUTER'),
   ];
 }
