@@ -76,7 +76,7 @@ export const hasOrganismFactory = (
       case 'QTLStudy':
       case 'Strain':
       case 'Trait':
-        taxonId = parent.orgniamsTaxonId;
+        taxonId = parent.organismTaxonId;
         break;
     }
 
