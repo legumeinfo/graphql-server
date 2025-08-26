@@ -1,0 +1,62 @@
+{
+  "arabidopsis": [
+    {
+      "identifier": "AT1G01010",
+      "symbol": "NAC001",
+      "description": "NAC domain containing protein 1",
+      "organism": "Arabidopsis thaliana",
+      "chromosomeLocation": "1:3631-5899",
+      "assembly": "TAIR10",
+      "strand": 1
+    },
+    {
+      "identifier": "AT1G01020",
+      "symbol": "ARV1",
+      "description": "ARV1 family protein",
+      "organism": "Arabidopsis thaliana",
+      "chromosomeLocation": "1:6788-9130",
+      "assembly": "TAIR10",
+      "strand": -1
+    },
+    {
+      "identifier": "AT1G01030",
+      "symbol": "NGA3",
+      "description": "AP2 domain-containing transcription factor",
+      "organism": "Arabidopsis thaliana",
+      "chromosomeLocation": "1:11649-13714",
+      "assembly": "TAIR10",
+      "strand": -1
+    }
+  ],
+  "soybean": [
+    {
+      "identifier": "Glyma.01G000100",
+      "symbol": "LOC001",
+      "description": "hypothetical protein",
+      "organism": "Glycine max",
+      "chromosomeLocation": "Gm01:1000-3000",
+      "assembly": "Wm82.a2.v1",
+      "strand": 1
+    },
+    {
+      "identifier": "Glyma.01G000200",
+      "symbol": "KINASE1",
+      "description": "protein kinase family protein",
+      "organism": "Glycine max",
+      "chromosomeLocation": "Gm01:5000-7500",
+      "assembly": "Wm82.a2.v1",
+      "strand": 1
+    }
+  ],
+  "medicago": [
+    {
+      "identifier": "Medtr1g004960",
+      "symbol": "MED001",
+      "description": "leucine-rich repeat protein kinase",
+      "organism": "Medicago truncatula",
+      "chromosomeLocation": "1:45000-48000",
+      "assembly": "Mt4.0v1",
+      "strand": 1
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "single_gene_response": {
+    "results": [
+      ["gene1", "AT1G01010", "NAC domain containing protein 1", "Arabidopsis thaliana", "TAIR10", "1", "3631", "5899", "1"]
+    ]
+  },
+  
+  "genes_search_response": {
+    "results": [
+      ["gene1", "AT1G01010", "NAC domain containing protein 1", "Arabidopsis thaliana"],
+      ["gene2", "AT1G01020", "ARV1 family protein", "Arabidopsis thaliana"],
+      ["gene3", "Glyma.01G000100", "hypothetical protein", "Glycine max"]
+    ]
+  },
+  
+  "empty_response": {
+    "results": []
+  },
+  
+  "count_response": {
+    "count": 42
+  },
+  
+  "genes_with_pagination": {
+    "results": [
+      ["gene1", "AT1G01010", "NAC domain containing protein 1", "Arabidopsis thaliana"],
+      ["gene2", "AT1G01020", "ARV1 family protein", "Arabidopsis thaliana"],
+      ["gene3", "AT1G01030", "AP2 domain-containing transcription factor", "Arabidopsis thaliana"],
+      ["gene4", "AT1G01040", "DCL protein", "Arabidopsis thaliana"],
+      ["gene5", "AT1G01050", "ANAC protein", "Arabidopsis thaliana"]
+    ]
+  },
+
+  "kinase_search_response": {
+    "results": [
+      ["gene1", "AT1G01050", "protein kinase family protein", "Arabidopsis thaliana"],
+      ["gene2", "Glyma.01G000200", "receptor-like protein kinase", "Glycine max"],
+      ["gene3", "Medtr1g004960", "leucine-rich repeat protein kinase", "Medicago truncatula"]
+    ]
+  }
+}

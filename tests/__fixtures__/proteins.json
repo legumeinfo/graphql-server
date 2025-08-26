@@ -1,0 +1,47 @@
+{
+  "sample_proteins": [
+    {
+      "identifier": "AT1G01010.1",
+      "name": "NAC domain containing protein 1",
+      "length": 356,
+      "molecularWeight": 39842.5,
+      "sequence": "MTSSLLPPNPQTPSVSYLMGNPYTSTSSVPTYGKPKYGQFSNSNLSLGTTGTGSPNSGVSTLSP",
+      "geneIdentifier": "AT1G01010",
+      "organism": "Arabidopsis thaliana"
+    },
+    {
+      "identifier": "AT1G01020.1", 
+      "name": "ARV1 family protein",
+      "length": 197,
+      "molecularWeight": 22156.3,
+      "sequence": "MAAAALCLCLCLSSPPPPSSSSSSSSSSSLLLLLLLLLLLLLLLFFFFFFFFFFFFFFFF",
+      "geneIdentifier": "AT1G01020",
+      "organism": "Arabidopsis thaliana"
+    },
+    {
+      "identifier": "Glyma.01G000100.1",
+      "name": "hypothetical protein",
+      "length": 234,
+      "molecularWeight": 26543.2,
+      "sequence": "MSTKLVVVNREALPVITCFLYLLIALLVTVSIPIVLMGTDGLKYVGYGDGYGYGYGYGD",
+      "geneIdentifier": "Glyma.01G000100",
+      "organism": "Glycine max"
+    }
+  ],
+  "protein_domains": [
+    {
+      "identifier": "PF02365",
+      "name": "No apical meristem (NAM) domain",
+      "description": "NAM domain, found in proteins involved in plant development",
+      "type": "Pfam",
+      "proteins": ["AT1G01010.1"]
+    },
+    {
+      "identifier": "PF01124", 
+      "name": "Casein kinase II regulatory subunit",
+      "description": "Regulatory subunit of casein kinase II",
+      "type": "Pfam",
+      "proteins": ["AT1G01020.1"]
+    }
+  ]
+}
