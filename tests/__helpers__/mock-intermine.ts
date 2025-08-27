@@ -257,6 +257,240 @@ const mockPublicationResponse = {
   ],
 };
 
+// CDS Response (SequenceFeature + transcriptIdentifier + isPrimary)
+const mockCDSResponse = {
+  results: [
+    [
+      1, // id
+      'AT1G01010.1.cds', // primaryIdentifier
+      'Coding sequence for NAC domain protein', // description
+      'NAC001_CDS', // symbol
+      'NAC domain protein CDS', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1.cds', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      1068, // length
+      'SO:0000316', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+      'AT1G01010.1', // transcript.primaryIdentifier
+      true, // isPrimary
+    ],
+  ],
+};
+
+// Chromosome Response (SequenceFeature only)
+const mockChromosomeResponse = {
+  results: [
+    [
+      1, // id
+      'Chr1', // primaryIdentifier
+      'Chromosome 1', // description
+      'Chr1', // symbol
+      'Chromosome 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'Chr1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      30427671, // length
+      'SO:0000340', // sequenceOntologyTerm.identifier
+      null, // chromosomeLocation.id (self-referential, so null)
+      null, // supercontigLocation.id
+      1, // sequence.id
+      'Chr1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+    ],
+  ],
+};
+
+// Exon Response (SequenceFeature only)
+const mockExonResponse = {
+  results: [
+    [
+      1, // id
+      'AT1G01010.1.exon1', // primaryIdentifier
+      'First exon of AT1G01010.1', // description
+      'AT1G01010.1.exon1', // symbol
+      'Exon 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1.exon1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      438, // length
+      'SO:0000147', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+    ],
+  ],
+};
+
+// mRNA Response (SequenceFeature only)
+const mockMRNAResponse = {
+  results: [
+    [
+      1, // id
+      'AT1G01010.1', // primaryIdentifier
+      'mRNA for NAC domain protein', // description
+      'AT1G01010.1', // symbol
+      'AT1G01010.1 mRNA', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      1334, // length
+      'SO:0000234', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+    ],
+  ],
+};
+
+// UTR Response (SequenceFeature only)
+const mockUTRResponse = {
+  results: [
+    [
+      1, // id
+      'AT1G01010.1.utr', // primaryIdentifier
+      "5' UTR of AT1G01010.1", // description
+      'AT1G01010.1.5UTR', // symbol
+      "5' UTR", // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1.utr', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      266, // length
+      'SO:0000204', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+    ],
+  ],
+};
+
+// GeneFamily Response (Annotatable + name)
+const mockGeneFamilyResponse = {
+  results: [
+    [
+      1, // id
+      'GF001', // primaryIdentifier
+      'NAC transcription factor family', // name
+    ],
+  ],
+};
+
+// PanGeneSet Response (Annotatable + name)
+const mockPanGeneSetResponse = {
+  results: [
+    [
+      1, // id
+      'PGS001', // primaryIdentifier
+      'Plant transcription factor pan-gene set', // name
+    ],
+  ],
+};
+
+// Pathway Response (Annotatable + name)
+const mockPathwayResponse = {
+  results: [
+    [
+      1, // id
+      'PWY001', // primaryIdentifier
+      'Plant hormone signal transduction', // name
+    ],
+  ],
+};
+
+// Phylotree Response (Annotatable + numLeaves + geneFamilyIdentifier)
+const mockPhylotreeResponse = {
+  results: [
+    [
+      1, // id
+      'TREE001', // primaryIdentifier
+      15, // numLeaves
+      'GF001', // geneFamily.primaryIdentifier
+    ],
+  ],
+};
+
+// QTL Response (Annotatable + 12 additional fields)
+const mockQTLResponse = {
+  results: [
+    [
+      1, // id
+      'QTL001', // primaryIdentifier
+      'Height QTL on Chr1', // name
+      3.2, // lod
+      8.5, // likelihoodRatio
+      1250000, // end
+      0.15, // markerR2
+      1100000, // start
+      1175000, // peak
+      'TRAIT001', // trait.primaryIdentifier
+      'QTLS001', // qtlStudy.primaryIdentifier
+      'LG1', // linkageGroup.primaryIdentifier
+      'Height_Study_Dataset', // dataSets.name
+      'Plant Height', // trait.name
+      'M1,M2,M3', // markerNames
+    ],
+  ],
+};
+
+// QTLStudy Response (Annotatable + description + genotypes + synopsis + organism.taxonId)
+const mockQTLStudyResponse = {
+  results: [
+    [
+      1, // id
+      'QTLS001', // primaryIdentifier
+      'Plant height QTL mapping study in Arabidopsis', // description
+      'RIL population from Col-0 x Ler-0', // genotypes
+      'Comprehensive QTL mapping for plant height traits', // synopsis
+      3702, // organism.taxonId
+    ],
+  ],
+};
+
+// Trait Response (Annotatable + description + name + dataSets.name + organism.taxonId + gwas.primaryIdentifier)
+const mockTraitResponse = {
+  results: [
+    [
+      1, // id
+      'TRAIT001', // primaryIdentifier
+      'Quantitative measurement of plant height', // description
+      'Plant Height', // name
+      'Height_Study_Dataset', // dataSets.name
+      '3702', // organism.taxonId (note: string in trait model)
+      'GWAS001', // gwas.primaryIdentifier
+    ],
+  ],
+};
+
 const mockLinkoutResponse = {
   results: [
     {
@@ -335,6 +569,54 @@ export const handlers = [
 
     if (query.includes('Publication.doi') && query.includes('=')) {
       return HttpResponse.json(mockPublicationResponse);
+    }
+
+    if (query.includes('CDS.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockCDSResponse);
+    }
+
+    if (query.includes('Chromosome.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockChromosomeResponse);
+    }
+
+    if (query.includes('Exon.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockExonResponse);
+    }
+
+    if (query.includes('MRNA.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockMRNAResponse);
+    }
+
+    if (query.includes('UTR.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockUTRResponse);
+    }
+
+    if (query.includes('GeneFamily.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockGeneFamilyResponse);
+    }
+
+    if (query.includes('PanGeneSet.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockPanGeneSetResponse);
+    }
+
+    if (query.includes('Pathway.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockPathwayResponse);
+    }
+
+    if (query.includes('Phylotree.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockPhylotreeResponse);
+    }
+
+    if (query.includes('QTL.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockQTLResponse);
+    }
+
+    if (query.includes('QTLStudy.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockQTLStudyResponse);
+    }
+
+    if (query.includes('Trait.primaryIdentifier') && query.includes('=')) {
+      return HttpResponse.json(mockTraitResponse);
     }
 
     // Handle search queries

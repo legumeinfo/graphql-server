@@ -167,6 +167,107 @@ describe('Genes Search Integration', () => {
     }
   });
 
+  test('validates comprehensive gene search with nested data', async () => {
+    const {server, context} = await createTestServer();
+    const contextValue = await context();
+
+    const comprehensiveQuery = `
+      query SearchGenesComprehensive($description: String, $page: Int, $pageSize: Int) {
+        genes(description: $description, page: $page, pageSize: $pageSize) {
+          results {
+            identifier
+            symbol
+            description
+            name
+            assemblyVersion
+            annotationVersion
+            organism {
+              taxonId
+              name
+              genus
+              species
+              abbreviation
+            }
+            strain {
+              identifier
+              name
+            }
+            chromosome {
+              identifier
+            }
+            length
+            briefDescription
+            ensemblName
+          }
+          pageInfo {
+            currentPage
+            pageSize
+            numResults
+            hasNextPage
+            hasPreviousPage
+            pageCount
+          }
+        }
+      }
+    `;
+
+    const response = await executeQuery(
+      server,
+      comprehensiveQuery,
+      {description: 'kinase', page: 1, pageSize: 5},
+      contextValue,
+    );
+
+    if (response.body.kind === 'single' && !response.body.singleResult.errors) {
+      const data = response.body.singleResult.data.genes;
+
+      // Validate we got results
+      expect(data.results).toBeDefined();
+      expect(Array.isArray(data.results)).toBe(true);
+      expect(data.results.length).toBeGreaterThan(0);
+
+      data.results.forEach((gene: any) => {
+        // Validate core gene fields
+        expect(gene.identifier).toBeDefined();
+        expect(gene.symbol).toBeDefined();
+        expect(gene.description).toBeDefined();
+        expect(gene.name).toBeDefined();
+        expect(gene.assemblyVersion).toBeDefined();
+        expect(gene.annotationVersion).toBeDefined();
+
+        // Validate gene-specific fields
+        expect(gene.briefDescription).toBeDefined();
+        expect(gene.ensemblName).toBeDefined();
+        expect(typeof gene.length).toBe('number');
+
+        // Validate organism relationship
+        expect(gene.organism).toBeDefined();
+        expect(gene.organism.taxonId).toBe('3702');
+        expect(gene.organism.name).toBe('Arabidopsis thaliana');
+        expect(gene.organism.genus).toBe('Arabidopsis');
+        expect(gene.organism.species).toBe('thaliana');
+        expect(gene.organism.abbreviation).toBe('ARATH');
+
+        // Validate strain relationship
+        expect(gene.strain).toBeDefined();
+        expect(gene.strain.identifier).toBe('Col-0');
+
+        // Validate chromosome relationship
+        expect(gene.chromosome).toBeDefined();
+        expect(gene.chromosome.identifier).toBe('1');
+
+        // Validate identifier format for Arabidopsis
+        expect(gene.identifier).toMatch(/^AT\dG\d{5}$/);
+      });
+
+      // Validate pagination
+      expect(data.pageInfo).toBeDefined();
+      expect(data.pageInfo.currentPage).toBe(1);
+      expect(data.pageInfo.pageSize).toBe(5);
+      expect(typeof data.pageInfo.numResults).toBe('number');
+    }
+  });
+
   test('handles pagination correctly', async () => {
     const {server, context} = await createTestServer();
     const contextValue = await context();
