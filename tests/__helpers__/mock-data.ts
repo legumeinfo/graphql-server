@@ -153,7 +153,10 @@ export const PROTEIN_QUERY = `
         identifier
         name
         length
-        sequence
+        sequence {
+          residues
+          length
+        }
       }
     }
   }
@@ -250,10 +253,8 @@ export const GENE_LINKOUTS_QUERY = `
   query GetGeneLinkouts($identifier: ID!) {
     geneLinkouts(identifier: $identifier) {
       results {
-        identifier
-        url
+        href
         text
-        description
       }
     }
   }

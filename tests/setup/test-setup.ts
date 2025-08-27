@@ -3,9 +3,11 @@ import {server} from '../__helpers__/mock-intermine';
 
 // Establish API mocking before all tests
 beforeAll(() => {
+  console.log('MSW: Starting server in beforeAll hook');
   server.listen({
     onUnhandledRequest: 'warn',
   });
+  console.log('MSW: Server started successfully');
 });
 
 // Reset any request handlers after each test

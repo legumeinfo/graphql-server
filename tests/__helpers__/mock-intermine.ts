@@ -128,6 +128,7 @@ export const handlers = [
   // PathQuery POST endpoint for all biological data queries
   http.post('*/query/results', async ({request}) => {
     console.log('MSW intercepted POST to:', request.url);
+    console.log('MSW request method:', request.method);
     const body = await request.text();
     const params = new URLSearchParams(body);
     const query = params.get('query') || '';
@@ -238,6 +239,16 @@ export const handlers = [
   http.get('*/linkouts/location/*', () => {
     console.log('MSW intercepted GET linkouts/location');
     return HttpResponse.json(mockLinkoutResponse);
+  }),
+
+  // Debug catch-all handler
+  http.all('*', ({request}) => {
+    console.log(
+      'MSW CATCH-ALL - Unhandled request:',
+      request.method,
+      request.url,
+    );
+    // Don't return anything to let other handlers try first
   }),
 ];
 

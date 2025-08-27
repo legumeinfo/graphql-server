@@ -146,8 +146,7 @@ describe('Comprehensive GraphQL Query Coverage', () => {
         query Test${name.charAt(0).toUpperCase() + name.slice(1)}(${paramDeclarations}) {
           ${name}(${paramUsage}) {
             results {
-              identifier
-              url
+              href
               text
             }
           }
