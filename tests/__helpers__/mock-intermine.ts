@@ -5,14 +5,27 @@ import {setupServer} from 'msw/node';
 const mockGeneResponse = {
   results: [
     [
-      'gene1',
-      'AT1G01010',
-      'NAC domain containing protein 1',
-      'Arabidopsis thaliana',
-      'TAIR10',
-      '1',
-      '3631',
-      '5899',
+      1, // id
+      'AT1G01010', // primaryIdentifier
+      'NAC domain containing protein 1', // description
+      'NAC001', // symbol
+      'NAC domain containing protein 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      2268, // length
+      'SO:0000704', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+      'NAC domain protein', // briefDescription
+      'AT1G01010', // ensemblName
     ],
   ],
 };
@@ -20,47 +33,198 @@ const mockGeneResponse = {
 const mockGenesSearchResponse = {
   results: [
     [
-      'gene1',
-      'AT1G01010',
-      'NAC domain containing protein 1',
-      'Arabidopsis thaliana',
+      1, // id
+      'AT1G01010', // primaryIdentifier
+      'NAC domain containing protein 1', // description
+      'NAC001', // symbol
+      'NAC domain containing protein 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      2268, // length
+      'SO:0000704', // sequenceOntologyTerm.identifier
+      1, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      1, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+      'NAC domain protein', // briefDescription
+      'AT1G01010', // ensemblName
     ],
-    ['gene2', 'AT1G01020', 'ARV1 family protein', 'Arabidopsis thaliana'],
-    ['gene3', 'AT1G01030', 'hypothetical protein', 'Arabidopsis thaliana'],
+    [
+      2, // id
+      'AT1G01020', // primaryIdentifier
+      'ARV1 family protein', // description
+      'ARV1', // symbol
+      'ARV1 family protein', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01020', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      1560, // length
+      'SO:0000704', // sequenceOntologyTerm.identifier
+      2, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      2, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+      'ARV1 protein', // briefDescription
+      'AT1G01020', // ensemblName
+    ],
+    [
+      3, // id
+      'AT1G01030', // primaryIdentifier
+      'hypothetical protein', // description
+      'HYP', // symbol
+      'hypothetical protein', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01030', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      0.0, // score
+      'none', // scoreType
+      900, // length
+      'SO:0000704', // sequenceOntologyTerm.identifier
+      3, // chromosomeLocation.id
+      null, // supercontigLocation.id
+      3, // sequence.id
+      '1', // chromosome.primaryIdentifier
+      null, // supercontig.primaryIdentifier
+      'Unknown function', // briefDescription
+      'AT1G01030', // ensemblName
+    ],
   ],
 };
 
 const mockOrganismResponse = {
   results: [
-    ['3702', 'Arabidopsis thaliana', 'Arabidopsis', 'thaliana', 'ARATH'],
+    [
+      1, // id
+      '3702', // taxonId
+      'ARATH', // abbreviation
+      'Arabidopsis thaliana', // name
+      'Arabidopsis thaliana', // commonName
+      'A.thaliana', // shortName
+      'Model plant organism', // description
+      'Arabidopsis', // genus
+      'thaliana', // species
+    ],
   ],
 };
 
 const mockOrganismsSearchResponse = {
   results: [
-    ['3702', 'Arabidopsis thaliana', 'Arabidopsis', 'thaliana', 'ARATH'],
-    ['3847', 'Glycine max', 'Glycine', 'max', 'GLYCM'],
-    ['3880', 'Medicago truncatula', 'Medicago', 'truncatula', 'MEDTR'],
+    [
+      1, // id
+      '3702', // taxonId
+      'ARATH', // abbreviation
+      'Arabidopsis thaliana', // name
+      'Arabidopsis thaliana', // commonName
+      'A.thaliana', // shortName
+      'Model plant organism', // description
+      'Arabidopsis', // genus
+      'thaliana', // species
+    ],
+    [
+      2, // id
+      '3847', // taxonId
+      'GLYCM', // abbreviation
+      'Glycine max', // name
+      'Glycine max', // commonName
+      'G.max', // shortName
+      'Soybean', // description
+      'Glycine', // genus
+      'max', // species
+    ],
+    [
+      3, // id
+      '3880', // taxonId
+      'MEDTR', // abbreviation
+      'Medicago truncatula', // name
+      'Medicago truncatula', // commonName
+      'M.truncatula', // shortName
+      'Barrel medic', // description
+      'Medicago', // genus
+      'truncatula', // species
+    ],
   ],
 };
 
 const mockProteinResponse = {
   results: [
     [
-      'protein1',
-      'AT1G01010.1',
-      'NAC domain containing protein 1',
-      '356',
-      'MTSSLL...',
+      1, // id
+      'AT1G01010.1', // primaryIdentifier
+      'NAC domain containing protein 1', // description
+      'NAC001', // symbol
+      'NAC domain containing protein 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      'abcd1234efgh5678', // md5checksum
+      'AT1G01010.1', // primaryAccession
+      39654, // molecularWeight
+      356, // length
+      true, // isPrimary
+      'phylo1', // phylonode.identifier
+      'AT1G01010.1', // transcript.primaryIdentifier
+      1, // sequence.id
     ],
   ],
 };
 
 const mockProteinsSearchResponse = {
   results: [
-    ['protein1', 'AT1G01010.1', 'NAC domain containing protein 1', '356'],
-    ['protein2', 'AT1G01020.1', 'ARV1 family protein', '197'],
-    ['protein3', 'Glyma.01G000100.1', 'hypothetical protein', '234'],
+    [
+      1, // id
+      'AT1G01010.1', // primaryIdentifier
+      'NAC domain containing protein 1', // description
+      'NAC001', // symbol
+      'NAC domain containing protein 1', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01010.1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      'abcd1234efgh5678', // md5checksum
+      'AT1G01010.1', // primaryAccession
+      39654, // molecularWeight
+      356, // length
+      true, // isPrimary
+      'phylo1', // phylonode.identifier
+      'AT1G01010.1', // transcript.primaryIdentifier
+      1, // sequence.id
+    ],
+    [
+      2, // id
+      'AT1G01020.1', // primaryIdentifier
+      'ARV1 family protein', // description
+      'ARV1', // symbol
+      'ARV1 family protein', // name
+      'TAIR10', // assemblyVersion
+      'v1.0', // annotationVersion
+      'AT1G01020.1', // secondaryIdentifier
+      3702, // organism.taxonId
+      'Col-0', // strain.identifier
+      'efgh5678ijkl9012', // md5checksum
+      'AT1G01020.1', // primaryAccession
+      21876, // molecularWeight
+      197, // length
+      true, // isPrimary
+      'phylo2', // phylonode.identifier
+      'AT1G01020.1', // transcript.primaryIdentifier
+      2, // sequence.id
+    ],
   ],
 };
 
@@ -258,7 +422,17 @@ export const server = setupServer(...handlers);
 // Utility functions for test-specific mocking
 export const mockEmptyResponse = () => {
   server.use(
-    http.post('*/query/results', () => {
+    http.post('*/query/results', async ({request}) => {
+      const body = await request.text();
+      const params = new URLSearchParams(body);
+      const format = params.get('format') || 'json';
+
+      // Handle count queries
+      if (format === 'jsoncount') {
+        return HttpResponse.json({count: 0});
+      }
+
+      // Handle regular queries
       return HttpResponse.json({results: []});
     }),
   );

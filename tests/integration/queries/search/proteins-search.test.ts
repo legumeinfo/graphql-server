@@ -132,7 +132,7 @@ describe('Proteins Search Integration', () => {
         // Validate data types
         expect(typeof protein.identifier).toBe('string');
         expect(typeof protein.name).toBe('string');
-        expect(typeof protein.length).toBe('string'); // InterMine format
+        expect(typeof protein.length).toBe('number'); // GraphQL schema defines as Int
       });
     }
   });

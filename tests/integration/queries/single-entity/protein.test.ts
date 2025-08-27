@@ -32,7 +32,7 @@ describe('Protein Query Integration', () => {
       expect(data.protein.results).toBeDefined();
       expect(data.protein.results.identifier).toBe('AT1G01010.1');
       expect(data.protein.results.name).toContain('NAC domain');
-      expect(typeof data.protein.results.length).toBe('string'); // InterMine returns as string
+      expect(typeof data.protein.results.length).toBe('number'); // GraphQL schema defines as Int
     }
   });
 
@@ -120,7 +120,7 @@ describe('Protein Query Integration', () => {
       // Validate data types
       expect(typeof protein.identifier).toBe('string');
       expect(typeof protein.name).toBe('string');
-      expect(typeof protein.length).toBe('string'); // InterMine format
+      expect(typeof protein.length).toBe('number'); // GraphQL schema defines as Int
       expect(typeof protein.sequence).toBe('object'); // Now an object with residues and length
     }
   });
