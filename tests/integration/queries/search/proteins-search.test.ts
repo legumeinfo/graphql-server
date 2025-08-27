@@ -84,14 +84,18 @@ describe('Proteins Search Integration', () => {
       {description: 'protein', expectedCount: 3},
     ];
 
-    for (const testCase of testCases) {
-      const response = await executeQuery(
-        server,
-        PROTEINS_SEARCH_QUERY,
-        {description: testCase.description, page: 1, pageSize: 10},
-        contextValue,
-      );
+    const responses = await Promise.all(
+      testCases.map((testCase) =>
+        executeQuery(
+          server,
+          PROTEINS_SEARCH_QUERY,
+          {description: testCase.description, page: 1, pageSize: 10},
+          contextValue,
+        ),
+      ),
+    );
 
+    responses.forEach((response) => {
       expect(response.body.kind).toBe('single');
       expect(response.body.singleResult).toBeDefined();
 
@@ -102,7 +106,7 @@ describe('Proteins Search Integration', () => {
         const data = response.body.singleResult.data;
         expect(data.proteins.results.length).toBeGreaterThanOrEqual(0);
       }
-    }
+    });
   });
 
   test('validates protein search result structure', async () => {
@@ -140,14 +144,19 @@ describe('Proteins Search Integration', () => {
     // Test different page sizes
     const pageSizes = [2, 5, 10];
 
-    for (const pageSize of pageSizes) {
-      const response = await executeQuery(
-        server,
-        PROTEINS_SEARCH_QUERY,
-        {description: 'protein', page: 1, pageSize},
-        contextValue,
-      );
+    const responses = await Promise.all(
+      pageSizes.map((pageSize) =>
+        executeQuery(
+          server,
+          PROTEINS_SEARCH_QUERY,
+          {description: 'protein', page: 1, pageSize},
+          contextValue,
+        ),
+      ),
+    );
 
+    responses.forEach((response, index) => {
+      const pageSize = pageSizes[index];
       expect(response.body.kind).toBe('single');
       expect(response.body.singleResult).toBeDefined();
 
@@ -159,7 +168,7 @@ describe('Proteins Search Integration', () => {
         expect(data.proteins.pageInfo.pageSize).toBe(pageSize);
         expect(data.proteins.pageInfo.currentPage).toBe(1);
       }
-    }
+    });
   });
 
   test('searches proteins with detailed query', async () => {

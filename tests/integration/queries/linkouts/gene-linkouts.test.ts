@@ -105,14 +105,18 @@ describe('Gene Linkouts Integration', () => {
       'Medtr1g004960',
     ];
 
-    for (const geneId of testGeneIds) {
-      const response = await executeQuery(
-        server,
-        GENE_LINKOUTS_QUERY,
-        {identifier: geneId},
-        contextValue,
-      );
+    const responses = await Promise.all(
+      testGeneIds.map((geneId) =>
+        executeQuery(
+          server,
+          GENE_LINKOUTS_QUERY,
+          {identifier: geneId},
+          contextValue,
+        ),
+      ),
+    );
 
+    responses.forEach((response) => {
       expect(response.body.kind).toBe('single');
       expect(response.body.singleResult).toBeDefined();
       // Should not error even if no linkouts are found
@@ -125,6 +129,6 @@ describe('Gene Linkouts Integration', () => {
           Array.isArray(response.body.singleResult.data.geneLinkouts.results),
         ).toBe(true);
       }
-    }
+    });
   });
 });

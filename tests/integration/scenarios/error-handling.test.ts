@@ -85,18 +85,22 @@ describe('Error Handling Integration Tests', () => {
         '123456789012345678901234567890123456789012345678901234567890', // Very long string
       ];
 
-      for (const invalidId of invalidIdentifiers) {
-        const response = await executeQuery(
-          server,
-          GENE_QUERY,
-          {identifier: invalidId},
-          contextValue,
-        );
+      const responses = await Promise.all(
+        invalidIdentifiers.map((invalidId) =>
+          executeQuery(
+            server,
+            GENE_QUERY,
+            {identifier: invalidId},
+            contextValue,
+          ),
+        ),
+      );
 
+      responses.forEach((response) => {
         expect(response.body.kind).toBe('single');
         // Should either return error or empty results, not crash
         expect(response.body.singleResult).toBeDefined();
-      }
+      });
     });
 
     test('handles invalid pagination parameters', async () => {
@@ -125,18 +129,17 @@ describe('Error Handling Integration Tests', () => {
         {page: 1, pageSize: 1000}, // Very large page size
       ];
 
-      for (const params of invalidParams) {
-        const response = await executeQuery(
-          server,
-          query,
-          params,
-          contextValue,
-        );
+      const responses = await Promise.all(
+        invalidParams.map((params) =>
+          executeQuery(server, query, params, contextValue),
+        ),
+      );
 
+      responses.forEach((response) => {
         expect(response.body.kind).toBe('single');
         // Should handle gracefully, either with error or adjusted parameters
         expect(response.body.singleResult).toBeDefined();
-      }
+      });
     });
 
     test('handles missing required parameters', async () => {
@@ -375,18 +378,17 @@ describe('Error Handling Integration Tests', () => {
         {identifiers: [null]}, // Array with null value
       ];
 
-      for (const variables of invalidArrays) {
-        const response = await executeQuery(
-          server,
-          query,
-          variables,
-          contextValue,
-        );
+      const responses = await Promise.all(
+        invalidArrays.map((variables) =>
+          executeQuery(server, query, variables, contextValue),
+        ),
+      );
 
+      responses.forEach((response) => {
         expect(response.body.kind).toBe('single');
         expect(response.body.singleResult).toBeDefined();
         // Should handle invalid array inputs appropriately
-      }
+      });
     });
   });
 

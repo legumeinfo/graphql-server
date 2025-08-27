@@ -31,14 +31,19 @@ describe('Pagination Integration Tests', () => {
 
       const pageSizes = [1, 5, 10, 20];
 
-      for (const pageSize of pageSizes) {
-        const response = await executeQuery(
-          server,
-          query,
-          {description: 'protein', page: 1, pageSize},
-          contextValue,
-        );
+      const responses = await Promise.all(
+        pageSizes.map((pageSize) =>
+          executeQuery(
+            server,
+            query,
+            {description: 'protein', page: 1, pageSize},
+            contextValue,
+          ),
+        ),
+      );
 
+      responses.forEach((response, index) => {
+        const pageSize = pageSizes[index];
         expect(response.body.kind).toBe('single');
         // Should not crash - may return null data or error, both are acceptable
         expect(response.body.singleResult).toBeDefined();
@@ -53,7 +58,7 @@ describe('Pagination Integration Tests', () => {
           expect(data.genes.pageInfo.currentPage).toBe(1);
           expect(data.genes.results.length).toBeLessThanOrEqual(pageSize);
         }
-      }
+      });
     });
 
     test('navigates through multiple pages', async () => {
@@ -230,18 +235,17 @@ describe('Pagination Integration Tests', () => {
         {page: 1, pageSize: 100}, // Large page size
       ];
 
-      for (const testCase of edgeCases) {
-        const response = await executeQuery(
-          server,
-          query,
-          testCase,
-          contextValue,
-        );
+      const responses = await Promise.all(
+        edgeCases.map((testCase) =>
+          executeQuery(server, query, testCase, contextValue),
+        ),
+      );
 
+      responses.forEach((response) => {
         expect(response.body.kind).toBe('single');
         // Should handle edge cases gracefully without errors
         expect(response.body.singleResult).toBeDefined();
-      }
+      });
     });
   });
 
@@ -337,21 +341,25 @@ describe('Pagination Integration Tests', () => {
         'strains',
       ];
 
-      for (const queryName of searchQueries) {
-        const query = `
-          query TestPagination {
-            ${queryName}(page: 1, pageSize: 2) {
-              pageInfo {
-                currentPage
-                pageSize
-                numResults
+      const responses = await Promise.all(
+        searchQueries.map((queryName) => {
+          const query = `
+            query TestPagination {
+              ${queryName}(page: 1, pageSize: 2) {
+                pageInfo {
+                  currentPage
+                  pageSize
+                  numResults
+                }
               }
             }
-          }
-        `;
+          `;
+          return executeQuery(server, query, {}, contextValue);
+        }),
+      );
 
-        const response = await executeQuery(server, query, {}, contextValue);
-
+      responses.forEach((response, index) => {
+        const queryName = searchQueries[index];
         expect(response.body.kind).toBe('single');
         // Should support pagination without errors
         expect(response.body.singleResult).toBeDefined();
@@ -366,7 +374,7 @@ describe('Pagination Integration Tests', () => {
             response.body.singleResult.data[queryName].pageInfo,
           ).toBeDefined();
         }
-      }
+      });
     });
 
     test('pagination parameters are optional', async () => {

@@ -110,20 +110,19 @@ describe('Location Linkouts Integration', () => {
       {identifier: 'Gm01', start: 100000, end: 200000},
     ];
 
-    for (const location of testLocations) {
-      const response = await executeQuery(
-        server,
-        locationLinkoutsQuery,
-        location,
-        contextValue,
-      );
+    const responses = await Promise.all(
+      testLocations.map((location) =>
+        executeQuery(server, locationLinkoutsQuery, location, contextValue),
+      ),
+    );
 
+    responses.forEach((response) => {
       expect(response.body.kind).toBe('single');
       expect(response.body.singleResult).toBeDefined();
       if (response.body.singleResult.data) {
         expect(response.body.singleResult.data.locationLinkouts).toBeDefined();
       }
-    }
+    });
   });
 
   test('validates coordinate ranges', async () => {
@@ -148,20 +147,19 @@ describe('Location Linkouts Integration', () => {
       {identifier: 'Chr1', start: 1000000, end: 1001000}, // Large coordinates
     ];
 
-    for (const testCase of testCases) {
-      const response = await executeQuery(
-        server,
-        locationLinkoutsQuery,
-        testCase,
-        contextValue,
-      );
+    const responses = await Promise.all(
+      testCases.map((testCase) =>
+        executeQuery(server, locationLinkoutsQuery, testCase, contextValue),
+      ),
+    );
 
+    responses.forEach((response) => {
       expect(response.body.kind).toBe('single');
       expect(response.body.singleResult).toBeDefined();
       // Should handle all coordinate ranges without errors
       if (response.body.singleResult.data) {
         expect(response.body.singleResult.data.locationLinkouts).toBeDefined();
       }
-    }
+    });
   });
 });
