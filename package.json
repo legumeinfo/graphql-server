@@ -49,9 +49,16 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "test:integration": "vitest run tests/integration",
-    "test:unit": "vitest run tests/unit",
-    "test:performance": "vitest run tests/performance",
-    "test:ci": "vitest run --coverage --reporter=junit --outputFile=test-results.xml"
+    "test:integration:mocked": "vitest run --workspace=integration-mocked",
+    "test:integration:real": "TEST_WITH_REAL_ENDPOINTS=true vitest run --workspace=integration-real",
+    "test:unit": "vitest run --workspace=unit",
+    "test:unit:real": "vitest run tests/unit/resolvers/*real*.test.ts",
+    "test:performance": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/performance",
+    "test:schema-coverage": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real/comprehensive-schema-coverage.test.ts",
+    "test:data-validation": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real/data-validation-schema-compliance.test.ts",
+    "test:all-real": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real tests/performance",
+    "test:ci": "vitest run --coverage --reporter=junit --outputFile=test-results.xml",
+    "test:ci:real": "TEST_WITH_REAL_ENDPOINTS=true vitest run --workspace=integration-real --reporter=junit --outputFile=real-test-results.xml"
   },
   "type": "module",
   "devDependencies": {
