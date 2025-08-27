@@ -232,7 +232,7 @@ const mockStrainResponse = {
   results: [
     [
       'Col-0',
-      'Columbia-0',
+      'Col-0',
       'Reference strain for Arabidopsis thaliana',
       'Laboratory collection',
     ],
@@ -241,7 +241,7 @@ const mockStrainResponse = {
 
 const mockStrainsSearchResponse = {
   results: [
-    ['Col-0', 'Columbia-0', 'Reference strain', 'Laboratory'],
+    ['Col-0', 'Col-0', 'Reference strain', 'Laboratory'],
     ['Ler-0', 'Landsberg erecta', 'Natural variant', 'Wild collection'],
     ['Ws-0', 'Wassilewskija', 'Natural variant', 'Wild collection'],
   ],
@@ -291,13 +291,13 @@ const mockChromosomeResponse = {
   results: [
     [
       1, // id
-      'Chr1', // primaryIdentifier
+      '1', // primaryIdentifier
       'Chromosome 1', // description
-      'Chr1', // symbol
+      '1', // symbol
       'Chromosome 1', // name
       'TAIR10', // assemblyVersion
       'v1.0', // annotationVersion
-      'Chr1', // secondaryIdentifier
+      '1', // secondaryIdentifier
       3702, // organism.taxonId
       'Col-0', // strain.identifier
       0.0, // score
@@ -307,7 +307,7 @@ const mockChromosomeResponse = {
       null, // chromosomeLocation.id (self-referential, so null)
       null, // supercontigLocation.id
       1, // sequence.id
-      'Chr1', // chromosome.primaryIdentifier
+      '1', // chromosome.primaryIdentifier
       null, // supercontig.primaryIdentifier
     ],
   ],
@@ -521,6 +521,57 @@ const mockWebPropertiesResponse = {
   'project.releaseVersion': 'test-release',
 };
 
+// Mock responses for related entities that are needed for relationship resolution
+const mockTranscriptResponse = {
+  results: [
+    {
+      id: 1,
+      primaryIdentifier: 'AT1G01010.1',
+      description: 'NAC001 transcript',
+      symbol: 'NAC001',
+      name: 'NAC001 transcript',
+      assemblyVersion: 'TAIR10',
+      annotationVersion: 'v1.0',
+      secondaryIdentifier: 'AT1G01010.1',
+      organism: {taxonId: '3702'},
+      strain: {identifier: 'Col-0'},
+      score: 0.0,
+      scoreType: 'none',
+      length: 1068,
+      sequenceOntologyTerm: {identifier: 'SO:0000673'},
+      chromosomeLocation: {objectId: 1},
+      supercontigLocation: null,
+      sequence: {objectId: 1},
+      chromosome: {primaryIdentifier: '1'},
+      supercontig: null,
+      gene: {primaryIdentifier: 'AT1G01010'},
+      protein: {primaryIdentifier: 'AT1G01010.1'},
+    },
+  ],
+};
+
+const mockSequenceResponse = {
+  results: [
+    [
+      1, // id
+      'abcd1234efgh5678', // md5checksum
+      'ATGCGTAACGTACGTACGT...', // residues (truncated)
+      1068, // length
+    ],
+  ],
+};
+
+const mockSequenceOntologyTermResponse = {
+  results: [
+    [
+      1, // id
+      'SO:0000704', // identifier
+      'gene', // name
+      'A region (or regions) that includes all of the sequence elements necessary to encode a functional transcript.', // description
+    ],
+  ],
+};
+
 // MSW request handlers for InterMine API
 export const handlers = [
   // PathQuery POST endpoint for all biological data queries
@@ -548,6 +599,28 @@ export const handlers = [
     // Handle count queries
     if (format === 'jsoncount') {
       return HttpResponse.json(mockCountResponse);
+    }
+
+    // Handle related entity queries needed for relationship resolution
+    if (query.includes('Transcript') && query.includes('primaryIdentifier')) {
+      console.log(
+        'Matching Transcript query, returning:',
+        mockTranscriptResponse,
+      );
+      return HttpResponse.json(mockTranscriptResponse);
+    }
+
+    if (query.includes('Sequence.id') && query.includes('=')) {
+      console.log('Matching Sequence query, returning:', mockSequenceResponse);
+      return HttpResponse.json(mockSequenceResponse);
+    }
+
+    if (query.includes('SOTerm.identifier') && query.includes('=')) {
+      console.log(
+        'Matching SOTerm query, returning:',
+        mockSequenceOntologyTermResponse,
+      );
+      return HttpResponse.json(mockSequenceOntologyTermResponse);
     }
 
     // Handle specific entity queries by identifier
