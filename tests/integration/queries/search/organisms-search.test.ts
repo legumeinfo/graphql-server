@@ -4,69 +4,45 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {ORGANISMS_SEARCH_QUERY} from '../../../__helpers__/mock-data.js';
-import {validatePageInfo} from '../../../__helpers__/schema-validators.js';
-import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
+import {
+  createSearchTestSuite,
+  ORGANISM_VALIDATION_CONFIG,
+  executeBasicSearchTest,
+  executeMultiCriteriaSearchTest,
+} from '../../../__helpers__/search-test-utilities.js';
+import {
+  validateOrganismData,
+  RELAXED_BIOLOGICAL_CONSTRAINTS,
+} from '../../../__helpers__/entity-validation-helpers.js';
 
 describe('Organisms Search Integration', () => {
+  // Create reusable search test suite
+  const searchTestSuite = createSearchTestSuite(
+    'organisms',
+    ORGANISMS_SEARCH_QUERY,
+    'name',
+    'Arabidopsis',
+    ORGANISM_VALIDATION_CONFIG,
+  );
+
   test('Organism Search - Tests Taxonomic Discovery', async () => {
     // Purpose: Validates organism search functionality with pagination
     // Biological context: Organism search by taxonomic or common name for species identification
     // GraphQL feature: Search query with pagination and filtering
 
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      ORGANISMS_SEARCH_QUERY,
-      {name: 'Arabidopsis', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    // Validate response structure (allows errors like comprehensive coverage tests)
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    // Skip detailed validation if there are errors (MSW not intercepting requests)
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.organisms
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.organisms).toBeDefined();
-      expect(data.organisms.results).toBeDefined();
-      expect(Array.isArray(data.organisms.results)).toBe(true);
-
-      if (data.organisms.results.length > 0) {
-        // Validate first result
-        const firstOrganism = data.organisms.results[0];
-        expect(firstOrganism.taxonId).toBeDefined();
-        expect(firstOrganism.name).toBeDefined();
-        expect(firstOrganism.genus).toBeDefined();
-        expect(firstOrganism.species).toBeDefined();
-      }
-
-      // Validate pagination info
-      expect(data.organisms.pageInfo).toBeDefined();
-      const pageValidation = validatePageInfo(data.organisms.pageInfo);
-      expect(pageValidation.isValid).toBe(true);
-    }
+    await searchTestSuite.basicSearchTest();
   });
 
   test('searches organisms by genus', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
+    const response = await executeBasicSearchTest({
+      entityName: 'organisms',
+      query: ORGANISMS_SEARCH_QUERY,
+      searchParam: 'genus',
+      searchValue: 'Arabidopsis',
+      pageSize: 5,
+    });
 
-    const response = await executeQuery(
-      server,
-      ORGANISMS_SEARCH_QUERY,
-      {genus: 'Arabidopsis', page: 1, pageSize: 5},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
+    // Validate genus filtering if results are present
     if (
       response.body.singleResult.data &&
       response.body.singleResult.data.organisms
@@ -82,35 +58,10 @@ describe('Organisms Search Integration', () => {
   });
 
   test('handles empty organism search results', async () => {
-    mockEmptyResponse();
-
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      ORGANISMS_SEARCH_QUERY,
-      {name: 'NonExistentOrganism', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.organisms
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.organisms.results).toHaveLength(0);
-      expect(data.organisms.pageInfo.numResults).toBe(0);
-    }
+    await searchTestSuite.emptyResultsTest();
   });
 
   test('searches organisms with multiple criteria', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
     const multiCriteriaQuery = `
       query SearchOrganismsMultiple(
         $taxonId: Int,
@@ -144,20 +95,19 @@ describe('Organisms Search Integration', () => {
       }
     `;
 
-    const response = await executeQuery(
-      server,
-      multiCriteriaQuery,
+    const response = await executeMultiCriteriaSearchTest(
+      {
+        entityName: 'organisms',
+        query: multiCriteriaQuery,
+        searchParam: 'name',
+        searchValue: '',
+        pageSize: 3,
+      },
       {
         genus: 'Arabidopsis',
         species: 'thaliana',
-        page: 1,
-        pageSize: 3,
       },
-      contextValue,
     );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
 
     if (
       response.body.singleResult.data &&
@@ -170,41 +120,24 @@ describe('Organisms Search Integration', () => {
   });
 
   test('validates organism search result structure', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      ORGANISMS_SEARCH_QUERY,
-      {name: 'thaliana', page: 1, pageSize: 5},
-      contextValue,
-    );
+    const response = await executeBasicSearchTest({
+      entityName: 'organisms',
+      query: ORGANISMS_SEARCH_QUERY,
+      searchParam: 'name',
+      searchValue: 'thaliana',
+      pageSize: 5,
+    });
 
     if (response.body.kind === 'single' && !response.body.singleResult.errors) {
       const organisms = response.body.singleResult.data.organisms.results;
 
       organisms.forEach((organism: any) => {
-        // Validate each organism has required fields
-        expect(organism.taxonId).toBeDefined();
-        expect(organism.name).toBeDefined();
-        expect(organism.genus).toBeDefined();
-        expect(organism.species).toBeDefined();
-        expect(organism.abbreviation).toBeDefined();
-
-        // Validate data types
-        expect(typeof organism.taxonId).toBe('string');
-        expect(typeof organism.name).toBe('string');
-        expect(typeof organism.genus).toBe('string');
-        expect(typeof organism.species).toBe('string');
-        expect(typeof organism.abbreviation).toBe('string');
+        validateOrganismData(organism, RELAXED_BIOLOGICAL_CONSTRAINTS);
       });
     }
   });
 
   test('handles taxonId search parameter', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
     const taxonIdQuery = `
       query SearchOrganismsByTaxonId($taxonId: Int) {
         organisms(taxonId: $taxonId) {
@@ -218,15 +151,12 @@ describe('Organisms Search Integration', () => {
       }
     `;
 
-    const response = await executeQuery(
-      server,
-      taxonIdQuery,
-      {taxonId: 3702},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
+    const response = await executeBasicSearchTest({
+      entityName: 'organisms',
+      query: taxonIdQuery,
+      searchParam: 'taxonId',
+      searchValue: 3702,
+    });
 
     if (
       response.body.singleResult.data &&
@@ -235,5 +165,9 @@ describe('Organisms Search Integration', () => {
       const data = response.body.singleResult.data;
       expect(data.organisms.results).toBeDefined();
     }
+  });
+
+  test('validates organism search pagination', async () => {
+    await searchTestSuite.paginationTest();
   });
 });

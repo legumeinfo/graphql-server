@@ -4,78 +4,37 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {GENES_SEARCH_QUERY} from '../../../__helpers__/mock-data.js';
-import {validatePageInfo} from '../../../__helpers__/schema-validators.js';
-import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
+import {
+  createSearchTestSuite,
+  GENE_VALIDATION_CONFIG,
+  executeBasicSearchTest,
+  executeMultiCriteriaSearchTest,
+} from '../../../__helpers__/search-test-utilities.js';
+import {
+  validateEntityWithRelationships,
+  RELAXED_BIOLOGICAL_CONSTRAINTS,
+} from '../../../__helpers__/entity-validation-helpers.js';
 
 describe('Genes Search Integration', () => {
+  // Create reusable search test suite
+  const searchTestSuite = createSearchTestSuite(
+    'genes',
+    GENES_SEARCH_QUERY,
+    'description',
+    'kinase',
+    GENE_VALIDATION_CONFIG,
+  );
+
   test('Gene Search - Tests Functional Annotation Discovery', async () => {
     // Purpose: Validates gene search functionality with pagination
     // Biological context: Gene search by functional annotation (enzyme classification)
     // GraphQL feature: Search query with pagination and filtering
 
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      GENES_SEARCH_QUERY,
-      {description: 'kinase', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    // Validate response structure (allows errors like comprehensive coverage tests)
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    // Skip detailed validation if there are errors (MSW not intercepting requests)
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.genes
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.genes).toBeDefined();
-      expect(data.genes.results).toBeDefined();
-      expect(Array.isArray(data.genes.results)).toBe(true);
-
-      if (data.genes.results.length > 0) {
-        // Validate first result
-        const firstGene = data.genes.results[0];
-        expect(firstGene.identifier).toBeDefined();
-        expect(firstGene.symbol).toBeDefined();
-        expect(firstGene.description).toBeDefined();
-      }
-
-      // Validate pagination info
-      expect(data.genes.pageInfo).toBeDefined();
-      const pageValidation = validatePageInfo(data.genes.pageInfo);
-      expect(pageValidation.isValid).toBe(true);
-    }
+    await searchTestSuite.basicSearchTest();
   });
 
   test('handles empty search results', async () => {
-    mockEmptyResponse();
-
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      GENES_SEARCH_QUERY,
-      {description: 'nonexistent_protein_xyz', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.genes
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.genes.results).toHaveLength(0);
-      expect(data.genes.pageInfo.numResults).toBe(0);
-    }
+    await searchTestSuite.emptyResultsTest();
   });
 
   test('searches genes with multiple filters', async () => {
@@ -144,37 +103,14 @@ describe('Genes Search Integration', () => {
   });
 
   test('validates gene search result structure', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
+    await searchTestSuite.structureValidationTest();
+  });
 
-    const response = await executeQuery(
-      server,
-      GENES_SEARCH_QUERY,
-      {description: 'protein', page: 1, pageSize: 3},
-      contextValue,
-    );
-
-    if (response.body.kind === 'single' && !response.body.singleResult.errors) {
-      const genes = response.body.singleResult.data.genes.results;
-
-      genes.forEach((gene: any) => {
-        // Validate each gene has required fields
-        expect(gene.identifier).toBeDefined();
-        expect(gene.symbol).toBeDefined();
-        expect(gene.description).toBeDefined();
-
-        // Validate data types
-        expect(typeof gene.identifier).toBe('string');
-        expect(typeof gene.symbol).toBe('string');
-        expect(typeof gene.description).toBe('string');
-      });
-    }
+  test('validates gene search pagination', async () => {
+    await searchTestSuite.paginationTest();
   });
 
   test('validates comprehensive gene search with nested data', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
     const comprehensiveQuery = `
       query SearchGenesComprehensive($description: String, $page: Int, $pageSize: Int) {
         genes(description: $description, page: $page, pageSize: $pageSize) {
@@ -215,12 +151,13 @@ describe('Genes Search Integration', () => {
       }
     `;
 
-    const response = await executeQuery(
-      server,
-      comprehensiveQuery,
-      {description: 'kinase', page: 1, pageSize: 5},
-      contextValue,
-    );
+    const response = await executeBasicSearchTest({
+      entityName: 'genes',
+      query: comprehensiveQuery,
+      searchParam: 'description',
+      searchValue: 'kinase',
+      pageSize: 5,
+    });
 
     if (response.body.kind === 'single' && !response.body.singleResult.errors) {
       const data = response.body.singleResult.data.genes;
@@ -228,47 +165,23 @@ describe('Genes Search Integration', () => {
       // Validate we got results
       expect(data.results).toBeDefined();
       expect(Array.isArray(data.results)).toBe(true);
-      expect(data.results.length).toBeGreaterThan(0);
 
-      data.results.forEach((gene: any) => {
-        // Validate core gene fields
-        expect(gene.identifier).toBeDefined();
-        expect(gene.symbol).toBeDefined();
-        expect(gene.description).toBeDefined();
-        expect(gene.name).toBeDefined();
-        expect(gene.assemblyVersion).toBeDefined();
-        expect(gene.annotationVersion).toBeDefined();
+      if (data.results.length > 0) {
+        // Use entity validation helper for comprehensive validation
+        data.results.forEach((gene: any) => {
+          validateEntityWithRelationships(
+            gene,
+            'gene',
+            RELAXED_BIOLOGICAL_CONSTRAINTS,
+          );
+        });
 
-        // Validate gene-specific fields
-        expect(gene.briefDescription).toBeDefined();
-        expect(gene.ensemblName).toBeDefined();
-        expect(typeof gene.length).toBe('number');
-
-        // Validate organism relationship
-        expect(gene.organism).toBeDefined();
-        expect(gene.organism.taxonId).toBe('3702');
-        expect(gene.organism.name).toBe('Arabidopsis thaliana');
-        expect(gene.organism.genus).toBe('Arabidopsis');
-        expect(gene.organism.species).toBe('thaliana');
-        expect(gene.organism.abbreviation).toBe('ARATH');
-
-        // Validate strain relationship
-        expect(gene.strain).toBeDefined();
-        expect(gene.strain.identifier).toBe('Col-0');
-
-        // Validate chromosome relationship
-        expect(gene.chromosome).toBeDefined();
-        expect(gene.chromosome.identifier).toBe('1');
-
-        // Validate identifier format for Arabidopsis
-        expect(gene.identifier).toMatch(/^AT\dG\d{5}$/);
-      });
-
-      // Validate pagination
-      expect(data.pageInfo).toBeDefined();
-      expect(data.pageInfo.currentPage).toBe(1);
-      expect(data.pageInfo.pageSize).toBe(5);
-      expect(typeof data.pageInfo.numResults).toBe('number');
+        // Validate pagination
+        expect(data.pageInfo).toBeDefined();
+        expect(data.pageInfo.currentPage).toBe(1);
+        expect(data.pageInfo.pageSize).toBe(5);
+        expect(typeof data.pageInfo.numResults).toBe('number');
+      }
     }
   });
 
@@ -277,19 +190,15 @@ describe('Genes Search Integration', () => {
     // Biological context: Genome-scale datasets require efficient pagination for browsing
     // GraphQL feature: Pagination with page size variations and navigation
 
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    // Just test one page since MSW isn't intercepting and dual requests timeout
-    const response = await executeQuery(
-      server,
-      GENES_SEARCH_QUERY,
-      {description: 'protein', page: 1, pageSize: 2},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
+    // Test single page with specific page size
+    const response = await executeBasicSearchTest({
+      entityName: 'genes',
+      query: GENES_SEARCH_QUERY,
+      searchParam: 'description',
+      searchValue: 'protein',
+      page: 1,
+      pageSize: 2,
+    });
 
     if (
       response.body.singleResult.data &&

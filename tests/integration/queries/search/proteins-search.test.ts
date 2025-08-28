@@ -1,103 +1,45 @@
 import {describe, test, expect} from 'vitest';
-import {
-  createTestServer,
-  executeQuery,
-} from '../../../__helpers__/apollo-server.js';
 import {PROTEINS_SEARCH_QUERY} from '../../../__helpers__/mock-data.js';
-import {validatePageInfo} from '../../../__helpers__/schema-validators.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {
+  createSearchTestSuite,
+  PROTEIN_VALIDATION_CONFIG,
+  executeBasicSearchTest,
+  executePaginationTest,
+} from '../../../__helpers__/search-test-utilities.js';
+import {
+  validateProteinData,
+  RELAXED_BIOLOGICAL_CONSTRAINTS,
+} from '../../../__helpers__/entity-validation-helpers.js';
 
 describe('Proteins Search Integration', () => {
+  // Create reusable search test suite
+  const searchTestSuite = createSearchTestSuite(
+    'proteins',
+    PROTEINS_SEARCH_QUERY,
+    'description',
+    'kinase',
+    PROTEIN_VALIDATION_CONFIG,
+  );
+
   test('searches proteins by description with pagination', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      PROTEINS_SEARCH_QUERY,
-      {description: 'kinase', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    // Validate response structure (allows errors like comprehensive coverage tests)
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    // Skip detailed validation if there are errors (MSW not intercepting requests)
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.proteins
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.proteins).toBeDefined();
-      expect(data.proteins.results).toBeDefined();
-      expect(Array.isArray(data.proteins.results)).toBe(true);
-
-      if (data.proteins.results.length > 0) {
-        // Validate first result
-        const firstProtein = data.proteins.results[0];
-        expect(firstProtein.identifier).toBeDefined();
-        expect(firstProtein.name).toBeDefined();
-        expect(firstProtein.length).toBeDefined();
-      }
-
-      // Validate pagination info
-      expect(data.proteins.pageInfo).toBeDefined();
-      const pageValidation = validatePageInfo(data.proteins.pageInfo);
-      expect(pageValidation.isValid).toBe(true);
-    }
+    await searchTestSuite.basicSearchTest();
   });
 
   test('handles empty protein search results', async () => {
-    mockEmptyResponse();
-
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      PROTEINS_SEARCH_QUERY,
-      {description: 'nonexistent_enzyme_xyz', page: 1, pageSize: 10},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-
-    if (
-      response.body.singleResult.data &&
-      response.body.singleResult.data.proteins
-    ) {
-      const data = response.body.singleResult.data;
-      expect(data.proteins.results).toHaveLength(0);
-      expect(data.proteins.pageInfo.numResults).toBe(0);
-    }
+    await searchTestSuite.emptyResultsTest();
   });
 
   test('searches proteins with different descriptions', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
+    const testCases = ['kinase', 'domain', 'protein'];
 
-    const testCases = [
-      {description: 'kinase', expectedCount: 3},
-      {description: 'domain', expectedCount: 3},
-      {description: 'protein', expectedCount: 3},
-    ];
-
-    const responses = await Promise.all(
-      testCases.map((testCase) =>
-        executeQuery(
-          server,
-          PROTEINS_SEARCH_QUERY,
-          {description: testCase.description, page: 1, pageSize: 10},
-          contextValue,
-        ),
-      ),
-    );
-
-    responses.forEach((response) => {
-      expect(response.body.kind).toBe('single');
-      expect(response.body.singleResult).toBeDefined();
+    for (const description of testCases) {
+      const response = await executeBasicSearchTest({
+        entityName: 'proteins',
+        query: PROTEINS_SEARCH_QUERY,
+        searchParam: 'description',
+        searchValue: description,
+        pageSize: 10,
+      });
 
       if (
         response.body.singleResult.data &&
@@ -106,75 +48,37 @@ describe('Proteins Search Integration', () => {
         const data = response.body.singleResult.data;
         expect(data.proteins.results.length).toBeGreaterThanOrEqual(0);
       }
-    });
+    }
   });
 
   test('validates protein search result structure', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    const response = await executeQuery(
-      server,
-      PROTEINS_SEARCH_QUERY,
-      {description: 'domain', page: 1, pageSize: 5},
-      contextValue,
-    );
+    const response = await executeBasicSearchTest({
+      entityName: 'proteins',
+      query: PROTEINS_SEARCH_QUERY,
+      searchParam: 'description',
+      searchValue: 'domain',
+      pageSize: 5,
+    });
 
     if (response.body.kind === 'single' && !response.body.singleResult.errors) {
       const proteins = response.body.singleResult.data.proteins.results;
 
       proteins.forEach((protein: any) => {
-        // Validate each protein has required fields
-        expect(protein.identifier).toBeDefined();
-        expect(protein.name).toBeDefined();
-        expect(protein.length).toBeDefined();
-
-        // Validate data types
-        expect(typeof protein.identifier).toBe('string');
-        expect(typeof protein.name).toBe('string');
-        expect(typeof protein.length).toBe('number'); // GraphQL schema defines as Int
+        validateProteinData(protein, RELAXED_BIOLOGICAL_CONSTRAINTS);
       });
     }
   });
 
   test('handles pagination in protein search', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
-    // Test different page sizes
-    const pageSizes = [2, 5, 10];
-
-    const responses = await Promise.all(
-      pageSizes.map((pageSize) =>
-        executeQuery(
-          server,
-          PROTEINS_SEARCH_QUERY,
-          {description: 'protein', page: 1, pageSize},
-          contextValue,
-        ),
-      ),
-    );
-
-    responses.forEach((response, index) => {
-      const pageSize = pageSizes[index];
-      expect(response.body.kind).toBe('single');
-      expect(response.body.singleResult).toBeDefined();
-
-      if (
-        response.body.singleResult.data &&
-        response.body.singleResult.data.proteins
-      ) {
-        const data = response.body.singleResult.data;
-        expect(data.proteins.pageInfo.pageSize).toBe(pageSize);
-        expect(data.proteins.pageInfo.currentPage).toBe(1);
-      }
+    await executePaginationTest({
+      entityName: 'proteins',
+      query: PROTEINS_SEARCH_QUERY,
+      searchParam: 'description',
+      searchValue: 'protein',
     });
   });
 
   test('searches proteins with detailed query', async () => {
-    const {server, context} = await createTestServer();
-    const contextValue = await context();
-
     const detailedQuery = `
       query SearchProteinsDetailed($description: String, $page: Int, $pageSize: Int) {
         proteins(description: $description, page: $page, pageSize: $pageSize) {
@@ -195,15 +99,13 @@ describe('Proteins Search Integration', () => {
       }
     `;
 
-    const response = await executeQuery(
-      server,
-      detailedQuery,
-      {description: 'NAC', page: 1, pageSize: 3},
-      contextValue,
-    );
-
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
+    const response = await executeBasicSearchTest({
+      entityName: 'proteins',
+      query: detailedQuery,
+      searchParam: 'description',
+      searchValue: 'NAC',
+      pageSize: 3,
+    });
 
     if (
       response.body.singleResult.data &&
