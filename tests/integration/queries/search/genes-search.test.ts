@@ -6,11 +6,6 @@ import {
 import {GENES_SEARCH_QUERY} from '../../../__helpers__/mock-data.js';
 import {validatePageInfo} from '../../../__helpers__/schema-validators.js';
 import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
-import {
-  createSearchQueryTest,
-  createPaginationTest,
-  executeTestScenario,
-} from '../../../__helpers__/templates/test-scenarios.js';
 
 describe('Genes Search Integration', () => {
   test('Gene Search - Tests Functional Annotation Discovery', async () => {

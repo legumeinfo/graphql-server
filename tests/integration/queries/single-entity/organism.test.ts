@@ -6,8 +6,6 @@ import {
 import {ORGANISM_QUERY} from '../../../__helpers__/mock-data.js';
 import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
 import {
-  createSingleEntityTest,
-  createBiologicalValidationTest,
   createErrorHandlingTest,
   executeTestScenario,
 } from '../../../__helpers__/templates/test-scenarios.js';

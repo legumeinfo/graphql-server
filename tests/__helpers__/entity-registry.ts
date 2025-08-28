@@ -172,17 +172,47 @@ export class MockEntityRegistry {
   }
 
   /**
+   * Get all registered entity types
+   */
+  getAllEntityTypes(): string[] {
+    return Array.from(this.typeIndexes.keys());
+  }
+
+  /**
+   * Get relationship IDs for a given entity and relationship type
+   */
+  getRelationshipIds(entityId: string, relationshipType: string): string[] {
+    const entity = this.entities.get(entityId);
+    if (!entity) return [];
+    return entity.relationships.get(relationshipType) || [];
+  }
+
+  /**
    * Get registry statistics
    */
-  getStats(): {totalEntities: number; entitiesByType: Record<string, number>} {
+  getStats(): {
+    totalEntities: number;
+    entitiesByType: Record<string, number>;
+    totalRelationships: number;
+  } {
     const entitiesByType: Record<string, number> = {};
+    let totalRelationships = 0;
+
     for (const [type, ids] of this.typeIndexes.entries()) {
       entitiesByType[type] = ids.size;
     }
 
+    // Count total relationships
+    this.entities.forEach((entity) => {
+      entity.relationships.forEach((relatedIds) => {
+        totalRelationships += relatedIds.length;
+      });
+    });
+
     return {
       totalEntities: this.entities.size,
       entitiesByType,
+      totalRelationships,
     };
   }
 
