@@ -4,10 +4,14 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {GENE_QUERY} from '../../../__helpers__/mock-data.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
 
 describe('Gene Query Integration', () => {
-  test('fetches gene by identifier successfully', async () => {
+  test('Gene Retrieval - Tests Central Dogma Foundation', async () => {
+    // Purpose: Validates gene retrieval by unique identifier
+    // Biological context: Central dogma foundation - genes contain DNA sequences encoding protein instructions
+    // GraphQL feature: Single entity query with field selection
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
@@ -35,8 +39,11 @@ describe('Gene Query Integration', () => {
     }
   });
 
-  test('handles non-existent gene gracefully', async () => {
-    // Mock empty response for non-existent gene
+  test('Gene Error Handling - Tests Database Resilience', async () => {
+    // Purpose: Validates graceful handling when gene not found in database
+    // Biological context: Database integrity - queries for non-existent genes should fail gracefully
+    // GraphQL feature: Error handling and graceful degradation
+
     mockEmptyResponse();
 
     const {server, context} = await createTestServer();
@@ -55,7 +62,11 @@ describe('Gene Query Integration', () => {
     // May have 'not found' error or connection errors - both acceptable
   });
 
-  test('queries nested organism data', async () => {
+  test('Gene-Organism Relationship - Tests Taxonomic Classification', async () => {
+    // Purpose: Validates gene to organism biological relationship resolution
+    // Biological context: Every gene belongs to a specific organism with taxonomic classification
+    // GraphQL feature: Nested field resolution with biological constraints
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 

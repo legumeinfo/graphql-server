@@ -4,10 +4,20 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {ORGANISM_QUERY} from '../../../__helpers__/mock-data.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
+import {
+  createSingleEntityTest,
+  createBiologicalValidationTest,
+  createErrorHandlingTest,
+  executeTestScenario,
+} from '../../../__helpers__/templates/test-scenarios.js';
 
 describe('Organism Query Integration', () => {
-  test('fetches organism by taxonId successfully', async () => {
+  test('Organism Retrieval - Tests Taxonomic Classification', async () => {
+    // Purpose: Validates organism retrieval by unique NCBI taxonomy ID
+    // Biological context: Organisms are identified by unique NCBI taxonomy IDs in biological databases
+    // GraphQL feature: Single entity query with taxonomic field resolution
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
@@ -37,27 +47,30 @@ describe('Organism Query Integration', () => {
     }
   });
 
-  test('handles non-existent organism gracefully', async () => {
-    // Mock empty response for non-existent organism
+  test('Organism Error Handling - Tests Database Resilience', async () => {
+    // Purpose: Validates graceful handling when organism taxon ID not found in database
+    // Biological context: Database integrity - queries for non-existent taxa should fail gracefully
+    // GraphQL feature: Error handling and graceful degradation
+
     mockEmptyResponse();
 
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
-    const response = await executeQuery(
-      server,
-      ORGANISM_QUERY,
-      {taxonId: '99999'},
-      contextValue,
+    const scenario = createErrorHandlingTest(
+      'organism',
+      'not_found',
+      'Database integrity: Queries for non-existent taxa should fail gracefully',
     );
 
-    // Should get an error when organism is not found (or connection error)
-    expect(response.body.kind).toBe('single');
-    expect(response.body.singleResult).toBeDefined();
-    // May have 'not found' error or connection errors - both acceptable
+    await executeTestScenario(server, contextValue, scenario);
   });
 
-  test('validates organism data structure', async () => {
+  test('Organism Validation - Tests Binomial Nomenclature', async () => {
+    // Purpose: Validates taxonomic naming follows biological conventions
+    // Biological context: Species names follow Genus species format with proper capitalization
+    // GraphQL feature: Data validation with biological constraints
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 

@@ -31,31 +31,45 @@ export const createSingleEntityTest = (
   identifier: string,
   expectedFields: string[],
   biologicalContext: string,
-): TestScenario => ({
-  name: `fetch_single_${entityType}`,
-  purpose: `Validates retrieval of individual ${entityType} by unique identifier`,
-  biologicalContext,
-  graphqlFeature: 'Single entity query with field selection',
-  query: `
-    query GetSingle${entityType.charAt(0).toUpperCase() + entityType.slice(1)}($identifier: ID!) {
-      ${entityType}(identifier: $identifier) {
-        results {
-          ${expectedFields.join('\n          ')}
+): TestScenario => {
+  // Expand organism field to include required subfields
+  const expandedFields = expectedFields.map((field) => {
+    if (field === 'organism') {
+      return 'organism { taxonId name genus species }';
+    }
+    return field;
+  });
+
+  return {
+    name: `fetch_single_${entityType}`,
+    purpose: `Validates retrieval of individual ${entityType} by unique identifier`,
+    biologicalContext,
+    graphqlFeature: 'Single entity query with field selection',
+    query: `
+      query GetSingle${entityType.charAt(0).toUpperCase() + entityType.slice(1)}($identifier: ID!) {
+        ${entityType}(identifier: $identifier) {
+          results {
+            ${expandedFields.join('\n            ')}
+          }
         }
       }
-    }
-  `,
-  variables: {identifier},
-  expectedFields,
-  assertions: (data: any) => {
-    expect(data).toBeDefined();
-    expect(data[entityType]).toBeDefined();
-    expect(data[entityType].results).toBeDefined();
-    expectedFields.forEach((field) => {
-      expect(data[entityType].results).toHaveProperty(field);
-    });
-  },
-});
+    `,
+    variables: {identifier},
+    expectedFields,
+    assertions: (data: any) => {
+      expect(data).toBeDefined();
+      expect(data[entityType]).toBeDefined();
+      expect(data[entityType].results).toBeDefined();
+      expectedFields.forEach((field) => {
+        if (field === 'organism') {
+          expect(data[entityType].results.organism).toBeDefined();
+        } else {
+          expect(data[entityType].results).toHaveProperty(field);
+        }
+      });
+    },
+  };
+};
 
 /**
  * Search query test template
@@ -142,6 +156,11 @@ export const createRelationshipTest = (
     childEntity === 'organism' ? 'organism' : `${childEntity}s`,
   ],
   assertions: (data: any) => {
+    if (!data || !data[parentEntity] || !data[parentEntity].results) {
+      throw new Error(
+        `Expected ${parentEntity} data but got: ${JSON.stringify(data)}`,
+      );
+    }
     const entity = data[parentEntity].results;
     expect(entity).toBeDefined();
     expect(entity.identifier).toBe(identifier);

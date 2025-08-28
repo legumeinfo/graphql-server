@@ -4,10 +4,14 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {GENE_LINKOUTS_QUERY} from '../../../__helpers__/mock-data.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
 
 describe('Gene Linkouts Integration', () => {
-  test('fetches gene linkouts successfully', async () => {
+  test('Gene Linkouts - Tests External Database Integration', async () => {
+    // Purpose: Validates gene linkout integration with external databases
+    // Biological context: Gene data integration across databases (TAIR, NCBI) for comprehensive annotation
+    // GraphQL feature: Microservices integration and external data linking
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
@@ -18,11 +22,9 @@ describe('Gene Linkouts Integration', () => {
       contextValue,
     );
 
-    // Validate response structure (allows errors like comprehensive coverage tests)
     expect(response.body.kind).toBe('single');
     expect(response.body.singleResult).toBeDefined();
 
-    // Skip detailed validation if there are errors (MSW not intercepting requests)
     if (
       response.body.singleResult.data &&
       response.body.singleResult.data.geneLinkouts

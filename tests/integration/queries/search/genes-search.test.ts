@@ -5,10 +5,19 @@ import {
 } from '../../../__helpers__/apollo-server.js';
 import {GENES_SEARCH_QUERY} from '../../../__helpers__/mock-data.js';
 import {validatePageInfo} from '../../../__helpers__/schema-validators.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
+import {
+  createSearchQueryTest,
+  createPaginationTest,
+  executeTestScenario,
+} from '../../../__helpers__/templates/test-scenarios.js';
 
 describe('Genes Search Integration', () => {
-  test('searches genes by description with pagination', async () => {
+  test('Gene Search - Tests Functional Annotation Discovery', async () => {
+    // Purpose: Validates gene search functionality with pagination
+    // Biological context: Gene search by functional annotation (enzyme classification)
+    // GraphQL feature: Search query with pagination and filtering
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
@@ -268,7 +277,11 @@ describe('Genes Search Integration', () => {
     }
   });
 
-  test('handles pagination correctly', async () => {
+  test('Gene Pagination - Tests Large Dataset Navigation', async () => {
+    // Purpose: Validates pagination consistency across different page sizes
+    // Biological context: Genome-scale datasets require efficient pagination for browsing
+    // GraphQL feature: Pagination with page size variations and navigation
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 

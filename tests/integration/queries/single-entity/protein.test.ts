@@ -4,7 +4,7 @@ import {
   executeQuery,
 } from '../../../__helpers__/apollo-server.js';
 import {PROTEIN_QUERY} from '../../../__helpers__/mock-data.js';
-import {mockEmptyResponse} from '../../../__helpers__/mock-intermine.js';
+import {mockEmptyResponse} from '../../../__helpers__/handlers/index.js';
 
 const COMPREHENSIVE_PROTEIN_QUERY = `
   query GetProteinComprehensive($identifier: ID!) {
@@ -50,7 +50,11 @@ const COMPREHENSIVE_PROTEIN_QUERY = `
 `;
 
 describe('Protein Query Integration', () => {
-  test('fetches protein by identifier successfully', async () => {
+  test('Protein Retrieval - Tests Protein Structure Foundation', async () => {
+    // Purpose: Validates protein retrieval by unique identifier
+    // Biological context: Protein structure - length and molecular weight determine biological function
+    // GraphQL feature: Single entity query with protein-specific fields
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
@@ -79,7 +83,11 @@ describe('Protein Query Integration', () => {
     }
   });
 
-  test('handles non-existent protein gracefully', async () => {
+  test('Protein Error Handling - Tests Database Resilience', async () => {
+    // Purpose: Validates graceful handling when protein not found in database
+    // Biological context: Database integrity - queries for non-existent proteins should fail gracefully
+    // GraphQL feature: Error handling and graceful degradation
+
     mockEmptyResponse();
 
     const {server, context} = await createTestServer();
@@ -238,7 +246,11 @@ describe('Protein Query Integration', () => {
     }
   });
 
-  test('validates protein molecular properties', async () => {
+  test('Protein Molecular Validation - Tests Structure-Function Relationship', async () => {
+    // Purpose: Validates biological constraints on protein molecular properties
+    // Biological context: Molecular weight should correlate with amino acid length
+    // GraphQL feature: Data validation with biological constraints
+
     const {server, context} = await createTestServer();
     const contextValue = await context();
 
