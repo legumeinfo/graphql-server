@@ -1,5 +1,20 @@
+/**
+ * DEPRECATED: This file has been replaced by modular handler architecture
+ * New architecture location: tests/__helpers__/handlers/
+ *
+ * For new tests, import from: tests/__helpers__/handlers/index.js
+ * This file is preserved for backward compatibility with existing tests
+ */
+
 import {http, HttpResponse} from 'msw';
 import {setupServer} from 'msw/node';
+import {
+  server as newServer,
+  allHandlers,
+  mockEmptyResponse as newMockEmptyResponse,
+  mockErrorResponse as newMockErrorResponse,
+  mockTimeoutResponse as newMockTimeoutResponse,
+} from './handlers/index.js';
 
 // Mock biological data responses matching InterMine format
 const mockGeneResponse = {
@@ -771,41 +786,15 @@ export const handlers = [
   }),
 ];
 
-// Create MSW server instance
-export const server = setupServer(...handlers);
+// DEPRECATED: Use new modular handlers instead
+// Create MSW server instance (preserved for backward compatibility)
+export const server = newServer;
 
-// Utility functions for test-specific mocking
-export const mockEmptyResponse = () => {
-  server.use(
-    http.post('*/query/results', async ({request}) => {
-      const body = await request.text();
-      const params = new URLSearchParams(body);
-      const format = params.get('format') || 'json';
+// Re-export new handlers for migration
+export {allHandlers};
 
-      // Handle count queries
-      if (format === 'jsoncount') {
-        return HttpResponse.json({count: 0});
-      }
-
-      // Handle regular queries
-      return HttpResponse.json({results: []});
-    }),
-  );
-};
-
-export const mockErrorResponse = (status = 500) => {
-  server.use(
-    http.post('*/query/results', () => {
-      return HttpResponse.json({error: 'Internal server error'}, {status});
-    }),
-  );
-};
-
-export const mockTimeoutResponse = (delay = 10000) => {
-  server.use(
-    http.post('*/query/results', async () => {
-      await new Promise((resolve) => setTimeout(resolve, delay));
-      return HttpResponse.json(mockGeneResponse);
-    }),
-  );
-};
+// DEPRECATED: Use new modular utilities instead
+// Utility functions for test-specific mocking (preserved for backward compatibility)
+export const mockEmptyResponse = newMockEmptyResponse;
+export const mockErrorResponse = newMockErrorResponse;
+export const mockTimeoutResponse = newMockTimeoutResponse;
