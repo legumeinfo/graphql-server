@@ -637,7 +637,7 @@ describe('Mock Data Variation Scenarios', () => {
       http.post('*/query/results', async ({request}) => {
         const body = await request.text();
         const params = new URLSearchParams(body);
-        const query = params.get('query') || '';
+        const _query = params.get('query') || '';
         const format = params.get('format') || 'json';
 
         // Return empty results for search queries

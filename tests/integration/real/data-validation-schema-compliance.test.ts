@@ -8,11 +8,7 @@ import {
   realIntegrationSuite,
   REAL_TEST_CONFIG,
 } from '../../setup/real-integration-setup.js';
-import {
-  buildSchema,
-  introspectionFromSchema,
-  getIntrospectionQuery,
-} from 'graphql';
+import {getIntrospectionQuery} from 'graphql';
 
 /**
  * Data Validation and Schema Compliance Tests

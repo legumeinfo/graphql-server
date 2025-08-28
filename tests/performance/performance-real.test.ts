@@ -121,7 +121,7 @@ realIntegrationSuite('Performance and Load Tests', () => {
 
         console.log(`✅ Complex nested query completed in ${duration}ms`);
         console.log(
-          `   Retrieved: ${gene.proteins.length} proteins, ${gene.pathways.length} pathways`,
+          `   Retrieved: ${gene.proteins?.length || 0} proteins, ${gene.pathways?.length || 0} pathways`,
         );
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
@@ -218,7 +218,7 @@ realIntegrationSuite('Performance and Load Tests', () => {
         // Execute 5 concurrent queries
         const promises = Array(5)
           .fill(null)
-          .map((_, index) =>
+          .map((_, _index) =>
             executeRealQuery(
               server,
               query,
@@ -233,7 +233,7 @@ realIntegrationSuite('Performance and Load Tests', () => {
         const totalDuration = endTime - startTime;
 
         // All queries should succeed
-        responses.forEach((response, index) => {
+        responses.forEach((response, _index) => {
           const data = validateSuccessfulResponse(response);
           expect(data.gene.results.identifier).toBe(
             REAL_TEST_CONFIG.KNOWN_GENE_ID,
@@ -295,7 +295,7 @@ realIntegrationSuite('Performance and Load Tests', () => {
               `⚠️  ${queries[index].name} query: ${response.body.singleResult.errors[0].message}`,
             );
           } else {
-            const data = validateSuccessfulResponse(response);
+            const _data = validateSuccessfulResponse(response);
             console.log(
               `✅ ${queries[index].name} query succeeded concurrently`,
             );

@@ -31,11 +31,11 @@ describe('Gene Resolver - Real Unit Tests', () => {
         getGenes: async (identifiers: string[]) => {
           const genes = identifiers
             .filter((id) => id.startsWith('AT'))
-            .map((id, index) => createMockGene({identifier: id}));
+            .map((id, _index) => createMockGene({identifier: id}));
           return {data: genes};
         },
         searchGenes: async (args: any) => {
-          const {description, genus, species, page = 1, pageSize = 10} = args;
+          const {description, _genus, _species, page = 1, pageSize = 10} = args;
 
           // Simulate real search behavior
           const allResults = [
@@ -83,7 +83,7 @@ describe('Gene Resolver - Real Unit Tests', () => {
             },
           };
         },
-        getGeneFlankingRegionsForGene: async (geneId: string, args: any) => {
+        getGeneFlankingRegionsForGene: async (geneId: string, _args: any) => {
           return {
             data: [
               {id: `${geneId}_upstream`, type: 'upstream', length: 1000},
@@ -91,7 +91,7 @@ describe('Gene Resolver - Real Unit Tests', () => {
             ],
           };
         },
-        getPathwaysForGene: async (geneId: string, args: any) => {
+        getPathwaysForGene: async (_geneId: string, _args: any) => {
           return {
             data: [
               {identifier: 'PWY001', name: 'Photosynthesis'},

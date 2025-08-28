@@ -1,4 +1,4 @@
-import {buildSchema, validateSchema, GraphQLSchema} from 'graphql';
+import {buildSchema, GraphQLSchema} from 'graphql';
 import {typeDefs} from '../../src/types/index.js';
 
 let schema: GraphQLSchema | null = null;

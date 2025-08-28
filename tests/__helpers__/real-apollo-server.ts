@@ -24,7 +24,7 @@ export async function executeRealQuery(
   serverInfo: any, // {graphqlUrl, context}
   query: string,
   variables = {},
-  contextValue?: any, // Ignored for direct HTTP requests
+  _contextValue?: any, // Ignored for direct HTTP requests
 ) {
   const graphqlUrl = serverInfo.graphqlUrl || REAL_TEST_CONFIG.GRAPHQL_URL;
 

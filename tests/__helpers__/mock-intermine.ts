@@ -506,7 +506,7 @@ const mockCountResponse = {
   count: 42,
 };
 
-const mockPageInfo = {
+const _mockPageInfo = {
   currentPage: 1,
   pageSize: 10,
   pageCount: 5,
