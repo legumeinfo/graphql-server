@@ -26,7 +26,6 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
               name
               genus
               species
-              abbreviation
               commonName
               shortName
               description
@@ -52,13 +51,12 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
 
         // Strict validation of actual InterMine data
         expect(organism.taxonId).toBe(REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON);
-        expect(organism.genus).toBe('Arachis');
-        expect(organism.species).toBe('duranensis');
-        expect(organism.name).toBe('Arachis duranensis');
-        expect(organism.abbreviation).toBe('aradu');
+        expect(organism.genus).toBe('Phaseolus');
+        expect(organism.species).toBe('vulgaris');
+        expect(organism.name).toBe('Phaseolus vulgaris');
 
         // Validate biological taxonomy makes sense
-        // Note: commonName might not be available in PeanutBase
+        // Note: commonName might not be available in LIS InterMine
         if (organism.commonName) {
           expect(organism.commonName).toBeDefined();
         }
@@ -123,7 +121,6 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
               name
               genus
               species
-              abbreviation
               commonName
             }
           }
@@ -149,12 +146,9 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
         // Validate biological taxonomy consistency
         expect(organism.name).toBe(`${organism.genus} ${organism.species}`);
 
-        // Validate abbreviation is present (should have some data)
-        expect(organism.abbreviation).toBeDefined();
-        expect(typeof organism.abbreviation).toBe('string');
+        // Validate organism has proper data types
 
         console.log(`✅ Organism data validation passed for ${organism.name}`);
-        console.log(`   Abbreviation: ${organism.abbreviation}`);
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
@@ -175,7 +169,6 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
               name
               genus
               species
-              abbreviation
               commonName
             }
             pageInfo {
@@ -194,7 +187,7 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
           server,
           searchQuery,
           {
-            genus: 'Arachis',
+            genus: 'Phaseolus',
             page: 1,
             pageSize: 10,
           },
@@ -213,18 +206,18 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
         expect(searchResults.pageInfo.pageSize).toBe(10);
         expect(searchResults.pageInfo.numResults).toBeGreaterThan(0);
 
-        // Validate search criteria worked - all should be Arachis
+        // Validate search criteria worked - all should be Phaseolus
         searchResults.results.forEach((organism: any) => {
-          expect(organism.genus).toBe('Arachis');
+          expect(organism.genus).toBe('Phaseolus');
           expect(organism.taxonId).toBeDefined();
-          expect(organism.name).toContain('Arachis');
+          expect(organism.name).toContain('Phaseolus');
         });
 
         console.log(
           `✅ Real organism search returned ${searchResults.results.length} organisms`,
         );
         console.log(
-          `   Total organisms in genus Arachis: ${searchResults.pageInfo.numResults}`,
+          `   Total organisms in genus Phaseolus: ${searchResults.pageInfo.numResults}`,
         );
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
@@ -256,8 +249,8 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
           server,
           searchQuery,
           {
-            genus: 'Arachis',
-            species: 'duranensis',
+            genus: 'Phaseolus',
+            species: 'vulgaris',
             page: 1,
             pageSize: 5,
           },
@@ -267,16 +260,16 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
         const data = validateSuccessfulResponse(response);
         const results = data.organisms.results;
 
-        // Should find Arachis duranensis specifically
+        // Should find Phaseolus vulgaris specifically
         expect(results.length).toBeGreaterThan(0);
         results.forEach((organism: any) => {
-          expect(organism.genus).toBe('Arachis');
-          expect(organism.species).toBe('duranensis');
-          expect(organism.name).toBe('Arachis duranensis');
+          expect(organism.genus).toBe('Phaseolus');
+          expect(organism.species).toBe('vulgaris');
+          expect(organism.name).toBe('Phaseolus vulgaris');
         });
 
         console.log(
-          `✅ Multi-criteria search found ${results.length} Arachis duranensis organisms`,
+          `✅ Multi-criteria search found ${results.length} Phaseolus vulgaris organisms`,
         );
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
@@ -364,7 +357,7 @@ realIntegrationSuite('Organism Real Integration Tests', () => {
           query,
           {
             taxonId: REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
-            genus: 'Arachis',
+            genus: 'Phaseolus',
           },
           contextValue,
         );

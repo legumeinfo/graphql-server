@@ -2,26 +2,28 @@ import {beforeAll, afterAll, describe} from 'vitest';
 
 // Configuration for real integration tests
 export const REAL_TEST_CONFIG = {
-  // Use the PeanutBase GraphQL server for testing
-  GRAPHQL_URL:
-    process.env.TEST_GRAPHQL_URL || 'https://dev.peanutbase.org/mwiese/graphql',
+  // Use local GraphQL server that connects to LIS InterMine for testing
+  GRAPHQL_URL: process.env.TEST_GRAPHQL_URL || 'http://localhost:4000/graphql',
+
+  // InterMine endpoint that the GraphQL server will use
+  INTERMINE_URL: 'https://mines.dev.lis.ncgr.org/minimine/service',
 
   // Test timeouts - real network calls take longer
   QUERY_TIMEOUT: 30000, // 30 seconds
   SETUP_TIMEOUT: 10000, // 10 seconds
 
-  // Test data - use known identifiers from PeanutBase (Arachis data)
-  KNOWN_GENE_ID: 'aradu.V14167.gnm1.ann1.Aradu.000JC', // Known Arachis duranensis gene
-  KNOWN_ORGANISM_TAXON: '130453', // Arachis duranensis
-  KNOWN_PROTEIN_ID: 'aradu.V14167.gnm1.ann1.Aradu.000JC.1', // Protein from known gene
+  // Test data - use known identifiers from LIS InterMine (Phaseolus data)
+  KNOWN_GENE_ID: 'phavu.5-593.gnm1.ann1.Pv5-593.01G000100', // Known Phaseolus vulgaris gene
+  KNOWN_ORGANISM_TAXON: '3885', // Phaseolus vulgaris
+  KNOWN_PROTEIN_ID: 'phavu.5-593.gnm1.ann1.Pv5-593.01G000100.1', // Protein from known gene
 
   // Alternative test data for variety
-  KNOWN_HYPOGAEA_TAXON: '3818', // Arachis hypogaea (cultivated peanut)
-  KNOWN_GENUS: 'Arachis',
-  KNOWN_SPECIES: 'duranensis',
+  KNOWN_VIGNA_TAXON: '3917', // Vigna unguiculata (cowpea)
+  KNOWN_GENUS: 'Phaseolus',
+  KNOWN_SPECIES: 'vulgaris',
 
   // Publication data (if available)
-  KNOWN_PUBLICATION_DOI: '10.1038/nature08670', // May not exist in PeanutBase
+  KNOWN_PUBLICATION_DOI: '10.1038/nature08670', // May not exist in LIS InterMine
 };
 
 // Setup for real integration tests - NO MSW mocking
@@ -29,7 +31,7 @@ export function setupRealIntegrationTests() {
   beforeAll(() => {
     console.log('🌐 Setting up REAL integration tests (no mocking)');
     console.log(`   GraphQL URL: ${REAL_TEST_CONFIG.GRAPHQL_URL}`);
-    console.log('   Testing against PeanutBase server with Arachis data');
+    console.log('   Testing against LIS InterMine server with Phaseolus data');
     console.log('   Tests will make actual network calls');
   }, REAL_TEST_CONFIG.SETUP_TIMEOUT);
 

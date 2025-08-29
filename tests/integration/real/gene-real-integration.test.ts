@@ -22,7 +22,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query GetRealGene($identifier: ID!) {
           gene(identifier: $identifier) {
             results {
-              identifier
+              primaryIdentifier
               symbol
               description
               name
@@ -31,7 +31,6 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
                 name
                 genus
                 species
-                abbreviation
               }
               locations {
                 start
@@ -39,7 +38,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
                 strand
               }
               chromosome {
-                identifier
+                primaryIdentifier
                 length
               }
             }
@@ -58,14 +57,14 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         const data = validateSuccessfulResponse(response);
         const gene = data.gene.results;
 
-        // Strict validation of actual PeanutBase data
-        expect(gene.identifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
+        // Strict validation of actual LIS InterMine data
+        expect(gene.primaryIdentifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
         expect(gene.organism).toBeDefined();
         expect(gene.organism.taxonId).toBe(
           REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
         );
-        expect(gene.organism.genus).toBe('Arachis');
-        expect(gene.organism.species).toBe('duranensis');
+        expect(gene.organism.genus).toBe('Phaseolus');
+        expect(gene.organism.species).toBe('vulgaris');
 
         // Validate biological data makes sense
         expect(gene.name || gene.description).toBeDefined();
@@ -79,7 +78,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         }
 
         console.log(
-          `✅ Successfully retrieved real gene data: ${gene.identifier}`,
+          `✅ Successfully retrieved real gene data: ${gene.primaryIdentifier}`,
         );
         console.log(`   Organism: ${gene.organism.name}`);
         console.log(`   Description: ${gene.description || 'N/A'}`);
@@ -97,7 +96,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query GetNonExistentGene($identifier: ID!) {
           gene(identifier: $identifier) {
             results {
-              identifier
+              primaryIdentifier
             }
           }
         }
@@ -132,9 +131,9 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query GetGeneWithComplexData($identifier: ID!) {
           gene(identifier: $identifier) {
             results {
-              identifier
+              primaryIdentifier
               proteins {
-                identifier
+                primaryIdentifier
                 length
                 sequence {
                   residues
@@ -142,7 +141,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
                 }
               }
               pathways {
-                identifier
+                primaryIdentifier
                 name
               }
             }
@@ -161,7 +160,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         const gene = data.gene.results;
 
         // Validate nested data retrieval works
-        expect(gene.identifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
+        expect(gene.primaryIdentifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
 
         // These might be empty arrays but should be defined
         expect(Array.isArray(gene.proteins)).toBe(true);
@@ -186,7 +185,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query SearchRealGenes($description: String, $genus: String, $page: Int, $pageSize: Int) {
           genes(description: $description, genus: $genus, page: $page, pageSize: $pageSize) {
             results {
-              identifier
+              primaryIdentifier
               symbol
               description
               organism {
@@ -211,7 +210,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
           searchQuery,
           {
             description: 'protein',
-            genus: 'Arachis',
+            genus: 'Phaseolus',
             page: 1,
             pageSize: 5,
           },
@@ -233,8 +232,8 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
 
         // Validate search criteria worked
         searchResults.results.forEach((gene: any) => {
-          expect(gene.identifier).toBeDefined();
-          expect(gene.organism.genus).toBe('Arachis');
+          expect(gene.primaryIdentifier).toBeDefined();
+          expect(gene.organism.genus).toBe('Phaseolus');
         });
 
         console.log(
@@ -254,7 +253,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query SearchNoResults($genus: String, $page: Int, $pageSize: Int) {
           genes(genus: $genus, page: $page, pageSize: $pageSize) {
             results {
-              identifier
+              primaryIdentifier
             }
             pageInfo {
               numResults
@@ -300,7 +299,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         query GetMultipleRealGenes($identifiers: [ID!]!) {
           getGenes(identifiers: $identifiers) {
             results {
-              identifier
+              primaryIdentifier
               description
               organism {
                 name
@@ -310,11 +309,11 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
         }
       `;
 
-        // Use multiple known gene IDs (using realistic Arachis patterns)
+        // Use multiple known gene IDs (using realistic Phaseolus patterns)
         const knownGeneIds = [
           REAL_TEST_CONFIG.KNOWN_GENE_ID,
-          'aradu.V14167.gnm1.ann1.Aradu.001N3', // Another gene we found in the search
-          'aradu.V14167.gnm1.ann1.Aradu.002J3', // Another gene we found in the search
+          'phavu.5-593.gnm1.ann1.Pv5-593.01G000200', // Another gene from the same genome
+          'phavu.5-593.gnm1.ann1.Pv5-593.01G000300', // Another gene from the same genome
         ];
 
         const response = await executeRealQuery(
@@ -333,7 +332,7 @@ realIntegrationSuite('Gene Real Integration Tests', () => {
 
         // Validate returned genes have our requested identifiers
         genes.forEach((gene: any) => {
-          expect(knownGeneIds).toContain(gene.identifier);
+          expect(knownGeneIds).toContain(gene.primaryIdentifier);
           expect(gene.organism.name).toBeDefined();
         });
 
