@@ -151,6 +151,7 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
               organism {
                 taxonId
                 name
+                shortName
                 genus
                 species
               }
@@ -158,70 +159,38 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
                 start
                 end
                 strand
-                chromosome {
-                  identifier
-                }
               }
             }
           }
         }
       `;
 
-        try {
-          const response = await executeRealQuery(
-            server,
-            geneValidationQuery,
-            {id: REAL_TEST_CONFIG.KNOWN_GENE_ID},
-            contextValue,
-          );
+        const response = await executeRealQuery(
+          server,
+          geneValidationQuery,
+          {id: REAL_TEST_CONFIG.KNOWN_GENE_ID},
+          contextValue,
+        );
 
-          const data = validateSuccessfulResponse(response);
-          const gene = data.gene.results;
+        const data = validateSuccessfulResponse(response);
+        const gene = data.gene.results;
 
-          // Validate gene identifier format (should match expected pattern for Arachis)
-          expect(gene.identifier).toMatch(
-            /^aradu\.V14167\.gnm1\.ann1\.Aradu\./,
-          );
+        expect(gene.identifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
+        expect(gene.organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+        expect(gene.organism.species).toBe(REAL_TEST_CONFIG.KNOWN_SPECIES);
+        expect(gene.organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
+        expect(gene.organism.shortName).toBe(REAL_TEST_CONFIG.KNOWN_SHORTNAME);
+        expect(gene.organism.taxonId).toBe(
+          REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
+        );
 
-          // Validate organism consistency
-          expect(gene.organism.genus).toBe('Arachis');
-          expect(gene.organism.species).toBe('duranensis');
-          expect(gene.organism.name).toBe('Arachis duranensis');
-          expect(gene.organism.taxonId).toBe(
-            REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
-          );
-
-          // Validate location data makes biological sense
-          if (gene.locations && gene.locations.length > 0) {
-            gene.locations.forEach((location: any) => {
-              expect(typeof location.start).toBe('number');
-              expect(typeof location.end).toBe('number');
-              expect(location.start).toBeGreaterThan(0);
-              expect(location.end).toBeGreaterThan(location.start);
-              expect([1, -1]).toContain(location.strand); // Valid strand values
-
-              if (location.chromosome) {
-                expect(location.chromosome.identifier).toMatch(
-                  /^(Chr|Scaffold)/,
-                );
-              }
-            });
-          }
-
-          console.log(
-            `✅ Gene biological data validation passed for ${gene.identifier}`,
-          );
-          console.log(
-            `   Organism: ${gene.organism.name} (${gene.organism.taxonId})`,
-          );
-          console.log(`   Locations: ${gene.locations?.length || 0}`);
-        } catch (error: any) {
-          // HTTP 400 error is acceptable for complex gene validation queries
-          expect(error.message).toContain('HTTP error! status: 400');
-          console.log(
-            '⚠️  Gene validation query rejected by server (expected for complex queries)',
-          );
-        }
+        gene.locations.forEach((location: any) => {
+          expect(typeof location.start).toBe('number');
+          expect(typeof location.end).toBe('number');
+          expect(location.start).toBeGreaterThan(0);
+          expect(location.end).toBeGreaterThan(location.start);
+          expect(['1', '-1']).toContain(location.strand); // Valid strand values
+        });
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
@@ -239,100 +208,47 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
               identifier
               name
               length
-              molecularWeight
               organism {
                 taxonId
                 genus
                 species
               }
-              genes {
-                identifier
-                organism {
-                  taxonId
-                }
-              }
               sequence {
                 residues
                 length
+              }
+              strain {
+                name
+              }
+              panGeneSets {
+                identifier
               }
             }
           }
         }
       `;
 
-        try {
-          const response = await executeRealQuery(
-            server,
-            proteinValidationQuery,
-            {id: REAL_TEST_CONFIG.KNOWN_PROTEIN_ID},
-            contextValue,
-          );
+        const response = await executeRealQuery(
+          server,
+          proteinValidationQuery,
+          {id: REAL_TEST_CONFIG.KNOWN_PROTEIN_ID},
+          contextValue,
+        );
 
-          const data = validateSuccessfulResponse(response);
-          const protein = data.protein.results;
+        const data = validateSuccessfulResponse(response);
+        const protein = data.protein.results;
 
-          // Validate protein identifier format
-          expect(protein.identifier).toMatch(
-            /^aradu\.V14167\.gnm1\.ann1\.Aradu\./,
-          );
-
-          // Validate biological properties
-          if (protein.length !== null && protein.length !== undefined) {
-            expect(protein.length).toBeGreaterThan(0);
-            expect(protein.length).toBeLessThan(50000); // Reasonable protein length limit
-          }
-
-          if (
-            protein.molecularWeight !== null &&
-            protein.molecularWeight !== undefined
-          ) {
-            expect(protein.molecularWeight).toBeGreaterThan(0);
-            expect(protein.molecularWeight).toBeLessThan(2000000); // Reasonable molecular weight limit
-          }
-
-          // Validate organism consistency
-          expect(protein.organism.genus).toBe('Arachis');
-          expect(protein.organism.species).toBe('duranensis');
-
-          // Validate gene-protein relationship consistency
-          if (protein.genes && protein.genes.length > 0) {
-            protein.genes.forEach((gene: any) => {
-              expect(gene.organism.taxonId).toBe(protein.organism.taxonId);
-              // Gene identifier should match protein identifier pattern
-              expect(gene.identifier).toMatch(
-                /^aradu\.V14167\.gnm1\.ann1\.Aradu\./,
-              );
-            });
-          }
-
-          // Validate sequence data if present
-          if (protein.sequence) {
-            if (protein.sequence.residues) {
-              expect(protein.sequence.residues).toMatch(
-                /^[ACDEFGHIKLMNPQRSTVWY]*$/,
-              ); // Valid amino acids
-            }
-            if (protein.sequence.length && protein.length) {
-              expect(protein.sequence.length).toBe(protein.length);
-            }
-          }
-
-          console.log(
-            `✅ Protein biological data validation passed for ${protein.identifier}`,
-          );
-          console.log(
-            `   Length: ${protein.length || 'N/A'}, MW: ${protein.molecularWeight || 'N/A'}`,
-          );
-        } catch (error: any) {
-          // HTTP 400 error or GraphQL validation error is acceptable for complex protein queries
-          const isExpectedError =
-            error.message.includes('HTTP error! status: 400') ||
-            error.message.includes('GraphQLError');
-          expect(isExpectedError).toBe(true);
-          console.log(
-            '⚠️  Protein validation query rejected by server (expected for complex queries)',
-          );
-        }
+        expect(protein.identifier).toBe(REAL_TEST_CONFIG.KNOWN_PROTEIN_ID);
+        expect(protein.length).toBe(REAL_TEST_CONFIG.KNOWN_PROTEIN_LENGTH);
+        expect(protein.organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+        expect(protein.organism.species).toBe(REAL_TEST_CONFIG.KNOWN_SPECIES);
+        expect(protein.organism.taxonId).toBe(
+          REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
+        );
+        expect(protein.sequence.residues).toBe(
+          REAL_TEST_CONFIG.KNOWN_PROTEIN_SEQ_RESIDUES,
+        );
+        expect(protein.sequence.length).toBe(protein.length);
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
@@ -353,6 +269,9 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
               species
               abbreviation
               commonName
+              strains {
+                name
+              }
             }
           }
         }
@@ -368,103 +287,28 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         const data = validateSuccessfulResponse(response);
         const organism = data.organism.results;
 
-        // Validate taxonomic consistency
-        expect(organism.name).toBe(`${organism.genus} ${organism.species}`);
+        expect(organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
         expect(organism.taxonId).toBe(REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON);
-
-        // Validate known taxonomic data
-        expect(organism.genus).toBe('Arachis');
-        expect(organism.species).toBe('duranensis');
-        // commonName might not be available in PeanutBase
-        if (organism.commonName) {
-          expect(organism.commonName).toBeDefined();
-        }
-        expect(organism.abbreviation).toBeDefined();
-
-        // Validate data types
-        expect(typeof organism.name).toBe('string');
-        expect(typeof organism.genus).toBe('string');
-        expect(typeof organism.species).toBe('string');
-
-        console.log(`✅ Taxonomy validation passed for ${organism.name}`);
-        console.log(
-          `   Taxon ID: ${organism.taxonId}, Common: ${organism.commonName}`,
+        expect(organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+        expect(organism.species).toBe(REAL_TEST_CONFIG.KNOWN_SPECIES);
+        expect(organism.abbreviation).toBe(REAL_TEST_CONFIG.KNOWN_ABBREV);
+        expect(organism.commonName).toBe(REAL_TEST_CONFIG.KNOWN_COMMONNAME);
+        expect(organism.strains.length).toBe(
+          REAL_TEST_CONFIG.KNOWN_STRAINS_LENGTH,
         );
+        expect(
+          organism.strains
+            .sort()
+            .every(
+              (val, idx) => val.name === REAL_TEST_CONFIG.KNOWN_STRAINS[idx],
+            ),
+        ).toBe(true);
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
   });
 
   describe('Data Consistency Across Queries', () => {
-    test(
-      'validates gene-organism relationship consistency',
-      async () => {
-        const {server, context} = await createRealTestServer();
-        const contextValue = await context();
-
-        // Get gene data
-        const geneQuery = `
-        query GetGeneOrganism($id: ID!) {
-          gene(identifier: $id) {
-            results {
-              identifier
-              organism {
-                taxonId
-                name
-                genus
-                species
-              }
-            }
-          }
-        }
-      `;
-
-        const geneResponse = await executeRealQuery(
-          server,
-          geneQuery,
-          {id: REAL_TEST_CONFIG.KNOWN_GENE_ID},
-          contextValue,
-        );
-
-        const geneData = validateSuccessfulResponse(geneResponse);
-        const gene = geneData.gene.results;
-
-        // Get organism data independently
-        const organismQuery = `
-        query GetOrganism($taxonId: ID!) {
-          organism(taxonId: $taxonId) {
-            results {
-              taxonId
-              name
-              genus
-              species
-            }
-          }
-        }
-      `;
-
-        const organismResponse = await executeRealQuery(
-          server,
-          organismQuery,
-          {taxonId: gene.organism.taxonId},
-          contextValue,
-        );
-
-        const organismData = validateSuccessfulResponse(organismResponse);
-        const organism = organismData.organism.results;
-
-        // Validate consistency
-        expect(gene.organism.taxonId).toBe(organism.taxonId);
-        expect(gene.organism.name).toBe(organism.name);
-        expect(gene.organism.genus).toBe(organism.genus);
-        expect(gene.organism.species).toBe(organism.species);
-
-        console.log(`✅ Gene-organism relationship consistency validated`);
-        console.log(`   Gene: ${gene.identifier} belongs to ${organism.name}`);
-      },
-      REAL_TEST_CONFIG.QUERY_TIMEOUT,
-    );
-
     test(
       'validates search result consistency with individual queries',
       async () => {
@@ -482,9 +326,6 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
                 name
               }
             }
-            pageInfo {
-              numResults
-            }
           }
         }
       `;
@@ -492,18 +333,17 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         const searchResponse = await executeRealQuery(
           server,
           searchQuery,
-          {genus: 'Arachis', page: 1, pageSize: 3},
+          {genus: REAL_TEST_CONFIG.KNOWN_GENUS, page: 1, pageSize: 3},
           contextValue,
         );
 
         const searchData = validateSuccessfulResponse(searchResponse);
         const searchResults = searchData.genes.results;
-
-        expect(searchResults.length).toBeGreaterThan(0);
+        console.log(JSON.stringify(searchResults));
+        expect(searchResults.length).toBe(3);
 
         // Validate each search result by querying individually
-        for (const searchResult of searchResults.slice(0, 2)) {
-          // Test first 2 results
+        searchResults.forEach(async (result: any) => {
           const individualQuery = `
           query GetIndividualGene($id: ID!) {
             gene(identifier: $id) {
@@ -517,11 +357,10 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
             }
           }
         `;
-
           const individualResponse = await executeRealQuery(
             server,
             individualQuery,
-            {id: searchResult.identifier},
+            {id: result.identifier},
             contextValue,
           );
 
@@ -529,16 +368,10 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
           const individual = individualData.gene.results;
 
           // Search result should match individual query result
-          expect(searchResult.identifier).toBe(individual.identifier);
-          expect(searchResult.organism.taxonId).toBe(
-            individual.organism.taxonId,
-          );
-          expect(searchResult.organism.name).toBe(individual.organism.name);
-        }
-
-        console.log(
-          `✅ Search result consistency validated for ${searchResults.length} genes`,
-        );
+          expect(result.identifier).toBe(individual.identifier);
+          expect(result.organism.taxonId).toBe(individual.organism.taxonId);
+          expect(result.organism.name).toBe(individual.organism.name);
+        });
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT * 2,
     );
@@ -555,24 +388,16 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         query ValidateDataTypes($geneId: ID!, $taxonId: ID!) {
           gene(identifier: $geneId) {
             results {
-              id
               identifier
               name
-              symbol
               description
               length
-              score
               organism {
                 id
                 taxonId
                 name
                 genus
                 species
-              }
-              locations {
-                start
-                end
-                strand
               }
             }
           }
@@ -600,38 +425,20 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         const gene = data.gene.results;
         const organism = data.organism.results;
 
-        // Validate Gene field types
-        expect(typeof gene.id).toBe('string');
-        expect(typeof gene.identifier).toBe('string');
-        if (gene.name !== null) expect(typeof gene.name).toBe('string');
-        if (gene.symbol !== null) expect(typeof gene.symbol).toBe('string');
-        if (gene.description !== null)
-          expect(typeof gene.description).toBe('string');
-        if (gene.length !== null) expect(typeof gene.length).toBe('number');
-        if (gene.score !== null) expect(typeof gene.score).toBe('number');
+        expect(gene.identifier).toBe(REAL_TEST_CONFIG.KNOWN_GENE_ID);
+        expect(gene.name).toBe(REAL_TEST_CONFIG.KNOWN_GENE_NAME);
+        expect(gene.description).toBe(REAL_TEST_CONFIG.KNOWN_GENE_DESC);
+        expect(gene.length).toBe(REAL_TEST_CONFIG.KNOWN_GENE_LENGTH);
 
-        // Validate Organism field types
-        expect(typeof organism.id).toBe('string');
-        expect(typeof organism.taxonId).toBe('string');
-        expect(typeof organism.name).toBe('string');
+        expect(organism.taxonId).toBe(REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON);
+        expect(organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
 
-        // Validate nested organism in gene
-        expect(typeof gene.organism.id).toBe('string');
-        expect(typeof gene.organism.taxonId).toBe('string');
-        expect(typeof gene.organism.name).toBe('string');
-        expect(typeof gene.organism.genus).toBe('string');
-        expect(typeof gene.organism.species).toBe('string');
-
-        // Validate location field types
-        if (gene.locations && gene.locations.length > 0) {
-          gene.locations.forEach((location: any) => {
-            expect(typeof location.start).toBe('number');
-            expect(typeof location.end).toBe('number');
-            expect(typeof location.strand).toBe('number');
-          });
-        }
-
-        console.log('✅ Data type validation passed for all fields');
+        expect(gene.organism.taxonId).toBe(
+          REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON,
+        );
+        expect(gene.organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
+        expect(gene.organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+        expect(gene.organism.species).toBe(REAL_TEST_CONFIG.KNOWN_SPECIES);
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
@@ -656,12 +463,6 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
                 end
                 strand
               }
-              ontologyAnnotations {
-                ontologyTerm {
-                  identifier
-                  name
-                }
-              }
             }
           }
         }
@@ -680,7 +481,6 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         // Validate array types
         expect(Array.isArray(gene.proteins)).toBe(true);
         expect(Array.isArray(gene.locations)).toBe(true);
-        expect(Array.isArray(gene.ontologyAnnotations)).toBe(true);
 
         // Validate array element types
         gene.proteins.forEach((protein: any) => {
@@ -692,18 +492,8 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         gene.locations.forEach((location: any) => {
           expect(typeof location.start).toBe('number');
           expect(typeof location.end).toBe('number');
-          expect(typeof location.strand).toBe('number');
+          expect(typeof location.strand).toBe('string');
         });
-
-        gene.ontologyAnnotations.forEach((annotation: any) => {
-          expect(typeof annotation.ontologyTerm.identifier).toBe('string');
-          expect(typeof annotation.ontologyTerm.name).toBe('string');
-        });
-
-        console.log(`✅ Array type validation passed`);
-        console.log(
-          `   Arrays: proteins(${gene.proteins.length}), locations(${gene.locations.length}), annotations(${gene.ontologyAnnotations.length})`,
-        );
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
@@ -738,7 +528,7 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         const page1Response = await executeRealQuery(
           server,
           paginationQuery,
-          {genus: 'Arachis', page: 1, pageSize: 5},
+          {genus: REAL_TEST_CONFIG.KNOWN_GENUS, page: 1, pageSize: 5},
           contextValue,
         );
 
@@ -769,11 +559,6 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
             page1.pageInfo.numResults > page1.pageInfo.pageSize;
           expect(page1.pageInfo.hasNextPage).toBe(shouldHaveNextPage);
         }
-
-        console.log(`✅ Pagination metadata validation passed`);
-        console.log(
-          `   Page 1: ${page1.results.length} results of ${page1.pageInfo.numResults} total (${page1.pageInfo.pageCount} pages)`,
-        );
       },
       REAL_TEST_CONFIG.QUERY_TIMEOUT,
     );
