@@ -499,6 +499,442 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
     );
   });
 
+  describe('Organisms Query Data Validation', () => {
+    test(
+      'validates organisms() query structure and data accuracy',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const organismsQuery = `
+        query ValidateOrganismsQuery($page: Int, $pageSize: Int) {
+          organisms(page: $page, pageSize: $pageSize) {
+            results {
+              id
+              taxonId
+              name
+              genus
+              species
+              abbreviation
+              commonName
+              shortName
+              description
+              strains {
+                id
+                identifier
+                name
+                description
+              }
+            }
+            pageInfo {
+              currentPage
+              pageSize
+              numResults
+              pageCount
+              hasNextPage
+              hasPreviousPage
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          organismsQuery,
+          {page: 1, pageSize: 10},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const organismsResult = data.organisms;
+
+        // Validate response structure
+        expect(organismsResult.results).toBeDefined();
+        expect(Array.isArray(organismsResult.results)).toBe(true);
+        expect(organismsResult.pageInfo).toBeDefined();
+
+        // Validate pagination info
+        expect(organismsResult.pageInfo.currentPage).toBe(1);
+        expect(organismsResult.pageInfo.pageSize).toBe(10);
+        expect(typeof organismsResult.pageInfo.numResults).toBe('number');
+        expect(typeof organismsResult.pageInfo.pageCount).toBe('number');
+
+        console.log(
+          `✅ organisms() query returned ${organismsResult.results.length} organisms`,
+        );
+        console.log(
+          `   Total organisms in database: ${organismsResult.pageInfo.numResults}`,
+        );
+
+        // Validate each organism's data structure and types
+        organismsResult.results.forEach((organism: any, index: number) => {
+          // Required fields
+          expect(organism.id).toBeDefined();
+          expect(organism.taxonId).toBeDefined();
+          expect(organism.name).toBeDefined();
+          expect(organism.genus).toBeDefined();
+          expect(organism.species).toBeDefined();
+
+          // Type validation
+          expect(typeof organism.id).toBe('string');
+          expect(typeof organism.taxonId).toBe('string');
+          expect(typeof organism.name).toBe('string');
+          expect(typeof organism.genus).toBe('string');
+          expect(typeof organism.species).toBe('string');
+
+          // Biological consistency - name should be genus + species
+          expect(organism.name).toBe(`${organism.genus} ${organism.species}`);
+
+          // Optional fields type validation
+          expect(typeof organism.abbreviation).toBe('string');
+          expect(typeof organism.commonName).toBe('string');
+          expect(typeof organism.shortName).toBe('string');
+          expect(typeof organism.description).toBe('string');
+
+          // Strains should always be an array
+          expect(Array.isArray(organism.strains)).toBe(true);
+
+          // Validate strain data structure
+          organism.strains.forEach((strain: any) => {
+            expect(strain.id).toBeDefined();
+            expect(strain.identifier).toBeDefined();
+            expect(typeof strain.id).toBe('string');
+            expect(typeof strain.identifier).toBe('string');
+
+            expect(typeof strain.name).toBe('string');
+            expect(typeof strain.description).toBe('string');
+          });
+
+          console.log(
+            `   Organism ${index + 1}: ${organism.name} (${organism.taxonId}) - ${organism.strains.length} strains`,
+          );
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates organisms() search filters work correctly',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const filteredOrganismsQuery = `
+        query ValidateOrganismFilters($genus: String, $species: String, $name: String, $page: Int, $pageSize: Int) {
+          organisms(genus: $genus, species: $species, name: $name, page: $page, pageSize: $pageSize) {
+            results {
+              taxonId
+              name
+              genus
+              species
+              abbreviation
+              commonName
+            }
+            pageInfo {
+              numResults
+              currentPage
+              pageSize
+            }
+          }
+        }
+      `;
+
+        // Test genus filter
+        const genusResponse = await executeRealQuery(
+          server,
+          filteredOrganismsQuery,
+          {genus: REAL_TEST_CONFIG.KNOWN_GENUS, page: 1, pageSize: 5},
+          contextValue,
+        );
+
+        const genusData = validateSuccessfulResponse(genusResponse);
+        const genusResults = genusData.organisms.results;
+
+        // All results should match the genus filter
+        expect(genusResults.length).toBeGreaterThan(0);
+        genusResults.forEach((organism: any) => {
+          expect(organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+        });
+
+        console.log(
+          `✅ Genus filter "${REAL_TEST_CONFIG.KNOWN_GENUS}" returned ${genusResults.length} organisms`,
+        );
+
+        // Test species filter with genus
+        const speciesResponse = await executeRealQuery(
+          server,
+          filteredOrganismsQuery,
+          {
+            genus: REAL_TEST_CONFIG.KNOWN_GENUS,
+            species: REAL_TEST_CONFIG.KNOWN_SPECIES,
+            page: 1,
+            pageSize: 3,
+          },
+          contextValue,
+        );
+
+        const speciesData = validateSuccessfulResponse(speciesResponse);
+        const speciesResults = speciesData.organisms.results;
+
+        // All results should match both genus and species filters
+        expect(speciesResults.length).toBeGreaterThan(0);
+        speciesResults.forEach((organism: any) => {
+          expect(organism.genus).toBe(REAL_TEST_CONFIG.KNOWN_GENUS);
+          expect(organism.species).toBe(REAL_TEST_CONFIG.KNOWN_SPECIES);
+          expect(organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
+        });
+
+        console.log(
+          `✅ Genus + species filter returned ${speciesResults.length} organisms`,
+        );
+
+        // Test name filter
+        const nameResponse = await executeRealQuery(
+          server,
+          filteredOrganismsQuery,
+          {name: REAL_TEST_CONFIG.KNOWN_NAME, page: 1, pageSize: 5},
+          contextValue,
+        );
+
+        const nameData = validateSuccessfulResponse(nameResponse);
+        const nameResults = nameData.organisms.results;
+
+        // All results should match the name filter
+        expect(nameResults.length).toBeGreaterThan(0);
+        nameResults.forEach((organism: any) => {
+          expect(organism.name).toBe(REAL_TEST_CONFIG.KNOWN_NAME);
+        });
+
+        console.log(
+          `✅ Name filter "${REAL_TEST_CONFIG.KNOWN_NAME}" returned ${nameResults.length} organisms`,
+        );
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates organisms() pagination consistency',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const paginationQuery = `
+        query ValidateOrganismsPagination($page: Int, $pageSize: Int) {
+          organisms(page: $page, pageSize: $pageSize) {
+            results {
+              taxonId
+              name
+            }
+            pageInfo {
+              currentPage
+              pageSize
+              numResults
+              pageCount
+              hasNextPage
+              hasPreviousPage
+            }
+          }
+        }
+      `;
+
+        // Test page 1
+        const page1Response = await executeRealQuery(
+          server,
+          paginationQuery,
+          {page: 1, pageSize: 1},
+          contextValue,
+        );
+
+        const page1Data = validateSuccessfulResponse(page1Response);
+        const page1 = page1Data.organisms;
+
+        // Validate page 1 pagination metadata
+        expect(page1.pageInfo.currentPage).toBe(1);
+        expect(page1.pageInfo.pageSize).toBe(1);
+        expect(page1.pageInfo.hasPreviousPage).toBe(false);
+        expect(page1.results.length).toBeLessThanOrEqual(3);
+
+        const page2Response = await executeRealQuery(
+          server,
+          paginationQuery,
+          {page: 2, pageSize: 1},
+          contextValue,
+        );
+
+        const page2Data = validateSuccessfulResponse(page2Response);
+        const page2 = page2Data.organisms;
+
+        expect(page2.pageInfo.currentPage).toBe(2);
+        expect(page2.pageInfo.hasPreviousPage).toBe(true);
+        expect(page2.pageInfo.numResults).toBe(page1.pageInfo.numResults); // Total should be consistent
+
+        // Results should be different between pages
+        const page1Ids = page1.results.map((o: any) => o.taxonId);
+        const page2Ids = page2.results.map((o: any) => o.taxonId);
+        const intersection = page1Ids.filter((id: string) =>
+          page2Ids.includes(id),
+        );
+        expect(intersection).toHaveLength(0); // No duplicates between pages
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates organisms() data consistency with organism() query',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        // First get organisms list
+        const organismsListQuery = `
+        query GetOrganismsList($page: Int, $pageSize: Int) {
+          organisms(page: $page, pageSize: $pageSize) {
+            results {
+              taxonId
+              name
+              genus
+              species
+              abbreviation
+              commonName
+              shortName
+              description
+            }
+          }
+        }
+      `;
+
+        const listResponse = await executeRealQuery(
+          server,
+          organismsListQuery,
+          {page: 1, pageSize: 5},
+          contextValue,
+        );
+
+        const listData = validateSuccessfulResponse(listResponse);
+        const organisms = listData.organisms.results;
+
+        expect(organisms.length).toBeGreaterThan(0);
+
+        // Test consistency with individual organism() queries
+        for (const organism of organisms) {
+          const individualQuery = `
+          query GetIndividualOrganism($taxonId: ID!) {
+            organism(taxonId: $taxonId) {
+              results {
+                taxonId
+                name
+                genus
+                species
+                abbreviation
+                commonName
+                shortName
+                description
+              }
+            }
+          }
+        `;
+
+          const individualResponse = await executeRealQuery(
+            server,
+            individualQuery,
+            {taxonId: organism.taxonId},
+            contextValue,
+          );
+
+          const individualData = validateSuccessfulResponse(individualResponse);
+          const individual = individualData.organism.results;
+
+          // Data should be identical between organisms() and organism() queries
+          expect(individual.taxonId).toBe(organism.taxonId);
+          expect(individual.name).toBe(organism.name);
+          expect(individual.genus).toBe(organism.genus);
+          expect(individual.species).toBe(organism.species);
+          expect(individual.abbreviation).toBe(organism.abbreviation);
+          expect(individual.commonName).toBe(organism.commonName);
+          expect(individual.shortName).toBe(organism.shortName);
+          expect(individual.description).toBe(organism.description);
+        }
+
+        console.log(
+          `✅ Validated data consistency between organisms() and organism() for ${organisms.length} organisms`,
+        );
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates organisms() strain relationships and data quality',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const strainValidationQuery = `
+        query ValidateOrganismStrains($taxonId: ID!) {
+          organism(taxonId: $taxonId) {
+            results {
+              taxonId
+              name
+              strains {
+                id
+                identifier
+                name
+                description
+                organism {
+                  taxonId
+                  name
+                }
+              }
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          strainValidationQuery,
+          {taxonId: REAL_TEST_CONFIG.KNOWN_ORGANISM_TAXON},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const organism = data.organism.results;
+
+        // Validate strain data structure and relationships
+        expect(Array.isArray(organism.strains)).toBe(true);
+        expect(organism.strains.length).toBe(
+          REAL_TEST_CONFIG.KNOWN_STRAINS_LENGTH,
+        );
+
+        organism.strains.forEach((strain: any, index: number) => {
+          // Required fields
+          expect(strain.id).toBeDefined();
+          expect(strain.identifier).toBeDefined();
+          expect(typeof strain.id).toBe('string');
+          expect(typeof strain.identifier).toBe('string');
+
+          // Validate strain identifier matches known strains
+          expect(REAL_TEST_CONFIG.KNOWN_STRAINS).toContain(strain.name);
+
+          expect(typeof strain.name).toBe('string');
+          expect(typeof strain.description).toBe('string');
+
+          // Validate reverse relationship (strain -> organism)
+          expect(strain.organism.taxonId).toBe(organism.taxonId);
+          expect(strain.organism.name).toBe(organism.name);
+
+          console.log(
+            `   Strain ${index + 1}: ${strain.identifier} (${strain.name || 'N/A'})`,
+          );
+        });
+
+        console.log(
+          `✅ Validated ${organism.strains.length} strains for organism ${organism.name}`,
+        );
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+  });
+
   describe('Pagination Data Validation', () => {
     test(
       'validates pagination metadata accuracy',
@@ -528,7 +964,7 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         const page1Response = await executeRealQuery(
           server,
           paginationQuery,
-          {genus: REAL_TEST_CONFIG.KNOWN_GENUS, page: 1, pageSize: 5},
+          {genus: REAL_TEST_CONFIG.KNOWN_GENUS, page: 1, pageSize: 1},
           contextValue,
         );
 
@@ -544,7 +980,7 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
         expect(typeof page1.pageInfo.hasPreviousPage).toBe('boolean');
 
         expect(page1.pageInfo.currentPage).toBe(1);
-        expect(page1.pageInfo.pageSize).toBe(5);
+        expect(page1.pageInfo.pageSize).toBe(1);
         expect(page1.pageInfo.hasPreviousPage).toBe(false);
         expect(page1.results.length).toBeLessThanOrEqual(5);
 
