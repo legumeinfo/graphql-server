@@ -20,9 +20,9 @@ const server = new ApolloServer<ContextValue>({
 });
 
 const port = Number(process.env.PORT) || 4000;
-const intermineURI = 'https://mines.dev.lis.ncgr.org/arachismine/service';
-//  process.env.INTERMINE_URI ||
-//  'https://mines.dev.lis.ncgr.org/minimine/service';
+const intermineURI =
+  process.env.INTERMINE_URI ||
+  'https://mines.dev.lis.ncgr.org/minimine/service';
 const microservicesURI =
   process.env.MICROSERVICES_URI || 'https://services.lis.ncgr.org';
 const {cache} = server;
