@@ -36,7 +36,7 @@ export default defineConfig({
     hookTimeout: 30000, // 30 seconds for setup/teardown
 
     // Reporter configuration
-    reporter: process.env.CI ? ['junit', 'github-actions'] : ['verbose'],
+    reporters: process.env.CI ? ['junit', 'github-actions'] : ['verbose'],
     outputFile: {
       junit: './test-results.xml',
     },

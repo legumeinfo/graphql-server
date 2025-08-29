@@ -1,3 +1,4 @@
+import {expect} from 'vitest';
 import {REAL_TEST_CONFIG} from '../setup/real-integration-setup.js';
 
 /**
@@ -28,7 +29,7 @@ export async function executeRealQuery(
 ) {
   const graphqlUrl = serverInfo.graphqlUrl || REAL_TEST_CONFIG.GRAPHQL_URL;
 
-  const response = await Promise.race([
+  const response = (await Promise.race([
     fetch(graphqlUrl, {
       method: 'POST',
       headers: {
@@ -40,13 +41,13 @@ export async function executeRealQuery(
       }),
     }),
     // Timeout promise
-    new Promise((_, reject) =>
+    new Promise<never>((_, reject) =>
       setTimeout(
         () => reject(new Error('Query timeout')),
         REAL_TEST_CONFIG.QUERY_TIMEOUT,
       ),
     ),
-  ]);
+  ])) as Response;
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);

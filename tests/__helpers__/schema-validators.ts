@@ -1,11 +1,11 @@
-import {buildSchema, GraphQLSchema} from 'graphql';
+import {GraphQLSchema, buildASTSchema} from 'graphql';
 import {typeDefs} from '../../src/types/index.js';
 
 let schema: GraphQLSchema | null = null;
 
 export function getTestSchema(): GraphQLSchema {
   if (!schema) {
-    schema = buildSchema(typeDefs);
+    schema = buildASTSchema(typeDefs);
   }
   return schema;
 }

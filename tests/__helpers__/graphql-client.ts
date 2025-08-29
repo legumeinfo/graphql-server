@@ -7,7 +7,7 @@ export class GraphQLTestClient {
   async query(query: string, variables = {}) {
     try {
       const data = await request(this.endpoint, query, variables);
-      return {data, errors: null};
+      return {data, errors: null as any};
     } catch (error: any) {
       return {
         data: null,
