@@ -2,15 +2,15 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "target": "es2020",
-    "module": "esnext",
+    "module": "node16",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "esModuleInterop": true,
     "noImplicitOverride": true,
     "types": ["node"]
