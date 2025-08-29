@@ -48,30 +48,21 @@
     "test:ui": "vitest --ui",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
-    "test:integration": "vitest run tests/integration",
-    "test:integration:mocked": "vitest run --workspace=integration-mocked",
-    "test:integration:real": "TEST_WITH_REAL_ENDPOINTS=true vitest run --workspace=integration-real",
-    "test:unit": "vitest run --workspace=unit",
-    "test:unit:real": "vitest run tests/unit/resolvers/*real*.test.ts",
+    "test:integration:real": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real",
     "test:performance": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/performance",
     "test:schema-coverage": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real/comprehensive-schema-coverage.test.ts",
     "test:data-validation": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real/data-validation-schema-compliance.test.ts",
     "test:all-real": "TEST_WITH_REAL_ENDPOINTS=true vitest run tests/integration/real tests/performance",
-    "test:ci": "vitest run --coverage --reporter=junit --outputFile=test-results.xml",
-    "test:ci:real": "TEST_WITH_REAL_ENDPOINTS=true vitest run --workspace=integration-real --reporter=junit --outputFile=real-test-results.xml"
+    "test:ci": "vitest run --coverage --reporter=junit --outputFile=test-results.xml"
   },
   "type": "module",
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
     "@graphql-tools/schema": "^10.0.25",
     "@types/node": "^24.3.0",
-    "@types/supertest": "^6.0.3",
     "@vitest/ui": "^3.2.4",
     "c8": "^10.1.3",
     "graphql-request": "^7.2.0",
-    "msw": "^2.10.5",
-    "nock": "^14.0.10",
-    "supertest": "^7.1.4",
     "vitest": "^3.2.4"
   }
 }
