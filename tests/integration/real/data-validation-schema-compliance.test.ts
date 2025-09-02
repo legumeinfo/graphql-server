@@ -935,6 +935,516 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
     );
   });
 
+  describe('Traits Query Data Validation', () => {
+    test(
+      'validates traits() query structure and data accuracy',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const traitsQuery = `
+        query ValidateTraitsQuery($page: Int, $pageSize: Int) {
+          traits(page: $page, pageSize: $pageSize) {
+            results {
+              id
+              identifier
+              name
+              description
+              organism {
+                id
+                taxonId
+                name
+                genus
+                species
+                abbreviation
+                commonName
+              }
+              qtls {
+                id
+                identifier
+                name
+                peak
+                start
+                end
+                lod
+              }
+              publications {
+                id
+                doi
+                title
+                year
+                authors {
+                  name
+                }
+              }
+              dataSets {
+                id
+                name
+                description
+              }
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          traitsQuery,
+          {page: 1, pageSize: 10},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const traitsResult = data.traits;
+
+        // Validate response structure
+        expect(traitsResult.results).toBeDefined();
+        expect(Array.isArray(traitsResult.results)).toBe(true);
+
+        // Validate each trait's data structure and types
+        traitsResult.results.forEach((trait: any, index: number) => {
+          // Required fields
+          expect(trait.id).toBeDefined();
+          expect(trait.identifier).toBeDefined();
+          expect(trait.name).toBeDefined();
+
+          // Type validation
+          expect(typeof trait.id).toBe('string');
+          expect(typeof trait.identifier).toBe('string');
+          expect(typeof trait.name).toBe('string');
+
+          // Validate organism relationship if present
+          expect(trait.organism.id).toBeDefined();
+          expect(trait.organism.taxonId).toBeDefined();
+          expect(trait.organism.name).toBeDefined();
+          expect(typeof trait.organism.id).toBe('string');
+          expect(typeof trait.organism.taxonId).toBe('string');
+          expect(typeof trait.organism.name).toBe('string');
+          expect(typeof trait.organism.genus).toBe('string');
+          expect(typeof trait.organism.species).toBe('string');
+          expect(typeof trait.organism.abbreviation).toBe('string');
+          expect(typeof trait.organism.commonName).toBe('string');
+
+          // Biological consistency
+          expect(trait.organism.name).toBe(
+            `${trait.organism.genus} ${trait.organism.species}`,
+          );
+
+          // Array fields should always be arrays
+          expect(Array.isArray(trait.qtls)).toBe(true);
+          expect(Array.isArray(trait.publications)).toBe(true);
+          expect(Array.isArray(trait.dataSets)).toBe(true);
+
+          // Validate QTL data structure
+          trait.qtls.forEach((qtl: any) => {
+            expect(qtl.id).toBeDefined();
+            expect(qtl.identifier).toBeDefined();
+            expect(typeof qtl.id).toBe('string');
+            expect(typeof qtl.identifier).toBe('string');
+            expect(typeof qtl.name).toBe('string');
+
+            expect(typeof qtl.start).toBe('number');
+            expect(qtl.start).toBeGreaterThanOrEqual(0);
+            expect(typeof qtl.end).toBe('number');
+            expect(qtl.end).toBeGreaterThan(0);
+            expect(qtl.end).toBeGreaterThanOrEqual(qtl.start);
+          });
+
+          // Validate publication data structure
+          trait.publications.forEach((pub: any) => {
+            expect(pub.id).toBeDefined();
+            expect(typeof pub.id).toBe('string');
+
+            expect(typeof pub.doi).toBe('string');
+            expect(typeof pub.title).toBe('string');
+            expect(typeof pub.year).toBe('number');
+
+            // Validate authors array
+            expect(Array.isArray(pub.authors)).toBe(true);
+            pub.authors.forEach((author: any) => {
+              expect(typeof author.name).toBe('string');
+            });
+          });
+
+          // Validate dataset data structure
+          trait.dataSets.forEach((dataset: any) => {
+            expect(dataset.id).toBeDefined();
+            expect(typeof dataset.id).toBe('string');
+            expect(typeof dataset.name).toBe('string');
+            expect(typeof dataset.description).toBe('string');
+          });
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates traits() search filters work correctly',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const filteredTraitsQuery = `
+        query ValidateTraitFilters($name: String, $studyType: String, $publicationId: String, $author: String, $page: Int, $pageSize: Int) {
+          traits(name: $name, studyType: $studyType, publicationId: $publicationId, author: $author, page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              description
+              organism {
+                name
+                genus
+                species
+              }
+              publications {
+                doi
+                title
+                authors {
+                  name
+                }
+              }
+            }
+            pageInfo {
+              numResults
+              currentPage
+              pageSize
+            }
+          }
+        }
+      `;
+
+        // Test broad search to see what traits exist
+        const broadResponse = await executeRealQuery(
+          server,
+          filteredTraitsQuery,
+          {page: 1, pageSize: 20},
+          contextValue,
+        );
+
+        const broadData = validateSuccessfulResponse(broadResponse);
+        const allTraits = broadData.traits.results;
+
+        allTraits.forEach(async (sampleTrait: any, index: number) => {
+          const nameResponse = await executeRealQuery(
+            server,
+            filteredTraitsQuery,
+            {name: sampleTrait.name, page: 1, pageSize: 5},
+            contextValue,
+          );
+
+          const nameData = validateSuccessfulResponse(nameResponse);
+          const nameResults = nameData.traits.results;
+
+          // Should find the specific trait
+          expect(nameResults.length).toBeGreaterThan(0);
+          const foundTrait = nameResults.find(
+            (t: any) => t.identifier === sampleTrait.identifier,
+          );
+          expect(foundTrait).toBeDefined();
+
+          // Test partial name search
+          const partialName = sampleTrait.name.split(' ')[0]; // First word
+
+          const partialResponse = await executeRealQuery(
+            server,
+            filteredTraitsQuery,
+            {name: partialName, page: 1, pageSize: 10},
+            contextValue,
+          );
+
+          const partialData = validateSuccessfulResponse(partialResponse);
+          expect(partialData.traits.results.length).toBeGreaterThanOrEqual(
+            nameResults.length,
+          );
+
+          // Test author search if publications exist
+          const traitsWithPublications = allTraits.filter(
+            (t: any) => t.publications.length > 0,
+          );
+          const traitWithPub = traitsWithPublications[0];
+          const publication = traitWithPub.publications[0];
+          const authorName = publication.authors[0].name;
+          const authorResponse = await executeRealQuery(
+            server,
+            filteredTraitsQuery,
+            {author: authorName, page: 1, pageSize: 5},
+            contextValue,
+          );
+
+          const authorData = validateSuccessfulResponse(authorResponse);
+          expect(authorData.traits.results.length).toBeGreaterThan(0);
+
+          // Verify author search logic
+          authorData.traits.results.forEach((trait: any) => {
+            const hasMatchingAuthor = trait.publications.some((pub: any) =>
+              pub.authors.some((author: any) =>
+                author.name.includes(authorName),
+              ),
+            );
+            expect(hasMatchingAuthor).toBe(true);
+          });
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates trait() individual query consistency',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        // First get a list of traits
+        const traitsListQuery = `
+        query GetTraitsList($page: Int, $pageSize: Int) {
+          traits(page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              description
+              organism {
+                taxonId
+                name
+              }
+            }
+          }
+        }
+      `;
+
+        const listResponse = await executeRealQuery(
+          server,
+          traitsListQuery,
+          {page: 1, pageSize: 5},
+          contextValue,
+        );
+
+        const listData = validateSuccessfulResponse(listResponse);
+        const traits = listData.traits.results;
+
+        traits.forEach(async (sampleTrait: any, index: number) => {
+          // Test individual trait() query for consistency
+          const individualQuery = `
+          query GetIndividualTrait($identifier: ID!) {
+            trait(identifier: $identifier) {
+              results {
+                identifier
+                name
+                description
+                organism {
+                  taxonId
+                  name
+                  genus
+                  species
+                }
+                qtls {
+                  identifier
+                  name
+                  peak
+                  start
+                  end
+                }
+                publications {
+                  doi
+                  title
+                  year
+                }
+                dataSets {
+                  name
+                  description
+                }
+              }
+            }
+          }
+        `;
+
+          const individualResponse = await executeRealQuery(
+            server,
+            individualQuery,
+            {identifier: sampleTrait.identifier},
+            contextValue,
+          );
+
+          const individualData = validateSuccessfulResponse(individualResponse);
+          const individual = individualData.trait.results;
+
+          // Validate consistency between traits() and trait() queries
+          expect(individual.identifier).toBe(sampleTrait.identifier);
+          expect(individual.name).toBe(sampleTrait.name);
+          expect(individual.description).toBe(sampleTrait.description);
+
+          expect(individual.organism.taxonId).toBe(
+            sampleTrait.organism.taxonId,
+          );
+          expect(individual.organism.name).toBe(sampleTrait.organism.name);
+
+          // Validate data completeness in individual query
+          expect(Array.isArray(individual.qtls)).toBe(true);
+          expect(Array.isArray(individual.publications)).toBe(true);
+          expect(Array.isArray(individual.dataSets)).toBe(true);
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates traits() QTL relationships and data quality',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const qtlValidationQuery = `
+        query ValidateTraitQTLRelationships($page: Int, $pageSize: Int) {
+          traits(page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              qtls {
+                identifier
+                name
+                peak
+                start
+                end
+                lod
+                likelihoodRatio
+                markerR2
+                trait {
+                  identifier
+                  name
+                }
+                linkageGroup {
+                  identifier
+                  name
+                }
+              }
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          qtlValidationQuery,
+          {page: 1, pageSize: 15},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const traits = data.traits.results;
+
+        // Find traits with QTLs for validation
+        const traitsWithQTLs = traits.filter(
+          (trait: any) => trait.qtls.length > 0,
+        );
+
+        traitsWithQTLs.forEach((trait: any) => {
+          trait.qtls.forEach((qtl: any) => {
+            // Validate QTL data types and ranges
+            expect(qtl.identifier).toBeDefined();
+            expect(typeof qtl.identifier).toBe('string');
+            expect(typeof qtl.name).toBe('string');
+
+            expect(qtl.peak).toBe(null);
+            expect(typeof qtl.start).toBe('number');
+            expect(qtl.start).toBeGreaterThanOrEqual(0);
+            expect(typeof qtl.end).toBe('number');
+            expect(qtl.end).toBeGreaterThan(0);
+            expect(qtl.lod).toBe(null);
+            expect(qtl.likelihoodRatio).toBe(null);
+            expect(qtl.markerR2).toBe(null);
+            expect(qtl.end).toBeGreaterThanOrEqual(qtl.start);
+
+            // Validate reverse relationship (QTL -> Trait)
+            expect(qtl.trait.identifier).toBe(trait.identifier);
+            expect(qtl.trait.name).toBe(trait.name);
+
+            // Validate linkage group relationship
+            expect(qtl.linkageGroup.identifier).toBeDefined();
+            expect(typeof qtl.linkageGroup.identifier).toBe('string');
+            expect(typeof qtl.linkageGroup.name).toBe('string');
+          });
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates traits() edge cases and error handling',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const edgeCaseQuery = `
+        query TraitsEdgeCases($name: String, $studyType: String, $page: Int, $pageSize: Int) {
+          traits(name: $name, studyType: $studyType, page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+            }
+            pageInfo {
+              numResults
+              currentPage
+              pageCount
+            }
+          }
+        }
+      `;
+
+        // Test empty results case
+        const emptyResponse = await executeRealQuery(
+          server,
+          edgeCaseQuery,
+          {name: 'NonexistentTrait123456789', page: 1, pageSize: 10},
+          contextValue,
+        );
+
+        const emptyData = validateSuccessfulResponse(emptyResponse);
+        expect(emptyData.traits.results).toHaveLength(0);
+        expect(emptyData.traits.pageInfo.numResults).toBe(0);
+        expect(emptyData.traits.pageInfo.currentPage).toBe(1);
+
+        // Test large page size
+        const largePageResponse = await executeRealQuery(
+          server,
+          edgeCaseQuery,
+          {page: 1, pageSize: 100},
+          contextValue,
+        );
+
+        // There are only 11 results in MiniMine
+        const largePageData = validateSuccessfulResponse(largePageResponse);
+        expect(largePageData.traits.pageInfo.numResults).toBe(11);
+        expect(largePageData.traits.results.length).toBe(11);
+
+        // Test individual trait query with non-existent ID
+        const nonExistentTraitQuery = `
+        query GetNonExistentTrait($identifier: ID!) {
+          trait(identifier: $identifier) {
+            results {
+              identifier
+              name
+            }
+          }
+        }
+      `;
+
+        const nonExistentResponse = await executeRealQuery(
+          server,
+          nonExistentTraitQuery,
+          {identifier: 'NonexistentTrait123456789'},
+          contextValue,
+        );
+
+        const errors = nonExistentResponse.body.singleResult.errors;
+        expect(errors[0].message).toBe(
+          "Trait with identifier 'NonexistentTrait123456789' not found",
+        );
+        expect(errors[0].extensions.code).toBe('BAD_USER_INPUT');
+        expect(nonExistentResponse.body.singleResult.data.trait).toBe(null);
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+  });
+
   describe('Pagination Data Validation', () => {
     test(
       'validates pagination metadata accuracy',
