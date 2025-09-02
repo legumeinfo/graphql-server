@@ -1445,6 +1445,522 @@ realIntegrationSuite('Data Validation and Schema Compliance Tests', () => {
     );
   });
 
+  describe('QTLs Query Data Validation', () => {
+    test(
+      'validates qtls() query structure and data accuracy',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const qtlsQuery = `
+        query ValidateQTLsQuery($page: Int, $pageSize: Int) {
+          qtls(page: $page, pageSize: $pageSize) {
+            results {
+              id
+              identifier
+              name
+              start
+              end
+              peak
+              lod
+              likelihoodRatio
+              markerR2
+              trait {
+                id
+                identifier
+                name
+                description
+                organism {
+                  taxonId
+                  name
+                  genus
+                  species
+                }
+              }
+              linkageGroup {
+                id
+                identifier
+                name
+                length
+                geneticMap {
+                  identifier
+                }
+              }
+              qtlStudy {
+                id
+                identifier
+                description
+              }
+              markers {
+                identifier
+                name
+              }
+              dataSets {
+                id
+                name
+                description
+              }
+              publications {
+                id
+                doi
+                title
+                year
+                authors {
+                  name
+                }
+              }
+            }
+            pageInfo {
+              currentPage
+              pageSize
+              numResults
+              pageCount
+              hasNextPage
+              hasPreviousPage
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          qtlsQuery,
+          {page: 1, pageSize: 15},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const qtlsResult = data.qtls;
+
+        // Validate response structure
+        expect(qtlsResult.results).toBeDefined();
+        expect(Array.isArray(qtlsResult.results)).toBe(true);
+        expect(qtlsResult.pageInfo).toBeDefined();
+
+        // Validate pagination info
+        expect(qtlsResult.pageInfo.currentPage).toBe(1);
+        expect(qtlsResult.pageInfo.pageSize).toBe(15);
+        expect(typeof qtlsResult.pageInfo.numResults).toBe('number');
+        expect(typeof qtlsResult.pageInfo.pageCount).toBe('number');
+
+        // Validate each QTL's data structure and types
+        qtlsResult.results.forEach((qtl: any, index: number) => {
+          expect(qtl.id).toBeDefined();
+          expect(qtl.identifier).toBeDefined();
+
+          expect(typeof qtl.id).toBe('string');
+          expect(typeof qtl.identifier).toBe('string');
+          expect(typeof qtl.name).toBe('string');
+
+          expect(qtl.start).toBeGreaterThanOrEqual(0);
+          expect(qtl.end).toBeGreaterThan(0);
+          expect(qtl.peak).toBe(null);
+          expect(qtl.lod).toBe(null);
+          expect(qtl.peak).toBe(null);
+          expect(qtl.likelihoodRatio).toBe(null);
+          expect(qtl.markerR2).toBe(null);
+
+          expect(qtl.trait).toBeDefined();
+          expect(typeof qtl.trait.id).toBe('string');
+          expect(typeof qtl.trait.identifier).toBe('string');
+          expect(typeof qtl.trait.name).toBe('string');
+
+          expect(qtl.trait.organism).toBeDefined();
+          expect(typeof qtl.trait.organism.taxonId).toBe('string');
+          expect(typeof qtl.trait.organism.name).toBe('string');
+          expect(typeof qtl.trait.organism.genus).toBe('string');
+          expect(typeof qtl.trait.organism.species).toBe('string');
+          expect(qtl.trait.organism.name).toBe(
+            `${qtl.trait.organism.genus} ${qtl.trait.organism.species}`,
+          );
+
+          expect(qtl.linkageGroup).toBeDefined();
+          expect(qtl.linkageGroup.id).toBeDefined();
+          expect(qtl.linkageGroup.identifier).toBeDefined();
+          expect(typeof qtl.linkageGroup.id).toBe('string');
+          expect(typeof qtl.linkageGroup.identifier).toBe('string');
+          expect(typeof qtl.linkageGroup.name).toBe('string');
+          expect(typeof qtl.linkageGroup.length).toBe('number');
+          expect(qtl.linkageGroup.geneticMap).toBeDefined();
+          expect(typeof qtl.linkageGroup.geneticMap.identifier).toBe('string');
+
+          expect(qtl.qtlStudy).toBeDefined();
+          expect(typeof qtl.qtlStudy.id).toBe('string');
+          expect(typeof qtl.qtlStudy.identifier).toBe('string');
+          expect(typeof qtl.qtlStudy.description).toBe('string');
+
+          expect(Array.isArray(qtl.markers)).toBe(true);
+          expect(Array.isArray(qtl.dataSets)).toBe(true);
+          expect(Array.isArray(qtl.publications)).toBe(true);
+
+          qtl.markers.forEach((marker: any) => {
+            expect(typeof marker.identifier).toBe('string');
+            expect(typeof marker.name).toBe('string');
+          });
+
+          qtl.dataSets.forEach((dataset: any) => {
+            expect(typeof dataset.id).toBe('string');
+            expect(typeof dataset.name).toBe('string');
+            expect(typeof dataset.description).toBe('string');
+          });
+
+          qtl.publications.forEach((pub: any) => {
+            expect(typeof pub.id).toBe('string');
+            expect(typeof pub.doi).toBe('string');
+            expect(typeof pub.title).toBe('string');
+            expect(typeof pub.year).toBe('number');
+
+            expect(Array.isArray(pub.authors)).toBe(true);
+            pub.authors.forEach((author: any) => {
+              expect(typeof author.name).toBe('string');
+            });
+          });
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates qtls() search filters work correctly',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const filteredQTLsQuery = `
+        query ValidateQTLFilters($traitName: String, $page: Int, $pageSize: Int) {
+          qtls(traitName: $traitName, page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              trait {
+                identifier
+                name
+              }
+              linkageGroup {
+                identifier
+                name
+              }
+            }
+            pageInfo {
+              numResults
+              currentPage
+              pageSize
+            }
+          }
+        }
+      `;
+
+        // First get all QTLs to see what trait names exist
+        const broadResponse = await executeRealQuery(
+          server,
+          filteredQTLsQuery,
+          {page: 1, pageSize: 15},
+          contextValue,
+        );
+
+        const broadData = validateSuccessfulResponse(broadResponse);
+        const allQTLs = broadData.qtls.results;
+
+        // Get trait names for testing
+        const traitNames = allQTLs.map((qtl: any) => qtl.trait.name);
+        expect(traitNames.length).toBeGreaterThan(0);
+
+        // Test trait name filter with first available trait
+        allQTLs.forEach(async (qtl: any, index: number) => {
+          const traitFilterResponse = await executeRealQuery(
+            server,
+            filteredQTLsQuery,
+            {traitName: qtl.trait.name, page: 1, pageSize: 15},
+            contextValue,
+          );
+
+          const traitFilterData =
+            validateSuccessfulResponse(traitFilterResponse);
+          const filteredResults = traitFilterData.qtls.results;
+
+          expect(filteredResults.length).toBeGreaterThan(0);
+
+          filteredResults.forEach((filteredQtl: any) => {
+            expect(filteredQtl.trait.name).toBe(qtl.trait.name);
+          });
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates qtl() individual query consistency',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        // First get a list of QTLs
+        const qtlsListQuery = `
+        query GetQTLsList($page: Int, $pageSize: Int) {
+          qtls(page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              start
+              end
+              trait {
+                identifier
+                name
+              }
+              linkageGroup {
+                identifier
+                name
+              }
+            }
+          }
+        }
+      `;
+
+        const listResponse = await executeRealQuery(
+          server,
+          qtlsListQuery,
+          {page: 1, pageSize: 15},
+          contextValue,
+        );
+
+        const listData = validateSuccessfulResponse(listResponse);
+        const qtls = listData.qtls.results;
+
+        expect(qtls.length).toBeGreaterThan(0);
+
+        // Test consistency with individual qtl() queries
+        qtls.forEach(async (sampleQTL: any) => {
+          const individualQuery = `
+          query GetIndividualQTL($identifier: ID!) {
+            qtl(identifier: $identifier) {
+              results {
+                identifier
+                name
+                start
+                end
+                peak
+                lod
+                likelihoodRatio
+                markerR2
+                trait {
+                  identifier
+                  name
+                  organism {
+                    taxonId
+                    name
+                  }
+                }
+                linkageGroup {
+                  identifier
+                  name
+                  length
+                }
+                qtlStudy {
+                  identifier
+                  description
+                }
+                markers {
+                  identifier
+                  name
+                }
+                dataSets {
+                  name
+                  description
+                }
+                publications {
+                  doi
+                  title
+                  year
+                }
+              }
+            }
+          }
+        `;
+
+          const individualResponse = await executeRealQuery(
+            server,
+            individualQuery,
+            {identifier: sampleQTL.identifier},
+            contextValue,
+          );
+
+          const individualData = validateSuccessfulResponse(individualResponse);
+          const individual = individualData.qtl.results;
+
+          // Validate consistency between qtls() and qtl() queries
+          expect(individual.identifier).toBe(sampleQTL.identifier);
+          expect(individual.name).toBe(sampleQTL.name);
+          expect(individual.start).toBe(sampleQTL.start);
+          expect(individual.end).toBe(sampleQTL.end);
+
+          expect(individual.trait.identifier).toBe(sampleQTL.trait.identifier);
+          expect(individual.trait.name).toBe(sampleQTL.trait.name);
+
+          expect(individual.linkageGroup.identifier).toBe(
+            sampleQTL.linkageGroup.identifier,
+          );
+          expect(individual.linkageGroup.name).toBe(
+            sampleQTL.linkageGroup.name,
+          );
+
+          // Validate data completeness in individual query
+          expect(Array.isArray(individual.markers)).toBe(true);
+          expect(Array.isArray(individual.dataSets)).toBe(true);
+          expect(Array.isArray(individual.publications)).toBe(true);
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates QTL trait relationships and data quality',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const qtlTraitValidationQuery = `
+        query ValidateQTLTraitRelationships($page: Int, $pageSize: Int) {
+          qtls(page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+              start
+              end
+              trait {
+                identifier
+                name
+                qtls {
+                  identifier
+                  name
+                }
+                organism {
+                  taxonId
+                  name
+                }
+              }
+              linkageGroup {
+                identifier
+                name
+                qtls {
+                  identifier
+                  name
+                }
+              }
+            }
+          }
+        }
+      `;
+
+        const response = await executeRealQuery(
+          server,
+          qtlTraitValidationQuery,
+          {page: 1, pageSize: 15},
+          contextValue,
+        );
+
+        const data = validateSuccessfulResponse(response);
+        const qtls = data.qtls.results;
+
+        // Validate all QTLs have traits
+        qtls.forEach((qtl: any) => {
+          // Validate QTL position data
+          expect(typeof qtl.identifier).toBe('string');
+          expect(typeof qtl.name).toBe('string');
+
+          expect(typeof qtl.start).toBe('number');
+          expect(qtl.start).toBeGreaterThanOrEqual(0);
+          expect(typeof qtl.end).toBe('number');
+          expect(qtl.end).toBeGreaterThan(0);
+          expect(qtl.start).toBeLessThan(qtl.end);
+
+          expect(qtl.trait).toBeDefined();
+          expect(qtl.trait.qtls).toBeDefined();
+          expect(Array.isArray(qtl.trait.qtls)).toBe(true);
+          const foundInTrait = qtl.trait.qtls.some(
+            (traitQtl: any) => traitQtl.identifier === qtl.identifier,
+          );
+          expect(foundInTrait).toBe(true);
+
+          expect(qtl.linkageGroup).toBeDefined();
+          expect(qtl.linkageGroup.qtls).toBeDefined();
+          expect(Array.isArray(qtl.linkageGroup.qtls)).toBe(true);
+          const foundInLinkageGroup = qtl.linkageGroup.qtls.some(
+            (lgQtl: any) => lgQtl.identifier === qtl.identifier,
+          );
+          expect(foundInLinkageGroup).toBe(true);
+        });
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+
+    test(
+      'validates qtls() edge cases and error handling',
+      async () => {
+        const {server, context} = await createRealTestServer();
+        const contextValue = await context();
+
+        const edgeCaseQuery = `
+        query QTLsEdgeCases($traitName: String, $page: Int, $pageSize: Int) {
+          qtls(traitName: $traitName, page: $page, pageSize: $pageSize) {
+            results {
+              identifier
+              name
+            }
+            pageInfo {
+              numResults
+              currentPage
+              pageCount
+            }
+          }
+        }
+      `;
+
+        // Test empty results case
+        const emptyResponse = await executeRealQuery(
+          server,
+          edgeCaseQuery,
+          {traitName: 'NonexistentQTL123456789', page: 1, pageSize: 10},
+          contextValue,
+        );
+
+        const emptyData = validateSuccessfulResponse(emptyResponse);
+        expect(emptyData.qtls.results).toHaveLength(0);
+        expect(emptyData.qtls.pageInfo.numResults).toBe(0);
+        expect(emptyData.qtls.pageInfo.currentPage).toBe(1);
+
+        // Test individual QTL query with non-existent ID
+        const nonExistentQTLQuery = `
+        query GetNonExistentQTL($identifier: ID!) {
+          qtl(identifier: $identifier) {
+            results {
+              identifier
+              name
+            }
+          }
+        }
+      `;
+
+        const nonExistentResponse = await executeRealQuery(
+          server,
+          nonExistentQTLQuery,
+          {identifier: 'NonexistentQTL123456789'},
+          contextValue,
+        );
+
+        // Should return an error for non-existent QTL
+        const errors = nonExistentResponse.body.singleResult.errors;
+        expect(errors).toBeDefined();
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].message).toBe(
+          "QTL with identifier 'NonexistentQTL123456789' not found",
+        );
+        expect(errors[0].extensions.code).toBe('BAD_USER_INPUT');
+        expect(nonExistentResponse.body.singleResult.data.qtl).toBe(null);
+      },
+      REAL_TEST_CONFIG.QUERY_TIMEOUT,
+    );
+  });
+
   describe('Pagination Data Validation', () => {
     test(
       'validates pagination metadata accuracy',
