@@ -515,6 +515,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(
     getGene = getGene;
     getGenes = getGenes;
     getGenesForGeneFamily = getGenesForGeneFamily;
+    getGenesForGeneFunction = getGenesForGeneFunction;
     getGenesForIntron = getGenesForIntron;
     getGenesForPanGeneSet = getGenesForPanGeneSet;
     getGenesForPathway = getGenesForPathway;
@@ -537,6 +538,10 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(
     // gene flanking region
     getGeneFlankingRegion = getGeneFlankingRegion;
     getGeneFlankingRegionsForGene = getGeneFlankingRegionsForGene;
+    // gene function
+    //getGeneFunction = getGeneFunction;
+    //getGeneFunctions = getGeneFunctions;
+    searchGeneFunctions = searchGeneFunctions;
     // genetic map
     getGeneticMap = getGeneticMap;
     searchGeneticMaps = searchGeneticMaps;
@@ -674,6 +679,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(
     searchStrains = searchStrains;
     // trait
     getTrait = getTrait;
+    getTraitsForGeneFunction = getTraitsForGeneFunction;
     searchTraits = searchTraits;
     // transcript
     getTranscript = getTranscript;
