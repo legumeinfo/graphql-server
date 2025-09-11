@@ -59,6 +59,19 @@ export async function getGenesForGeneFamily(
   return getGenes.call(this, query, {page, pageSize});
 }
 
+// get Genes associated with a GeneFunction
+export async function getGenesForGeneFunction(id: number, { page, pageSize }: PaginationOptions): Promise<ApiResponse<GraphQLGene>> {
+    const constraints = [intermineConstraint('Gene.geneFunctions.id', '=', id)];
+    const joins = sequenceFeatureJoinFactory('Gene');
+    const query = interminePathQuery(
+        intermineGeneAttributes,
+        intermineGeneSort,
+        constraints,
+        joins,
+    );
+    return getGenes.call(this, query, {page, pageSize});
+}
+
 // get Genes associated with a PanGeneSet
 export async function getGenesForPanGeneSet(
   id: number,

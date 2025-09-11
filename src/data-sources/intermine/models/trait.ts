@@ -8,31 +8,38 @@ import {
   intermineAnnotatableAttributesFactory,
 } from './annotatable.js';
 
-export const intermineTraitAttributes = [
-  ...intermineAnnotatableAttributesFactory('Trait'),
-  'Trait.description',
-  'Trait.name',
-  'Trait.dataSets.name',
-  'Trait.organism.taxonId',
-  'Trait.gwas.primaryIdentifier',
+export const intermineTraitAttributesFactory = (type = 'Trait') => [
+    ...intermineAnnotatableAttributesFactory(type),
+    `${type}.description`,
+    `${type}.name`,
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //`${type}.dataSets.name`,
+    //`${type}.organism.taxonId`,
+    //`${type}.gwas.primaryIdentifier`,
 ];
-export const intermineTraitSort = 'Trait.name';
+export const intermineTraitAttributes = intermineTraitAttributesFactory('Trait');
+
+export const intermineTraitSortFactory = (type = 'Trait') => `${type}.name`;
+export const intermineTraitSort = intermineTraitSortFactory();
+//export const intermineTraitSort = 'Trait.name';
 export type IntermineTrait = [
-  ...IntermineAnnotatable,
-  string,
-  string,
-  string,
-  string,
-  string,
+    ...IntermineAnnotatable,
+    string,
+    string,
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //string,
+    //string,
+    //string,
 ];
 
 export const graphqlTraitAttributes = [
-  ...graphqlAnnotatableAttributes,
-  'description',
-  'name',
-  'dataSetsName',
-  'organismTaxonId',
-  'gwasIdentifier',
+    ...graphqlAnnotatableAttributes,
+    'description',
+    'name',
+    //adf: TODO; including these attributes breaks the gene function use case currently but may need to revisit later
+    //'dataSetsName',
+    //'organismTaxonId',
+    //'gwasIdentifier',
 ];
 export type GraphQLTrait = {
   [prop in (typeof graphqlTraitAttributes)[number]]: string;

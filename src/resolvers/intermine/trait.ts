@@ -70,3 +70,26 @@ export const hasTraitFactory = (
     return request.then(({data: results}) => results);
   },
 });
+
+export const hasTraitsFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
+SubfieldResolverMap => ({
+    traits: async (parent, { page, pageSize }, { dataSources }, info) => {
+        let request: Promise<any>|null = null;
+
+        const args = {page, pageSize};
+        const typeName = info.parentType.name;
+        switch (typeName) {
+            case 'GeneFunction':
+                const {id} = parent;
+                request = dataSources[sourceName].getTraitsForGeneFunction(id, args);
+                break;
+        }
+
+        if (request == null) {
+            return null;
+        }
+
+        // @ts-ignore: implicit type any error
+        return request.then(({data: results}) => results);
+    },
+});
