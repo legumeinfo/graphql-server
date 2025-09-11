@@ -28,6 +28,7 @@ Promise<ApiResponse<GraphQLGene>> {
         constraints,
         joins,
     );
+    console.log("get-gene query: " + query);
     return this.pathQuery(query)
         .then((response: IntermineGeneResponse) => response2genes(response))
         .then((genes: Array<GraphQLGene>) => {

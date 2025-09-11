@@ -17,13 +17,23 @@ import { PaginationOptions } from './pagination.js';
 
 export type SearchGeneFunctionsOptions = {
     synopsis?: string;
+    symbol?: string;
+    trait?: string;
+    gene?: string;
+    genus?: string;
+    species?: string;
 } & PaginationOptions;
 
 
-// path query search for GeneFunction by synopsis
+// path query search for GeneFunction by synopsis, etc.
 export async function searchGeneFunctions(
     {
         synopsis,
+	symbol,
+	trait,
+	gene,
+	genus,
+	species,
         page,
         pageSize,
     }: SearchGeneFunctionsOptions,
@@ -33,11 +43,32 @@ export async function searchGeneFunctions(
         const synopsisConstraint = intermineConstraint('GeneFunction.synopsis', 'CONTAINS', synopsis);
         constraints.push(synopsisConstraint);
     }
+    if (symbol) {
+        const symbolConstraint = intermineConstraint('GeneFunction.symbol', '=', symbol);
+        constraints.push(symbolConstraint);
+    }
+    if (trait) {
+        const traitConstraint = intermineConstraint('GeneFunction.trait.name', 'CONTAINS', trait);
+        constraints.push(traitConstraint);
+    }
+    if (gene) {
+        const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene);
+        constraints.push(geneConstraint);
+    }
+    if (genus) {
+        const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus);
+        constraints.push(genusConstraint);
+    }
+    if (species) {
+        const speciesConstraint = intermineConstraint('GeneFunction.gene.organism.species', '=', species);
+        constraints.push(speciesConstraint);
+    }
     const query = interminePathQuery(
         intermineGeneFunctionAttributes,
         intermineGeneFunctionSort,
         constraints,
     );
+    console.log("query: " + query);
     // get the data
     const dataPromise = this.pathQuery(query, {page, pageSize})
         .then((response: IntermineGeneFunctionResponse) => response2genefunctions(response));

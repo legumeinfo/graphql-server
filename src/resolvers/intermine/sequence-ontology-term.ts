@@ -7,7 +7,7 @@ export const sequenceOntologyTermFactory = (sourceName: KeyOfType<DataSources, I
 ResolverMap => ({
     Query: {
         sequenceOntologyTerm: async (_, { identifier }, { dataSources }) => {
-            console.log(identifier);
+            //console.log(identifier);
             const {data: term} = await dataSources[sourceName].getSequenceOntologyTerm(identifier);
             if (term == null) {
                 const msg = `Sequence Ontology Term with identifier '${identifier}' not found`;
