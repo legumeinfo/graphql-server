@@ -13,11 +13,12 @@ import {
 } from './sequence-feature.js';
 
 export const intermineGeneAttributesFactory = (type = 'Gene') => [
-  ...intermineSequenceFeatureAttributesFactory(type),
-  `${type}.briefDescription`,
-  `${type}.ensemblName`,
-  //`${type}.upstreamIntergenicRegion.primaryIdentifier`,
-  //`${type}.downstreamIntergenicRegion.primaryIdentifier`,
+    ...intermineSequenceFeatureAttributesFactory(type),
+    `${type}.briefDescription`,
+    `${type}.ensemblName`,
+    //adf: TODO make optional
+    //`${type}.upstreamIntergenicRegion.primaryIdentifier`,
+    //`${type}.downstreamIntergenicRegion.primaryIdentifier`,
 ];
 export const intermineGeneAttributes = intermineGeneAttributesFactory('Gene');
 
@@ -26,19 +27,21 @@ export const intermineGeneSortFactory = (type = 'Gene') =>
 export const intermineGeneSort = intermineGeneSortFactory();
 
 export type IntermineGene = [
-  ...IntermineSequenceFeature,
-  string,
-  string,
-  //string,
-  //string,
+    ...IntermineSequenceFeature,
+    string,
+    string,
+    //adf: TODO make optional
+    //string,
+    //string,
 ];
 
 export const graphqlGeneAttributes = [
-  ...graphqlSequenceFeatureAttributes,
-  'briefDescription',
-  'ensemblName',
-  //'upstreamIntergenicRegionIdentifier',
-  //'downstreamIntergenicRegionIdentifier',
+    ...graphqlSequenceFeatureAttributes,
+    'briefDescription',
+    'ensemblName',
+    //adf: TODO make optional
+    //'upstreamIntergenicRegionIdentifier',
+    //'downstreamIntergenicRegionIdentifier',
 ];
 
 export type GraphQLGene = {

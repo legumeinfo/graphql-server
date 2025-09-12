@@ -249,21 +249,16 @@ export const intermineJoin = (
 };
 
 // creates a Path Query XML string
-export const interminePathQuery = (
-  viewAttributes: Array<string>,
-  sortBy: string,
-  constraints: Array<string> = [],
-  joins: Array<string> = [],
-  constraintLogic: string = '',
-): string => {
-  const view = viewAttributes.join(' ');
-  const constraintLogicAttr = constraintLogic
-    ? `constraintLogic='${constraintLogic}'`
-    : '';
-  const joinTags = joins.join('');
-  const constraintTags = constraints.join('');
-  return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
-};
+export const interminePathQuery =
+    (viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[], joins: Array<string>=[], constraintLogic: string=''): string => {
+        const view = viewAttributes.join(' ');
+        const constraintLogicAttr = constraintLogic ? `constraintLogic='${constraintLogic}'` : '';
+        const joinTags = joins.join('');
+        const constraintTags = constraints.join('');
+        console.log(`<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`);
+        return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
+    };
+
 
 // converts an InterMine jsonobjects result object into an Intermine json result array
 export const object2result = <M extends IntermineModel>(
