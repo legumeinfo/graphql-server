@@ -57,6 +57,7 @@ import {syntenyBlockFactory} from './synteny-block.js';
 import {strainFactory} from './strain.js';
 import {traitFactory} from './trait.js';
 import {utrFactory} from './utr.js';
+import {geneFunctionFactory} from './gene-function.js';
 
 const factories = [
   authorFactory,
@@ -109,6 +110,7 @@ const factories = [
   syntenyBlockFactory,
   traitFactory,
   utrFactory,
+  geneFunctionFactory,
 ];
 
 // a factory function that generates resolvers for a specific InterMine
