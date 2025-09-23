@@ -22,8 +22,8 @@ export const geneFunctionFactory =
             return {results: genefunction};
         },
         */
-        geneFunctions: async (_, { synopsis, symbol, trait, gene, genus, species, page, pageSize }, { dataSources }) => {
-            const args = {synopsis, symbol, trait, gene, genus, species, page, pageSize};
+        geneFunctions: async (_, { synopsis, symbol, trait, gene, genus, species, publicationId, author, page, pageSize }, { dataSources }) => {
+            const args = {synopsis, symbol, trait, gene, genus, species, publicationId, author, page, pageSize};
             return dataSources[sourceName].searchGeneFunctions(args)
                 // @ts-ignore: implicit type any error
                 .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));

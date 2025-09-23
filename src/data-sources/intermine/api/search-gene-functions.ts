@@ -22,20 +22,24 @@ export type SearchGeneFunctionsOptions = {
     gene?: string;
     genus?: string;
     species?: string;
+    publicationId?: string;
+    author?: string;
 } & PaginationOptions;
 
 
 // path query search for GeneFunction by synopsis, etc.
 export async function searchGeneFunctions(
     {
-        synopsis,
+    synopsis,
 	symbol,
 	trait,
 	gene,
 	genus,
 	species,
-        page,
-        pageSize,
+    publicationId,
+    author,
+    page,
+    pageSize,
     }: SearchGeneFunctionsOptions,
 ): Promise<ApiResponse<GraphQLGeneFunction[]>> {
     const constraints = [];
@@ -62,6 +66,34 @@ export async function searchGeneFunctions(
     if (species) {
         const speciesConstraint = intermineConstraint('GeneFunction.gene.organism.species', '=', species);
         constraints.push(speciesConstraint);
+    }
+    if (publicationId) {
+      if (publicationId.includes('/')) {
+        // DOI contains /, like 10.1007/s00122-006-0217-2
+        const constraint = intermineConstraint(
+          'GeneFunction.publications.doi',
+          '=',
+          publicationId,
+        );
+        constraints.push(constraint);
+      } else {
+        // assume PMID if not DOI
+        const constraint = intermineConstraint(
+          'GeneFunction.publications.pubMedId',
+          '=',
+          publicationId,
+        );
+        constraints.push(constraint);
+      }
+    }
+    // NOTE: Search firstAuthor instead of authors.name
+    if (author) {
+      const constraint = intermineConstraint(
+        'GeneFunction.publications.firstAuthor',
+        'CONTAINS',
+        author,
+      );
+      constraints.push(constraint);
     }
     const query = interminePathQuery(
         intermineGeneFunctionAttributes,
