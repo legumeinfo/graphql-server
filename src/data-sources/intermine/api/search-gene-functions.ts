@@ -56,10 +56,15 @@ export async function searchGeneFunctions(
         constraints.push(traitConstraint);
     }
     if (gene) {
+        // TODO: Gene.synonyms.value but multiple root classes?
         const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene, 'A');
         const classicalLocusConstraint = intermineConstraint('GeneFunction.classicalLocus', 'CONTAINS', gene, 'B');
+        const symbolConstraint = intermineConstraint('GeneFunction.symbol', 'CONTAINS', gene, 'C');
+        const symbolLongConstraint = intermineConstraint('GeneFunction.symbolLong', 'CONTAINS', gene, 'D');
         constraints.push(geneConstraint);
         constraints.push(classicalLocusConstraint);
+        constraints.push(symbolConstraint);
+        constraints.push(symbolLongConstraint);
     }
     if (genus) {
         const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus);
@@ -101,7 +106,7 @@ export async function searchGeneFunctions(
         intermineGeneFunctionSort,
         constraints,
         [],
-        'A OR B'
+        'A OR B OR C OR D'
     );
     console.log("query: " + query);
     // get the data
