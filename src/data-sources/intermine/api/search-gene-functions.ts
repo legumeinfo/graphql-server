@@ -86,10 +86,9 @@ export async function searchGeneFunctions(
         constraints.push(constraint);
       }
     }
-    // NOTE: Search firstAuthor instead of authors.name
     if (author) {
       const constraint = intermineConstraint(
-        'GeneFunction.publications.firstAuthor',
+        'GeneFunction.publications.authors.name',
         'CONTAINS',
         author,
       );
