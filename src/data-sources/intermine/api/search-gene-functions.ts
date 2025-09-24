@@ -56,8 +56,10 @@ export async function searchGeneFunctions(
         constraints.push(traitConstraint);
     }
     if (gene) {
-        const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene);
+        const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene, 'A');
+        const classicalLocusConstraint = intermineConstraint('GeneFunction.classicalLocus', 'CONTAINS', gene, 'B');
         constraints.push(geneConstraint);
+        constraints.push(classicalLocusConstraint);
     }
     if (genus) {
         const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus);
@@ -98,6 +100,8 @@ export async function searchGeneFunctions(
         intermineGeneFunctionAttributes,
         intermineGeneFunctionSort,
         constraints,
+        [],
+        'A OR B'
     );
     console.log("query: " + query);
     // get the data
