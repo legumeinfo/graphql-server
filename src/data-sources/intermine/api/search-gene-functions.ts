@@ -61,10 +61,12 @@ export async function searchGeneFunctions(
         const classicalLocusConstraint = intermineConstraint('GeneFunction.classicalLocus', 'CONTAINS', gene, 'B');
         const symbolConstraint = intermineConstraint('GeneFunction.symbol', 'CONTAINS', gene, 'C');
         const symbolLongConstraint = intermineConstraint('GeneFunction.symbolLong', 'CONTAINS', gene, 'D');
+        const synonymsConstraint = intermineConstraint('GeneFunction.gene.synonyms.value', 'CONTAINS', gene, 'E');
         constraints.push(geneConstraint);
         constraints.push(classicalLocusConstraint);
         constraints.push(symbolConstraint);
         constraints.push(symbolLongConstraint);
+        constraints.push(synonymsConstraint);
     }
     if (genus) {
         const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus);
@@ -106,7 +108,7 @@ export async function searchGeneFunctions(
         intermineGeneFunctionSort,
         constraints,
         [],
-        'A OR B OR C OR D'
+        'A OR B OR C OR D OR E'
     );
     console.log("query: " + query);
     // get the data
