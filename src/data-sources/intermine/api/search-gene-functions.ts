@@ -30,12 +30,12 @@ export type SearchGeneFunctionsOptions = {
 // path query search for GeneFunction by synopsis, etc.
 export async function searchGeneFunctions(
     {
-    synopsis,
-	symbol,
-	trait,
-	gene,
-	genus,
-	species,
+    //synopsis,
+    //symbol,
+    trait,
+    gene,
+    genus,
+    species,
     publicationId,
     author,
     page,
@@ -43,38 +43,43 @@ export async function searchGeneFunctions(
     }: SearchGeneFunctionsOptions,
 ): Promise<ApiResponse<GraphQLGeneFunction[]>> {
     const constraints = [];
-    if (synopsis) {
-        const synopsisConstraint = intermineConstraint('GeneFunction.synopsis', 'CONTAINS', synopsis);
-        constraints.push(synopsisConstraint);
-    }
-    if (symbol) {
-        const symbolConstraint = intermineConstraint('GeneFunction.symbol', '=', symbol);
-        constraints.push(symbolConstraint);
-    }
+    const constraintLogic = [];
+    // These are unused on gene function search frontend
+    //if (synopsis) {
+    //    const synopsisConstraint = intermineConstraint('GeneFunction.synopsis', 'CONTAINS', synopsis);
+    //    constraints.push(synopsisConstraint);
+    //}
+    //if (symbol) {
+    //    const symbolConstraint = intermineConstraint('GeneFunction.symbol', '=', symbol);
+    //    constraints.push(symbolConstraint);
+    //}
     if (trait) {
-        const traitConstraint = intermineConstraint('GeneFunction.trait.name', 'CONTAINS', trait);
+        const traitConstraint = intermineConstraint('GeneFunction.trait.name', 'CONTAINS', trait, 'A');
         constraints.push(traitConstraint);
+        constraintLogic.push('A')
     }
     if (gene) {
-        // TODO: Gene.synonyms.value but multiple root classes?
-        const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene, 'A');
-        const classicalLocusConstraint = intermineConstraint('GeneFunction.classicalLocus', 'CONTAINS', gene, 'B');
-        const symbolConstraint = intermineConstraint('GeneFunction.symbol', 'CONTAINS', gene, 'C');
-        const symbolLongConstraint = intermineConstraint('GeneFunction.symbolLong', 'CONTAINS', gene, 'D');
-        const synonymsConstraint = intermineConstraint('GeneFunction.gene.synonyms.value', 'CONTAINS', gene, 'E');
+        const geneConstraint = intermineConstraint('GeneFunction.gene.primaryIdentifier', 'CONTAINS', gene, 'B');
+        const classicalLocusConstraint = intermineConstraint('GeneFunction.classicalLocus', 'CONTAINS', gene, 'C');
+        const symbolConstraint = intermineConstraint('GeneFunction.symbol', 'CONTAINS', gene, 'D');
+        const symbolLongConstraint = intermineConstraint('GeneFunction.symbolLong', 'CONTAINS', gene, 'E');
+        const synonymsConstraint = intermineConstraint('GeneFunction.gene.synonyms.value', 'CONTAINS', gene, 'F');
         constraints.push(geneConstraint);
         constraints.push(classicalLocusConstraint);
         constraints.push(symbolConstraint);
         constraints.push(symbolLongConstraint);
         constraints.push(synonymsConstraint);
+        constraintLogic.push('(B OR C OR D OR E OR F)')
     }
     if (genus) {
-        const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus);
+        const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus, 'G');
         constraints.push(genusConstraint);
+        constraintLogic.push('G')
     }
     if (species) {
-        const speciesConstraint = intermineConstraint('GeneFunction.gene.organism.species', '=', species);
+        const speciesConstraint = intermineConstraint('GeneFunction.gene.organism.species', '=', species, 'H');
         constraints.push(speciesConstraint);
+        constraintLogic.push('H')
     }
     if (publicationId) {
       if (publicationId.includes('/')) {
@@ -83,6 +88,7 @@ export async function searchGeneFunctions(
           'GeneFunction.publications.doi',
           '=',
           publicationId,
+          'I'
         );
         constraints.push(constraint);
       } else {
@@ -91,24 +97,28 @@ export async function searchGeneFunctions(
           'GeneFunction.publications.pubMedId',
           '=',
           publicationId,
+          'I'
         );
         constraints.push(constraint);
       }
+      constraintLogic.push('I')
     }
     if (author) {
       const constraint = intermineConstraint(
         'GeneFunction.publications.authors.name',
         'CONTAINS',
         author,
+        'J'
       );
       constraints.push(constraint);
+      constraintLogic.push('J')
     }
     const query = interminePathQuery(
         intermineGeneFunctionAttributes,
         intermineGeneFunctionSort,
         constraints,
         [],
-        'A OR B OR C OR D OR E'
+        constraintLogic.join(' AND ')
     );
     console.log("query: " + query);
     // get the data
