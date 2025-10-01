@@ -20,6 +20,7 @@ export const intermineGeneFunctionAttributes = [
     'GeneFunction.symbolLong',
     'GeneFunction.synopsis',
     'GeneFunction.confidence',
+    'GeneFunction.pubName'
     //'GeneFunction.dataSets.name',
 ];
 //export const intermineGeneFunctionSort = 'GeneFunction.trait.name ASC GeneFunction.symbol ASC';
@@ -41,6 +42,7 @@ export const graphqlGeneFunctionAttributes = [
     'symbolLong',
     'synopsis',
     'confidence',
+    'pubName',
     'dataSetName',
 ];
 export type GraphQLGeneFunction = {

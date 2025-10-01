@@ -64,12 +64,14 @@ export async function searchGeneFunctions(
         const symbolConstraint = intermineConstraint('GeneFunction.symbol', 'CONTAINS', gene, 'D');
         const symbolLongConstraint = intermineConstraint('GeneFunction.symbolLong', 'CONTAINS', gene, 'E');
         const synonymsConstraint = intermineConstraint('GeneFunction.gene.synonyms.value', 'CONTAINS', gene, 'F');
+        const pubNameConstraint = intermineConstraint('GeneFunction.pubName', 'CONTAINS', gene, 'K');
         constraints.push(geneConstraint);
         constraints.push(classicalLocusConstraint);
         constraints.push(symbolConstraint);
         constraints.push(symbolLongConstraint);
         constraints.push(synonymsConstraint);
-        constraintLogic.push('(B OR C OR D OR E OR F)')
+        constraints.push(pubNameConstraint);
+        constraintLogic.push('(B OR C OR D OR E OR F OR K)')
     }
     if (genus) {
         const genusConstraint = intermineConstraint('GeneFunction.gene.organism.genus', '=', genus, 'G');
