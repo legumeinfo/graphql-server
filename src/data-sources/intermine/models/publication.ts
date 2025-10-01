@@ -16,11 +16,13 @@ export const interminePublicationAttributes = [
   'Publication.month',
   'Publication.abstractText',
   'Publication.pubMedId',
+  'Publication.citation',
 ];
 export const interminePublicationSort = 'Publication.doi'; // guaranteed not null
 export type InterminePublication = [
   number,
   number,
+  string,
   string,
   string,
   string,
@@ -46,6 +48,7 @@ export const graphqlPublicationAttributes = [
   'month',
   'abstractText',
   'pubMedId',
+  'citation',
 ];
 export type GraphQLPublication = {
   [prop in (typeof graphqlPublicationAttributes)[number]]: string;
