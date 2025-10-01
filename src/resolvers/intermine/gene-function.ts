@@ -4,6 +4,7 @@ import { KeyOfType } from '../../utils/index.js';
 import { ResolverMap } from '../resolver.js';
 import { isAnnotatableFactory } from './annotatable.js';
 import { hasGenesFactory } from './gene.js';
+import { hasSynonymsFactory } from './synonyms.js';
 import { hasTraitsFactory } from './trait.js';
 
 
@@ -32,6 +33,7 @@ export const geneFunctionFactory =
     GeneFunction: {
         ...isAnnotatableFactory(sourceName),
         ...hasGenesFactory(sourceName),
+        ...hasSynonymsFactory(sourceName),
         ...hasTraitsFactory(sourceName),
     },
 });

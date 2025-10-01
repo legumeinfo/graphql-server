@@ -70,6 +70,7 @@ import { getGeneFlankingRegionsForGene } from './get-gene-flanking-regions.js';
 //import { getGeneFunction } from './get-gene-function.js';
 //import { getGeneFunctions } from './get-gene-functions.js';
 import { searchGeneFunctions } from './search-gene-functions.js';
+import { getSynonymsForGeneFunction } from './get-gene-function-synonyms.js';
 // genetic map
 import {getGeneticMap} from './get-genetic-map.js';
 import {searchGeneticMaps} from './search-genetic-maps.js';
@@ -311,6 +312,7 @@ export declare class ApiMixinInterface {
     //getGeneFunction: Function;
     //getGeneFunctions: Function;
     searchGeneFunctions: Function;
+    getSynonymsForGeneFunction: Function;
     // genetic map
     getGeneticMap: Function;
     searchGeneticMaps: Function;
@@ -542,6 +544,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(
     //getGeneFunction = getGeneFunction;
     //getGeneFunctions = getGeneFunctions;
     searchGeneFunctions = searchGeneFunctions;
+    getSynonymsForGeneFunction = getSynonymsForGeneFunction;
     // genetic map
     getGeneticMap = getGeneticMap;
     searchGeneticMaps = searchGeneticMaps;

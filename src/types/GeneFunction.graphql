@@ -18,4 +18,5 @@ type GeneFunction implements Annotatable
   synopsis: String
   confidence: Int
   pubName: String
+  synonyms: [String!]!
 }
