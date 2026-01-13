@@ -47,10 +47,14 @@ export const hasGWASFactory = (
 
     const typeName = info.parentType.name;
     switch (typeName) {
-      case 'GWASResult':
-      case 'Trait': {
+      case 'GWASResult': {
         const {gwasIdentifier} = parent;
         request = dataSources[sourceName].getGWAS(gwasIdentifier);
+        break;
+      }
+      case 'Trait': {
+        const {identifier} = parent;
+        request = dataSources[sourceName].getGWASForTrait(identifier);
         break;
       }
     }

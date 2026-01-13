@@ -14,7 +14,6 @@ import {
   response2traits,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
-import { intermineJoin } from '../intermine.server.js';
 
 export type SearchTraitsOptions = {
   name?: string;
@@ -91,15 +90,10 @@ export async function searchTraits({
     constraints.push(constraint);
   }
 
-  const joins = [];
-  // gwas could be null
-  joins.push(intermineJoin('Trait.gwas', 'OUTER'));
-
   const query = interminePathQuery(
     intermineTraitAttributes,
     intermineTraitSort,
     constraints,
-    joins,
   );
   // get the data
   const dataPromise = this.pathQuery(query, {page, pageSize}).then(
