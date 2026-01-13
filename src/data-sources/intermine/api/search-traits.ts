@@ -37,6 +37,7 @@ export async function searchTraits({
   pageSize,
 }: SearchTraitsOptions): Promise<ApiResponse<GraphQLTrait[]>> {
   const constraints = [];
+  let constraintLogic = '';
   if (name) {
     const constraint = intermineConstraint('Trait.name', 'CONTAINS', name);
     constraints.push(constraint);
@@ -56,11 +57,19 @@ export async function searchTraits({
   if (studyType == 'GWAS') {
     const constraint = intermineNotNullConstraint('Trait.gwas');
     constraints.push(constraint);
-  }
-  if (studyType == 'QTLStudy') {
+  } else if (studyType == 'QTLStudy') {
     // any QTLStudy trait
     const constraint = intermineNotNullConstraint('Trait.qtlStudy');
     constraints.push(constraint);
+  } else if (!studyType) {
+    // when no study type is specified, require traits to have at least one study (GWAS or QTLStudy)
+    // this ensures trait association searches only return traits with associations
+    const gwasConstraint = intermineNotNullConstraint('Trait.gwas', 'A');
+    const qtlStudyConstraint = intermineNotNullConstraint('Trait.qtlStudy', 'B');
+    constraints.push(gwasConstraint);
+    constraints.push(qtlStudyConstraint);
+    // Use OR logic: trait must have either GWAS or QTLStudy (or both)
+    constraintLogic = 'A OR B';
   }
   if (publicationId) {
     if (publicationId.includes('/')) {
@@ -94,6 +103,8 @@ export async function searchTraits({
     intermineTraitAttributes,
     intermineTraitSort,
     constraints,
+    [],
+    constraintLogic,
   );
   // get the data
   const dataPromise = this.pathQuery(query, {page, pageSize}).then(
