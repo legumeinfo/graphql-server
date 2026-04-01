@@ -8,10 +8,13 @@ import {
 } from '../intermine.server.js';
 import {
   GraphQLTrait,
+  IntermineTraitBaseResponse,
   IntermineTraitResponse,
   intermineTraitAttributes,
+  intermineTraitBaseAttributes,
   intermineTraitSort,
   response2traits,
+  response2traitsBase,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
 import {traitJoinFactory} from './trait.js';
@@ -106,19 +109,27 @@ export async function searchTraits({
     constraints.push(constraint);
   }
 
-  // InterMine can't combine OUTER joins with OR constraints, so skip all joins when using OR logic
+  // InterMine can't combine OUTER joins or implicit joins (from extended attributes) with OR constraints.
+  // When using OR logic, use base attributes only; otherwise use extended attributes with OUTER joins.
+  const attributes = hasGwasOrConstraint
+    ? intermineTraitBaseAttributes
+    : intermineTraitAttributes;
   const joins = hasGwasOrConstraint ? [] : traitJoinFactory();
   const query = interminePathQuery(
-    intermineTraitAttributes,
+    attributes,
     intermineTraitSort,
     constraints,
     joins,
     constraintLogic,
   );
-  // get the data
-  const dataPromise = this.pathQuery(query, {page, pageSize}).then(
-    (response: IntermineTraitResponse) => response2traits(response),
-  );
+  // get the data - use appropriate response converter based on attribute set
+  const dataPromise = hasGwasOrConstraint
+    ? this.pathQuery(query, {page, pageSize}).then(
+        (response: IntermineTraitBaseResponse) => response2traitsBase(response),
+      )
+    : this.pathQuery(query, {page, pageSize}).then(
+        (response: IntermineTraitResponse) => response2traits(response),
+      );
   // get a summary of the data and convert it to page info
   const pageInfoPromise = this.pathQueryCount(query).then(
     (response: IntermineCountResponse) =>
