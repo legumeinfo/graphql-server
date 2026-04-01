@@ -14,6 +14,7 @@ import {
   response2traits,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
+import {traitJoinFactory} from './trait.js';
 
 export type SearchTraitsOptions = {
   name?: string;
@@ -54,6 +55,8 @@ export async function searchTraits({
     );
     constraints.push(constraint);
   }
+  // Track whether we're using OR logic on gwas (incompatible with OUTER join)
+  let hasGwasOrConstraint = false;
   if (studyType == 'GWAS') {
     const constraint = intermineNotNullConstraint('Trait.gwas');
     constraints.push(constraint);
@@ -65,11 +68,15 @@ export async function searchTraits({
     // when no study type is specified, require traits to have at least one study (GWAS or QTLStudy)
     // this ensures trait association searches only return traits with associations
     const gwasConstraint = intermineNotNullConstraint('Trait.gwas', 'A');
-    const qtlStudyConstraint = intermineNotNullConstraint('Trait.qtlStudy', 'B');
+    const qtlStudyConstraint = intermineNotNullConstraint(
+      'Trait.qtlStudy',
+      'B',
+    );
     constraints.push(gwasConstraint);
     constraints.push(qtlStudyConstraint);
     // Use OR logic: trait must have either GWAS or QTLStudy (or both)
     constraintLogic = 'A OR B';
+    hasGwasOrConstraint = true;
   }
   if (publicationId) {
     if (publicationId.includes('/')) {
@@ -99,11 +106,13 @@ export async function searchTraits({
     constraints.push(constraint);
   }
 
+  // InterMine can't combine OUTER joins with OR constraints, so skip all joins when using OR logic
+  const joins = hasGwasOrConstraint ? [] : traitJoinFactory();
   const query = interminePathQuery(
     intermineTraitAttributes,
     intermineTraitSort,
     constraints,
-    [],
+    joins,
     constraintLogic,
   );
   // get the data
