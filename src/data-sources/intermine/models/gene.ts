@@ -12,13 +12,20 @@ import {
   intermineSequenceFeatureAttributesFactory,
 } from './sequence-feature.js';
 
+// Base attributes - core gene fields without optional intergenic region relationships
+export const intermineGeneBaseAttributesFactory = (type = 'Gene') => [
+  ...intermineSequenceFeatureAttributesFactory(type),
+  `${type}.briefDescription`,
+  `${type}.ensemblName`,
+];
+export const intermineGeneBaseAttributes =
+  intermineGeneBaseAttributesFactory('Gene');
+
+// Extended attributes - includes intergenic region identifiers (use with OUTER joins)
 export const intermineGeneAttributesFactory = (type = 'Gene') => [
-    ...intermineSequenceFeatureAttributesFactory(type),
-    `${type}.briefDescription`,
-    `${type}.ensemblName`,
-    //adf: TODO make optional
-    //`${type}.upstreamIntergenicRegion.primaryIdentifier`,
-    //`${type}.downstreamIntergenicRegion.primaryIdentifier`,
+  ...intermineGeneBaseAttributesFactory(type),
+  `${type}.upstreamIntergenicRegion.primaryIdentifier`,
+  `${type}.downstreamIntergenicRegion.primaryIdentifier`,
 ];
 export const intermineGeneAttributes = intermineGeneAttributesFactory('Gene');
 
@@ -26,22 +33,30 @@ export const intermineGeneSortFactory = (type = 'Gene') =>
   `${type}.primaryIdentifier`;
 export const intermineGeneSort = intermineGeneSortFactory();
 
+// Type for base attributes response
+export type IntermineGeneBase = [...IntermineSequenceFeature, string, string];
+
+// Type for extended attributes response (includes nullable intergenic region identifiers)
 export type IntermineGene = [
-    ...IntermineSequenceFeature,
-    string,
-    string,
-    //adf: TODO make optional
-    //string,
-    //string,
+  ...IntermineSequenceFeature,
+  string,
+  string,
+  string | null,
+  string | null,
 ];
 
+// Base GraphQL attributes
+export const graphqlGeneBaseAttributes = [
+  ...graphqlSequenceFeatureAttributes,
+  'briefDescription',
+  'ensemblName',
+];
+
+// Extended GraphQL attributes
 export const graphqlGeneAttributes = [
-    ...graphqlSequenceFeatureAttributes,
-    'briefDescription',
-    'ensemblName',
-    //adf: TODO make optional
-    //'upstreamIntergenicRegionIdentifier',
-    //'downstreamIntergenicRegionIdentifier',
+  ...graphqlGeneBaseAttributes,
+  'upstreamIntergenicRegionIdentifier',
+  'downstreamIntergenicRegionIdentifier',
 ];
 
 export type GraphQLGene = {
@@ -50,7 +65,7 @@ export type GraphQLGene = {
 
 export type IntermineGeneResponse = IntermineDataResponse<IntermineGene>;
 
-// converts an Intermine response into an array of GraphQL Gene objects
+// Converts an Intermine response into an array of GraphQL Gene objects
 export function response2genes(
   response: IntermineGeneResponse,
 ): Array<GraphQLGene> {

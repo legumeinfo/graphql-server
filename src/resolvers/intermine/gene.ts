@@ -84,6 +84,26 @@ export const geneFactory = (
     ...hasProteinDomainsFactory(sourceName),
     ...hasTranscriptsFactory(sourceName),
 
+    upstreamIntergenicRegion: async (gene, _, {dataSources}) => {
+      const {upstreamIntergenicRegionIdentifier} = gene;
+      if (!upstreamIntergenicRegionIdentifier) {
+        return null;
+      }
+      const {data} = await dataSources[sourceName].getIntergenicRegion(
+        upstreamIntergenicRegionIdentifier,
+      );
+      return data;
+    },
+    downstreamIntergenicRegion: async (gene, _, {dataSources}) => {
+      const {downstreamIntergenicRegionIdentifier} = gene;
+      if (!downstreamIntergenicRegionIdentifier) {
+        return null;
+      }
+      const {data} = await dataSources[sourceName].getIntergenicRegion(
+        downstreamIntergenicRegionIdentifier,
+      );
+      return data;
+    },
     flankingRegions: async (gene, {page, pageSize}, {dataSources}) => {
       const {id} = gene;
       const args = {page, pageSize};
