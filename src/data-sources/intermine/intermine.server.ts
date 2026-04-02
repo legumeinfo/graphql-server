@@ -77,10 +77,12 @@ export class IntermineServer extends RESTDataSource {
   // InterMine uses offset pagination but we want to support page-based pagination;
   // this function converts page-based options to offset options
   private convertPaginationOptions({page, pageSize, ...rest}: any = {}) {
-    if (Number(page) == page && Number(pageSize) == pageSize) {
+    // If pageSize is provided, apply pagination (default page to 1 if not provided)
+    if (Number(pageSize) == pageSize) {
+      const actualPage = Number(page) == page ? page : 1;
       return {
         ...rest,
-        start: (page - 1) * pageSize,
+        start: (actualPage - 1) * pageSize,
         size: pageSize,
       };
     }
@@ -249,16 +251,24 @@ export const intermineJoin = (
 };
 
 // creates a Path Query XML string
-export const interminePathQuery =
-    (viewAttributes: Array<string>, sortBy: string, constraints: Array<string>=[], joins: Array<string>=[], constraintLogic: string=''): string => {
-        const view = viewAttributes.join(' ');
-        const constraintLogicAttr = constraintLogic ? `constraintLogic='${constraintLogic}'` : '';
-        const joinTags = joins.join('');
-        const constraintTags = constraints.join('');
-        console.log(`<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`);
-        return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
-    };
-
+export const interminePathQuery = (
+  viewAttributes: Array<string>,
+  sortBy: string,
+  constraints: Array<string> = [],
+  joins: Array<string> = [],
+  constraintLogic: string = '',
+): string => {
+  const view = viewAttributes.join(' ');
+  const constraintLogicAttr = constraintLogic
+    ? `constraintLogic='${constraintLogic}'`
+    : '';
+  const joinTags = joins.join('');
+  const constraintTags = constraints.join('');
+  console.log(
+    `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`,
+  );
+  return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
+};
 
 // converts an InterMine jsonobjects result object into an Intermine json result array
 export const object2result = <M extends IntermineModel>(
