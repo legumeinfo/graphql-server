@@ -1,10 +1,10 @@
 import {intermineJoin} from '../intermine.server.js';
+import {BioEntityJoinOptions} from './bio-entity.js';
 import {sequenceFeatureJoinFactory} from './sequence-feature.js';
 
-// Gene join factory - extends sequence feature joins with OUTER joins for optional relationships
-export function geneJoinFactory() {
+export function geneJoinFactory(options: BioEntityJoinOptions = {}) {
   return [
-    ...sequenceFeatureJoinFactory('Gene'),
+    ...sequenceFeatureJoinFactory('Gene', options),
     intermineJoin('Gene.upstreamIntergenicRegion', 'OUTER'),
     intermineJoin('Gene.downstreamIntergenicRegion', 'OUTER'),
   ];

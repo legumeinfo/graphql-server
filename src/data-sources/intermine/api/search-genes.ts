@@ -85,7 +85,7 @@ export async function searchGenes({
       ),
     );
   }
-  const joins = geneJoinFactory();
+  const joins = geneJoinFactory(strain ? {strainJoinType: 'INNER'} : {});
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
