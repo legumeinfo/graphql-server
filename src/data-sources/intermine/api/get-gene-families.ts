@@ -13,7 +13,7 @@ import {
   response2geneFamilies,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
-import { geneFamilyJoinFactory } from './gene-family.js';
+import {geneFamilyJoinFactory} from './gene-family.js';
 
 export type GeneGeneFamiliesOptions = {
   proteinDomain?: string; // ProteinDomain.id

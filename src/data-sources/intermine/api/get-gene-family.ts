@@ -10,7 +10,7 @@ import {
   intermineGeneFamilySort,
   response2geneFamilies,
 } from '../models/index.js';
-import { geneFamilyJoinFactory } from './gene-family.js';
+import {geneFamilyJoinFactory} from './gene-family.js';
 
 // get a GeneFamily by ID
 export async function getGeneFamily(

@@ -1,13 +1,10 @@
-import {
-  intermineConstraint,
-  interminePathQuery,
-} from '../intermine.server.js';
+import {intermineConstraint, interminePathQuery} from '../intermine.server.js';
 
 // get synonym values for all genes associated with a GeneFunction
-export async function getSynonymsForGeneFunction(id: number): Promise<string[]> {
-  const constraints = [
-    intermineConstraint('GeneFunction.id', '=', id),
-  ];
+export async function getSynonymsForGeneFunction(
+  id: number,
+): Promise<string[]> {
+  const constraints = [intermineConstraint('GeneFunction.id', '=', id)];
   const attributes = ['GeneFunction.gene.synonyms.value'];
   const query = interminePathQuery(attributes, '', constraints, []);
 
