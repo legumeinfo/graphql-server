@@ -1,19 +1,17 @@
-import { DataSources, IntermineAPI } from '../../data-sources/index.js';
+import {DataSources, IntermineAPI} from '../../data-sources/index.js';
 //import { inputError, KeyOfType } from '../../utils/index.js';
-import { KeyOfType } from '../../utils/index.js';
-import { ResolverMap } from '../resolver.js';
-import { isAnnotatableFactory } from './annotatable.js';
-import { hasGenesFactory } from './gene.js';
-import { hasSynonymsFactory } from './synonyms.js';
-import { hasTraitsFactory } from './trait.js';
+import {KeyOfType} from '../../utils/index.js';
+import {ResolverMap} from '../resolver.js';
+import {isAnnotatableFactory} from './annotatable.js';
+import {hasGenesFactory} from './gene.js';
+import {hasSynonymsFactory} from './synonyms.js';
+import {hasTraitsFactory} from './trait.js';
 
-
-export const geneFunctionFactory = 
-(
-    sourceName: KeyOfType<DataSources, IntermineAPI>,
+export const geneFunctionFactory = (
+  sourceName: KeyOfType<DataSources, IntermineAPI>,
 ): ResolverMap => ({
-    Query: {
-        /*
+  Query: {
+    /*
         geneFunction: async (_, { identifier }, { dataSources }) => {
             const {data: genefunction} = await dataSources[sourceName].getGeneFunction(identifier);
             if (genefunction == null) {
@@ -23,21 +21,52 @@ export const geneFunctionFactory =
             return {results: genefunction};
         },
         */
-        geneFunctions: async (_, { synopsis, symbol, trait, gene, genus, species, publicationId, author, page, pageSize }, { dataSources }) => {
-            const args = {synopsis, symbol, trait, gene, genus, species, publicationId, author, page, pageSize};
-            return dataSources[sourceName].searchGeneFunctions(args)
-                // @ts-ignore: implicit type any error
-                .then(({data: results, metadata: {pageInfo}}) => ({results, pageInfo}));
-        },
+    geneFunctions: async (
+      _,
+      {
+        synopsis,
+        symbol,
+        trait,
+        gene,
+        genus,
+        species,
+        publicationId,
+        author,
+        page,
+        pageSize,
+      },
+      {dataSources},
+    ) => {
+      const args = {
+        synopsis,
+        symbol,
+        trait,
+        gene,
+        genus,
+        species,
+        publicationId,
+        author,
+        page,
+        pageSize,
+      };
+      return (
+        dataSources[sourceName]
+          .searchGeneFunctions(args)
+          // @ts-expect-error: implicit type any error
+          .then(({data: results, metadata: {pageInfo}}) => ({
+            results,
+            pageInfo,
+          }))
+      );
     },
-    GeneFunction: {
-        ...isAnnotatableFactory(sourceName),
-        ...hasGenesFactory(sourceName),
-        ...hasSynonymsFactory(sourceName),
-        ...hasTraitsFactory(sourceName),
-    },
+  },
+  GeneFunction: {
+    ...isAnnotatableFactory(sourceName),
+    ...hasGenesFactory(sourceName),
+    ...hasSynonymsFactory(sourceName),
+    ...hasTraitsFactory(sourceName),
+  },
 });
-
 
 /*
 export const hasGeneFamilyFactory = (sourceName: KeyOfType<DataSources, IntermineAPI>):
