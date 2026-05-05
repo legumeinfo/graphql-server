@@ -25,6 +25,8 @@ export enum IntermineQueryFormat {
   JSON_OBJECTS = 'jsonobjects',
 }
 
+const DEFAULT_PAGE_SIZE = 10;
+
 export class IntermineServer extends RESTDataSource {
   constructor(baseURL: string, config: DataSourceConfig = {}) {
     // use intermine-specific fetcher as default if none provided
@@ -77,13 +79,17 @@ export class IntermineServer extends RESTDataSource {
   // InterMine uses offset pagination but we want to support page-based pagination;
   // this function converts page-based options to offset options
   private convertPaginationOptions({page, pageSize, ...rest}: any = {}) {
-    // If pageSize is provided, apply pagination (default page to 1 if not provided)
-    if (Number(pageSize) == pageSize) {
-      const actualPage = Number(page) == page ? page : 1;
+    // If either page or pageSize is provided, apply pagination, defaulting the
+    // missing one. Callers that want an unpaginated fetch must pass neither.
+    const pageProvided = Number(page) == page;
+    const pageSizeProvided = Number(pageSize) == pageSize;
+    if (pageProvided || pageSizeProvided) {
+      const actualPage = pageProvided ? page : 1;
+      const actualPageSize = pageSizeProvided ? pageSize : DEFAULT_PAGE_SIZE;
       return {
         ...rest,
-        start: (actualPage - 1) * pageSize,
-        size: pageSize,
+        start: (actualPage - 1) * actualPageSize,
+        size: actualPageSize,
       };
     }
     return rest;
