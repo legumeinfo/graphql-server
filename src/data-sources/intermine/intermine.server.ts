@@ -76,6 +76,38 @@ export class IntermineServer extends RESTDataSource {
     };
   }
 
+  // override the parent's trace so the dev-mode timing line includes the
+  // PathQuery XML, making it possible to identify which query was responsible
+  // for an unusually slow response
+  protected override async trace<TResult>(
+    url: URL,
+    request: RequestOptions,
+    fn: () => Promise<TResult>,
+  ): Promise<TResult> {
+    if (process.env.NODE_ENV !== 'development') {
+      return fn();
+    }
+    const startTime = Date.now();
+    try {
+      return await fn();
+    } finally {
+      const duration = Date.now() - startTime;
+      const method = request.method || 'GET';
+      let query: string | null = null;
+      if (typeof request.body === 'string') {
+        query = new URLSearchParams(request.body).get('query');
+      } else if (url.searchParams.has('query')) {
+        query = url.searchParams.get('query');
+      }
+      const label = `${method} ${url} (${duration}ms)`;
+      if (query) {
+        console.info(`${label}\n  query: ${query}\n`);
+      } else {
+        console.info(label);
+      }
+    }
+  }
+
   // InterMine uses offset pagination but we want to support page-based pagination;
   // this function converts page-based options to offset options
   private convertPaginationOptions({page, pageSize, ...rest}: any = {}) {
@@ -270,9 +302,6 @@ export const interminePathQuery = (
     : '';
   const joinTags = joins.join('');
   const constraintTags = constraints.join('');
-  console.log(
-    `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`,
-  );
   return `<query model='genomic' view='${view}' sortOrder='${sortBy}' ${constraintLogicAttr}>${joinTags}${constraintTags}</query>`;
 };
 
