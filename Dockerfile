@@ -1,11 +1,11 @@
-FROM oven/bun:1.2-alpine
+FROM oven/bun:1.3-alpine
 
 # Create app directory
 WORKDIR /app
 
 # Prepare to install dependencies
 COPY package.json .
-COPY bun.lockb .
+COPY bun.lock .
 
 # Install dependencies
 RUN bun install --frozen-lockfile # equivalent to npm ci

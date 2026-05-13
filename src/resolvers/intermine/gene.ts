@@ -84,6 +84,26 @@ export const geneFactory = (
     ...hasProteinDomainsFactory(sourceName),
     ...hasTranscriptsFactory(sourceName),
 
+    upstreamIntergenicRegion: async (gene, _, {dataSources}) => {
+      const {upstreamIntergenicRegionIdentifier} = gene;
+      if (!upstreamIntergenicRegionIdentifier) {
+        return null;
+      }
+      const {data} = await dataSources[sourceName].getIntergenicRegion(
+        upstreamIntergenicRegionIdentifier,
+      );
+      return data;
+    },
+    downstreamIntergenicRegion: async (gene, _, {dataSources}) => {
+      const {downstreamIntergenicRegionIdentifier} = gene;
+      if (!downstreamIntergenicRegionIdentifier) {
+        return null;
+      }
+      const {data} = await dataSources[sourceName].getIntergenicRegion(
+        downstreamIntergenicRegionIdentifier,
+      );
+      return data;
+    },
     flankingRegions: async (gene, {page, pageSize}, {dataSources}) => {
       const {id} = gene;
       const args = {page, pageSize};
@@ -139,32 +159,36 @@ export const hasGeneFactory = (
 export const hasGenesFactory = (
   sourceName: KeyOfType<DataSources, IntermineAPI>,
 ): SubfieldResolverMap => ({
-  genes: async (parent, _, {dataSources}, info) => {
+  genes: async (parent, {page, pageSize}, {dataSources}, info) => {
     let request: Promise<any> | null = null;
 
     const {id} = parent;
+    const args = {page, pageSize};
     const typeName = info.parentType.name;
     switch (typeName) {
       case 'GeneFamily':
-        request = dataSources[sourceName].getGenesForGeneFamily(id);
+        request = dataSources[sourceName].getGenesForGeneFamily(id, args);
         break;
       case 'Intron':
-        request = dataSources[sourceName].getGenesForIntron(id);
+        request = dataSources[sourceName].getGenesForIntron(id, args);
         break;
       case 'PanGeneSet':
-        request = dataSources[sourceName].getGenesForPanGeneSet(id);
+        request = dataSources[sourceName].getGenesForPanGeneSet(id, args);
         break;
       case 'Pathway':
-        request = dataSources[sourceName].getGenesForPathway(id);
+        request = dataSources[sourceName].getGenesForPathway(id, args);
         break;
       case 'Protein':
-        request = dataSources[sourceName].getGenesForProtein(id);
+        request = dataSources[sourceName].getGenesForProtein(id, args);
         break;
       case 'ProteinDomain':
-        request = dataSources[sourceName].getGenesForProteinDomain(id);
+        request = dataSources[sourceName].getGenesForProteinDomain(id, args);
         break;
       case 'QTL':
-        request = dataSources[sourceName].getGeneForQTL(id);
+        request = dataSources[sourceName].getGeneForQTL(id, args);
+        break;
+      case 'GeneFunction':
+        request = dataSources[sourceName].getGenesForGeneFunction(id, args);
         break;
     }
 

@@ -32,6 +32,7 @@ import {
   GraphQLGeneFlankingRegion,
   IntermineGeneFlankingRegion,
 } from './gene-flanking-region.js';
+import {GraphQLGeneFunction, IntermineGeneFunction} from './gene-function.js';
 import {GraphQLGeneticMap, IntermineGeneticMap} from './genetic-map.js';
 import {
   GraphQLGeneticMarker,
@@ -121,6 +122,7 @@ export type GraphQLModel =
   | GraphQLGeneFamilyAssignment
   | GraphQLGeneFamilyTally
   | GraphQLGeneFlankingRegion
+  | GraphQLGeneFunction
   | GraphQLGeneticMap
   | GraphQLGeneticMarker
   | GraphQLGenotypingPlatform
@@ -174,6 +176,7 @@ export type IntermineModel =
   | IntermineGeneFamilyAssignment
   | IntermineGeneFamilyTally
   | IntermineGeneFlankingRegion
+  | IntermineGeneFunction
   | IntermineGeneticMap
   | IntermineGeneticMarker
   | IntermineGenotypingPlatform
@@ -235,6 +238,7 @@ export * from './gene-family.js';
 export * from './gene-family-assignment.js';
 export * from './gene-family-tally.js';
 export * from './gene-flanking-region.js';
+export * from './gene-function.js';
 export * from './genetic-map.js';
 export * from './genetic-marker.js';
 export * from './genotyping-platform.js';

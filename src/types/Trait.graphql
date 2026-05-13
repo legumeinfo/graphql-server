@@ -3,7 +3,8 @@ type Trait implements Annotatable
 {
   id: ID!
   # Annotatable
-  identifier: ID!
+  # Note: identifier may be null for some traits (e.g., those associated with GeneFunctions)
+  identifier: ID
   dataSets: [DataSet!]!
   ontologyAnnotations: [OntologyAnnotation!]!
   publications: [Publication!]!

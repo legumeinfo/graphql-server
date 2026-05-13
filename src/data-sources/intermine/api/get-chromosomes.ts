@@ -58,7 +58,10 @@ export async function getChromosomes({
       intermineConstraint('Gene.annotationVersion', '=', annotation),
     );
   }
-  const joins = sequenceFeatureJoinFactory('Chromosome');
+  const joins = sequenceFeatureJoinFactory(
+    'Chromosome',
+    strain ? {strainJoinType: 'INNER'} : {},
+  );
   const query = interminePathQuery(
     intermineChromosomeAttributes,
     intermineChromosomeSort,

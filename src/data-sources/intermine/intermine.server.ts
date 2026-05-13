@@ -25,6 +25,8 @@ export enum IntermineQueryFormat {
   JSON_OBJECTS = 'jsonobjects',
 }
 
+const DEFAULT_PAGE_SIZE = 10;
+
 export class IntermineServer extends RESTDataSource {
   constructor(baseURL: string, config: DataSourceConfig = {}) {
     // use intermine-specific fetcher as default if none provided
@@ -74,14 +76,52 @@ export class IntermineServer extends RESTDataSource {
     };
   }
 
+  // override the parent's trace so the dev-mode timing line includes the
+  // PathQuery XML, making it possible to identify which query was responsible
+  // for an unusually slow response
+  protected override async trace<TResult>(
+    url: URL,
+    request: RequestOptions,
+    fn: () => Promise<TResult>,
+  ): Promise<TResult> {
+    if (process.env.NODE_ENV !== 'development') {
+      return fn();
+    }
+    const startTime = Date.now();
+    try {
+      return await fn();
+    } finally {
+      const duration = Date.now() - startTime;
+      const method = request.method || 'GET';
+      let query: string | null = null;
+      if (typeof request.body === 'string') {
+        query = new URLSearchParams(request.body).get('query');
+      } else if (url.searchParams.has('query')) {
+        query = url.searchParams.get('query');
+      }
+      const label = `${method} ${url} (${duration}ms)`;
+      if (query) {
+        console.info(`${label}\n  query: ${query}\n`);
+      } else {
+        console.info(label);
+      }
+    }
+  }
+
   // InterMine uses offset pagination but we want to support page-based pagination;
   // this function converts page-based options to offset options
   private convertPaginationOptions({page, pageSize, ...rest}: any = {}) {
-    if (Number(page) == page && Number(pageSize) == pageSize) {
+    // If either page or pageSize is provided, apply pagination, defaulting the
+    // missing one. Callers that want an unpaginated fetch must pass neither.
+    const pageProvided = Number(page) == page;
+    const pageSizeProvided = Number(pageSize) == pageSize;
+    if (pageProvided || pageSizeProvided) {
+      const actualPage = pageProvided ? page : 1;
+      const actualPageSize = pageSizeProvided ? pageSize : DEFAULT_PAGE_SIZE;
       return {
         ...rest,
-        start: (page - 1) * pageSize,
-        size: pageSize,
+        start: (actualPage - 1) * actualPageSize,
+        size: actualPageSize,
       };
     }
     return rest;

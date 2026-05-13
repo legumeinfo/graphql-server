@@ -24,7 +24,7 @@ export const linkageGroupFactory = (
     geneticMap: async (linkageGroup, _, {dataSources}) => {
       return (
         dataSources[sourceName]
-          .getGeneticMap(linkageGroup.geneticMapId)
+          .getGeneticMap(linkageGroup.geneticMapIdentifier)
           // @ts-expect-error: implicit type any error
           .then(({data: results}) => results)
       );

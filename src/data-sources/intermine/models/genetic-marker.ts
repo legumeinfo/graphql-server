@@ -25,7 +25,6 @@ export type IntermineGeneticMarker = [
   string,
   string,
   string,
-  string,
 ];
 
 export const graphqlGeneticMarkerAttributes = [

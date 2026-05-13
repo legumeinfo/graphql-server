@@ -8,12 +8,16 @@ import {
 } from '../intermine.server.js';
 import {
   GraphQLTrait,
+  IntermineTraitBaseResponse,
   IntermineTraitResponse,
   intermineTraitAttributes,
+  intermineTraitBaseAttributes,
   intermineTraitSort,
   response2traits,
+  response2traitsBase,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
+import {traitJoinFactory} from './trait.js';
 
 export type SearchTraitsOptions = {
   name?: string;
@@ -37,12 +41,31 @@ export async function searchTraits({
   pageSize,
 }: SearchTraitsOptions): Promise<ApiResponse<GraphQLTrait[]>> {
   const constraints = [];
+  let constraintLogic = '';
+  // codes for the filter constraints; only emitted when OR logic is in use, since InterMine
+  // requires every constraint to carry a code and be referenced in constraintLogic in that case
+  const filterCodes: string[] = [];
+  const filterCode = (code: string): string => {
+    if (studyType) return '';
+    filterCodes.push(code);
+    return code;
+  };
   if (name) {
-    const constraint = intermineConstraint('Trait.name', 'CONTAINS', name);
+    const constraint = intermineConstraint(
+      'Trait.name',
+      'CONTAINS',
+      name,
+      filterCode('C'),
+    );
     constraints.push(constraint);
   }
   if (genus) {
-    const constraint = intermineConstraint('Trait.organism.genus', '=', genus);
+    const constraint = intermineConstraint(
+      'Trait.organism.genus',
+      '=',
+      genus,
+      filterCode('D'),
+    );
     constraints.push(constraint);
   }
   if (species) {
@@ -50,25 +73,42 @@ export async function searchTraits({
       'Trait.organism.species',
       '=',
       species,
+      filterCode('E'),
     );
     constraints.push(constraint);
   }
+  // Track whether we're using OR logic on gwas (incompatible with OUTER join)
+  let hasGwasOrConstraint = false;
   if (studyType == 'GWAS') {
     const constraint = intermineNotNullConstraint('Trait.gwas');
     constraints.push(constraint);
-  }
-  if (studyType == 'QTLStudy') {
+  } else if (studyType == 'QTLStudy') {
     // any QTLStudy trait
     const constraint = intermineNotNullConstraint('Trait.qtlStudy');
     constraints.push(constraint);
+  } else if (!studyType) {
+    // when no study type is specified, require traits to have at least one study (GWAS or QTLStudy)
+    // this ensures trait association searches only return traits with associations
+    const gwasConstraint = intermineNotNullConstraint('Trait.gwas', 'A');
+    const qtlStudyConstraint = intermineNotNullConstraint(
+      'Trait.qtlStudy',
+      'B',
+    );
+    constraints.push(gwasConstraint);
+    constraints.push(qtlStudyConstraint);
+    // Use OR logic: trait must have either GWAS or QTLStudy (or both)
+    constraintLogic = 'A OR B';
+    hasGwasOrConstraint = true;
   }
   if (publicationId) {
+    const code = filterCode('F');
     if (publicationId.includes('/')) {
       // DOI contains /, like 10.1007/s00122-006-0217-2
       const constraint = intermineConstraint(
         'Trait.publications.doi',
         '=',
         publicationId,
+        code,
       );
       constraints.push(constraint);
     } else {
@@ -77,6 +117,7 @@ export async function searchTraits({
         'Trait.publications.pubMedId',
         '=',
         publicationId,
+        code,
       );
       constraints.push(constraint);
     }
@@ -86,18 +127,36 @@ export async function searchTraits({
       'Trait.publications.authors.name',
       'CONTAINS',
       author,
+      filterCode('G'),
     );
     constraints.push(constraint);
   }
+  // AND in any filter codes alongside the (A OR B) study-type pair
+  if (hasGwasOrConstraint && filterCodes.length) {
+    constraintLogic = `${filterCodes.join(' AND ')} AND (A OR B)`;
+  }
+
+  // InterMine can't combine OUTER joins or implicit joins (from extended attributes) with OR constraints.
+  // When using OR logic, use base attributes only; otherwise use extended attributes with OUTER joins.
+  const attributes = hasGwasOrConstraint
+    ? intermineTraitBaseAttributes
+    : intermineTraitAttributes;
+  const joins = hasGwasOrConstraint ? [] : traitJoinFactory();
   const query = interminePathQuery(
-    intermineTraitAttributes,
+    attributes,
     intermineTraitSort,
     constraints,
+    joins,
+    constraintLogic,
   );
-  // get the data
-  const dataPromise = this.pathQuery(query, {page, pageSize}).then(
-    (response: IntermineTraitResponse) => response2traits(response),
-  );
+  // get the data - use appropriate response converter based on attribute set
+  const dataPromise = hasGwasOrConstraint
+    ? this.pathQuery(query, {page, pageSize}).then(
+        (response: IntermineTraitBaseResponse) => response2traitsBase(response),
+      )
+    : this.pathQuery(query, {page, pageSize}).then(
+        (response: IntermineTraitResponse) => response2traits(response),
+      );
   // get a summary of the data and convert it to page info
   const pageInfoPromise = this.pathQueryCount(query).then(
     (response: IntermineCountResponse) =>

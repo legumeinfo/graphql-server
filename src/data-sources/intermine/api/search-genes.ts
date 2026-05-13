@@ -13,7 +13,7 @@ import {
   response2genes,
 } from '../models/index.js';
 import {PaginationOptions} from './pagination.js';
-import {sequenceFeatureJoinFactory} from './sequence-feature.js';
+import {geneJoinFactory} from './gene.js';
 
 export type SearchGenesOptions = {
   description?: string;
@@ -85,7 +85,7 @@ export async function searchGenes({
       ),
     );
   }
-  const joins = sequenceFeatureJoinFactory('Gene');
+  const joins = geneJoinFactory(strain ? {strainJoinType: 'INNER'} : {});
   const query = interminePathQuery(
     intermineGeneAttributes,
     intermineGeneSort,
