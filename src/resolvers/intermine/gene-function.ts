@@ -59,6 +59,18 @@ export const geneFunctionFactory = (
           }))
       );
     },
+    // INTERIM: resolve the gene function (symbol) linkout to the human-facing
+    // InterMine report page, derived from INTERMINE_URI. The configured URI
+    // points at the PathQuery service (.../<mine>/service); stripping the
+    // service path yields the mine's web base for report lookups. Deriving from
+    // INTERMINE_URI guarantees the link targets the same mine the data came
+    // from. Replace this body with a linkouts-microservice call once that
+    // service supports gene function linkouts.
+    geneFunctionLinkouts: async (_, {identifier}, {intermineURI}) => {
+      const mineBase = intermineURI.replace(/\/service\/?$/, '');
+      const href = `${mineBase}/genefunction:${identifier}`;
+      return {results: [{href, text: href}]};
+    },
   },
   GeneFunction: {
     ...isAnnotatableFactory(sourceName),

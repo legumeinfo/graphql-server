@@ -325,6 +325,12 @@ type QTLStudyLinkoutsResults {
   results: [Linkout!]!
 }
 
+# INTERIM: derived from INTERMINE_URI rather than the linkouts microservice;
+# see geneFunctionLinkouts resolver.
+type GeneFunctionLinkoutsResults {
+  results: [Linkout!]!
+}
+
 
 # Top-level queries
 
@@ -410,5 +416,9 @@ type Query {
   panGeneSetLinkouts(identifier: ID!): PanGeneSetLinkoutsResults
   gwasLinkouts(identifier: ID!): GWASLinkoutsResults
   qtlStudyLinkouts(identifier: ID!): QTLStudyLinkoutsResults
+
+  # INTERIM: gene function (symbol) linkout derived from INTERMINE_URI;
+  # move to a microservices query once the linkouts service supports it.
+  geneFunctionLinkouts(identifier: ID!): GeneFunctionLinkoutsResults
 
 }

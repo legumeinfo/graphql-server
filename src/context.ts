@@ -4,6 +4,7 @@ import {DataSources, dataSources} from './data-sources/index.js';
 
 export interface ContextValue {
   dataSources: DataSources;
+  intermineURI: string;
 }
 
 export const contextFactory = (
@@ -17,6 +18,7 @@ export const contextFactory = (
       // We can pass in our server's cache, contextValue, or any other
       // info our data sources require.
       dataSources: await dataSources(intermineURI, microservicesURI, cache),
+      intermineURI,
     };
   };
 };
