@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": 1000124,
+    "taxonId": "3847",
+    "abbreviation": "glyma",
+    "name": "Glycine max",
+    "commonName": "soybean",
+    "shortName": "G. max",
+    "description": "Soybean (Glycine max), the predominant oil-seed legume worldwide, was likely domesticated in East Asia, ~6000-9000 years ago (Sedivy et al., 2017; https://doi.org/10.1111/nph.14418). It has many culinary and industrial uses. Some of the culinary uses include: for direct consumption of the green seed (i.e. edamame) and leaves (cooked, much like spinach); for tofu, soymilk, textured vegetable protein, soy sauce, tempeh, natto, and vegetable oil. Industrial uses include: oils, soap, cosmetics, and biodiesel. Soybean is also used as a high-protein forage, and can be prepared for fish- and animal-feed.",
+    "genus": "Glycine",
+    "species": "max"
+  }
+}

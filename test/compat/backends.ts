@@ -20,12 +20,14 @@ export function makeSqlite(): SqliteAPI | null {
   return new SqliteAPI(path);
 }
 
-// Call a method by name on a backend (both expose the same ported surface).
-export async function call(backend: Backend, method: string, args: unknown) {
+// Call a method by name on a backend (both expose the same ported surface). Args
+// are POSITIONAL (an array), matching the real signatures — getGene(id),
+// getAuthor(first, last), searchGenes({...}) — so a case's args line up 1-to-1.
+export async function call(backend: Backend, method: string, args: unknown[]) {
   const fn = (
-    backend as unknown as Record<string, (a: unknown) => Promise<unknown>>
+    backend as unknown as Record<string, (...a: unknown[]) => Promise<unknown>>
   )[method];
   if (typeof fn !== 'function')
     throw new Error(`backend has no method "${method}"`);
-  return fn.call(backend, args);
+  return fn.apply(backend, args);
 }

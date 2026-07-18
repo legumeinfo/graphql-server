@@ -67,6 +67,30 @@ interface Resolved {
   alias: string;
   column: string;
   cls: string;
+  attrType?: string; // model type of the terminal attribute, for value coercion
+}
+
+// InterMine stringifies every constraint value, and pg2sqlite stores each column
+// with its Postgres type (String attrs as TEXT, numeric attrs as INTEGER/REAL).
+// SQLite won't equate an integer bind param with a TEXT '3847', so a caller passing
+// a number for a String attr (getOrganism(taxonId: number)) would silently miss.
+// Coerce the value to the attribute's model type so the bound param matches storage.
+function coerceValue(
+  value: string | number,
+  attrType?: string,
+): string | number {
+  if (attrType == null || value == null) return value;
+  if (attrType.endsWith('String') || attrType.endsWith('Date'))
+    return String(value);
+  if (/(Integer|Long|Short|int)$/.test(attrType)) {
+    const n = typeof value === 'number' ? value : parseInt(String(value), 10);
+    return Number.isFinite(n) ? n : value;
+  }
+  if (/(Double|Float)$/.test(attrType)) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : value;
+  }
+  return value;
 }
 
 export class QueryBuilder {
@@ -116,7 +140,7 @@ export class QueryBuilder {
           st.warnings.push(`cannot traverse through attribute ${cur}.${seg}`);
           return null;
         }
-        return {alias, column: attrCol(seg), cls: cur};
+        return {alias, column: attrCol(seg), cls: cur, attrType: f.def.type};
       }
       const nextPrefix = `${prefix}.${seg}`;
       if (!st.joins.alias.has(nextPrefix)) {
@@ -221,16 +245,17 @@ export class QueryBuilder {
       case 'IS NOT NULL':
         return `${col} IS NOT NULL`;
       case 'CONTAINS':
-        params.push(`%${c.value}%`);
+        // LIKE is inherently textual; coerce to string form.
+        params.push(`%${String(c.value)}%`);
         return `${col} LIKE ?`;
       case 'ONE OF':
       case 'NONE OF': {
         const vals = c.values ?? [];
-        vals.forEach((v) => params.push(v));
+        vals.forEach((v) => params.push(coerceValue(v, r.attrType)));
         return `${col} ${c.op === 'ONE OF' ? 'IN' : 'NOT IN'} (${vals.map(() => '?').join(', ')})`;
       }
       default:
-        params.push(c.value as string | number);
+        params.push(coerceValue(c.value as string | number, r.attrType));
         return `${col} ${c.op} ?`;
     }
   }

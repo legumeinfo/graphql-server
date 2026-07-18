@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": 25000001,
+    "identifier": "glyma.Amsoy.gnm1.Chr01",
+    "description": null,
+    "symbol": null,
+    "name": null,
+    "assemblyVersion": null,
+    "annotationVersion": null,
+    "secondaryIdentifier": null,
+    "organismTaxonId": "3847",
+    "strainIdentifier": "Wm82",
+    "score": null,
+    "scoreType": null,
+    "length": null,
+    "soTermIdentifier": null,
+    "chromosomeLocationId": null,
+    "supercontigLocationId": null,
+    "sequenceId": null,
+    "chromosomeIdentifier": null,
+    "supercontigIdentifier": null
+  }
+}

@@ -27,11 +27,16 @@ for (const c of cases) {
   }
   try {
     const resp = (await call(intermine, c.method, c.args)) as {
-      data?: unknown[];
+      data?: unknown;
       metadata?: {pageInfo?: {numResults?: number}};
     };
-    const rows = resp.data?.length ?? 0;
-    const total = resp.metadata?.pageInfo?.numResults ?? 0;
+    // get-one (single) returns an object|null; treat present-object as one row.
+    const rows = c.single
+      ? resp.data == null
+        ? 0
+        : 1
+      : ((resp.data as unknown[])?.length ?? 0);
+    const total = resp.metadata?.pageInfo?.numResults ?? rows;
     const stats = `rows=${String(rows).padStart(3)} total=${String(total).padStart(7)}`;
     if (rows === 0 && !c.allowEmpty) {
       hollow++;

@@ -24,7 +24,7 @@ let hollow = 0;
 for (const c of cases) {
   try {
     const resp = (await call(intermine, c.method, c.args)) as {
-      data?: unknown[];
+      data?: unknown;
     };
     writeFileSync(
       join(GOLDEN, `${c.name.replace(/\//g, '__')}.json`),
@@ -34,7 +34,10 @@ for (const c of cases) {
     // vacuous pass into CI: SQLite would only have to agree on nothing. Record
     // it (so the file is inspectable) but make the problem loud. `skip` cases are
     // exempt — they're recorded for reference but never asserted on.
-    if (!c.allowEmpty && !c.skip && !resp.data?.length) {
+    const empty = c.single
+      ? resp.data == null
+      : !(resp.data as unknown[])?.length;
+    if (!c.allowEmpty && !c.skip && empty) {
       hollow++;
       console.warn(
         `  ^ HOLLOW: ${c.name} recorded 0 rows — that golden proves nothing.`,
