@@ -1,0 +1,114 @@
+{
+  "data": [
+    {
+      "id": 1000357,
+      "identifier": "GmbHLHm1",
+      "classicalLocus": null,
+      "symbol": "GmbHLHm1",
+      "symbolLong": "bHLH transcription factor",
+      "synopsis": "GmbHLHm1 is important to the soybean rhizobium symbiosis because loss of activity results in a reduction of nodule fitness and growth. Transcriptional changes in nodules highlight downstream signaling pathways involving circadian clock regulation, nutrient transport, hormone signaling, and cell wall modification.",
+      "confidence": 5,
+      "pubName": "Glyma08g06880"
+    },
+    {
+      "id": 1002924,
+      "identifier": "MtNAP1",
+      "classicalLocus": null,
+      "symbol": "MtNAP1",
+      "symbolLong": "Nick-associated protein 1",
+      "synopsis": "Reduced levels of nodulation, reduced acetylene reduction, and limited nodule development. Aborted and deformed infection threads restricted to epidermal root hair cells. The few nodules that did form had very low rhizobial colonization and nitrogenase activity.",
+      "confidence": 5,
+      "pubName": "Medtr4g084140"
+    },
+    {
+      "id": 1003465,
+      "identifier": "PsCIK1",
+      "classicalLocus": "Fa",
+      "symbol": "PsCIK1",
+      "symbolLong": "CLAVATA3 INSENSITIVE RECEPTOR KINASES 1",
+      "synopsis": "CIK1 is involved in apical meristem development which can change fasciation",
+      "confidence": 4,
+      "pubName": "Psat04G0031700"
+    },
+    {
+      "id": 1003458,
+      "identifier": "PsCLE41",
+      "classicalLocus": "P",
+      "symbol": "PsCLE41",
+      "symbolLong": null,
+      "synopsis": "CLE41 in involved in the development of the sclerenchyma layer, which changes pod shape",
+      "confidence": 5,
+      "pubName": "Psat01G0420500"
+    },
+    {
+      "id": 1003420,
+      "identifier": "PsChlG",
+      "classicalLocus": "Gp",
+      "symbol": "PsChlG",
+      "symbolLong": "Chlorophyll synthase",
+      "synopsis": "ChlG is involed in the process of making chlorophyll, which turns pea pods and other plant tissues green",
+      "confidence": 4,
+      "pubName": "Psat03G0413700"
+    },
+    {
+      "id": 1003450,
+      "identifier": "PsGA3OX1",
+      "classicalLocus": "Le",
+      "symbol": "PsGA3OX1",
+      "symbolLong": "GA 3-oxidase 1",
+      "synopsis": "GA3OX1 is involved in stem internode length",
+      "confidence": 5,
+      "pubName": "Psat05G0825300"
+    },
+    {
+      "id": 1003475,
+      "identifier": "PsMYB26",
+      "classicalLocus": "V",
+      "symbol": "PsMYB26",
+      "symbolLong": "MYB 26",
+      "synopsis": "PsMYB26 in involved in the development of the sclerenchyma layer, which changes pod shape",
+      "confidence": 4,
+      "pubName": "Psat05G0804500"
+    },
+    {
+      "id": 1003428,
+      "identifier": "PsSBE1",
+      "classicalLocus": "R",
+      "symbol": "PsSBE1",
+      "symbolLong": "Starch Branching Enzyme 1",
+      "synopsis": "SBE1 is involved in seed coat texture, either round or wrinkly peas",
+      "confidence": 5,
+      "pubName": "Psat03G0136800"
+    },
+    {
+      "id": 1003437,
+      "identifier": "PsSGR",
+      "classicalLocus": "I",
+      "symbol": "PsSGR",
+      "symbolLong": "Stay green",
+      "synopsis": "SGR is involved in cotyledon color",
+      "confidence": 5,
+      "pubName": "Psat02G0529500"
+    },
+    {
+      "id": 1003444,
+      "identifier": "PsbHLH",
+      "classicalLocus": "A",
+      "symbol": "PsbHLH",
+      "symbolLong": null,
+      "synopsis": "bHLH is involed in flower pigment",
+      "confidence": 5,
+      "pubName": "Psat06G0169800"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 10,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

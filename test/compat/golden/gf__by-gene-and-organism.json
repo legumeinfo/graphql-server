@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1001355,
+      "identifier": "GmABCC8",
+      "classicalLocus": null,
+      "symbol": "GmABCC8",
+      "symbolLong": "ATP-Binding Cassette Transporter 8",
+      "synopsis": "GmABCC8 codes for an efflux pump that extrudes the herbicide glyphosate out of a cell's cytoplasm, making the plant glyphosate resistant.",
+      "confidence": 5,
+      "pubName": "Glyma.07G011600"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 1,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

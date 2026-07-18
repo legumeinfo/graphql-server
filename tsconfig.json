@@ -1,5 +1,11 @@
 {
+  // `include` scopes the build to src. Without it tsc compiles every .ts under the
+  // project, which makes it infer a common root of "." as soon as a sibling dir
+  // (e.g. test/) has one — emitting dist/src/… instead of dist/… and breaking both
+  // `main` and the .graphql copy step. `rootDir` pins that layout regardless.
+  "include": ["src"],
   "compilerOptions": {
+    "rootDir": "src",
     "rootDirs": ["src"],
     "outDir": "dist",
     "lib": ["es2020"],
@@ -13,6 +19,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitOverride": true,
-    "types": ["node"]
+    "types": ["node", "bun"]
   }
 }

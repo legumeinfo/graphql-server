@@ -1,0 +1,214 @@
+{
+  "data": [
+    {
+      "id": 1001848,
+      "identifier": "E1La",
+      "classicalLocus": null,
+      "symbol": "E1La",
+      "symbolLong": "E1-like-a",
+      "synopsis": "Photoperiodic flowering time regulation",
+      "confidence": 5,
+      "pubName": "Glyma.04G156400"
+    },
+    {
+      "id": 1001798,
+      "identifier": "E1Lb",
+      "classicalLocus": null,
+      "symbol": "E1Lb",
+      "symbolLong": "E1-like-b",
+      "synopsis": "Photoperiodic flowering time regulation",
+      "confidence": 5,
+      "pubName": "Glyma.04G143300"
+    },
+    {
+      "id": 1001345,
+      "identifier": "Gm-BIK1-6",
+      "classicalLocus": null,
+      "symbol": "Gm-BIK1-6",
+      "symbolLong": "BOTRYTIS INDUCED KINASE 1",
+      "synopsis": "Gm-BIK1-6 overexpression rescues the ability to suppress Heterodera glycines parasitism. In contrast, Gm-BIK1-6 RNAi increases parasitism.",
+      "confidence": 4,
+      "pubName": "Glyma14g07460"
+    },
+    {
+      "id": 1001461,
+      "identifier": "Gm-JAG1",
+      "classicalLocus": null,
+      "symbol": "Gm-JAG1",
+      "symbolLong": "JAGGEED 1",
+      "synopsis": "Gm-JAG1 is a transcription factor in soybean that controls the size of flowers, number of seeds, and shape of leaves.",
+      "confidence": 5,
+      "pubName": "Glyma20g25000"
+    },
+    {
+      "id": 1001334,
+      "identifier": "Gm-SYP38",
+      "classicalLocus": null,
+      "symbol": "Gm-SYP38",
+      "symbolLong": "Syntaxin 31 Homolog",
+      "synopsis": "Gm-SYP38 supports the ability of Glycine max to defend itself from Heterodera glycines parasitism.",
+      "confidence": 4,
+      "pubName": "Glyma14g06610"
+    },
+    {
+      "id": 1001355,
+      "identifier": "GmABCC8",
+      "classicalLocus": null,
+      "symbol": "GmABCC8",
+      "symbolLong": "ATP-Binding Cassette Transporter 8",
+      "synopsis": "GmABCC8 codes for an efflux pump that extrudes the herbicide glyphosate out of a cell's cytoplasm, making the plant glyphosate resistant.",
+      "confidence": 5,
+      "pubName": "Glyma.07G011600"
+    },
+    {
+      "id": 1000200,
+      "identifier": "GmAFB3A",
+      "classicalLocus": null,
+      "symbol": "GmAFB3A",
+      "symbolLong": "Auxin-Signaling F-Box 3A",
+      "synopsis": "AFB3A is an auxin receptor which has a minor role in the positive regulation of root growth and nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma.19G100200"
+    },
+    {
+      "id": 1000212,
+      "identifier": "GmAFB3B",
+      "classicalLocus": null,
+      "symbol": "GmAFB3B",
+      "symbolLong": "Auxin-Signaling F-Box 3B",
+      "synopsis": "AFB3B is an auxin receptor.",
+      "confidence": 4,
+      "pubName": "Glyma.16G050500"
+    },
+    {
+      "id": 1002220,
+      "identifier": "GmAKT2",
+      "classicalLocus": null,
+      "symbol": "GmAKT2",
+      "symbolLong": "soybean potassium transporter gene 2",
+      "synopsis": "GmAKT2 increases a soy plant's resistance to SMV by affecting distribution of potassium ions in the leaves.",
+      "confidence": 5,
+      "pubName": "Glyma08g20030"
+    },
+    {
+      "id": 1000728,
+      "identifier": "GmANR1",
+      "classicalLocus": "O",
+      "symbol": "GmANR1",
+      "symbolLong": "Anthocyanidin Reductase 1",
+      "synopsis": "GmANR1 (Glyma08G06630) produces brown seed coat color through the reduction of cyanidin (a reddish-purple anthocyanidin) to (-)-epicatechin, a monomer used to build flavonoid proanthocyanidins.",
+      "confidence": 3,
+      "pubName": "Glyma08G06630"
+    },
+    {
+      "id": 1000737,
+      "identifier": "GmANR2",
+      "classicalLocus": null,
+      "symbol": "GmANR2",
+      "symbolLong": "Anthocyanidin Reductase 2",
+      "synopsis": "An anthocyanidin reductase of undetermined significance that is found in many tissues.",
+      "confidence": 2,
+      "pubName": "Glyma08G06640"
+    },
+    {
+      "id": 1001187,
+      "identifier": "GmAP1",
+      "classicalLocus": null,
+      "symbol": "GmAP1",
+      "symbolLong": "APETALA1",
+      "synopsis": "GmAP1 is involved in flowering time and morphology in soybeans",
+      "confidence": 5,
+      "pubName": "Glyma16g13070"
+    },
+    {
+      "id": 1001260,
+      "identifier": "GmAS1a",
+      "classicalLocus": null,
+      "symbol": "GmAS1a",
+      "symbolLong": "Asparaginase Synthetase 1a",
+      "synopsis": "GmAS1a codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma11g27480"
+    },
+    {
+      "id": 1001272,
+      "identifier": "GmAS1b",
+      "classicalLocus": null,
+      "symbol": "GmAS1b",
+      "symbolLong": "Asparaginase Synthetase 1b",
+      "synopsis": "GmAS1b codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma11g27720"
+    },
+    {
+      "id": 1001285,
+      "identifier": "GmAS1c",
+      "classicalLocus": null,
+      "symbol": "GmAS1c",
+      "symbolLong": "Asparaginase Synthetase 1c",
+      "synopsis": "GmAS1c codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma18g06840"
+    },
+    {
+      "id": 1001296,
+      "identifier": "GmAS2b",
+      "classicalLocus": null,
+      "symbol": "GmAS2b",
+      "symbolLong": "Asparaginase Synthetase 2b",
+      "synopsis": "GmAS2b codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma14g37440"
+    },
+    {
+      "id": 1001308,
+      "identifier": "GmAS3a",
+      "classicalLocus": null,
+      "symbol": "GmAS3a",
+      "symbolLong": "Asparaginase Synthetase 3a",
+      "synopsis": "GmAS3a codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma11g38130"
+    },
+    {
+      "id": 1001320,
+      "identifier": "GmAS3b",
+      "classicalLocus": null,
+      "symbol": "GmAS3b",
+      "symbolLong": "Asparaginase Synthetase 3b",
+      "synopsis": "GmAS3b codes for an asparaginase synthetase.",
+      "confidence": 2,
+      "pubName": "Glyma18g02060"
+    },
+    {
+      "id": 1001222,
+      "identifier": "GmASPGB1a",
+      "classicalLocus": null,
+      "symbol": "GmASPGB1a",
+      "symbolLong": "Asparaginase 1a",
+      "synopsis": "GmASPGB1a codes for an asparaginase.",
+      "confidence": 2,
+      "pubName": "Glyma14g09510"
+    },
+    {
+      "id": 1001232,
+      "identifier": "GmASPGB1b",
+      "classicalLocus": null,
+      "symbol": "GmASPGB1b",
+      "symbolLong": "Asparaginase 1b",
+      "synopsis": "GmASPGB1 codes for an asparaginase.",
+      "confidence": 2,
+      "pubName": "Glyma17g35650"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 213,
+      "pageCount": 11,
+      "hasPreviousPage": false,
+      "hasNextPage": true
+    }
+  }
+}

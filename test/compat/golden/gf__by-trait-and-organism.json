@@ -1,0 +1,214 @@
+{
+  "data": [
+    {
+      "id": 1000200,
+      "identifier": "GmAFB3A",
+      "classicalLocus": null,
+      "symbol": "GmAFB3A",
+      "symbolLong": "Auxin-Signaling F-Box 3A",
+      "synopsis": "AFB3A is an auxin receptor which has a minor role in the positive regulation of root growth and nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma.19G100200"
+    },
+    {
+      "id": 1001925,
+      "identifier": "GmBEHL1",
+      "classicalLocus": null,
+      "symbol": "GmBEHL1",
+      "symbolLong": "BES1/BZR1 Homolog-Like protein 1",
+      "synopsis": "BEHL1 is a corepressor. It works with NNC1 (see Wang, Wang et. al., 2014) as a negative regulator of nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma01G178000"
+    },
+    {
+      "id": 1000640,
+      "identifier": "GmDMI1-3",
+      "classicalLocus": null,
+      "symbol": "GmDMI1-3",
+      "symbolLong": "Doesn't Make Infections 1-3",
+      "synopsis": "DMI genes confer resistance to H. glycines nematodes and are necessary for establishing symbiosis. DMI1 encodes a channel protein that controls the signalling pathway leading to nodulation.",
+      "confidence": 4,
+      "pubName": "Glyma.19G263500"
+    },
+    {
+      "id": 1000648,
+      "identifier": "GmDMI2-7",
+      "classicalLocus": null,
+      "symbol": "GmDMI2-7",
+      "symbolLong": "Doesn't Make Infections 2-7",
+      "synopsis": "DMI genes confer resistance to H. glycines nematodes and are necessary for establishing symbiosis. DMI2 encodes a kinase.",
+      "confidence": 4,
+      "pubName": "Glyma.11G246200"
+    },
+    {
+      "id": 1000657,
+      "identifier": "GmDMI3-2",
+      "classicalLocus": null,
+      "symbol": "GmDMI3-2",
+      "symbolLong": "Doesn't Make Infections 3-2",
+      "synopsis": "DMI genes confer resistance to H. glycines nematodes and are necessary for establishing symbiosis. DMI3 encodes a kinase.",
+      "confidence": 4,
+      "pubName": "Glyma.15G222300"
+    },
+    {
+      "id": 1001491,
+      "identifier": "GmDRR1",
+      "classicalLocus": null,
+      "symbol": "GmDRR1",
+      "symbolLong": "Disease Resistance Responsive 1",
+      "synopsis": "GmDRR1 was induced in soybean roots by the presence of rhizobia and helped establish a symbiotic relationship that resulted in development of root nodules and nitrogen fixation. Additionally, DRR1 expression increased the resistance of soybean to Phytophthora sojae.",
+      "confidence": 3,
+      "pubName": "Glyma.11G150400"
+    },
+    {
+      "id": 1001500,
+      "identifier": "GmDRR2",
+      "classicalLocus": null,
+      "symbol": "GmDRR2",
+      "symbolLong": "Disease Resistance Responsive 2",
+      "synopsis": "GmDRR2 promoted a symbiotic relationship with rhizobia that resulted in development of root nodules and nitrogen fixation in soybeans.",
+      "confidence": 3,
+      "pubName": "Glyma.11G150300"
+    },
+    {
+      "id": 1000908,
+      "identifier": "GmF3H",
+      "classicalLocus": "T",
+      "symbol": "GmF3H",
+      "symbolLong": "Soybean Flavonoid 3′-Hydroxylase",
+      "synopsis": "The pleiotropic T gene Glyma.06G202300 encodes a Flavonoid 3′-Hydroxylase (F3′H) and its impacts on hydroxyflavonoid biosynthesis and ultimately anthocyanins are associated with hilum color and development, pubescence color, canopy leaf pigmentation, cold stress tolerance, antioxidant activity, photosynthetic efficiency, seed oil content, and root nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma.06G202300"
+    },
+    {
+      "id": 1001693,
+      "identifier": "GmFT2a",
+      "classicalLocus": "E9",
+      "symbol": "GmFT2a",
+      "symbolLong": "Flowering Locus T2a",
+      "synopsis": "Flowering Locus T2a (GmFT2a) is known for stimulating flowering, but it also positively regulates nodule organogenesis. Together with Soybean TGACG-motif Binding Factor 3 (GmSTF3) and calcium/calmodulin-dependent protein kinase (GmCCaMK), GmFT2a signals the root system that adequate photosynthate is available to power the rhizobial symbiosis and nitrogen fixation.",
+      "confidence": 5,
+      "pubName": "Glyma.16G150700"
+    },
+    {
+      "id": 1001527,
+      "identifier": "GmGA20ox_a",
+      "classicalLocus": null,
+      "symbol": "GmGA20ox_a",
+      "symbolLong": "Gibberellic Acid 20-Oxidase a",
+      "synopsis": "GmGA20ox_a is a gibberellic acid biosynthesis gene that increases levels of gibberellin during early nodulation.",
+      "confidence": 3,
+      "pubName": "Glyma.04G244200"
+    },
+    {
+      "id": 1001546,
+      "identifier": "GmGA20ox_b",
+      "classicalLocus": null,
+      "symbol": "GmGA20ox_b",
+      "symbolLong": "Gibberellic Acid 20-Oxidase b",
+      "synopsis": "GmGA20ox_b is a gibberellic acid biosynthesis gene that increases levels of gibberellin during early nodulation.",
+      "confidence": 2,
+      "pubName": "Glyma.06G119100"
+    },
+    {
+      "id": 1001538,
+      "identifier": "GmGA3ox_1a",
+      "classicalLocus": null,
+      "symbol": "GmGA3ox_1a",
+      "symbolLong": "Gibberellic Acid 3-Oxidase 1a",
+      "synopsis": "GmGA3ox_1a is a gibberellic acid biosynthesis gene that increases levels of gibberellin during early nodulation.",
+      "confidence": 4,
+      "pubName": "Glyma.15G012100"
+    },
+    {
+      "id": 1001477,
+      "identifier": "GmNARK",
+      "classicalLocus": null,
+      "symbol": "GmNARK",
+      "symbolLong": "Nodule Autoregulation Receptor Kinase",
+      "synopsis": "GmNARK exerts long-distance control on nodule proliferation by activating nodulation-suppressing genes.",
+      "confidence": 4,
+      "pubName": "Glyma.12G040000"
+    },
+    {
+      "id": 1002289,
+      "identifier": "GmNF-YC4",
+      "classicalLocus": null,
+      "symbol": "GmNF-YC4",
+      "symbolLong": "Nuclear Factor Y Subunit C4",
+      "synopsis": "GmNF-YC4 is a transcription factor which upregulates GmASL genes to positively regulate nodule number.",
+      "confidence": 4,
+      "pubName": "Glyma06G17780"
+    },
+    {
+      "id": 1000566,
+      "identifier": "GmNFR1α",
+      "classicalLocus": null,
+      "symbol": "GmNFR1α",
+      "symbolLong": "Nod Factor Receptor 1α",
+      "synopsis": "NFR1α codes for a receptor kinase which positively regulates nodule number.",
+      "confidence": 5,
+      "pubName": "Glyma.02G270800"
+    },
+    {
+      "id": 1000575,
+      "identifier": "GmNFR1β",
+      "classicalLocus": null,
+      "symbol": "GmNFR1β",
+      "symbolLong": "Nod Factor Receptor 1β",
+      "synopsis": "NFR1β codes for a redundant receptor kinase with unstable mRNA transcripts.",
+      "confidence": 5,
+      "pubName": "Glyma.14G046200"
+    },
+    {
+      "id": 1001740,
+      "identifier": "GmNNC1",
+      "classicalLocus": null,
+      "symbol": "GmNNC1",
+      "symbolLong": "Nodule Number Control 1",
+      "synopsis": "GmNNC1 is a transcription factor that negatively regulates nodule number by repressing GmENOD40 and is itself controlled by the negative feedback of miR172c microRNA.",
+      "confidence": 5,
+      "pubName": "Glyma12G07800"
+    },
+    {
+      "id": 1002087,
+      "identifier": "GmNNL1",
+      "classicalLocus": null,
+      "symbol": "GmNNL1",
+      "symbolLong": "Nodule Number Locus 1",
+      "synopsis": "NNL1 gives soy plants immunity to root hair infection by B. japonicum, which inhibits nodulation and reduces nitrogen fixation.",
+      "confidence": 5,
+      "pubName": "Glyma.02G076900"
+    },
+    {
+      "id": 1001764,
+      "identifier": "GmPAP12",
+      "classicalLocus": null,
+      "symbol": "GmPAP12",
+      "symbolLong": "Purple Acid Phosphatase 12",
+      "synopsis": "GmPAP12 promotes P uptake, efficient P usage, and maintains P homeostasis in nodules under low-P conditions. The enzyme thus contributes to nodulation, nitrogen fixation, and symbiosis with rhizobia.",
+      "confidence": 5,
+      "pubName": "Glyma.06G028200"
+    },
+    {
+      "id": 1000955,
+      "identifier": "GmPHR1",
+      "classicalLocus": null,
+      "symbol": "GmPHR1",
+      "symbolLong": "Phosphate Starvation Response 1",
+      "synopsis": "GmPHR1 is a constitutively expressed transcription factor which induces expression of GmPHT1s to promote phosphate uptake. Together, PHRs and PHT1s maintain inorganic phosphate (Pi) homeostasis in nodules.",
+      "confidence": 4,
+      "pubName": "Glyma.01G009600"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 32,
+      "pageCount": 2,
+      "hasPreviousPage": false,
+      "hasNextPage": true
+    }
+  }
+}

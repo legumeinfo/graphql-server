@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": 25000003,
+      "identifier": "glyma.Amsoy.gnm1.ann1.SoyC05_01G000100",
+      "description": null,
+      "symbol": null,
+      "name": null,
+      "assemblyVersion": null,
+      "annotationVersion": null,
+      "secondaryIdentifier": null,
+      "organismTaxonId": "3847",
+      "strainIdentifier": "Wm82",
+      "score": null,
+      "scoreType": null,
+      "length": 279,
+      "soTermIdentifier": null,
+      "chromosomeLocationId": 25000002,
+      "supercontigLocationId": null,
+      "sequenceId": null,
+      "chromosomeIdentifier": "glyma.Amsoy.gnm1.Chr01",
+      "supercontigIdentifier": null,
+      "briefDescription": null,
+      "ensemblName": null,
+      "upstreamIntergenicRegionIdentifier": null,
+      "downstreamIntergenicRegionIdentifier": null
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 1,
+      "numResults": 277889,
+      "pageCount": 277889,
+      "hasPreviousPage": false,
+      "hasNextPage": true
+    }
+  }
+}

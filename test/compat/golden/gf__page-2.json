@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "id": 1001355,
+      "identifier": "GmABCC8",
+      "classicalLocus": null,
+      "symbol": "GmABCC8",
+      "symbolLong": "ATP-Binding Cassette Transporter 8",
+      "synopsis": "GmABCC8 codes for an efflux pump that extrudes the herbicide glyphosate out of a cell's cytoplasm, making the plant glyphosate resistant.",
+      "confidence": 5,
+      "pubName": "Glyma.07G011600"
+    },
+    {
+      "id": 1000200,
+      "identifier": "GmAFB3A",
+      "classicalLocus": null,
+      "symbol": "GmAFB3A",
+      "symbolLong": "Auxin-Signaling F-Box 3A",
+      "synopsis": "AFB3A is an auxin receptor which has a minor role in the positive regulation of root growth and nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma.19G100200"
+    },
+    {
+      "id": 1000212,
+      "identifier": "GmAFB3B",
+      "classicalLocus": null,
+      "symbol": "GmAFB3B",
+      "symbolLong": "Auxin-Signaling F-Box 3B",
+      "synopsis": "AFB3B is an auxin receptor.",
+      "confidence": 4,
+      "pubName": "Glyma.16G050500"
+    },
+    {
+      "id": 1002220,
+      "identifier": "GmAKT2",
+      "classicalLocus": null,
+      "symbol": "GmAKT2",
+      "symbolLong": "soybean potassium transporter gene 2",
+      "synopsis": "GmAKT2 increases a soy plant's resistance to SMV by affecting distribution of potassium ions in the leaves.",
+      "confidence": 5,
+      "pubName": "Glyma08g20030"
+    },
+    {
+      "id": 1000728,
+      "identifier": "GmANR1",
+      "classicalLocus": "O",
+      "symbol": "GmANR1",
+      "symbolLong": "Anthocyanidin Reductase 1",
+      "synopsis": "GmANR1 (Glyma08G06630) produces brown seed coat color through the reduction of cyanidin (a reddish-purple anthocyanidin) to (-)-epicatechin, a monomer used to build flavonoid proanthocyanidins.",
+      "confidence": 3,
+      "pubName": "Glyma08G06630"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 2,
+      "pageSize": 5,
+      "numResults": 215,
+      "pageCount": 43,
+      "hasPreviousPage": true,
+      "hasNextPage": true
+    }
+  }
+}

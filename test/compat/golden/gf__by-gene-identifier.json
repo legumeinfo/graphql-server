@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1000908,
+      "identifier": "GmF3H",
+      "classicalLocus": "T",
+      "symbol": "GmF3H",
+      "symbolLong": "Soybean Flavonoid 3′-Hydroxylase",
+      "synopsis": "The pleiotropic T gene Glyma.06G202300 encodes a Flavonoid 3′-Hydroxylase (F3′H) and its impacts on hydroxyflavonoid biosynthesis and ultimately anthocyanins are associated with hilum color and development, pubescence color, canopy leaf pigmentation, cold stress tolerance, antioxidant activity, photosynthetic efficiency, seed oil content, and root nodulation.",
+      "confidence": 5,
+      "pubName": "Glyma.06G202300"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 1,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

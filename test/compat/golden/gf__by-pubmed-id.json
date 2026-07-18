@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": 1000044,
+      "identifier": "AhANT",
+      "classicalLocus": null,
+      "symbol": "AhANT",
+      "symbolLong": "Aintegumenta",
+      "synopsis": "The transcription factor AhANT is affiliated with weights and dimensions of seeds and pods in peanut, with trait values impacted by changes in protein sequence.",
+      "confidence": 3,
+      "pubName": "Ah16g512200"
+    },
+    {
+      "id": 1000013,
+      "identifier": "AhBSK1",
+      "classicalLocus": null,
+      "symbol": "AhBSK1",
+      "symbolLong": "Brassinosteroid Signaling Kinase 1",
+      "synopsis": "AhBSK1, belonging to the Brassinosteroid-Signaling Kinase family, is a candidate gene helping to regulate shoot branching habits and runner vs erect architecture in cultivated peanut.",
+      "confidence": 4,
+      "pubName": "Ah13g064900"
+    },
+    {
+      "id": 1000029,
+      "identifier": "AhWRI1",
+      "classicalLocus": null,
+      "symbol": "AhWRI1",
+      "symbolLong": "Wrinkled 1",
+      "synopsis": "AhWRI1, an ethylene-responsive transcription factor, is highly expressed in seeds and pods and is associated with oil content and fatty acid composition in cultivated peanut.",
+      "confidence": 4,
+      "pubName": "Ah08g309800"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 3,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

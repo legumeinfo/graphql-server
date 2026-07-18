@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": 1000434,
+      "identifier": "GmD1",
+      "classicalLocus": "D1",
+      "symbol": "GmD1",
+      "symbolLong": null,
+      "synopsis": "chlorophyll retention in mature tissues",
+      "confidence": 5,
+      "pubName": "Glyma01g42390"
+    },
+    {
+      "id": 1000618,
+      "identifier": "GmERD15B",
+      "classicalLocus": null,
+      "symbol": "GmERD15B",
+      "symbolLong": "Early Responsive to Dehydration 15B",
+      "synopsis": "Gene overexpression in Glycine enhanced salt tolerance probably by increasing the expression levels of genes related to ABA-signalling, proline content, catalase peroxidase, dehydration response and cation transport.",
+      "confidence": 4,
+      "pubName": "Glyma.11G149900"
+    },
+    {
+      "id": 1000558,
+      "identifier": "GmFLD",
+      "classicalLocus": "D1",
+      "symbol": "GmFLD",
+      "symbolLong": "Flowering Locus D",
+      "synopsis": "early flowering time",
+      "confidence": 4,
+      "pubName": "Glyma02g18610"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 3,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1001848,
+      "identifier": "E1La",
+      "classicalLocus": null,
+      "symbol": "E1La",
+      "symbolLong": "E1-like-a",
+      "synopsis": "Photoperiodic flowering time regulation",
+      "confidence": 5,
+      "pubName": "Glyma.04G156400"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 1,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

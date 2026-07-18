@@ -5,3 +5,6 @@
 *~
 # .env is for local settings
 .env
+
+minimine.db
+glycinemine.db

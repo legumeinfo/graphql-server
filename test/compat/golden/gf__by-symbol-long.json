@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1000728,
+      "identifier": "GmANR1",
+      "classicalLocus": "O",
+      "symbol": "GmANR1",
+      "symbolLong": "Anthocyanidin Reductase 1",
+      "synopsis": "GmANR1 (Glyma08G06630) produces brown seed coat color through the reduction of cyanidin (a reddish-purple anthocyanidin) to (-)-epicatechin, a monomer used to build flavonoid proanthocyanidins.",
+      "confidence": 3,
+      "pubName": "Glyma08G06630"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 20,
+      "numResults": 1,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

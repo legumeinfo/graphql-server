@@ -1,0 +1,343 @@
+{
+  "classes": {
+    "Allele": [
+      "Allele.primaryIdentifier",
+      "Allele.name"
+    ],
+    "Annotatable": [
+      "Annotatable.primaryIdentifier"
+    ],
+    "Author": [
+      "Author.name"
+    ],
+    "BindingSite": [
+      "BindingSite.primaryIdentifier",
+      "BindingSite.name"
+    ],
+    "BioEntity": [
+      "BioEntity.primaryIdentifier",
+      "BioEntity.name"
+    ],
+    "CDNAClone": [
+      "CDNAClone.primaryIdentifier",
+      "CDNAClone.name"
+    ],
+    "CDS": [
+      "CDS.primaryIdentifier",
+      "CDS.name"
+    ],
+    "CRM": [
+      "CRM.primaryIdentifier",
+      "CRM.name"
+    ],
+    "ChromosomalDeletion": [
+      "ChromosomalDeletion.primaryIdentifier",
+      "ChromosomalDeletion.name"
+    ],
+    "ChromosomalDuplication": [
+      "ChromosomalDuplication.primaryIdentifier",
+      "ChromosomalDuplication.name"
+    ],
+    "ChromosomalInversion": [
+      "ChromosomalInversion.primaryIdentifier",
+      "ChromosomalInversion.name"
+    ],
+    "ChromosomalTranslocation": [
+      "ChromosomalTranslocation.primaryIdentifier",
+      "ChromosomalTranslocation.name"
+    ],
+    "ChromosomalTransposition": [
+      "ChromosomalTransposition.primaryIdentifier",
+      "ChromosomalTransposition.name"
+    ],
+    "Chromosome": [
+      "Chromosome.primaryIdentifier",
+      "Chromosome.name"
+    ],
+    "ChromosomeBand": [
+      "ChromosomeBand.primaryIdentifier",
+      "ChromosomeBand.name"
+    ],
+    "ChromosomeStructureVariation": [
+      "ChromosomeStructureVariation.primaryIdentifier",
+      "ChromosomeStructureVariation.name"
+    ],
+    "Comment": [
+      "Comment.description"
+    ],
+    "CrossReference": [
+      "CrossReference.identifier"
+    ],
+    "DataSet": [
+      "DataSet.name"
+    ],
+    "DataSource": [
+      "DataSource.name"
+    ],
+    "EST": [
+      "EST.primaryIdentifier",
+      "EST.name"
+    ],
+    "Enhancer": [
+      "Enhancer.primaryIdentifier",
+      "Enhancer.name"
+    ],
+    "Exon": [
+      "Exon.primaryIdentifier",
+      "Exon.name"
+    ],
+    "ExpressionSample": [
+      "ExpressionSample.primaryIdentifier"
+    ],
+    "ExpressionSource": [
+      "ExpressionSource.primaryIdentifier"
+    ],
+    "FivePrimeUTR": [
+      "FivePrimeUTR.primaryIdentifier",
+      "FivePrimeUTR.name"
+    ],
+    "ForwardPrimer": [
+      "ForwardPrimer.primaryIdentifier",
+      "ForwardPrimer.name"
+    ],
+    "GOTerm": [
+      "GOTerm.identifier",
+      "GOTerm.name"
+    ],
+    "GWAS": [
+      "GWAS.primaryIdentifier"
+    ],
+    "GWASResult": [
+      "GWASResult.primaryIdentifier"
+    ],
+    "Gene": [
+      "Gene.primaryIdentifier",
+      "Gene.name"
+    ],
+    "GeneFamily": [
+      "GeneFamily.primaryIdentifier"
+    ],
+    "GeneFlankingRegion": [
+      "GeneFlankingRegion.primaryIdentifier",
+      "GeneFlankingRegion.name"
+    ],
+    "GeneFunction": [
+      "GeneFunction.primaryIdentifier"
+    ],
+    "GeneticMap": [
+      "GeneticMap.primaryIdentifier"
+    ],
+    "GeneticMarker": [
+      "GeneticMarker.primaryIdentifier",
+      "GeneticMarker.name"
+    ],
+    "GenotypingPlatform": [
+      "GenotypingPlatform.primaryIdentifier"
+    ],
+    "GoldenPathFragment": [
+      "GoldenPathFragment.primaryIdentifier",
+      "GoldenPathFragment.name"
+    ],
+    "IntergenicRegion": [
+      "IntergenicRegion.primaryIdentifier",
+      "IntergenicRegion.name"
+    ],
+    "Intron": [
+      "Intron.primaryIdentifier",
+      "Intron.name"
+    ],
+    "LinkageGroup": [
+      "LinkageGroup.primaryIdentifier"
+    ],
+    "MRNA": [
+      "MRNA.primaryIdentifier",
+      "MRNA.name"
+    ],
+    "MiRNA": [
+      "MiRNA.primaryIdentifier",
+      "MiRNA.name"
+    ],
+    "MicroarrayOligo": [
+      "MicroarrayOligo.primaryIdentifier",
+      "MicroarrayOligo.name"
+    ],
+    "MobileGeneticElement": [
+      "MobileGeneticElement.primaryIdentifier",
+      "MobileGeneticElement.name"
+    ],
+    "NaturalTransposableElement": [
+      "NaturalTransposableElement.primaryIdentifier",
+      "NaturalTransposableElement.name"
+    ],
+    "NcRNA": [
+      "NcRNA.primaryIdentifier",
+      "NcRNA.name"
+    ],
+    "Oligo": [
+      "Oligo.primaryIdentifier",
+      "Oligo.name"
+    ],
+    "Ontology": [
+      "Ontology.name",
+      "Ontology.url"
+    ],
+    "OntologyAnnotationEvidenceCode": [
+      "OntologyAnnotationEvidenceCode.code",
+      "OntologyAnnotationEvidenceCode.name",
+      "OntologyAnnotationEvidenceCode.url"
+    ],
+    "OntologyTerm": [
+      "OntologyTerm.identifier",
+      "OntologyTerm.name"
+    ],
+    "OntologyTermSynonym": [
+      "OntologyTermSynonym.name"
+    ],
+    "Organism": [
+      "Organism.taxonId",
+      "Organism.abbreviation",
+      "Organism.name"
+    ],
+    "OverlappingESTSet": [
+      "OverlappingESTSet.primaryIdentifier",
+      "OverlappingESTSet.name"
+    ],
+    "PCRProduct": [
+      "PCRProduct.primaryIdentifier",
+      "PCRProduct.name"
+    ],
+    "PanGeneSet": [
+      "PanGeneSet.primaryIdentifier"
+    ],
+    "Pathway": [
+      "Pathway.primaryIdentifier"
+    ],
+    "Phylonode": [
+      "Phylonode.identifier"
+    ],
+    "Phylotree": [
+      "Phylotree.primaryIdentifier"
+    ],
+    "PointMutation": [
+      "PointMutation.primaryIdentifier",
+      "PointMutation.name"
+    ],
+    "Primer": [
+      "Primer.primaryIdentifier",
+      "Primer.name"
+    ],
+    "Protein": [
+      "Protein.primaryIdentifier",
+      "Protein.name"
+    ],
+    "ProteinDomain": [
+      "ProteinDomain.primaryIdentifier"
+    ],
+    "ProteinHmmMatch": [
+      "ProteinHmmMatch.primaryIdentifier",
+      "ProteinHmmMatch.name"
+    ],
+    "ProteinMatch": [
+      "ProteinMatch.primaryIdentifier",
+      "ProteinMatch.name"
+    ],
+    "Publication": [
+      "Publication.doi"
+    ],
+    "QTL": [
+      "QTL.primaryIdentifier"
+    ],
+    "QTLStudy": [
+      "QTLStudy.primaryIdentifier"
+    ],
+    "RRNA": [
+      "RRNA.primaryIdentifier",
+      "RRNA.name"
+    ],
+    "Region": [
+      "Region.primaryIdentifier",
+      "Region.name"
+    ],
+    "RegulatoryRegion": [
+      "RegulatoryRegion.primaryIdentifier",
+      "RegulatoryRegion.name"
+    ],
+    "ReversePrimer": [
+      "ReversePrimer.primaryIdentifier",
+      "ReversePrimer.name"
+    ],
+    "SOTerm": [
+      "SOTerm.identifier",
+      "SOTerm.name"
+    ],
+    "SequenceCollection": [
+      "SequenceCollection.primaryIdentifier",
+      "SequenceCollection.name"
+    ],
+    "SequenceFeature": [
+      "SequenceFeature.primaryIdentifier",
+      "SequenceFeature.name"
+    ],
+    "SnRNA": [
+      "SnRNA.primaryIdentifier",
+      "SnRNA.name"
+    ],
+    "SnoRNA": [
+      "SnoRNA.primaryIdentifier",
+      "SnoRNA.name"
+    ],
+    "Strain": [
+      "Strain.identifier",
+      "Strain.organism"
+    ],
+    "Supercontig": [
+      "Supercontig.primaryIdentifier",
+      "Supercontig.name"
+    ],
+    "Synonym": [
+      "Synonym.value"
+    ],
+    "SyntenicRegion": [
+      "SyntenicRegion.primaryIdentifier",
+      "SyntenicRegion.name"
+    ],
+    "SyntenyBlock": [
+      "SyntenyBlock.primaryIdentifier"
+    ],
+    "TFBindingSite": [
+      "TFBindingSite.primaryIdentifier",
+      "TFBindingSite.name"
+    ],
+    "TRNA": [
+      "TRNA.primaryIdentifier",
+      "TRNA.name"
+    ],
+    "ThreePrimeUTR": [
+      "ThreePrimeUTR.primaryIdentifier",
+      "ThreePrimeUTR.name"
+    ],
+    "Trait": [
+      "Trait.primaryIdentifier"
+    ],
+    "Transcript": [
+      "Transcript.primaryIdentifier",
+      "Transcript.name"
+    ],
+    "TransposableElement": [
+      "TransposableElement.primaryIdentifier",
+      "TransposableElement.name"
+    ],
+    "TransposableElementInsertionSite": [
+      "TransposableElementInsertionSite.primaryIdentifier",
+      "TransposableElementInsertionSite.name"
+    ],
+    "UTR": [
+      "UTR.primaryIdentifier",
+      "UTR.name"
+    ]
+  },
+  "error": null,
+  "executionTime": "2026.07.16 09:37::08",
+  "statusCode": 200,
+  "wasSuccessful": true
+}

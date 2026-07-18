@@ -45,7 +45,13 @@
     "serve:dev": "NODE_ENV=development bun run tsc-watch --onSuccess \"bun run serve\"",
     "serve:prod": "NODE_ENV=production bun run serve",
     "start": "bun run clean && bun run build && bun run serve",
-    "postinstall": "husky"
+    "postinstall": "husky",
+    "test": "bun test",
+    "test:compat:record": "bun run test/compat/record.ts",
+    "test:compat:triage": "bun run test/compat/triage.ts"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.3.14"
+  }
 }
