@@ -14,7 +14,9 @@ export const tableOf = (cls: string): string => {
 };
 // InterMine prefixes reserved-word attribute columns with `intermine_`
 // (verified in pg_dump: value, start, end, position, size, date, year, month, alias).
-const RESERVED_ATTRS = new Set([
+// Exported so a conformance test can assert the DB introduces no reserved word we
+// don't know about.
+export const RESERVED_ATTRS = new Set([
   'alias',
   'date',
   'end',
@@ -39,7 +41,29 @@ export const SYNONYM_SUBJECT_COL = 'subjectid';
 
 export type IndirectionSpec = {table: string; nearCol: string; farCol: string};
 
-// AUTO-DERIVED from glycinemine-5104 pg_dump — verified against real tables.
+// Derive an m2m indirection spec from the InterMine physical naming rule (verified
+// against the mirror across all 343 m2m collections):
+//   farCol  = the collection's own name, lowercased
+//   nearCol = the reverse-reference collection name, or — for a UNIDIRECTIONAL
+//             collection — the class that DECLARES it (see Model.declaringClass),
+//             lowercased
+//   table   = the two column names, sorted and concatenated
+// The two directions of a bidirectional m2m therefore land on the same table with
+// nearCol/farCol swapped. Pass the resolved near name (reverseReference ??
+// declaringClass) — this stays model-agnostic.
+export const deriveIndirection = (
+  collection: string,
+  nearName: string,
+): IndirectionSpec => {
+  const farCol = collection.toLowerCase();
+  const nearCol = nearName.toLowerCase();
+  return {table: [nearCol, farCol].sort().join(''), nearCol, farCol};
+};
+
+// Verified overrides. The rule above (deriveIndirection) reproduces every one of
+// these exactly, so they are redundant for this mine and kept only as a pin: an
+// explicit spec here wins over the derivation, for a future mine that deviates.
+// Originally auto-derived from the glycinemine-5104 pg_dump.
 export const INDIRECTION: Record<string, IndirectionSpec> = {
   'Author.publications': {
     table: 'authorspublications',
@@ -276,19 +300,9 @@ export const INDIRECTION: Record<string, IndirectionSpec> = {
   },
 };
 
-// Collections with no indirection table in this mine -> resolve to empty.
+// Collections with no indirection table in this mine -> resolve to empty. Declared
+// on the class that DEFINES the collection; the resolver also treats every subclass
+// as absent (e.g. this covers Gene.overlappingFeatures, not just SequenceFeature's).
 export const ABSENT_COLLECTIONS = new Set<string>([
   'SequenceFeature.overlappingFeatures',
 ]);
-export function guessIndirection(
-  sourceClass: string,
-  collectionName: string,
-  farClass: string,
-): IndirectionSpec & {guessed: true} {
-  return {
-    table: `${tableOf(sourceClass)}${collectionName.toLowerCase()}`,
-    nearCol: tableOf(sourceClass),
-    farCol: tableOf(farClass),
-    guessed: true,
-  };
-}

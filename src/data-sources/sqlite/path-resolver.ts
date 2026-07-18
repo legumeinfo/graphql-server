@@ -10,7 +10,7 @@ import {
   PK,
   INDIRECTION,
   ABSENT_COLLECTIONS,
-  guessIndirection,
+  deriveIndirection,
   SYNONYM_TABLE,
   SYNONYM_VALUE_COL,
   SYNONYM_SUBJECT_COL,
@@ -146,17 +146,24 @@ export class QueryBuilder {
             st.joins.order.push(nextPrefix);
           } else {
             const key = `${cur}.${seg}`;
-            if (ABSENT_COLLECTIONS.has(key)) {
+            const declaring = this.model.declaringClass(cur, seg);
+            // Absence can be declared on the leaf or on the class that defines the
+            // (inherited) collection — SequenceFeature.overlappingFeatures covers
+            // Gene.overlappingFeatures and every other subclass too.
+            if (
+              ABSENT_COLLECTIONS.has(key) ||
+              ABSENT_COLLECTIONS.has(`${declaring}.${seg}`)
+            ) {
               st.warnings.push(
                 `collection ${key} is not materialized in this mine (returns empty)`,
               );
               return null;
             }
-            const spec = INDIRECTION[key] ?? guessIndirection(cur, seg, R);
-            if ((spec as any).guessed)
-              st.warnings.push(
-                `indirection for ${key} GUESSED as ${spec.table} — verify against pg_dump`,
-              );
+            // nearCol name is the reverse-reference collection, or (unidirectional)
+            // the class that declares the collection. An explicit INDIRECTION entry
+            // overrides the derivation.
+            const nearName = f.def.reverseReference ?? declaring;
+            const spec = INDIRECTION[key] ?? deriveIndirection(seg, nearName);
             const ix = `x${st.counter.n}`;
             st.joins.alias.set(nextPrefix, nextAlias);
             st.joins.sql.set(

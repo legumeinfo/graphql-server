@@ -60,4 +60,34 @@ export class Model {
       reverseReference: rr,
     };
   }
+
+  // All ancestor classes of `cls` (transitively, via `extends`), nearest first
+  // is not guaranteed; order is unspecified. Used only for set membership.
+  private ancestorsOf(cls: string): string[] {
+    const out: string[] = [];
+    const seen = new Set<string>();
+    const stack = [...(this.classes[cls]?.extends ?? [])];
+    while (stack.length) {
+      const c = stack.pop()!;
+      if (seen.has(c)) continue;
+      seen.add(c);
+      out.push(c);
+      stack.push(...(this.classes[c]?.extends ?? []));
+    }
+    return out;
+  }
+
+  // The class that *declares* an (inherited) collection: the topmost ancestor —
+  // or `cls` itself — that has the collection and whose own ancestors do not.
+  // InterMine names a unidirectional m2m indirection table after this class, not
+  // the leaf, so every subclass shares one table (e.g. Gene.childFeatures lives in
+  // childfeaturessequencefeature because SequenceFeature declares childFeatures).
+  // Multiple-inheritance ties are broken alphabetically for determinism.
+  declaringClass(cls: string, collection: string): string {
+    const has = (c: string) => !!this.classes[c]?.collections?.[collection];
+    const candidates = [cls, ...this.ancestorsOf(cls)].filter(has);
+    const roots = candidates.filter((c) => !this.ancestorsOf(c).some(has));
+    roots.sort();
+    return roots[0] ?? cls;
+  }
 }
