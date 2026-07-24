@@ -7,6 +7,7 @@ import {
   response2genefunctions,
 } from '../../intermine/models/index.js';
 import {PaginationOptions} from '../../intermine/api/pagination.js';
+import {graphqlPageInfo} from './helpers.js';
 
 export type SearchGeneFunctionsOptions = {
   trait?: string;
@@ -139,15 +140,8 @@ export async function searchGeneFunctions(
     constraints,
     constraintLogic,
   );
-  const ps = pageSize ?? 10;
   return {
     data: response2genefunctions(response as any),
-    metadata: {
-      pageInfo: {
-        numResults: count,
-        pageSize: ps,
-        hasNextPage: (page ?? 1) * ps < count,
-      },
-    },
+    metadata: {pageInfo: graphqlPageInfo(count, page, pageSize)},
   };
 }

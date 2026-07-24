@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "id": 1000018,
+      "identifier": "Tifrunner",
+      "name": null,
+      "description": null,
+      "origin": null,
+      "accession": null,
+      "organismTaxonId": null
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 10,
+      "numResults": 1,
+      "pageCount": 1,
+      "hasPreviousPage": false,
+      "hasNextPage": false
+    }
+  }
+}

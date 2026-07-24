@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 25000002,
+      "strand": "-1",
+      "start": 124921,
+      "end": 125199,
+      "featureClass": "Gene",
+      "featureIdentifier": "glyma.Amsoy.gnm1.ann1.SoyC05_01G000100",
+      "locatedOnClass": "Chromosome",
+      "locatedOnIdentifier": "glyma.Amsoy.gnm1.Chr01"
+    },
+    {
+      "id": 25116108,
+      "strand": "-1",
+      "start": 124921,
+      "end": 125199,
+      "featureClass": "Gene",
+      "featureIdentifier": "glyma.Amsoy.gnm1.ann1.SoyC05_01G000100",
+      "locatedOnClass": "Chromosome",
+      "locatedOnIdentifier": "glyma.Amsoy.gnm1.Chr01"
+    }
+  ],
+  "metadata": {}
+}

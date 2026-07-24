@@ -63,7 +63,15 @@ export const dataSources = async (
   };
   const sqlitePath = process.env.SQLITE_DB_PATH;
   if (sqlitePath) {
-    sources.lisSqliteAPI = await getSqliteAPI(sqlitePath);
+    const sqliteAPI = await getSqliteAPI(sqlitePath);
+    sources.lisSqliteAPI = sqliteAPI;
+    // Cutover: SqliteAPI exposes the same (ported) method surface as IntermineAPI,
+    // so serve the resolvers' `lisIntermineAPI` slot from it. The resolvers are
+    // unchanged — they call the source by its `sourceName`, which now resolves to
+    // SQLite. Env-guarded, so the default (no SQLITE_DB_PATH) still uses InterMine.
+    // (getMineWebProperties isn't ported — a resolver that reaches it against a
+    // SQLite-only server will fault.)
+    sources.lisIntermineAPI = sqliteAPI as unknown as IntermineAPI;
   }
   return sources;
 };

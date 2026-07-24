@@ -34,8 +34,22 @@ describe('QueryBuilder SQL shape', () => {
     expect(sql.startsWith('SELECT DISTINCT ')).toBe(true);
   });
 
-  it('LEFT-joins a reference used only in the view (must not drop root rows)', () => {
+  it('INNER-joins a view reference by default (InterMine joins INNER unless OUTER)', () => {
     const {sql} = qb.build('Gene', ['Gene.id', 'Gene.organism.genus']);
+    expect(sql).toContain('INNER JOIN organism');
+    expect(sql).not.toContain('LEFT JOIN organism');
+  });
+
+  it('LEFT-joins a view reference only when declared OUTER (outerJoins)', () => {
+    const {sql} = qb.build(
+      'Gene',
+      ['Gene.id', 'Gene.organism.genus'],
+      undefined,
+      [],
+      undefined,
+      {},
+      ['Gene.organism'],
+    );
     expect(sql).toContain('LEFT JOIN organism');
     expect(sql).not.toContain('INNER JOIN organism');
   });
@@ -72,21 +86,26 @@ describe('QueryBuilder SQL shape', () => {
     expect(sql).not.toContain('LEFT JOIN');
   });
 
-  it('keeps view joins LEFT even when a different path is constrained', () => {
-    // organism is view-only (LEFT); strain is constrained (INNER). They must not
-    // bleed into each other.
+  it('join style follows the declaration, even for a constrained path', () => {
+    // Like InterMine: a constraint does NOT change join style. strain is declared
+    // OUTER and constrained, so it stays LEFT (matters for NONE OF / IS NULL — see
+    // getPanGenePairs); an equality constraint over LEFT is equivalent to INNER
+    // anyway. A constrained path NOT declared OUTER is INNER by default.
     const constraints: Constraint[] = [
       {path: 'Gene.strain.identifier', op: '=', value: 'Wm82', code: 'A'},
+      {path: 'Gene.organism.genus', op: '=', value: 'Glycine', code: 'B'},
     ];
     const {sql} = qb.build(
       'Gene',
-      ['Gene.id', 'Gene.organism.genus'],
+      ['Gene.id'],
       undefined,
       constraints,
-      'A',
+      'A and B',
+      {},
+      ['Gene.strain'], // strain declared OUTER; organism is not
     );
-    expect(sql).toContain('LEFT JOIN organism');
-    expect(sql).toContain('INNER JOIN strain');
+    expect(sql).toContain('LEFT JOIN strain'); // declared OUTER wins
+    expect(sql).toContain('INNER JOIN organism'); // not declared -> INNER default
   });
 
   it('resolves the reserved-word class Sequence to intermine_sequence', () => {
@@ -99,5 +118,26 @@ describe('QueryBuilder SQL shape', () => {
     ]);
     expect(sql).toContain('intermine_sequence');
     expect(sql).not.toMatch(/JOIN sequence /);
+  });
+
+  it('resolves the .class pseudo-attribute to the package-stripped class column', () => {
+    // Location.feature.class -> the joined feature table's class, with the
+    // org.intermine.model.bio. package stripped to match InterMine's short names.
+    const {sql} = qb.build('Location', [
+      'Location.id',
+      'Location.feature.class',
+    ]);
+    expect(sql).toContain("replace(t1.class, 'org.intermine.model.bio.', '')");
+  });
+
+  it('resolves .objectId like .id: root objectId is the PK, ref objectId is the FK', () => {
+    // Location.objectId -> t0.id; Location.feature.objectId -> the FK column (no join).
+    const {sql} = qb.build('Location', [
+      'Location.objectId',
+      'Location.feature.objectId',
+    ]);
+    expect(sql).toContain('t0.id');
+    expect(sql).toContain('t0.featureid');
+    expect(sql).not.toContain('JOIN'); // both resolve without a join
   });
 });

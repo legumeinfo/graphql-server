@@ -26,6 +26,10 @@ export interface CompatCase {
   // engine wraps a scalar as a one-row list; this flags the intent and lets the
   // vacuous-guard treat a present object as non-empty.
   single?: true;
+  // The method returns a bare value (not an ApiResponse) — e.g.
+  // getSynonymsForGeneFunction returns string[]. Compare it directly (deep-equal)
+  // rather than through the row-diff engine.
+  raw?: true;
 }
 
 // `dataSetName` is populated out-of-band rather than from the view (see the
@@ -259,5 +263,936 @@ export const cases: CompatCase[] = [
     args: [999999999],
     single: true,
     allowEmpty: true,
+  },
+
+  // get-one, real identifiers from the mine (one object each).
+  // CDS.transcript is null for every CDS here and getCDS INNER-joins it (not
+  // declared OUTER), so InterMine returns null for any CDS — matched via allowEmpty.
+  {
+    name: 'one/cds',
+    method: 'getCDS',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000100.m1.cds'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/data-set',
+    method: 'getDataSet',
+    args: ['G19833.gnm1.zBnF'],
+    single: true,
+  },
+  {
+    name: 'one/exon',
+    method: 'getExon',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000100.m1.exon1'],
+    single: true,
+  },
+  {
+    name: 'one/gene',
+    method: 'getGene',
+    args: ['arahy.Tifrunner.gnm2.ann1.1XW75L'],
+    single: true,
+  },
+  // Polymorphic jsonobjects root: queried with the object attributes (.class /
+  // .objectId) and mapped with the object2result fallback replicated. Matches fully.
+  {name: 'one/location', method: 'getLocation', args: [12000005], single: true},
+  // Transcript.protein is null for every transcript here, and the MRNA/Transcript
+  // view INNER-joins protein (not declared OUTER), so InterMine returns null for
+  // any MRNA/Transcript — matched via allowEmpty.
+  {
+    name: 'one/mrna',
+    method: 'getMRNA',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000100.m1'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/ontology',
+    method: 'getOntology',
+    args: ['Sequence Ontology'],
+    single: true,
+  },
+  {
+    name: 'one/pan-gene-set',
+    method: 'getPanGeneSet',
+    args: ['Glycine.pan5.pan00001'],
+    single: true,
+  },
+  // residues is a CLOB in InterMine; pg2sqlite left the clob id in the column
+  // instead of the (52MB) text, so compare every other field but ignore residues.
+  {
+    name: 'one/sequence',
+    method: 'getSequence',
+    args: [6000001],
+    single: true,
+    compare: {ignoreKeys: ['residues']},
+  },
+  // Polymorphic jsonobjects root: object attributes + the object2result fallback
+  // (absent refs -> the root's own id/identifier) are replicated, so the six
+  // fallback fields match InterMine. strainIdentifier is ignored: InterMine's object
+  // view reads strain.primaryIdentifier (always null when the strain is present, so
+  // it returns null), while our null->root fallback can't tell present-but-null from
+  // absent without the FK. Every other field is compared.
+  {
+    name: 'one/sequence-feature',
+    method: 'getSequenceFeature',
+    args: [1000014],
+    single: true,
+    compare: {ignoreKeys: ['strainIdentifier']},
+  },
+  {
+    name: 'one/supercontig',
+    method: 'getSupercontig',
+    args: ['glyma.Wm82.gnm1.scaffold_1000'],
+    single: true,
+  },
+  {
+    name: 'one/transcript',
+    method: 'getTranscript',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000100.m1'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/utr',
+    method: 'getUTR',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000300.m1.utr3p1'],
+    single: true,
+  },
+
+  // get-one on types that are empty or have null keys in this mine. The case still
+  // exercises the full method (view attrs, sort, transform) end-to-end and asserts
+  // both backends return null; retarget to a real id when the type gains data.
+  {
+    name: 'one/expression-sample',
+    method: 'getExpressionSample',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/expression-source',
+    method: 'getExpressionSource',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/expression-value',
+    method: 'getExpressionValue',
+    args: ['x', 'y'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gene-family',
+    method: 'getGeneFamily',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gene-family-assignment',
+    method: 'getGeneFamilyAssignment',
+    args: [1],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gene-family-tally',
+    method: 'getGeneFamilyTally',
+    args: [1],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gene-flanking-region',
+    method: 'getGeneFlankingRegion',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/genetic-map',
+    method: 'getGeneticMap',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/genetic-marker',
+    method: 'getGeneticMarker',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/genotyping-platform',
+    method: 'getGenotypingPlatform',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gwas',
+    method: 'getGWAS',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/gwas-result',
+    method: 'getGWASResult',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+    skip: 'InterMine returns HTTP 400 for getGWASResult against minimine (a view/sort path is not in this mine model); cannot compare.',
+  },
+  {
+    name: 'one/intergenic-region',
+    method: 'getIntergenicRegion',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/intron',
+    method: 'getIntron',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/linkage-group',
+    method: 'getLinkageGroup',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/linkage-group-position',
+    method: 'getLinkageGroupPosition',
+    args: [1],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/newick',
+    method: 'getNewick',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/ontology-annotation',
+    method: 'getOntologyAnnotation',
+    args: [1],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/ontology-relation',
+    method: 'getOntologyRelation',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+    skip: 'InterMine returns HTTP 400 for getOntologyRelation against minimine (a view/sort path is not in this mine model); cannot compare.',
+  },
+  {
+    name: 'one/ontology-term',
+    method: 'getOntologyTerm',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/ontology-term-synonym',
+    method: 'getOntologyTermSynonym',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/pathway',
+    method: 'getPathway',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/phylonode',
+    method: 'getPhylonode',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/phylotree',
+    method: 'getPhylotree',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/protein',
+    method: 'getProtein',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/protein-domain',
+    method: 'getProteinDomain',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/protein-match',
+    method: 'getProteinMatch',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/qtl',
+    method: 'getQTL',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/qtl-study',
+    method: 'getQTLStudy',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/sequence-ontology-term',
+    method: 'getSequenceOntologyTerm',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/syntenic-region',
+    method: 'getSyntenicRegion',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/synteny-block',
+    method: 'getSyntenyBlock',
+    args: [1],
+    single: true,
+    allowEmpty: true,
+  },
+  {
+    name: 'one/trait',
+    method: 'getTrait',
+    args: ['x'],
+    single: true,
+    allowEmpty: true,
+  },
+
+  // ---- get-many (getX(identifiers[]) -> list, no pagination) ----------------
+  {
+    name: 'many/genes',
+    method: 'getGenes',
+    args: [
+      [
+        'glyma.Amsoy.gnm1.ann1.SoyC05_01G000100',
+        'glyma.Amsoy.gnm1.ann1.SoyC05_01G000200',
+      ],
+    ],
+  },
+
+  // ---- relationship (getXsForY) ----------------------------------------
+  {
+    name: 'rel/adjacent-genes-for-intergenic-region',
+    method: 'getAdjacentGenesForIntergenicRegion',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/authors-for-publication',
+    method: 'getAuthorsForPublication',
+    args: [1000002, {pageSize: 10}],
+  },
+  {
+    name: 'rel/cdss-for-transcript',
+    method: 'getCDSsForTranscript',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/children-for-phylonode',
+    method: 'getChildrenForPhylonode',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-annotatable',
+    method: 'getDataSetsForAnnotatable',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-data-source',
+    method: 'getDataSetsForDataSource',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-location',
+    method: 'getDataSetsForLocation',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-ontology',
+    method: 'getDataSetsForOntology',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-ontology-annotation',
+    method: 'getDataSetsForOntologyAnnotation',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-ontology-term',
+    method: 'getDataSetsForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-organism',
+    method: 'getDataSetsForOrganism',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/data-sets-for-strain',
+    method: 'getDataSetsForStrain',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/exons-for-transcript',
+    method: 'getExonsForTranscript',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/expression-samples-for-expression-source',
+    method: 'getExpressionSamplesForExpressionSource',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gene-family-assignments-for-gene',
+    method: 'getGeneFamilyAssignmentsForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gene-family-assignments-for-protein',
+    method: 'getGeneFamilyAssignmentsForProtein',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gene-family-tallies-for-gene-family',
+    method: 'getGeneFamilyTalliesForGeneFamily',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gene-flanking-regions-for-gene',
+    method: 'getGeneFlankingRegionsForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-gene-family',
+    method: 'getGenesForGeneFamily',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-gene-function',
+    method: 'getGenesForGeneFunction',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-intron',
+    method: 'getGenesForIntron',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-pan-gene-set',
+    method: 'getGenesForPanGeneSet',
+    args: [28000003, {pageSize: 10}],
+  },
+  {
+    name: 'rel/genes-for-pathway',
+    method: 'getGenesForPathway',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-protein',
+    method: 'getGenesForProtein',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-protein-domain',
+    method: 'getGenesForProteinDomain',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genes-for-qtl',
+    method: 'getGenesForQTL',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genetic-markers-for-genotyping-platform',
+    method: 'getGeneticMarkersForGenotypingPlatform',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genetic-markers-for-gwasresult',
+    method: 'getGeneticMarkersForGWASResult',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genetic-markers-for-qtl',
+    method: 'getGeneticMarkersForQTL',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/genotyping-platforms-for-genetic-marker',
+    method: 'getGenotypingPlatformsForGeneticMarker',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/introns-for-gene',
+    method: 'getIntronsForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/introns-for-transcript',
+    method: 'getIntronsForTranscript',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/linkage-group-positions-for-genetic-marker',
+    method: 'getLinkageGroupPositionsForGeneticMarker',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/linkage-groups-for-genetic-map',
+    method: 'getLinkageGroupsForGeneticMap',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/located-features-for-bio-entity',
+    method: 'getLocatedFeaturesForBioEntity',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/locations-for-bio-entity',
+    method: 'getLocationsForBioEntity',
+    args: ['glyma.Amsoy.gnm1.ann1.SoyC05_01G000100', {pageSize: 10}],
+  },
+  {
+    name: 'rel/ontology-annotations-for-annotatable',
+    method: 'getOntologyAnnotationsForAnnotatable',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/ontology-annotations-for-ontology-term',
+    method: 'getOntologyAnnotationsForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/ontology-relations-for-ontology-term',
+    method: 'getOntologyRelationsForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/ontology-terms-for-trait',
+    method: 'getOntologyTermsForTrait',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/ontology-term-synonyms-for-ontology-term',
+    method: 'getOntologyTermSynonymsForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/pan-gene-sets-for-gene',
+    method: 'getPanGeneSetsForGene',
+    args: [1000127, {pageSize: 10}],
+  },
+  {
+    name: 'rel/pan-gene-sets-for-protein',
+    method: 'getPanGeneSetsForProtein',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/pan-gene-sets-for-transcript',
+    method: 'getPanGeneSetsForTranscript',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/parents-for-ontology-term',
+    method: 'getParentsForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/pathways-for-gene',
+    method: 'getPathwaysForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/phylonodes-for-phylotree',
+    method: 'getPhylonodesForPhylotree',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/protein-domains-for-gene',
+    method: 'getProteinDomainsForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/protein-domains-for-gene-family',
+    method: 'getProteinDomainsForGeneFamily',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/protein-matches-for-protein',
+    method: 'getProteinMatchesForProtein',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/proteins-for-gene',
+    method: 'getProteinsForGene',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/proteins-for-gene-family',
+    method: 'getProteinsForGeneFamily',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/proteins-for-pan-gene-set',
+    method: 'getProteinsForPanGeneSet',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/publications-for-annotatable',
+    method: 'getPublicationsForAnnotatable',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/publications-for-author',
+    method: 'getPublicationsForAuthor',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/publications-for-data-source',
+    method: 'getPublicationsForDataSource',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/qtls-for-genetic-marker',
+    method: 'getQTLsForGeneticMarker',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/qtls-for-linkage-group',
+    method: 'getQTLsForLinkageGroup',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/qtls-for-qtlstudy',
+    method: 'getQTLsForQTLStudy',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/qtls-for-trait',
+    method: 'getQTLsForTrait',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/strains-for-organism',
+    method: 'getStrainsForOrganism',
+    args: [1000001, {pageSize: 10}],
+  },
+  {
+    name: 'rel/syntenic-regions-for-synteny-block',
+    method: 'getSyntenicRegionsForSyntenyBlock',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/transcripts-for-exon',
+    method: 'getTranscriptsForExon',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/transcripts-for-gene',
+    method: 'getTranscriptsForGene',
+    args: [1000127, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/transcripts-for-intron',
+    method: 'getTranscriptsForIntron',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/transcripts-for-pan-gene-set',
+    method: 'getTranscriptsForPanGeneSet',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/transcripts-for-utr',
+    method: 'getTranscriptsForUTR',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/utrs-for-transcript',
+    method: 'getUTRsForTranscript',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gwasresults-for-gwas',
+    method: 'getGWASResultsForGWAS',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gwasresults-for-genetic-marker',
+    method: 'getGWASResultsForGeneticMarker',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gwasresults-for-trait',
+    method: 'getGWASResultsForTrait',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/gwasfor-trait',
+    method: 'getGWASForTrait',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/qtlstudy-for-trait',
+    method: 'getQTLStudyForTrait',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/traits-for-gene-function',
+    method: 'getTraitsForGeneFunction',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+
+  // ---- search (faceted) ----------------------------------------------
+  {
+    name: 'search/organisms',
+    method: 'searchOrganisms',
+    args: [{genus: 'Glycine', pageSize: 10}],
+  },
+  {
+    name: 'search/traits',
+    method: 'searchTraits',
+    args: [{name: 'nodulation', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/strains',
+    method: 'searchStrains',
+    args: [{species: 'max', pageSize: 10}],
+  },
+  {
+    name: 'search/chromosomes',
+    method: 'getChromosomes',
+    args: [{genus: 'Glycine', pageSize: 10}],
+  },
+  {
+    name: 'search/publications',
+    method: 'searchPublications',
+    args: [{title: 'a', pageSize: 10}],
+  },
+  {
+    name: 'search/expression-samples',
+    method: 'searchExpressionSamples',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/expression-sources',
+    method: 'searchExpressionSources',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/expression-values',
+    method: 'searchExpressionValues',
+    args: [{geneIdentifier: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/gene-families',
+    method: 'searchGeneFamilies',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/genetic-maps',
+    method: 'searchGeneticMaps',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/gwases',
+    method: 'searchGWASes',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/ontology-terms',
+    method: 'searchOntologyTerms',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/proteins',
+    method: 'searchProteins',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/protein-domains',
+    method: 'searchProteinDomains',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/qtls',
+    method: 'searchQTLs',
+    args: [{traitName: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/qtl-studies',
+    method: 'searchQTLStudies',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'search/gene-families-faceted',
+    method: 'getGeneFamilies',
+    args: [{description: 'ZZ', pageSize: 10}],
+    allowEmpty: true,
+  },
+
+  // ---- previously-deferred relationship methods ----------------------------
+  {
+    name: 'rel/child-features-for-protein-domain',
+    method: 'getChildFeaturesForProteinDomain',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/parent-features-for-protein-domain',
+    method: 'getParentFeaturesForProteinDomain',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/cross-references-for-ontology-term',
+    method: 'getCrossReferencesForOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/parents-for-sequence-ontology-term',
+    method: 'getParentsForSequenceOntologyTerm',
+    args: [1, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  // SequenceFeature.childFeatures is unpopulated; overlappingFeatures is absent — both empty here.
+  {
+    name: 'rel/child-features-for-sequence-feature',
+    method: 'getChildFeaturesForSequenceFeature',
+    args: [1000014, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  {
+    name: 'rel/overlapping-features-for-sequence-feature',
+    method: 'getOverlappingFeaturesForSequenceFeature',
+    args: [1000014, {pageSize: 10}],
+    allowEmpty: true,
+  },
+  // Real data: the gene function's gene synonyms, as a sorted string[] (raw shape).
+  {
+    name: 'rel/synonyms-for-gene-function',
+    method: 'getSynonymsForGeneFunction',
+    args: [1000013],
+    raw: true,
   },
 ];

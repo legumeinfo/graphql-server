@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": 6000005,
+    "description": "Files in this directory include the scaffold assemblies for Phaseolus vulgaris, version 1.0 for the genome.",
+    "licence": "ODC Public Domain Dedication and Licence (PDDL)",
+    "url": "https://data.legumeinfo.org/Phaseolus/vulgaris/genomes/G19833.gnm1.zBnF/",
+    "name": "G19833.gnm1.zBnF",
+    "version": "gnm1",
+    "synopsis": "Phaseolus vulgaris accession G19833 genome assembly v1.0",
+    "dataSourceName": "LIS Datastore",
+    "publicationDOI": "10.1038/ng.3008"
+  }
+}

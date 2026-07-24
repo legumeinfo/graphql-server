@@ -1,0 +1,12 @@
+{
+  "data": {
+    "id": 12000005,
+    "strand": "-1",
+    "start": 3852,
+    "end": 11015,
+    "featureClass": "Gene",
+    "featureIdentifier": "phavu.G19833.gnm1.ann1.Phvul.001G000100",
+    "locatedOnClass": "Chromosome",
+    "locatedOnIdentifier": "phavu.G19833.gnm1.Chr01"
+  }
+}

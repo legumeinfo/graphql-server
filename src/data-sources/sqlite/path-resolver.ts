@@ -50,13 +50,6 @@ interface JoinReg {
   order: string[];
   alias: Map<string, string>;
   sql: Map<string, string>;
-  // Path prefixes that must be INNER-joined. A path used in a CONSTRAINT requires
-  // that path to exist (InterMine joins every path INNER by default; OUTER is only
-  // for paths explicitly declared so). A path used only in the view/sort stays
-  // LEFT so it can't drop root rows. This is what makes an OR'd constraint on a
-  // collection exclude non-matching root rows the way InterMine does — see the
-  // gf/gene-without-pangeneset compat case.
-  inner: Set<string>;
 }
 interface State {
   joins: JoinReg;
@@ -68,7 +61,15 @@ interface Resolved {
   column: string;
   cls: string;
   attrType?: string; // model type of the terminal attribute, for value coercion
+  expr?: string; // full SQL expression to use instead of `alias.column` (e.g. class)
 }
+
+// InterMine's jsonobjects return the SIMPLE class name ("Gene"); the physical
+// `class` column stores the fully-qualified name ("org.intermine.model.bio.Gene").
+// Strip the package so the SQLite output matches. All classes in the bio model
+// share this prefix (verified against the mirror).
+const classExpr = (alias: string): string =>
+  `replace(${alias}.class, 'org.intermine.model.bio.', '')`;
 
 // InterMine stringifies every constraint value, and pg2sqlite stores each column
 // with its Postgres type (String attrs as TEXT, numeric attrs as INTEGER/REAL).
@@ -104,7 +105,6 @@ export class QueryBuilder {
       order: [],
       alias: new Map(),
       sql: new Map(),
-      inner: new Set(),
     };
     joins.alias.set(root, 't0');
     return {joins, counter: {n: 0}, warnings: []};
@@ -112,13 +112,7 @@ export class QueryBuilder {
 
   // Walk a path; register (and dedup) joins; return terminal {alias, column, cls}.
   // For object endpoints (ref/collection) column is the PK and cls is that object's class.
-  // `forConstraint` marks every join along the path INNER (see JoinReg.inner).
-  private resolve(
-    root: string,
-    path: string,
-    st: State,
-    forConstraint = false,
-  ): Resolved | null {
+  private resolve(root: string, path: string, st: State): Resolved | null {
     const segs = path.split('.');
     if (segs[0] !== root) {
       st.warnings.push(`path "${path}" does not start with root "${root}"`);
@@ -130,6 +124,16 @@ export class QueryBuilder {
     for (let i = 1; i < segs.length; i++) {
       const seg = segs[i];
       const last = i === segs.length - 1;
+      // InterMine pseudo-attributes used by the jsonobjects "object" views:
+      //   objectId — the row's id (same as the PK)
+      //   class    — the concrete-class discriminator column
+      // Neither is a model field, so resolve them directly on the current alias.
+      if (last && (seg === 'objectId' || seg === 'id')) {
+        return {alias, column: PK, cls: cur};
+      }
+      if (last && seg === 'class') {
+        return {alias, column: 'class', cls: cur, expr: classExpr(alias)};
+      }
       const f = this.model.field(cur, seg);
       if (!f) {
         st.warnings.push(`unknown field ${cur}.${seg} (in "${path}")`);
@@ -147,9 +151,13 @@ export class QueryBuilder {
         const nextAlias = `t${++st.counter.n}`;
         if (f.kind === 'ref') {
           const R = f.def.referencedType;
-          // optimization: `X.ref.id` equals the FK column `X.refid` already on the
-          // source row — no join, and the referenced table need not be present.
-          if (i + 1 === segs.length - 1 && segs[i + 1] === 'id') {
+          // optimization: `X.ref.id` (or `.objectId`) equals the FK column
+          // `X.refid` already on the source row — no join, and the referenced
+          // table need not be present. Only when id/objectId is the terminal.
+          if (
+            i + 1 === segs.length - 1 &&
+            (segs[i + 1] === 'id' || segs[i + 1] === 'objectId')
+          ) {
             return {alias, column: refCol(seg), cls: R};
           }
           st.joins.alias.set(nextPrefix, nextAlias);
@@ -199,9 +207,6 @@ export class QueryBuilder {
           }
         }
       }
-      // Mark inner even when the join already existed (a view path may have
-      // registered it LEFT first); a constraint on the path upgrades it.
-      if (forConstraint) st.joins.inner.add(nextPrefix);
       alias = st.joins.alias.get(nextPrefix)!;
       cur = f.def.referencedType;
       prefix = nextPrefix;
@@ -238,7 +243,7 @@ export class QueryBuilder {
   ): string {
     if (c.op === 'LOOKUP')
       return this.lookupPredicate(r, c.value ?? '', params);
-    const col = `${r.alias}.${r.column}`;
+    const col = r.expr ?? `${r.alias}.${r.column}`;
     switch (c.op) {
       case 'IS NULL':
         return `${col} IS NULL`;
@@ -270,7 +275,7 @@ export class QueryBuilder {
       if (i < toks.length && /^(ASC|DESC)$/i.test(toks[i]))
         dir = ' ' + toks[i++].toUpperCase();
       const r = this.resolve(root, path, st);
-      if (r) parts.push(`${r.alias}.${r.column}${dir}`);
+      if (r) parts.push(`${r.expr ?? `${r.alias}.${r.column}`}${dir}`);
     }
     return parts.length ? `\nORDER BY ${parts.join(', ')}` : '';
   }
@@ -288,7 +293,7 @@ export class QueryBuilder {
     if (!constraints.length) return '';
     // resolve every constraint first (registers joins), building predicate templates
     const built = constraints.map((c) => {
-      const r = this.resolve(root, c.path, st, /* forConstraint */ true);
+      const r = this.resolve(root, c.path, st);
       const p: Array<string | number> = [];
       const sql = r ? this.predicate(c, r, p) : '1=0';
       return {code: c.code, sql, params: p};
@@ -325,6 +330,12 @@ export class QueryBuilder {
     constraints: Constraint[] = [],
     constraintLogic?: string,
     opts: {limit?: number; offset?: number} = {},
+    // Paths the caller declares OUTER (LEFT), matching InterMine's join factories.
+    // InterMine joins every path INNER by default and only these are OUTER, so a
+    // view reference that is null (e.g. a CDS with no transcript) drops the row
+    // unless its path is listed here. Keys are the dotted path prefixes, e.g.
+    // "CDS.chromosome". Constraint paths are always INNER regardless.
+    outerJoins: string[] = [],
   ): BuiltQuery {
     if (!this.model.has(root))
       return {
@@ -339,7 +350,7 @@ export class QueryBuilder {
     const columns: string[] = [];
     for (const path of view) {
       const r = this.resolve(root, path, st);
-      selectCols.push(r ? `${r.alias}.${r.column}` : 'NULL');
+      selectCols.push(r ? (r.expr ?? `${r.alias}.${r.column}`) : 'NULL');
       columns.push(path);
     }
     const whereParams: Array<string | number> = [];
@@ -351,14 +362,18 @@ export class QueryBuilder {
       whereParams,
     );
     const orderSql = this.orderBy(root, sort, st);
+    const outer = new Set(outerJoins);
     const joinSql = st.joins.order
       .map((k) => {
         const clause = st.joins.sql.get(k)!;
-        // Constraint paths are INNER (JoinReg.inner); the clauses are generated
-        // with LEFT JOIN, so this only rewrites our own keyword.
-        return st.joins.inner.has(k)
-          ? clause.replace(/LEFT JOIN/g, 'INNER JOIN')
-          : clause;
+        // Join style follows the declaration only, like InterMine: a path is LEFT
+        // iff declared OUTER (via outerJoins), else INNER — the default. A constraint
+        // does NOT change the join style; for an equality constraint OUTER+WHERE is
+        // equivalent to INNER anyway, but for NONE OF / IS NULL the OUTER declaration
+        // matters (see getPanGenePairs). Clauses are generated with LEFT JOIN, so we
+        // rewrite to INNER JOIN unless declared outer.
+        const isLeft = outer.has(k);
+        return isLeft ? clause : clause.replace(/LEFT JOIN/g, 'INNER JOIN');
       })
       .join('\n  ');
     // DISTINCT because InterMine returns distinct rows over the view: a join to a

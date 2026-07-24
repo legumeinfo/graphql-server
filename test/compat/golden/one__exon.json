@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": 25116116,
+    "identifier": "glyma.Amsoy.gnm1.ann1.SoyC05_01G000100.m1.exon1",
+    "description": null,
+    "symbol": null,
+    "name": null,
+    "assemblyVersion": null,
+    "annotationVersion": null,
+    "secondaryIdentifier": null,
+    "organismTaxonId": "3847",
+    "strainIdentifier": "Wm82",
+    "score": null,
+    "scoreType": null,
+    "length": 26,
+    "soTermIdentifier": null,
+    "chromosomeLocationId": 25116115,
+    "supercontigLocationId": null,
+    "sequenceId": null,
+    "chromosomeIdentifier": "glyma.Amsoy.gnm1.Chr01",
+    "supercontigIdentifier": null
+  }
+}

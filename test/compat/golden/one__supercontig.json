@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": 8001309,
+    "identifier": "glyma.Wm82.gnm1.scaffold_1000",
+    "description": null,
+    "symbol": null,
+    "name": "scaffold_1000",
+    "assemblyVersion": "gnm1",
+    "annotationVersion": null,
+    "secondaryIdentifier": "scaffold_1000",
+    "organismTaxonId": "3847",
+    "strainIdentifier": "Wm82",
+    "score": null,
+    "scoreType": null,
+    "length": 5312,
+    "soTermIdentifier": null,
+    "chromosomeLocationId": null,
+    "supercontigLocationId": null,
+    "sequenceId": 8001307,
+    "chromosomeIdentifier": null,
+    "supercontigIdentifier": null
+  }
+}

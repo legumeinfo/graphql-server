@@ -7,6 +7,8 @@ import {
   response2genes,
 } from '../../intermine/models/index.js';
 import {PaginationOptions} from '../../intermine/api/pagination.js';
+import {geneJoinFactory} from '../../intermine/api/gene.js';
+import {outerPaths, graphqlPageInfo} from './helpers.js';
 
 export type SearchGenesOptions = {
   description?: string;
@@ -52,6 +54,8 @@ export async function searchGenes(
       value: o.panGeneSetIdentifier,
     });
 
+  // strain flips to an INNER join when filtering by strain, matching InterMine.
+  const joins = geneJoinFactory(o.strain ? {strainJoinType: 'INNER'} : {});
   const response = this.pathQuery(
     'Gene',
     intermineGeneAttributes,
@@ -59,17 +63,11 @@ export async function searchGenes(
     c,
     undefined,
     {page: o.page, pageSize: o.pageSize},
+    outerPaths(joins),
   );
   const {count} = this.pathQueryCount('Gene', c);
-  const pageSize = o.pageSize ?? 10;
   return {
     data: response2genes(response as any),
-    metadata: {
-      pageInfo: {
-        numResults: count,
-        pageSize,
-        hasNextPage: (o.page ?? 1) * pageSize < count,
-      },
-    },
+    metadata: {pageInfo: graphqlPageInfo(count, o.page, o.pageSize)},
   };
 }

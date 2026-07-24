@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": 1000014,
+    "identifier": "arahy.Tifrunner.gnm2.ann2.Ah13g064900",
+    "description": null,
+    "symbol": null,
+    "name": null,
+    "assemblyVersion": null,
+    "annotationVersion": null,
+    "secondaryIdentifier": null,
+    "organismTaxonId": null,
+    "strainIdentifier": null,
+    "score": null,
+    "scoreType": null,
+    "length": null,
+    "soTermIdentifier": "arahy.Tifrunner.gnm2.ann2.Ah13g064900",
+    "chromosomeLocationId": 1000014,
+    "supercontigLocationId": 1000014,
+    "sequenceId": 1000014,
+    "chromosomeIdentifier": "arahy.Tifrunner.gnm2.ann2.Ah13g064900",
+    "supercontigIdentifier": "arahy.Tifrunner.gnm2.ann2.Ah13g064900"
+  }
+}

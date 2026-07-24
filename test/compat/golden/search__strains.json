@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "id": 4000013,
+      "identifier": "58-161",
+      "name": "58-161",
+      "description": "Landrace 58-161 (SoyL04 from China, Jiang Su, from Liu et al. 2020",
+      "origin": "China, Jiang Su",
+      "accession": "SoyL04",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000014,
+      "identifier": "Amsoy",
+      "name": "Amsoy",
+      "description": "Cultivar Amsoy (SoyC05 from United States, Iowa, from Liu et al. 2020",
+      "origin": "United States, Iowa",
+      "accession": "SoyC05",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000015,
+      "identifier": "DongNongNo_50",
+      "name": "Dong Nong No.50",
+      "description": "Cultivar Dong Nong No.50 (SoyC12 from China, Hei Long Jiang, from Liu et al. 2020",
+      "origin": "China, Hei Long Jiang",
+      "accession": "SoyC12",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000037,
+      "identifier": "Enrei",
+      "name": "Enrei",
+      "description": "Modern Japanese soybean cultivar and a reference genome for studying Japanese soybean genetics.",
+      "origin": "Japan, Japanese National Agriculture and Food Research Organization",
+      "accession": "GCA_046254735.1",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000016,
+      "identifier": "FengDiHuang",
+      "name": "Feng Di Huang",
+      "description": "Landrace Feng Di Huang (SoyL07 from China, Ji Lin, from Liu et al. 2020",
+      "origin": "China, Ji Lin",
+      "accession": "SoyL07",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000003,
+      "identifier": "FiskebyIII",
+      "name": "Fiskeby III",
+      "description": "Bred by the late Dr. Sven Holmberg in Fiskeby, Norrköpping, Sweden. Highly nutritious — up to 40% protein, high in calcium, iron, and vitamins (particularly A, B1, B12, and C). Thrives in northern climates. 75-80 days.",
+      "origin": "Fiskeby, Norrköpping, Sweden",
+      "accession": "PI 438471",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000038,
+      "identifier": "Fukuyutaka",
+      "name": "Fukuyutaka",
+      "description": "A modern Japanese soybean cultivar and is one of most produced soybeans in Japan.",
+      "origin": "Japan, Japanese National Agriculture and Food Research Organization",
+      "accession": "GCA_046254725.1",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000017,
+      "identifier": "HanDouNo_5",
+      "name": "Han Dou No.5",
+      "description": "Cultivar Han Dou No.5 (SoyC09 from China, He Bei, from Liu et al. 2020",
+      "origin": "China, He Bei",
+      "accession": "SoyC09",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000006,
+      "identifier": "Hefeng25_IGA1002",
+      "name": "Hefeng 25",
+      "description": "Glycine max Hefeng 25 (IGA1002) was sequenced and annotated by Chu, et al. (2021).",
+      "origin": "Jiamusi Branch of Heilongjiang Academy of Agricultural Sciences",
+      "accession": "IGA1002",
+      "organismTaxonId": "3847"
+    },
+    {
+      "id": 4000018,
+      "identifier": "HeiHeNo_43",
+      "name": "Hei He No.43",
+      "description": "Cultivar Hei He No.43  (SoyC13 from China, Hei Long Jiang, from Liu et al. 2020",
+      "origin": "China, Hei Long Jiang",
+      "accession": "SoyC13",
+      "organismTaxonId": "3847"
+    }
+  ],
+  "metadata": {
+    "pageInfo": {
+      "currentPage": 1,
+      "pageSize": 10,
+      "numResults": 47,
+      "pageCount": 5,
+      "hasPreviousPage": false,
+      "hasNextPage": true
+    }
+  }
+}

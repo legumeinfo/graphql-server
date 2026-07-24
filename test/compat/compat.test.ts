@@ -59,6 +59,22 @@ describe('intermine vs sqlite compatibility', () => {
           reference,
           call(sqlite, c.method, c.args),
         ]);
+        // `raw` methods return a bare value (e.g. string[]); deep-equal directly.
+        if (c.raw) {
+          const refEmpty = !Array.isArray(refRaw) || refRaw.length === 0;
+          if (!c.allowEmpty && refEmpty)
+            throw new Error(
+              `${c.name}: reference is empty, so it proves nothing.`,
+            );
+          const rj = JSON.stringify(refRaw);
+          const cj = JSON.stringify(candRaw);
+          if (rj !== cj)
+            throw new Error(
+              `✗ ${c.name} raw mismatch\n  intermine=${rj}\n  sqlite=${cj}`,
+            );
+          expect(cj).toBe(rj);
+          return;
+        }
         const ref = normalizeSingle(refRaw, c.single);
         const cand = normalizeSingle(candRaw, c.single);
         // Fail rather than pass vacuously — this is how a mine swap (or a query

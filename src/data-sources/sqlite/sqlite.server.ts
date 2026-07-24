@@ -9,6 +9,7 @@ import {dirname, join, resolve} from 'node:path';
 import {Model} from './model.js';
 import {buildClassKeys} from './class-keys.js';
 import {QueryBuilder, Constraint} from './path-resolver.js';
+import type {GraphQLResultsInfo} from '../../models/index.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const loadJSON = (rel: string) =>
@@ -55,6 +56,8 @@ export interface ApiResponse<G> {
   data: G;
   metadata?: {
     pageInfo?: {hasNextPage: boolean; numResults: number; pageSize: number};
+    // Only getPanGenePairs carries this (a per-query-gene summary); see its api file.
+    resultsInfo?: GraphQLResultsInfo;
   };
 }
 export type PageOpts = {page?: number; pageSize?: number};
@@ -89,6 +92,9 @@ export class SqliteServer {
     constraints: Constraint[] = [],
     constraintLogic?: string,
     page?: PageOpts,
+    // Paths declared OUTER (LEFT); see QueryBuilder.build. The ported api methods
+    // pass these from the InterMine join factories (see api/helpers.outerPaths).
+    outerJoins: string[] = [],
   ): IntermineDataResponse<I> {
     const {limit, offset} = this.paginate(page);
     const {sql, params, warnings} = this.qb.build(
@@ -98,6 +104,7 @@ export class SqliteServer {
       constraints,
       constraintLogic,
       {limit, offset},
+      outerJoins,
     );
     if (warnings.length && process.env.NODE_ENV === 'development')
       warnings.forEach((w) => console.warn(`[sqlite] ${w}`));
@@ -108,6 +115,8 @@ export class SqliteServer {
   }
 
   // DISTINCT on the root PK guards against row multiplication from collection joins.
+  // Correct when the root IS the returned type (searchX, and getXsForY where the
+  // constraint is on the returned type's own path).
   pathQueryCount(
     root: string,
     constraints: Constraint[] = [],
@@ -123,6 +132,33 @@ export class SqliteServer {
     if (!sql) return {count: 0};
     const wrapped = `SELECT COUNT(*) AS c FROM (SELECT DISTINCT t0.id ${sql.substring(sql.indexOf('\nFROM'))})`;
     const row = this.db.query(wrapped).get(...params) as {c: number} | null;
+    return {count: row?.c ?? 0};
+  }
+
+  // Count the DISTINCT rows the DATA query returns — matches the paginated result
+  // even for a collection view (getGenesForIntron roots at Intron but returns
+  // Intron.genes.*), where the returned rows are collection members, not roots.
+  pathQueryCountView(
+    root: string,
+    view: string[],
+    constraints: Constraint[] = [],
+    constraintLogic?: string,
+    outerJoins: string[] = [],
+  ): {count: number} {
+    const {sql, params} = this.qb.build(
+      root,
+      view,
+      undefined,
+      constraints,
+      constraintLogic,
+      {},
+      outerJoins,
+    );
+    if (!sql) return {count: 0};
+    // sql is `SELECT DISTINCT <view> FROM … WHERE …` (no LIMIT/ORDER) — wrap it.
+    const row = this.db
+      .query(`SELECT COUNT(*) AS c FROM (${sql})`)
+      .get(...params) as {c: number} | null;
     return {count: row?.c ?? 0};
   }
 

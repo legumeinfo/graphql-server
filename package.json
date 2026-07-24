@@ -34,7 +34,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc && cp ./src/types/*.graphql ./dist/types",
+    "build": "tsc && cp ./src/types/*.graphql ./dist/types && mkdir -p ./dist/data-sources/sqlite/data && cp ./src/data-sources/sqlite/data/*.json ./dist/data-sources/sqlite/data/",
     "build:watch": "tsc-watch",
     "clean": "rm -rf ./dist",
     "lint": "bun run lint:eslint",

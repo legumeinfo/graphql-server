@@ -34,9 +34,11 @@ for (const c of cases) {
     // vacuous pass into CI: SQLite would only have to agree on nothing. Record
     // it (so the file is inspectable) but make the problem loud. `skip` cases are
     // exempt — they're recorded for reference but never asserted on.
-    const empty = c.single
-      ? resp.data == null
-      : !(resp.data as unknown[])?.length;
+    const empty = c.raw
+      ? !Array.isArray(resp) || (resp as unknown[]).length === 0
+      : c.single
+        ? resp.data == null
+        : !(resp.data as unknown[])?.length;
     if (!c.allowEmpty && !c.skip && empty) {
       hollow++;
       console.warn(

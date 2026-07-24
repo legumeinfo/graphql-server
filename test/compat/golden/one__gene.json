@@ -1,0 +1,27 @@
+{
+  "data": {
+    "id": 1000116,
+    "identifier": "arahy.Tifrunner.gnm2.ann1.1XW75L",
+    "description": null,
+    "symbol": null,
+    "name": null,
+    "assemblyVersion": null,
+    "annotationVersion": null,
+    "secondaryIdentifier": null,
+    "organismTaxonId": null,
+    "strainIdentifier": "Tifrunner",
+    "score": null,
+    "scoreType": null,
+    "length": null,
+    "soTermIdentifier": null,
+    "chromosomeLocationId": null,
+    "supercontigLocationId": null,
+    "sequenceId": null,
+    "chromosomeIdentifier": null,
+    "supercontigIdentifier": null,
+    "briefDescription": null,
+    "ensemblName": null,
+    "upstreamIntergenicRegionIdentifier": null,
+    "downstreamIntergenicRegionIdentifier": null
+  }
+}
