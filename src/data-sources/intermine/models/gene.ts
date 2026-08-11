@@ -16,7 +16,6 @@ import {
 export const intermineGeneBaseAttributesFactory = (type = 'Gene') => [
   ...intermineSequenceFeatureAttributesFactory(type),
   `${type}.briefDescription`,
-  `${type}.ensemblName`,
 ];
 export const intermineGeneBaseAttributes =
   intermineGeneBaseAttributesFactory('Gene');
@@ -34,12 +33,11 @@ export const intermineGeneSortFactory = (type = 'Gene') =>
 export const intermineGeneSort = intermineGeneSortFactory();
 
 // Type for base attributes response
-export type IntermineGeneBase = [...IntermineSequenceFeature, string, string];
+export type IntermineGeneBase = [...IntermineSequenceFeature, string];
 
 // Type for extended attributes response (includes nullable intergenic region identifiers)
 export type IntermineGene = [
   ...IntermineSequenceFeature,
-  string,
   string,
   string | null,
   string | null,
@@ -49,7 +47,6 @@ export type IntermineGene = [
 export const graphqlGeneBaseAttributes = [
   ...graphqlSequenceFeatureAttributes,
   'briefDescription',
-  'ensemblName',
 ];
 
 // Extended GraphQL attributes

@@ -54,6 +54,9 @@ type Gene implements BioEntity & Annotatable
   downstreamIntergenicRegion: IntergenicRegion
   flankingRegions: [GeneFlankingRegion!]!
   pathways: [Pathway!]!
+  # Protein, CDS, or genomic residues assembled by the `sequences` microservice.
+  # `up`/`down` add genomic flanks (GENOME type only; 0..10000).
+  retrievedSequence(type: SequenceType!, up: Int = 0, down: Int = 0): Sequence
   #regulatoryRegions
 }
 

@@ -1,0 +1,7 @@
+# The kind of sequence to retrieve from the `sequences` microservice.
+# GENOME accepts optional upstream/downstream flanks; PROTEIN and CDS do not.
+enum SequenceType {
+  PROTEIN
+  CDS
+  GENOME
+}

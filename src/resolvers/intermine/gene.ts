@@ -8,6 +8,7 @@ import {ResolverMap, SubfieldResolverMap} from '../resolver.js';
 import {hasGeneFamilyAssignmentsFactory} from './gene-family-assignment.js';
 import {hasIntronsFactory} from './intron.js';
 import {hasLinkoutsFactory} from '../microservices/linkouts.js';
+import {hasRetrievedSequenceFactory} from '../microservices/sequences.js';
 import {hasPanGeneSetsFactory} from './pan-gene-set.js';
 import {hasProteinsFactory} from './protein.js';
 import {hasProteinDomainsFactory} from './protein-domain.js';
@@ -79,6 +80,7 @@ export const geneFactory = (
     ...hasGeneFamilyAssignmentsFactory(sourceName),
     ...hasIntronsFactory(sourceName),
     ...hasLinkoutsFactory(microservicesSource),
+    ...hasRetrievedSequenceFactory(sourceName),
     ...hasPanGeneSetsFactory(sourceName),
     ...hasProteinsFactory(sourceName),
     ...hasProteinDomainsFactory(sourceName),

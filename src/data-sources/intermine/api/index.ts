@@ -38,6 +38,7 @@ import {getExpressionValue} from './get-expression-value.js';
 import {searchExpressionValues} from './search-expression-values.js';
 // genes
 import {getGene, getGenes} from './get-gene.js';
+import {getGeneSequence} from './get-gene-sequence.js';
 import {
   getGenesForGeneFamily,
   getGenesForGeneFunction,
@@ -285,6 +286,7 @@ export declare class ApiMixinInterface {
   // genes
   getGene: typeof getGene;
   getGenes: typeof getGenes;
+  getGeneSequence: typeof getGeneSequence;
   getGenesForGeneFamily: typeof getGenesForGeneFamily;
   getGenesForGeneFunction: typeof getGenesForGeneFunction;
   getGenesForIntron: typeof getGenesForIntron;
@@ -516,6 +518,7 @@ export const ApiMixin = <T extends ApiBaseConstructor<IntermineServer>>(
     // genes
     getGene = getGene;
     getGenes = getGenes;
+    getGeneSequence = getGeneSequence;
     getGenesForGeneFamily = getGenesForGeneFamily;
     getGenesForGeneFunction = getGenesForGeneFunction;
     getGenesForIntron = getGenesForIntron;

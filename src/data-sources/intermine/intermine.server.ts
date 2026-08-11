@@ -190,6 +190,16 @@ export class IntermineServer extends RESTDataSource {
     );
   }
 
+  // PathQuery features as FASTA (text). `extension` adds that many flank bases
+  // symmetrically per feature.
+  async pathQueryFasta(query: string, extension = 0): Promise<string> {
+    const params: Record<string, string> = {query};
+    if (extension > 0) {
+      params.extension = String(extension);
+    }
+    return await this.get('query/results/fasta', {params});
+  }
+
   async keywordSearch(q: string, options = {}) {
     const params = {
       q,
