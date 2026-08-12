@@ -20,6 +20,7 @@ const server = new ApolloServer<ContextValue>({
 });
 
 const port = Number(process.env.PORT) || 4000;
+const host = process.env.HOST || 'localhost';
 const intermineURI =
   process.env.INTERMINE_URI ||
   'https://mines.dev.lis.ncgr.org/minimine/service';
@@ -32,7 +33,7 @@ const {cache} = server;
 //  2. installs the ApolloServer instance as middleware
 //  3. prepares the app to handle incoming requests
 const {url} = await startStandaloneServer(server, {
-  listen: {port},
+  listen: {port, host},
   context: contextFactory(intermineURI, microservicesURI, cache),
 });
 

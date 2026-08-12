@@ -7,6 +7,7 @@ import {SubfieldResolverMap} from '../resolver.js';
 // — a retrieved sequence has no InterMine object id.
 const toSequence = (record: IntermineSequenceRecord) => ({
   id: `${record.gene}:${record.type}`,
+  header: record.header,
   length: record.length,
   md5checksum: record.md5checksum,
   residues: record.residues,
