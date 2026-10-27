@@ -1,7 +1,9 @@
 import {
   ApiResponse,
   IntermineCountResponse,
+  IntermineDataResponse,
   intermineConstraint,
+  intermineOneOfConstraint,
   interminePathQuery,
   countResponse2graphqlPageInfo,
 } from '../intermine.server.js';
@@ -60,12 +62,29 @@ export async function searchGeneFunctions({
     constraintLogic.push('A');
   }
   if (gene) {
-    const panGeneConstraint = intermineConstraint(
-      'GeneFunction.gene.panGeneSets.genes',
-      'LOOKUP',
-      gene,
-      'L',
-    );
+    // Constraints on collections reached through the gene (pan-gene sets,
+    // synonyms) can't be OR'd with the other gene constraints directly:
+    // InterMine inner joins every path, so a GeneFunction whose gene lacks the
+    // collection (e.g. a gene in no pan-gene set) is dropped before the OR is
+    // evaluated, and InterMine rejects OR logic across outer joins. Instead,
+    // resolve each collection constraint to GeneFunction IDs in its own query
+    // and OR a single ONE OF constraint on those IDs.
+    const collectionConstraints = [
+      intermineConstraint(
+        'GeneFunction.gene.panGeneSets.genes',
+        'LOOKUP',
+        gene,
+      ),
+      intermineConstraint('GeneFunction.gene.synonyms.value', 'CONTAINS', gene),
+    ];
+    const idPromises = collectionConstraints.map((constraint) => {
+      const idQuery = interminePathQuery(['GeneFunction.id'], '', [constraint]);
+      return this.pathQuery(idQuery).then(
+        (response: IntermineDataResponse<[number]>) =>
+          response.results.map(([id]) => id),
+      );
+    });
+    const ids = [...new Set((await Promise.all(idPromises)).flat())];
     const geneConstraint = intermineConstraint(
       'GeneFunction.gene',
       'LOOKUP',
@@ -90,26 +109,28 @@ export async function searchGeneFunctions({
       gene,
       'E',
     );
-    const synonymsConstraint = intermineConstraint(
-      'GeneFunction.gene.synonyms.value',
-      'CONTAINS',
-      gene,
-      'F',
-    );
     const pubNameConstraint = intermineConstraint(
       'GeneFunction.pubName',
       'CONTAINS',
       gene,
       'K',
     );
-    constraints.push(panGeneConstraint);
     constraints.push(geneConstraint);
     constraints.push(classicalLocusConstraint);
     constraints.push(symbolConstraint);
     constraints.push(symbolLongConstraint);
-    constraints.push(synonymsConstraint);
     constraints.push(pubNameConstraint);
-    constraintLogic.push('(L OR B OR C OR D OR E OR F OR K)');
+    const geneCodes = ['B', 'C', 'D', 'E', 'K'];
+    if (ids.length) {
+      const idsConstraint = intermineOneOfConstraint(
+        'GeneFunction.id',
+        ids,
+        'L',
+      );
+      constraints.push(idsConstraint);
+      geneCodes.push('L');
+    }
+    constraintLogic.push(`(${geneCodes.join(' OR ')})`);
   }
   if (genus) {
     const genusConstraint = intermineConstraint(
